@@ -63,6 +63,13 @@ class FTCharmapTest : public CppUnit::TestCase
         
         void testGetGlyphListIndex()
         {
+            charmap->CharMap( ft_encoding_johab);
+            
+            CPPUNIT_ASSERT( charmap->Error() == 0x06); // invalid argument
+            CPPUNIT_ASSERT( charmap->GlyphListIndex( CHARACTER_CODE_A)    == 0);
+            CPPUNIT_ASSERT( charmap->GlyphListIndex( BIG_CHARACTER_CODE)  == 0);
+            CPPUNIT_ASSERT( charmap->GlyphListIndex( NULL_CHARACTER_CODE) == 0);
+
             charmap->CharMap( ft_encoding_unicode);
             
             CPPUNIT_ASSERT( charmap->Error() == 0);
@@ -70,17 +77,17 @@ class FTCharmapTest : public CppUnit::TestCase
             CPPUNIT_ASSERT( charmap->GlyphListIndex( BIG_CHARACTER_CODE)  == 0);
             CPPUNIT_ASSERT( charmap->GlyphListIndex( NULL_CHARACTER_CODE) == 0);
             
-            charmap->CharMap( ft_encoding_johab);
-            
-            CPPUNIT_ASSERT( charmap->Error() == 0x06); // invalid argument
-            CPPUNIT_ASSERT( charmap->GlyphListIndex( CHARACTER_CODE_A)    == 0);
-            CPPUNIT_ASSERT( charmap->GlyphListIndex( BIG_CHARACTER_CODE)  == 0);
-            CPPUNIT_ASSERT( charmap->GlyphListIndex( NULL_CHARACTER_CODE) == 0);
         }
 
     
         void testGetFontIndex()
         {
+            charmap->CharMap( ft_encoding_johab);
+            
+            CPPUNIT_ASSERT( charmap->Error() == 0x06); // invalid argument
+            CPPUNIT_ASSERT( charmap->FontIndex( CHARACTER_CODE_A)    == FONT_INDEX_OF_A);
+            CPPUNIT_ASSERT( charmap->FontIndex( BIG_CHARACTER_CODE)  == BIG_FONT_INDEX);
+            CPPUNIT_ASSERT( charmap->FontIndex( NULL_CHARACTER_CODE) == NULL_FONT_INDEX);
             charmap->CharMap( ft_encoding_unicode);
 
             CPPUNIT_ASSERT( charmap->Error() == 0);
@@ -88,6 +95,7 @@ class FTCharmapTest : public CppUnit::TestCase
             CPPUNIT_ASSERT( charmap->FontIndex( CHARACTER_CODE_A)    == FONT_INDEX_OF_A);
             CPPUNIT_ASSERT( charmap->FontIndex( BIG_CHARACTER_CODE)  == BIG_FONT_INDEX);
             CPPUNIT_ASSERT( charmap->FontIndex( NULL_CHARACTER_CODE) == NULL_FONT_INDEX);
+
         }
     
     
