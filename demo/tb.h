@@ -76,6 +76,10 @@
 
 
 /* functions */
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 void
 tbInit(GLuint button);
 
@@ -93,3 +97,7 @@ tbMotion(int x, int y);
 
 void
 tbAnimate(GLboolean animate);
+
+#ifdef __cplusplus
+}
+#endif
