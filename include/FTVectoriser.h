@@ -87,7 +87,7 @@ class FTGL_EXPORT FTMesh
         
         unsigned int TesselationCount() const { return tesselationList.size();}
 
-        FTTesselation* Tesselation( unsigned int index) const { return tesselationList[index];}
+        const FTTesselation* const Tesselation( unsigned int index) const;
 
         /**
          * Get the GL ERROR returned by the glu tesselator
@@ -160,7 +160,7 @@ class FTGL_EXPORT FTVectoriser
         /**
          * Get the current mesh.
          */
-        FTMesh* GetMesh() const { return mesh;}
+        const FTMesh* const GetMesh() const { return mesh;}
         
         /**
          * Get the total count of points in this outline
@@ -177,11 +177,11 @@ class FTGL_EXPORT FTVectoriser
         size_t ContourCount() const { return ftContourCount;}
 
         /**
-         * Get the count of contours in this outline
+         * Return a contour at index
          *
          * @return the number of contours
          */
-         FTContour* Contour( unsigned int index) const { return contourList[index];}
+         const FTContour* const Contour( unsigned int index) const;
 
         /**
          * Get the number of points in a specific contour in this outline

@@ -52,7 +52,8 @@ void CALLBACK ftglCombine( FTGL_DOUBLE coords[3], void* vertex_data[4], GLfloat 
         
 
 FTMesh::FTMesh()
-:   err(0)
+:	currentTesselation(0),
+    err(0)
 {
     tesselationList.reserve( 16);
     tempPointList.reserve( 128);
@@ -88,6 +89,11 @@ void FTMesh::End()
     tesselationList.push_back( currentTesselation);
 }
 
+
+const FTTesselation* const FTMesh::Tesselation( unsigned int index) const
+{
+    return ( index < tesselationList.size()) ? tesselationList[index] : NULL;
+}
 
 FTVectoriser::FTVectoriser( const FT_Glyph glyph)
 :   contourList(0),
@@ -149,13 +155,19 @@ void FTVectoriser::ProcessContours()
 
 size_t FTVectoriser::PointCount()
 {
-    int s = 0;
+    size_t s = 0;
     for( size_t c = 0; c < ContourCount(); ++c)
     {
         s += contourList[c]->PointCount();
     }
     
     return s;
+}
+
+
+const FTContour* const FTVectoriser::Contour( unsigned int index) const
+{
+    return ( index < ContourCount()) ? contourList[index] : NULL;
 }
 
 
