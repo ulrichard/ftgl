@@ -262,14 +262,14 @@ class FTGL_EXPORT FTFont
          *                  will be incremented by the kerning advance of 
          *                  char and nextChr.
          */
-        inline void DoRender( const unsigned int chr, const unsigned int nextChr, FTPoint &origin);
+        void DoRender( const unsigned int chr, const unsigned int nextChr, FTPoint &origin);
         
         /**
          * Check that the glyph at <code>chr</code> exist. If not load it.
          *
          * @param chr  character index
          */
-        inline void CheckGlyph( const unsigned int chr);
+        void CheckGlyph( const unsigned int chr);
 
         /**
          * An object that holds a list of glyphs
