@@ -2,11 +2,13 @@ FTGL Version 2.0
 
 Unit Tests
 
-To run the unit tests the following fonts should be sourced and placed in this directory.
+To run the unit tests the following fonts should be sourced and placed in this
+directory.
 
 raghu.ttf is available from http://rohini.ncst.ernet.in/indix/download/font/
 
-HPGCalc.pfb & HPGCalc.afm are available from http://www.geocities.com/jking_ok/font.html
+HPGCalc.pfb & HPGCalc.afm are available from
+http://www.geocities.com/jking_ok/font.html
 
 LucidaSansRegular.ttf and Thoburi.ttf are part of the Java 2 SDK from IBM
 

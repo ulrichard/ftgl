@@ -1,4 +1,4 @@
-FTGL Version 1.4 Demo
+FTGL Version 2.0 Demo
 
 This demo demonstrates the different rendering styles available with FTGL.
 Press <spacebar> to change the font rendering style.

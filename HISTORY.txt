@@ -1,4 +1,5 @@
 FTGL 2.0 (FTGL_2_0_0)
+11 March 2003
     - Fixed some alignment bugs caused by changes to Freetype ( > 2.0.9).
     - Minor fixes to float declarations.
     - Moved FTBBox and FTPoint to their own files and added Move() and
@@ -35,7 +36,7 @@ FTGL 2.0 (FTGL_2_0_0)
     - Attach 'files' from memory.
 
 October 23 2002
-FTGL 1.4 (FTGL_1_4)
+    1.4 (FTGL_1_4)
     - FTGL now requires 2.0.9 or later. See below for reason.
     - Merged 1.32 branch with main tree
     - Glyph loading has been optimised for pixel based glyphs.

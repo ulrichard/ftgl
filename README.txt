@@ -1,5 +1,5 @@
-FTGL 1.4
-October 23 2002
+FTGL 2.0
+11 March 2003
 
 
 DESCRIPTION:
