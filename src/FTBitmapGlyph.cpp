@@ -66,13 +66,6 @@ float FTBitmapGlyph::Render( const FT_Vector& pen)
 {
 	if( data != 0 )
 	{
-		glPushClientAttrib( GL_CLIENT_PIXEL_STORE_BIT);
-		
-		// doing this every frame is a bad?
-		glPixelStorei( GL_UNPACK_LSB_FIRST, GL_FALSE);
-		glPixelStorei( GL_UNPACK_ROW_LENGTH, 0);
-		glPixelStorei( GL_UNPACK_ALIGNMENT, 1);
-
 		// Move the glyph origin
 		glBitmap( 0, 0, 0.0, 0.0, pen.x + pos.x, pen.y - pos.y, (const GLubyte *)0 );
 
@@ -80,8 +73,6 @@ float FTBitmapGlyph::Render( const FT_Vector& pen)
 
 		// Restore the glyph origin
 		glBitmap( 0, 0, 0.0, 0.0, -pen.x - pos.x, -pen.y + pos.y, (const GLubyte *)0 );
-
-		glPopClientAttrib();
 	}
 	
 	return advance;
