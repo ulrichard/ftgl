@@ -56,6 +56,20 @@ class FTGL_EXPORT FTFont
 		bool Open( const char* fontname, bool preCache = true);
 		
 		/**
+		 * Open and read a font from a buffer in memory.
+		 *
+		 * @param pBufferBytes  the in-memory buffer
+		 * @param bufferSizeInBytes  the length of the buffer in bytes
+		 * @param preCache	A flag to indicate whether or not to build
+		 * 					a complete set of glyphs at startup
+		 *					(<code>true</code>) or as prequired
+		 *					(<code>false</code>). Defaults to true.
+		 * @return			<code>true</code> if file has opened
+		 *					successfully.
+		 */
+		virtual bool Open( const unsigned char *pBufferBytes, size_t bufferSizeInBytes, bool preCache = true);
+
+		/**
 		 * Disposes of the font
 		 */
 		void Close();

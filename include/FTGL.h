@@ -6,20 +6,26 @@
 // Get this code and use it. It will open your eyes:)
 // #define FTGL_DEBUG
 
-typedef double FTGL_DOUBLE;
-typedef float FTGL_FLOAT;
+typedef double   FTGL_DOUBLE;
+typedef float    FTGL_FLOAT;
 
 #ifdef WIN32
-	// stl stuff
-	#pragma warning( disable : 4251 )
-	#pragma warning( disable : 4275 )
-	#pragma warning( disable : 4786 )
 
-#endif
+    // Under windows avoid including <windows.h> is overrated. 
+	// Sure, it can be avoided and "name space pollution" can be
+	// avoided, but why? It really doesn't make that much difference
+	// these days.
+    #define  WIN32_LEAN_AND_MEAN
+    #include <windows.h>
 
-#ifndef WIN32
+    #ifndef __gl_h_
+        #include <GL/gl.h>
+        #include <GL/glu.h>
+    #endif
 
-    // non windows, doesn't require nonesense as seen below :-)    
+#else
+
+    // Non windows platforms - don't require nonsense as seen above :-)    
     #ifndef __gl_h_
         #ifdef __APPLE_CC__
             #include <OpenGL/gl.h>
@@ -31,57 +37,41 @@ typedef float FTGL_FLOAT;
 
     #endif
 
-    // required for compatibility with glext.h style function definitions of 
+    // Required for compatibility with glext.h style function definitions of 
     // OpenGL extensions, such as in src/osg/Point.cpp.
     #ifndef APIENTRY
         #define APIENTRY
     #endif
+#endif
 
-#else	//	 WIN32
+// Compiler-specific conditional compilation
+#ifdef _MSC_VER // MS Visual C++ 
 
-    // Under windows avoid including <windows.h>
-    // to avoid name space pollution, but Win32's <GL/gl.h> 
-    // needs APIENTRY and WINGDIAPI defined properly. 
-    // F
-    # if 0
-    #  define  WIN32_LEAN_AND_MEAN
-    #  include <windows.h>
-    # else
-       // XXX This is from Win32's <windef.h> 
-    #  ifndef APIENTRY
-    #   define GLUT_APIENTRY_DEFINED
-    #   if (_MSC_VER >= 800) || defined(_STDCALL_SUPPORTED)
-    #    define APIENTRY    __stdcall
-    #   else
-    #    define APIENTRY
-    #   endif
-    #  endif
-       // XXX This is from Win32's <winnt.h> 
-    #  ifndef CALLBACK
-    #   if (defined(_M_MRX000) || defined(_M_IX86) || defined(_M_ALPHA) || defined(_M_PPC)) && !defined(MIDL_PASS)
-    #    define CALLBACK __stdcall
-    #   else
-    #    define CALLBACK
-    #   endif
-    #  endif
-       // XXX This is from Win32's <wingdi.h> and <winnt.h> 
-    #  ifndef WINGDIAPI
-    #   define GLUT_WINGDIAPI_DEFINED
-    #   define WINGDIAPI __declspec(dllimport)
-    #  endif
-       // XXX This is from Win32's <ctype.h> 
-    #  ifndef _WCHAR_T_DEFINED
-    typedef unsigned short wchar_t;
-    #   define _WCHAR_T_DEFINED
-    #  endif
-    # endif
+	// Disable various warning.
+	// 4786: template name too long
+	#pragma warning( disable : 4251 )
+	#pragma warning( disable : 4275 )
+	#pragma warning( disable : 4786 )
 
-    #ifndef __gl_h_
-        #include <GL/gl.h>
-        #include <GL/glu.h>
-    #endif
+	// The following definitions control how symbols are exported.
+	// If the target is a static library ensure that FTGL_LIBRARY_STATIC
+	// is defined. If building a dynamic library (ie DLL) ensure the
+	// FTGL_LIBRARY macro is defined, as it will mark symbols for 
+	// export. If compiling a project to _use_ the _dynamic_ library 
+	// version of the library, no definition is required. 
+	#ifdef FTGL_LIBRARY_STATIC		// static lib - no special export required
+	#  define FTGL_EXPORT
+	#elif FTGL_LIBRARY				// dynamic lib - must export/import symbols appropriately.
+	#  define FTGL_EXPORT   __declspec(dllexport)
+	#else
+	#  define FTGL_EXPORT   __declspec(dllimport)
+	#endif 
 
-#endif	//	 WIN32
+#else
+	// Compiler that is not MS Visual C++.
+	// Ensure that the export symbol is defined (and blank)
+	#define FTGL_EXPORT
+#endif  
 
 
 // lifted from glext.h, to remove dependancy on glext.h
@@ -92,18 +82,5 @@ typedef float FTGL_FLOAT;
     #define GL_TEXTURE_2D_BINDING_EXT         0x8069
     #define GL_TEXTURE_3D_BINDING_EXT         0x806A
 #endif
-
-
-#if defined(_MSC_VER)
-	#  ifdef FTGL_LIBRARY_STATIC		// staticLib
-	#    define FTGL_EXPORT
-	#  elif FTGL_LIBRARY				// dynamicLib
-	#    define FTGL_EXPORT   __declspec(dllexport)
-	#  else
-	#    define FTGL_EXPORT   __declspec(dllimport)
-	#  endif /* FTGL_LIBRARY */
-#else
-	#  define FTGL_EXPORT
-#endif  
 
 #endif	//	__FTGL__

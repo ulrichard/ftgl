@@ -42,6 +42,16 @@ class FTGL_EXPORT FTFace
 		bool Open( const char* filename);
 
 		/**
+		 * Read face data from an in-memory buffer.
+		 *
+		 * @param pBufferBytes  the in-memory buffer
+		 * @param bufferSizeInBytes  the length of the buffer in bytes
+		 * @return			<code>true</code> if file has opened
+		 *					successfully.
+		 */
+		bool Open( const unsigned char *pBufferBytes, size_t bufferSizeInBytes );
+
+		/**
 		 * Disposes of the face
 		 */
 		void Close();

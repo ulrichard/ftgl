@@ -44,6 +44,24 @@ bool FTFont::Open( const char* fontname, bool p)
 }
 
 
+bool FTFont::Open( const unsigned char *pBufferBytes, size_t bufferSizeInBytes, bool p )
+{
+	preCache = p;
+	
+	if( face.Open( pBufferBytes, bufferSizeInBytes ))
+	{
+		FT_Face* ftFace = face.Face();		
+		numGlyphs = (*ftFace)->num_glyphs;
+		
+		return true;
+	}
+	else
+	{
+		err = face.Error();
+		return false;
+	}
+}
+
 void FTFont::Close()
 {
 	delete glyphList;

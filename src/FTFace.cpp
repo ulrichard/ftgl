@@ -45,6 +45,27 @@ bool FTFace::Open( const char* filename)
 }
 
 
+bool FTFace::Open( const unsigned char *pBufferBytes, size_t bufferSizeInBytes )
+{
+	ftFace = new FT_Face;
+
+	// FIXME check library for errors
+	err = FT_New_Memory_Face( *FTLibrary::Instance().GetLibrary(), pBufferBytes, bufferSizeInBytes, 0, ftFace);
+
+	if( err)
+    {
+		delete ftFace;
+		ftFace = 0;
+	    return false;
+    }
+    else
+    {
+		charMap = new FTCharmap( *ftFace);
+		return true;
+	}
+}
+
+
 void FTFace::Close()
 {
 	if( ftFace)
