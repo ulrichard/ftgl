@@ -24,17 +24,17 @@ class	FTFont
 		FTFont();
 		virtual ~FTFont();
 		virtual bool Open( const char* fontname );
-		void Close();
-		bool FaceSize( const int size, const int res = 72 );
+		virtual void Close();
+		virtual bool FaceSize( const int size, const int res = 72 );
 		virtual bool CharMap( CHARMAP encoding );
 //		virtual FTGlyph*	Glyph( unsigned char code );
 //		virtual FTGlyph*	Glyph( unsigned char thisCode, unsigned char nextCode );
-		int	Ascender() const;
-		int	Descender() const;
-		void	BBox( const char* text, int& llx, int& lly, int& urx, int& ury ) const;
-		bool	render( const char* string );
+		virtual int	Ascender() const;
+		virtual int	Descender() const;
+		virtual void	BBox( const char* text, int& llx, int& lly, int& urx, int& ury ) const;
+		virtual bool	render( const char* string );
 		
-		FT_Error Error() const { return err;}
+		virtual FT_Error Error() const { return err;}
 		
 		// attributes
 		
