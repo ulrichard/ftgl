@@ -58,37 +58,37 @@ FTPolyGlyph::FTPolyGlyph( FT_Glyph glyph, unsigned int gi)
 	data(0),
 	glList(0)
 {
-	if( glyph->format == ft_glyph_format_outline)
-	{
-		vectoriser = new FTVectoriser( glyph);
-		
-		if( vectoriser->Ingest())
-		{
-			numContours = vectoriser->contours();
-			
-			contourLength = new int[ numContours];
-			
-			for( int c = 0; c < numContours; ++c)
-			{
-				contourLength[c] = vectoriser->contourSize( c);
-			}
-			
+	if( ft_glyph_format_outline != glyph->format)
+	{ return;}
 
-			numPoints = vectoriser->points();
-			data = new double[ numPoints * 3];
-			vectoriser->Output( data);
-			
-			contourFlag = vectoriser->ContourFlag();
-			advance = glyph->advance.x >> 16; // this is 6 in the freetype docs!!!!!!
-		}
+	vectoriser = new FTVectoriser( glyph);
 	
-		delete vectoriser;
+	if( vectoriser->Ingest())
+	{
+		numContours = vectoriser->contours();
+		
+		contourLength = new int[ numContours];
+		
+		for( int c = 0; c < numContours; ++c)
+		{
+			contourLength[c] = vectoriser->contourSize( c);
+		}
+		
 
-	    if ( ( numContours < 1) || ( numPoints < 3))
-			return;
-
-		Tesselate();
+		numPoints = vectoriser->points();
+		data = new double[ numPoints * 3];
+		vectoriser->Output( data);
+		
+		contourFlag = vectoriser->ContourFlag();
+		advance = glyph->advance.x >> 16; // this is 6 in the freetype docs!!!!!!
 	}
+
+	delete vectoriser;
+
+	if ( ( numContours < 1) || ( numPoints < 3))
+		return;
+
+	Tesselate();
 }
 
 
