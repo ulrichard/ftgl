@@ -17,9 +17,15 @@
         #ifdef __APPLE_CC__
             #include <OpenGL/gl.h>
             #include <OpenGL/glu.h>
+            #ifndef GL_TEXTURE_2D_BINDING_EXT
+            	#include <OpenGL/glext.h>
+            #endif
         #else
 	    	#include <GL/gl.h>
 	    	#include <GL/glu.h>
+            #ifndef GL_TEXTURE_2D_BINDING_EXT
+            	#include <GL/glext.h>
+            #endif
 		#endif
     #endif
 
@@ -71,6 +77,9 @@
     #ifndef __gl_h_
         #include <GL/gl.h>
         #include <GL/glu.h>
+            #ifndef GL_TEXTURE_2D_BINDING_EXT
+            	#include <GL/glext.h>
+            #endif
     #endif
 
 #endif
