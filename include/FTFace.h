@@ -67,6 +67,10 @@ class FTGL_EXPORT FTFace
          */
         void Close();
         
+        
+        void* FontTable( unsigned int tableName) const;
+        
+        
         /**
          * Sets the char size for the current face.
          *
@@ -126,6 +130,11 @@ class FTGL_EXPORT FTFace
         
     private:
         /**
+         * The Freetype face
+         */
+        FT_Face* ftFace;
+
+        /**
          * The size object associated with this face
          */
         FTSize  charSize;
@@ -134,11 +143,6 @@ class FTGL_EXPORT FTFace
          * The Character Map object associated with this face
          */
         FTCharmap* charMap;
-
-        /**
-         * The Freetype face
-         */
-        FT_Face* ftFace;
 
         /**
          * Temporary variable to hold a glyph

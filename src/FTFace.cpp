@@ -3,6 +3,8 @@
 #include    "FTCharmap.h"
 
 
+#include FT_TRUETYPE_TABLES_H
+
 FTFace::FTFace( const char* filename)
 :   charMap(0),
     numGlyphs(0),
@@ -84,6 +86,13 @@ void FTFace::Close()
         delete ftFace;
         ftFace = 0;
     }
+}
+
+
+void* FTFace::FontTable( unsigned int tableName) const
+{
+//    return FT_Get_Sfnt_Table( *ftFace, tableName);
+    return 0;
 }
 
 
