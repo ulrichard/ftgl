@@ -44,7 +44,7 @@ class FTBBoxTest : public CppUnit::TestCase
         {    
             setUpFreetype();
 
-            FTBBox boundingBox( glyph);
+            FTBBox boundingBox( face->glyph);
 
             CPPUNIT_ASSERT_DOUBLES_EQUAL(   2, boundingBox.lowerX, 0.01);
             CPPUNIT_ASSERT_DOUBLES_EQUAL( -15, boundingBox.lowerY, 0.01);
@@ -86,7 +86,7 @@ class FTBBoxTest : public CppUnit::TestCase
             setUpFreetype();
 
             FTBBox boundingBox1;
-            FTBBox boundingBox2( glyph);
+            FTBBox boundingBox2( face->glyph);
             
             boundingBox1 += boundingBox2;
         
