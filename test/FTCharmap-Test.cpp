@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include <cppunit/extensions/HelperMacros.h>
 #include <cppunit/TestCaller.h>
 #include <cppunit/TestCase.h>
@@ -19,8 +21,8 @@ class FTCharmapTest : public CppUnit::TestCase
     CPPUNIT_TEST_SUITE( FTCharmapTest);
         CPPUNIT_TEST( testConstructor);
         CPPUNIT_TEST( testSetEncoding);
-        CPPUNIT_TEST( testGetCharacterIndex);
-        CPPUNIT_TEST( testGetGlyphIndex);
+        CPPUNIT_TEST( testGetGlyphListIndex);
+        CPPUNIT_TEST( testGetFontIndex);
         CPPUNIT_TEST( testInsertCharacterIndex);
     CPPUNIT_TEST_SUITE_END();
         
@@ -59,46 +61,48 @@ class FTCharmapTest : public CppUnit::TestCase
         }
         
         
-        void testGetCharacterIndex()
+        void testGetGlyphListIndex()
         {
             charmap->CharMap( ft_encoding_unicode);
             
             CPPUNIT_ASSERT( charmap->Error() == 0);
-            CPPUNIT_ASSERT( charmap->CharIndex( CHARACTER_CODE_A)    == 0);
-            CPPUNIT_ASSERT( charmap->CharIndex( BIG_CHARACTER_CODE)  == 0);
-            CPPUNIT_ASSERT( charmap->CharIndex( NULL_CHARACTER_CODE) == 0);
+            CPPUNIT_ASSERT( charmap->GlyphListIndex( CHARACTER_CODE_A)    == 0);
+            CPPUNIT_ASSERT( charmap->GlyphListIndex( BIG_CHARACTER_CODE)  == 0);
+            CPPUNIT_ASSERT( charmap->GlyphListIndex( NULL_CHARACTER_CODE) == 0);
             
             charmap->CharMap( ft_encoding_johab);
             
             CPPUNIT_ASSERT( charmap->Error() == 6);
-            CPPUNIT_ASSERT( charmap->CharIndex( CHARACTER_CODE_A)    == 0);
-            CPPUNIT_ASSERT( charmap->CharIndex( BIG_CHARACTER_CODE)  == 0);
-            CPPUNIT_ASSERT( charmap->CharIndex( NULL_CHARACTER_CODE) == 0);
+            CPPUNIT_ASSERT( charmap->GlyphListIndex( CHARACTER_CODE_A)    == 0);
+            CPPUNIT_ASSERT( charmap->GlyphListIndex( BIG_CHARACTER_CODE)  == 0);
+            CPPUNIT_ASSERT( charmap->GlyphListIndex( NULL_CHARACTER_CODE) == 0);
         }
 
     
-        void testGetGlyphIndex()
+        void testGetFontIndex()
         {
             charmap->CharMap( ft_encoding_unicode);
 
             CPPUNIT_ASSERT( charmap->Error() == 0);
-            CPPUNIT_ASSERT( charmap->GlyphIndex( CHARACTER_CODE_A)    == FONT_INDEX_OF_A);
-            CPPUNIT_ASSERT( charmap->GlyphIndex( BIG_CHARACTER_CODE)  == BIG_FONT_INDEX);
-            CPPUNIT_ASSERT( charmap->GlyphIndex( NULL_CHARACTER_CODE) == NULL_FONT_INDEX);
+
+            CPPUNIT_ASSERT( charmap->FontIndex( CHARACTER_CODE_A)    == FONT_INDEX_OF_A);
+            CPPUNIT_ASSERT( charmap->FontIndex( BIG_CHARACTER_CODE)  == BIG_FONT_INDEX);
+            CPPUNIT_ASSERT( charmap->FontIndex( NULL_CHARACTER_CODE) == NULL_FONT_INDEX);
         }
     
     
         void testInsertCharacterIndex()
         {
-            CPPUNIT_ASSERT( charmap->CharIndex( CHARACTER_CODE_A) == 0);
+            CPPUNIT_ASSERT( charmap->GlyphListIndex( CHARACTER_CODE_A) == 0);
+            CPPUNIT_ASSERT( charmap->FontIndex( CHARACTER_CODE_A) == FONT_INDEX_OF_A);
 
-            charmap->InsertIndex( CHARACTER_CODE_A, charmap->GlyphIndex( CHARACTER_CODE_A));
-            CPPUNIT_ASSERT( charmap->CharIndex( CHARACTER_CODE_A) == FONT_INDEX_OF_A);
+            charmap->InsertIndex( CHARACTER_CODE_A, 69);
+            CPPUNIT_ASSERT( charmap->FontIndex( CHARACTER_CODE_A) == FONT_INDEX_OF_A);
+            CPPUNIT_ASSERT( charmap->GlyphListIndex( CHARACTER_CODE_A) == 69);
 
-            charmap->InsertIndex( CHARACTER_CODE_A, 999);
-            CPPUNIT_ASSERT( charmap->CharIndex( CHARACTER_CODE_A) == 999);
+            charmap->InsertIndex( CHARACTER_CODE_G, 999);
+            CPPUNIT_ASSERT( charmap->GlyphListIndex( CHARACTER_CODE_G) == 999);
         }
-
         
         void setUp() 
         {

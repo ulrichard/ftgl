@@ -71,8 +71,8 @@ class FTGlyphContainerTest : public CppUnit::TestCase
 
         void testGlyphIndex()
         {
-            CPPUNIT_ASSERT( glyphContainer->GlyphIndex( CHARACTER_CODE_A) == FONT_INDEX_OF_A);
-            CPPUNIT_ASSERT( glyphContainer->GlyphIndex( BIG_CHARACTER_CODE) == BIG_FONT_INDEX);
+            CPPUNIT_ASSERT( glyphContainer->FontIndex( CHARACTER_CODE_A) == FONT_INDEX_OF_A);
+            CPPUNIT_ASSERT( glyphContainer->FontIndex( BIG_CHARACTER_CODE) == BIG_FONT_INDEX);
         }
 
 

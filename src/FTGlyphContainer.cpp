@@ -34,9 +34,9 @@ bool FTGlyphContainer::CharMap( FT_Encoding encoding)
 }
 
 
-unsigned int FTGlyphContainer::GlyphIndex( const unsigned int characterCode) const
+signed int FTGlyphContainer::FontIndex( const unsigned int characterCode) const
 {
-    return charMap->GlyphIndex( characterCode);
+    return charMap->FontIndex( characterCode);
 }
 
 
@@ -49,24 +49,24 @@ void FTGlyphContainer::Add( FTGlyph* tempGlyph, const unsigned int characterCode
 
 const FTGlyph* const FTGlyphContainer::Glyph( const unsigned int characterCode) const
 {
-    unsigned int index = charMap->CharIndex( characterCode);
+    signed int index = charMap->GlyphListIndex( characterCode);
     return glyphs[index];
 }
 
 
 FTBBox FTGlyphContainer::BBox( const unsigned int characterCode) const
 {
-    return glyphs[charMap->CharIndex( characterCode)]->BBox();
+    return glyphs[charMap->GlyphListIndex( characterCode)]->BBox();
 }
 
 
 float FTGlyphContainer::Advance( const unsigned int characterCode, const unsigned int nextCharacterCode)
 {
-    unsigned int left = charMap->GlyphIndex( characterCode);
-    unsigned int right = charMap->GlyphIndex( nextCharacterCode);
-    
+    unsigned int left = charMap->FontIndex( characterCode);
+    unsigned int right = charMap->FontIndex( nextCharacterCode);
+
     float width = face->KernAdvance( left, right).x;
-    width += glyphs[charMap->CharIndex( characterCode)]->Advance();
+    width += glyphs[charMap->GlyphListIndex( characterCode)]->Advance();
     
     return width;
 }
@@ -77,14 +77,14 @@ FTPoint FTGlyphContainer::Render( const unsigned int characterCode, const unsign
     FTPoint kernAdvance;
     float advance = 0;
     
-    unsigned int left = charMap->GlyphIndex( characterCode);
-    unsigned int right = charMap->GlyphIndex( nextCharacterCode);
-    
+    unsigned int left = charMap->FontIndex( characterCode);
+    unsigned int right = charMap->FontIndex( nextCharacterCode);
+
     kernAdvance = face->KernAdvance( left, right);
         
     if( !face->Error())
     {
-        advance = glyphs[charMap->CharIndex( characterCode)]->Render( penPosition);
+        advance = glyphs[charMap->GlyphListIndex( characterCode)]->Render( penPosition);
     }
     
     kernAdvance.x = advance + kernAdvance.x;

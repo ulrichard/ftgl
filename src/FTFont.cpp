@@ -264,7 +264,7 @@ void FTFont::CheckGlyph( const unsigned int characterCode)
 {
     if( NULL == glyphList->Glyph( characterCode))
     {
-        unsigned int glyphIndex = glyphList->GlyphIndex( characterCode);
+        unsigned int glyphIndex = glyphList->FontIndex( characterCode);
         glyphList->Add( MakeGlyph( glyphIndex), characterCode);
     }
 }
