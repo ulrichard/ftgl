@@ -4,7 +4,6 @@
 #include	"FTPolyGlyph.h"
 
 
-
 FTGLPolygonFont::FTGLPolygonFont()
 {}
 

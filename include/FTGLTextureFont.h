@@ -6,6 +6,7 @@
 
 class FTTextureGlyph;
 
+
 /**
  * FTGLTextureFont is a specialisation of the FTFont class for handling
  * Texture mapped fonts

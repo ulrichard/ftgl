@@ -57,3 +57,4 @@ void FTGLOutlineFont::render( const wchar_t* string)
 	glPopAttrib();
 
 }
+

@@ -14,6 +14,7 @@ class FTGlyph;
 
 using namespace std;
 
+
 /**
  * FTGlyphContainer holds the post processed FTGlyph objects.
  *

@@ -7,6 +7,7 @@
 
 class FTGlyph;
 
+
 /**
  * FTGLOutlineFont is a specialisation of the FTFont class for handling
  * Vector Outline fonts

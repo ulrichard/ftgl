@@ -8,6 +8,7 @@
 
 class FTGlyph;
 
+
 /**
  * FTGLPixmapFont is a specialisation of the FTFont class for handling
  * Pixmap (Grey Scale) fonts

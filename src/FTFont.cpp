@@ -190,3 +190,4 @@ void FTFont::render( const wchar_t* string )
 		++c;
 	}
 }
+

@@ -7,6 +7,7 @@
 
 class FTGlyph;
 
+
 /**
  * FTGLPolygonFont is a specialisation of the FTFont class for handling
  * tesselated Polygon Mesh fonts

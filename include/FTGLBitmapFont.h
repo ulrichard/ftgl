@@ -1,7 +1,6 @@
 #ifndef		__FTGLBitmapFont__
 #define		__FTGLBitmapFont__
 
-
 #include "FTGL.h"
 
 #include "FTFont.h"

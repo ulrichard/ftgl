@@ -10,7 +10,6 @@
 
 #include "FTFace.h"
 
-
 class FTGlyphContainer;
 class FTGlyph;
 

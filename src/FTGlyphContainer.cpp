@@ -15,7 +15,6 @@ FTGlyphContainer::FTGlyphContainer( FTFace* f, unsigned int g, bool p)
 }
 
 
-
 FTGlyphContainer::~FTGlyphContainer()
 {
 	vector<FTGlyph*>::iterator iter;

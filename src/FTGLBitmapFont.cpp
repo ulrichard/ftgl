@@ -54,3 +54,4 @@ void FTGLBitmapFont::render( const wchar_t* string)
 	glPopClientAttrib();
 
 }
+
