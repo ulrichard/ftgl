@@ -48,11 +48,10 @@ class	FTFont
 		
 		// future list of sizes
 		FTSize charSize;
+
+//		string fontName;
 		
 		int numGlyphs;
-		
-		string fontName;
-		
 		FTGlyphContainer*	glyphList;
 		
 		FT_Vector pen;

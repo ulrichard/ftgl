@@ -5,9 +5,9 @@
 
 
 FTFont::FTFont()
-:	fontName(0),
-	numFaces(0),
-	glyphList(0)
+:	numFaces(0),
+	glyphList(0),
+	err(0)
 {
 	pen.x = 0;
 	pen.y = 0;
@@ -15,10 +15,12 @@ FTFont::FTFont()
 
 
 FTFont::~FTFont()
-{}
+{
+	Close();
+}
 
 
-bool	FTFont::Open( const char* fontname )
+bool FTFont::Open( const char* fontname )
 {
 	//FIXME first check map to see if it's already open.
 //	FTFace face; // When we have a list of faces
@@ -34,12 +36,13 @@ bool	FTFont::Open( const char* fontname )
 	}
 	else
 	{
+		err = face.Error();
 		return false;
 	}
 }
 
 
-void	FTFont::Close()
+void FTFont::Close()
 {
 	face.Close();
 	delete glyphList;
@@ -55,9 +58,14 @@ bool FTFont::FaceSize( const int size, const int res )
 	
 	glyphList = new FTGlyphContainer( face.Face(), numGlyphs);	
 	
-	MakeGlyphList();
-
-	return true;
+	if( MakeGlyphList())
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 
@@ -94,7 +102,7 @@ int	FTFont::Descender() const
 }
 
 
-void	FTFont::BBox( const char* text, int& llx, int& lly, int& urx, int& ury ) const
+void FTFont::BBox( const char* text, int& llx, int& lly, int& urx, int& ury ) const
 {
 //Insert your own code here.
 
