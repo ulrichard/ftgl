@@ -20,6 +20,7 @@ class FTGlyph;
  */
 class FTGL_EXPORT FTGlyphContainer
 {
+        typedef FTVector<FTGlyph*> GlyphVector;
     public:
         /**
          * Constructor
@@ -96,7 +97,6 @@ class FTGL_EXPORT FTGlyphContainer
         /**
          * A structure to hold the glyphs
          */
-        typedef FTVector<FTGlyph*> GlyphVector;
         GlyphVector glyphs;
 
         /**
