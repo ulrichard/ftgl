@@ -20,60 +20,32 @@ FTPixmapGlyph::FTPixmapGlyph( FT_GlyphSlot glyph)
     int srcWidth = bitmap.width;
     int srcHeight = bitmap.rows;
     
-   // FIXME What about dest alignment?
     destWidth = srcWidth;
     destHeight = srcHeight;
     
     if( destWidth && destHeight)
     {
-        data = new unsigned char[destWidth * destHeight * 4];
-    
-        // Get the current glColor.
-        float ftglColour[4];
-        glGetFloatv( GL_CURRENT_COLOR, ftglColour);
-
-        unsigned char redComponent =   static_cast<unsigned char>( ftglColour[0] * 255.0f);
-        unsigned char greenComponent = static_cast<unsigned char>( ftglColour[1] * 255.0f);
-        unsigned char blueComponent =  static_cast<unsigned char>( ftglColour[2] * 255.0f);
-
+        data = new unsigned char[destWidth * destHeight * 2];
         unsigned char* src = bitmap.buffer;
 
-        unsigned char* dest = data + ((destHeight - 1) * destWidth) * 4;
-        size_t destStep = destWidth * 4 * 2;
+        unsigned char* dest = data + ((destHeight - 1) * destWidth * 2);
+        size_t destStep = destWidth * 2 * 2;
 
-        if( ftglColour[3] == 1.0f)
+        for( int y = 0; y < srcHeight; ++y)
         {
-            for( int y = 0; y < srcHeight; ++y)
+            for( int x = 0; x < srcWidth; ++x)
             {
-                for( int x = 0; x < srcWidth; ++x)
-                {
-                    *dest++ = redComponent;
-                    *dest++ = greenComponent;
-                    *dest++ = blueComponent;
-                    *dest++ = *src++;
-                }
-                dest -= destStep;
+                *dest++ = static_cast<unsigned char>(255);
+                *dest++ = *src++;
             }
+            dest -= destStep;
         }
-        else
-        {
-            for( int y = 0; y < srcHeight; ++y)
-            {
-                for( int x = 0; x < srcWidth; ++x)
-                {
-                    *dest++ = redComponent;
-                    *dest++ = greenComponent;
-                    *dest++ = blueComponent;
-                    *dest++ = static_cast<unsigned char>(ftglColour[3] * *src++);
-                }
-                dest -= destStep;
-            }
-        }
+
         destHeight = srcHeight;
     }
 
-    pos.X( glyph->bitmap_left);
-    pos.Y( srcHeight - glyph->bitmap_top);
+    pos.X(glyph->bitmap_left);
+    pos.Y(srcHeight - glyph->bitmap_top);
 }
 
 
@@ -90,7 +62,9 @@ const FTPoint& FTPixmapGlyph::Render( const FTPoint& pen)
     if( data)
     {
         glPixelStorei( GL_UNPACK_ROW_LENGTH, 0);
-        glDrawPixels( destWidth, destHeight, GL_RGBA, GL_UNSIGNED_BYTE, (const GLvoid*)data);
+        glPixelStorei( GL_UNPACK_ALIGNMENT, 2);
+
+        glDrawPixels( destWidth, destHeight, GL_LUMINANCE_ALPHA, GL_UNSIGNED_BYTE, (const GLvoid*)data);
     }
         
     glBitmap( 0, 0, 0.0f, 0.0f, -pos.X(), pos.Y(), (const GLubyte*)0);
