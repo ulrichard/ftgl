@@ -137,7 +137,8 @@ void FTVectoriser::ProcessContours()
     short startIndex = 0;
     short endIndex = 0;
     
-    contourList = new (FTContour*)[ftContourCount];
+    typedef FTContour* FTContourP;
+    contourList = new FTContourP[ftContourCount];
     
     for( short contourIndex = 0; contourIndex < ftContourCount; ++contourIndex)
     {
