@@ -104,18 +104,8 @@ void do_display (void)
 	switch( current_font)
 	{
 		case FTGL_BITMAP:
-//			glDisable( GL_BLEND);
-			break;
 		case FTGL_PIXMAP:
-//			glDisable( GL_TEXTURE_2D);
-//			glEnable(GL_BLEND);
-//			glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // GL_ONE
-			break;
 		case FTGL_OUTLINE:
-//			glDisable( GL_TEXTURE_2D);
-//			glEnable( GL_LINE_SMOOTH);
-//			glEnable(GL_BLEND);
-//			glBlendFunc( GL_SRC_ALPHA, GL_ONE); // GL_ONE_MINUS_SRC_ALPHA
 			break;
 		case FTGL_POLYGON:
 			glDisable( GL_BLEND);
@@ -131,7 +121,6 @@ void do_display (void)
 			glDisable( GL_DEPTH_TEST);
 			my_lighting();
 			glNormal3f( 0.0, 0.0, 1.0);
-//			glDisable( GL_BLEND);
 			break;
 
 	}
@@ -191,7 +180,7 @@ void do_display (void)
 		glColor3f( 0.0, 0.0, 1.0);
 		glVertex3f( 0.0, 0.0, 0.0);
 		glVertex3f( fonts[current_font]->Advance( myString), 0.0, 0.0);
-		
+
 		glVertex3f( 0.0, fonts[current_font]->Ascender(), 0.0);
 		glVertex3f( 0.0, fonts[current_font]->Descender(), 0.0);
 		
