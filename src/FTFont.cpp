@@ -6,6 +6,7 @@
 
 FTFont::FTFont( const char* fontname)
 :   face( fontname),
+    useDisplayLists(true),
     glyphList(0)
 {
     err = face.Error();
@@ -109,6 +110,11 @@ FT_Encoding* FTFont::CharMapList()
     return face.CharMapList();
 }
 
+
+void FTFont::UseDisplayList( bool useList)
+{
+    useDisplayLists = useList;
+}
 
 float FTFont::Ascender() const
 {
@@ -282,6 +288,7 @@ bool FTFont::CheckGlyph( const unsigned int characterCode)
         if( NULL == tempGlyph)
         {
             return false;
+            err = 0x13;
         }
         glyphList->Add( tempGlyph, characterCode);
     }
