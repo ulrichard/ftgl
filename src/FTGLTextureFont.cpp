@@ -142,6 +142,7 @@ bool FTGLTextureFont::FaceSize( const unsigned int size, const unsigned int res)
     if( !textureIDList.empty())
     {
         glDeleteTextures( textureIDList.size(), (const GLuint*)&textureIDList[0]);
+        textureIDList.clear();
         remGlyphs = numGlyphs = face.GlyphCount();
     }
 

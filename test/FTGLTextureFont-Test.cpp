@@ -44,10 +44,10 @@ class FTGLTextureFontTest : public CppUnit::TestCase
             CPPUNIT_ASSERT( textureFont->Error() == 0);
             
             textureFont->FaceSize(18);
-            textureFont->Render("blah");
+            textureFont->Render("first");
 
             textureFont->FaceSize(38);
-            textureFont->Render("blah");
+            textureFont->Render("second");
             
             CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);        
         }
