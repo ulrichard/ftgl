@@ -2,7 +2,7 @@ FTGL 1.0b2
 
 DESCRIPTION:
 FTGL is a library a tool to allow OpenGL (www.opengl.org) to render
-characters from arbitary fonts.
+characters from arbitrary fonts.
 Unlike other OpenGL font libraries FTGL uses standard font file formats
 so doesn't need a preprocessing step to convert the high quality font data
 into a lesser quality, proprietary format.
@@ -54,9 +54,10 @@ Need a way to restrict the glyphs to a custom set. eg an app only needs
 numbers so we should only create a glyphList of the number characters.
 This will enable us to have a restricted set of HIGH quality glyphs.
 
-Might have to move the init code out of the constructers into an init
+Might have to move the init code out of the constructors into an init
 function so that they can return errors.
 
+good site...http://cgm.cs.mcgill.ca/~luc/
 
 TODO:
 	- Finish!!
@@ -75,10 +76,11 @@ TODO:
 	  - variable STEP_SIZE for bezier curves.
 	- namespace
 	- gl/glu errors
-	- tesselation winding rules
+	- tessellation winding rules
 	- Distributions MACOS 9/X, IRIX, Linux, Windows
-	- Test with non English(?) fonts
 	- select face ie italic, bold etc
+	- Test with non English(?) fonts
+	- Unicode w_char. May have to use std::string.
 	
 FUTURE:
 	- Use the Freetype Cache mechanism. See above. FTC_xxx
@@ -87,7 +89,7 @@ FUTURE:
 	- Vertical formats
 	- For platforms that have antialiased lines but not polys (sgi O2) we
 	  could outline the polyfonts with lines to get better looking glyphs.
-	- Provide an interface to acces the point data for outlines and polygon
+	- Provide an interface to access the point data for outlines and polygon
 	  meshes.
 
 BUGS:
