@@ -3,7 +3,8 @@
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
-#include FT_GLYPH_H
+//#include FT_GLYPH_H
+#include FT_OUTLINE_H
 
 #include "FTGL.h"
 #include "FTPoint.h"
@@ -53,14 +54,21 @@ class FTGL_EXPORT FTBBox
             upperY(0.0f),
             upperZ(0.0f)
         {
-            FT_Glyph glyphImage;
-            if( FT_Get_Glyph( glyph, &glyphImage ))
-            {
-                return;
-            }
-            
             FT_BBox bbox;
-            FT_Glyph_Get_CBox( glyphImage, ft_glyph_bbox_subpixels, &bbox );
+            if( ft_glyph_format_outline == glyph->format)
+            {
+                FT_Outline_Get_CBox( &(glyph->outline), &bbox);
+            }
+            else
+            {
+                FT_Glyph glyphImage;
+                if( 0 != FT_Get_Glyph( glyph, &glyphImage ))
+                {
+                    return;
+                }
+                FT_Glyph_Get_CBox( glyphImage, ft_glyph_bbox_subpixels, &bbox );
+                FT_Done_Glyph( glyphImage);
+            }
             
             lowerX = static_cast<float>( bbox.xMin) / 64.0f;
             lowerY = static_cast<float>( bbox.yMin) / 64.0f;
@@ -69,7 +77,6 @@ class FTGL_EXPORT FTBBox
             upperY = static_cast<float>( bbox.yMax) / 64.0f;
             upperZ = 0.0f;
             
-            FT_Done_Glyph( glyphImage);
         }       
 
         /**
