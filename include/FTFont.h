@@ -76,34 +76,35 @@ class	FTFont
 		virtual bool CharMap( FT_Encoding encoding );
 		
 		/**
-		 * Gets the global ascender height for the face in pixels.
+		 * Gets the global ascender height for the face.
 		 *
 		 * @return	Ascender height
 		 */
 		virtual int	Ascender() const;
 		
 		/**
-		 * Gets the global descender height for the face in pixels.
+		 * Gets the global descender height for the face.
 		 *
 		 * @return	Descender height
 		 */
 		virtual int	Descender() const;
 		
-		float Advance( const wchar_t* string);
-		float Advance( const char* string);
-		
-		
 		/**
-		 * Gets the bounding box dimensions for a string.
-		 * 
-		 * @param	XXXXXXX
-		 * @param	XXXXXXX
-		 * @param	XXXXXXX
-		 * @param	XXXXXXX
-		 * @param	XXXXXXX
+		 * Gets the advance width for a string.
+		 *
+		 * param string	a wchar_t string
+		 * @return		advance width
 		 */
-//		virtual void BBox( const char* string, int& llx, int& lly, int& urx, int& ury ) const;
-		
+		float Advance( const wchar_t* string);
+
+		/**
+		 * Gets the advance width for a string.
+		 *
+		 * param string	a char string
+		 * @return		advance width
+		 */
+		float Advance( const char* string);
+
 		/**
 		 * Renders a string of characters
 		 * 
@@ -114,7 +115,7 @@ class	FTFont
 		/**
 		 * Renders a string of characters
 		 * 
-		 * @param string	'C' style string to be output.	 
+		 * @param string	wchar_t string to be output.	 
 		 */
 		virtual void render( const wchar_t* string );
 		
@@ -125,7 +126,7 @@ class	FTFont
 		 * @return	The current error code.
 		 */
 		virtual FT_Error Error() const { return err;}
-//		virtual const char* ErrorString();
+
 
 	protected:
 		/**

@@ -112,14 +112,6 @@ float FTFont::Advance( const char* string)
 }
 
 
-//void FTFont::BBox( const char* text, int& llx, int& lly, int& urx, int& ury ) const
-//{
-//Insert your own code here.
-
-//End of user code.         
-//}
-
-
 void FTFont::render( const char* string )
 {
 	const unsigned char* c = (unsigned char*)string; // This is ugly, what is the c++ way?
@@ -154,17 +146,3 @@ void FTFont::render( const wchar_t* string )
 		++c;
 	}
 }
-
-
-//const char* FTFont::ErrorString()
-// {
-//         static char ukn[1024];
-// 
-//         for (uint32 i = 0; ft_errors[i].err_code != 0 || ft_errors[i].err_msg != 0; i++)
-//         {
-//                 if (ft_errors[i].err_code == fte)
-//                         return ft_errors[i].err_msg;
-//         }
-//         smprintf (ukn, 1024, "Unknown freetype2 error, errcode: 0x%x", fte);
-//         return ukn;
-// }
