@@ -111,7 +111,11 @@ FT_Vector& FTFace::KernAdvance( unsigned int index1, unsigned int index2 )
 	
 	if( FT_HAS_KERNING((*ftFace)) && index1 && index2)
 	{
-		err = FT_Get_Kerning( *ftFace, index1, index2, ft_kerning_unfitted, &kernAdvance);	
+		err = FT_Get_Kerning( *ftFace, index1, index2, ft_kerning_unfitted, &kernAdvance);
+		if( !err)
+		{	
+			kernAdvance.x /= 64; kernAdvance.y /= 64;
+		}
 	}
 	
 	return kernAdvance;
