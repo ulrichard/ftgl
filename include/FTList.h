@@ -7,12 +7,17 @@ template <typename FT_LIST_ITEM_TYPE>
 class FTGL_EXPORT FTList
 {
     public:
+        typedef FT_LIST_ITEM_TYPE value_type;
+        typedef value_type& reference;
+        typedef const value_type& const_reference;
+        typedef size_t size_type;
+
         FTList()
-        : listSize(0)
+        :	listSize(0),
+            tail(0)
         {
-            head = NULL;
             tail = NULL;
-            head->next = tail;
+            head = new Node;
         }
         
         ~FTList()
@@ -24,27 +29,32 @@ class FTGL_EXPORT FTList
                 temp = head->next;
                 delete head;
             }
-        
         }
         
-        size_t size()
+        size_type size() const
         {
             return listSize;
         }
 
-        void push_back( const FT_LIST_ITEM_TYPE& item)
+        void push_back( const value_type& item)
         {
             Node* node = new Node( item);
-            if( tail)
+            
+            if( head->next == NULL)
             {
-                tail->next = node;
+                head->next = node;
             }
             
             tail = node;
             ++listSize;
         }
         
-        FT_LIST_ITEM_TYPE& back()
+        reference front() const
+        {
+            return head->next->payload;
+        }
+
+        reference back() const
         {
             return tail->payload;
         }
@@ -52,7 +62,11 @@ class FTGL_EXPORT FTList
     private:
         struct Node
         {
-            Node( const FT_LIST_ITEM_TYPE& item)
+            Node()
+            :	next(NULL)
+            {}
+
+            Node( const value_type& item)
             :	next(NULL)
             {
                 payload = item;
@@ -60,10 +74,10 @@ class FTGL_EXPORT FTList
             
             Node* next;
             
-            FT_LIST_ITEM_TYPE payload;
+            value_type payload;
         };
         
-        size_t listSize;
+        size_type listSize;
 
         Node* head;
         Node* tail;
