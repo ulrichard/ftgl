@@ -130,12 +130,8 @@ void FTFont::BBox( const char* string,
  
     while( *c)
     {
-        if( !glyphList->Glyph( static_cast<unsigned int>(*c)))
-        {
-            unsigned int g = face.CharIndex( static_cast<unsigned int>(*c));
-            glyphList->Add( MakeGlyph( g), g);
-        }
-        
+        CheckGlyph( *c);
+
         bbox = glyphList->BBox( *c);
         
         // Lower extent
@@ -172,12 +168,8 @@ void FTFont::BBox( const wchar_t* string,
  
     while( *c)
     {
-        if( !glyphList->Glyph( static_cast<unsigned int>(*c)))
-        {
-            unsigned int g = face.CharIndex( static_cast<unsigned int>(*c));
-            glyphList->Add( MakeGlyph( g), g);
-        }
-        
+        CheckGlyph( *c);
+
         bbox = glyphList->BBox( *c);
         
         // Lower extent
@@ -232,11 +224,7 @@ float FTFont::Advance( const char* string)
 
 float FTFont::doAdvance( const unsigned int chr, const unsigned int nextChr)
 {
-    if( !glyphList->Glyph( chr))
-    {
-        unsigned int g = face.CharIndex( chr);
-        glyphList->Add( MakeGlyph( g), g);
-    }
+    CheckGlyph( chr);
 
     return glyphList->Advance( chr, nextChr);
 }
@@ -270,15 +258,21 @@ void FTFont::render( const wchar_t* string )
 
 void FTFont::doRender( const unsigned int chr, const unsigned int nextChr)
 {
-    if( !glyphList->Glyph( chr))
-    {
-        unsigned int g = face.CharIndex( chr);
-        glyphList->Add( MakeGlyph( g), g);
-    }
+    CheckGlyph( chr);
 
     FTPoint kernAdvance = glyphList->render( chr, nextChr, pen);
     
     pen.x += kernAdvance.x;
     pen.y += kernAdvance.y;
+}
+
+
+void FTFont::CheckGlyph( const unsigned int chr)
+{
+    if( !glyphList->Glyph( chr))
+    {
+        unsigned int g = face.CharIndex( chr);
+        glyphList->Add( MakeGlyph( g), g);
+    }
 }
 
