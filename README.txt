@@ -1,5 +1,5 @@
-FTGL 1.3b5
-January 27 2002
+FTGL 1.31
+January 30 2002
 
 DESCRIPTION:
 
@@ -37,8 +37,8 @@ This library was inspired by gltt, Copyright (C) 1998-1999 Stephane Rehel
 Bezier curve code contributed by Jed Soane.
 Demo, Linux port, extrusion code and gltt maintainance by Gerard Lanois
 Linux port by Matthias Kretz
-Windows port by Max Rheiner
-Bug fixes by Robert Osfield
+Windows port by Max Rheiner & Ellers
+Bug fixes by Robert Osfield & Marcelo E. Magallon
 
 Please contact me if you have any suggestions, feature requests, or problems.
 
@@ -68,7 +68,7 @@ communication should be via FTFace <-> FTFont. I will still maintain
 wrappers for freetype objects, but they will interface with ftgl in places
 that make the most sense from a code efficiency point of view.
 
-move glyph creation out of constructor, but oad the freetype glyph and get
+move glyph creation out of constructor, but load the freetype glyph and get
 the metrics.
 Change all dim stuff to float. Make my own floating point version of
 FT_Vector.
