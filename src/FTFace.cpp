@@ -1,23 +1,15 @@
-#include	"assert.h"
-
 #include	"FTFace.h"
 #include	"FTLibrary.h"
 #include	"FTGL.h"
 
 
-// OPSignature:  FTFace:FTFace() 
 FTFace::FTFace()
 :	ftFace(0),
 	numCharMaps(0),
 	numGlyphs(0)
-{
-//Insert your own code here.
-
-//End of user code.         
-}
+{}
 
 
-// OPSignature:  FTFace:~FTFace() 
 FTFace::~FTFace()
 {
 	if( ftFace)
@@ -29,11 +21,10 @@ FTFace::~FTFace()
 }
 
 
-// OPSignature: bool FTFace:open( const char*:filename  FONTTYPE:fontType ) 
 bool	FTFace::Open( const char* filename)
 {
 	ftFace = new FT_Face;
-	FT_Error err = FT_New_Face( *FTLibrary::Instance().GetLibrary(), filename, 0, ftFace);
+	err = FT_New_Face( *FTLibrary::Instance().GetLibrary(), filename, 0, ftFace);
 	
 	if( err == FT_Err_Unknown_File_Format)
     {
@@ -56,14 +47,12 @@ bool	FTFace::Open( const char* filename)
 }
 
 
-// OPSignature: bool FTFace:open( const char*:filename  FONTTYPE:fontType ) 
 void FTFace::Close()
 {
 	FT_Done_Face( *ftFace);
 }
 
 
-// OPSignature: bool FTFace:SetSize( const int:size  const int:res ) 
 FTSize& FTFace::Size( const int size, const int res )
 {
 	charSize.CharSize( ftFace, size, res, res);
@@ -71,16 +60,15 @@ FTSize& FTFace::Size( const int size, const int res )
 }
 
 
-// OPSignature: void FTFace:SetCharMap( CHARMAP:encoding ) 
 bool FTFace::CharMap( CHARMAP encoding )
 {
 //Insert your own code here.
 
-//End of user code.         
+//End of user code.   
+	return false;     
 }
 
 
-// OPSignature: FT_Glyph FTFace:GetGlyph( int:index ) 
 FT_Glyph	FTFace::Glyph( int index )
 {
 //Insert your own code here.
@@ -89,7 +77,6 @@ FT_Glyph	FTFace::Glyph( int index )
 }
 
 
-// OPSignature: FT_Vector FTFace:GetKernAdvance( int:index1  int:index2 ) 
 FT_Vector	FTFace::KernAdvance( int index1, int index2 )
 {
 //Insert your own code here.
