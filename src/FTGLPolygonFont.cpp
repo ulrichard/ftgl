@@ -17,21 +17,17 @@ FTGLPolygonFont::~FTGLPolygonFont()
 bool FTGLPolygonFont::MakeGlyphList()
 {
 	FT_Face* ftFace = face.Face();
-	int glyphIndex;
 	
 	numGlyphs = 127; // FIXME hack
 	
 	for( int n = 0; n < numGlyphs; ++n)
 	{
-		glyphIndex = FT_Get_Char_Index( *ftFace, n);
-		
-		err = FT_Load_Glyph( *ftFace, glyphIndex, FT_LOAD_DEFAULT);
-
+		err = FT_Load_Glyph( *ftFace, n, FT_LOAD_DEFAULT);
 		FT_Glyph ftGlyph;
 		
 		err = FT_Get_Glyph( (*ftFace)->glyph, &ftGlyph);
 		
-		tempGlyph = new FTPolyGlyph( ftGlyph, glyphIndex);
+		tempGlyph = new FTPolyGlyph( ftGlyph, n);
 		glyphList->Add( tempGlyph);
 	}
 	

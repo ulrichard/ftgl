@@ -18,23 +18,19 @@ FTGLOutlineFont::~FTGLOutlineFont()
 
 bool FTGLOutlineFont::MakeGlyphList()
 {
-	int glyphIndex;
+//	int glyphIndex;
+	FT_Face* ftFace = face.Face();
 	
 	numGlyphs = 127; // FIXME hack
 	
 	for( int n = 0; n < numGlyphs; ++n)
 	{
-		FT_Face* ftFace = face.Face();
-
-		glyphIndex = FT_Get_Char_Index( *ftFace, n);
-		
-		err = FT_Load_Glyph( *ftFace, glyphIndex, FT_LOAD_DEFAULT);
-
+		err = FT_Load_Glyph( *ftFace, n, FT_LOAD_DEFAULT);
 		FT_Glyph ftGlyph;
 		
 		err = FT_Get_Glyph( (*ftFace)->glyph, &ftGlyph);
 		
-		tempGlyph = new FTVectorGlyph( ftGlyph, glyphIndex);
+		tempGlyph = new FTVectorGlyph( ftGlyph, n);
 		glyphList->Add( tempGlyph);
 	}
 	

@@ -35,16 +35,19 @@ FT_Vector& FTGlyphContainer::render( int index, int next, FT_Vector pen)
 {
 	kernAdvance.x = 0; kernAdvance.y = 0;
 	
-	if( index > glyphs.size())
+	int left = FT_Get_Char_Index( *face, index);
+	int right = FT_Get_Char_Index( *face, next);
+	
+	if( left > glyphs.size())
 		return kernAdvance;
 	
-	if( 0 < next <=  glyphs.size())
+	if( 0 < right <=  glyphs.size())
 	{
 		// ft_kerning_unfitted
-		err = FT_Get_Kerning( *face, glyphs[index]->glyphIndex, glyphs[next]->glyphIndex, ft_kerning_default, &kernAdvance);
+		err = FT_Get_Kerning( *face, left, right, ft_kerning_default, &kernAdvance);
 	}
 	
-	advance = glyphs[index]->Render( pen);
+	advance = glyphs[left]->Render( pen);
 	
 	kernAdvance.x = advance + kernAdvance.x;
 //	kernAdvance.y = advance.y + kernAdvance.y;

@@ -49,8 +49,6 @@ class	FTFont
 		// future list of sizes
 		FTSize charSize;
 
-//		string fontName;
-		
 		int numGlyphs;
 		FTGlyphContainer*	glyphList;
 		

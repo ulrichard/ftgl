@@ -72,21 +72,7 @@ bool FTFont::FaceSize( const int size, const int res )
 bool FTFont::CharMap( CHARMAP encoding)
 {
 	face.CharMap( encoding);
-
-	//FIXME
-	if( glyphList)
-		delete glyphList;
-		
-	glyphList = new FTGlyphContainer( face.Face(), numGlyphs);
-	
-	if( MakeGlyphList())
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+	return false; // for the moment seeing as this doesn't do anything!!!
 }
 
 
