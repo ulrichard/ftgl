@@ -5,21 +5,27 @@ FTGL 1.41
       operator + to FTBBox
     - Replaced FT_Vector with FTPoint for kerning.
     - Fixed the glPushAttrib calls.
-    - Changed gluTess callback def.
+    * Changed gluTess callback def.
     - Rewriting FTGLDemo.
     - Minor fixes for irix.
     - Removed a bunch of redundant members and made them function locals.
-    - Removed Close() from FTFont because there was no way to handle it
-      correctly:)
+    * Removed Close() from FTFont because there was no way to handle it
+      correctly.
     - Improved the robustness of some of the error handling.
-    - Removed the FTCharmap Platform/Encoding function.
+    * Removed the FTCharmap Platform/Encoding function.
     - Unit tests.
-    - Removed the precache flag.
+    * Removed the precache flag.
     - Unvirtualised functions in FTLibrary and FTGlyphContainer.
     - Fixed empty string bug in FTFont::BBox.
     - Refactored FTContour and moved it to it's own file.
-    - Removed an unnecessary memory allocation in FTOutlineGltph.
-    - Made vectoriser a local variable in vector glyphs
+    - Removed an unnecessary memory allocation in FTOutlineGlyph.
+    - Made vectoriser a local variable in vector glyphs.
+    - Fixed a long standing visual bug in FTVectoriser.
+    * Changed size calculations to use floats instead of ints. This includes
+      FTBBox.
+    - Refactored FTGlyph. Now calculates advance (as a float) and bbox.
+    - Removed redundant members from FT*Glyph.
+    - Changed contourList from FTVector to an array in FTVectoriser.
 
 October 23 2002
 FTGL 1.4 (FTGL_1_4)
