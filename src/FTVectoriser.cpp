@@ -81,7 +81,6 @@ void FTMesh::End()
 FTGL_DOUBLE* FTMesh::Point()
 {
     return &tempTess->pointList[ tempTess->size() - 1].x;
-
 }
 
 
@@ -325,12 +324,13 @@ void FTVectoriser::MakeMesh( FTGL_DOUBLE zNormal)
     
     GLUtesselator* tobj = gluNewTess();
     
-    gluTessCallback( tobj, GLU_TESS_BEGIN_DATA,     (void (CALLBACK*)())ftglBegin);
-    gluTessCallback( tobj, GLU_TESS_VERTEX_DATA,    (void (CALLBACK*)())ftglVertex);
-    gluTessCallback( tobj, GLU_TESS_COMBINE_DATA,   (void (CALLBACK*)())ftglCombine);
-    gluTessCallback( tobj, GLU_TESS_END_DATA,       (void (CALLBACK*)())ftglEnd);
-    gluTessCallback( tobj, GLU_TESS_ERROR_DATA,     (void (CALLBACK*)())ftglError);
+    typedef GLvoid (*GLUTesselatorFunction)(...);
     
+    gluTessCallback( tobj, GLU_TESS_BEGIN_DATA,     (GLUTesselatorFunction)ftglBegin);
+    gluTessCallback( tobj, GLU_TESS_VERTEX_DATA,    (GLUTesselatorFunction)ftglVertex);
+    gluTessCallback( tobj, GLU_TESS_COMBINE_DATA,   (GLUTesselatorFunction)ftglCombine);
+    gluTessCallback( tobj, GLU_TESS_END_DATA,       (GLUTesselatorFunction)ftglEnd);
+    gluTessCallback( tobj, GLU_TESS_ERROR_DATA,     (GLUTesselatorFunction)ftglError);
     
     if( contourFlag & ft_outline_even_odd_fill) // ft_outline_reverse_fill
     {
@@ -349,6 +349,7 @@ void FTVectoriser::MakeMesh( FTGL_DOUBLE zNormal)
         for( size_t c = 0; c < contours(); ++c)
         {
             const FTContour* contour = contourList[c];
+
             gluTessBeginContour( tobj);
             
                 for( size_t p = 0; p < contour->size(); ++p)
@@ -356,19 +357,18 @@ void FTVectoriser::MakeMesh( FTGL_DOUBLE zNormal)
                     FTGL_DOUBLE* d = const_cast<FTGL_DOUBLE*>(&contour->pointList[p].x);
                     gluTessVertex( tobj, d, d);
                 }
+
             gluTessEndContour( tobj);
         }
         
     gluTessEndPolygon( tobj);
 
     gluDeleteTess( tobj);
-    
 }
 
 
 void FTVectoriser::GetMesh( FTGL_DOUBLE* data)
 {
-    // Now write it out
     int i = 0;
     
     // fill out the header
@@ -391,7 +391,5 @@ void FTVectoriser::GetMesh( FTGL_DOUBLE* data)
             data[i + 2] = 0.0f; // static_cast<FTGL_DOUBLE>(mesh->pointList[p].z / 64.0f);
             i += 3;
         }
-
     }
-
 }
