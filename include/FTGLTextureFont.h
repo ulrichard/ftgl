@@ -2,6 +2,7 @@
 #define     __FTGLTextureFont__
 
 #include "FTFont.h"
+#include "FTVector.h"
 #include "FTGL.h"
 
 class FTTextureGlyph;
@@ -107,13 +108,8 @@ class  FTGL_EXPORT FTGLTextureFont : public FTFont
         /**
          *An array of texture ids
          */
-        GLuint glTextureID[128];
+         FTVector<GLuint> textureIDList;
         
-        /**
-         * The number of textures required to hold the glyphs
-         */
-        unsigned int numTextures;
-
         /**
          * The max height for glyphs in the current font
          */

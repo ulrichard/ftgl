@@ -23,7 +23,6 @@ FTGLTextureFont::FTGLTextureFont( const char* fontname)
     maxTextSize(0),
     textureWidth(0),
     textureHeight(0),
-    numTextures(0),
     glyphHeight(0),
     glyphWidth(0),
     padding(3),
@@ -39,7 +38,6 @@ FTGLTextureFont::FTGLTextureFont( const unsigned char *pBufferBytes, size_t buff
     maxTextSize(0),
     textureWidth(0),
     textureHeight(0),
-    numTextures(0),
     glyphHeight(0),
     glyphWidth(0),
     padding(3),
@@ -52,7 +50,7 @@ FTGLTextureFont::FTGLTextureFont( const unsigned char *pBufferBytes, size_t buff
 
 FTGLTextureFont::~FTGLTextureFont()
 {
-    glDeleteTextures( numTextures, (const GLuint*)glTextureID);
+    glDeleteTextures( textureIDList.size(), (const GLuint*)&textureIDList[0]);
 }
 
 
@@ -65,11 +63,10 @@ FTGlyph* FTGLTextureFont::MakeGlyph( unsigned int glyphIndex)
         glyphHeight = static_cast<int>( charSize.Height());
         glyphWidth = static_cast<int>( charSize.Width());
         
-        if( numTextures == 0)
+        if( textureIDList.empty())
         {
-            glTextureID[0] = CreateTexture();
+            textureIDList.push_back( CreateTexture());
             xOffset = yOffset = padding;
-            ++numTextures;
         }
         
         if( xOffset > ( textureWidth - glyphWidth))
@@ -79,13 +76,12 @@ FTGlyph* FTGLTextureFont::MakeGlyph( unsigned int glyphIndex)
             
             if( yOffset > ( textureHeight - glyphHeight))
             {
-                glTextureID[numTextures] = CreateTexture();
-                ++numTextures;
+                textureIDList.push_back( CreateTexture());
                 yOffset = padding;
             }
         }
         
-        FTTextureGlyph* tempGlyph = new FTTextureGlyph( ftGlyph, glTextureID[numTextures - 1],
+        FTTextureGlyph* tempGlyph = new FTTextureGlyph( ftGlyph, textureIDList[textureIDList.size() - 1],
                                                         xOffset, yOffset, textureWidth, textureHeight);
         xOffset += static_cast<int>( tempGlyph->BBox().upperX - tempGlyph->BBox().lowerX + padding);
         
@@ -145,10 +141,9 @@ GLuint FTGLTextureFont::CreateTexture()
 
 bool FTGLTextureFont::FaceSize( const unsigned int size, const unsigned int res)
 {
-    if( numTextures)
+    if( !textureIDList.empty())
     {
-        glDeleteTextures( numTextures, (const GLuint*)glTextureID);
-        numTextures = 0;
+        glDeleteTextures( textureIDList.size(), (const GLuint*)&textureIDList[0]);
         remGlyphs = numGlyphs = face.GlyphCount();
     }
 
