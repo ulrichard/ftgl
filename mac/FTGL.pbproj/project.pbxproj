@@ -12,6 +12,7 @@
 				66170C4A01C56FD4000ABFD4,
 				F597CC9702C542FF01F03BCF,
 				F597CC9A02C5436801F03BCF,
+				BADB7E1103AF1270004F6ED7,
 			);
 			isa = PBXGroup;
 			name = frameworks;
@@ -43,12 +44,14 @@
 				66BA089001C4635F000ABFD4,
 				66BA08E801C4657A000ABFD4,
 				F597CC8B02C5420F01F03BCF,
+				BAF0F09003AF0F9E004F6ED7,
 			);
 		};
 		66BA088B01C46338000ABFD4 = {
 			children = (
-				F597CC8702C541D501F03BCF,
 				66BA089501C4638C000ABFD4,
+				BAF0F09303AF0FBA004F6ED7,
+				F597CC8702C541D501F03BCF,
 				66BA08DE01C46495000ABFD4,
 				6612160001C58FBA000ABFD4,
 				66BA088E01C4635F000ABFD4,
@@ -81,6 +84,7 @@
 				66BA088F01C4635F000ABFD4,
 				66BA08E701C4657A000ABFD4,
 				F597CC8902C5420F01F03BCF,
+				BAF0F09103AF0F9E004F6ED7,
 			);
 			isa = PBXGroup;
 			name = Products;
@@ -263,8 +267,9 @@
 		66BA089701C4638C000ABFD4 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
-			path = FTBitmapGlyph.h;
-			refType = 4;
+			name = FTBitmapGlyph.h;
+			path = ../include/FTBitmapGlyph.h;
+			refType = 2;
 		};
 		66BA089801C4638C000ABFD4 = {
 			fileEncoding = 30;
@@ -275,8 +280,9 @@
 		66BA089901C4638C000ABFD4 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
-			path = FTCharmap.h;
-			refType = 4;
+			name = FTCharmap.h;
+			path = ../include/FTCharmap.h;
+			refType = 2;
 		};
 		66BA089A01C4638C000ABFD4 = {
 			fileEncoding = 30;
@@ -287,8 +293,9 @@
 		66BA089B01C4638C000ABFD4 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
-			path = FTExtrdGlyph.h;
-			refType = 4;
+			name = FTExtrdGlyph.h;
+			path = ../include/FTExtrdGlyph.h;
+			refType = 2;
 		};
 		66BA089C01C4638C000ABFD4 = {
 			fileEncoding = 30;
@@ -299,8 +306,9 @@
 		66BA089D01C4638C000ABFD4 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
-			path = FTFace.h;
-			refType = 4;
+			name = FTFace.h;
+			path = ../include/FTFace.h;
+			refType = 2;
 		};
 		66BA089E01C4638C000ABFD4 = {
 			fileEncoding = 30;
@@ -311,14 +319,16 @@
 		66BA089F01C4638C000ABFD4 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
-			path = FTFont.h;
-			refType = 4;
+			name = FTFont.h;
+			path = ../include/FTFont.h;
+			refType = 2;
 		};
 		66BA08A001C4638C000ABFD4 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
-			path = FTGL.h;
-			refType = 4;
+			name = FTGL.h;
+			path = ../include/FTGL.h;
+			refType = 2;
 		};
 		66BA08A101C4638C000ABFD4 = {
 			fileEncoding = 30;
@@ -329,8 +339,9 @@
 		66BA08A201C4638C000ABFD4 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
-			path = FTGLBitmapFont.h;
-			refType = 4;
+			name = FTGLBitmapFont.h;
+			path = ../include/FTGLBitmapFont.h;
+			refType = 2;
 		};
 		66BA08A301C4638C000ABFD4 = {
 			fileEncoding = 30;
@@ -341,8 +352,9 @@
 		66BA08A401C4638C000ABFD4 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
-			path = FTGLExtrdFont.h;
-			refType = 4;
+			name = FTGLExtrdFont.h;
+			path = ../include/FTGLExtrdFont.h;
+			refType = 2;
 		};
 		66BA08A501C4638C000ABFD4 = {
 			fileEncoding = 30;
@@ -353,8 +365,9 @@
 		66BA08A601C4638C000ABFD4 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
-			path = FTGLOutlineFont.h;
-			refType = 4;
+			name = FTGLOutlineFont.h;
+			path = ../include/FTGLOutlineFont.h;
+			refType = 2;
 		};
 		66BA08A701C4638C000ABFD4 = {
 			fileEncoding = 30;
@@ -365,8 +378,9 @@
 		66BA08A801C4638C000ABFD4 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
-			path = FTGLPixmapFont.h;
-			refType = 4;
+			name = FTGLPixmapFont.h;
+			path = ../include/FTGLPixmapFont.h;
+			refType = 2;
 		};
 		66BA08A901C4638C000ABFD4 = {
 			fileEncoding = 30;
@@ -377,8 +391,9 @@
 		66BA08AA01C4638C000ABFD4 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
-			path = FTGLPolygonFont.h;
-			refType = 4;
+			name = FTGLPolygonFont.h;
+			path = ../include/FTGLPolygonFont.h;
+			refType = 2;
 		};
 		66BA08AB01C4638C000ABFD4 = {
 			fileEncoding = 30;
@@ -389,8 +404,9 @@
 		66BA08AC01C4638C000ABFD4 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
-			path = FTGLTextureFont.h;
-			refType = 4;
+			name = FTGLTextureFont.h;
+			path = ../include/FTGLTextureFont.h;
+			refType = 2;
 		};
 		66BA08AD01C4638C000ABFD4 = {
 			fileEncoding = 30;
@@ -401,8 +417,9 @@
 		66BA08AE01C4638C000ABFD4 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
-			path = FTGlyph.h;
-			refType = 4;
+			name = FTGlyph.h;
+			path = ../include/FTGlyph.h;
+			refType = 2;
 		};
 		66BA08AF01C4638C000ABFD4 = {
 			fileEncoding = 30;
@@ -413,8 +430,9 @@
 		66BA08B001C4638C000ABFD4 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
-			path = FTGlyphContainer.h;
-			refType = 4;
+			name = FTGlyphContainer.h;
+			path = ../include/FTGlyphContainer.h;
+			refType = 2;
 		};
 		66BA08B101C4638C000ABFD4 = {
 			fileEncoding = 30;
@@ -425,8 +443,9 @@
 		66BA08B201C4638C000ABFD4 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
-			path = FTLibrary.h;
-			refType = 4;
+			name = FTLibrary.h;
+			path = ../include/FTLibrary.h;
+			refType = 2;
 		};
 		66BA08B301C4638C000ABFD4 = {
 			fileEncoding = 30;
@@ -437,8 +456,9 @@
 		66BA08B401C4638C000ABFD4 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
-			path = FTOutlineGlyph.h;
-			refType = 4;
+			name = FTOutlineGlyph.h;
+			path = ../include/FTOutlineGlyph.h;
+			refType = 2;
 		};
 		66BA08B501C4638C000ABFD4 = {
 			fileEncoding = 30;
@@ -449,8 +469,9 @@
 		66BA08B601C4638C000ABFD4 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
-			path = FTPixmapGlyph.h;
-			refType = 4;
+			name = FTPixmapGlyph.h;
+			path = ../include/FTPixmapGlyph.h;
+			refType = 2;
 		};
 		66BA08B701C4638C000ABFD4 = {
 			fileEncoding = 30;
@@ -461,8 +482,9 @@
 		66BA08B801C4638C000ABFD4 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
-			path = FTPolyGlyph.h;
-			refType = 4;
+			name = FTPolyGlyph.h;
+			path = ../include/FTPolyGlyph.h;
+			refType = 2;
 		};
 		66BA08B901C4638C000ABFD4 = {
 			fileEncoding = 30;
@@ -473,8 +495,9 @@
 		66BA08BA01C4638C000ABFD4 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
-			path = FTSize.h;
-			refType = 4;
+			name = FTSize.h;
+			path = ../include/FTSize.h;
+			refType = 2;
 		};
 		66BA08BB01C4638C000ABFD4 = {
 			fileEncoding = 30;
@@ -485,8 +508,9 @@
 		66BA08BC01C4638C000ABFD4 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
-			path = FTTextureGlyph.h;
-			refType = 4;
+			name = FTTextureGlyph.h;
+			path = ../include/FTTextureGlyph.h;
+			refType = 2;
 		};
 		66BA08BD01C4638C000ABFD4 = {
 			fileEncoding = 30;
@@ -497,8 +521,9 @@
 		66BA08BE01C4638C000ABFD4 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
-			path = FTVectoriser.h;
-			refType = 4;
+			name = FTVectoriser.h;
+			path = ../include/FTVectoriser.h;
+			refType = 2;
 		};
 		66BA08BF01C4638C000ABFD4 = {
 			fileRef = 66BA089601C4638C000ABFD4;
@@ -811,8 +836,9 @@
 		BA79CB0103A176E7002F90D7 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
-			path = FTContour.h;
-			refType = 4;
+			name = FTContour.h;
+			path = ../include/FTContour.h;
+			refType = 2;
 		};
 		BA79CB0203A176E7002F90D7 = {
 			fileRef = BA79CB0003A176E7002F90D7;
@@ -822,6 +848,323 @@
 		};
 		BA79CB0303A176E7002F90D7 = {
 			fileRef = BA79CB0103A176E7002F90D7;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		BADB7E0E03AF1241004F6ED7 = {
+			fileRef = 66BA088F01C4635F000ABFD4;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		BADB7E0F03AF1246004F6ED7 = {
+			fileRef = F5CB02F60310FDAF0142A175;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		BADB7E1003AF1249004F6ED7 = {
+			fileRef = F597CC9A02C5436801F03BCF;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		BADB7E1103AF1270004F6ED7 = {
+			isa = PBXFileReference;
+			name = libcppunit.a;
+			path = Libraries/libcppunit.a;
+			refType = 4;
+		};
+		BADB7E1203AF1270004F6ED7 = {
+			fileRef = BADB7E1103AF1270004F6ED7;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		BADB7E1303AF127A004F6ED7 = {
+			isa = PBXTargetDependency;
+			target = 66BA089001C4635F000ABFD4;
+		};
+		BADB7E1403AF128E004F6ED7 = {
+			fileRef = 66170C4A01C56FD4000ABFD4;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		BAF0F08C03AF0F9E004F6ED7 = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXHeadersBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BAF0F08D03AF0F9E004F6ED7 = {
+			buildActionMask = 2147483647;
+			files = (
+				BAF0F0A303AF0FF7004F6ED7,
+				BAF0F0A403AF0FF7004F6ED7,
+				BAF0F0A503AF0FF7004F6ED7,
+				BAF0F0A603AF0FF7004F6ED7,
+				BAF0F0A703AF0FF7004F6ED7,
+				BAF0F0A803AF0FF7004F6ED7,
+				BAF0F0A903AF0FF7004F6ED7,
+				BAF0F0AA03AF0FF7004F6ED7,
+				BAF0F0AB03AF0FF7004F6ED7,
+				BAF0F0AC03AF0FF7004F6ED7,
+				BAF0F0AD03AF0FF7004F6ED7,
+				BAF0F0AE03AF0FF7004F6ED7,
+				BAF0F0AF03AF0FF7004F6ED7,
+			);
+			isa = PBXSourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BAF0F08E03AF0F9E004F6ED7 = {
+			buildActionMask = 2147483647;
+			files = (
+				BADB7E0E03AF1241004F6ED7,
+				BADB7E0F03AF1246004F6ED7,
+				BADB7E1003AF1249004F6ED7,
+				BADB7E1203AF1270004F6ED7,
+				BADB7E1403AF128E004F6ED7,
+			);
+			isa = PBXFrameworksBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BAF0F08F03AF0F9E004F6ED7 = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXRezBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BAF0F09003AF0F9E004F6ED7 = {
+			buildPhases = (
+				BAF0F08C03AF0F9E004F6ED7,
+				BAF0F08D03AF0F9E004F6ED7,
+				BAF0F08E03AF0F9E004F6ED7,
+				BAF0F08F03AF0F9E004F6ED7,
+			);
+			buildSettings = {
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				HEADER_SEARCH_PATHS = "Includes ../include";
+				LIBRARY_SEARCH_PATHS = "Libraries /Users/henry/Development/PROJECTS/iSpot/libraries /usr/lib/gcc/darwin/2.95.2 /Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/mac/Libraries";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = UnitTests;
+				REZ_EXECUTABLE = YES;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = "-Wmost -Wno-four-char-constants -Wno-unknown-pragmas";
+			};
+			dependencies = (
+				BADB7E1303AF127A004F6ED7,
+			);
+			isa = PBXToolTarget;
+			name = UnitTests;
+			productInstallPath = /usr/local/bin;
+			productName = UnitTests;
+			productReference = BAF0F09103AF0F9E004F6ED7;
+		};
+		BAF0F09103AF0F9E004F6ED7 = {
+			isa = PBXExecutableFileReference;
+			path = UnitTests;
+			refType = 3;
+		};
+		BAF0F09303AF0FBA004F6ED7 = {
+			children = (
+				BAF0F09403AF0FF7004F6ED7,
+				BAF0F09E03AF0FF7004F6ED7,
+				BAF0F09903AF0FF7004F6ED7,
+				BAF0F09603AF0FF7004F6ED7,
+				BAF0F09B03AF0FF7004F6ED7,
+				BAF0F09503AF0FF7004F6ED7,
+				BAF0F09D03AF0FF7004F6ED7,
+				BAF0F09803AF0FF7004F6ED7,
+				BAF0F09703AF0FF7004F6ED7,
+				BAF0F09C03AF0FF7004F6ED7,
+				BAF0F09F03AF0FF7004F6ED7,
+				BAF0F09A03AF0FF7004F6ED7,
+				BAF0F0A003AF0FF7004F6ED7,
+				BAF0F0A103AF0FF7004F6ED7,
+			);
+			isa = PBXGroup;
+			name = "Unit Tests";
+			path = "";
+			refType = 4;
+		};
+		BAF0F09403AF0FF7004F6ED7 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			name = arial_ttf.cpp;
+			path = /Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/test/arial_ttf.cpp;
+			refType = 0;
+		};
+		BAF0F09503AF0FF7004F6ED7 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			name = "FTFont-Test.cpp";
+			path = "/Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/test/FTFont-Test.cpp";
+			refType = 0;
+		};
+		BAF0F09603AF0FF7004F6ED7 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			name = "FTContour-Test.cpp";
+			path = "/Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/test/FTContour-Test.cpp";
+			refType = 0;
+		};
+		BAF0F09703AF0FF7004F6ED7 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			name = "FTMesh-Test.cpp";
+			path = "/Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/test/FTMesh-Test.cpp";
+			refType = 0;
+		};
+		BAF0F09803AF0FF7004F6ED7 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			name = "FTLibrary-Test.cpp";
+			path = "/Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/test/FTLibrary-Test.cpp";
+			refType = 0;
+		};
+		BAF0F09903AF0FF7004F6ED7 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			name = "FTCharmap-Test.cpp";
+			path = "/Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/test/FTCharmap-Test.cpp";
+			refType = 0;
+		};
+		BAF0F09A03AF0FF7004F6ED7 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			name = "FTTesselation-Test.cpp";
+			path = "/Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/test/FTTesselation-Test.cpp";
+			refType = 0;
+		};
+		BAF0F09B03AF0FF7004F6ED7 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			name = "FTFace-Test.cpp";
+			path = "/Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/test/FTFace-Test.cpp";
+			refType = 0;
+		};
+		BAF0F09C03AF0FF7004F6ED7 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			name = "FTPoint-Test.cpp";
+			path = "/Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/test/FTPoint-Test.cpp";
+			refType = 0;
+		};
+		BAF0F09D03AF0FF7004F6ED7 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			name = "FTGlyphContainer-Test.cpp";
+			path = "/Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/test/FTGlyphContainer-Test.cpp";
+			refType = 0;
+		};
+		BAF0F09E03AF0FF7004F6ED7 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			name = "FTBBox-Test.cpp";
+			path = "/Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/test/FTBBox-Test.cpp";
+			refType = 0;
+		};
+		BAF0F09F03AF0FF7004F6ED7 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			name = "FTSize-Test.cpp";
+			path = "/Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/test/FTSize-Test.cpp";
+			refType = 0;
+		};
+		BAF0F0A003AF0FF7004F6ED7 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			name = "FTVectoriser-Test.cpp";
+			path = "/Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/test/FTVectoriser-Test.cpp";
+			refType = 0;
+		};
+		BAF0F0A103AF0FF7004F6ED7 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			name = TestMain.cpp;
+			path = /Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/test/TestMain.cpp;
+			refType = 0;
+		};
+		BAF0F0A303AF0FF7004F6ED7 = {
+			fileRef = BAF0F09503AF0FF7004F6ED7;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		BAF0F0A403AF0FF7004F6ED7 = {
+			fileRef = BAF0F09603AF0FF7004F6ED7;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		BAF0F0A503AF0FF7004F6ED7 = {
+			fileRef = BAF0F09703AF0FF7004F6ED7;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		BAF0F0A603AF0FF7004F6ED7 = {
+			fileRef = BAF0F09803AF0FF7004F6ED7;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		BAF0F0A703AF0FF7004F6ED7 = {
+			fileRef = BAF0F09903AF0FF7004F6ED7;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		BAF0F0A803AF0FF7004F6ED7 = {
+			fileRef = BAF0F09A03AF0FF7004F6ED7;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		BAF0F0A903AF0FF7004F6ED7 = {
+			fileRef = BAF0F09B03AF0FF7004F6ED7;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		BAF0F0AA03AF0FF7004F6ED7 = {
+			fileRef = BAF0F09C03AF0FF7004F6ED7;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		BAF0F0AB03AF0FF7004F6ED7 = {
+			fileRef = BAF0F09D03AF0FF7004F6ED7;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		BAF0F0AC03AF0FF7004F6ED7 = {
+			fileRef = BAF0F09E03AF0FF7004F6ED7;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		BAF0F0AD03AF0FF7004F6ED7 = {
+			fileRef = BAF0F09F03AF0FF7004F6ED7;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		BAF0F0AE03AF0FF7004F6ED7 = {
+			fileRef = BAF0F0A003AF0FF7004F6ED7;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		BAF0F0AF03AF0FF7004F6ED7 = {
+			fileRef = BAF0F0A103AF0FF7004F6ED7;
 			isa = PBXBuildFile;
 			settings = {
 			};
@@ -845,8 +1188,9 @@
 		F532B5280394A91C01608C9F = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
-			path = FTBBox.h;
-			refType = 4;
+			name = FTBBox.h;
+			path = ../include/FTBBox.h;
+			refType = 2;
 		};
 		F532B5290394A91C01608C9F = {
 			fileRef = F532B5280394A91C01608C9F;
@@ -863,8 +1207,9 @@
 		F532B52B0394A92901608C9F = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
-			path = FTPoint.h;
-			refType = 4;
+			name = FTPoint.h;
+			path = ../include/FTPoint.h;
+			refType = 2;
 		};
 		F532B52C0394A92901608C9F = {
 			fileRef = F532B52A0394A92901608C9F;
@@ -882,7 +1227,7 @@
 			fileEncoding = 30;
 			isa = PBXFileReference;
 			name = FTCharToGlyphIndexMap.h;
-			path = ../src/FTCharToGlyphIndexMap.h;
+			path = ../include/FTCharToGlyphIndexMap.h;
 			refType = 2;
 		};
 		F56BF03D031A2DEC010B7DB9 = {
@@ -895,7 +1240,7 @@
 			fileEncoding = 30;
 			isa = PBXFileReference;
 			name = FTVector.h;
-			path = ../src/FTVector.h;
+			path = ../include/FTVector.h;
 			refType = 2;
 		};
 		F56BF03F031A2E04010B7DB9 = {
