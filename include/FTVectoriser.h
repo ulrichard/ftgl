@@ -8,6 +8,8 @@
 #include FT_GLYPH_H
 
 #include "FTGL.h"
+
+#include "FTVector.h"
 #include "FTGlyph.h"
 
 #ifndef CALLBACK
@@ -70,9 +72,6 @@ class FTGL_EXPORT ftPoint
 };
 
 
-#include "FTPointVector.h"
-
-
 /**
  * FTContour class is a container of points that describe an outline
  * point data.
@@ -132,7 +131,7 @@ class FTGL_EXPORT FTContour
         /**
          *  The list of points in this contour
          */
-        typedef FTPointVector PointVector;
+        typedef FTVector<ftPoint> PointVector;
         PointVector pointList;
         
     private:
@@ -168,15 +167,12 @@ class FTGL_EXPORT FTTesselation
         size_t size() const { return pointList.size();}
 
         GLenum meshType;
-        typedef FTPointVector PointVector;
+        typedef FTVector<ftPoint> PointVector;
         PointVector pointList;
         
     private:
         
 };
-
-
-#include "FTTesselationVector.h"
 
 
 class FTGL_EXPORT FTMesh
@@ -195,10 +191,10 @@ class FTGL_EXPORT FTMesh
         void Error( GLenum e) { err = e;}
         GLenum Error() const { return err;}
 
-        typedef FTPointVector PointVector;
+        typedef FTVector<ftPoint> PointVector;
         PointVector tempPool;
         
-        typedef FTTesselationVector TesselationVector;
+        typedef FTVector<FTTesselation*> TesselationVector;
         TesselationVector tess;
         
     protected:
@@ -212,8 +208,6 @@ class FTGL_EXPORT FTMesh
 
 };
 
-
-#include "FTContourVector.h"
 
 
 /**
@@ -345,7 +339,7 @@ class FTGL_EXPORT FTVectoriser
         /**
          * The list of contours in this outline
          */
-        typedef FTContourVector ContourVector;
+        typedef FTVector<FTContour*> ContourVector;
         ContourVector contourList;
             
         /**
