@@ -1,4 +1,4 @@
-AC_INIT(ftgl, 1.4, henryj@paradise.net.nz)
+AC_INIT(ftgl, 2.0.5, henryj@paradise.net.nz)
 AC_CONFIG_SRCDIR([Make.conf.in])
 dnl AC_CONFIG_HEADER([src/config.h])
 
