@@ -155,6 +155,7 @@
 				F532B5290394A91C01608C9F,
 				F532B52D0394A92901608C9F,
 				BA79CB0303A176E7002F90D7,
+				BA3F38F603B1D529004F6ED7,
 			);
 			isa = PBXHeadersBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;
@@ -237,6 +238,7 @@
 				66BA08B001C4638C000ABFD4,
 				66BA08B101C4638C000ABFD4,
 				66BA08B201C4638C000ABFD4,
+				BA3F38F503B1D529004F6ED7,
 				66BA08B301C4638C000ABFD4,
 				66BA08B401C4638C000ABFD4,
 				66BA08B501C4638C000ABFD4,
@@ -840,6 +842,45 @@
 			settings = {
 			};
 		};
+		BA3F38F103B1D4FD004F6ED7 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			name = "FTList-Test.cpp";
+			path = "../test/FTList-Test.cpp";
+			refType = 2;
+		};
+		BA3F38F203B1D4FD004F6ED7 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			name = "FTVector-Test.cpp";
+			path = "../test/FTVector-Test.cpp";
+			refType = 2;
+		};
+		BA3F38F303B1D4FD004F6ED7 = {
+			fileRef = BA3F38F103B1D4FD004F6ED7;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		BA3F38F403B1D4FD004F6ED7 = {
+			fileRef = BA3F38F203B1D4FD004F6ED7;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		BA3F38F503B1D529004F6ED7 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			name = FTList.h;
+			path = ../include/FTList.h;
+			refType = 2;
+		};
+		BA3F38F603B1D529004F6ED7 = {
+			fileRef = BA3F38F503B1D529004F6ED7;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
 		BA79CB0003A176E7002F90D7 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
@@ -929,6 +970,8 @@
 				BAF0F0AD03AF0FF7004F6ED7,
 				BAF0F0AE03AF0FF7004F6ED7,
 				BAF0F0AF03AF0FF7004F6ED7,
+				BA3F38F303B1D4FD004F6ED7,
+				BA3F38F403B1D4FD004F6ED7,
 			);
 			isa = PBXSourcesBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1001,6 +1044,8 @@
 				BAF0F09F03AF0FF7004F6ED7,
 				BAF0F09A03AF0FF7004F6ED7,
 				BAF0F0A003AF0FF7004F6ED7,
+				BA3F38F103B1D4FD004F6ED7,
+				BA3F38F203B1D4FD004F6ED7,
 				BAF0F0A103AF0FF7004F6ED7,
 			);
 			isa = PBXGroup;
@@ -1103,8 +1148,8 @@
 			fileEncoding = 30;
 			isa = PBXFileReference;
 			name = TestMain.cpp;
-			path = /Users/henry/Development/PROJECTS/FTGL/test/TestMain.cpp;
-			refType = 0;
+			path = ../test/TestMain.cpp;
+			refType = 2;
 		};
 		BAF0F0A303AF0FF7004F6ED7 = {
 			fileRef = BAF0F09503AF0FF7004F6ED7;
