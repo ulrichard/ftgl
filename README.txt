@@ -59,14 +59,6 @@ When is the best time to construct the glyphList? After the call to Size(x)
 is the earliest but what happens if the client doesn't set the char size?
 Define a default size, check if glyphlist is valid in render function, if
 not call size with default size.
- 
-Need a way to restrict the glyphs to a custom set. eg an app only needs
-numbers so we should only create a glyphList of the number characters.
-This will enable us to have a restricted set of HIGH quality glyphs.
-have 2 range functions. One that takes an upper and lower bounds
-font.Range( 32, 127);
-and one that takes a string of characters.
-font.Range( "only process these glyphs");   "ceghlnoprsty"
 
 Might have to move the init code out of the glyph constructors into an
 init function so that they can return errors.
