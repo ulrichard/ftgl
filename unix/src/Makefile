@@ -75,8 +75,8 @@ libftgl.la: $(LOBJS)
 install-local: libftgl.la
 	$(INSTALL) -d -m 0755 $(libdir)
 	$(LIBTOOL) --mode=install $(INSTALL) -m 0644 $(TARGET) $(libdir)
-    $(INSTALL) -d -m 0755 $(includedir)/FTGL
-    $(INSTALL) -m 0644 $(HEADER_FILES) $(includedir)/FTGL
+	$(INSTALL) -d -m 0755 $(includedir)/FTGL
+	$(INSTALL) -m 0644 $(HEADER_FILES) $(includedir)/FTGL
 
 
 clean-local:
