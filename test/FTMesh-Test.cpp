@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include <cppunit/extensions/HelperMacros.h>
 #include <cppunit/TestCaller.h>
 #include <cppunit/TestCase.h>
