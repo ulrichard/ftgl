@@ -189,6 +189,9 @@ class FTGL_EXPORT FTMesh
 		void Error( GLenum e) { err = e;}
 		GLenum Error() const { return err;}
 
+		/**
+		 * Holds points created by glCombine
+		 */
 		vector< ftPoint> tempPool;
 		vector< FTTesselation*> tess;
 	protected:
