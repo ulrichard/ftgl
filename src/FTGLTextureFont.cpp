@@ -8,7 +8,6 @@
 
 typedef unsigned long	UInt32; // a mac thing?
 
-
 inline UInt32 NextPowerOf2( UInt32 in)
 {
      in -= 1;
@@ -56,7 +55,7 @@ bool FTGLTextureFont::MakeGlyphList()
 	if( textureHeight > maxTextSize)
 	{
 		numTextures = static_cast<int>( textureHeight / maxTextSize) + 1;
-		if( numTextures > 15)
+		if( numTextures > 15) // FIXME
 			numTextures = 15;
 		
 		int heightRemain = NextPowerOf2( textureHeight % maxTextSize);
@@ -125,7 +124,7 @@ unsigned int FTGLTextureFont::FillGlyphs( unsigned int glyphStart, int id, int w
 			
 			tempGlyph = new FTTextureGlyph( *ftGlyph, n, id, data, width, height, currTextU, currTextV);
 			glyphList->Add( tempGlyph);
-			
+
 			currentTextX += glyphWidth;
 			if( currentTextX > ( width - glyphWidth))
 			{
@@ -149,7 +148,7 @@ unsigned int FTGLTextureFont::FillGlyphs( unsigned int glyphStart, int id, int w
 
 void FTGLTextureFont::GetSize()
 {
-	//work out the max width. Most likely maxTextSize!
+	//work out the max width. Most likely maxTextSize
 	textureWidth = NextPowerOf2( numGlyphs * glyphWidth);
 	if( textureWidth > maxTextSize)
 	{
