@@ -1,5 +1,5 @@
-FTGL 1.0b5
-August 29 2001
+FTGL 1.0b6
+September 20 2001
 
 DESCRIPTION:
 FTGL library is a cross platform tool to allow OpenGL (www.opengl.org) to
@@ -44,11 +44,7 @@ Things to think about...
 The whole char size thing is major headache.
 At the moment if you call font.CharSize( x) the glyph list is destroyed and
 rebuilt, which will be really, really, really inefficient if you change sizes
-often. Will the freetype cache stuff help here or should we cache internally?
-Multiple glyphlists. glyphlist manager. Multiple glyphLists will chew up
-memory. Maybe a <map> will help here, maybe a map will let us cache glyphs
-as required rather than all at startup? This wont help texture glyphs.
-If we allow multiple faces and sizes how should they be handled.
+often. Will the freetype cache stuff help?
 
 When is the best time to construct the glyphList? After the call to Size(x)
 is the earliest but what happens if the client doesn't set the char size?
@@ -63,9 +59,6 @@ Might have to move the init code out of the glyph constructors into an
 init function so that they can return errors.
 
 good site...http://cgm.cs.mcgill.ca/~luc/
-
-Apparently...C++ guarantees that delete can safely be called on a NULL
-pointer. Something to remember for the future.
 
 PROFILING
 test 1
@@ -100,7 +93,6 @@ FUTURE:
 	- check and confirm the glPixelStore stuff. Data Alignment. Tightly
 	  packed at the moment.
 	- Use the Freetype Cache mechanism. See above. FTC_xxx
-	- Alignment. left right, centre.
 	- Vertical formats
 	- For platforms that have antialiased lines but not polys we could
 	  outline the polyfonts with lines to get better looking glyphs.
@@ -124,6 +116,7 @@ BUGS:
 	  hopefully the freetype guys will sort this.
 
 
+September 20 2001
 	1.0b6
 	- Implemented the new FTCharmap class. The performance improvement
 	  is dramatic.
