@@ -2,13 +2,12 @@
 #include    "FTGlyph.h"
 #include    "FTFace.h"
 
-FTGlyphContainer::FTGlyphContainer( FTFace* f, unsigned int g, bool p)
-:   preCache( p),
-    numGlyphs( g),
+
+FTGlyphContainer::FTGlyphContainer( FTFace* f, unsigned int g)
+:   numGlyphs( g),
     face( f),
     err( 0)
 {
-    // Fill the glyphlist with null glyphs
     glyphs.resize( g, NULL);
 }
 

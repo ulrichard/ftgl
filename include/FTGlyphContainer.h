@@ -28,7 +28,7 @@ class FTGL_EXPORT FTGlyphContainer
          * @param p         A flag to indicate preprocessing of glyphs.
          *                  Not used.
          */
-        FTGlyphContainer( FTFace* face, unsigned int numGlyphs, bool p = false);
+        FTGlyphContainer( FTFace* face, unsigned int numGlyphs);
 
         /**
          * Destructor
@@ -82,11 +82,6 @@ class FTGL_EXPORT FTGlyphContainer
         virtual FT_Error Error() const { return err;}
 
     private:
-        /**
-         * A flag to indicate preprocessing of glyphs. Not used.
-         */
-        bool preCache;
-
         /**
          * How meny glyphs are stored in this container
          */
