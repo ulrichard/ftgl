@@ -1,8 +1,10 @@
+#ifdef FTGL_DEBUG
+	#include "mmgr.h"
+#endif
+
 #include	"FTExtrdGlyph.h"
 #include	"FTVectoriser.h"
 
-
-//#include "mmgr.h"
 
 FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
 :	FTGlyph(),
@@ -121,35 +123,22 @@ FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
 		FT_OutlineGlyph outline = (FT_OutlineGlyph)glyph;
 		FT_Outline ftOutline = outline->outline;
 		int contourFlag = ftOutline.flags; // this is broken for winding direction in freetype so...
-		// Calculate the winding direction. use formula from redbook.
-		double x1 = *( sidemesh);
-		double x2 = *( sidemesh + 1);
-		double x3 = *( sidemesh + 2);
-		double y1 = *( sidemesh + 3);
-		double y2 = *( sidemesh + 4);
-		double y3 = *( sidemesh + 5);
-		
-		double a1 = ( x1 * y2) - ( x2 * y1);
-		double a2 = ( x2 * y3) - ( x3 * y2);
-		double a3 = ( x3 * y1) - ( x1 * y3);
-		
-		double a = ( a1 + a2 + a3) / 2;
-		
-		bool winding = a < 0 ? false: true;
 
-		
+		// This assumes that the first contour is an outside contour!!!
+		bool winding = Winding( contourLength[0], sidemesh);
+			
 		// Join them together.
 		// Extrude each contour to make the sides.
 		double* contour = sidemesh;
 		for (int c=0; c<numContours; ++c)
 		{
-		
 			// Make a quad strip using each successive
 			// pair of points in this contour.
 			int numPoints = contourLength[c];
-			glBegin(GL_QUAD_STRIP);
+			
+			glBegin( GL_QUAD_STRIP);
 
-				for (int j= 0; j <= numPoints; ++j)
+				for( int j= 0; j <= numPoints; ++j)
 				{
 					int j1 = (j < numPoints) ? j : 0;
 					int j0 = (j1 == 0) ? (numPoints-1) : (j1-1);
@@ -166,7 +155,7 @@ FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
 					glNormal3d(-vy, vx, 0.0);
 					
 					// Add vertices to the quad strip.
-					// Winding order!!!
+					// Winding order
 //					if( contourFlag & ft_outline_reverse_fill) // this is broken in freetype so...
 					if( winding)
 					{
@@ -202,6 +191,25 @@ FTExtrdGlyph::~FTExtrdGlyph()
 //		delete [] data; // FIXME
 }
 
+
+bool FTExtrdGlyph::Winding( int numPoints, double *points)
+{
+	// Calculate the winding direction. use formula from redbook.
+	double area = 0;
+	
+	for( int count= 0; count <= numPoints; ++count)
+	{
+		int j1 = (count < numPoints) ? count : 0;
+		int j0 = (j1 == 0) ? ( numPoints-1) : ( j1-1);
+
+		double* p0 = points + j0 * 3;
+		double* p1 = points + j1 * 3;
+
+		area += ( p0[0] * p1[1]) - ( p1[0] * p0[1]);	
+	}
+	
+	return( area < 0 ? false: true);
+}
 
 float FTExtrdGlyph::Render( const FT_Vector& pen)
 {

@@ -44,11 +44,12 @@ class FTGL_EXPORT FTExtrdGlyph : public FTGlyph
 		
 	private:
 		/**
-		 * Convert the point data into a mesh.
+		 * Calculate the winding direction of a contour.
 		 *
-		 * Uses GLUtesselator to create a mesh
+		 * This uses the signed area of the contour. It is required because
+		 * freetype doesn't do this despite the docs saying it does:(
 		 */
-		void Tesselate();
+		bool Winding( int numPoints, double *points);
 		
 		/**
 		 * An object that helps convert freetype outlines into point
