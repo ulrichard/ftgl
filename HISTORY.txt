@@ -1,5 +1,13 @@
-FTGL 2.04 (FTGL_2_0_4)
+FTGL 2.05 (FTGL_2_0_5)
+ 	- Refactored FTGlyphContainer & FTCharmap. They now store FTGlyphs
+ 	  sequentially rather than by glyph index. This should save a heap of
+ 	  memory and a bit of time at startup.
+    - Changed the Mac font paths in the demos.
+    - Changed the unit tests for new hinter in Freetype 2.1.4.
+    - Added a test for broken contour tags.
+
 12 April 2003
+    2.04 (FTGL_2_0_4)
     - Fixed resize behavior in FTGLTextureFont.
     
 9 April 2003
