@@ -1,5 +1,10 @@
-FTGL 2.0.9 (FTGL_2_0_9)
+FTGL 2.0.10 (FTGL_2_0_10)
+16 August 2004
+    - Fixed tab problem in unix Makefile.
+    - Updated FTFont( *pBufferBytes, bufferSizeInBytes) documentation.
+
 21 April 2004
+    2.0.9 (FTGL_2_0_9)
     - Fixed includes for pre 2.1.7 versions of freetype
     - Changed unix build to create FTGL subdir for includes
     
