@@ -11,7 +11,7 @@ FTContour::FTContour( FT_Vector* contour, char* pointTags, unsigned int numberOf
         
         if( pointTag == FT_Curve_Tag_On)
         {
-            AddPoint( FTPoint( contour[pointIndex]));
+            AddPoint( contour[pointIndex].x, contour[pointIndex].y);
             continue;
         }
         
@@ -36,9 +36,9 @@ FTContour::FTContour( FT_Vector* contour, char* pointTags, unsigned int numberOf
                                      static_cast<float>( controlPoint.y + nextPoint.y) * 0.5f,
                                      0);
 
-                bValues[0][0] = previousPoint.x; bValues[0][1] = previousPoint.y;
-                bValues[1][0] = controlPoint.x;  bValues[1][1] = controlPoint.y;
-                bValues[2][0] = nextPoint.x;     bValues[2][1] = nextPoint.y;
+                controlPoints[0][0] = previousPoint.x; controlPoints[0][1] = previousPoint.y;
+                controlPoints[1][0] = controlPoint.x;  controlPoints[1][1] = controlPoint.y;
+                controlPoints[2][0] = nextPoint.x;     controlPoints[2][1] = nextPoint.y;
                 
                 evaluateQuadraticCurve();
                 ++pointIndex;
@@ -53,9 +53,9 @@ FTContour::FTContour( FT_Vector* contour, char* pointTags, unsigned int numberOf
                                : pointTags[pointIndex + 1];
             }
             
-            bValues[0][0] = previousPoint.x; bValues[0][1] = previousPoint.y;
-            bValues[1][0] = controlPoint.x;  bValues[1][1] = controlPoint.y;
-            bValues[2][0] = nextPoint.x;     bValues[2][1] = nextPoint.y;
+            controlPoints[0][0] = previousPoint.x; controlPoints[0][1] = previousPoint.y;
+            controlPoints[1][0] = controlPoint.x;  controlPoints[1][1] = controlPoint.y;
+            controlPoints[2][0] = nextPoint.x;     controlPoints[2][1] = nextPoint.y;
             
             evaluateQuadraticCurve();
             continue;
@@ -69,10 +69,10 @@ FTContour::FTContour( FT_Vector* contour, char* pointTags, unsigned int numberOf
                                 ? pointList[0]
                                 : FTPoint( contour[pointIndex + 2]);
             
-            bValues[0][0] = previousPoint.x; bValues[0][1] = previousPoint.y;
-            bValues[1][0] = controlPoint.x;  bValues[1][1] = controlPoint.y;
-            bValues[2][0] = controlPoint2.x; bValues[2][1] = controlPoint2.y;
-            bValues[3][0] = nextPoint.x;     bValues[3][1] = nextPoint.y;
+            controlPoints[0][0] = previousPoint.x; controlPoints[0][1] = previousPoint.y;
+            controlPoints[1][0] = controlPoint.x;  controlPoints[1][1] = controlPoint.y;
+            controlPoints[2][0] = controlPoint2.x; controlPoints[2][1] = controlPoint2.y;
+            controlPoints[3][0] = nextPoint.x;     controlPoints[3][1] = nextPoint.y;
         
             evaluateCubicCurve();
             ++pointIndex;
@@ -91,24 +91,35 @@ void FTContour::AddPoint( FTPoint point)
 }
 
 
+void FTContour::AddPoint( float x, float y)
+{
+    FTPoint point( x, y, 0.0f);
+    
+    if( pointList.empty() || point != pointList[pointList.size() - 1])
+    {
+        pointList.push_back( point);
+    }
+}
+
+
 void FTContour::evaluateQuadraticCurve()
 {
     for( unsigned int i = 0; i <= ( 1.0f / BEZIER_STEP_SIZE); i++)
     {
-        float tempBValues[2][2];
+        float bezierValues[2][2];
 
         float t = static_cast<float>(i) * BEZIER_STEP_SIZE;
 
-        tempBValues[0][0] = (1.0f - t) * bValues[0][0] + t * bValues[1][0];
-        tempBValues[0][1] = (1.0f - t) * bValues[0][1] + t * bValues[1][1];
+        bezierValues[0][0] = (1.0f - t) * controlPoints[0][0] + t * controlPoints[1][0];
+        bezierValues[0][1] = (1.0f - t) * controlPoints[0][1] + t * controlPoints[1][1];
     
-        tempBValues[1][0] = (1.0f - t) * bValues[1][0] + t * bValues[2][0];
-        tempBValues[1][1] = (1.0f - t) * bValues[1][1] + t * bValues[2][1];
+        bezierValues[1][0] = (1.0f - t) * controlPoints[1][0] + t * controlPoints[2][0];
+        bezierValues[1][1] = (1.0f - t) * controlPoints[1][1] + t * controlPoints[2][1];
         
-        tempBValues[0][0] = (1.0f - t) * tempBValues[0][0] + t * tempBValues[1][0];
-        tempBValues[0][1] = (1.0f - t) * tempBValues[0][1] + t * tempBValues[1][1];
+        bezierValues[0][0] = (1.0f - t) * bezierValues[0][0] + t * bezierValues[1][0];
+        bezierValues[0][1] = (1.0f - t) * bezierValues[0][1] + t * bezierValues[1][1];
     
-        AddPoint( FTPoint( tempBValues[0][0], tempBValues[0][1], 0.0f));
+        AddPoint( bezierValues[0][0], bezierValues[0][1]);
     }
 }
 
@@ -116,29 +127,29 @@ void FTContour::evaluateCubicCurve()
 {
     for( unsigned int i = 0; i <= ( 1.0f / BEZIER_STEP_SIZE); i++)
     {
-        float tempBValues[3][2];
+        float bezierValues[3][2];
 
         float t = static_cast<float>(i) * BEZIER_STEP_SIZE;
 
-        tempBValues[0][0] = (1.0f - t) * bValues[0][0] + t * bValues[1][0];
-        tempBValues[0][1] = (1.0f - t) * bValues[0][1] + t * bValues[1][1];
+        bezierValues[0][0] = (1.0f - t) * controlPoints[0][0] + t * controlPoints[1][0];
+        bezierValues[0][1] = (1.0f - t) * controlPoints[0][1] + t * controlPoints[1][1];
     
-        tempBValues[1][0] = (1.0f - t) * bValues[1][0] + t * bValues[2][0];
-        tempBValues[1][1] = (1.0f - t) * bValues[1][1] + t * bValues[2][1];
+        bezierValues[1][0] = (1.0f - t) * controlPoints[1][0] + t * controlPoints[2][0];
+        bezierValues[1][1] = (1.0f - t) * controlPoints[1][1] + t * controlPoints[2][1];
         
-        tempBValues[2][0] = (1.0f - t) * bValues[2][0] + t * bValues[3][0];
-        tempBValues[2][1] = (1.0f - t) * bValues[2][1] + t * bValues[3][1];
+        bezierValues[2][0] = (1.0f - t) * controlPoints[2][0] + t * controlPoints[3][0];
+        bezierValues[2][1] = (1.0f - t) * controlPoints[2][1] + t * controlPoints[3][1];
         
-        tempBValues[0][0] = (1.0f - t) * tempBValues[0][0] + t * tempBValues[1][0];
-        tempBValues[0][1] = (1.0f - t) * tempBValues[0][1] + t * tempBValues[1][1];
+        bezierValues[0][0] = (1.0f - t) * bezierValues[0][0] + t * bezierValues[1][0];
+        bezierValues[0][1] = (1.0f - t) * bezierValues[0][1] + t * bezierValues[1][1];
     
-        tempBValues[1][0] = (1.0f - t) * tempBValues[1][0] + t * tempBValues[2][0];
-        tempBValues[1][1] = (1.0f - t) * tempBValues[1][1] + t * tempBValues[2][1];
+        bezierValues[1][0] = (1.0f - t) * bezierValues[1][0] + t * bezierValues[2][0];
+        bezierValues[1][1] = (1.0f - t) * bezierValues[1][1] + t * bezierValues[2][1];
         
-        tempBValues[0][0] = (1.0f - t) * tempBValues[0][0] + t * tempBValues[1][0];
-        tempBValues[0][1] = (1.0f - t) * tempBValues[0][1] + t * tempBValues[1][1];
+        bezierValues[0][0] = (1.0f - t) * bezierValues[0][0] + t * bezierValues[1][0];
+        bezierValues[0][1] = (1.0f - t) * bezierValues[0][1] + t * bezierValues[1][1];
     
-        AddPoint( FTPoint( tempBValues[0][0], tempBValues[0][1], 0.0f));
+        AddPoint( bezierValues[0][0], bezierValues[0][1]);
     }
 }
 

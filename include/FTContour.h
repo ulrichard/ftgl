@@ -59,6 +59,8 @@ class FTGL_EXPORT FTContour
          */
         inline void AddPoint( FTPoint point);
         
+        void AddPoint( float x, float y);
+        
         /**
          * De Casteljau (bezier) algorithm contributed by Jed Soane
          * Evaluates a quadratic or conic (second degree) curve
@@ -80,7 +82,7 @@ class FTGL_EXPORT FTContour
         /**
          * 2D array storing values of de Casteljau algorithm.
          */
-        float bValues[4][2];
+        float controlPoints[4][2];
 };
 
 #endif // __FTContour__
