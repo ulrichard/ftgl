@@ -12,6 +12,9 @@ class	FTGLPixmapFont : public FTFont
 		// methods
 		FTGLPixmapFont();
 		~FTGLPixmapFont();
+		
+		void render( const char* string);
+
 
 	private:
 		// methods

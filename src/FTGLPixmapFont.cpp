@@ -1,3 +1,5 @@
+#include	"GL/gl.h"
+
 #include	"FTGLPixmapFont.h"
 #include	"FTGlyphContainer.h"
 #include	"FTPixmapGlyph.h"
@@ -40,4 +42,18 @@ bool FTGLPixmapFont::MakeGlyphList()
 		glyphList->Add( tempGlyph);
 		
 	}
+}
+
+
+void FTGLPixmapFont::render( const char* string)
+{	
+	glPushAttrib( GL_ENABLE_BIT | GL_PIXEL_MODE_BIT);
+
+	glEnable(GL_BLEND);
+ 	glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	FTFont::render( string);
+
+	glPopAttrib();
+
 }
