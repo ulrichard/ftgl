@@ -1,5 +1,5 @@
-FTGL 1.0
-October 24 2001
+FTGL 1.01
+October 26 2001
 
 DESCRIPTION:
 FTGL library is a cross platform tool to allow OpenGL (www.opengl.org) to

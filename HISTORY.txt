@@ -1,8 +1,16 @@
-FTGL 1.0
+FTGL 1.01
+October 26 2001
+	1.01 (FTGL_1_0_1)
+	- Removed the glEnable( GL_TEXTURE_2D) from FTGLTextureFont
+	- Removed the redundant tempGlyph members in the FTGLXXXXFont classes
+	- Made a change in FTGL.h to include correct headers for MAC OSX
+	- FTGL.h now includes glu.h
+	- Minor fixes to get rid of Project Builder warnings (MAC OSX)
+	- Fixed some of the docs
+
 October 24 2001
 	1.0 (FTGL_1_0_0)
 	- Version 1.0 release
-
 
 September 29 2001
 	1.0b7 (FTGL_1_0_BETA_7)
@@ -13,7 +21,6 @@ September 29 2001
 	- New distribution structure
 	- Minor changes for windows (VC 6)
 	- Windows and Linux ports.
-
 
 September 20 2001
 	1.0b6 (FTGL_1_0_BETA_6)
@@ -70,7 +77,7 @@ August 8 2001
 	- Moved pixel store stuff out of BitmapGlyph into BitmapFont.
 	- Minor changes for IRIX (compiles but isn't tested)
 	- Pixmap fonts can now be in colour. It uses the current colour when the
-	  font is CREATED. This isn't ideal but is better then the alternatives.
+	  font is CREATED. This isn't ideal but is better than the alternatives.
 	- Tidied up the error handling.
 	- Minor code clean ups.
 

@@ -1,9 +1,11 @@
-FTGL 1.0
-October 24 2001
+FTGL 1.01
+October 26 2001
 
 TODO:
 	- namespace ftgl or gltt?
-	- Distributions MACOS X
+	- Distribution MACOS X
+	- Get rid of the static activeTextureID in FTTextureGlyph. Maybe
+	  replace with glGetIntegerv( GL_TEXTURE_2D_BINDING, activeTextureID);
 	
 FUTURE:
 	- select face ie italic, bold etc
@@ -19,10 +21,9 @@ FUTURE:
 	  outline the polyfonts with lines to get better looking glyphs.
 	- Improve the grid fitting scheme in texture fonts.
 	- Multiple Masters
-	- Helper classes...
-	  - String Cache
-	  - Provide an interface to access the point data for outlines and
-	    polygon meshes.
+	- String Cache or string chunks
+	- Provide an interface to access the point data for outlines and
+	  polygon meshes.
 
 
 BUGS:
