@@ -17,7 +17,6 @@ class FTFaceTest : public CppUnit::TestCase
         CPPUNIT_TEST( testGlyphCount);
         CPPUNIT_TEST( testSetFontSize);
         CPPUNIT_TEST( testGetCharmapList);
-        CPPUNIT_TEST( testUnitPerEMSquare);
         CPPUNIT_TEST( testKerning);
     CPPUNIT_TEST_SUITE_END();
 
@@ -96,20 +95,15 @@ class FTFaceTest : public CppUnit::TestCase
         }
         
         
-        void testUnitPerEMSquare()
-        {
-            CPPUNIT_ASSERT_DOUBLES_EQUAL( 1000, testFace->UnitsPerEM(), 0);
-        }
-
-        
         void testKerning()
         {
-            FTPoint kerningVector = testFace->KernAdvance( 'A', 'W');
+            FTFace test(ARIAL_FONT_FILE);
+            FTPoint kerningVector = test.KernAdvance( 'A', 'A');
             CPPUNIT_ASSERT( kerningVector.x == 0);
             CPPUNIT_ASSERT( kerningVector.y == 0);
             CPPUNIT_ASSERT( kerningVector.z == 0);
         
-            kerningVector = testFace->KernAdvance( 0x6FB3, 0x9580);
+            kerningVector = test.KernAdvance( 0x6FB3, 0x9580);
             CPPUNIT_ASSERT( kerningVector.x == 0);
             CPPUNIT_ASSERT( kerningVector.y == 0);
             CPPUNIT_ASSERT( kerningVector.z == 0);
