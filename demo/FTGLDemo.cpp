@@ -353,8 +353,8 @@ void display(void)
 		case FTGL_POLYGON:
 		case FTGL_EXTRUDE:
 		case FTGL_TEXTURE:
-			tbMatrix();
          glTranslatef(OX,OY,0);
+			tbMatrix();
 			break;
 	}
 	
