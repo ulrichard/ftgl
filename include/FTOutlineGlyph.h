@@ -72,7 +72,7 @@ class FTGL_EXPORT FTOutlineGlyph : public FTGlyph
 		/**
 		 * OpenGL display list
 		 */
-		int glList;
+		GLuint glList;
 	
 };
 

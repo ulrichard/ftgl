@@ -69,7 +69,7 @@ class FTGL_EXPORT FTPolyGlyph : public FTGlyph
 		/**
 		 * OpenGL display list
 		 */
-		int glList;
+		GLuint glList;
 	
 };
 
