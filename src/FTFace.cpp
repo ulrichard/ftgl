@@ -47,7 +47,7 @@ bool FTFace::Open( const unsigned char *pBufferBytes, size_t bufferSizeInBytes )
     ftFace = new FT_Face;
 
     // FIXME check library for errors
-    err = FT_New_Memory_Face( *FTLibrary::Instance().GetLibrary(), pBufferBytes, bufferSizeInBytes, DEFAULT_FACE_INDEX, ftFace);
+    err = FT_New_Memory_Face( *FTLibrary::Instance().GetLibrary(), (FT_Byte *)pBufferBytes, bufferSizeInBytes, DEFAULT_FACE_INDEX, ftFace);
 
     if( err)
     {
