@@ -267,12 +267,14 @@ void FTVectoriser::deCasteljau( const float t, const int n)
 {
     //Calculating successive b(i)'s using de Casteljau algorithm.
     for( int i = 1; i <= n; i++)
+    {
         for( int k = 0; k <= (n - i); k++)
         {
             bValues[i][k][0] = (1 - t) * bValues[i - 1][k][0] + t * bValues[i - 1][k + 1][0];
             bValues[i][k][1] = (1 - t) * bValues[i - 1][k][1] + t * bValues[i - 1][k + 1][1];
         }
-        
+    }
+       
     //Specify next vertex to be included on curve
     contour->AddPoint( bValues[n][0][0], bValues[n][0][1]);
 }
@@ -293,7 +295,7 @@ void FTVectoriser::evaluateCurve( const int n)
     for( int m = 0; m <= ( 1 / kBSTEPSIZE); m++)
     {
         t = m * kBSTEPSIZE;
-        deCasteljau( t, n);  //calls to evaluate point on curve att.
+        deCasteljau( t, n);  //calls to evaluate point on curve at t.
     }
 }
 
