@@ -5,7 +5,10 @@
 
 
 FTBitmapGlyph::FTBitmapGlyph( FT_Glyph glyph, int gi)
-:	FTGlyph( gi)
+:	FTGlyph( gi),
+	destWidth(0),
+	destHeight(0),
+	data(0)
 {
 	if( !glyph->format == ft_glyph_format_bitmap)
 	{ return;}
@@ -59,7 +62,7 @@ FTBitmapGlyph::~FTBitmapGlyph()
 }
 
 
-float FTBitmapGlyph::Render( FT_Vector& pen)
+float FTBitmapGlyph::Render( const FT_Vector& pen)
 {
 	if( data != 0 )
 	{
