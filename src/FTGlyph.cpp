@@ -16,5 +16,5 @@ FTGlyph::FTGlyph( unsigned int gi)
 // OPSignature:  FTGlyph:~FTGlyph() 
 FTGlyph::~FTGlyph()
 {
-	FT_Done_Glyph(ftGlyph); // Is this OK?
+	FT_Done_Glyph(ftGlyph); //FIXME Is this OK?
 }
