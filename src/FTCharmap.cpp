@@ -5,6 +5,12 @@ FTCharmap::FTCharmap( FT_Face face)
 :	ftFace( face),
 	err(0)
 {
+	// Check that the default is valid
+	if( !face->charmap)
+	{
+		FT_Set_Charmap( ftFace, ftFace->charmaps[0]);
+	}
+	
 	ftEncoding = face->charmap->encoding;
 }
 
