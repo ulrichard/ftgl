@@ -20,8 +20,8 @@ class FTLibraryTest : public CppUnit::TestCase
 
         void testConstructor()
         {
-            FTLibrary& libraryOne = FTLibrary::Instance();
-            FTLibrary& libraryTwo = FTLibrary::Instance();
+            const FTLibrary& libraryOne = FTLibrary::Instance();
+            const FTLibrary& libraryTwo = FTLibrary::Instance();
             
             CPPUNIT_ASSERT( &libraryOne == &libraryTwo);
             CPPUNIT_ASSERT( &libraryOne == &FTLibrary::Instance());
@@ -30,7 +30,7 @@ class FTLibraryTest : public CppUnit::TestCase
         
         void testError()
         {
-            FTLibrary& library = FTLibrary::Instance();
+            const FTLibrary& library = FTLibrary::Instance();
             
             CPPUNIT_ASSERT( library.Error() == 0);
         }
