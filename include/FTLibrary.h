@@ -1,11 +1,11 @@
 #ifndef     __FTLibrary__
 #define     __FTLibrary__
 
-#include "FTGL.h"
-
 #include <ft2build.h>
 #include FT_FREETYPE_H
 //#include FT_CACHE_H
+
+#include "FTGL.h"
 
 
 /**
@@ -41,7 +41,7 @@ class FTGL_EXPORT FTLibrary
          * 
          * @return A handle to a FreeType library instance. 
          */
-        FT_Library* GetLibrary() const { return library;}
+        const FT_Library* const GetLibrary() const { return library;}
         
         /**
          * Queries the library for errors.
