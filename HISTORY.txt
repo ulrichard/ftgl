@@ -1,3 +1,4 @@
+August 26 2002
 FTGL 1.4
     - FTL now requires 2.0.9 or later. See below for reason.
     - Merged 1.32 branch with main tree
