@@ -21,10 +21,11 @@ FTFace::~FTFace()
 
 bool FTFace::Open( const char* filename)
 {
+    const FT_Long DEFAULT_FACE_INDEX = 0;
     ftFace = new FT_Face;
     
     // FIXME check library for errors
-    err = FT_New_Face( *FTLibrary::Instance().GetLibrary(), filename, 0, ftFace);
+    err = FT_New_Face( *FTLibrary::Instance().GetLibrary(), filename, DEFAULT_FACE_INDEX, ftFace);
 
     if( err)
     {
@@ -42,10 +43,11 @@ bool FTFace::Open( const char* filename)
 
 bool FTFace::Open( const unsigned char *pBufferBytes, size_t bufferSizeInBytes )
 {
+    const FT_Long DEFAULT_FACE_INDEX = 0;
     ftFace = new FT_Face;
 
     // FIXME check library for errors
-    err = FT_New_Memory_Face( *FTLibrary::Instance().GetLibrary(), pBufferBytes, bufferSizeInBytes, 0, ftFace);
+    err = FT_New_Memory_Face( *FTLibrary::Instance().GetLibrary(), pBufferBytes, bufferSizeInBytes, DEFAULT_FACE_INDEX, ftFace);
 
     if( err)
     {
