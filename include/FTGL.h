@@ -1,6 +1,13 @@
 #ifndef		__FTGL__
 #define		__FTGL__
 
+// To include debug memory manager by Paul Nettle (midnight@FluidStudios.com)
+// http://www.FluidStudios.com/publications.html
+// Get this code and use it. It will open your eyes:)
+// #define FTGL_DEBUG
+
+typedef double FTGL_DOUBLE;
+typedef float FTGL_FLOAT;
 
 #ifdef WIN32
 	// stl stuff
@@ -98,6 +105,5 @@
 #else
 	#  define FTGL_EXPORT
 #endif  
-
 
 #endif	//	__FTGL__
