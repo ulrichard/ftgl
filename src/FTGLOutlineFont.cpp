@@ -19,9 +19,9 @@ bool FTGLOutlineFont::MakeGlyphList()
 {
 	for( unsigned int n = 0; n < numGlyphs; ++n)
 	{
-		FT_Glyph ftGlyph = face.Glyph( n, FT_LOAD_NO_HINTING | FT_LOAD_NO_BITMAP);
+		FT_Glyph* ftGlyph = face.Glyph( n, FT_LOAD_NO_HINTING | FT_LOAD_NO_BITMAP);
 		
-		tempGlyph = new FTVectorGlyph( ftGlyph, n);
+		tempGlyph = new FTVectorGlyph( *ftGlyph, n);
 		glyphList->Add( tempGlyph);
 	}
 	

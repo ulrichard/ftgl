@@ -20,10 +20,10 @@ bool FTGLPixmapFont::MakeGlyphList()
 //	if( preCache)
 	for( unsigned int c = 0; c < numGlyphs; ++c)
 	{
-		FT_Glyph ftGlyph = face.Glyph( c, FT_LOAD_DEFAULT);
+		FT_Glyph* ftGlyph = face.Glyph( c, FT_LOAD_DEFAULT);
 //		FT_HAS_VERTICAL(face)
 
-		tempGlyph = new FTPixmapGlyph( ftGlyph, c);
+		tempGlyph = new FTPixmapGlyph( *ftGlyph, c);
 		glyphList->Add( tempGlyph);
 	}
 	

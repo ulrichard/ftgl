@@ -115,13 +115,13 @@ unsigned int FTGLTextureFont::FillGlyphs( unsigned int glyphStart, int id, int w
 	
 	for( n = glyphStart; n <= numGlyphs; ++n)
 	{
-		FT_Glyph ftGlyph = face.Glyph( n, FT_LOAD_NO_HINTING);
+		FT_Glyph* ftGlyph = face.Glyph( n, FT_LOAD_NO_HINTING);
 		
 		unsigned char* data = textdata + (( currentTextY * width) + currentTextX);
 		
 		currTextU = (float)currentTextX / (float)width;
 		
-		tempGlyph = new FTTextureGlyph( ftGlyph, n, id, data, width, height, currTextU, currTextV);
+		tempGlyph = new FTTextureGlyph( *ftGlyph, n, id, data, width, height, currTextU, currTextV);
 		glyphList->Add( tempGlyph);
 		
 		currentTextX += glyphWidth;

@@ -52,8 +52,8 @@ class	FTFace
 		 * This doesn't guarantee that the size was set correctly. Clients
 		 * should check errors.
 		 *
-		 * @params size		the face size in points (1/72 inch)
-		 * @params res		the resolution of the target device.
+		 * @param size		the face size in points (1/72 inch)
+		 * @param res		the resolution of the target device.
 		 * @return			<code>FTSize</code> object
 		 */
 		FTSize& Size( const unsigned int size, const unsigned int res);
@@ -61,7 +61,7 @@ class	FTFace
 		/**
 		 * Sets the character map for the face.
 		 *
-		 * @params encoding		XXXXXXX
+		 * @param encoding		XXXXXXX
 		 * @return				<code>true</code> if charmap was valid and
 		 *						set correctly
 		 */
@@ -70,13 +70,14 @@ class	FTFace
 		/**
 		 *	Get the glyph index of the input character.
 		 *
-		 * @param
-		 * @return
+		 * @param index The character code of the requested glyph in the
+		 *				current encoding eg apple roman.
+		 * @return		The glyph index for the character.
 		 */
 		unsigned int CharIndex( unsigned int index ) const;
 
 		/**
-		 * Gets the ferning vector between two glyphs
+		 * Gets the kerning vector between two glyphs
 		 */
 		FT_Vector& KernAdvance( unsigned int index1, unsigned int index2);
 		
@@ -84,7 +85,7 @@ class	FTFace
 		/**
 		 * Loads and creates a Freetype glyph.
 		 */
-		FT_Glyph& Glyph( unsigned int index, FT_Int load_flags);
+		FT_Glyph* Glyph( unsigned int index, FT_Int load_flags);
 
 		/**
 		 * Gets the current Freetype face.
