@@ -127,11 +127,7 @@ class	FTFont
 		 * Constructs the internal glyph cache.
 		 *
 		 * This a list of glyphs processed for openGL rendering NOT
-		 * Freetype glyphs. This function checks for errors in creating
-		 * Freetype glyph objects but NOT FTGL glyph objects.
-		 *
-		 * @return	<code>true</code> If all glyphs were successfully created.
-		 * 			Clients should check error code on failure.
+		 * freetype glyphs
 		 */
 		virtual bool MakeGlyphList() = 0;
 		
