@@ -43,12 +43,6 @@ class FTGL_EXPORT FTOutlineGlyph : public FTGlyph
 		
 	private:
 		/**
-		 * An object that helps convert freetype outlines into point
-		 * data
-		 */
-		FTVectoriser* vectoriser;
-
-		/**
 		 * The total number of points in the Freetype outline
 		 */
 		int numPoints;

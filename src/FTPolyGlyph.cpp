@@ -4,7 +4,6 @@
 
 FTPolyGlyph::FTPolyGlyph( FT_Glyph glyph)
 :   FTGlyph(),
-    vectoriser(0),
     numPoints(0),
     data(0),
     glList(0)
@@ -14,7 +13,7 @@ FTPolyGlyph::FTPolyGlyph( FT_Glyph glyph)
         return;
     }
 
-    vectoriser = new FTVectoriser( glyph);
+    FTVectoriser* vectoriser = new FTVectoriser( glyph);
     
     vectoriser->ProcessContours();
 

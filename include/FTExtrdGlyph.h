@@ -52,12 +52,6 @@ class FTGL_EXPORT FTExtrdGlyph : public FTGlyph
         bool Winding( int numPoints, FTGL_DOUBLE *points);
         
         /**
-         * An object that helps convert freetype outlines into point
-         * data
-         */
-        FTVectoriser* vectoriser;
-        
-        /**
          * OpenGL display list
          */
         GLuint glList;

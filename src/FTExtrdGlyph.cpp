@@ -6,7 +6,6 @@
 
 FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
 :   FTGlyph(),
-    vectoriser(0),
     glList(0),
     depth(d)
 {
@@ -15,7 +14,7 @@ FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
         return;
     }
 
-    vectoriser = new FTVectoriser( glyph);
+    FTVectoriser* vectoriser = new FTVectoriser( glyph);
     
     vectoriser->ProcessContours();
 

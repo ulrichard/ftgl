@@ -49,12 +49,6 @@ class FTGL_EXPORT FTPolyGlyph : public FTGlyph
          * Uses GLUtesselator to create a mesh
          */
         void Tesselate();
-        
-        /**
-         * An object that helps convert freetype outlines into point
-         * data
-         */
-        FTVectoriser* vectoriser;
 
         /**
          * The total number of points in the Freetype outline
