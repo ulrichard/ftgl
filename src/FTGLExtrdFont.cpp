@@ -18,9 +18,9 @@ FTGLExtrdFont::~FTGLExtrdFont()
 {}
 
 
-FTGlyph* FTGLExtrdFont::MakeGlyph( unsigned int g)
+FTGlyph* FTGLExtrdFont::MakeGlyph( unsigned int glyphIndex)
 {
-    FT_Glyph* ftGlyph = face.Glyph( g, FT_LOAD_NO_HINTING);
+    FT_Glyph* ftGlyph = face.Glyph( glyphIndex, FT_LOAD_NO_HINTING);
 
     if( ftGlyph)
     {

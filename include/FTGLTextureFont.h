@@ -64,10 +64,10 @@ class  FTGL_EXPORT FTGLTextureFont : public FTFont
         /**
          * Construct a FTTextureGlyph.
          *
-         * @param g The glyph index NOT the char code.
+         * @param glyphIndex The glyph index NOT the char code.
          * @return  An FTTextureGlyph or <code>null</code> on failure.
          */
-        inline virtual FTGlyph* MakeGlyph( unsigned int g);
+        inline virtual FTGlyph* MakeGlyph( unsigned int glyphIndex);
                 
         /**
          * Get the size of a block of memory required to layout the glyphs

@@ -15,40 +15,39 @@ class FTGlyph;
  */
 class FTGL_EXPORT FTGLExtrdFont : public FTFont
 {
-	public:
+    public:
         /**
          * Open and read a font file. Sets Error flag.
          *
          * @param fontname  font file name.
          */
-		FTGLExtrdFont( const char* fontname);
-		
+        FTGLExtrdFont( const char* fontname);
+
         /**
          * Open and read a font from a buffer in memory. Sets Error flag.
          *
          * @param pBufferBytes  the in-memory buffer
          * @param bufferSizeInBytes  the length of the buffer in bytes
          */
-		FTGLExtrdFont( const unsigned char *pBufferBytes, size_t bufferSizeInBytes);
+        FTGLExtrdFont( const unsigned char *pBufferBytes, size_t bufferSizeInBytes);
+
+        /**
+         * Destructor
+         */
+        ~FTGLExtrdFont();
 		
-		/**
-		 * Destructor
-		 */
-		~FTGLExtrdFont();
+        void Depth( float d) { depth = d;}
 		
-		void Depth( float d) { depth = d;}
+    private:
+        /**
+         * Construct a FTPolyGlyph.
+         *
+         * @param glyphIndex The glyph index NOT the char code.
+         * @return	An FTExtrdGlyph or <code>null</code> on failure.
+         */
+        inline virtual FTGlyph* MakeGlyph( unsigned int glyphIndex);
 		
-	private:
-		/**
-		 * Construct a FTPolyGlyph.
-		 *
-		 * @param g The glyph index NOT the char code.
-		 * @return	An FTExtrdGlyph or <code>null</code> on failure.
-		 */
-		inline virtual FTGlyph* MakeGlyph( unsigned int g);
-		
-		float depth;
-		
+        float depth;
 };
 
 
