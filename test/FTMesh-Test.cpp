@@ -106,18 +106,19 @@ class FTMeshTest : public CppUnit::TestCase
             FTGL_DOUBLE* hole[] = { 0, 0, 0, 0};
             
             FTMesh mesh;
+			unsigned int x;
         
             ftglBegin( GL_TRIANGLES, &mesh);
             ftglCombine( testPoint, NULL, NULL, (void**)testOutput, &mesh);
             
-            for( unsigned int x = 0; x < 200; ++x)
+            for( x = 0; x < 200; ++x)
             {
                 ftglCombine( testPoint, NULL, NULL, (void**)hole, &mesh);            
             }
 
             CPPUNIT_ASSERT( *testOutput == &(mesh.TempPointList().front().x));
             
-            for( unsigned int x = 201; x < 300; ++x)
+            for( x = 201; x < 300; ++x)
             {
                 ftglCombine( testPoint, NULL, NULL, (void**)hole, &mesh);            
             }

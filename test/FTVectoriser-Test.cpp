@@ -2,6 +2,7 @@
 #include <cppunit/TestCaller.h>
 #include <cppunit/TestCase.h>
 #include <cppunit/TestSuite.h>
+#include <assert.h>
 
 #include "Fontdefs.h"
 #include "FTVectoriser.h"

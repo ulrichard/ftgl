@@ -2,6 +2,7 @@
 #include <cppunit/TestCaller.h>
 #include <cppunit/TestCase.h>
 #include <cppunit/TestSuite.h>
+#include <assert.h>
 
 #include <ft2build.h>
 #include FT_FREETYPE_H

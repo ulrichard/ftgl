@@ -53,7 +53,7 @@ static int height;
 #ifdef WIN32
 
 	#define DEFAULT_FONT "C:\\WINNT\\Fonts\\arial.ttf"
-
+	using namespace std;
 #endif
 
 
@@ -72,25 +72,27 @@ my_init( const char* font_filename )
 
 
 
-    fonts[0] = new FTGLOutlineFont;
+    fonts[0] = new FTGLOutlineFont( font_filename );
 
-    fonts[1] = new FTGLPolygonFont;
+    fonts[1] = new FTGLPolygonFont( font_filename );
 
-    fonts[2] = new FTGLTextureFont;
+    fonts[2] = new FTGLTextureFont( font_filename );
 
-    fonts[3] = new FTGLBitmapFont;
+    fonts[3] = new FTGLBitmapFont( font_filename );
 
-    fonts[4] = new FTGLPixmapFont;
+    fonts[4] = new FTGLPixmapFont( font_filename );
 
     for (int i=0; i< 5; i++) {
 
+		/*
         if (!fonts[i]->Open(font_filename)) {
 
             cerr << "ERROR: Unable to open file " << font_filename << "\n";
 
         }
-
-        else {
+		
+        else */
+		{
 
 			cout << "Reading font " << i << " from " << font_filename << endl;
 
@@ -404,7 +406,7 @@ draw_scene()
 
                glRasterPos2f(x, y);
 
-               fonts[font]->render(string[j]);
+               fonts[font]->Render(string[j]);
 
            }
 
@@ -424,7 +426,7 @@ draw_scene()
 
                    glTranslatef(x, y, 0.0);
 
-                   fonts[font]->render(string[j]);
+                   fonts[font]->Render(string[j]);
 
                } glPopMatrix();
 

@@ -143,6 +143,10 @@ SOURCE=..\..\src\FTCharmap.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\FTContour.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\FTExtrdGlyph.cpp
 # End Source File
 # Begin Source File
@@ -199,6 +203,10 @@ SOURCE=..\..\src\FTPixmapGlyph.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\FTPoint.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\FTPolyGlyph.cpp
 # End Source File
 # Begin Source File
@@ -219,87 +227,111 @@ SOURCE=..\..\src\FTVectoriser.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
-SOURCE=..\..\src\FTBitmapGlyph.h
+SOURCE=..\..\include\FTBBox.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\FTCharmap.h
+SOURCE=..\..\include\FTBitmapGlyph.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\FTExtrdGlyph.h
+SOURCE=..\..\include\FTCharmap.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\FTFace.h
+SOURCE=..\..\include\FTCharToGlyphIndexMap.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\FTFont.h
+SOURCE=..\..\include\FTContour.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\FTGL.h
+SOURCE=..\..\include\FTExtrdGlyph.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\FTGLBitmapFont.h
+SOURCE=..\..\include\FTFace.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\FTGLExtrdFont.h
+SOURCE=..\..\include\FTFont.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\FTGLOutlineFont.h
+SOURCE=..\..\include\FTGL.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\FTGLPixmapFont.h
+SOURCE=..\..\include\FTGLBitmapFont.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\FTGLPolygonFont.h
+SOURCE=..\..\include\FTGLExtrdFont.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\FTGLTextureFont.h
+SOURCE=..\..\include\FTGLOutlineFont.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\FTGlyph.h
+SOURCE=..\..\include\FTGLPixmapFont.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\FTGlyphContainer.h
+SOURCE=..\..\include\FTGLPolygonFont.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\FTLibrary.h
+SOURCE=..\..\include\FTGLTextureFont.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\FTOutlineGlyph.h
+SOURCE=..\..\include\FTGlyph.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\FTPixmapGlyph.h
+SOURCE=..\..\include\FTGlyphContainer.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\FTPolyGlyph.h
+SOURCE=..\..\include\FTLibrary.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\FTSize.h
+SOURCE=..\..\include\FTList.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\FTTextureGlyph.h
+SOURCE=..\..\include\FTOutlineGlyph.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\FTVectoriser.h
+SOURCE=..\..\include\FTPixmapGlyph.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\include\FTPoint.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\include\FTPolyGlyph.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\include\FTSize.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\include\FTTextureGlyph.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\include\FTVector.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\include\FTVectoriser.h
 # End Source File
 # End Group
 # End Target

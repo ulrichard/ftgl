@@ -785,7 +785,7 @@ void	*operator new(size_t reportedSize)
 
 		// There isn't a way to determine the new handler, except through setting it. So we'll just set it to NULL, then
 		// set it back again.
-
+		
 		std::new_handler	nh = std::set_new_handler(0);
 		std::set_new_handler(nh);
 
