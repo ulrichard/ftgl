@@ -18,9 +18,9 @@ class FTGL_EXPORT FTPoint
          */
         FTPoint()
         {
-            elements[0] = 0;
-            elements[1] = 0;
-            elements[2] = 0;
+            values[0] = 0;
+            values[1] = 0;
+            values[2] = 0;
         }
         
         /**
@@ -32,9 +32,9 @@ class FTGL_EXPORT FTPoint
          */
         FTPoint( const FTGL_DOUBLE x, const FTGL_DOUBLE y, const FTGL_DOUBLE z)
         {
-            elements[0] = x;
-            elements[1] = y;
-            elements[2] = z;
+            values[0] = x;
+            values[1] = y;
+            values[2] = z;
         }
         
         /**
@@ -44,9 +44,9 @@ class FTGL_EXPORT FTPoint
          */
         FTPoint( const FT_Vector& ft_vector)
         {
-            elements[0] = ft_vector.x;
-            elements[1] = ft_vector.y;
-            elements[2] = 0;
+            values[0] = ft_vector.x;
+            values[1] = ft_vector.y;
+            values[2] = 0;
         }
         
         /**
@@ -57,9 +57,9 @@ class FTGL_EXPORT FTPoint
          */
         FTPoint& operator += ( const FTPoint& point)
         {
-            elements[0] += point.elements[0];
-            elements[1] += point.elements[1];
-            elements[2] += point.elements[2];
+            values[0] += point.values[0];
+            values[1] += point.values[1];
+            values[2] += point.values[2];
 
             return *this;
         }
@@ -88,30 +88,30 @@ class FTGL_EXPORT FTPoint
          */
         operator FTGL_DOUBLE*()
         {
-            return elements;
+            return values;
         }
         
 
         /**
          * Setters
          */
-        void X( FTGL_DOUBLE x) { elements[0] = x;};
-        void Y( FTGL_DOUBLE y) { elements[1] = y;};
-        void Z( FTGL_DOUBLE z) { elements[2] = z;};
+        void X( FTGL_DOUBLE x) { values[0] = x;};
+        void Y( FTGL_DOUBLE y) { values[1] = y;};
+        void Z( FTGL_DOUBLE z) { values[2] = z;};
 
 
         /**
          * Getters
          */
-        FTGL_DOUBLE X() const { return elements[0];};
-        FTGL_DOUBLE Y() const { return elements[1];};
-        FTGL_DOUBLE Z() const { return elements[2];};
+        FTGL_DOUBLE X() const { return values[0];};
+        FTGL_DOUBLE Y() const { return values[1];};
+        FTGL_DOUBLE Z() const { return values[2];};
         
     private:
         /**
          * The point data
          */
-        FTGL_DOUBLE elements[3];
+        FTGL_DOUBLE values[3];
 };
 
 #endif  //  __FTPoint__
