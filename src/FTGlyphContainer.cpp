@@ -1,14 +1,21 @@
 #include    "FTGlyphContainer.h"
 #include    "FTGlyph.h"
 #include    "FTFace.h"
+#include    "FTCharmap.h"
 
 
 FTGlyphContainer::FTGlyphContainer( FTFace* f)
 :   face(f),
+    charMap(0),
     err(0)
 {
     numberOfGlyphs = face->GlyphCount();
-    glyphs.resize( numberOfGlyphs, NULL);
+
+    if( 0 != numberOfGlyphs)
+    {
+        glyphs.resize( numberOfGlyphs, NULL);
+        charMap = new FTCharmap( face);
+    }
 }
 
 
@@ -24,34 +31,43 @@ FTGlyphContainer::~FTGlyphContainer()
 }
 
 
-bool FTGlyphContainer::Add( FTGlyph* tempGlyph, unsigned int glyphIndex)
+bool FTGlyphContainer::CharMap( FT_Encoding encoding)
 {
-    if( glyphIndex >= numberOfGlyphs)
-    {
-        return false;
-    }
-    
+    bool result = charMap->CharMap( encoding);
+    err = charMap->Error();
+    return result;
+}
+
+
+unsigned int FTGlyphContainer::CharIndex( unsigned int characterCode) const
+{
+    return charMap->CharIndex( characterCode);
+}
+
+
+void FTGlyphContainer::Add( FTGlyph* tempGlyph, const unsigned int characterCode)
+{
+    unsigned int glyphIndex = charMap->CharIndex( characterCode);
     glyphs[glyphIndex] = tempGlyph;
-    return true;
 }
 
 
 const FTGlyph* const FTGlyphContainer::Glyph( const unsigned int characterCode) const
 {
-    return glyphs[face->CharIndex( characterCode)];
+    return glyphs[charMap->CharIndex( characterCode)];
 }
 
 
 FTBBox FTGlyphContainer::BBox( const unsigned int characterCode) const
 {
-    return glyphs[face->CharIndex( characterCode)]->BBox();
+    return glyphs[charMap->CharIndex( characterCode)]->BBox();
 }
 
 
 float FTGlyphContainer::Advance( unsigned int characterCode, unsigned int nextCharacterCode)
 {
-    unsigned int left = face->CharIndex( characterCode);
-    unsigned int right = face->CharIndex( nextCharacterCode);
+    unsigned int left = charMap->CharIndex( characterCode);
+    unsigned int right = charMap->CharIndex( nextCharacterCode);
     
     float width = face->KernAdvance( left, right).x;
     width += glyphs[left]->Advance();
@@ -65,8 +81,8 @@ FTPoint FTGlyphContainer::Render( unsigned int characterCode, unsigned int nextC
     FTPoint kernAdvance;
     float advance = 0;
     
-    unsigned int left = face->CharIndex( characterCode);
-    unsigned int right = face->CharIndex( nextCharacterCode);
+    unsigned int left = charMap->CharIndex( characterCode);
+    unsigned int right = charMap->CharIndex( nextCharacterCode);
     
     kernAdvance = face->KernAdvance( left, right);
         

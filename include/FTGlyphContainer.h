@@ -12,6 +12,7 @@
 
 class FTFace;
 class FTGlyph;
+class FTCharmap;
 
 /**
  * FTGlyphContainer holds the post processed FTGlyph objects.
@@ -35,13 +36,30 @@ class FTGL_EXPORT FTGlyphContainer
         ~FTGlyphContainer();
 
         /**
+            * Sets the character map for the face.
+         *
+         * @param encoding      the Freetype encoding symbol. See above.
+         * @return              <code>true</code> if charmap was valid
+         *                      and set correctly
+         */
+        bool CharMap( FT_Encoding encoding);
+
+        /**
+         *  Get the glyph index of the input character.
+         *
+         * @param characterCode The character code of the requested glyph in the
+         *                      current encoding eg apple roman.
+         * @return      The glyph index for the character.
+         */
+        unsigned int CharIndex( unsigned int characterCode ) const;
+        
+        /**
          * Adds a glyph to this glyph list.
          *
-         * @param glyph      The FTGlyph to be inserted into the container
-         * @param glyphIndex The glyphs index in the container.
-         * @return           <code>true</code>
+         * @param glyph         The FTGlyph to be inserted into the container
+         * @param characterCode The char code of the glyph NOT the glyph index.
          */
-        bool Add( FTGlyph* glyph, unsigned int glyphIndex);
+        void Add( FTGlyph* glyph, const unsigned int characterCode);
 
         /**
          * Get a glyph from the glyph list
@@ -90,9 +108,14 @@ class FTGL_EXPORT FTGlyphContainer
         unsigned int numberOfGlyphs;
 
         /**
-         * The current FTGL face
+         * The FTGL face
          */
         FTFace* face;
+
+        /**
+         * The Character Map object associated with the current face
+         */
+        FTCharmap* charMap;
 
         /**
          * A structure to hold the glyphs
