@@ -47,7 +47,7 @@ bool FTLibrary::Init()
 	if( err)
 	{
 		delete lib;
-		lib= 0;
+		lib = 0;
 		return false;
 	}
 	
