@@ -25,7 +25,7 @@ class FTGlyph
 		/**
 		 * Constructor
 		 *
-		 * @param glyphIndex	The glyph index
+		 * @param glyphIndex	The glyph index for this glyph
 		 */
 		FTGlyph( unsigned int glyphIndex);
 
@@ -35,7 +35,10 @@ class FTGlyph
 		virtual ~FTGlyph();
 
 		/**
+		 * Renders this glyph at the current pen position.
 		 *
+		 * @param v		The current pen position.
+		 * @return		The advance distance for this glyph.
 		 */
 		virtual float Render( const FT_Vector& v) = 0;
 
@@ -49,7 +52,7 @@ class FTGlyph
 		// attributes
 
 		/**
-		 *
+		 * The glyph index
 		 */
 		const unsigned int glyphIndex; // FIXME make this private
 		

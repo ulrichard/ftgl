@@ -79,8 +79,9 @@ class	FTLibrary
 		 * Even though this function indicates success via the return value,
 		 * clients can't see this so must check the error codes.
 		 *
-		 * @return	<code>true</code> if the Freetype library was successfully
-		 * 			initialised, <code>false</code> otherwise.
+		 * @return	<code>true</code> if the Freetype library was
+		 * 			successfully initialised, <code>false</code>
+		 * 			otherwise.
 		 */
 		bool Init();
 		
