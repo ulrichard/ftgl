@@ -50,12 +50,11 @@ class FTGL_EXPORT FTTextureGlyph : public FTGlyph
 		/**
 		 * The texture index of the currently active texture
 		 *
-		 * Because a a full set of glyphs may not fit on one glyph we need
-		 * to keep track of the current active texture to try to reduce the
-		 * number of texture bind operations
+		 * We call glGetIntegerv( GL_TEXTURE_2D_BINDING, activeTextureID);
+		 * to get the currently active texture to try to reduce the number
+		 * of texture bind operations
 		 */
-		// Replace this with glGetIntegerv( GL_TEXTURE_2D_BINDING, activeTextureID);
-		static int activeTextureID;
+		GLint activeTextureID;
 		
 	private:
 		/**
