@@ -4,96 +4,96 @@ template <typename FT_VECTOR_ITEM_TYPE>
 class FTGL_EXPORT FTVector
 {
     public:
-  
         typedef FT_VECTOR_ITEM_TYPE value_type;
         typedef value_type& reference;
         typedef const value_type& const_reference;
         typedef value_type* iterator;
         typedef const value_type* const_iterator;
         typedef size_t size_type;
-
+        
         FTVector()
         {
-            Size = NumberOfItems = 0;
+            Capacity = Size = 0;
             Items = 0;
         }
 
+        
         virtual ~FTVector()
         {
             clear();
         }
-
-        FTVector& operator = ( const FTVector& v)
+        
+        FTVector& operator =(const FTVector& v)
         {
             // Warning: the vector is not cleared and resized to v capacity for
             // efficiency reasons.
             // clear();
             reserve(v.capacity());
-  
+            
             iterator ptr = begin();
             const_iterator vbegin = v.begin();
             const_iterator vend = v.end();
-
-            while (vbegin != vend)
+            
+            while( vbegin != vend)
             {
                 *ptr++ = *vbegin++;
             }
-            NumberOfItems = v.size();
+            
+            Size = v.size();
             return *this;
         }
-
+        
         size_type size() const
         {
-            return NumberOfItems; 
+            return Size;
         }
         
         size_type capacity() const
-        { 
-            return Size; 
+        {
+            return Capacity;
         }
-
+        
         iterator begin()
-        { 
-            return Items; 
+        {
+            return Items;
         }
-
-        iterator end()
-        { 
-            return begin() + size(); 
-        }
-
+        
         const_iterator begin() const
-        { 
-          return Items; 
+        {
+            return Items;
         }
-
-        const_iterator end() const
-        { 
+        
+        iterator end()
+        {
             return begin() + size(); 
         }
-
-        bool empty() const
+        
+        const_iterator end() const
+        {
+            return begin() + size(); 
+        }
+        
+        bool empty() const 
         { 
             return size() == 0; 
         }
 
-        reference operator []( size_type pos)
+        reference operator [](size_type pos) 
         { 
-            return (*(begin() + pos)); 
+            return( *(begin() + pos)); 
         }
 
-        const_reference operator []( size_type pos) const
+        const_reference operator []( size_type pos) const 
         { 
-            return (*(begin() + pos)); 
+            return( *(begin() + pos)); 
         }
-
-
+        
         void clear()
         {
-            if (Size)
+            if( Capacity)
             {
                 delete [] Items;
-                Size = NumberOfItems = 0;
+                Capacity = Size = 0;
                 Items = 0;
             }
         }
@@ -106,63 +106,85 @@ class FTGL_EXPORT FTVector
             }
         }
 
-        void push_back( const value_type& x)
+        void push_back(const value_type& x)
         {
             if( size() == capacity())
             {
                 expand();
             }
-            
-            (*this)[size()] = x;
-            NumberOfItems++;
+           
+           ( *this)[size()] = x;
+            Size++;
         }
 
-        void resize( size_type, value_type)
+        void resize(size_type n, value_type x)
         {
-            reserve(n);
-            iterator end = end();
-            iterator end_capacity = begin() + capacity();
-        
-            while (end != end_capacity)
+            if( n == size())
             {
-                *end++ = x;
+                return;
             }
+            
+            reserve(n);
+            iterator begin, end;
+            
+            if( n >= Size)
+            {
+                begin = this->end();
+                end = this->begin() + n;
+            }
+            else
+            {
+                begin = this->begin() + n;
+                end = this->end();
+            }
+        
+            while( begin != end)
+            {
+                *begin++ = x;
+            }
+        
+            Size = n;
         }
 
-
+        
     protected:
-        void expand( size_type size_hint = 0)
+        void expand(size_type capacity_hint = 0)
         {
-            // Allocate new vector (size doubles)
-            size_type new_size = (size() == 0) ? 256 : size() * 2;
-            if( size_hint)
+            // Allocate new vector( capacity doubles)
+            size_type new_capacity =( capacity() == 0) ? 256 : capacity()* 2;
+            if( capacity_hint)
             {
-                while( new_size < size_hint)
+                while( new_capacity < capacity_hint)
                 {
-                    new_size *= 2;
+                    new_capacity *= 2;
                 }
             }
-          
-            value_type *ptr = new value_type[new_size];
-        
+            
+            value_type *new_items = new value_type[new_capacity];
+            
             // Copy values to new vector
             iterator begin = this->begin();
             iterator end = this->end();
+            value_type *ptr = new_items;
+            
             while( begin != end)
             {
                 *ptr++ = *begin++;
             }
-        
+            
             // Deallocate old vector and use new vector
-            delete [] Items;
-            Items = ptr;
-            Size = new_size;
+            if( Capacity)
+            {
+                delete [] Items;
+            }
+        
+            Items = new_items;
+            Capacity = new_capacity;
         }
 
-
+    
     private:
+        size_type Capacity;
         size_type Size;
-        size_type NumberOfItems;
         value_type* Items;
 };
-
