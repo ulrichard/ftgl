@@ -194,7 +194,7 @@ class FTGL_EXPORT FTFont
          * @param g The glyph index NOT the char code.
          * @return  An FT****Glyph or <code>null</code> on failure.
          */
-        inline virtual FTGlyph* MakeGlyph( unsigned int g) = 0;
+        virtual FTGlyph* MakeGlyph( unsigned int g) = 0;
         
         /**
          * Current face object
