@@ -120,7 +120,23 @@ FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
 		
 		FT_OutlineGlyph outline = (FT_OutlineGlyph)glyph;
 		FT_Outline ftOutline = outline->outline;
-		int contourFlag = ftOutline.flags;
+		int contourFlag = ftOutline.flags; // this is broken for winding direction in freetype so...
+		// Calculate the winding direction. use formula from redbook.
+		double x1 = *( sidemesh);
+		double x2 = *( sidemesh + 1);
+		double x3 = *( sidemesh + 2);
+		double y1 = *( sidemesh + 3);
+		double y2 = *( sidemesh + 4);
+		double y3 = *( sidemesh + 5);
+		
+		double a1 = ( x1 * y2) - ( x2 * y1);
+		double a2 = ( x2 * y3) - ( x3 * y2);
+		double a3 = ( x3 * y1) - ( x1 * y3);
+		
+		double a = ( a1 + a2 + a3) / 2;
+		
+		bool winding = a < 0 ? false: true;
+
 		
 		// Join them together.
 		// Extrude each contour to make the sides.
@@ -151,7 +167,8 @@ FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
 					
 					// Add vertices to the quad strip.
 					// Winding order!!!
-					if( contourFlag & ft_outline_reverse_fill)
+//					if( contourFlag & ft_outline_reverse_fill) // this is broken in freetype so...
+					if( winding)
 					{
 						glVertex3d(p0[0], p0[1], 0);
 						glVertex3d(p0[0], p0[1], -depth);
