@@ -1,8 +1,6 @@
 #ifndef		__FTVectorGlyph__
 #define		__FTVectorGlyph__
 
-#include <vector>
-
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include FT_GLYPH_H
@@ -30,6 +28,7 @@ class	FTVectorGlyph : public FTGlyph
 		int numContours;
 		int * contourLength;
 		float* data;
+		int glList;
 	
 };
 

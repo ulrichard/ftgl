@@ -30,13 +30,33 @@ FTVectorGlyph::FTVectorGlyph( FT_Glyph glyph, int gi)
 			}
 			
 			numPoints = vectoriser->points();
-			data = new float[ numPoints * 2];
+			data = new float[ numPoints * 3];
 			vectoriser->Output( data);
 			
 			advance = glyph->advance.x >> 16; // this is 6 in the freetype docs!!!!!!
 		}
 	
 		delete vectoriser;
+		
+	    if ( ( numContours < 1) || ( numPoints < 1))
+			return;
+			
+ 		glList = glGenLists(1);
+ 		int d = 0;
+ 
+ 		glNewList( glList, GL_COMPILE);
+ 			for( int c = 0; c < numContours; ++c)
+ 			{
+ 				glBegin( GL_LINE_LOOP);
+ 				for( int p = 0; p < ( contourLength[c]); ++p)
+ 				{
+ 					glVertex2f( data[d], data[d + 1]);
+ 					d += 3;
+ 				}
+ 				glEnd();
+ 			}
+ 		glEndList();
+	
 	}
 }
 
@@ -49,35 +69,9 @@ FTVectorGlyph::~FTVectorGlyph()
 
 float FTVectorGlyph::Render( FT_Vector& pen)
 {
-	int d = 0;
-	
-	for( int c = 0; c < numContours; ++c)
-	{
-//		switch(c)
-//		{
-//			case 0:
-//				glColor3f( 1.0, 0.0, 0.0);
-//				break;
-//			case 1:
-//				glColor3f( 0.0, 1.0, 0.0);
-//				break;
-//			case 2:
-//				glColor3f( 0.0, 0.0, 1.0);
-//				break;
-//			case 3:
-//				glColor3f( 1.0, 1.0, 0.0);
-//				break;
-//		}
-		
-		glBegin( GL_LINE_LOOP);
-			for( int p = 0; p < ( contourLength[c] * 2); p += 2)
-			{
-				glVertex2f( data[d] + pen.x, data[d + 1] + pen.y);
-				
-				d += 2;
-			}
-		glEnd();
-	}
+	glTranslatef( pen.x, pen.y, 0);
+		glCallList( glList);
+	glTranslatef( -pen.x, -pen.y, 0);
 	
 	return advance;
 }
