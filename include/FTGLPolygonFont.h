@@ -1,8 +1,12 @@
-#ifndef		__FTGLPolygonFont
-#define		__FTGLPolygonFont
+#ifndef		__FTGLPolygonFont__
+#define		__FTGLPolygonFont__
+
 #include	"FTFont.h"
 
 #include "FTGL.h"
+
+
+class FTPolyGlyph;
 
 class	FTGLPolygonFont : public FTFont
 {
@@ -17,5 +21,9 @@ class	FTGLPolygonFont : public FTFont
 		// methods
 		bool MakeGlyphList();
 		
+		// attributes
+		FTPolyGlyph* tempGlyph;
+
+		
 };
-#endif
+#endif	//	__FTGLPolygonFont__
