@@ -108,7 +108,7 @@ int	FTFont::Descender() const
 
 
 void FTFont::BBox( const char* string,
-                   int& llx, int& lly, int& llz, int& urx, int& ury, int& urz)
+                    float& llx, float& lly, float& llz, float& urx, float& ury, float& urz)
 {
 	const unsigned char* c = (unsigned char*)string;
 	llx = lly = llz = urx = ury = urz = 0;
@@ -144,7 +144,7 @@ void FTFont::BBox( const char* string,
 }
 
 void FTFont::BBox( const wchar_t* string,
-                   int& llx, int& lly, int& llz, int& urx, int& ury, int& urz)
+                    float& llx, float& lly, float& llz, float& urx, float& ury, float& urz)
 {
 	const wchar_t* c = string;
 	llx = lly = llz = urx = ury = urz = 0;

@@ -8,6 +8,11 @@
 #include "FTGL.h"
 
 
+/**
+ * FTBBox
+ *
+ *
+ */
 class FTGL_EXPORT FTBBox
 {
 	public:
@@ -26,10 +31,10 @@ class FTGL_EXPORT FTBBox
 			FT_Glyph_Get_CBox( glyph, ft_glyph_bbox_subpixels, &bbox );
 			
 			x1 = bbox.xMin >> 6;
-			y1 = bbox.yMin >> 6;;
+			y1 = bbox.yMin >> 6;
 			z1 = 0;
-			x2 = bbox.xMax >> 6;;
-			y2 = bbox.yMax >> 6;;
+			x2 = bbox.xMax >> 6;
+			y2 = bbox.yMax >> 6;
 			z2 = 0;	
 		}		
 		
@@ -46,7 +51,7 @@ class FTGL_EXPORT FTBBox
 		{}
 	
 		// Make these ftPoints
-		int x1, y1, z1, x2, y2, z2;
+		float x1, y1, z1, x2, y2, z2;
 
 	protected:
 	
