@@ -1081,7 +1081,7 @@
 				F597CC9202C5420F01F03BCF,
 			);
 			buildSettings = {
-				HEADER_SEARCH_PATHS = "/usr/local/include/freetype2 /usr/local/include";
+				HEADER_SEARCH_PATHS = /Users/henry/Development/PROJECTS/iSpot/includes;
 				LIBRARY_SEARCH_PATHS = /Users/henry/Development/PROJECTS/iSpot/libraries;
 				OPTIMIZATION_CFLAGS = "-O1";
 				OTHER_CFLAGS = "";
