@@ -89,10 +89,10 @@ void my_lighting()
 
 void do_display (void)
 {
-//	glTranslatef( posX, posY, posZ);
-
+	// Render the text
 	font.render( myString);
 
+	// get the bounding box for the text
 	int x1, y1, z1, x2, y2, z2;
 	font.BBox( myString, x1, y1, z1, x2, y2, z2);
 	
@@ -124,17 +124,18 @@ void do_display (void)
 		glVertex3f( x2, y1, z1);
 		glVertex3f( x2, y1, z2);
 		
-		// Draw the baseline, Ascender and Descender
+		// Draw a line along the basline from the origin to the advance width
 		glColor3f( 0.0, 0.0, 1.0);
 		glVertex3f( 0.0, 0.0, 0.0);
 		glVertex3f( font.Advance( myString), 0.0, 0.0);
 		
+		// Draw a line through the origin from the Ascender height to the Descender
 		glVertex3f( 0.0, font.Ascender(), 0.0);
 		glVertex3f( 0.0, font.Descender(), 0.0);
 		
 	glEnd();
 	
-	// Draw the origin
+	// Draw a point on the origin
 	glColor3f( 1.0, 0.0, 0.0);
 	glPointSize( 5.0);
 	glBegin( GL_POINTS);
@@ -179,32 +180,36 @@ void myinit ( const char* fontfile)
 	glEnable(GL_BLEND);
 // 	glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // GL_ONE
 	 	
-	SetCamera();
 
+	// Open the font
 	if( !font.Open( fontfile, false))
 	{
 		fprintf( stderr, "Failed to open font %s", fontfile);
 		exit(1);
 	}
 	
+	// Set the font size
 	if( !font.FaceSize( 144))
 	{
 		fprintf( stderr, "Failed to set size");
 		exit(1);
 	}
 
+	// Set the depth for extrusion
 	font.Depth(20);
 	
+	// Initial text "A"
 	myString[0] = 65;
 	myString[1] = 0;
 	
 
+	// Do the track ball initialisation
 	tbInit(GLUT_LEFT_BUTTON);
 	tbAnimate( GL_FALSE);
 
 }
 
-/* ARGSUSED1 */
+
 void parsekey(unsigned char key, int x, int y)
 {
 	switch (key)
@@ -241,7 +246,7 @@ void parsekey(unsigned char key, int x, int y)
 
 }
 
-/* ARGSUSED1 */
+
 void parsekey_special(int key, int x, int y)
 {
 	switch (key)
