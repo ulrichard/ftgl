@@ -100,8 +100,8 @@ class FTGL_EXPORT FTFont
         unsigned int FaceSize() const;
         
         /**
-         * Set the extrusion distance for the font. Only availbale for
-         * Extruded fonts
+         * Set the extrusion distance for the font. Only implemented by
+         * FTGLExtrdFont
          *
          * @param d  The extrusion distance.
          */

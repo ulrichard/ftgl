@@ -4,9 +4,7 @@
 #include "FTFont.h"
 #include "FTGL.h"
 
-
 class FTGlyph;
-
 
 /**
  * FTGLExtrdFont is a specialisation of the FTFont class for handling
