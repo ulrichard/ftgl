@@ -13,9 +13,7 @@ class TestGlyph : public FTGlyph
     public:
         TestGlyph( FT_GlyphSlot glyph)
         :   FTGlyph( glyph)
-        {
-//            FT_Done_Glyph( glyph );
-        }
+        {}
         
         float Render( const FTPoint& pen){ return advance;}
 };
@@ -48,6 +46,44 @@ class TestFont : public FTFont
 };
 
 
+class BadGlyphTestFont : public FTFont
+{
+    public:
+        BadGlyphTestFont( const char* fontname)
+        :   FTFont( fontname)
+        {}
+        
+        FTGlyph* MakeGlyph( unsigned int g)
+        {
+            FT_GlyphSlot ftGlyph = face.Glyph( g, FT_LOAD_NO_HINTING);
+        
+            if( ftGlyph)
+            {
+                TestGlyph* tempGlyph = new TestGlyph( ftGlyph);
+                return tempGlyph;
+            }
+        
+            err = face.Error();
+            return NULL;
+        }
+        
+    private:
+        bool CheckGlyph( const unsigned int chr)
+        {
+            static bool succeed = false;
+            
+            if( succeed == false)
+            {
+                succeed = true;
+                return false;
+            }
+            
+            return true;
+        }
+
+};
+
+
 class FTFontTest : public CppUnit::TestCase
 {
     CPPUNIT_TEST_SUITE( FTFontTest);
@@ -59,6 +95,7 @@ class FTFontTest : public CppUnit::TestCase
         CPPUNIT_TEST( testSetCharMap);
         CPPUNIT_TEST( testGetCharmapList);
         CPPUNIT_TEST( testBoundingBox);
+        CPPUNIT_TEST( testCheckGlyphFailure);
         CPPUNIT_TEST( testAdvance);
         CPPUNIT_TEST( testRender);
     CPPUNIT_TEST_SUITE_END();
@@ -204,6 +241,13 @@ class FTFontTest : public CppUnit::TestCase
             CPPUNIT_ASSERT_DOUBLES_EQUAL( 0, urz, 0.01);
         }
         
+        void testCheckGlyphFailure()
+        {
+            BadGlyphTestFont* testFont = new BadGlyphTestFont(GOOD_FONT_FILE);
+
+            float advance = testFont->Advance( GOOD_ASCII_TEST_STRING);
+            CPPUNIT_ASSERT_DOUBLES_EQUAL( 0.0, advance, 0.01);            
+        }
         
         void testAdvance()
         {
