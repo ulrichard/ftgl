@@ -18,7 +18,7 @@
  * It doesn't preprocess all indices, only on an as needed basis. This may
  * seem like a performance penalty but it is quicker than using the 'raw'
  * freetype calls and will save significant amounts of memory when dealing
- * with uncode encoding
+ * with unicode encoding
  *
  * @see "Freetype 2 Documentation" 
  *
