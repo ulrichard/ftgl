@@ -28,11 +28,12 @@ class FTGLPolygonFontTest : public CppUnit::TestCase
         
         void testConstructor()
         {
-//            buildGLContext();
+            buildGLContext();
         
             FTGLPolygonFont* polygonFont = new FTGLPolygonFont( FONT_FILE);            
             CPPUNIT_ASSERT( polygonFont->Error() == 0);
         
+            CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);        
         }
 
         void setUp() 

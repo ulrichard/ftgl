@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include <cppunit/extensions/HelperMacros.h>
 #include <cppunit/TestCaller.h>
 #include <cppunit/TestCase.h>
@@ -6,6 +8,10 @@
 
 #include "Fontdefs.h"
 #include "FTPixmapGlyph.h"
+
+#define GL_ASSERT() {GLenum sci_err; while ((sci_err = glGetError()) != GL_NO_ERROR) \
+        std::cerr << "OpenGL error: " << (char *)gluErrorString(sci_err) << " at " << __FILE__ <<":" << __LINE__ << std::endl;}
+
 
 extern void buildGLContext();
 
@@ -49,6 +55,7 @@ class FTPixmapGlyphTest : public CppUnit::TestCase
             FT_Done_Face( face);
             FT_Done_FreeType( library);
             
+            CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);        
         }
 
         void setUp() 

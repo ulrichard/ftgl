@@ -49,6 +49,7 @@ class FTPolyGlyphTest : public CppUnit::TestCase
             FT_Done_Face( face);
             FT_Done_FreeType( library);
             
+            CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);        
         }
 
         void setUp() 

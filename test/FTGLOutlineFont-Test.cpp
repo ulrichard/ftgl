@@ -9,30 +9,31 @@
 
 extern void buildGLContext();
 
-class FTGLPolygonFontTest : public CppUnit::TestCase
+class FTGLOutlineFontTest : public CppUnit::TestCase
 {
-    CPPUNIT_TEST_SUITE( FTGLPolygonFontTest);
+    CPPUNIT_TEST_SUITE( FTGLOutlineFontTest);
         CPPUNIT_TEST( testConstructor);
     CPPUNIT_TEST_SUITE_END();
         
     public:
-        FTGLPolygonFontTest() : CppUnit::TestCase( "FTGLPolygonFont Test")
+        FTGLOutlineFontTest() : CppUnit::TestCase( "FTGLOutlineFont Test")
         {
         }
         
-        FTGLPolygonFontTest( const std::string& name) : CppUnit::TestCase(name) {}
+        FTGLOutlineFontTest( const std::string& name) : CppUnit::TestCase(name) {}
         
-        ~FTGLPolygonFontTest()
+        ~FTGLOutlineFontTest()
         {
         }
         
         void testConstructor()
         {
-//            buildGLContext();
+            buildGLContext();
         
             FTGLOutlineFont* outlineFont = new FTGLOutlineFont( FONT_FILE);            
             CPPUNIT_ASSERT( outlineFont->Error() == 0);
         
+            CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);        
         }
 
         void setUp() 
@@ -44,5 +45,5 @@ class FTGLPolygonFontTest : public CppUnit::TestCase
     private:
 };
 
-CPPUNIT_TEST_SUITE_REGISTRATION( FTGLPolygonFontTest);
+CPPUNIT_TEST_SUITE_REGISTRATION( FTGLOutlineFontTest);
 

@@ -9,30 +9,47 @@
 
 extern void buildGLContext();
 
-class FTGLPolygonFontTest : public CppUnit::TestCase
+class FTGLTextureFontTest : public CppUnit::TestCase
 {
-    CPPUNIT_TEST_SUITE( FTGLPolygonFontTest);
+    CPPUNIT_TEST_SUITE( FTGLTextureFontTest);
         CPPUNIT_TEST( testConstructor);
+        CPPUNIT_TEST( testResizeBug);
     CPPUNIT_TEST_SUITE_END();
         
     public:
-        FTGLPolygonFontTest() : CppUnit::TestCase( "FTGLPolygonFont Test")
+        FTGLTextureFontTest() : CppUnit::TestCase( "FTGLTextureFontTest Test")
         {
         }
         
-        FTGLPolygonFontTest( const std::string& name) : CppUnit::TestCase(name) {}
+        FTGLTextureFontTest( const std::string& name) : CppUnit::TestCase(name) {}
         
-        ~FTGLPolygonFontTest()
+        ~FTGLTextureFontTest()
         {
         }
         
         void testConstructor()
         {
-//            buildGLContext();
+            buildGLContext();
+        
+            FTGLTextureFont* textureFont = new FTGLTextureFont( FONT_FILE);            
+            CPPUNIT_ASSERT( textureFont->Error() == 0);            
+            CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);        
+        }
+
+        void testResizeBug()
+        {
+            buildGLContext();
         
             FTGLTextureFont* textureFont = new FTGLTextureFont( FONT_FILE);            
             CPPUNIT_ASSERT( textureFont->Error() == 0);
-        
+            
+            textureFont->FaceSize(18);
+            textureFont->Render("blah");
+
+            textureFont->FaceSize(38);
+            textureFont->Render("blah");
+            
+            CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);        
         }
 
         void setUp() 
@@ -44,5 +61,5 @@ class FTGLPolygonFontTest : public CppUnit::TestCase
     private:
 };
 
-CPPUNIT_TEST_SUITE_REGISTRATION( FTGLPolygonFontTest);
+CPPUNIT_TEST_SUITE_REGISTRATION( FTGLTextureFontTest);
 
