@@ -3,8 +3,9 @@
 
 
 FTContour::FTContour()
+:	kMAXPOINTS( 1000)
 {	
-	pointList.reserve( 1000); // FIXME magic number
+	pointList.reserve( kMAXPOINTS);
 }
 
 
@@ -26,46 +27,11 @@ void FTContour::AddPoint( const int x, const int y)
 }
 
 
-// De Casteljau algorithm supplied by Jed Soane
-void FTVectoriser::deCasteljau( const float t, const int n)
-{
-    //Calculating successive b(i)'s using de Casteljau algorithm.
-    for( int i = 1; i <= n; i++)
-        for( int k = 0; k <= (n - i); k++)
-        {
-			bValues[i][k][0] = (1 - t) * bValues[i - 1][k][0] + t * bValues[i - 1][k + 1][0];
-			bValues[i][k][1] = (1 - t) * bValues[i - 1][k][1] + t * bValues[i - 1][k + 1][1];
-		}
-		
-    //Specify next vertex to be included on curve
-	contour->AddPoint( bValues[n][0][0], bValues[n][0][1]);
-}
-
-
-// De Casteljau algorithm supplied by Jed Soane
-void FTVectoriser::evaluateCurve( const int n)
-{
-    // setting the b(0) equal to the control points
-    for( int i = 0; i <= n; i++)
-	{
-		bValues[0][i][0] = ctrlPtArray[i][0];
-		bValues[0][i][1] = ctrlPtArray[i][1];
-    } //end for(i..)
-
-    float t;            					//parameter for curve point calc. [0.0, 1.0]
-    const float stepSize = 0.2; // FIXME variable
-
-    for( int m = 0; m <= (1 / stepSize); m++)
-    {
-    	t = m * stepSize;
-        deCasteljau( t, n);  //calls to evaluate point on curve att.
-    } //end for(m...)
-}
-
-
 FTVectoriser::FTVectoriser( const FT_Glyph glyph)
 :	contourFlag(0),
-	contour(0)
+	contour(0),
+	kBSTEPSIZE( 0.2)
+
 {
 	FT_OutlineGlyph outline = (FT_OutlineGlyph)glyph;
 	ftOutline = outline->outline;
@@ -99,7 +65,7 @@ int FTVectoriser::points()
 
 bool FTVectoriser::Ingest()
 {
-    if ( ( ftOutline.n_contours < 1) || ( ftOutline.n_points < 3)) //FIXME check this
+    if ( ( ftOutline.n_contours < 1) || ( ftOutline.n_points < 3))
 		return false;
 
 	short first = 0;
@@ -207,6 +173,42 @@ int FTVectoriser::Cubic( const int index, const int first, const int last)
 
 	evaluateCurve( 3);
 	return 2;
+}
+
+
+// De Casteljau algorithm supplied by Jed Soane
+void FTVectoriser::deCasteljau( const float t, const int n)
+{
+    //Calculating successive b(i)'s using de Casteljau algorithm.
+    for( int i = 1; i <= n; i++)
+        for( int k = 0; k <= (n - i); k++)
+        {
+			bValues[i][k][0] = (1 - t) * bValues[i - 1][k][0] + t * bValues[i - 1][k + 1][0];
+			bValues[i][k][1] = (1 - t) * bValues[i - 1][k][1] + t * bValues[i - 1][k + 1][1];
+		}
+		
+    //Specify next vertex to be included on curve
+	contour->AddPoint( bValues[n][0][0], bValues[n][0][1]);
+}
+
+
+// De Casteljau algorithm supplied by Jed Soane
+void FTVectoriser::evaluateCurve( const int n)
+{
+    // setting the b(0) equal to the control points
+    for( int i = 0; i <= n; i++)
+	{
+		bValues[0][i][0] = ctrlPtArray[i][0];
+		bValues[0][i][1] = ctrlPtArray[i][1];
+    } //end for(i..)
+
+    float t;            					//parameter for curve point calc. [0.0, 1.0]
+
+    for( int m = 0; m <= (1 / kBSTEPSIZE); m++)
+    {
+    	t = m * kBSTEPSIZE;
+        deCasteljau( t, n);  //calls to evaluate point on curve att.
+    } //end for(m...)
 }
 
 

@@ -30,7 +30,7 @@ class ftPoint
 			return((a.x != b.x) || (a.y != b.y) || (a.z != b.z));
 		}
 		
-		float x, y, z;
+		float x, y, z; // FIXME make private
 		
 	private:
 };
@@ -55,6 +55,7 @@ class FTContour
 		// methods
 
 		// attributes
+		const unsigned int kMAXPOINTS;
 };
 
 
@@ -91,6 +92,8 @@ class FTVectoriser
 		 // Magic numbers -- #define MAX_DEG 4
 		float bValues[4][4][2];	//3D array storing values of de Casteljau algorithm.
 		float ctrlPtArray[4][2]; // Magic numbers
+		
+		const float kBSTEPSIZE;
 
 };
 
