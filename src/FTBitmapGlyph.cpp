@@ -22,11 +22,6 @@ FTBitmapGlyph::FTBitmapGlyph( FT_Glyph glyph)
 	int srcHeight = source->rows;
 	int srcPitch = source->pitch;
     
-	advance = static_cast<float>(glyph->advance.x >> 16);
-
- 	pos.x = bitmap->left;
-	pos.y = srcHeight - bitmap->top;
-	
    // FIXME What about dest alignment?
     destWidth = srcWidth;
     destHeight = srcHeight;
@@ -44,6 +39,11 @@ FTBitmapGlyph::FTBitmapGlyph( FT_Glyph glyph)
 
     destHeight = srcHeight;
 
+	bBox = FTBBox( glyph);
+	advance = static_cast<float>(glyph->advance.x >> 16);
+ 	pos.x = bitmap->left;
+	pos.y = srcHeight - bitmap->top;
+	
 	// discard glyph image (bitmap or not)
 	// Is this the right place to do this?
 	FT_Done_Glyph( glyph );
