@@ -41,14 +41,14 @@ class FTFaceTest : public CppUnit::TestCase
         FTFace face1( (unsigned char*)100, 0);
         CPPUNIT_ASSERT( face1.Error() == 85);        
 
-        FTFace face2( arial_ttf.dataBytes, arial_ttf.numBytes);
+        FTFace face2( HPGCalc_pfb.dataBytes, HPGCalc_pfb.numBytes);
         CPPUNIT_ASSERT( face2.Error() == 0);        
     }
     
     
     void testAttachFile()
     {
-        CPPUNIT_ASSERT( !testFace->Attach( GOOD_FONT_FILE));
+        CPPUNIT_ASSERT( !testFace->Attach( TYPE1_AFM_FILE));
         CPPUNIT_ASSERT( testFace->Error() == 7);
 
         FTFace test( TYPE1_FONT_FILE);
@@ -63,6 +63,12 @@ class FTFaceTest : public CppUnit::TestCase
     {
         CPPUNIT_ASSERT( !testFace->Attach((unsigned char*)100, 0));
         CPPUNIT_ASSERT( testFace->Error() == 7);        
+
+        FTFace test( TYPE1_FONT_FILE);
+        CPPUNIT_ASSERT( test.Error() == 0);
+
+        CPPUNIT_ASSERT( test.Attach( HPGCalc_afm.dataBytes, HPGCalc_afm.numBytes));
+        CPPUNIT_ASSERT( test.Error() == 0);
     }
     
 

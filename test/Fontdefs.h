@@ -32,6 +32,7 @@ const unsigned int NUMBER_OF_GLYPHS = 50;
 const unsigned int TOO_MANY_GLYPHS  = 14100; // MHei-Medium-Acro has 14099
 
 
-#include "arial_ttf.cpp"
+#include "HPGCalc_pfb.cpp"
+#include "HPGCalc_afm.cpp"
 
 #endif // __Font_defs__

@@ -82,14 +82,14 @@ class FTFontTest : public CppUnit::TestCase
         TestFont badFont( (unsigned char*)100, 0);
         CPPUNIT_ASSERT( badFont.Error() == 85);        
 
-        TestFont goodFont( arial_ttf.dataBytes, arial_ttf.numBytes);
+        TestFont goodFont( HPGCalc_pfb.dataBytes, HPGCalc_pfb.numBytes);
         CPPUNIT_ASSERT( goodFont.Error() == 0);        
     }
     
     
     void testAttachFile()
     {
-        testFont->Attach( GOOD_FONT_FILE);
+        testFont->Attach( TYPE1_AFM_FILE);
         CPPUNIT_ASSERT( testFont->Error() == 7);        
     }
     
