@@ -5,7 +5,7 @@ for those that are that way inclined. Basically I want you to use this
 software and if you think this license is preventing you from doing so
 let me know. 
 
-Copyright (C) 2001-2 Henry Maddocks
+Copyright (C) 2001-3 Henry Maddocks
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the

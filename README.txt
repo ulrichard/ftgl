@@ -37,9 +37,10 @@ This library was inspired by gltt, Copyright (C) 1998-1999 Stephane Rehel
 Bezier curve code contributed by Jed Soane.
 Demo, Linux port, extrusion code and gltt maintainance by Gerard Lanois
 Linux port by Matthias Kretz
-Windows port by Max Rheiner & Andrew Ellerton
+Windows port by Andrew Ellerton & Max Rheiner
 Bug fixes by Robert Osfield, Marcelo E. Magallon, Markku Rontu, Mark A. Fox
 Containers and optimisations by Sebastien Barre
+Autoconf Marcelo E. Magallon.
 
 Please contact me if you have any suggestions, feature requests, or problems.
 
