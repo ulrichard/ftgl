@@ -5,7 +5,10 @@
 
 
 FTTextureGlyph::FTTextureGlyph( FT_Glyph glyph, int gi, unsigned char* data, int stride, float u, float v)
-:	FTGlyph(gi)
+:	FTGlyph(gi),
+	destWidth(0),
+	destHeight(0),
+	numGreys(0)
 {
 	if( !glyph->format == ft_glyph_format_bitmap)
 	{ return;}
@@ -67,7 +70,7 @@ FTTextureGlyph::~FTTextureGlyph()
 }
 
 
-float FTTextureGlyph::Render( FT_Vector& pen)
+float FTTextureGlyph::Render( const FT_Vector& pen)
 {
 //	int adv = advance/* + pos.x */+ ( v.x >> 16); // FIXME ??? pos.x = bearing X
 

@@ -14,10 +14,11 @@ class	FTTextureGlyph : public FTGlyph
 		// methods
 		FTTextureGlyph( FT_Glyph glyph, int gi, unsigned char* data, int stride, float u, float v);
 		virtual ~FTTextureGlyph();
-		virtual float Render( FT_Vector& v);
+		virtual float Render( const FT_Vector& v);
 		
 	private:
 		// attributes
+		// What about the other point class in vectoriser?
 		struct FTPoint
 		{
 			float x;
