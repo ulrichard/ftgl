@@ -70,6 +70,7 @@ good site...http://cgm.cs.mcgill.ca/~luc/
 TODO:
 	- Finish!!
 	- Fix compiler warnings
+	- Memory Leak in PolyGlyph (glCombine)
 	- The position stuff is broken again. Check the pen stuff. Plus lower
 	  case 'y's seem to be 1 pixel too low?
 	- Use glRasterPos() not glBitMap to set raster pos in pixel fonts.
