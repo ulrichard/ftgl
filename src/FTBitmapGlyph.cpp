@@ -1,6 +1,5 @@
 #include    "FTBitmapGlyph.h"
 
-
 FTBitmapGlyph::FTBitmapGlyph( FT_Glyph glyph)
 :   FTGlyph(),
     destWidth(0),
@@ -20,9 +19,9 @@ FTBitmapGlyph::FTBitmapGlyph( FT_Glyph glyph)
     //check the pixel mode
     //ft_pixel_mode_grays
         
-    int srcWidth = source->width;
-    int srcHeight = source->rows;
-    int srcPitch = source->pitch;
+    unsigned int srcWidth = source->width;
+    unsigned int srcHeight = source->rows;
+    unsigned int srcPitch = source->pitch;
     
    // FIXME What about dest alignment?
     destWidth = srcWidth;
@@ -36,9 +35,9 @@ FTBitmapGlyph::FTBitmapGlyph( FT_Glyph glyph)
         unsigned char* src = source->buffer;
         size_t destStep = srcPitch * 2;
         
-        for(int y = 0; y < srcHeight; ++y)
+        for( unsigned int y = 0; y < srcHeight; ++y)
         {
-            for(int x = 0; x < srcPitch; ++x)
+            for( unsigned int x = 0; x < srcPitch; ++x)
             {
                 *dest++ = *src++;
             }
