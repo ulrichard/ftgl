@@ -44,7 +44,7 @@ bool FTFont::Open( const unsigned char *pBufferBytes, size_t bufferSizeInBytes)
     {
         FT_Face* ftFace = face.Face();      
         numGlyphs = (*ftFace)->num_glyphs;
-        
+        err = 0;
         return true;
     }
     else
@@ -57,7 +57,16 @@ bool FTFont::Open( const unsigned char *pBufferBytes, size_t bufferSizeInBytes)
 
 bool FTFont::Attach( const char* filename)
 {
-    return face.Attach( filename);
+    if( face.Attach( filename))
+    {
+        err = 0;
+        return true;
+    }
+    else
+    {
+        err = face.Error();
+        return false;
+    }
 }
 
 
