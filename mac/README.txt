@@ -1,4 +1,4 @@
-FTGL Version 1.0
+FTGL Version 1.3
 
 This project will build a static library (archive) in this directory.
 
