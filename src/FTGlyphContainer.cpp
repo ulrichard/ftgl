@@ -14,12 +14,12 @@ FTGlyphContainer::FTGlyphContainer( FTFace* f)
 
 FTGlyphContainer::~FTGlyphContainer()
 {
-    GlyphVector::iterator iter;
-    for( iter = glyphs.begin(); iter != glyphs.end(); ++iter)
+    GlyphVector::iterator glyphIterator;
+    for( glyphIterator = glyphs.begin(); glyphIterator != glyphs.end(); ++glyphIterator)
     {
-        if( *iter)
+        if( *glyphIterator)
         {
-            delete *iter;
+            delete *glyphIterator;
         }
     }
     
