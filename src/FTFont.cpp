@@ -39,7 +39,6 @@ bool FTFont::Open( const char* fontname )
 
 void FTFont::Close()
 {
-	face.Close();
 	delete glyphList;
 }
 
