@@ -81,8 +81,6 @@ class FTGL_EXPORT FTFace
 
         unsigned int UnitsPerEM() const;
 
-//        FTCharmap* CharMap() const { return charMap;}
-        
         /**
          * Gets the kerning vector between two glyphs
          */
