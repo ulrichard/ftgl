@@ -1,12 +1,9 @@
 #include	"FTFace.h"
 #include	"FTFont.h"
 #include	"FTGlyphContainer.h"
-//#include	"FTGL.h"
+#include	"FTGL.h"
 
 
-
-
-// OPSignature:  FTFont:FTFont() 
 FTFont::FTFont()
 :	fontName(0),
 	numFaces(0),
@@ -17,16 +14,10 @@ FTFont::FTFont()
 }
 
 
-// OPSignature:  FTFont:~FTFont() 
 FTFont::~FTFont()
-{
-//Insert your own code here.
-
-//End of user code.         
-}
+{}
 
 
-// OPSignature: bool FTFont:Open( const char*:fontname ) 
 bool	FTFont::Open( const char* fontname )
 {
 	//FIXME first check map to see if it's already open.
@@ -45,21 +36,16 @@ bool	FTFont::Open( const char* fontname )
 	{
 		return false;
 	}
-	
-
 }
 
 
-// OPSignature: void FTFont:Close() 
 void	FTFont::Close()
 {
 	face.Close();
 	delete glyphList;
-	
 }
 
 
-// OPSignature: bool FTFont:SetFaceSize( const int:size  const int:res ) 
 bool FTFont::FaceSize( const int size, const int res )
 {
 	charSize = face.Size( size, res);
@@ -71,14 +57,13 @@ bool FTFont::FaceSize( const int size, const int res )
 	
 	MakeGlyphList();
 
-	
 	return true;
 }
+
 
 bool FTFont::CharMap( CHARMAP encoding)
 {
 	face.CharMap( encoding);
-//	assert( face);
 
 	//FIXME
 	if( glyphList)
@@ -86,33 +71,29 @@ bool FTFont::CharMap( CHARMAP encoding)
 		
 	glyphList = new FTGlyphContainer( face.Face(), numGlyphs);
 	
-	MakeGlyphList();
+	if( MakeGlyphList())
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 
-//FTGlyph* FTFont::Glyph( unsigned char code )
-//{}
-//
-//
-//FTGlyph* FTFont::Glyph( unsigned char thisCode, unsigned char nextCode )
-//{}
-
-
-// OPSignature: int FTFont:getAscender() 
 int	FTFont::Ascender() const
 {
 	return charSize.Ascender();
 }
 
 
-// OPSignature: int FTFont:getDescender() 
 int	FTFont::Descender() const
 {
 	return charSize.Descender();
 }
 
 
-// OPSignature: void FTFont:getBBox( const char*:text  int&:llx  int&:lly  int&:urx  int&:ury ) 
 void	FTFont::BBox( const char* text, int& llx, int& lly, int& urx, int& ury ) const
 {
 //Insert your own code here.
@@ -121,10 +102,9 @@ void	FTFont::BBox( const char* text, int& llx, int& lly, int& urx, int& ury ) co
 }
 
 
-// OPSignature: bool FTFont:render( const char*:string ) 
-bool FTFont::render( const char* string )
+void FTFont::render( const char* string )
 {
-	char* c = string;
+	const char* c = string;
 	FT_Vector kernAdvance;
 	pen.x = 0; pen.y = 0;
 

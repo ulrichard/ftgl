@@ -8,10 +8,9 @@
 
 #include "FTFace.h"
 
-//#include "FTGL.h"
+#include "FTGL.h"
 
 
-//class FTGlyph;
 class FTGlyphContainer;
 
 using namespace std;
@@ -27,12 +26,10 @@ class	FTFont
 		virtual void Close();
 		virtual bool FaceSize( const int size, const int res = 72 );
 		virtual bool CharMap( CHARMAP encoding );
-//		virtual FTGlyph*	Glyph( unsigned char code );
-//		virtual FTGlyph*	Glyph( unsigned char thisCode, unsigned char nextCode );
 		virtual int	Ascender() const;
 		virtual int	Descender() const;
-		virtual void	BBox( const char* text, int& llx, int& lly, int& urx, int& ury ) const;
-		virtual bool	render( const char* string );
+		virtual void BBox( const char* text, int& llx, int& lly, int& urx, int& ury ) const;
+		virtual void render( const char* string );
 		
 		virtual FT_Error Error() const { return err;}
 		
@@ -45,11 +42,11 @@ class	FTFont
 		// attributes
 		FT_Error err;
 		
-		// list of faces
+		// future list of faces
 		FTFace face;
 		int	numFaces;
 		
-		// list of sizes
+		// future list of sizes
 		FTSize charSize;
 		
 		int numGlyphs;
