@@ -40,26 +40,26 @@ bool	FTSize::CharSize( FT_Face* ftFace, int point_size, int x_resolution, int y_
 // OPSignature: int FTSize:GetAscender() 
 int	FTSize::Ascender() const
 {
-	return ftSize->metrics.ascender;
+	return ftSize->metrics.ascender >> 6;
 }
 
 
 // OPSignature: int FTSize:GetDescender() 
 int	FTSize::Descender() const
 {
-	return ftSize->metrics.descender;
+	return ftSize->metrics.descender >> 6;
 }
 
 
 // OPSignature: int FTSize:Height() 
 int	FTSize::Height() const
 {
-	return ftSize->metrics.height;
+	return ftSize->metrics.height >> 6;
 }
 
 
 // OPSignature: int FTSize:Width() 
 int	FTSize::Width() const
 {
-	return ftSize->metrics.max_advance;
+	return ftSize->metrics.max_advance >> 6;
 }
