@@ -1,7 +1,6 @@
 #include	"FTGlyph.h"
 
 
-// OPSignature:  FTGlyph:FTGlyph( FT_Face:face  int:glyphIndex ) 
 FTGlyph::FTGlyph()
 :	advance(0),
 	err(0)	
@@ -11,6 +10,5 @@ FTGlyph::FTGlyph()
 }
 
 
-// OPSignature:  FTGlyph:~FTGlyph() 
 FTGlyph::~FTGlyph()
 {}

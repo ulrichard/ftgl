@@ -22,8 +22,6 @@ class FTGlyph
 	public:
 		/**
 		 * Constructor
-		 *
-		 * @param glyphIndex	The glyph index for this glyph
 		 */
 		FTGlyph();
 
