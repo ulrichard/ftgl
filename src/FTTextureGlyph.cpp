@@ -27,6 +27,7 @@ FTTextureGlyph::FTTextureGlyph( FT_Glyph glyph, int id, int xOffset, int yOffset
     
     if( destWidth && destHeight)
     {
+        glPixelStorei( GL_UNPACK_ROW_LENGTH, 0);
         glBindTexture( GL_TEXTURE_2D, glTextureID);
         glTexSubImage2D( GL_TEXTURE_2D, 0, xOffset, yOffset, destWidth, destHeight, GL_ALPHA, GL_UNSIGNED_BYTE, source->buffer);
     }
