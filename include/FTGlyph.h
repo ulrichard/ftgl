@@ -55,7 +55,7 @@ class FTGL_EXPORT FTGlyph
          *
          * @return  bounding box.
          */
-        FTBBox BBox() const { return bBox;}
+        const FTBBox& BBox() const { return bBox;}
         
         /**
          * Queries for errors.
