@@ -19,7 +19,7 @@ class FTGL_EXPORT FTList
          * Constructor
          */
         FTList()
-        :	listSize(0),
+        :   listSize(0),
             tail(0)
         {
             tail = NULL;
