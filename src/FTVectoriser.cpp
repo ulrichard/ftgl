@@ -108,7 +108,7 @@ FTVectoriser::FTVectoriser( const FT_GlyphSlot glyph)
     {
         outline = glyph->outline;
         
-        ftContourCount = outline.n_contours;;
+        ftContourCount = outline.n_contours;
         contourList = 0;
         contourFlag = outline.flags;
         
