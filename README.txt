@@ -5,10 +5,10 @@ USAGE:
 
 	FTGLPixmapFont font;
 	
-	font.Open("HenrysHD:System Folder:Fonts:Arial");
+	font.Open( "HenrysHD:System Folder:Fonts:Arial");
 	font.FaceSize( 72);
 	
-	font.render("Hello World!");
+	font.render( "Hello World!");
 
 
 
@@ -21,21 +21,30 @@ they be handled.
 At the moment if you call font.CharSize( x) the glyph list is destroyed and
 rebuilt, which will be really inefficient if you change sizes often. Will
 the freetype cache stuff help here or should we cache internally?
-multiple glyphlists. glyphlist manager.
+multiple glyphlists. glyphlist manager. FTSize obj???
 
 When is the best time to construct the glyphList? After the call to Size(x)
 is the earliest but what happens if the client doesn't set the char size?
 
 The FTSize seems redundant.
 
+Need a way to restrict the glyphs to a custom set. eg an app only needs
+numbers so we should only create a glyphList of the number characters.
+This will enable us to have a restricted set of HIGH quality glyphs.
+
 TODO:
 	- Finish!!
 	- Error handling - fail gracefully - return FT_Error codes.
 	- What happens with 2 obj of the same font type
-	- Kerning. The position stuff now seems OK but needs checking. (lower
+	- The position stuff is broken again. Check the pen stuff. Plus lower
 	  case 'y's seem to be 1 pixel too low?)
 	- check and confirm the glPixelStore stuff. Data Alignment. Tightly
 	  packed at the moment.
+	- pen position eg font.render( 50, 100, "Hello World!");
+	- Pixmaps as textures. FTTextureGlyph
+	- Clear the texture mem
+	- calc smallest texture size
+	- overflow texture
 	- FTOutlineGlyph
 	- FTPolygonGlyph
 	- Change glDrawPixels to use GL_ALPHA instead of GL_RGBA. This may not
@@ -43,14 +52,12 @@ TODO:
 	- Coloured Pixmaps/ bitmaps
 	- Optimise performance!! and mem usage.
 	- Use the Freetype Cache mechanism. See above. FTC_xxx
-	- Sort out the pixel storage modes.
-	- Pixmaps as textures. FTTextureGlyph
 	- Vertical formats
 	
 	
 BUGS:
 	MAC OS:
-		- Exits with some fonts at large sizes. Memory?
+		- Exits with some fonts at large sizes. Freetype Memory Bug?
 		
 
 
