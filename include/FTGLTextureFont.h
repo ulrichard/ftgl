@@ -60,7 +60,7 @@ class  FTGL_EXPORT FTGLTextureFont : public FTFont
 		 * This a list of glyphs processed for openGL rendering NOT
 		 * freetype glyphs
 		 */
-		bool MakeGlyphList();
+		virtual bool MakeGlyphList();
 		
 		/**
 		 * Draw a series of glyphs into texture memory
