@@ -27,6 +27,7 @@ SRCS =				\
 	FTPixmapGlyph.cpp	\
 	FTPoint.cpp		\
 	FTPolyGlyph.cpp		\
+	FTSimpleLayout.cpp	\
 	FTSize.cpp		\
 	FTTextureGlyph.cpp	\
 	FTVectoriser.cpp
@@ -49,12 +50,14 @@ HEADERS =			\
 	FTGLTextureFont.h	\
 	FTGlyph.h		\
 	FTGlyphContainer.h	\
+	FTLayout.h		\
 	FTLibrary.h		\
 	FTList.h		\
 	FTOutlineGlyph.h	\
 	FTPixmapGlyph.h		\
 	FTPoint.h		\
 	FTPolyGlyph.h		\
+	FTSimpleLayout.h	\
 	FTSize.h		\
 	FTTextureGlyph.h	\
 	FTVector.h		\
@@ -67,8 +70,8 @@ OBJS = $(patsubst %.cpp,%.$(OBJEXT),$(SRCS))
 
 ALL_OBJS = $(LOBJS) $(OBJS)
 
-CXXFLAGS += $(FT2_CFLAGS)
-LIBS += $(FT2_LIBS)
+CXXFLAGS += $(FT2_CFLAGS) $(GL_CFLAGS)
+LIBS += $(FT2_LIBS) $(GL_LIBS)
 
 libftgl.la: $(LOBJS)
 
