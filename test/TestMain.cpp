@@ -29,8 +29,14 @@ void buildGLContext()
         glutInit( &number, &pointer);
         glutInitDisplayMode(GLUT_DEPTH | GLUT_RGB | GLUT_DOUBLE | GLUT_MULTISAMPLE);
         glutInitWindowPosition(0, 0);
-        glutInitWindowSize( 0, 0);
+        glutInitWindowSize( 150, 150);
         glutCreateWindow("FTGL TEST");
+        
+        glMatrixMode(GL_PROJECTION);
+        glLoadIdentity();
+        gluOrtho2D( 0.0, 150, 0.0, 150);
+        glMatrixMode(GL_MODELVIEW);
+        glLoadIdentity();
         
         glutInitialised = true;
     }
