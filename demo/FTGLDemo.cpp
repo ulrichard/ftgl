@@ -215,7 +215,7 @@ void renderFontInfo()
 
 	// draw mode
 	glColor3f( 1.0, 1.0, 1.0);
-	glRasterPos2i( 20 , h_win - ( 20 + infoFont->Ascender()));
+	glRasterPos2f( 20.0f , h_win - ( 20.0f + infoFont->Ascender()));
 
 	switch( mode)
 	{
@@ -250,7 +250,7 @@ void renderFontInfo()
 			break;
 	}
 	
-	glRasterPos2i( 20 , 20 + infoFont->Ascender() - infoFont->Descender());
+	glRasterPos2f( 20.0f , 20.0f + infoFont->Ascender() - infoFont->Descender());
 	infoFont->Render(FONT_FILE);
 }
 
