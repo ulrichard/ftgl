@@ -62,6 +62,7 @@ FTMesh::~FTMesh()
     {
         delete tesselationList[t];
     }
+    
     tesselationList.clear();
 }
 
@@ -125,7 +126,6 @@ FTVectoriser::~FTVectoriser()
     }
 
     delete [] contourList;
-    
     delete mesh;
 }
 
