@@ -5,6 +5,7 @@
 #include	"FTGL.h"
 #include	"FTTextureGlyph.h"
 
+using namespace std;
 
 typedef unsigned long	UInt32; // a mac thing?
 
@@ -64,7 +65,7 @@ bool FTGLTextureFont::MakeGlyphList()
 		glGenTextures( numTextures, (GLuint*)&glTextureID[0]);
 
 		textMem = new unsigned char[totalMem]; // GL_ALPHA texture;
-		std::memset( textMem, 0, totalMem);
+		memset( textMem, 0, totalMem);
 			
 		unsigned int glyphNum = 0;
 		unsigned char* currTextPtr = textMem;
