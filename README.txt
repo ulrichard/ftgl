@@ -1,4 +1,4 @@
-FTGL 1.0b1
+FTGL 1.0b2
 
 DESCRIPTION:
 FTGL is a library a tool to allow OpenGL (www.opengl.org) to render
@@ -96,6 +96,10 @@ BUGS:
 		  also with large numbers of glyphs at any size eg helvetica
 
 
+August 6 2001
+	- BETA release 1.0b2
+	- Minor tidy ups for first public release.
+	
 August 3 2001
 	- First BETA release 1.0b1
 	- All font types are now working, Bitmaps, Pixmaps, Texture, Outline
