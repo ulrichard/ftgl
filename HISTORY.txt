@@ -1,4 +1,17 @@
-FTGL 1.1
+FTGL 1.2
+
+November 6 2001
+ 	1.2 (FTGL_1_2_0)
+	- Glyphs can now be loaded on the fly instead of being pre-cached. If
+	  FTFont::Open() is called with false, FTGlyphContainer will build a
+	  list of null pointers. Then when ever a glyph needs to be access eg
+	  by FTFont::advance or FTFont::render, it will be built and slotted
+	  into the glyphlist in the correct position.
+	- Removed glext.h from FTGL.h and replaced it with a test for
+	  GL_EXT_texture_object.
+	- Added padding to texture size calculations.
+	- Fixed a NASTY bug in FTGLTextureFont. Only came to light after changes
+	  to the glyph preprocessing.
 
 October 31 2001
  	1.1 (FTGL_1_1_0)
