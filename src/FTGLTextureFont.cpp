@@ -77,7 +77,7 @@ FTGlyph* FTGLTextureFont::MakeGlyph( unsigned int g)
                                                         xOffset, yOffset, textureWidth, textureHeight);
         
         // FIXME ceiling
-        xOffset += tempGlyph->BBox().x2 - tempGlyph->BBox().x1 + padding;
+        xOffset += static_cast<int>( tempGlyph->BBox().upperX - tempGlyph->BBox().lowerX + padding);
         
         --remGlyphs;
         return tempGlyph;

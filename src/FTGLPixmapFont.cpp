@@ -12,7 +12,7 @@ FTGLPixmapFont::~FTGLPixmapFont()
 
 FTGlyph* FTGLPixmapFont::MakeGlyph( unsigned int g)
 {
-    FT_Glyph* ftGlyph = face.Glyph( g, FT_LOAD_DEFAULT);
+    FT_Glyph* ftGlyph = face.Glyph( g, FT_LOAD_NO_HINTING);
 
     if( ftGlyph)
     {
