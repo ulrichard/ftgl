@@ -20,7 +20,8 @@ bool FTGLOutlineFont::MakeGlyphList()
 {
 	int glyphIndex;
 	
-	numGlyphs = 127;
+	numGlyphs = 127; // FIXME hack
+	
 	for( int n = 0; n < numGlyphs; ++n)
 	{
 		FT_Face* ftFace = face.Face();
@@ -28,18 +29,16 @@ bool FTGLOutlineFont::MakeGlyphList()
 		glyphIndex = FT_Get_Char_Index( *ftFace, n);
 		
 		err = FT_Load_Glyph( *ftFace, glyphIndex, FT_LOAD_DEFAULT);
-		if( err)
-		{ }
 
 		FT_Glyph ftGlyph;
 		
 		err = FT_Get_Glyph( (*ftFace)->glyph, &ftGlyph);
-		if( err)
-		{}
 		
 		tempGlyph = new FTVectorGlyph( ftGlyph, glyphIndex);
 		glyphList->Add( tempGlyph);
 	}
+	
+	return !err;
 }
 
 
