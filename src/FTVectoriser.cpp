@@ -46,6 +46,7 @@ void CALLBACK ftglCombine( FTGL_DOUBLE coords[3], void* vertex_data[4], GLfloat 
     FTGL_DOUBLE* vertex = (FTGL_DOUBLE*)coords;
     mesh->tempPointList.push_back( FTPoint( vertex[0], vertex[1], vertex[2]));
     
+    // FIXME if tempPointList reallocs we'll loose these. replace it with a list.
     *outData = &mesh->tempPointList[ mesh->tempPointList.size() - 1].x;
 }
         
@@ -78,7 +79,7 @@ void FTMesh::AddPoint( const FTGL_DOUBLE x, const FTGL_DOUBLE y, const FTGL_DOUB
 void FTMesh::Begin( GLenum m)
 {
     currentTesselation = new FTTesselation;
-    currentTesselation->meshType = m;
+    currentTesselation->PolygonType( m);
 }
 
 
@@ -88,25 +89,11 @@ void FTMesh::End()
 }
 
 
-int FTMesh::size() const
-{
-    int s = 0;
-    for( size_t t = 0; t < tesselationList.size(); ++t)
-    {
-        s += tesselationList[t]->size();
-// FIXME What the hell is this for? Data in FTPolyglyph
-        ++s;
-    }
-    return s;
-}
-
-
 FTVectoriser::FTVectoriser( const FT_Glyph glyph)
 :   contourList(0),
     mesh(0),
     ftContourCount(0),
-    contourFlag(0),
-    kBSTEPSIZE( 0.2f)
+    contourFlag(0)
 {
     if( glyph)
     {
@@ -124,7 +111,7 @@ FTVectoriser::FTVectoriser( const FT_Glyph glyph)
 
 FTVectoriser::~FTVectoriser()
 {
-    for( size_t c = 0; c < contours(); ++c)
+    for( size_t c = 0; c < ContourCount(); ++c)
     {
         delete contourList[c];
     }
@@ -160,12 +147,12 @@ void FTVectoriser::ProcessContours()
 }
 
 
-int FTVectoriser::points()
+size_t FTVectoriser::PointCount()
 {
     int s = 0;
-    for( size_t c = 0; c < contours(); ++c)
+    for( size_t c = 0; c < ContourCount(); ++c)
     {
-        s += contourList[c]->Points();
+        s += contourList[c]->PointCount();
     }
     
     return s;
@@ -203,13 +190,13 @@ void FTVectoriser::MakeMesh( FTGL_DOUBLE zNormal)
     gluTessNormal( tobj, 0.0f, 0.0f, zNormal);
     gluTessBeginPolygon( tobj, mesh);
     
-        for( size_t c = 0; c < contours(); ++c)
+        for( size_t c = 0; c < ContourCount(); ++c)
         {
             const FTContour* contour = contourList[c];
 
             gluTessBeginContour( tobj);
             
-                for( size_t p = 0; p < contour->Points(); ++p)
+                for( size_t p = 0; p < contour->PointCount(); ++p)
                 {
                     FTGL_DOUBLE* d = const_cast<FTGL_DOUBLE*>(&contour->Point(p).x);
                     gluTessVertex( tobj, d, d);
@@ -221,33 +208,5 @@ void FTVectoriser::MakeMesh( FTGL_DOUBLE zNormal)
     gluTessEndPolygon( tobj);
 
     gluDeleteTess( tobj);
-}
-
-
-void FTVectoriser::GetMesh( FTGL_DOUBLE* data)
-{
-    // fill out the header
-    size_t msize = mesh->tesselationList.size();
-    data[0] = msize;
-    
-    int i = 0;
-    for( int p = 0; p < data[0]; ++p)
-    {
-        FTTesselation* tesselation = mesh->tesselationList[p];
-        size_t tesselationSize =  tesselation->pointList.size();
-        int tesselationType =  tesselation->meshType;
-        
-        data[i+1] = tesselationType;
-        data[i+2] = tesselationSize;
-
-        i += 3;
-        for( size_t q = 0; q < ( tesselation->pointList.size()); ++q)
-        {
-            data[i] = tesselation->pointList[q].x / 64.0f;
-            data[i + 1] = tesselation->pointList[q].y / 64.0f;
-            data[i + 2] = 0.0f;
-            i += 3;
-        }
-    }
 }
 
