@@ -3,6 +3,9 @@
 
 #include "FTGL.h"
 
+/**
+* Provides a non-STL alternative to the STL list
+ */
 template <typename FT_LIST_ITEM_TYPE>
 class FTGL_EXPORT FTList
 {
@@ -12,6 +15,9 @@ class FTGL_EXPORT FTList
         typedef const value_type& const_reference;
         typedef size_t size_type;
 
+        /**
+         * Constructor
+         */
         FTList()
         :	listSize(0),
             tail(0)
@@ -19,7 +25,10 @@ class FTGL_EXPORT FTList
             tail = NULL;
             head = new Node;
         }
-        
+
+        /**
+         * Destructor
+         */
         ~FTList()
         {
             Node* temp = head;
@@ -30,12 +39,18 @@ class FTGL_EXPORT FTList
                 delete head;
             }
         }
-        
+
+        /**
+         * Get the number of items in the list
+         */
         size_type size() const
         {
             return listSize;
         }
 
+        /**
+         * Add an item to the end of the list
+         */
         void push_back( const value_type& item)
         {
             Node* node = new Node( item);
@@ -48,12 +63,18 @@ class FTGL_EXPORT FTList
             tail = node;
             ++listSize;
         }
-        
+
+        /**
+         * Get the item at the front of the list
+         */
         reference front() const
         {
             return head->next->payload;
         }
 
+        /**
+         * Get the item at the end of the list
+         */
         reference back() const
         {
             return tail->payload;
