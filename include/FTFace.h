@@ -10,8 +10,6 @@
 #include "FTPoint.h"
 #include "FTSize.h"
 
-class FTCharmap;
-
 /**
  * FTFace class provides an abstraction layer for the Freetype Face.
  *
@@ -66,6 +64,8 @@ class FTGL_EXPORT FTFace
          * Disposes of the face
          */
         void Close();
+
+        FT_Face* Face() const { return ftFace;}
         
         
         void* FontTable( unsigned int tableName) const;
@@ -85,27 +85,8 @@ class FTGL_EXPORT FTFace
 
         unsigned int UnitsPerEM() const;
 
-        /**
-         * Sets the character map for the face.
-         *
-         * This doesn't guarantee that the size was set correctly. Clients
-         * should check errors.
-         *
-         * @param encoding      the Freetype encoding symbol. See above.
-         * @return              <code>true</code> if charmap was valid
-         *                      and set correctly
-         */
-        bool CharMap( FT_Encoding encoding);
-
-        /**
-         *  Get the glyph index of the input character.
-         *
-         * @param index The character code of the requested glyph in the
-         *              current encoding eg apple roman.
-         * @return      The glyph index for the character.
-         */
-        unsigned int CharIndex( unsigned int index ) const;
-
+//        FTCharmap* CharMap() const { return charMap;}
+        
         /**
          * Gets the kerning vector between two glyphs
          */
@@ -139,11 +120,6 @@ class FTGL_EXPORT FTFace
          */
         FTSize  charSize;
         
-        /**
-         * The Character Map object associated with this face
-         */
-        FTCharmap* charMap;
-
         /**
          * Temporary variable to hold a glyph
          */

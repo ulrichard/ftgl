@@ -1,13 +1,10 @@
 #include    "FTFace.h"
 #include    "FTLibrary.h"
-#include    "FTCharmap.h"
-
 
 #include FT_TRUETYPE_TABLES_H
 
 FTFace::FTFace( const char* filename)
-:   charMap(0),
-    numGlyphs(0),
+:   numGlyphs(0),
     err(0)
 {
     const FT_Long DEFAULT_FACE_INDEX = 0;
@@ -22,15 +19,13 @@ FTFace::FTFace( const char* filename)
     }
     else
     {
-        charMap = new FTCharmap( *ftFace);
         numGlyphs = (*ftFace)->num_glyphs;
     }
 }
 
 
 FTFace::FTFace( const unsigned char *pBufferBytes, size_t bufferSizeInBytes)
-:   charMap(0),
-    numGlyphs(0),
+:   numGlyphs(0),
     err(0)
 {
     const FT_Long DEFAULT_FACE_INDEX = 0;
@@ -45,7 +40,6 @@ FTFace::FTFace( const unsigned char *pBufferBytes, size_t bufferSizeInBytes)
     }
     else
     {
-        charMap = new FTCharmap( *ftFace);
         numGlyphs = (*ftFace)->num_glyphs;
     }
 }
@@ -53,7 +47,6 @@ FTFace::FTFace( const unsigned char *pBufferBytes, size_t bufferSizeInBytes)
 
 FTFace::~FTFace()
 {
-    delete charMap;
     Close();
 }
 
@@ -105,23 +98,9 @@ const FTSize& FTFace::Size( const unsigned int size, const unsigned int res)
 }
 
 
-bool FTFace::CharMap( FT_Encoding encoding)
-{
-    bool result = charMap->CharMap( encoding);
-    err = charMap->Error();
-    return result;
-}
-
-
 unsigned int FTFace::UnitsPerEM() const
 {
     return (*ftFace)->units_per_EM;
-}
-
-
-unsigned int FTFace::CharIndex( unsigned int index) const
-{
-    return charMap->CharIndex( index);
 }
 
 
@@ -163,6 +142,4 @@ FT_Glyph* FTFace::Glyph( unsigned int index, FT_Int load_flags)
 
     return &ftGlyph;
 }
-
-
 
