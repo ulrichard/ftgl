@@ -177,6 +177,7 @@ void myinit ( const char* fontfile)
 	glEnable( GL_LINE_SMOOTH);
 	glHint( GL_LINE_SMOOTH_HINT, GL_DONT_CARE);
 	glEnable(GL_BLEND);
+// 	glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // GL_ONE
 	 	
 	SetCamera();
 
