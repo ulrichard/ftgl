@@ -1,10 +1,13 @@
+#ifdef FTGL_DEBUG
+	#include "mmgr.h"
+#endif
+
 #include	"FTGLTextureFont.h"
 #include	"FTGlyphContainer.h"
 #include	"FTTextureGlyph.h"
 
 using namespace std;
 
-//#include "mmgr.h"
 
 inline GLuint NextPowerOf2( GLuint in)
 {
