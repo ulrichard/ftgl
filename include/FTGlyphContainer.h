@@ -1,6 +1,8 @@
 #ifndef		__FTGlyphContainer__
 #define		__FTGlyphContainer__
 
+#include "FTGL.h"
+
 #include <vector>
 
 #include <ft2build.h>
@@ -18,7 +20,7 @@ using namespace std;
  *
  * @see FTGlyph
  */
-class	FTGlyphContainer
+class FTGL_EXPORT FTGlyphContainer
 {
 	public:
 		/**

@@ -1,9 +1,9 @@
 #ifndef		__FTGLPolygonFont__
 #define		__FTGLPolygonFont__
 
-#include	"FTFont.h"
-
 #include "FTGL.h"
+
+#include	"FTFont.h"
 
 
 class FTPolyGlyph;
@@ -14,7 +14,7 @@ class FTPolyGlyph;
  *
  * @see		FTFont
  */
-class	FTGLPolygonFont : public FTFont
+class FTGL_EXPORT FTGLPolygonFont : public FTFont
 {
 	public:
 		// methods
@@ -32,4 +32,7 @@ class	FTGLPolygonFont : public FTFont
 
 		
 };
+
+
 #endif	//	__FTGLPolygonFont__
+

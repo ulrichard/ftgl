@@ -2,7 +2,9 @@
 #define		__FTGLPixmapFont__
 
 
-#include	"FTFont.h"
+#include "FTGL.h"
+
+#include "FTFont.h"
 
 class FTPixmapGlyph;
 
@@ -12,7 +14,7 @@ class FTPixmapGlyph;
  *
  * @see		FTFont
  */
-class	FTGLPixmapFont : public FTFont
+class FTGL_EXPORT FTGLPixmapFont : public FTFont
 {
 	public:
 		// methods
@@ -34,3 +36,4 @@ class	FTGLPixmapFont : public FTFont
 
 
 #endif	//	__FTGLPixmapFont__
+

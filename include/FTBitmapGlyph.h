@@ -1,6 +1,8 @@
 #ifndef		__FTBitmapGlyph__
 #define		__FTBitmapGlyph__
 
+#include "FTGL.h"
+
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include FT_GLYPH_H
@@ -8,7 +10,7 @@
 #include	"FTGlyph.h"
 
 
-class	FTBitmapGlyph : public FTGlyph
+class FTGL_EXPORT FTBitmapGlyph : public FTGlyph
 {
 	public:
 		/**
@@ -46,3 +48,4 @@ class	FTBitmapGlyph : public FTGlyph
 
 
 #endif	//	__FTBitmapGlyph__
+

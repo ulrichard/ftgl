@@ -1,6 +1,8 @@
 #ifndef		__FTOutlineGlyph__
 #define		__FTOutlineGlyph__
 
+#include "FTGL.h"
+
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include FT_GLYPH_H
@@ -9,7 +11,7 @@
 
 class FTVectoriser;
 
-class	FTOutlineGlyph : public FTGlyph
+class FTGL_EXPORT FTOutlineGlyph : public FTGlyph
 {
 	public:
 		// methods
@@ -34,3 +36,4 @@ class	FTOutlineGlyph : public FTGlyph
 
 
 #endif	//	__FTOutlineGlyph__
+

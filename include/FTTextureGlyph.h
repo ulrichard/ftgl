@@ -1,6 +1,7 @@
 #ifndef		__FTTextureGlyph__
 #define		__FTTextureGlyph__
 
+#include "FTGL.h"
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
@@ -9,7 +10,7 @@
 #include "FTGlyph.h"
 
 
-class	FTTextureGlyph : public FTGlyph
+class FTGL_EXPORT FTTextureGlyph : public FTGlyph
 {
 	public:
 		// methods

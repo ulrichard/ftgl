@@ -3,6 +3,8 @@
 
 #include <string>
 
+#include "FTGL.h"
+
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
@@ -30,7 +32,7 @@ using namespace std;
  * @see		FTGlyphContainer
  * @see		FTGlyph
  */
-class	FTFont
+class FTGL_EXPORT FTFont
 {
 	public:
 		/**
@@ -177,3 +179,4 @@ class	FTFont
 
 
 #endif	//	__FTFont__
+

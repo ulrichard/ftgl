@@ -2,7 +2,9 @@
 #define		__FTGLBitmapFont__
 
 
-#include	"FTFont.h"
+#include "FTGL.h"
+
+#include "FTFont.h"
 
 class FTBitmapGlyph;
 
@@ -12,7 +14,7 @@ class FTBitmapGlyph;
  *
  * @see		FTFont
  */
-class	FTGLBitmapFont : public FTFont
+class FTGL_EXPORT FTGLBitmapFont : public FTFont
 {
 	public:
 		/**

@@ -1,8 +1,8 @@
-#ifndef		__FTGLTextureFont
-#define		__FTGLTextureFont
-#include	"FTFont.h"
+#ifndef		__FTGLTextureFont__
+#define		__FTGLTextureFont__
 
 #include "FTGL.h"
+#include "FTFont.h"
 
 class FTTextureGlyph;
 
@@ -12,7 +12,7 @@ class FTTextureGlyph;
  *
  * @see		FTFont
  */
-class FTGLTextureFont : public FTFont
+class  FTGL_EXPORT FTGLTextureFont : public FTFont
 {
 	public:
 		// methods
@@ -51,4 +51,8 @@ class FTGLTextureFont : public FTFont
 		
 		
 };
-#endif
+
+
+#endif // __FTGLTextureFont__
+
+

@@ -1,7 +1,7 @@
 #ifndef		__FTFace__
 #define		__FTFace__
 
-//#include "FTGL.h"
+#include "FTGL.h"
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
@@ -17,7 +17,7 @@ class FTCharmap;
  * @see	"Freetype 2 Documentation - 2.0.4"
  *
  */
-class	FTFace
+class FTGL_EXPORT FTFace
 {
 	public:
 		/**

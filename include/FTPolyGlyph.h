@@ -1,6 +1,8 @@
 #ifndef		__FTPolyGlyph__
 #define		__FTPolyGlyph__
 
+#include "FTGL.h"
+
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include FT_GLYPH_H
@@ -9,7 +11,7 @@
 
 class FTVectoriser;
 
-class	FTPolyGlyph : public FTGlyph
+class FTGL_EXPORT FTPolyGlyph : public FTGlyph
 {
 	public:
 		// methods
@@ -36,3 +38,4 @@ class	FTPolyGlyph : public FTGlyph
 
 
 #endif	//	__FTPolyGlyph__
+

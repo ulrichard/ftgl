@@ -1,6 +1,8 @@
 #ifndef		__FTGlyph__
 #define		__FTGlyph__
 
+#include "FTGL.h"
+
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include FT_GLYPH_H
@@ -17,7 +19,7 @@
  * @see FTGlyphContainer
  *
  */
-class FTGlyph
+class FTGL_EXPORT FTGlyph
 {
 	public:
 		/**
@@ -74,3 +76,4 @@ class FTGlyph
 
 
 #endif	//	__FTGlyph__
+

@@ -1,9 +1,9 @@
-#ifndef		__FTGLOutlineFont
-#define		__FTGLOutlineFont
+#ifndef		__FTGLOutlineFont__
+#define		__FTGLOutlineFont__
 
-
-#include	"FTFont.h"
 #include "FTGL.h"
+
+#include "FTFont.h"
 
 
 class FTOutlineGlyph;
@@ -14,7 +14,7 @@ class FTOutlineGlyph;
  *
  * @see		FTFont
  */
-class	FTGLOutlineFont : public FTFont
+class FTGL_EXPORT FTGLOutlineFont : public FTFont
 {
 	public:
 		// methods
@@ -34,4 +34,4 @@ class	FTGLOutlineFont : public FTFont
 		FTOutlineGlyph* tempGlyph;
 	
 };
-#endif
+#endif // __FTGLOutlineFont__
