@@ -1,11 +1,11 @@
 #include	"FTGlyphContainer.h"
 #include	"FTGlyph.h"
+#include	"FTFace.h"
 
 
-FTGlyphContainer::FTGlyphContainer( FT_Face* f, int g, bool p)
+FTGlyphContainer::FTGlyphContainer( FTFace* f, int g, bool p)
 :	preCache( p),
 	numGlyphs(g),
-	tempGlyph(0),
 	face(f)
 {
 	glyphs.reserve( g);
@@ -27,7 +27,9 @@ FTGlyphContainer::~FTGlyphContainer()
 
 bool FTGlyphContainer::Add( FTGlyph* tempGlyph)
 {
+	// At the moment we are using a vector. Vectors don't return bool.
 	glyphs.push_back( tempGlyph);
+	return true;
 }
 
 
@@ -35,19 +37,12 @@ FT_Vector& FTGlyphContainer::render( int index, int next, FT_Vector pen)
 {
 	kernAdvance.x = 0; kernAdvance.y = 0;
 	
-	int left = FT_Get_Char_Index( *face, index);
-	int right = FT_Get_Char_Index( *face, next);
+	int left = face->CharIndex( index);
+	int right = face->CharIndex( next);
 	
-	if( left > glyphs.size())
-		return kernAdvance;
-	
-	if( 0 < right <=  glyphs.size())
-	{
-		// ft_kerning_unfitted
-		err = FT_Get_Kerning( *face, left, right, ft_kerning_default, &kernAdvance);
-	}
-	
-	advance = glyphs[left]->Render( pen);
+	kernAdvance = face->KernAdvance( left, right);	
+	if( !face->Error())
+		advance = glyphs[left]->Render( pen);
 	
 	kernAdvance.x = advance + kernAdvance.x;
 //	kernAdvance.y = advance.y + kernAdvance.y;

@@ -8,7 +8,7 @@
 #include FT_GLYPH_H
 
 //#include "FTGL.h"
-
+class FTFace;
 class FTGlyph;
 
 using namespace std;
@@ -17,7 +17,7 @@ class	FTGlyphContainer
 {
 	public:
 		// methods
-		FTGlyphContainer( FT_Face* face, int numGlyphs, bool p = false);
+		FTGlyphContainer( FTFace* face, int numGlyphs, bool p = false);
 		~FTGlyphContainer();
 
 		bool Add( FTGlyph* tempGlyph);
@@ -33,8 +33,7 @@ class	FTGlyphContainer
 		FT_Error err;
 		bool preCache;
 		int numGlyphs;
-		FTGlyph* tempGlyph;
-		FT_Face* face;
+		FTFace* face;
 		
 		FT_Vector kernAdvance;
 		float advance;
