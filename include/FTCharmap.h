@@ -70,10 +70,6 @@ class FTGL_EXPORT FTCharmap
          */
         bool CharMap( FT_Encoding encoding);
         
-        
-        unsigned int CharMapCount();
-        FT_Encoding* CharMapList();
-
         /**
          * Get the FTGlyphContainer index of the input character.
          *
@@ -115,8 +111,6 @@ class FTGL_EXPORT FTCharmap
          * Current character map code.
          */
         FT_Encoding ftEncoding;
-        
-        FT_Encoding* fontEncodingList;
         
         /**
          * The current Freetype face.

@@ -83,6 +83,9 @@ class FTGL_EXPORT FTFont
          */
         bool CharMap( FT_Encoding encoding );
         
+        unsigned int CharMapCount();
+        FT_Encoding* CharMapList();
+        
         /**
          * Set the char size for the current face.
          *

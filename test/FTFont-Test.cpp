@@ -57,6 +57,7 @@ class FTFontTest : public CppUnit::TestCase
         CPPUNIT_TEST( testAttachData);
         CPPUNIT_TEST( testSetFontSize);
         CPPUNIT_TEST( testSetCharMap);
+        CPPUNIT_TEST( testGetCharmapList);
         CPPUNIT_TEST( testBoundingBox);
         CPPUNIT_TEST( testAdvance);
     CPPUNIT_TEST_SUITE_END();
@@ -132,6 +133,17 @@ class FTFontTest : public CppUnit::TestCase
             CPPUNIT_ASSERT( testFont->Error() == 0);        
             CPPUNIT_ASSERT( !testFont->CharMap( ft_encoding_johab));
             CPPUNIT_ASSERT( testFont->Error() == 6);        
+        }
+        
+        
+        void testGetCharmapList()
+        {
+            CPPUNIT_ASSERT( testFont->CharMapCount() == 2);
+            
+            FT_Encoding* charmapList = testFont->CharMapList();
+            
+            CPPUNIT_ASSERT( charmapList[0] == ft_encoding_unicode);
+            CPPUNIT_ASSERT( charmapList[1] == ft_encoding_adobe_standard);
         }
         
         

@@ -16,6 +16,7 @@ class FTFaceTest : public CppUnit::TestCase
         CPPUNIT_TEST( testAttachMemoryData);
         CPPUNIT_TEST( testGlyphCount);
         CPPUNIT_TEST( testSetFontSize);
+        CPPUNIT_TEST( testGetCharmapList);
         CPPUNIT_TEST( testUnitPerEMSquare);
         CPPUNIT_TEST( testKerning);
     CPPUNIT_TEST_SUITE_END();
@@ -84,6 +85,17 @@ class FTFaceTest : public CppUnit::TestCase
         }
         
 
+        void testGetCharmapList()
+        {
+            CPPUNIT_ASSERT( testFace->CharMapCount() == 2);
+            
+            FT_Encoding* charmapList = testFace->CharMapList();
+            
+            CPPUNIT_ASSERT( charmapList[0] == ft_encoding_unicode);
+            CPPUNIT_ASSERT( charmapList[1] == ft_encoding_adobe_standard);
+        }
+        
+        
         void testUnitPerEMSquare()
         {
             CPPUNIT_ASSERT_DOUBLES_EQUAL( 1000, testFace->UnitsPerEM(), 0);

@@ -81,6 +81,9 @@ class FTGL_EXPORT FTFace
 
         unsigned int UnitsPerEM() const;
 
+        unsigned int CharMapCount();
+        FT_Encoding* CharMapList();
+        
         /**
          * Gets the kerning vector between two glyphs
          */
@@ -118,6 +121,8 @@ class FTGL_EXPORT FTFace
          * The number of glyphs in this face
          */
         int numGlyphs;
+        
+        FT_Encoding* fontEncodingList;
 
         /**
          * Current error code. Zero means no error.
