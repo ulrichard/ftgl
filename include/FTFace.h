@@ -75,7 +75,7 @@ class FTGL_EXPORT FTFace
          * @param res       the resolution of the target device.
          * @return          <code>FTSize</code> object
          */
-        FTSize& Size( const unsigned int size, const unsigned int res);
+        const FTSize& Size( const unsigned int size, const unsigned int res);
 
         /**
          * Sets the character map for the face.

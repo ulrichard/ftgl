@@ -83,7 +83,7 @@ void FTFace::Close()
 }
 
 
-FTSize& FTFace::Size( const unsigned int size, const unsigned int res)
+const FTSize& FTFace::Size( const unsigned int size, const unsigned int res)
 {
     charSize.CharSize( ftFace, size, res, res);
     err = charSize.Error();
