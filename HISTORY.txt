@@ -1,4 +1,13 @@
-FTGL 2.07
+FTGL 2.08
+    - Fixes for deprecated identifiers in 2.1.5
+    - Changed the internals to use FTGlyphSlot instead of FTGlyph
+    - Added a unit test for FTBitmapGlyph, FTCharToGlyphIndexMap.
+    - Fixed a memory leak in FTGlyphContainer.
+    - Added the ability to get the list of charmaps in the font.
+    - Changed FTGLTextureFont to use FTVector for texture id list.
+
+31 August 2003
+    2.07 (FTGL_2_0_7)
     - Minor fix for unix build scripts.
     - Minor fix for unit tests.
     
@@ -8,9 +17,9 @@ FTGL 2.07
 
 25 August 2003
     2.05 (FTGL_2_0_5)
- 	- Refactored FTGlyphContainer & FTCharmap. They now store FTGlyphs
- 	  sequentially rather than by glyph index. This should save a heap of
- 	  memory and a bit of time at startup.
+    - Refactored FTGlyphContainer & FTCharmap. They now store FTGlyphs
+      sequentially rather than by glyph index. This should save a heap of
+      memory and a bit of time at startup.
     - Changed the Mac font paths in the demos.
     - Changed the unit tests for new hinter in Freetype 2.1.4.
     - Added a test for broken contour tags.

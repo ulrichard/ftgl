@@ -1,5 +1,5 @@
-FTGL 2.04
-12 April 2003
+FTGL 2.07
+31 August 2003
 
 DESCRIPTION:
 
@@ -46,6 +46,6 @@ Autoconf Marcelo E. Magallon.
 Please contact me if you have any suggestions, feature requests, or problems.
 
 Henry Maddocks
-henryj@paradise.net.nz
+ftgl@opengl.geek.nz
 http://homepages.paradise.net.nz/henryj/
 
