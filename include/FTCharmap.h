@@ -13,11 +13,11 @@ using namespace std;
 
 
 /**
- * FTCharmap takes care of specifying the encodeing for a font and mapping
+ * FTCharmap takes care of specifying the encoding for a font and mapping
  * character codes to glyph indices.
  *
- * It doesn't preprocess all indices, only on as needed basis. This may seem
- * like a performance penalty but it is quicker than using the 'raw'
+ * It doesn't preprocess all indices, only on an as needed basis. This may
+ * seem like a performance penalty but it is quicker than using the 'raw'
  * freetype calls and will save significant amounts of memory when dealing
  * with uncode encoding
  *
@@ -75,7 +75,7 @@ class FTGL_EXPORT FTCharmap
 		bool CharMap( FT_UShort platform, FT_UShort encoding);
 
 		/**
-		 *	Get the glyph index of the input character.
+		 * Get the glyph index of the input character.
 		 *
 		 * @param index The character code of the requested glyph in the
 		 *				current encoding eg apple roman.
