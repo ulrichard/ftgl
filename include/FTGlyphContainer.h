@@ -36,41 +36,42 @@ class FTGL_EXPORT FTGlyphContainer
         /**
          * Adds a glyph to this glyph list.
          *
-         * @param glyph The FTGlyph to be inserted into the container
-         * @param g     The glyphs index in the container.
-         * @return          <code>true</code>
+         * @param glyph      The FTGlyph to be inserted into the container
+         * @param glyphIndex The glyphs index in the container.
+         * @return           <code>true</code>
          */
         bool Add( FTGlyph* glyph, unsigned int glyphIndex);
 
         /**
          * Get a glyph from the glyph list
          *
-         * @param c The char code of the glyph NOT the glyph index      
-         * @return  An FTGlyph or <code>null</code> is it hasn't been
+         * @param characterCode The char code of the glyph NOT the glyph index      
+         * @return              An FTGlyph or <code>null</code> is it hasn't been
          * loaded.
          */
         const FTGlyph* const Glyph( const unsigned int characterCode) const;
 
         /**
          * Get the bounding box for a character.
+         * @param characterCode The char code of the glyph NOT the glyph index      
          */
         FTBBox BBox( const unsigned int characterCode) const;
         
         /**
         * Returns the kerned advance width for a glyph.
         *
-        * @param index  glyph index of the character
-        * @param next   the next glyph in a string
-        * @return       advance width
+        * @param characterCode     glyph index of the character
+        * @param nextCharacterCode the next glyph in a string
+        * @return                  advance width
         */
         float Advance( unsigned int characterCode, unsigned int nextCharacterCode);
         
         /**
          * Renders a character
-         * @param index the glyph to be Rendered
-         * @param next  the next glyph in the string. Used for kerning.
-         * @param pen   the position to Render the glyph
-         * @return      The distance to advance the pen position after Rendering
+         * @param characterCode      the glyph to be Rendered
+         * @param nextCharacterCode  the next glyph in the string. Used for kerning.
+         * @param penPosition        the position to Render the glyph
+         * @return                   The distance to advance the pen position after Rendering
          */
         FTPoint Render( unsigned int characterCode, unsigned int nextCharacterCode, FTPoint penPosition);
         
