@@ -65,6 +65,43 @@ class FTGL_EXPORT FTPoint
         }
 
         /**
+         * Operator +
+         *
+         * @param point
+         * @return this plus point.
+         */
+        FTPoint operator + ( const FTPoint& point)
+        {
+            FTPoint temp;
+            temp.values[0] = values[0] + point.values[0];
+            temp.values[1] = values[1] + point.values[1];
+            temp.values[2] = values[2] + point.values[2];
+
+            return temp;
+        }
+        
+        
+        /**
+         * Operator *
+         *
+         * @param point
+         * @return this plus point.
+         */
+        FTPoint operator * ( double multiplier)
+        {
+            FTPoint temp;
+            temp.values[0] = values[0] * multiplier;
+            temp.values[1] = values[1] * multiplier;
+            temp.values[2] = values[2] * multiplier;
+
+            return temp;
+        }
+        
+        
+        friend FTPoint operator*( double multiplier, const FTPoint& point);
+
+
+        /**
          * Operator == Tests for eqaulity
          *
          * @param a

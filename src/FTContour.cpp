@@ -99,9 +99,7 @@ FTContour::FTContour( FT_Vector* contour, char* pointTags, unsigned int numberOf
             
             while( nextPointTag == FT_Curve_Tag_Conic)
             {
-                nextPoint = FTPoint( static_cast<float>( controlPoint.X() + nextPoint.X()) * 0.5f,
-                                     static_cast<float>( controlPoint.Y() + nextPoint.Y()) * 0.5f,
-                                     0);
+                nextPoint = ( controlPoint + nextPoint) * 0.5f;
 
                 controlPoints[0][0] = previousPoint.X(); controlPoints[0][1] = previousPoint.Y();
                 controlPoints[1][0] = controlPoint.X();  controlPoints[1][1] = controlPoint.Y();
