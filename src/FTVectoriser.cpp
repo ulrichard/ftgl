@@ -379,11 +379,11 @@ void FTVectoriser::GetMesh( FTGL_DOUBLE* data)
     for( int p = 0; p < data[0]; ++p)
     {
         FTTesselation* tesselation = mesh->tesselationList[p];
-        size_t tSize =  tesselation->pointList.size();
-        int tType =  tesselation->meshType;
+        size_t tesselationSize =  tesselation->pointList.size();
+        int tesselationType =  tesselation->meshType;
         
-        data[i+1] = tType;
-        data[i+2] = tSize;
+        data[i+1] = tesselationType;
+        data[i+2] = tesselationSize;
         i += 3;
         for( size_t q = 0; q < ( tesselation->pointList.size()); ++q)
         {
