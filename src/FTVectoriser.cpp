@@ -211,7 +211,7 @@ void FTVectoriser::MakeMesh( FTGL_DOUBLE zNormal)
             
                 for( size_t p = 0; p < contour->PointCount(); ++p)
                 {
-                    const FTGL_DOUBLE* d = static_cast<const FTGL_DOUBLE*>(contour->Point(p));
+                    const FTGL_DOUBLE* d = contour->Point(p);
                     gluTessVertex( tobj, (GLdouble*)d, (GLdouble*)d);
                 }
 
