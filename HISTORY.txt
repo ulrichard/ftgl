@@ -16,7 +16,10 @@ FTGL 1.41
     - Unit tests.
     - Removed the precache flag.
     - Unvirtualised functions in FTLibrary and FTGlyphContainer.
-    - Fixed empty string bug in FTFont::BBox
+    - Fixed empty string bug in FTFont::BBox.
+    - Refactored FTContour and moved it to it's own file.
+    - Removed an unnecessary memory allocation in FTOutlineGltph.
+    - Made vectoriser a local variable in vector glyphs
 
 October 23 2002
 FTGL 1.4 (FTGL_1_4)
