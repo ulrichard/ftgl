@@ -39,4 +39,6 @@ BUGS:
 	  & (bitmap, pixmap, texture) See '!' in G.Lanois demo
 	- FTVectoriser seems to position some points incorrectly. confusing
 	  line point with control point at start or end????
+	- FTExtrdGlyph - Some font outlines are 'wound' in reverse. This
+	  doesn't effect the front or rear faces but breaks the sides.
 
