@@ -61,19 +61,13 @@ FTOutlineGlyph::FTOutlineGlyph( FT_Glyph glyph)
 		}
 	glEndList();
 
-	delete [] data; // FIXME
-	delete [] contourLength; // FIXME
-
-	// discard glyph image (bitmap or not)
-	FT_Done_Glyph( glyph); // Why does this have to be HERE
+	delete [] data;
+	delete [] contourLength;
 }
 
 
 FTOutlineGlyph::~FTOutlineGlyph()
-{
-//	delete [] data;
-//	delete [] contourLength;
-}
+{}
 
 
 float FTOutlineGlyph::Render( const FT_Vector& pen)

@@ -45,6 +45,7 @@ FTTextureGlyph::FTTextureGlyph( FT_Glyph glyph, int id, int xOffset, int yOffset
 
 		glBindTexture( GL_TEXTURE_2D, glTextureID);
 		glTexSubImage2D( GL_TEXTURE_2D, 0, xOffset, yOffset, destWidth, destHeight, GL_ALPHA, GL_UNSIGNED_BYTE, data);
+		delete [] data;
 	}
 
 
@@ -68,13 +69,6 @@ FTTextureGlyph::FTTextureGlyph( FT_Glyph glyph, int id, int xOffset, int yOffset
 
  	pos.x = bitmap->left;
 	pos.y = bitmap->top;
-	
-	if( data)
-		delete [] data;
-	
-// discard glyph image (bitmap or not)
-	// Is this the right place to do this?
-	FT_Done_Glyph( glyph);
 }
 
 

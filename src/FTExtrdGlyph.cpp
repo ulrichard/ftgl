@@ -176,17 +176,11 @@ FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
 	delete [] frontMesh;
 	delete [] backMesh;
 	delete [] contourLength;
-
-	// discard glyph image (bitmap or not)
-	FT_Done_Glyph( glyph); // Why does this have to be HERE
 }
 
 
 FTExtrdGlyph::~FTExtrdGlyph()
-{
-//	if( data)
-//		delete [] data; // FIXME
-}
+{}
 
 
 bool FTExtrdGlyph::Winding( int numPoints, FTGL_DOUBLE *points)

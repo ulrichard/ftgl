@@ -57,19 +57,12 @@ FTPolyGlyph::FTPolyGlyph( FT_Glyph glyph)
 		}
 	glEndList();
 
-	delete [] data; // FIXME
-	data = 0;
-
-	// discard glyph image (bitmap or not)
-	FT_Done_Glyph( glyph); // Why does this have to be HERE
+	delete [] data;
 }
 
 
 FTPolyGlyph::~FTPolyGlyph()
-{
-//	if( data)
-//		delete [] data; // FIXME
-}
+{}
 
 
 float FTPolyGlyph::Render( const FT_Vector& pen)
