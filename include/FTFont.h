@@ -71,7 +71,7 @@ class	FTFont
 		/**
 		 * Sets the character map for the face.
 		 *
-		 * @param encoding		XXXXXXXXX
+		 * @param encoding		Freetype enumerate for char map code.
 		 * @return				<code>true</code> if charmap was valid and
 		 *						set correctly
 		 */
