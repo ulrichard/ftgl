@@ -66,13 +66,13 @@ FTPolyGlyph::~FTPolyGlyph()
 {}
 
 
-float FTPolyGlyph::Render( const FT_Vector& pen)
+float FTPolyGlyph::Render( const FTPoint& pen)
 {
     if( glList)
     {
-        glTranslatef(  pen.x,  pen.y, 0.0f);
+        glTranslatef(  pen.x,  pen.y, 0);
         glCallList( glList);    
-        glTranslatef( -pen.x, -pen.y, 0.0f);
+        glTranslatef( -pen.x, -pen.y, 0);
     }
     
     return advance;

@@ -24,7 +24,7 @@ class FTGL_EXPORT FTTextureGlyph : public FTGlyph
          * Constructor
          *
          * @param glyph     The Freetype glyph to be processed
-         * @param id        The id the texture that this glyph will be
+         * @param id        The id of the texture that this glyph will be
          *                  drawn in
          * @param xOffset   The x offset into the parent texture to draw
          *                  this glyph
@@ -46,7 +46,7 @@ class FTGL_EXPORT FTTextureGlyph : public FTGlyph
          * @param pen   The current pen position.
          * @return      The advance distance for this glyph.
          */
-        virtual float Render( const FT_Vector& pen);
+        virtual float Render( const FTPoint& pen);
         
     private:
         /**
@@ -64,15 +64,6 @@ class FTGL_EXPORT FTTextureGlyph : public FTGlyph
          */
         int numGreys;
         
-        /**
-         * A structure to hold the uv co-ords.
-         */
-        struct FTPoint
-        {
-            float x;
-            float y;
-        };
-
         /**
          * The texture co-ords of this glyph within the texture.
          */

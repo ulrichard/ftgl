@@ -73,13 +73,13 @@ FTOutlineGlyph::~FTOutlineGlyph()
 }
 
 
-float FTOutlineGlyph::Render( const FT_Vector& pen)
+float FTOutlineGlyph::Render( const FTPoint& pen)
 {
     if( glList)
     {
-        glTranslatef( pen.x, pen.y, 0.0f);
-        glCallList( glList);
-        glTranslatef( -pen.x, -pen.y, 0.0f);
+        glTranslatef( pen.x, pen.y, 0);
+            glCallList( glList);
+        glTranslatef( -pen.x, -pen.y, 0);
     }
     
     return advance;

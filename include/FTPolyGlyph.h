@@ -40,7 +40,7 @@ class FTGL_EXPORT FTPolyGlyph : public FTGlyph
          * @param pen   The current pen position.
          * @return      The advance distance for this glyph.
          */
-        virtual float Render( const FT_Vector& pen);
+        virtual float Render( const FTPoint& pen);
         
     private:
         /**

@@ -7,7 +7,7 @@
 #include FT_GLYPH_H
 
 #include "FTGL.h"
-#include    "FTGlyph.h"
+#include "FTGlyph.h"
 
 
 /**
@@ -41,7 +41,7 @@ class FTGL_EXPORT FTBitmapGlyph : public FTGlyph
          * @param pen   The current pen position.
          * @return      The advance distance for this glyph.
          */
-        virtual float Render( const FT_Vector& pen);
+        virtual float Render( const FTPoint& pen);
         
     private:
         /**

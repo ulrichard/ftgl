@@ -27,8 +27,8 @@ FTTextureGlyph::FTTextureGlyph( FT_Glyph glyph, int id, int xOffset, int yOffset
     
     if( destWidth && destHeight)
     {
-        glPixelStorei( GL_UNPACK_ROW_LENGTH, 0);
         glBindTexture( GL_TEXTURE_2D, glTextureID);
+        glPixelStorei( GL_UNPACK_ROW_LENGTH, 0);
         glTexSubImage2D( GL_TEXTURE_2D, 0, xOffset, yOffset, destWidth, destHeight, GL_ALPHA, GL_UNSIGNED_BYTE, source->buffer);
     }
 
@@ -63,7 +63,7 @@ FTTextureGlyph::~FTTextureGlyph()
 {}
 
 
-float FTTextureGlyph::Render( const FT_Vector& pen)
+float FTTextureGlyph::Render( const FTPoint& pen)
 {
     glGetIntegerv( GL_TEXTURE_2D_BINDING_EXT, &activeTextureID);
     if( activeTextureID != glTextureID)

@@ -2,12 +2,9 @@
 
 
 FTGlyph::FTGlyph()
-:   advance(0),
+:   advance(0.0f),
     err(0)  
-{
-    pos.x = 0;
-    pos.y = 0;
-}
+{}
 
 
 FTGlyph::~FTGlyph()

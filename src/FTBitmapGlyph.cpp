@@ -58,12 +58,11 @@ FTBitmapGlyph::FTBitmapGlyph( FT_Glyph glyph)
 
 FTBitmapGlyph::~FTBitmapGlyph()
 {
-    if( data)
-        delete [] data;
+    delete [] data;
 }
 
 
-float FTBitmapGlyph::Render( const FT_Vector& pen)
+float FTBitmapGlyph::Render( const FTPoint& pen)
 {
     if( data)
     {

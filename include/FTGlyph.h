@@ -5,59 +5,9 @@
 #include FT_FREETYPE_H
 #include FT_GLYPH_H
 
+#include "FTBBox.h"
+#include "FTPoint.h"
 #include "FTGL.h"
-
-
-/**
- * FTBBox
- *
- *
- */
-class FTGL_EXPORT FTBBox
-{
-    public:
-        FTBBox()
-        :   x1(0),
-            y1(0),
-            z1(0),
-            x2(0),
-            y2(0),
-            z2(0)
-        {}
-        
-        FTBBox( FT_Glyph glyph)
-        {
-            FT_BBox bbox;
-            FT_Glyph_Get_CBox( glyph, ft_glyph_bbox_subpixels, &bbox );
-            
-            x1 = bbox.xMin >> 6;
-            y1 = bbox.yMin >> 6;
-            z1 = 0;
-            x2 = bbox.xMax >> 6;
-            y2 = bbox.yMax >> 6;
-            z2 = 0; 
-        }       
-        
-        FTBBox( int a, int b, int c, int d, int e, int f)
-        :   x1(a),
-            y1(b),
-            z1(c),
-            x2(d),
-            y2(e),
-            z2(f)
-        {}
-
-        ~FTBBox()
-        {}
-    
-        // Make these ftPoints
-        float x1, y1, z1, x2, y2, z2;
-
-    protected:
-    
-    
-    private:
-};
 
 
 /**
@@ -89,7 +39,7 @@ class FTGL_EXPORT FTGlyph
          * @param pen   The current pen position.
          * @return      The advance distance for this glyph.
          */
-        virtual float Render( const FT_Vector& pen) = 0;
+        virtual float Render( const FTPoint& pen) = 0;
         
         /**
          * Return the advance width for this glyph.
@@ -122,7 +72,6 @@ class FTGL_EXPORT FTGlyph
          * Vector from the pen position to the topleft corner of the glyph
          */
         FT_Vector pos;
-
         
         /**
          * A freetype bounding box

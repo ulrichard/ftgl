@@ -96,14 +96,14 @@ FTPixmapGlyph::~FTPixmapGlyph()
 }
 
 
-float FTPixmapGlyph::Render( const FT_Vector& pen)
+float FTPixmapGlyph::Render( const FTPoint& pen)
 {
     if( data)
     {
         // Move the glyph origin
         glBitmap( 0, 0, 0.0, 0.0, pen.x + pos.x, pen.y - pos.y, (const GLubyte*)0);
 
-        glPixelStorei( GL_UNPACK_ROW_LENGTH, destWidth);
+        glPixelStorei( GL_UNPACK_ROW_LENGTH, 0);
 
         glDrawPixels( destWidth, destHeight, GL_RGBA, GL_UNSIGNED_BYTE, (const GLvoid*)data);
         

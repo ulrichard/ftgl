@@ -23,7 +23,7 @@ FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
     vectoriser->MakeMesh( 1.0);
     
     bBox = FTBBox( glyph);
-    bBox.z2 = -depth;
+    bBox.upperZ = -depth;
     advance = glyph->advance.x >> 16;
     
     int numPoints = vectoriser->MeshPoints();
@@ -204,13 +204,13 @@ bool FTExtrdGlyph::Winding( int numPoints, FTGL_DOUBLE *points)
 }
 
 
-float FTExtrdGlyph::Render( const FT_Vector& pen)
+float FTExtrdGlyph::Render( const FTPoint& pen)
 {
     if( glList)
     {
-        glTranslatef( pen.x, pen.y, 0.0f);
+        glTranslatef( pen.x, pen.y, 0);
             glCallList( glList);    
-        glTranslatef( -pen.x, -pen.y, 0.0f);
+        glTranslatef( -pen.x, -pen.y, 0);
     }
     
     return advance;
