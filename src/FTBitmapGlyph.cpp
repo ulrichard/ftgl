@@ -42,7 +42,7 @@ FTBitmapGlyph::FTBitmapGlyph( FT_Glyph glyph)
     
     pos.x = bitmap->left;
     pos.y = static_cast<int>(srcHeight) - bitmap->top;
-
+    
     FT_Done_Glyph( glyph );
 }
 

@@ -96,7 +96,6 @@ FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
         
     glEndList();
 
-    // discard glyph image (bitmap or not)
     FT_Done_Glyph( glyph); // Why does this have to be HERE
 }
 

@@ -6,7 +6,6 @@ FTPixmapGlyph::FTPixmapGlyph( FT_Glyph glyph)
     destHeight(0),
     data(0)
 {
-    // This function will always fail if the glyph's format isn't scalable????
     err = FT_Glyph_To_Bitmap( &glyph, FT_RENDER_MODE_NORMAL, 0, 1);
     if( err || ft_glyph_format_bitmap != glyph->format)
     {
@@ -78,7 +77,6 @@ FTPixmapGlyph::FTPixmapGlyph( FT_Glyph glyph)
     pos.x = bitmap->left;
     pos.y = srcHeight - bitmap->top;
     
-    // Is this the right place to do this?
     FT_Done_Glyph( glyph );
 }
 
