@@ -83,7 +83,6 @@ float FTPixmapGlyph::Render( const FT_Vector& pen)
 
 		glDrawPixels( destWidth, destHeight, GL_RGBA, GL_UNSIGNED_BYTE, (const GLvoid*)data);
 
-
 		// Restore the glyph origin
 		glBitmap( 0, 0, 0.0, 0.0, -pen.x - pos.x, -pen.y + pos.y, (const GLubyte *)0);
 
