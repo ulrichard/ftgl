@@ -67,7 +67,7 @@ FTMesh::FTMesh()
 
 FTMesh::~FTMesh()
 {
-	for( int t = 0; t < tess.size(); ++t)
+	for( size_t t = 0; t < tess.size(); ++t)
 	{
 		delete tess[t];
 	}
@@ -105,7 +105,7 @@ FTGL_DOUBLE* FTMesh::Point()
 int FTMesh::size() const
 {
 	int s = 0;
-	for( int t = 0; t < tess.size(); ++t)
+	for( size_t t = 0; t < tess.size(); ++t)
 	{
 		s += tess[t]->size();
 		++s;
@@ -132,7 +132,7 @@ FTVectoriser::FTVectoriser( const FT_Glyph glyph)
 
 FTVectoriser::~FTVectoriser()
 {
-	for( int c = 0; c < contours(); ++c)
+	for( size_t c = 0; c < contours(); ++c)
 	{
 		delete contourList[c];
 	}
@@ -147,7 +147,7 @@ FTVectoriser::~FTVectoriser()
 int FTVectoriser::points()
 {
 	int s = 0;
-	for( int c = 0; c < contours(); ++c)
+	for( size_t c = 0; c < contours(); ++c)
 	{
 		s += contourList[c]->size();
 	}
@@ -306,11 +306,11 @@ void FTVectoriser::GetOutline( FTGL_DOUBLE* data)
 {
 	int i = 0;
 	
-	for( int c= 0; c < contours(); ++c)
+	for( size_t c= 0; c < contours(); ++c)
 	{
 		const FTContour* contour = contourList[c];
 		
-		for( int p = 0; p < contour->size(); ++p)
+		for( size_t p = 0; p < contour->size(); ++p)
 		{
 			data[i] = static_cast<FTGL_DOUBLE>(contour->pointList[p].x / 64.0f); // is 64 correct?
 			data[i + 1] = static_cast<FTGL_DOUBLE>(contour->pointList[p].y / 64.0f);
@@ -353,12 +353,12 @@ void FTVectoriser::MakeMesh( int zNormal)
 	gluTessNormal( tobj, 0.0, 0.0, zNormal);
 	gluTessBeginPolygon( tobj, mesh);
 	
-		for( int c = 0; c < contours(); ++c)
+		for( size_t c = 0; c < contours(); ++c)
 		{
 			const FTContour* contour = contourList[c];
 			gluTessBeginContour( tobj);
 			
-				for( int p = 0; p < contour->size(); ++p)
+				for( size_t p = 0; p < contour->size(); ++p)
 				{
 					FTGL_DOUBLE* d = const_cast<FTGL_DOUBLE*>(&contour->pointList[p].x);
 					gluTessVertex( tobj, d, d);
@@ -379,19 +379,19 @@ void FTVectoriser::GetMesh( FTGL_DOUBLE* data)
 	int i = 0;
 	
 	// fill out the header
-	int msize = mesh->tess.size();
+	size_t msize = mesh->tess.size();
 	data[0] = msize;
 	
 	for( int p = 0; p < data[0]; ++p)
 	{
 		FTTesselation* tess = mesh->tess[p];
-		int tSize =  tess->pointList.size();
+		size_t tSize =  tess->pointList.size();
 		int tType =  tess->meshType;
 		
 		data[i+1] = tType;
 		data[i+2] = tSize;
 		i += 3;
-		for( int q = 0; q < ( tess->pointList.size()); ++q)
+		for( size_t q = 0; q < ( tess->pointList.size()); ++q)
 		{
 			data[i] = tess->pointList[q].x / 64.0f; // is 64 correct?
 			data[i + 1] = tess->pointList[q].y / 64.0f;

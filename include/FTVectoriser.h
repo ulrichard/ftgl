@@ -126,7 +126,7 @@ class FTGL_EXPORT FTContour
 		 *
 		 * @return the number of points in this contour
 		 */
-		int size() const { return pointList.size();}
+		size_t size() const { return pointList.size();}
 
 		/**
 		 *	The list of points in this contour
@@ -163,7 +163,7 @@ class FTGL_EXPORT FTTesselation
 		}
 
 
-		int size() const { return pointList.size();}
+		size_t size() const { return pointList.size();}
 
 		GLenum meshType;
 		vector<ftPoint> pointList;
@@ -261,7 +261,7 @@ class FTGL_EXPORT FTVectoriser
 		 *
 		 * @return the number of points.
 		 */
-		int MeshPoints() const { return mesh->size();}
+		size_t MeshPoints() const { return mesh->size();}
 		
 		/**
 		 * Get the total count of points in this outline
@@ -275,7 +275,7 @@ class FTGL_EXPORT FTVectoriser
 		 *
 		 * @return the number of contours
 		 */
-		int contours() const { return contourList.size();}
+		size_t contours() const { return contourList.size();}
 
 		/**
 		 * Get the nuber of points in a contour in this outline
@@ -283,7 +283,7 @@ class FTGL_EXPORT FTVectoriser
 		 * @param c		The contour index
 		 * @return		the number of points in contour[c]
 		 */
-		int contourSize( int c) const { return contourList[c]->size();}
+		size_t contourSize( int c) const { return contourList[c]->size();}
 
 		/**
 		 * Get the flag for the tesselation rule for this outline
