@@ -1,4 +1,4 @@
-FTGL 1.0a1
+FTGL 1.0b1
 
 
 USAGE:
@@ -14,7 +14,7 @@ USAGE:
 
 Things to think about...
 If a font is defined uniquely by it's face and size ie
-font.Open("HenrysHD:System Folder:Fonts:Arial", 72);
+font.Open("Fonts:Arial", 72);
 Then we don't need FTFace and FTSize, their functionality could be internal
 to FTFont. Alternatively if we allow multiple faces and sizes how should
 they be handled.
@@ -26,7 +26,7 @@ multiple glyphlists. glyphlist manager. FTSize obj???
 When is the best time to construct the glyphList? After the call to Size(x)
 is the earliest but what happens if the client doesn't set the char size?
 
-The FTSize seems redundant.
+The FTSize seems redundant. (depends on the out come of the above)
 
 Need a way to restrict the glyphs to a custom set. eg an app only needs
 numbers so we should only create a glyphList of the number characters.
@@ -44,16 +44,13 @@ TODO:
 	- Clear the texture mem
 	- calc smallest texture size
 	- overflow texture
-	- FTPolygonGlyph
-	- Change glDrawPixels to use GL_ALPHA instead of GL_RGBA. This may not
-	  work, read red book.
-	- Coloured Pixmaps/ bitmaps
+	- Coloured Pixmaps
 	- Optimise performance!! and mem usage.
-	  - Make outlines and polys into display list and use glTranslate to
-	    advance the pen.
-	    NEWSFLASH did this to FTVectorGlyph and it made NO difference.
 	  - don't process chars that map to glyph 0
+	  - variable STEP_SIZE for bezier curves.
 	- namespace
+	- gl/glu errors
+	- tesselation winding rules
 	
 FUTURE:
 	- pen position eg font.render( 50, 100, "Hello World!");
@@ -66,6 +63,11 @@ BUGS:
 	MAC OS:
 		- Exits with some fonts at large sizes. Freetype or GLUT Memory Bug?
 
+
+August 3 2001
+	- First BETA release 1.0b1
+	- All font types are now working, Bitmaps, Pixmaps, Texture, Outline
+	  and Polygons. Quality of output and performance varies wildly:)
 
 July 22 2001
 	- First ALPHA Release 1.0a1
