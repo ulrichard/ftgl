@@ -1,26 +1,13 @@
-#include <iostream>
-
 #include "cppunit/extensions/HelperMacros.h"
 #include "cppunit/TestCaller.h"
 #include "cppunit/TestCase.h"
 #include "cppunit/TestSuite.h"
 
 
+#include "Fontdefs.h"
 #include "FTGlyph.h"
 #include "FTFont.h"
 
-#include "arial_ttf.cpp"
-
-static const char* BAD_FONT_FILE =  "missing_font.ttf";
-static const char* GOOD_FONT_FILE = "../../test/MHei-Medium-Acro";
-
-static const char* GOOD_ASCII_TEST_STRING = "test string";
-static const char* BAD_ASCII_TEST_STRING = "";
-static const wchar_t GOOD_UNICODE_TEST_STRING[4] = { 0x6FB3, 0x9580, 0x0};
-static const wchar_t* BAD_UNICODE_TEST_STRING = L"";
-
-static const unsigned int GOOD_SIZE =  72;
-static const unsigned int RESOLUTION = 72;
 
 class TestGlyph : public FTGlyph
 {

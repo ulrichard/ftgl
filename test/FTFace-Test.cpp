@@ -3,17 +3,9 @@
 #include "cppunit/TestCase.h"
 #include "cppunit/TestSuite.h"
 
-
+#include "Fontdefs.h"
 #include "FTFace.h"
 
-//#include "arial_ttf.cpp"
-
-
-static const char* BAD_FONT_FILE = "missing_font.ttf";
-static const char* GOOD_FONT_FILE = "../../test/MHei-Medium-Acro";
-
-static const int GOOD_SIZE = 72;
-static const int RESOLUTION = 72;
 
 class FTFaceTest : public CppUnit::TestCase
 {

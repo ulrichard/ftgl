@@ -7,11 +7,9 @@
 #include FT_FREETYPE_H
 #include FT_GLYPH_H
 
+#include "Fontdefs.h"
 #include "FTSize.h"
 
-static const int CHARACTER_SIZE          = 72;
-static const int RESOLUTION              = 72;
-static const char* FONT_FILE = "../../test/MHei-Medium-Acro";
 
 class FTSizeTest : public CppUnit::TestCase
 {
@@ -47,7 +45,7 @@ class FTSizeTest : public CppUnit::TestCase
             
             FTSize size;
             
-            CPPUNIT_ASSERT( size.CharSize( &face, CHARACTER_SIZE, RESOLUTION, RESOLUTION));
+            CPPUNIT_ASSERT( size.CharSize( &face, GOOD_SIZE, RESOLUTION, RESOLUTION));
             CPPUNIT_ASSERT( size.Error() == 0);
             
             CPPUNIT_ASSERT_DOUBLES_EQUAL(  72, size.CharSize(), 0.01);
@@ -77,7 +75,7 @@ class FTSizeTest : public CppUnit::TestCase
         {
             FT_Error error = FT_Init_FreeType( &library);
             assert(!error);
-            error = FT_New_Face( library, FONT_FILE, 0, &face);
+            error = FT_New_Face( library, GOOD_FONT_FILE, 0, &face);
             assert(!error);
         }
         

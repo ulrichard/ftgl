@@ -3,17 +3,9 @@
 #include <cppunit/TestCase.h>
 #include <cppunit/TestSuite.h>
 
+#include "Fontdefs.h"
 #include "FTVectoriser.h"
 
-
-static const int RESOLUTION = 72;
-static const int CHARACTER_SIZE = 72 * 64;
-
-static const int NULL_CHARACTER_INDEX = ' ';
-static const int SIMPLE_CHARACTER_INDEX = 'i';
-static const int COMPLEX_CHARACTER_INDEX = 'd';
-
-static const char* FONT_FILE = "../../test/arial.ttf";
 
 static double testOutline[] = 
 {

@@ -7,12 +7,9 @@
 #include FT_FREETYPE_H
 #include FT_GLYPH_H
 
+#include "Fontdefs.h"
 #include "FTBBox.h"
 
-static const int RESOLUTION = 72;
-static const int CHARACTER_INDEX = 'g';
-static const int CHARACTER_SIZE = 72 * 64;
-static const char* FONT_FILE = "../../test/MHei-Medium-Acro";
 
 class FTBBoxTest : public CppUnit::TestCase
 {
@@ -20,7 +17,6 @@ class FTBBoxTest : public CppUnit::TestCase
             CPPUNIT_TEST( testDefaultConstructor);
             CPPUNIT_TEST( testGlyphConstructor);
             CPPUNIT_TEST( testMoveBBox);
-//            CPPUNIT_TEST( testAddBBox);
             CPPUNIT_TEST( testPlusEquals);
         CPPUNIT_TEST_SUITE_END();
         
@@ -131,12 +127,12 @@ class FTBBoxTest : public CppUnit::TestCase
         {
             FT_Error error = FT_Init_FreeType( &library);
             assert(!error);
-            error = FT_New_Face( library, FONT_FILE, 0, &face);
+            error = FT_New_Face( library, GOOD_FONT_FILE, 0, &face);
             assert(!error);
             
-            long glyphIndex = FT_Get_Char_Index( face, CHARACTER_INDEX);
+            long glyphIndex = FT_Get_Char_Index( face, CHARACTER_CODE_G);
             
-            FT_Set_Char_Size( face, 0L, CHARACTER_SIZE, RESOLUTION, RESOLUTION);
+            FT_Set_Char_Size( face, 0L, GOOD_SIZE, RESOLUTION, RESOLUTION);
             
             error = FT_Load_Glyph( face, glyphIndex, FT_LOAD_DEFAULT);
             assert(!error);

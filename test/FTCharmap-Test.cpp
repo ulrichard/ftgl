@@ -7,17 +7,10 @@
 #include FT_FREETYPE_H
 #include FT_GLYPH_H
 
+
+#include "Fontdefs.h"
 #include "FTCharmap.h"
 
-static const unsigned int CHARACTER_CODE      =    'A';
-static const unsigned int BIG_CHARACTER_CODE  = 0x6FB3;
-static const unsigned int NULL_CHARACTER_CODE =    512;
-
-static const unsigned int FONT_INDEX      =   34;
-static const unsigned int BIG_FONT_INDEX  = 4838;
-static const unsigned int NULL_FONT_INDEX =    0;
-
-static const std::string FONT_FILE = "../../test/MHei-Medium-Acro";
 
 class FTCharmapTest : public CppUnit::TestCase
 {
@@ -67,14 +60,14 @@ class FTCharmapTest : public CppUnit::TestCase
             charmap->CharMap( ft_encoding_unicode);
             
             CPPUNIT_ASSERT( charmap->Error() == 0);
-            CPPUNIT_ASSERT( charmap->CharIndex( CHARACTER_CODE)      == FONT_INDEX);
+            CPPUNIT_ASSERT( charmap->CharIndex( CHARACTER_CODE_A)    == FONT_INDEX_OF_A);
             CPPUNIT_ASSERT( charmap->CharIndex( BIG_CHARACTER_CODE)  == BIG_FONT_INDEX);
             CPPUNIT_ASSERT( charmap->CharIndex( NULL_CHARACTER_CODE) == NULL_FONT_INDEX);
             
             charmap->CharMap( ft_encoding_johab);
             
             CPPUNIT_ASSERT( charmap->Error() == 6);
-            CPPUNIT_ASSERT( charmap->CharIndex( CHARACTER_CODE)      == FONT_INDEX);
+            CPPUNIT_ASSERT( charmap->CharIndex( CHARACTER_CODE_A)    == FONT_INDEX_OF_A);
             CPPUNIT_ASSERT( charmap->CharIndex( BIG_CHARACTER_CODE)  == BIG_FONT_INDEX);
             CPPUNIT_ASSERT( charmap->CharIndex( NULL_CHARACTER_CODE) == NULL_FONT_INDEX);
         }
@@ -101,7 +94,7 @@ class FTCharmapTest : public CppUnit::TestCase
         {
             FT_Error error = FT_Init_FreeType( &library);
             assert(!error);
-            error = FT_New_Face( library, FONT_FILE.c_str(), 0, &face);
+            error = FT_New_Face( library, GOOD_FONT_FILE, 0, &face);
             assert(!error);
         }
         

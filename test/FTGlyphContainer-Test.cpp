@@ -3,16 +3,11 @@
 #include <cppunit/TestCase.h>
 #include <cppunit/TestSuite.h>
 
+
+#include "Fontdefs.h"
 #include "FTFace.h"
 #include "FTGlyph.h"
 #include "FTGlyphContainer.h"
-
-
-static const char* GOOD_FONT_FILE = "../../test/MHei-Medium-Acro";
-static const unsigned int NUMBER_OF_GLYPHS = 50;
-static const unsigned int TOO_MANY_GLYPHS = 14100; // MHei-Medium-Acro has 14099
-
-static const unsigned int FONT_INDEX_OF_A = 34;
 
 
 class TestGlyph : public FTGlyph
