@@ -69,6 +69,9 @@ class FTGL_EXPORT FTFont
 		 */
 		bool FaceSize( const unsigned int size, const unsigned int res = 72);
 		
+		virtual void Depth( float d){}
+
+		
 		/**
 		 * Set the character map for the face.
 		 *
