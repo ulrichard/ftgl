@@ -1,9 +1,8 @@
-FTGL 1.3b3
+FTGL 1.3b4
 November 13 2001
 
 TODO:
 	- namespace ftgl or gltt?
-	- Distribution MACOS X
 	- make a decision about what units to use for font metrics!!!
 	
 FUTURE:
@@ -39,6 +38,3 @@ BUGS:
 	  & (bitmap, pixmap, texture) See '!' in G.Lanois demo
 	- FTVectoriser seems to position some points incorrectly. confusing
 	  line point with control point at start or end????
-	- FTExtrdGlyph - Some font outlines are 'wound' in reverse. This
-	  doesn't effect the front or rear faces but breaks the sides.
-
