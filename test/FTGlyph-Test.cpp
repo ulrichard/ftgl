@@ -3,13 +3,25 @@
 #include <cppunit/TestCase.h>
 #include <cppunit/TestSuite.h>
 
-#include "FTList.h"
+#include "Fontdefs.h"
+#include "FTGlyph.h"
+
+class TestGlyph : public FTGlyph
+{
+    public:
+        TestGlyph( FT_GlyphSlot glyph)
+        :   FTGlyph(glyph)
+        {}
+        
+        float Render( const FTPoint& pen) { return 0.0f;};
+};
 
 
 class FTGlyphTest : public CppUnit::TestCase
 {
     CPPUNIT_TEST_SUITE( FTGlyphTest);
-        CPPUNIT_TEST( testConstructor);
+        CPPUNIT_TEST( testBadConstructor);
+        CPPUNIT_TEST( testGoodConstructor);
     CPPUNIT_TEST_SUITE_END();
         
     public:
@@ -18,9 +30,30 @@ class FTGlyphTest : public CppUnit::TestCase
         
         FTGlyphTest( const std::string& name) : CppUnit::TestCase(name) {}
 
-        void testConstructor()
+        void testBadConstructor()
         {            
-            CPPUNIT_ASSERT( false);
+            TestGlyph testGlyph(0);
+            
+            CPPUNIT_ASSERT_DOUBLES_EQUAL( 0, testGlyph.Advance(), 0.01);
+
+            CPPUNIT_ASSERT_DOUBLES_EQUAL( 0, testGlyph.BBox().upperY, 0.01);
+        
+            CPPUNIT_ASSERT( testGlyph.Error() == 0);
+        }
+        
+                
+        void testGoodConstructor()
+        {            
+            setUpFreetype( CHARACTER_CODE_A);
+            TestGlyph testGlyph(face->glyph);
+            
+            CPPUNIT_ASSERT_DOUBLES_EQUAL( 47, testGlyph.Advance(), 0.01);
+
+            CPPUNIT_ASSERT_DOUBLES_EQUAL( 51.3906, testGlyph.BBox().upperY, 0.01);
+        
+            CPPUNIT_ASSERT( testGlyph.Error() == 0);
+            
+            tearDownFreetype();
         }
         
                 
@@ -32,6 +65,35 @@ class FTGlyphTest : public CppUnit::TestCase
         {}
         
     private:
+        FT_Library   library;
+        FT_Face      face;
+
+        void setUpFreetype( unsigned int characterIndex)
+        {
+            FT_Error error = FT_Init_FreeType( &library);
+            assert(!error);
+            error = FT_New_Face( library, ARIAL_FONT_FILE, 0, &face);
+            assert(!error);
+            
+            loadGlyph( characterIndex);
+        }
+        
+        void loadGlyph( unsigned int characterIndex)
+        {
+            long glyphIndex = FT_Get_Char_Index( face, characterIndex);
+            
+            FT_Set_Char_Size( face, 0L, FONT_POINT_SIZE * 64, RESOLUTION, RESOLUTION);
+            
+            FT_Error error = FT_Load_Glyph( face, glyphIndex, FT_LOAD_DEFAULT);
+            assert(!error);
+        }
+        
+        void tearDownFreetype()
+        {
+            FT_Done_Face( face);
+            FT_Done_FreeType( library);
+        }
+        
 };
 
 CPPUNIT_TEST_SUITE_REGISTRATION( FTGlyphTest);
