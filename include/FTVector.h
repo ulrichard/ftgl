@@ -31,9 +31,6 @@ class FTGL_EXPORT FTVector
         
         FTVector& operator =(const FTVector& v)
         {
-            // Warning: the vector is not cleared and resized to v capacity for
-            // efficiency reasons.
-            // clear();
             reserve(v.capacity());
             
             iterator ptr = begin();
@@ -153,10 +150,9 @@ class FTGL_EXPORT FTVector
         }
 
         
-    protected:
+    private:
         void expand(size_type capacity_hint = 0)
         {
-            // Allocate new vector( capacity doubles)
             size_type new_capacity =( capacity() == 0) ? 256 : capacity()* 2;
             if( capacity_hint)
             {
@@ -168,7 +164,6 @@ class FTGL_EXPORT FTVector
             
             value_type *new_items = new value_type[new_capacity];
             
-            // Copy values to new vector
             iterator begin = this->begin();
             iterator end = this->end();
             value_type *ptr = new_items;
@@ -178,7 +173,6 @@ class FTGL_EXPORT FTVector
                 *ptr++ = *begin++;
             }
             
-            // Deallocate old vector and use new vector
             if( Capacity)
             {
                 delete [] Items;
@@ -188,8 +182,6 @@ class FTGL_EXPORT FTVector
             Capacity = new_capacity;
         }
 
-    
-    private:
         size_type Capacity;
         size_type Size;
         value_type* Items;
