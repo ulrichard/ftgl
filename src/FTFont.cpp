@@ -134,23 +134,22 @@ void FTFont::BBox( const char* string,
     if((NULL != string) && ('\0' != *string))
     {
         const unsigned char* c = (unsigned char*)string;
+        float advance = 0;
 
         if(CheckGlyph( *c))
         {
             totalBBox = glyphList->BBox( *c);
-            float advance = glyphList->Advance( *c, *(c + 1));
-            ++c;
+            advance = glyphList->Advance( *c, *(c + 1));
+        }
                 
-            while( *c)
+        while( *++c)
+        {
+            if(CheckGlyph( *c))
             {
-                if(CheckGlyph( *c))
-                {
-                    FTBBox tempBBox = glyphList->BBox( *c);
-                    tempBBox.Move( FTPoint( advance, 0.0f, 0.0f));
-                    totalBBox += tempBBox;
-                    advance += glyphList->Advance( *c, *(c + 1));
-                }
-                ++c;
+                FTBBox tempBBox = glyphList->BBox( *c);
+                tempBBox.Move( FTPoint( advance, 0.0f, 0.0f));
+                totalBBox += tempBBox;
+                advance += glyphList->Advance( *c, *(c + 1));
             }
         }
     }
@@ -172,23 +171,22 @@ void FTFont::BBox( const wchar_t* string,
     if((NULL != string) && ('\0' != *string))
     {
         const wchar_t* c = string;
+        float advance = 0;
 
         if(CheckGlyph( *c))
         {
             totalBBox = glyphList->BBox( *c);
-            float advance = glyphList->Advance( *c, *(c + 1));
-            ++c;
-
-            while( *c)
+            advance = glyphList->Advance( *c, *(c + 1));
+        }
+        
+        while( *++c)
+        {
+            if(CheckGlyph( *c))
             {
-                if(CheckGlyph( *c))
-                {
-                    FTBBox tempBBox = glyphList->BBox( *c);
-                    tempBBox.Move( FTPoint( advance, 0.0f, 0.0f));
-                    totalBBox += tempBBox;
-                    advance += glyphList->Advance( *c, *(c + 1));
-                }
-                ++c;
+                FTBBox tempBBox = glyphList->BBox( *c);
+                tempBBox.Move( FTPoint( advance, 0.0f, 0.0f));
+                totalBBox += tempBBox;
+                advance += glyphList->Advance( *c, *(c + 1));
             }
         }
     }
