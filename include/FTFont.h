@@ -153,7 +153,7 @@ class FTGL_EXPORT FTFont
 		 *
 		 * @return	The current error code.
 		 */
-		virtual FT_Error Error() const { return err;}
+		FT_Error Error() const { return err;}
 
 
 	protected:
@@ -176,7 +176,7 @@ class FTGL_EXPORT FTFont
 		 *
 		 * @return	<code>true</code> on success.
 		 */
-		bool MakeGlyphList();
+		virtual bool MakeGlyphList();
 		
 		/**
 		 * Current face object
