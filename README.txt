@@ -68,24 +68,17 @@ good site...http://cgm.cs.mcgill.ca/~luc/
 
 
 TODO:
-	- Finish!!
-	- Fix compiler warnings
+	- Tidy code, fix compiler warnings, comments.
 	- Memory Leak in PolyGlyph (glCombine)
 	- The position stuff is broken again. Check the pen stuff. Plus lower
 	  case 'y's seem to be 1 pixel too low?
-	- Use glRasterPos() not glBitMap to set raster pos in pixel fonts.
 	- check and confirm the glPixelStore stuff. Data Alignment. Tightly
 	  packed at the moment.
-	- Clear the texture mem
-	- calc smallest texture size
-	- overflow texture
 	- namespace
 	- gl/glu errors
 	- tessellation winding rules
 	- Distributions MACOS 9/X, IRIX, Linux, Windows
 	- Test with non English(?) fonts
-	- Unicode w_char. May have to use std::wstring and or std::wchar_t.
-	- Check the size stuff. Make all font types consistent.
 	
 FUTURE:
 	- select face ie italic, bold etc
@@ -93,7 +86,6 @@ FUTURE:
 	- Multiple sizes
 	- Optimise performance!! and mem usage.
 	  - don't process chars that map to glyph 0
-	  - variable STEP_SIZE for bezier curves.
 	- Use the Freetype Cache mechanism. See above. FTC_xxx
 	- Alignment. left right, centre.
 	- Bounding box, char and string.
@@ -102,12 +94,28 @@ FUTURE:
 	  outline the polyfonts with lines to get better looking glyphs.
 	- Provide an interface to access the point data for outlines and polygon
 	  meshes.
+	- Unicode w_char. May have to use std::wstring and or std::wchar_t.
 
 BUGS:
+	- Kerning is screwed up for really small point sizes eg 2 point.
+	  Freetype bug?
+	- The texture co-ords in the Texture Font made be wrong for none
+	  scalable fonts.
 	MAC OS:
 		- Exits with some fonts at large sizes. GLUT Memory Bug?
 		  also with large numbers of glyphs at any size eg helvetica. This
 		  is becoming REALLY annoying!!!
+
+
+August 20 2001
+	1.0b4
+	- Changed the mode for FT_Load_Glyph to FT_LOAD_NO_HINTING | FT_LOAD_NO_BITMAP
+	  for outline and polygon fonts & FT_LOAD_NO_HINTING for texture fonts.
+	  Seems to produce better looking glyphs.
+	- FTGLTextureFont can now use multiple textures to render glyphs if
+	  they don't fit within a GL_MAX_TEXTURE_SIZE texture. 
+	- Changed FTSize to use bbox for global width and height. Needs more
+	  work and need to check inconsistancies in freetype.
 
 
 August 8 2001
