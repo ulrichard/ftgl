@@ -253,6 +253,7 @@ class FTGL_EXPORT FTFont
     private:
         /**
          * Get the advance width for a character.
+         * This function does an implicit conversion on it's arguments.
          *
          * @param chr       current character
          * @param nextChr   next character
@@ -262,6 +263,7 @@ class FTGL_EXPORT FTFont
 
         /**
          * Render a character
+         * This function does an implicit conversion on it's arguments.
          * 
          * @param chr       current character
          * @param nextChr   next character
