@@ -5,8 +5,7 @@
 
 #include "FTFont.h"
 
-
-class FTOutlineGlyph;
+class FTGlyph;
 
 /**
  * FTGLOutlineFont is a specialisation of the FTFont class for handling
@@ -45,12 +44,12 @@ class FTGL_EXPORT FTGLOutlineFont : public FTFont
 		
 	private:
 		/**
-		 * Constructs the internal glyph cache.
+		 * Construct a FTOutlineGlyph.
 		 *
-		 * This a list of glyphs processed for openGL rendering NOT
-		 * freetype glyphs
+		 * @param g	The glyph index NOT the char code.
+		 * @return	An FTOutlineGlyph or <code>null</code> on failure.
 		 */
-		bool MakeGlyphList();
+		virtual FTGlyph* MakeGlyph( unsigned int g);
 		
 };
 #endif // __FTGLOutlineFont__

@@ -9,13 +9,12 @@
 #include FT_FREETYPE_H
 
 #include "FTFace.h"
-#include "FTGL.h"
 
 
 class FTGlyphContainer;
+class FTGlyph;
 
 using namespace std;
-
 
 
 /**
@@ -24,8 +23,8 @@ using namespace std;
  * Specific font classes are derived from this class. It uses the helper
  * classes FTFace and FTSize to access the Freetype library. This class
  * is abstract and deriving classes must implement the protected
- * <code>MakeGlyphList</code> function to build a glyphList with the
- * appropriate glyph type.
+ * <code>MakeGlyph</code> function to create glyphs of the
+ * appropriate type.
  *
  * @see		FTFace
  * @see		FTSize
@@ -49,10 +48,14 @@ class FTGL_EXPORT FTFont
 		 * Opens and reads a font file.
 		 *
 		 * @param fontname	font file name.
+		 * @param preCache	A flag to indicate whether or not to build
+		 * 					a complete set of glyphs at startup
+		 *					(<code>true</code>) or as prequired
+		 *					(<code>false</code>). Defaults to true.
 		 * @return			<code>true</code> if file has opened
 		 *					successfully.
 		 */
-		virtual bool Open( const char* fontname );
+		virtual bool Open( const char* fontname, bool preCache = true);
 		
 		/**
 		 * Disposes of the font
@@ -66,7 +69,7 @@ class FTGL_EXPORT FTFont
 		 * @param res		the resolution of the target device.
 		 * @return			<code>true</code> if size was set correctly
 		 */
-		virtual bool FaceSize( const unsigned int size, const unsigned int res = 72 );
+		virtual bool FaceSize( const unsigned int size, const unsigned int res = 72);
 		
 		/**
 		 * Sets the character map for the face.
@@ -131,12 +134,25 @@ class FTGL_EXPORT FTFont
 
 	protected:
 		/**
-		 * Constructs the internal glyph cache.
+		 * Construct a glyph of the correct type.
+		 *
+		 * Clients must overide the function and return their specialised
+		 * FTGlyph.
+		 *
+		 * @param g	The glyph index NOT the char code.
+		 * @return	An FT****Glyph or <code>null</code> on failure.
+		 */
+		virtual FTGlyph* MakeGlyph( unsigned int g) = 0;
+		
+		/**
+		 * Construct the internal glyph cache.
 		 *
 		 * This a list of glyphs processed for openGL rendering NOT
-		 * freetype glyphs
+		 * freetype glyphs.
+		 *
+		 * @return	<code>true</code> on success.
 		 */
-		virtual bool MakeGlyphList() = 0;
+		virtual bool MakeGlyphList();
 		
 		/**
 		 * Current face object
@@ -162,6 +178,11 @@ class FTGL_EXPORT FTFont
 		 * The number of glyphs in this font
 		 */
 		unsigned int numGlyphs;
+		
+		/**
+		 * Have glyphs been pre-cached
+		 */
+		bool preCache;
 		
 		/**
 		 * Current pen or cursor position;

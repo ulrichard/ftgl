@@ -13,22 +13,18 @@ FTGLPolygonFont::~FTGLPolygonFont()
 {}
 
 
-bool FTGLPolygonFont::MakeGlyphList()
+FTGlyph* FTGLPolygonFont::MakeGlyph( unsigned int g)
 {
-	for( unsigned int n = 0; n < numGlyphs; ++n)
+	FT_Glyph* ftGlyph = face.Glyph( g, FT_LOAD_DEFAULT);
+
+	if( ftGlyph)
 	{
-		FT_Glyph* ftGlyph = face.Glyph( n, FT_LOAD_NO_HINTING | FT_LOAD_NO_BITMAP);
-		
-		if( ftGlyph)
-		{
-			FTPolyGlyph* tempGlyph = new FTPolyGlyph( *ftGlyph);
-			glyphList->Add( tempGlyph);
-		}
-		else
-		{
-			err = face.Error();
-		}
+		FTPolyGlyph* tempGlyph = new FTPolyGlyph( *ftGlyph);
+		return tempGlyph;
 	}
-	
-	return !err;
+
+	err = face.Error();
+	return NULL;
 }
+
+

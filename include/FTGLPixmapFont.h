@@ -6,7 +6,7 @@
 
 #include "FTFont.h"
 
-class FTPixmapGlyph;
+class FTGlyph;
 
 /**
  * FTGLPixmapFont is a specialisation of the FTFont class for handling
@@ -44,12 +44,12 @@ class FTGL_EXPORT FTGLPixmapFont : public FTFont
 
 	private:
 		/**
-		 * Constructs the internal glyph cache.
+		 * Construct a FTPixmapGlyph.
 		 *
-		 * This a list of glyphs processed for openGL rendering NOT
-		 * freetype glyphs
+		 * @param g	The glyph index NOT the char code.
+		 * @return	An FTPixmapGlyph or <code>null</code> on failure.
 		 */
-		bool MakeGlyphList();
+		virtual FTGlyph* MakeGlyph( unsigned int g);
 		
 };
 

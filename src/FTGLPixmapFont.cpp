@@ -11,27 +11,18 @@ FTGLPixmapFont::~FTGLPixmapFont()
 {}
 
 
-// OPSignature: bool FTGlyphContainer:MakeGlyphList() 
-bool FTGLPixmapFont::MakeGlyphList()
+FTGlyph* FTGLPixmapFont::MakeGlyph( unsigned int g)
 {
-//	if( preCache)
-	for( unsigned int c = 0; c < numGlyphs; ++c)
+	FT_Glyph* ftGlyph = face.Glyph( g, FT_LOAD_DEFAULT);
+
+	if( ftGlyph)
 	{
-		FT_Glyph* ftGlyph = face.Glyph( c, FT_LOAD_DEFAULT);
-//		FT_HAS_VERTICAL(face)
-	
-		if( ftGlyph)
-		{
-			FTPixmapGlyph* tempGlyph = new FTPixmapGlyph( *ftGlyph);
-			glyphList->Add( tempGlyph);
-		}
-		else
-		{
-			err = face.Error();
-		}
+		FTPixmapGlyph* tempGlyph = new FTPixmapGlyph( *ftGlyph);
+		return tempGlyph;
 	}
-	
-	return !err;
+
+	err = face.Error();
+	return NULL;
 }
 
 

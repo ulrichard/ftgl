@@ -7,6 +7,8 @@
 FTFont::FTFont()
 :	numFaces(0),
 	glyphList(0),
+	numGlyphs(0),
+	preCache(true),
 	err(0)
 {
 	pen.x = 0;
@@ -20,8 +22,10 @@ FTFont::~FTFont()
 }
 
 
-bool FTFont::Open( const char* fontname )
+bool FTFont::Open( const char* fontname, bool p)
 {
+	preCache = p;
+	
 	if( face.Open( fontname))
 	{
 		FT_Face* ftFace = face.Face();		
@@ -50,7 +54,7 @@ bool FTFont::FaceSize( const unsigned int size, const unsigned int res )
 	if( glyphList)
 		delete glyphList;
 	
-	glyphList = new FTGlyphContainer( &face, numGlyphs);
+	glyphList = new FTGlyphContainer( &face, numGlyphs, preCache);
 	
 	if( MakeGlyphList())
 	{
@@ -60,6 +64,24 @@ bool FTFont::FaceSize( const unsigned int size, const unsigned int res )
 	{
 		return false;
 	}
+}
+
+
+bool FTFont::MakeGlyphList()
+{
+	for( unsigned int c = 0; c < numGlyphs; ++c)
+	{
+		if( preCache)
+		{
+			glyphList->Add( MakeGlyph( c), c);
+		}
+		else
+		{
+			glyphList->Add( NULL, c);
+		}
+	}
+	
+	return !err;
 }
 
 
@@ -89,6 +111,12 @@ float FTFont::Advance( const wchar_t* string)
 
 	while( *c)
 	{
+		if( !glyphList->Glyph( static_cast<unsigned int>(*c)))
+		{
+			unsigned int g = face.CharIndex( static_cast<unsigned int>(*c));
+			glyphList->Add( MakeGlyph( g), g);
+		}
+
 		width += glyphList->Advance( *c, *(c + 1));	
 		++c;
 	}
@@ -104,7 +132,13 @@ float FTFont::Advance( const char* string)
 
 	while( *c)
 	{
-		width += glyphList->Advance( *c, *(c + 1));	
+		if( !glyphList->Glyph( static_cast<unsigned int>(*c)))
+		{
+			unsigned int g = face.CharIndex( static_cast<unsigned int>(*c));
+			glyphList->Add( MakeGlyph( g), g);
+		}
+
+		width += glyphList->Advance( *c, *(c + 1));
 		++c;
 	}
 
@@ -120,11 +154,16 @@ void FTFont::render( const char* string )
 
 	while( *c)
 	{
+		if( !glyphList->Glyph( static_cast<unsigned int>(*c)))
+		{
+			unsigned int g = face.CharIndex( static_cast<unsigned int>(*c));
+			glyphList->Add( MakeGlyph( g), g);
+		}
+
 		kernAdvance = glyphList->render( *c, *(c + 1), pen);
 		
 		pen.x += kernAdvance.x;
 		pen.y += kernAdvance.y;
-		
 		++c;
 	}
 }
@@ -138,11 +177,16 @@ void FTFont::render( const wchar_t* string )
 
 	while( *c)
 	{
+		if( !glyphList->Glyph( static_cast<unsigned int>(*c)))
+		{
+			unsigned int g = face.CharIndex( static_cast<unsigned int>(*c));
+			glyphList->Add( MakeGlyph( g), g);
+		}
+
 		kernAdvance = glyphList->render( *c, *(c + 1), pen);
 		
 		pen.x += kernAdvance.x;
 		pen.y += kernAdvance.y;
-		
 		++c;
 	}
 }

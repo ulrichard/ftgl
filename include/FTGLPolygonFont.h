@@ -5,8 +5,7 @@
 
 #include	"FTFont.h"
 
-
-class FTPolyGlyph;
+class FTGlyph;
 
 /**
  * FTGLPolygonFont is a specialisation of the FTFont class for handling
@@ -29,12 +28,12 @@ class FTGL_EXPORT FTGLPolygonFont : public FTFont
 		
 	private:
 		/**
-		 * Constructs the internal glyph cache.
+		 * Construct a FTPolyGlyph.
 		 *
-		 * This a list of glyphs processed for openGL rendering NOT
-		 * freetype glyphs
+		 * @param g	The glyph index NOT the char code.
+		 * @return	An FTPolyGlyph or <code>null</code> on failure.
 		 */
-		bool MakeGlyphList();
+		virtual FTGlyph* MakeGlyph( unsigned int g);
 		
 };
 

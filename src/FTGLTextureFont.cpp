@@ -117,7 +117,7 @@ unsigned int FTGLTextureFont::FillGlyphs( unsigned int glyphStart, GLuint id, GL
 			currTextU = (float)currentTextX / (float)width;
 			
 			FTTextureGlyph* tempGlyph = new FTTextureGlyph( *ftGlyph, id, data, width, height, currTextU, currTextV);
-			glyphList->Add( tempGlyph);
+			glyphList->Add( tempGlyph, n);
 
 			currentTextX += glyphWidth;
 			if( currentTextX > ( width - glyphWidth))

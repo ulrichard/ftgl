@@ -9,7 +9,6 @@
 #include FT_FREETYPE_H
 #include FT_GLYPH_H
 
-//#include "FTGL.h"
 class FTFace;
 class FTGlyph;
 
@@ -44,7 +43,16 @@ class FTGL_EXPORT FTGlyphContainer
 		 * @param glyph		
 		 * @return			<code>true</code>
 		 */
-		bool Add( FTGlyph* glyph);
+		bool Add( FTGlyph* tempGlyph, unsigned int g);
+
+		/**
+		 * Get a glyph from the glyph list
+		 *
+		 * @param c	The char code of the glyph NOT the glyph index		
+		 * @return	An FTGlyph or <code>null</code> is it hasn't been
+		 * loaded.
+		 */
+		FTGlyph* Glyph( unsigned int c) const;
 
 		/**
 		* Returns the kerned advance width for a glyph.
@@ -101,9 +109,6 @@ class FTGL_EXPORT FTGlyphContainer
 		 * A structure to hold the glyphs
 		 */
 		vector<FTGlyph*> glyphs;
-//		typedef pair<int, FTGlyph*> CHARREF; // glyphIndex, glyph
-//		vector<CHARREF> glyphs;
-//		map< int, FTGlyph*> CHARREF; // charCode, glyph
 
 		/**
 		 * Current error code. Zero means no error.

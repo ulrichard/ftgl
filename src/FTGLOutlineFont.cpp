@@ -12,24 +12,18 @@ FTGLOutlineFont::~FTGLOutlineFont()
 {}
 
 
-bool FTGLOutlineFont::MakeGlyphList()
+FTGlyph* FTGLOutlineFont::MakeGlyph( unsigned int g)
 {
-	for( unsigned int n = 0; n < numGlyphs; ++n)
+	FT_Glyph* ftGlyph = face.Glyph( g, FT_LOAD_DEFAULT);
+
+	if( ftGlyph)
 	{
-		FT_Glyph* ftGlyph = face.Glyph( n, FT_LOAD_NO_HINTING | FT_LOAD_NO_BITMAP);
-		
-		if( ftGlyph)
-		{
-			FTOutlineGlyph* tempGlyph = new FTOutlineGlyph( *ftGlyph);
-			glyphList->Add( tempGlyph);
-		}
-		else
-		{
-			err = face.Error();
-		}
+		FTOutlineGlyph* tempGlyph = new FTOutlineGlyph( *ftGlyph);
+		return tempGlyph;
 	}
-	
-	return !err;
+
+	err = face.Error();
+	return NULL;
 }
 
 

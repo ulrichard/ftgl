@@ -51,6 +51,8 @@ class  FTGL_EXPORT FTGLTextureFont : public FTFont
 
 		
 	private:
+		virtual FTGlyph* MakeGlyph( unsigned int g){ return NULL;}
+				
 		/**
 		 * Constructs the internal glyph cache.
 		 *
