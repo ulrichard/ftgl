@@ -52,8 +52,8 @@ class FTGL_EXPORT FTFont
          *
          * @param pBufferBytes  the in-memory buffer
          * @param bufferSizeInBytes  the length of the buffer in bytes
-         * @return          <code>true</code> if file has opened
-         *                  successfully.
+         * @return          <code>true</code> if the data stream has
+         *                  opened successfully.
          */
         bool Open( const unsigned char *pBufferBytes, size_t bufferSizeInBytes);
 
@@ -61,7 +61,8 @@ class FTGL_EXPORT FTFont
          * Attach auxilliary file to font (e.g. font metrics).
          *
          * @param filename  auxilliary font file name.
-         *
+         * @return          <code>true</code> if file has been attached
+         *                  successfully.
          */
         bool Attach( const char* filename);
 
