@@ -6,7 +6,6 @@
 
 FTGlyphContainer::FTGlyphContainer( FTFace* f)
 :   face(f),
-    charMap(0),
     err(0)
 {
     glyphs.push_back( NULL);
@@ -23,6 +22,7 @@ FTGlyphContainer::~FTGlyphContainer()
     }
     
     glyphs.clear();
+    delete charMap;
 }
 
 
