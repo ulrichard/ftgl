@@ -7,7 +7,6 @@ FTOutlineGlyph::FTOutlineGlyph( FT_Glyph glyph)
     vectoriser(0),
     numPoints(0),
     numContours(0),
-    contourLength(0),
     data(0),
     glList(0)
 {
@@ -32,16 +31,8 @@ FTOutlineGlyph::FTOutlineGlyph( FT_Glyph glyph)
         return;
     }
     
-    contourLength = new int[ numContours];
-    for( int cn = 0; cn < numContours; ++cn)
-    {
-        contourLength[cn] = vectoriser->contourSize( cn);
-    }
-    
     data = new FTGL_DOUBLE[ numPoints * 3];
     vectoriser->GetOutline( data);
-    
-    delete vectoriser;
     
     int d = 0;
     glList = glGenLists(1);
@@ -49,17 +40,18 @@ FTOutlineGlyph::FTOutlineGlyph( FT_Glyph glyph)
         for( int c = 0; c < numContours; ++c)
         {
             glBegin( GL_LINE_LOOP);
-            for( int p = 0; p < contourLength[c]; ++p)
-            {
-                glVertex2dv( data + d);
-                d += 3;
-            }
+                int contourLength = vectoriser->contourSize( c);
+                for( int p = 0; p < contourLength; ++p)
+                {
+                    glVertex2dv( data + d);
+                    d += 3;
+                }
             glEnd();
         }
     glEndList();
 
+    delete vectoriser;
     delete [] data; // FIXME
-    delete [] contourLength; // FIXME
 
     // discard glyph image (bitmap or not)
     FT_Done_Glyph( glyph); // Why does this have to be HERE

@@ -59,11 +59,6 @@ class FTGL_EXPORT FTOutlineGlyph : public FTGlyph
 		int numContours;
 
 		/**
-		 * An array containing the number of points in each outline
-		 */
-		int* contourLength;
-
-		/**
 		 * Pointer to the point data
 		 */
 		FTGL_DOUBLE* data;
