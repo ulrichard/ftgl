@@ -10,6 +10,7 @@ class FTTesselationTest : public CppUnit::TestCase
 {
         CPPUNIT_TEST_SUITE( FTTesselationTest);
             CPPUNIT_TEST( testAddPoint);
+            CPPUNIT_TEST( testGetPoint);
         CPPUNIT_TEST_SUITE_END();
         
     public:
@@ -38,6 +39,23 @@ class FTTesselationTest : public CppUnit::TestCase
             tesselation.AddPoint(  10, 3, 0);
 
             CPPUNIT_ASSERT( tesselation.PointCount() == 8);
+        }
+        
+        
+        void testGetPoint()
+        {
+            FTTesselation tesselation;
+            
+            CPPUNIT_ASSERT( tesselation.PointCount() == 0);
+            
+            tesselation.AddPoint(  10, 3, 0.7);
+            tesselation.AddPoint( -53, 2000, 23);
+            tesselation.AddPoint(  77, -2.4, 765);
+            tesselation.AddPoint( 117.5,  0.02, -99);
+
+            CPPUNIT_ASSERT( tesselation.PointCount() == 4);
+            CPPUNIT_ASSERT( tesselation.Point(2) == FTPoint( 77, -2.4, 765));
+            CPPUNIT_ASSERT( tesselation.Point(20) != FTPoint( 77, -2.4, 765));
         }
         
         

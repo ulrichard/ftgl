@@ -30,6 +30,7 @@ static float POINT_DATA[] =
 class FTMeshTest : public CppUnit::TestCase
 {
         CPPUNIT_TEST_SUITE( FTMeshTest);
+            CPPUNIT_TEST( testGetTesselation);
             CPPUNIT_TEST( testAddPoint);
             CPPUNIT_TEST( testTooManyPoints);
         CPPUNIT_TEST_SUITE_END();
@@ -41,6 +42,24 @@ class FTMeshTest : public CppUnit::TestCase
         FTMeshTest( const std::string& name) : CppUnit::TestCase(name)
         {}
 
+        void testGetTesselation()
+        {
+            FTMesh mesh;
+
+            CPPUNIT_ASSERT( mesh.Tesselation(0) == NULL);
+
+            ftglBegin( GL_TRIANGLES, &mesh);
+            ftglVertex( &POINT_DATA[0], &mesh);
+            ftglVertex( &POINT_DATA[3], &mesh);
+            ftglVertex( &POINT_DATA[6], &mesh);
+            ftglVertex( &POINT_DATA[9], &mesh);
+            ftglEnd( &mesh);
+
+            CPPUNIT_ASSERT( mesh.Tesselation(0));
+            CPPUNIT_ASSERT( mesh.Tesselation(10) == NULL);
+        }
+        
+        
         void testAddPoint()
         {
             FTGL_DOUBLE testPoint[3] = { 1, 2, 3};
@@ -48,7 +67,6 @@ class FTMeshTest : public CppUnit::TestCase
 
             FTMesh mesh;
             CPPUNIT_ASSERT( mesh.TesselationCount() == 0);
-            CPPUNIT_ASSERT( mesh.Tesselation(0)->PointCount() == 0);
             
             ftglBegin( GL_TRIANGLES, &mesh);
             ftglVertex( &POINT_DATA[0], &mesh);
@@ -94,15 +112,21 @@ class FTMeshTest : public CppUnit::TestCase
             ftglBegin( GL_TRIANGLES, &mesh);
             ftglCombine( testPoint, NULL, NULL, (void**)testOutput, &mesh);
             
-            for( unsigned int x = 0; x < 300; ++x)
+            for( unsigned int x = 0; x < 200; ++x)
             {
                 ftglCombine( testPoint, NULL, NULL, (void**)hole, &mesh);            
             }
+
+            CPPUNIT_ASSERT( *testOutput == &(mesh.tempPointList[0].x));
             
+            for( unsigned int x = 201; x < 300; ++x)
+            {
+                ftglCombine( testPoint, NULL, NULL, (void**)hole, &mesh);            
+            }
+
             ftglEnd( &mesh);
             
             CPPUNIT_ASSERT( *testOutput == &(mesh.tempPointList[0].x));
-        
         }
         
         void setUp() 

@@ -258,8 +258,10 @@ class FTVectoriserTest : public CppUnit::TestCase
             CPPUNIT_TEST( testBadGlyphProcess);
             CPPUNIT_TEST( testSimpleGlyphProcess);
             CPPUNIT_TEST( testComplexGlyphProcess);
+            CPPUNIT_TEST( testGetContour);
             CPPUNIT_TEST( testGetOutline);
             CPPUNIT_TEST( testGetMesh);
+            CPPUNIT_TEST( testMakeMesh);
         CPPUNIT_TEST_SUITE_END();
         
     public:
@@ -316,6 +318,20 @@ class FTVectoriserTest : public CppUnit::TestCase
         }
         
         
+        void testGetContour()
+        {
+            setUpFreetype();
+            loadGlyph( SIMPLE_CHARACTER_INDEX);
+            
+            FTVectoriser vectoriser( glyph);
+
+            CPPUNIT_ASSERT( vectoriser.Contour(1));
+            CPPUNIT_ASSERT( vectoriser.Contour(99) == NULL);
+            
+            tearDownFreetype();
+        }
+        
+        
         void testGetOutline()
         {
             setUpFreetype();
@@ -326,7 +342,7 @@ class FTVectoriserTest : public CppUnit::TestCase
             unsigned int d = 0;
             for( size_t c = 0; c < vectoriser.ContourCount(); ++c)
             {
-                FTContour* contour = vectoriser.Contour(c);
+                const FTContour* contour = vectoriser.Contour(c);
                 
                 for( size_t p = 0; p < contour->PointCount(); ++p)
                 {
@@ -343,6 +359,20 @@ class FTVectoriserTest : public CppUnit::TestCase
         void testGetMesh()
         {
             setUpFreetype();
+            loadGlyph( SIMPLE_CHARACTER_INDEX);
+            
+            FTVectoriser vectoriser( glyph);
+            CPPUNIT_ASSERT( vectoriser.GetMesh() == NULL);
+
+            vectoriser.MakeMesh(1.0);
+            
+            CPPUNIT_ASSERT( vectoriser.GetMesh());
+        }
+        
+        
+        void testMakeMesh()
+        {
+            setUpFreetype();
             loadGlyph( COMPLEX_CHARACTER_INDEX);
             
             FTVectoriser vectoriser( glyph);
@@ -350,13 +380,13 @@ class FTVectoriserTest : public CppUnit::TestCase
             vectoriser.MakeMesh(1.0);
 
             int d = 0;
-            FTMesh* mesh = vectoriser.GetMesh();
+            const FTMesh* mesh = vectoriser.GetMesh();
             unsigned int tesselations = mesh->TesselationCount();
             CPPUNIT_ASSERT( tesselations == 14);
             
             for( unsigned int index = 0; index < tesselations; ++index)
             {
-                FTTesselation* subMesh = mesh->Tesselation( index);
+                const FTTesselation* subMesh = mesh->Tesselation( index);
                 
                 unsigned int polyType = subMesh->PolygonType();
                 CPPUNIT_ASSERT( testMeshPolygonTypes[index] == polyType);
