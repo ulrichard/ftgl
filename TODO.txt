@@ -1,8 +1,7 @@
-FTGL 1.3b5
-January 27 2002
+FTGL 1.32
+April 23 2002
 
 TODO:
-	- namespace ftgl or gltt?
 	- use float for all font metrics and advance metrics.
 	
 	

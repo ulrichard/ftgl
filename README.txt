@@ -1,5 +1,6 @@
-FTGL 1.31
-January 30 2002
+FTGL 1.32
+April 23 2002
+
 
 DESCRIPTION:
 
@@ -38,7 +39,8 @@ Bezier curve code contributed by Jed Soane.
 Demo, Linux port, extrusion code and gltt maintainance by Gerard Lanois
 Linux port by Matthias Kretz
 Windows port by Max Rheiner & Ellers
-Bug fixes by Robert Osfield & Marcelo E. Magallon
+Bug fixes by Robert Osfield, Marcelo E. Magallon, Markku Rontu
+Sebastiene Barre
 
 Please contact me if you have any suggestions, feature requests, or problems.
 
@@ -77,6 +79,8 @@ Try out cbloom sorted vector in charmap. faster than std::map?
 Enable access to raw glyph data
 State handling...
 inline base class methods
+
+Extreme Programming...
 
 
 Things to think about...
