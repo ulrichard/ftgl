@@ -64,6 +64,26 @@ class FTGL_EXPORT FTBBox
         ~FTBBox()
         {}
         
+        /**
+         * Mark the bounds invalid by setting all lower dimensions greater
+         * than the upper dimensions.
+         */
+        void Invalidate() 
+        {
+            lowerX = lowerY = lowerZ = 1.0f;
+            upperX = upperY = upperZ = -1.0f;
+        }
+        
+        /**
+         * Determines if this bounding box is valid.
+         *
+         * @return True if all lower values are <= the corresponding
+         *         upper values.
+         */
+        bool IsValid()
+        {
+            return((lowerX <= upperX) && (lowerY <= upperY) && (lowerZ <= upperZ));
+        }
 
         /**
          * Move the Bounding Box by a vector.
