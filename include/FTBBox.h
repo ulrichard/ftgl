@@ -53,13 +53,13 @@ class FTGL_EXPORT FTBBox
             upperY(0.0f),
             upperZ(0.0f)
         {
-            FT_BBox bbox;
             FT_Glyph glyphImage;
             if( FT_Get_Glyph( glyph, &glyphImage ))
             {
                 return;
             }
             
+            FT_BBox bbox;
             FT_Glyph_Get_CBox( glyphImage, ft_glyph_bbox_subpixels, &bbox );
             
             lowerX = static_cast<float>( bbox.xMin) / 64.0f;
