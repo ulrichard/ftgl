@@ -110,13 +110,13 @@ bool FTFont::CharMap( FT_Encoding encoding)
 }
 
 
-int FTFont::Ascender() const
+float FTFont::Ascender() const
 {
     return charSize.Ascender();
 }
 
 
-int FTFont::Descender() const
+float FTFont::Descender() const
 {
     return charSize.Descender();
 }

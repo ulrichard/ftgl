@@ -106,14 +106,14 @@ class FTGL_EXPORT FTFont
          *
          * @return  Ascender height
          */
-        int Ascender() const;
+        float Ascender() const;
         
         /**
          * Gets the global descender height for the face.
          *
          * @return  Descender height
          */
-        int Descender() const;
+        float Descender() const;
 
         /**
          * Get the bounding box for a string.

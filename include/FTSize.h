@@ -54,14 +54,14 @@ class FTGL_EXPORT FTSize
          *
          * @return  Ascender height
          */
-        int Ascender() const;
+        float Ascender() const;
         
         /**
          * Gets the global descender height for the face in pixels.
          *
          * @return  Ascender height
          */
-        int Descender() const;
+        float Descender() const;
         
         /**
          * Gets the global face height for the face.
@@ -73,7 +73,7 @@ class FTGL_EXPORT FTSize
          *
          * @return  height in pixels.
          */
-        int Height() const;
+        float Height() const;
         
         /**
          * Gets the global face width for the face.
@@ -85,14 +85,14 @@ class FTGL_EXPORT FTSize
          *
          * @return  width in pixels.
          */
-        int Width() const;
+        float Width() const;
         
         /**
          * Gets the underline position for the face.
          *
          * @return  underline position in pixels
          */
-        int Underline() const;
+        float Underline() const;
 
         
         /**

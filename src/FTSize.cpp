@@ -40,23 +40,23 @@ unsigned int FTSize::CharSize() const
 }
 
 
-int FTSize::Ascender() const
+float FTSize::Ascender() const
 {
-    return ftSize == 0 ? 0 : ftSize->metrics.ascender >> 6;
+    return ftSize == 0 ? 0.0f : static_cast<float>( ftSize->metrics.ascender) / 64.0f;
 }
 
 
-int FTSize::Descender() const
+float FTSize::Descender() const
 {
-    return ftSize == 0 ? 0 : ftSize->metrics.descender >> 6;
+    return ftSize == 0 ? 0.0f : static_cast<float>( ftSize->metrics.descender) / 64.0f;
 }
 
 
-int FTSize::Height() const
+float FTSize::Height() const
 {
-    if( ftSize == 0)
+    if( 0 == ftSize)
     {
-        return 0;
+        return 0.0f;
     }
     
     if( FT_IS_SCALABLE((*ftFace)))
@@ -64,20 +64,20 @@ int FTSize::Height() const
         float height = ( (*ftFace)->bbox.yMax - (*ftFace)->bbox.yMin)
                      * ( (float)ftSize->metrics.y_ppem / (float)(*ftFace)->units_per_EM);
                      
-        return static_cast<int>(height);
+        return height;
     }
     else
     {
-        return ftSize->metrics.height >> 6;
+        return static_cast<float>( ftSize->metrics.height) / 64.0f;
     }
 }
 
 
-int FTSize::Width() const
+float FTSize::Width() const
 {
-    if( ftSize == 0)
+    if( 0 == ftSize)
     {
-        return 0;
+        return 0.0f;
     }
     
     if( FT_IS_SCALABLE((*ftFace)))
@@ -85,16 +85,16 @@ int FTSize::Width() const
         float width = ( (*ftFace)->bbox.xMax - (*ftFace)->bbox.xMin)
                     * ( (float)ftSize->metrics.x_ppem / (float)(*ftFace)->units_per_EM);
                     
-        return static_cast<int>(width);
+        return width;
     }
     else
     {
-        return ftSize->metrics.max_advance >> 6;
+        return static_cast<float>( ftSize->metrics.max_advance) / 64.0f;
     }
 }
 
 
-int FTSize::Underline() const
+float FTSize::Underline() const
 {
-    return 0;
+    return 0.0f;
 }

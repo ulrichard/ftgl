@@ -46,8 +46,8 @@ FTGlyph* FTGLTextureFont::MakeGlyph( unsigned int g)
     if( ftGlyph)
     {
         // Estimate the glyph size size - global bbox
-        glyphHeight = ( charSize.Height());
-        glyphWidth = ( charSize.Width());
+        glyphHeight = static_cast<int>( charSize.Height());
+        glyphWidth = static_cast<int>( charSize.Width());
         
         // Is there a current texture
         if( numTextures == 0)
