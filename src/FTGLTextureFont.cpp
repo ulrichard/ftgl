@@ -26,7 +26,7 @@ FTGLTextureFont::FTGLTextureFont()
     textMem(0),
     glyphHeight(0),
     glyphWidth(0),
-    padding(1),
+    padding(3),
     remGlyphs(0),
     xOffset(0),
     yOffset(0)
