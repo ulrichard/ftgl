@@ -1,5 +1,6 @@
 #include    "FTPixmapGlyph.h"
 
+#include "mmgr.h"
 
 FTPixmapGlyph::FTPixmapGlyph( FT_Glyph glyph)
 :   FTGlyph(),
@@ -91,7 +92,9 @@ FTPixmapGlyph::FTPixmapGlyph( FT_Glyph glyph)
 FTPixmapGlyph::~FTPixmapGlyph()
 {
     if( data)
+    {
         delete [] data;
+    }
 }
 
 
