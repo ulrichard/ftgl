@@ -73,9 +73,9 @@ float FTVectorGlyph::Render( const FT_Vector& pen)
 {
 	if( glList)
 	{
-		glTranslatef( pen.x, pen.y, 0);
+		glTranslatef( pen.x + pos.x, pen.y, 0);
 			glCallList( glList);
-		glTranslatef( -pen.x, -pen.y, 0);
+		glTranslatef( -pen.x + pos.x, -pen.y, 0);
 	}
 	
 	return advance;

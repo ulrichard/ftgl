@@ -75,8 +75,6 @@ FTTextureGlyph::~FTTextureGlyph()
 
 float FTTextureGlyph::Render( const FT_Vector& pen)
 {
-//	int adv = advance/* + pos.x */+ ( v.x >> 16); // FIXME ??? pos.x = bearing X
-
 	// This could be really ugly!!
 	if( activeTextureID != glTextureID)
 	{
@@ -86,10 +84,10 @@ float FTTextureGlyph::Render( const FT_Vector& pen)
 		glBegin( GL_QUADS);
 	}
 	
-	glTexCoord2f( uv[0].x, uv[0].y); glVertex2f( pen.x,				pen.y + pos.y);
-	glTexCoord2f( uv[1].x, uv[0].y); glVertex2f( pen.x + destWidth,	pen.y + pos.y);
-	glTexCoord2f( uv[1].x, uv[1].y); glVertex2f( pen.x + destWidth,	pen.y + pos.y - destHeight);
-	glTexCoord2f( uv[0].x, uv[1].y); glVertex2f( pen.x,				pen.y + pos.y - destHeight);
+	glTexCoord2f( uv[0].x, uv[0].y); glVertex2f( pen.x + pos.x,				pen.y + pos.y);
+	glTexCoord2f( uv[1].x, uv[0].y); glVertex2f( pen.x + destWidth + pos.x,	pen.y + pos.y);
+	glTexCoord2f( uv[1].x, uv[1].y); glVertex2f( pen.x + destWidth + pos.x,	pen.y + pos.y - destHeight);
+	glTexCoord2f( uv[0].x, uv[1].y); glVertex2f( pen.x + pos.x,				pen.y + pos.y - destHeight);
 
 	return advance;
 }
