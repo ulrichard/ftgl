@@ -1,6 +1,8 @@
 #ifndef		__FTVectoriser__
 #define		__FTVectoriser__
 
+#include "FTGL.h"
+
 #include <vector>
 
 #include <ft2build.h>
@@ -11,7 +13,7 @@
 
 using namespace std;
 
-class ftPoint
+class FTGL_EXPORT ftPoint
 {
 	public:
 		ftPoint()
@@ -38,7 +40,7 @@ class ftPoint
 };
 
 
-class FTContour
+class FTGL_EXPORT FTContour
 {
 	public:
 		// methods
@@ -61,7 +63,7 @@ class FTContour
 };
 
 
-class FTVectoriser
+class FTGL_EXPORT FTVectoriser
 {
 	public:
 		// methods
