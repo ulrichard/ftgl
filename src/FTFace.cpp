@@ -68,7 +68,7 @@ bool FTFace::Attach( const unsigned char *pBufferBytes, size_t bufferSizeInBytes
     FT_Open_Args open;
 
     open.flags = (FT_Open_Flags)1; // FT_OPEN_MEMORY;
-    open.memory_base = pBufferBytes;
+    open.memory_base = (FT_Byte *)pBufferBytes;
     open.memory_size = bufferSizeInBytes;
 
     err = FT_Attach_Stream( *ftFace, &open);
@@ -112,21 +112,23 @@ unsigned int FTFace::CharIndex( unsigned int index) const
 
 FTPoint FTFace::KernAdvance( unsigned int index1, unsigned int index2)
 {
-    FT_Vector kernAdvance;
-    kernAdvance.x = 0;
-    kernAdvance.y = 0;
-    
+    float x, y;
+    x = y = 0.0f;
+
     if( FT_HAS_KERNING((*ftFace)) && index1 && index2)
     {
+        FT_Vector kernAdvance;
+        kernAdvance.x = kernAdvance.y = 0;
+
         err = FT_Get_Kerning( *ftFace, index1, index2, ft_kerning_unfitted, &kernAdvance);
         if( !err)
         {   
-            kernAdvance.x /= 64;
-            kernAdvance.y /= 64;
+            x = static_cast<float>( kernAdvance.x) / 64;
+            y = static_cast<float>( kernAdvance.y) / 64;
         }
     }
     
-    return FTPoint( kernAdvance);
+    return FTPoint( x, y, 0.0);
 }
 
 
