@@ -27,7 +27,7 @@ CPPFLAGS += -I$(top_srcdir)/src
 LIBS += $(FT2_LIBS)
 
 FTGLDemo: $(OBJS)
-	$(LIBTOOL) --mode=link $(CC) $^ -o $@ $(top_builddir)/src/libftgl.la $(LIBGLUT)
+	$(LIBTOOL) --mode=link $(CXX) $^ -o $@ $(top_builddir)/src/libftgl.la $(LIBGLUT) $(LIBS)
 
 install-local: FTGLDemo
 	$(INSTALL) -d -m 0755 $(bindir)
