@@ -3,65 +3,58 @@
 #include    "FTCharmap.h"
 
 
-FTFace::FTFace()
+FTFace::FTFace( const char* filename)
 :   charMap(0),
-    ftFace(0),
     numCharMaps(0),
     numGlyphs(0),
     err(0)
-{}
-
-
-FTFace::~FTFace()
-{
-    delete charMap;
-    Close();
-}
-
-
-bool FTFace::Open( const char* filename)
 {
     const FT_Long DEFAULT_FACE_INDEX = 0;
     ftFace = new FT_Face;
-    
-    // FIXME check library for errors
+
     err = FT_New_Face( *FTLibrary::Instance().GetLibrary(), filename, DEFAULT_FACE_INDEX, ftFace);
 
     if( err)
     {
         delete ftFace;
         ftFace = 0;
-        return false;
     }
     else
     {
         charMap = new FTCharmap( *ftFace);
         numGlyphs = (*ftFace)->num_glyphs;
-        return true;
     }
 }
 
 
-bool FTFace::Open( const unsigned char *pBufferBytes, size_t bufferSizeInBytes )
+FTFace::FTFace( const unsigned char *pBufferBytes, size_t bufferSizeInBytes )
+:   charMap(0),
+    numCharMaps(0),
+    numGlyphs(0),
+    err(0)
 {
     const FT_Long DEFAULT_FACE_INDEX = 0;
     ftFace = new FT_Face;
 
-    // FIXME check library for errors
     err = FT_New_Memory_Face( *FTLibrary::Instance().GetLibrary(), (FT_Byte *)pBufferBytes, bufferSizeInBytes, DEFAULT_FACE_INDEX, ftFace);
 
     if( err)
     {
         delete ftFace;
         ftFace = 0;
-        return false;
     }
     else
     {
         charMap = new FTCharmap( *ftFace);
         numGlyphs = (*ftFace)->num_glyphs;
-        return true;
     }
+}
+
+
+FTFace::~FTFace()
+{
+    delete charMap;
+    Close();
 }
 
 

@@ -27,29 +27,26 @@ class FTFaceTest : public CppUnit::TestCase
 
     void testOpenFace()
     {
-        CPPUNIT_ASSERT( !testFace->Open( BAD_FONT_FILE));
-        CPPUNIT_ASSERT( testFace->Error() == 1);        
+        FTFace face1( BAD_FONT_FILE);
+        CPPUNIT_ASSERT( face1.Error() == 1);        
 
-        CPPUNIT_ASSERT( testFace->Open( GOOD_FONT_FILE));
-        CPPUNIT_ASSERT( testFace->Error() == 0);        
+        FTFace face2( GOOD_FONT_FILE);
+        CPPUNIT_ASSERT( face2.Error() == 0);        
     }
     
     
     void testOpenFaceFromMemory()
     {
-        CPPUNIT_ASSERT( !testFace->Open( (unsigned char*)100, 0));
-        CPPUNIT_ASSERT( testFace->Error() == 85);        
+        FTFace face1( (unsigned char*)100, 0);
+        CPPUNIT_ASSERT( face1.Error() == 85);        
 
-        CPPUNIT_ASSERT( testFace->Open( arial_ttf.dataBytes, arial_ttf.numBytes));
-        CPPUNIT_ASSERT( testFace->Error() == 0);        
+        FTFace face2( arial_ttf.dataBytes, arial_ttf.numBytes);
+        CPPUNIT_ASSERT( face2.Error() == 0);        
     }
     
     
     void testAttachFile()
     {
-        CPPUNIT_ASSERT( testFace->Open( GOOD_FONT_FILE));
-        CPPUNIT_ASSERT( testFace->Error() == 0);
-                
         CPPUNIT_ASSERT( !testFace->Attach( GOOD_FONT_FILE));
         CPPUNIT_ASSERT( testFace->Error() == 7);        
     }
@@ -57,17 +54,12 @@ class FTFaceTest : public CppUnit::TestCase
 
     void testGlyphCount()
     {
-        CPPUNIT_ASSERT( testFace->Open( GOOD_FONT_FILE));
-        CPPUNIT_ASSERT( testFace->Error() == 0);
-                
         CPPUNIT_ASSERT(testFace->GlyphCount() == 14099);        
     }
     
 
     void testSetFontSize()
     {
-        testFace->Open( GOOD_FONT_FILE);
-        
         FTSize size = testFace->Size( GOOD_SIZE, RESOLUTION);
         CPPUNIT_ASSERT( testFace->Error() == 0);
     }
@@ -75,8 +67,6 @@ class FTFaceTest : public CppUnit::TestCase
     
     void testSetCharMap()
     {
-        testFace->Open( GOOD_FONT_FILE);
-    
         CPPUNIT_ASSERT( testFace->CharMap( ft_encoding_unicode));
         CPPUNIT_ASSERT( testFace->Error() == 0);
         
@@ -87,8 +77,6 @@ class FTFaceTest : public CppUnit::TestCase
     
     void testCharacterIndex()
     {
-        testFace->Open( GOOD_FONT_FILE);
-
         CPPUNIT_ASSERT( testFace->CharIndex( 'A') == 34);
         CPPUNIT_ASSERT( testFace->CharIndex( 0x6FB3) == 4838);
     }
@@ -96,8 +84,6 @@ class FTFaceTest : public CppUnit::TestCase
     
     void testKerning()
     {
-        testFace->Open( GOOD_FONT_FILE);
-    
         FTPoint kerningVector = testFace->KernAdvance( 'A', 'W');
         CPPUNIT_ASSERT( kerningVector.x == 0);
         CPPUNIT_ASSERT( kerningVector.y == 0);
@@ -112,7 +98,7 @@ class FTFaceTest : public CppUnit::TestCase
     
     void setUp() 
     {
-        testFace = new FTFace;
+        testFace = new FTFace( GOOD_FONT_FILE);
     }
 
 

@@ -22,25 +22,13 @@ class FTGL_EXPORT FTFace
 {
     public:
         /**
-         * Default Constructor
-         */
-        FTFace();
-
-        /**
-         * Destructor
-         *
-         * Disposes of the current Freetype Face.
-         */
-        virtual ~FTFace();
-
-        /**
          * Opens and reads a face file.
          *
          * @param filename  font file name.
          * @return          <code>true</code> if file has opened
          *                  successfully.
          */
-        bool Open( const char* filename);
+        FTFace( const char* filename);
 
         /**
          * Read face data from an in-memory buffer.
@@ -50,13 +38,21 @@ class FTGL_EXPORT FTFace
          * @return          <code>true</code> if file has opened
          *                  successfully.
          */
-        bool Open( const unsigned char *pBufferBytes, size_t bufferSizeInBytes );
+        FTFace( const unsigned char *pBufferBytes, size_t bufferSizeInBytes );
+
+        /**
+         * Destructor
+         *
+         * Disposes of the current Freetype Face.
+         */
+        virtual ~FTFace();
 
         /**
          * Attach auxilliary file to font (e.g., font metrics).
          *
          * @param filename  auxilliary font file name.
-         *
+         * @return          <code>true</code> if file has opened
+         *                  successfully.
          */
         bool Attach( const char* filename);
 
@@ -109,10 +105,8 @@ class FTGL_EXPORT FTFace
         FT_Glyph* Glyph( unsigned int index, FT_Int load_flags);
 
         /**
-         * Gets the current Freetype face.
+         * Gets the number of glyphs in the current face.
          */
-//        FT_Face* Face() const { return ftFace;}
-
         unsigned int GlyphCount() const { return numGlyphs;}
 
         /**
