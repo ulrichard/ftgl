@@ -25,8 +25,8 @@ class	FTLibrary
 	private:
 		// methods
 		FTLibrary();
-		FTLibrary( const& FT_Library ){}
-		FTLibrary&	operator=( const& FT_Library ){}
+		FTLibrary( const FT_Library&){}
+		FTLibrary&	operator=( const FT_Library&){}
 		bool Init();
 		
 		// attributes

@@ -38,14 +38,14 @@ FTGLTextureFont::FTGLTextureFont()
 
 FTGLTextureFont::~FTGLTextureFont()
 {
-	glDeleteTextures( numTextures, glTextureID);
+	glDeleteTextures( numTextures, (const GLuint*)glTextureID);
 }
 
 
 bool FTGLTextureFont::MakeGlyphList()
 {
 	if( !maxTextSize)
-		glGetIntegerv( GL_MAX_TEXTURE_SIZE, &maxTextSize);
+		glGetIntegerv( GL_MAX_TEXTURE_SIZE, (GLint*)&maxTextSize);
 	
 	glyphHeight = ( charSize.Height()) + padding;
 	glyphWidth = ( charSize.Width()) + padding;
@@ -62,7 +62,7 @@ bool FTGLTextureFont::MakeGlyphList()
 		int heightRemain = NextPowerOf2( textureHeight % maxTextSize);
 		totalMem = ((maxTextSize * ( numTextures - 1)) + heightRemain) * textureWidth;
 
-		glGenTextures( numTextures, &glTextureID[0]);
+		glGenTextures( numTextures, (GLuint*)&glTextureID[0]);
 
 		textMem = new unsigned char[totalMem]; // GL_ALPHA texture;
 		std::memset( textMem, 0, totalMem);
@@ -88,7 +88,7 @@ bool FTGLTextureFont::MakeGlyphList()
 		textureHeight = NextPowerOf2( textureHeight);
 		totalMem = textureWidth * textureHeight;
 		
-		glGenTextures( numTextures, &glTextureID[0]);
+		glGenTextures( numTextures, (GLuint*)&glTextureID[0]);
 
 		textMem = new unsigned char[totalMem]; // GL_ALPHA texture;
 		std::memset( textMem, 0, totalMem);
