@@ -1,5 +1,5 @@
-#include    "FTPolyGlyph.h"
-#include    "FTVectoriser.h"
+#include "FTPolyGlyph.h"
+#include "FTVectoriser.h"
 
 
 FTPolyGlyph::FTPolyGlyph( FT_Glyph glyph)
@@ -16,7 +16,7 @@ FTPolyGlyph::FTPolyGlyph( FT_Glyph glyph)
 
     vectoriser = new FTVectoriser( glyph);
     
-    vectoriser->Process();
+    vectoriser->ProcessContours();
 
     vectoriser->MakeMesh(1.0);
     numPoints = vectoriser->MeshPoints();
@@ -33,10 +33,11 @@ FTPolyGlyph::FTPolyGlyph( FT_Glyph glyph)
     data = new FTGL_DOUBLE[ numPoints * 3];
     vectoriser->GetMesh( data);
     delete vectoriser;
-    
+
     int d = 0;
     glList = glGenLists(1);
     glNewList( glList, GL_COMPILE);
+
         int BEPairs = static_cast<int>(data[0]);
         for( int i = 0; i < BEPairs; ++i)
         {
@@ -44,6 +45,7 @@ FTPolyGlyph::FTPolyGlyph( FT_Glyph glyph)
             glBegin( polyType);
 
             int verts = static_cast<int>(data[d+2]);
+
             d += 3;
             for( int x = 0; x < verts; ++x)
             {

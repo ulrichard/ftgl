@@ -18,7 +18,7 @@ FTOutlineGlyph::FTOutlineGlyph( FT_Glyph glyph)
 
     vectoriser = new FTVectoriser( glyph);
     
-    vectoriser->Process();
+    vectoriser->ProcessContours();
     
     numPoints = vectoriser->points();
     numContours = vectoriser->contours();

@@ -17,7 +17,7 @@ FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
 
     vectoriser = new FTVectoriser( glyph);
     
-    vectoriser->Process();
+    vectoriser->ProcessContours();
 
     // Make the front polygons
     vectoriser->MakeMesh( 1.0);
