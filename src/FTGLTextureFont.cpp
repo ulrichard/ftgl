@@ -40,8 +40,6 @@ FTGLTextureFont::~FTGLTextureFont()
 
 bool FTGLTextureFont::MakeGlyphList()
 {
-	glEnable( GL_TEXTURE_2D);
-	
 	if( !maxTextSize)
 		glGetIntegerv( GL_MAX_TEXTURE_SIZE, (GLint*)&maxTextSize);
 		
