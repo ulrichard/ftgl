@@ -24,6 +24,12 @@ bool FTSize::CharSize( FT_Face* face, unsigned int point_size, unsigned int x_re
 }
 
 
+unsigned int FTSize::CharSize() const
+{
+    return size;
+}
+
+
 int FTSize::Ascender() const
 {
     return ftSize->metrics.ascender >> 6;

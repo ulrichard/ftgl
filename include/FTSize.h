@@ -42,6 +42,13 @@ class FTGL_EXPORT FTSize
         bool CharSize( FT_Face* face, unsigned int point_size, unsigned int x_resolution, unsigned int y_resolution );
         
         /**
+         * get the char size for the current face.
+         *
+         * @return The char size in points
+         */
+        unsigned int CharSize() const;
+        
+        /**
          * Gets the global ascender height for the face in pixels.
          *
          * @return  Ascender height

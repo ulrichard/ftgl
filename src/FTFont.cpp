@@ -92,6 +92,12 @@ bool FTFont::FaceSize( const unsigned int size, const unsigned int res )
 }
 
 
+unsigned int FTFont::FaceSize() const
+{
+    return charSize.CharSize();
+}
+
+
 bool FTFont::MakeGlyphList()
 {
     for( unsigned int c = 0; c < numGlyphs; ++c)

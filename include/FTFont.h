@@ -88,6 +88,13 @@ class FTGL_EXPORT FTFont
         bool FaceSize( const unsigned int size, const unsigned int res = 72);
         
         /**
+         * Get the the current face.
+         *
+         * @return face size
+         */
+        unsigned int FaceSize() const;
+        
+        /**
          * Set the extrusion distance for the font. Only availbale for
          * Extruded fonts
          *
@@ -95,7 +102,6 @@ class FTGL_EXPORT FTFont
          */
         virtual void Depth( float){}
 
-        
         /**
          * Set the character map for the face.
          *
