@@ -60,6 +60,8 @@ HEADERS =			\
 	FTVector.h		\
 	FTVectoriser.h
 
+HEADER_FILES = $(addprefix $(top_srcdir)/include/,$(HEADERS))
+
 LOBJS = $(patsubst %.cpp,%.lo,$(SRCS))
 OBJS = $(patsubst %.cpp,%.$(OBJEXT),$(SRCS))
 
@@ -74,7 +76,7 @@ install-local: libftgl.la
 	$(INSTALL) -d -m 0755 $(libdir)
 	$(LIBTOOL) --mode=install $(INSTALL) -m 0644 $(TARGET) $(libdir)
 	$(INSTALL) -d -m 0755 $(includedir)
-	$(INSTALL) -m 0644 $(addprefix $(VPATH)/,$(HEADERS)) $(includedir)
+	$(INSTALL) -m 0644 $(HEADER_FILES) $(includedir)
 
 clean-local:
 	$(RM) $(ALL_OBJS)
