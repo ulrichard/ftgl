@@ -3,6 +3,7 @@
 
 
 #include "FTContour.h"
+#include "FTList.h"
 #include "FTPoint.h"
 #include "FTVector.h"
 #include "FTGL.h"
@@ -22,7 +23,8 @@ class FTGL_EXPORT FTTesselation
         /**
          * Default constructor
          */
-        FTTesselation()
+        FTTesselation( GLenum m)
+        :	meshType(m)
         {
             pointList.reserve( 128);
         }
@@ -35,19 +37,27 @@ class FTGL_EXPORT FTTesselation
             pointList.clear();
         }
 
-        
+        /**
+         * Add a point to the mesh.
+         */
         void AddPoint( const FTGL_DOUBLE x, const FTGL_DOUBLE y, const FTGL_DOUBLE z)
         {   
             pointList.push_back( FTPoint( x, y, z));
         }
 
-
+        /**
+         * The number of points in this mesh
+         */
         size_t PointCount() const { return pointList.size();}
         
+        /**
+         *
+         */
         const FTPoint& Point( unsigned int index) const { return pointList[index];}
-
-        void PolygonType( GLenum m) { meshType = m;}
         
+        /**
+         * Return the OpenGL polygon type.
+         */
         GLenum PolygonType() const { return meshType;}
         
     private:
@@ -69,6 +79,9 @@ class FTGL_EXPORT FTTesselation
  */
 class FTGL_EXPORT FTMesh
 {
+	typedef FTVector<FTTesselation*> TesselationVector;
+	typedef FTList<FTPoint> PointList;
+
     public:
         /**
          * Default constructor
@@ -80,28 +93,51 @@ class FTGL_EXPORT FTMesh
          */
         ~FTMesh();
         
+        /**
+         *
+         */
         void AddPoint( const FTGL_DOUBLE x, const FTGL_DOUBLE y, const FTGL_DOUBLE z);
-        void Begin( GLenum m);
+        
+        /**
+         *
+         */
+        FTGL_DOUBLE* Combine( const FTGL_DOUBLE x, const FTGL_DOUBLE y, const FTGL_DOUBLE z);
+        
+        /**
+         *
+         */
+        void Begin( GLenum meshType);
+        
+        /**
+         *
+         */
         void End();
+        
+        /**
+         *
+         */
         void Error( GLenum e) { err = e;}
         
+        /**
+         *
+         */
         unsigned int TesselationCount() const { return tesselationList.size();}
 
+        /**
+         *
+         */
         const FTTesselation* const Tesselation( unsigned int index) const;
+        
+        /**
+         *
+         */
+        const PointList& TempPointList() const { return tempPointList;}
 
         /**
          * Get the GL ERROR returned by the glu tesselator
          */
         GLenum Error() const { return err;}
 
-        /**
-         * Holds extra points created by gluTesselator. See ftglCombine.
-         */
-        typedef FTVector<FTPoint> PointVector;
-        PointVector tempPointList;
-        
-    protected:
-    
     private:
         /**
          * The current sub mesh that we are constructing.
@@ -111,8 +147,12 @@ class FTGL_EXPORT FTMesh
         /**
          * Holds each sub mesh that comprises this glyph.
          */
-        typedef FTVector<FTTesselation*> TesselationVector;
         TesselationVector tesselationList;
+        
+        /**
+         * Holds extra points created by gluTesselator. See ftglCombine.
+         */
+        PointList tempPointList;
         
         /**
          * GL ERROR returned by the glu tesselator

@@ -22,12 +22,20 @@ void CALLBACK ftglError( GLenum errCode, FTMesh* mesh)
     mesh->Error( errCode);
 }
 
+
 void CALLBACK ftglVertex( void* data, FTMesh* mesh)
 {
-    FTGL_DOUBLE* vertex = (FTGL_DOUBLE*)data;
+    FTGL_DOUBLE* vertex = static_cast<FTGL_DOUBLE*>(data);
     mesh->AddPoint( vertex[0], vertex[1], vertex[2]);
 }
 
+
+void CALLBACK ftglCombine( FTGL_DOUBLE coords[3], void* vertex_data[4], GLfloat weight[4], void** outData, FTMesh* mesh)
+{
+    FTGL_DOUBLE* vertex = static_cast<FTGL_DOUBLE*>(coords);
+    *outData = mesh->Combine( vertex[0], vertex[1], vertex[2]);
+}
+        
 
 void CALLBACK ftglBegin( GLenum type, FTMesh* mesh)
 {
@@ -41,22 +49,11 @@ void CALLBACK ftglEnd( FTMesh* mesh)
 }
 
 
-void CALLBACK ftglCombine( FTGL_DOUBLE coords[3], void* vertex_data[4], GLfloat weight[4], void** outData, FTMesh* mesh)
-{
-    FTGL_DOUBLE* vertex = (FTGL_DOUBLE*)coords;
-    mesh->tempPointList.push_back( FTPoint( vertex[0], vertex[1], vertex[2]));
-    
-    // FIXME if tempPointList reallocs we'll loose these. replace it with a list.
-    *outData = &mesh->tempPointList[ mesh->tempPointList.size() - 1].x;
-}
-        
-
 FTMesh::FTMesh()
 :	currentTesselation(0),
     err(0)
 {
     tesselationList.reserve( 16);
-    tempPointList.reserve( 128);
 }
 
 
@@ -67,8 +64,6 @@ FTMesh::~FTMesh()
         delete tesselationList[t];
     }
     tesselationList.clear();
-
-    tempPointList.clear();
 }
 
 
@@ -77,10 +72,17 @@ void FTMesh::AddPoint( const FTGL_DOUBLE x, const FTGL_DOUBLE y, const FTGL_DOUB
     currentTesselation->AddPoint( x, y, z);
 }
 
-void FTMesh::Begin( GLenum m)
+
+FTGL_DOUBLE* FTMesh::Combine( const FTGL_DOUBLE x, const FTGL_DOUBLE y, const FTGL_DOUBLE z)
 {
-    currentTesselation = new FTTesselation;
-    currentTesselation->PolygonType( m);
+    tempPointList.push_back( FTPoint( x, y,z));
+    return &tempPointList.back().x;
+}
+
+
+void FTMesh::Begin( GLenum meshType)
+{
+    currentTesselation = new FTTesselation( meshType);
 }
 
 
@@ -94,6 +96,7 @@ const FTTesselation* const FTMesh::Tesselation( unsigned int index) const
 {
     return ( index < tesselationList.size()) ? tesselationList[index] : NULL;
 }
+
 
 FTVectoriser::FTVectoriser( const FT_Glyph glyph)
 :   contourList(0),

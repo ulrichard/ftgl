@@ -22,7 +22,7 @@ class FTTesselationTest : public CppUnit::TestCase
 
         void testAddPoint()
         {
-            FTTesselation tesselation;
+            FTTesselation tesselation( 1);
             
             CPPUNIT_ASSERT( tesselation.PointCount() == 0);
             
@@ -44,7 +44,7 @@ class FTTesselationTest : public CppUnit::TestCase
         
         void testGetPoint()
         {
-            FTTesselation tesselation;
+            FTTesselation tesselation(1);
             
             CPPUNIT_ASSERT( tesselation.PointCount() == 0);
             
