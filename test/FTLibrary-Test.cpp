@@ -9,6 +9,7 @@ class FTLibraryTest : public CppUnit::TestCase
 {
         CPPUNIT_TEST_SUITE( FTLibraryTest);
             CPPUNIT_TEST( testConstructor);
+            CPPUNIT_TEST( testError);
         CPPUNIT_TEST_SUITE_END();
         
     public:
@@ -23,6 +24,15 @@ class FTLibraryTest : public CppUnit::TestCase
             FTLibrary& libraryTwo = FTLibrary::Instance();
             
             CPPUNIT_ASSERT( &libraryOne == &libraryTwo);
+            CPPUNIT_ASSERT( &libraryOne == &FTLibrary::Instance());
+        }
+        
+        
+        void testError()
+        {
+            FTLibrary& library = FTLibrary::Instance();
+            
+            CPPUNIT_ASSERT( library.Error() == 0);
         }
         
         
