@@ -22,14 +22,9 @@ FTFont::~FTFont()
 
 bool FTFont::Open( const char* fontname )
 {
-	//FIXME first check map to see if it's already open.
-//	FTFace face; // When we have a list of faces
-
 	if( face.Open( fontname))
 	{
-//		faceList.insert( FaceMap::value_type( string( fontname), face));
-		FT_Face* ftFace = face.Face();
-		
+		FT_Face* ftFace = face.Face();		
 		numGlyphs = (*ftFace)->num_glyphs;
 		
 		return true;
@@ -56,7 +51,7 @@ bool FTFont::FaceSize( const int size, const int res )
 	if( glyphList)
 		delete glyphList;
 	
-	glyphList = new FTGlyphContainer( face.Face(), numGlyphs);	
+	glyphList = new FTGlyphContainer( &face, numGlyphs);
 	
 	if( MakeGlyphList())
 	{
@@ -69,10 +64,10 @@ bool FTFont::FaceSize( const int size, const int res )
 }
 
 
-bool FTFont::CharMap( CHARMAP encoding)
+bool FTFont::CharMap( FT_Encoding encoding)
 {
-	face.CharMap( encoding);
-	return false; // for the moment seeing as this doesn't do anything!!!
+	err = face.CharMap( encoding);
+	return !err;
 }
 
 
@@ -112,3 +107,17 @@ void FTFont::render( const char* string )
 		++c;
 	}
 }
+
+
+//const char* FTFont::ErrorString()
+// {
+//         static char ukn[1024];
+// 
+//         for (uint32 i = 0; ft_errors[i].err_code != 0 || ft_errors[i].err_msg != 0; i++)
+//         {
+//                 if (ft_errors[i].err_code == fte)
+//                         return ft_errors[i].err_msg;
+//         }
+//         smprintf (ukn, 1024, "Unknown freetype2 error, errcode: 0x%x", fte);
+//         return ukn;
+// }

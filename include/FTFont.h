@@ -25,13 +25,15 @@ class	FTFont
 		virtual bool Open( const char* fontname );
 		virtual void Close();
 		virtual bool FaceSize( const int size, const int res = 72 );
-		virtual bool CharMap( CHARMAP encoding );
+		virtual bool CharMap( FT_Encoding encoding );
 		virtual int	Ascender() const;
 		virtual int	Descender() const;
 		virtual void BBox( const char* text, int& llx, int& lly, int& urx, int& ury ) const;
 		virtual void render( const char* string );
 		
 		virtual FT_Error Error() const { return err;}
+//		virtual const char* ErrorString();
+
 		
 		// attributes
 		
