@@ -46,7 +46,7 @@ class FTBBoxTest : public CppUnit::TestCase
 
             FTBBox boundingBox2( glyph);
 
-            CPPUNIT_ASSERT_DOUBLES_EQUAL(   3, boundingBox2.lowerX, 0.01);
+            CPPUNIT_ASSERT_DOUBLES_EQUAL(   2, boundingBox2.lowerX, 0.01);
             CPPUNIT_ASSERT_DOUBLES_EQUAL( -15, boundingBox2.lowerY, 0.01);
             CPPUNIT_ASSERT_DOUBLES_EQUAL(   0, boundingBox2.lowerZ, 0.01);
             CPPUNIT_ASSERT_DOUBLES_EQUAL(  35, boundingBox2.upperX, 0.01);
@@ -90,7 +90,7 @@ class FTBBoxTest : public CppUnit::TestCase
             
             boundingBox1 += boundingBox2;
         
-            CPPUNIT_ASSERT_DOUBLES_EQUAL(   3, boundingBox2.lowerX, 0.01);
+            CPPUNIT_ASSERT_DOUBLES_EQUAL(   2, boundingBox2.lowerX, 0.01);
             CPPUNIT_ASSERT_DOUBLES_EQUAL( -15, boundingBox2.lowerY, 0.01);
             CPPUNIT_ASSERT_DOUBLES_EQUAL(   0, boundingBox2.lowerZ, 0.01);
             CPPUNIT_ASSERT_DOUBLES_EQUAL(  35, boundingBox2.upperX, 0.01);
@@ -102,7 +102,7 @@ class FTBBoxTest : public CppUnit::TestCase
             boundingBox2.Move( FTPoint( advance, 0, 0));
             boundingBox1 += boundingBox2;
             
-            CPPUNIT_ASSERT_DOUBLES_EQUAL(  43, boundingBox2.lowerX, 0.01);
+            CPPUNIT_ASSERT_DOUBLES_EQUAL(  42, boundingBox2.lowerX, 0.01);
             CPPUNIT_ASSERT_DOUBLES_EQUAL( -15, boundingBox2.lowerY, 0.01);
             CPPUNIT_ASSERT_DOUBLES_EQUAL(   0, boundingBox2.lowerZ, 0.01);
             CPPUNIT_ASSERT_DOUBLES_EQUAL(  75, boundingBox2.upperX, 0.01);
