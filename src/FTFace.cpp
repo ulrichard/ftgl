@@ -5,7 +5,6 @@
 
 FTFace::FTFace( const char* filename)
 :   charMap(0),
-    numCharMaps(0),
     numGlyphs(0),
     err(0)
 {
@@ -29,7 +28,6 @@ FTFace::FTFace( const char* filename)
 
 FTFace::FTFace( const unsigned char *pBufferBytes, size_t bufferSizeInBytes )
 :   charMap(0),
-    numCharMaps(0),
     numGlyphs(0),
     err(0)
 {

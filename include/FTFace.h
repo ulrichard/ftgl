@@ -22,21 +22,17 @@ class FTGL_EXPORT FTFace
 {
     public:
         /**
-         * Opens and reads a face file.
+         * Opens and reads a face file. Error is set.
          *
          * @param filename  font file name.
-         * @return          <code>true</code> if file has opened
-         *                  successfully.
          */
         FTFace( const char* filename);
 
         /**
-         * Read face data from an in-memory buffer.
+         * Read face data from an in-memory buffer. Error is set.
          *
          * @param pBufferBytes  the in-memory buffer
          * @param bufferSizeInBytes  the length of the buffer in bytes
-         * @return          <code>true</code> if file has opened
-         *                  successfully.
          */
         FTFace( const unsigned char *pBufferBytes, size_t bufferSizeInBytes );
 
@@ -136,11 +132,6 @@ class FTGL_EXPORT FTFace
          * Temporary variable to hold a glyph
          */
         FT_Glyph ftGlyph;
-
-        /**
-         * The number of character maps in this face.
-         */
-        int numCharMaps;
 
         /**
          * The number of glyphs in this face
