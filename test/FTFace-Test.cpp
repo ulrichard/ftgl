@@ -14,7 +14,6 @@ class FTFaceTest : public CppUnit::TestCase
         CPPUNIT_TEST( testOpenFaceFromMemory);
         CPPUNIT_TEST( testAttachFile);
         CPPUNIT_TEST( testAttachMemoryData);
-        CPPUNIT_TEST( testGetFontTable);
         CPPUNIT_TEST( testGlyphCount);
         CPPUNIT_TEST( testSetFontSize);
         CPPUNIT_TEST( testUnitPerEMSquare);
@@ -70,13 +69,6 @@ class FTFaceTest : public CppUnit::TestCase
         
             CPPUNIT_ASSERT( test.Attach( HPGCalc_afm.dataBytes, HPGCalc_afm.numBytes));
             CPPUNIT_ASSERT( test.Error() == 0);
-        }
-        
-        
-        void testGetFontTable()
-        {
-            CPPUNIT_ASSERT( !testFace->FontTable( 'xxxx'));
-            CPPUNIT_ASSERT( testFace->FontTable( 'hmtx'));
         }
         
         

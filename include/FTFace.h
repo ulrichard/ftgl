@@ -67,10 +67,6 @@ class FTGL_EXPORT FTFace
 
         FT_Face* Face() const { return ftFace;}
         
-        
-        void* FontTable( unsigned int tableName) const;
-        
-        
         /**
          * Sets the char size for the current face.
          *

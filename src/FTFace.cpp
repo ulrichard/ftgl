@@ -82,13 +82,6 @@ void FTFace::Close()
 }
 
 
-void* FTFace::FontTable( unsigned int tableName) const
-{
-//    return FT_Get_Sfnt_Table( *ftFace, tableName);
-    return 0;
-}
-
-
 const FTSize& FTFace::Size( const unsigned int size, const unsigned int res)
 {
     charSize.CharSize( ftFace, size, res, res);
