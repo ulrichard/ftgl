@@ -29,6 +29,11 @@ FTGlyphContainer::~FTGlyphContainer()
 
 bool FTGlyphContainer::Add( FTGlyph* tempGlyph, unsigned int g)
 {
+    if( g >= numGlyphs)
+    {
+        return false;
+    }
+    
     glyphs[g] = tempGlyph;
     return true;
 }

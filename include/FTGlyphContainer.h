@@ -6,11 +6,12 @@
 #include FT_GLYPH_H
 
 #include "FTGL.h"
-#include "FTVector.h"
-#include "FTGlyph.h"
+#include "FTBBox.h"
 #include "FTPoint.h"
+#include "FTVector.h"
 
 class FTFace;
+class FTGlyph;
 
 /**
  * FTGlyphContainer holds the post processed FTGlyph objects.
@@ -31,7 +32,7 @@ class FTGL_EXPORT FTGlyphContainer
         /**
          * Destructor
          */
-        virtual ~FTGlyphContainer();
+        ~FTGlyphContainer();
 
         /**
          * Adds a glyph to this glyph list.
@@ -77,16 +78,16 @@ class FTGL_EXPORT FTGlyphContainer
          *
          * @return  The current error code.
          */
-        virtual FT_Error Error() const { return err;}
+        FT_Error Error() const { return err;}
 
     private:
         /**
-         * How meny glyphs are stored in this container
+         * How many glyphs are reserved in this container
          */
         int numGlyphs;
 
         /**
-         * The current Freetype face
+         * The current FTGL face
          */
         FTFace* face;
 
