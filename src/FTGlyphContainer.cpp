@@ -12,12 +12,8 @@ FTGlyphContainer::FTGlyphContainer( FTFace* f, unsigned int g, bool p)
 	face( f),
 	err( 0)
 {
-	glyphs.reserve( g);
-	
-	for( unsigned int i = 0; i < g; ++i)
-	{
-		glyphs.push_back( NULL);
-	}
+	// Fill the glyphlist with null glyphs
+	glyphs.resize( g, NULL);
 }
 
 
@@ -43,18 +39,15 @@ bool FTGlyphContainer::Add( FTGlyph* tempGlyph, unsigned int g)
 }
 
 
-FTGlyph* FTGlyphContainer::Glyph( unsigned int c) const
+FTGlyph* FTGlyphContainer::Glyph( const unsigned int c) const
 {
-	unsigned int g = face->CharIndex( c);
-	return glyphs[g];
+	return glyphs[face->CharIndex( c)];
 }
 
 
-FTBBox FTGlyphContainer::BBox( unsigned int index)
+FTBBox FTGlyphContainer::BBox( const unsigned int index) const
 {
-	unsigned int left = face->CharIndex( index);
-
-	return glyphs[left]->BBox();
+	return glyphs[face->CharIndex( index)]->BBox();
 }
 
 
