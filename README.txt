@@ -1,5 +1,5 @@
-FTGL 1.0b4
-August 21 2001
+FTGL 1.0b5
+August 29 2001
 
 DESCRIPTION:
 FTGL library is a cross platform tool to allow OpenGL (www.opengl.org) to
@@ -18,7 +18,7 @@ Rendering modes supported are
 - Outlines
 - Polygon meshes
 
-FTGL is design to be used in commercial quality software. It has been
+FTGL is designed to be used in commercial quality software. It has been
 written with performance, robustness and simplicity in mind.
 
 USAGE:
@@ -66,6 +66,9 @@ convert char codes to glyphIndices. If this proves to be too slow I will
 implement a charmap class that will hold the indices.
 
 good site...http://cgm.cs.mcgill.ca/~luc/
+
+Apparently...C++ guarantees that delete can safely be called on a NULL
+pointer. Something to remember for the future.
 
 PROFILING
 test 1
@@ -122,8 +125,10 @@ BUGS:
 		  is becoming REALLY annoying!!!
 
 
+August 29 2001
 	1.0b5
-	- Settled on integers for size stuff.
+	- Settled on integers for FTSize stuff. NOTE the FTGlyph stuff is still
+	  up in the air.
 	- Fixed the positional stuff.
 	- Added Java Doc comments. NOT COMPLETE
 	- Fixes for linux, mainly to clear warnings.
@@ -131,6 +136,9 @@ BUGS:
 	  pointer so it can return NULL on failure.
 	- Related to above...better error handling and reporting in
 	  FTGLXXXFont::MakeGlyphList()
+	- Fixed a bug in FTVectoriser that was ignoring non printing characters.
+	  This meant that the pen wasn't advanced for spaces etc. It affected
+	  polygon and outline font rendering.
 	- Minor tidy ups.
 	
 	
