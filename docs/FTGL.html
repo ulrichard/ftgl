@@ -46,7 +46,7 @@ FTGL was borne out of the need to treat fonts in OpenGL applications just like a
 <A NAME="CFT">
 <H2>Choosing a font type</H2>
 <P>
-FTGL supports 5 font output types in 3 groups, raster fonts, vector fonts and texure fonts which are a mixture of both. Each font type has it's advantages and disadvantages
+FTGL supports 6 font output types in 3 groups, raster fonts, vector fonts and texure fonts which are a mixture of both. Each font type has it's advantages and disadvantages
 </P>
 The two raster types are
 <UL>
@@ -152,7 +152,7 @@ This function returns the extent of the volume containing 'string'. 0.0 on the y
 </H3>
 From the freetype docs...<br>
 "By default, when a new face object is created, (freetype) lists all the charmaps contained in the font face and selects the one that supports Unicode character codes if it finds one. Otherwise, it tries to find support for Latin-1, then ASCII."
-
+<BR>
 It then gives up. In this case FTGL will set the charmap to the first it finds in the fonts charmap list.
 
 You can expilcitly set the char encoding with Charmap:
