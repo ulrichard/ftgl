@@ -119,6 +119,8 @@ void do_display (void)
 		case FTGL_TEXTURE:
 			glEnable( GL_TEXTURE_2D);
 			glDisable( GL_DEPTH_TEST);
+			my_lighting();
+			glNormal3f( 0.0, 0.0, 1.0);
 //			glDisable( GL_BLEND);
 			break;
 
