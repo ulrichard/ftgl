@@ -107,6 +107,12 @@ class FTGL_EXPORT FTBBox
             return *this;
         }
         
+        void SetDepth( float depth)
+        {
+            upperZ = lowerZ + depth;
+        }
+        
+        
         /**
          * The bounds of the box
          */
