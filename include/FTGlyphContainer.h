@@ -53,10 +53,10 @@ class FTGL_EXPORT FTGlyphContainer
 		 * @return	An FTGlyph or <code>null</code> is it hasn't been
 		 * loaded.
 		 */
-		FTGlyph* Glyph( unsigned int c) const;
+		FTGlyph* Glyph( const unsigned int c) const;
 
 		
-		FTBBox BBox( unsigned int index);
+		FTBBox BBox( const unsigned int index) const;
 		
 		/**
 		* Returns the kerned advance width for a glyph.
