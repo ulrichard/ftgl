@@ -16,15 +16,20 @@
 class FTGL_EXPORT FTBBox
 {
 	public:
+		/**
+		 * Default Constructor
+		 *
+		 *
+		 */
 		FTBBox()
-		:	x1(0),
-			y1(0),
-			z1(0),
-			x2(0),
-			y2(0),
-			z2(0)
+		:	x1(0), y1(0), z1(0), x2(0), y2(0), z2(0)
 		{}
 		
+		/**
+		 * Constructor
+		 *
+		 *
+		 */
 		FTBBox( FT_Glyph glyph)
 		{
 			FT_BBox bbox;
@@ -38,15 +43,18 @@ class FTGL_EXPORT FTBBox
 			z2 = 0;	
 		}		
 		
+		/**
+		 * Constructor
+		 *
+		 *
+		 */
 		FTBBox( int a, int b, int c, int d, int e, int f)
-		:	x1(a),
-			y1(b),
-			z1(c),
-			x2(d),
-			y2(e),
-			z2(f)
+		:	x1(a), y1(b), z1(c), x2(d), y2(e), z2(f)
 		{}
 
+		/**
+		 * Destructor
+		 */
 		~FTBBox()
 		{}
 	
