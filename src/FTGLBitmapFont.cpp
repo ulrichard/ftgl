@@ -37,7 +37,6 @@ void FTGLBitmapFont::Render( const char* string)
     glPushAttrib( GL_ENABLE_BIT);
     
     glPixelStorei( GL_UNPACK_LSB_FIRST, GL_FALSE);
-    glPixelStorei( GL_UNPACK_ROW_LENGTH, 0);
     glPixelStorei( GL_UNPACK_ALIGNMENT, 1);
 
     glDisable( GL_BLEND);
@@ -55,7 +54,6 @@ void FTGLBitmapFont::Render( const wchar_t* string)
     glPushAttrib( GL_ENABLE_BIT);
     
     glPixelStorei( GL_UNPACK_LSB_FIRST, GL_FALSE);
-    glPixelStorei( GL_UNPACK_ROW_LENGTH, 0);
     glPixelStorei( GL_UNPACK_ALIGNMENT, 1);
     
     glDisable( GL_BLEND);

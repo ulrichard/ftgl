@@ -132,7 +132,6 @@ GLuint FTGLTextureFont::CreateTexture()
     GLuint textID;
     glGenTextures( 1, (GLuint*)&textID);
 
-    glPixelStorei( GL_UNPACK_ALIGNMENT, 1);
     glBindTexture( GL_TEXTURE_2D, textID);
     glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
     glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);

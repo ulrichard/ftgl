@@ -53,7 +53,12 @@ class FTGL_EXPORT FTBitmapGlyph : public FTGlyph
          * The height of the glyph 'image'
          */
         unsigned int destHeight;
-        
+
+        /**
+         * The pitch of the glyph 'image'
+         */
+        unsigned int destPitch;
+
         /**
          * Vector from the pen position to the topleft corner of the bitmap
          */
