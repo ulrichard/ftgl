@@ -1,6 +1,10 @@
 #ifndef    __FTCharToGlyphIndexMap__
 #define    __FTCharToGlyphIndexMap__
 
+#include <stdlib.h>
+
+#include "FTGL.h"
+
 /**
  * Provides a non-STL alternative to the STL map<unsigned long, unsigned long>
  * which maps character codes to glyph indices inside FTCharmap.
@@ -20,11 +24,6 @@
  *     the special value IndexNotFound (= -1) can be used to specify that the 
  *     glyph index has not been stored yet.
  */
-
-#include <cstdlib>
-
-#include "FTGL.h"
-
 class FTGL_EXPORT FTCharToGlyphIndexMap
 {
     public:
