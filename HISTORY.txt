@@ -1,5 +1,5 @@
 FTGL 2.0 (FTGL_2_0_0)
-    - Fixed some alignment bugs in new ( > 2.0.9) Freetype.
+    - Fixed some alignment bugs caused by changes to Freetype ( > 2.0.9).
     - Minor fixes to float declarations.
     - Moved FTBBox and FTPoint to their own files and added Move() and
       operator += to FTBBox
