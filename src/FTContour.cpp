@@ -1,7 +1,5 @@
 #include "FTContour.h"
 
-static const unsigned int SECOND_DEGREE_CURVE = 2;
-static const unsigned int THIRD_DEGREE_CURVE = 3;
 static const float BEZIER_STEP_SIZE = 0.2f;
 
 
