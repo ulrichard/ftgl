@@ -94,14 +94,14 @@ float FTPixmapGlyph::Render( const FTPoint& pen)
     if( data)
     {
         // Move the glyph origin
-        glBitmap( 0, 0, 0.0, 0.0, pen.x + pos.x, pen.y - pos.y, (const GLubyte*)0);
+        glBitmap( 0, 0, 0.0f, 0.0f, pen.x + pos.x, pen.y - pos.y, (const GLubyte*)0);
 
         glPixelStorei( GL_UNPACK_ROW_LENGTH, 0);
 
         glDrawPixels( destWidth, destHeight, GL_RGBA, GL_UNSIGNED_BYTE, (const GLvoid*)data);
         
         // Restore the glyph origin
-        glBitmap( 0, 0, 0.0, 0.0, -pen.x - pos.x, -pen.y + pos.y, (const GLubyte*)0);
+        glBitmap( 0, 0, 0.0f, 0.0f, -pen.x - pos.x, -pen.y + pos.y, (const GLubyte*)0);
     }
 
     return advance;
