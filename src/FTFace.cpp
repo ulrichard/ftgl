@@ -1,11 +1,13 @@
 #include	"FTFace.h"
 #include	"FTLibrary.h"
+#include	"FTCharmap.h"
 #include	"FTGL.h"
 
 
 FTFace::FTFace()
 :	ftFace(0),
 	numCharMaps(0),
+	charMap(0),
 	numGlyphs(0),
 	err(0)
 {}
@@ -13,6 +15,7 @@ FTFace::FTFace()
 
 FTFace::~FTFace()
 {
+	delete charMap;
 	Close();
 }
 
@@ -30,6 +33,7 @@ bool FTFace::Open( const char* filename)
     }
     else
     {
+		charMap = new FTCharmap( *ftFace);
 		return true;
 	}
 }
@@ -40,13 +44,13 @@ void FTFace::Close()
 	if( ftFace)
 	{
 		FT_Done_Face( *ftFace);
-		delete ftFace; // is this a prob?
+		delete ftFace;
 		ftFace = 0;
 	}
 }
 
 
-FTSize& FTFace::Size( const unsigned int size, const unsigned int res )
+FTSize& FTFace::Size( const unsigned int size, const unsigned int res)
 {
 	if( !charSize.CharSize( ftFace, size, res, res))
 	{
@@ -57,43 +61,19 @@ FTSize& FTFace::Size( const unsigned int size, const unsigned int res )
 }
 
 
-bool FTFace::CharMap( FT_Encoding encoding )
+bool FTFace::CharMap( FT_Encoding encoding)
 {
-	
-// 	FT_CharMap  found = 0;
-//     FT_CharMap  charmap;
-//     int         n;
-// 
-//     for ( n = 0; n < face->num_charmaps; n++ )
-//     {
-//       charmap = face->charmaps[n];
-//       if ( charmap->platform_id == my_platform_id &&
-//            charmap->encoding_id == my_encoding_id )
-//       {
-//         found = charmap;
-//         break;
-//       }
-//     }
-// 
-//     if ( !found ) { ... }
-// 
-//     /* now, select the charmap for the face object */
-//     error = FT_Set_CharMap( face, found );
-//    if ( error ) { ... }
-
-
-	err = FT_Select_Charmap( *ftFace, encoding );
-	return !err;
+	return charMap->CharMap( encoding);
 }
 
 
-unsigned int FTFace::CharIndex( unsigned int index ) const
+unsigned int FTFace::CharIndex( unsigned int index) const
 {
-	return FT_Get_Char_Index( *ftFace, index);
+	return charMap->CharIndex( index);
 }
 
 
-FT_Vector& FTFace::KernAdvance( unsigned int index1, unsigned int index2 )
+FT_Vector& FTFace::KernAdvance( unsigned int index1, unsigned int index2)
 {
 	kernAdvance.x = 0; kernAdvance.y = 0;
 	

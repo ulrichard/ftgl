@@ -9,6 +9,8 @@
 
 #include "FTSize.h"
 
+class FTCharmap;
+
 /**
  * FTFace class provides an abstraction layer for the Freetype Face.
  *
@@ -18,7 +20,6 @@
 class	FTFace
 {
 	public:
-		// methods
 		/**
 		 * Default Constructor
 		 */
@@ -59,20 +60,6 @@ class	FTFace
 
 		/**
 		 * Sets the character map for the face.
-		 * Valid encodings as at Freetype 2.0.4
-		 *		ft_encoding_none
-		 *		ft_encoding_symbol
-		 *		ft_encoding_unicode
-		 *		ft_encoding_latin_2
-		 *		ft_encoding_sjis
-		 *		ft_encoding_gb2312
-		 *		ft_encoding_big5
-		 *		ft_encoding_wansung
-		 *		ft_encoding_johab
-		 *		ft_encoding_adobe_standard
-		 *		ft_encoding_adobe_expert
-		 *		ft_encoding_adobe_custom
-		 *		ft_encoding_apple_roman
 		 *
 		 * @param encoding		the Freetype encoding symbol. See above.
 		 * @return				<code>true</code> if charmap was valid
@@ -93,7 +80,6 @@ class	FTFace
 		 * Gets the kerning vector between two glyphs
 		 */
 		FT_Vector& KernAdvance( unsigned int index1, unsigned int index2);
-		
 
 		/**
 		 * Loads and creates a Freetype glyph.
@@ -104,7 +90,6 @@ class	FTFace
 		 * Gets the current Freetype face.
 		 */
 		FT_Face* Face() const { return ftFace;}
-		
 
 		/**
 		 * Queries for errors.
@@ -113,17 +98,16 @@ class	FTFace
 		 */
 		FT_Error Error() const { return err; }
 		
-		// attributes
-		
 	private:
-		// methods
-		
-		// attributes
-
 		/**
 		 * The size object associated with this face
 		 */
 		FTSize	charSize;
+		
+		/**
+		 * The Character Map object associated with this face
+		 */
+		FTCharmap* charMap;
 
 		/**
 		 * The Freetype face
