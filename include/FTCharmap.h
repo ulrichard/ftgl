@@ -83,7 +83,7 @@ class FTGL_EXPORT FTCharmap
          */
         FT_Error Error() const { return err;}
         
-    protected:
+    private:
         /**
          * Current character map code.
          */
@@ -107,8 +107,6 @@ class FTGL_EXPORT FTCharmap
          */
         FT_Error err;
         
-    private:
-
 };
 
 
