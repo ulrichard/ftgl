@@ -8,7 +8,11 @@
 /* includes */
 #include <math.h>
 #include <assert.h>
-#include <GL/glut.h>
+#ifdef __APPLE_CC__
+	#include <GLUT/glut.h>
+#else
+	#include <GL/glut.h>
+#endif
 #include "tb.h"
 #include "trackball.h"
 
