@@ -138,7 +138,7 @@ void do_display (void)
 
 	fonts[current_font]->render( myString);
 
-	int x1, y1, z1, x2, y2, z2;
+	float x1, y1, z1, x2, y2, z2;
 	fonts[current_font]->BBox( myString, x1, y1, z1, x2, y2, z2);
 	
 	// Draw the bounding box
