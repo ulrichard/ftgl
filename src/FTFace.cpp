@@ -90,3 +90,22 @@ FT_Vector& FTFace::KernAdvance( int index1, int index2 )
 	
 	return kernAdvance;
 }
+
+
+FT_Glyph& FTFace::Glyph( unsigned int index, FT_Int load_flags)
+{
+	err = FT_Load_Glyph( *ftFace, index, load_flags);	
+	err = FT_Get_Glyph( (*ftFace)->glyph, &ftGlyph);
+		
+	if( !err)
+	{
+		return ftGlyph;
+	}
+	else
+	{
+		return NULL;
+	}
+}
+
+
+
