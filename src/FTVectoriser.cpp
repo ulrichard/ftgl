@@ -8,10 +8,12 @@
 
 #ifdef __APPLE_CC__    
     typedef GLvoid (*GLUTesselatorFunction)(...);
-#endif
-
-#if defined( __mips ) || defined( __linux__ )
+#elif defined( __mips ) || defined( __linux__ )
     typedef GLvoid (*GLUTesselatorFunction)();
+#elif defined ( WIN32)
+    typedef GLvoid (CALLBACK *GLUTesselatorFunction)( );
+#else
+    #error "Error - need to define type GLUTesselatorFunction for this platform/compiler"
 #endif
     
 
