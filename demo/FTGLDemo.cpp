@@ -23,8 +23,7 @@
 	#define FONT_FILE "/usr/share/fonts/truetype/arial.ttf"
 #endif
 #ifdef __APPLE_CC__
-	//#define FONT_FILE "/Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/test/arial.ttf"
-   #define FONT_FILE "/Users/progers/Desktop/arial.ttf"
+	#define FONT_FILE "/Users/henry/Development/PROJECTS/FTGL/test/font_pack/arial.ttf"
 #endif
 #ifdef WIN32
 	#define FONT_FILE "C:\\WINNT\\Fonts\\arial.ttf"
@@ -322,12 +321,15 @@ void do_display (void)
 
 	glColor3f( 1.0, 1.0, 1.0);
 // If you do want to switch the color of bitmaps rendered with glBitmap,
-// you will need to explicitly call glRasterPos3f (or its ilk) to lock
+// you will need to explicitly call glRasterPos (or its ilk) to lock
 // in a changed current color.
 
-   if (layouts[currentLayout]) {
+   if (layouts[currentLayout])
+   {
       layouts[currentLayout]->Render(myString);
-   } else {
+   }
+   else
+   {
       fonts[current_font]->Render( myString);
    } /* If there is an active layout use it to render the font (if/else layouts[currentLayout]) */
    
@@ -443,70 +445,70 @@ void parsekey(unsigned char key, int x, int y)
 
 void parseSpecialKey(int key, int x, int y)
 {
-   FTSimpleLayout *simpleLayout = NULL;
-   if (layouts[currentLayout] && (dynamic_cast <FTSimpleLayout *>(layouts[currentLayout]))) {
-      simpleLayout = (FTSimpleLayout *)layouts[currentLayout];
-   } /* If the currentLayout is a simple layout store a pointer in simpleLayout (if layouts[currentLayout]) */
+    FTSimpleLayout *simpleLayout = NULL;
+    if (layouts[currentLayout] && (dynamic_cast <FTSimpleLayout *>(layouts[currentLayout]))) {
+        simpleLayout = (FTSimpleLayout *)layouts[currentLayout];
+    } /* If the currentLayout is a simple layout store a pointer in simpleLayout (if layouts[currentLayout]) */
 
-	switch (key)
-	{
-		case GLUT_KEY_UP:
-			current_font = (current_font + 1)%5;
-			break;
-		case GLUT_KEY_DOWN:
-			current_font = (current_font + 4)%5;
-			break;
-      case GLUT_KEY_PAGE_UP:
-         currentLayout = (currentLayout + 1)%NumLayouts;
-         break;
-      case GLUT_KEY_PAGE_DOWN:
-         currentLayout = (currentLayout + NumLayouts - 1)%NumLayouts;
-         break;
-      case GLUT_KEY_HOME:
-         /* If the current layout is simple decrement its line length */
-         if (simpleLayout) simpleLayout->SetLineLength(simpleLayout->GetLineLength() - 10.0f);
-         break;
-      case GLUT_KEY_END:
-         /* If the current layout is simple increment its line length */
-         if (simpleLayout) simpleLayout->SetLineLength(simpleLayout->GetLineLength() + 10.0f);
-         break;
-		case GLUT_KEY_LEFT:
-         fonts[current_font]->FaceSize(fonts[current_font]->FaceSize() - 1);
-			break;   
-      case GLUT_KEY_RIGHT:
-         fonts[current_font]->FaceSize(fonts[current_font]->FaceSize() + 1);
-         break;
-	}
+    switch (key)
+    {
+        case GLUT_KEY_UP:
+            current_font = ( current_font == FTGL_TEXTURE) ? FTGL_BITMAP: ++current_font;
+            break;
+        case GLUT_KEY_DOWN:
+            current_font = ( current_font == FTGL_BITMAP) ? FTGL_TEXTURE : --current_font;
+            break;
+        case GLUT_KEY_PAGE_UP:
+            currentLayout = (currentLayout + 1)%NumLayouts;
+            break;
+        case GLUT_KEY_PAGE_DOWN:
+            currentLayout = (currentLayout + NumLayouts - 1)%NumLayouts;
+            break;
+        case GLUT_KEY_HOME:
+            /* If the current layout is simple decrement its line length */
+            if (simpleLayout) simpleLayout->SetLineLength(simpleLayout->GetLineLength() - 10.0f);
+            break;
+        case GLUT_KEY_END:
+            /* If the current layout is simple increment its line length */
+            if (simpleLayout) simpleLayout->SetLineLength(simpleLayout->GetLineLength() + 10.0f);
+            break;
+        case GLUT_KEY_LEFT:
+            fonts[current_font]->FaceSize(fonts[current_font]->FaceSize() - 1);
+            break;
+        case GLUT_KEY_RIGHT:
+            fonts[current_font]->FaceSize(fonts[current_font]->FaceSize() + 1);
+            break;
+    }
 
-	if (simpleLayout) { 
-      simpleLayout->SetFont(fonts[current_font]);
-   } /* If the current layout is a simple layout update it's font (if simpleLayout) */
+    if (simpleLayout) {
+        simpleLayout->SetFont(fonts[current_font]);
+    } /* If the current layout is a simple layout update it's font (if simpleLayout) */
 
-	glutPostRedisplay();
+    glutPostRedisplay();
 }
 
 
 void motion(int x, int y)
 {
-	tbMotion( x, y);
+    tbMotion( x, y);
 }
 
 void mouse(int button, int state, int x, int y)
 {
-	tbMouse( button, state, x, y);
+    tbMouse( button, state, x, y);
 }
 
 void myReshape(int w, int h)
 {
-	glMatrixMode (GL_MODELVIEW);
-	glViewport (0, 0, w, h);
-	glLoadIdentity();
-		
-	w_win = w;
-	h_win = h;
-	SetCamera();
-	
-	tbReshape(w_win, h_win);
+    glMatrixMode (GL_MODELVIEW);
+    glViewport (0, 0, w, h);
+    glLoadIdentity();
+
+    w_win = w;
+    h_win = h;
+    SetCamera();
+
+    tbReshape(w_win, h_win);
 }
 
 void SetCamera(void)
