@@ -1,5 +1,5 @@
-#ifndef		__FTGLTextureFont__
-#define		__FTGLTextureFont__
+#ifndef		__FTGLTextureFont
+#define		__FTGLTextureFont
 #include	"FTFont.h"
 
 #include "FTGL.h"
@@ -13,7 +13,7 @@ class	FTGLTextureFont : public FTFont
 		FTGLTextureFont();
 		~FTGLTextureFont();
 		
-		bool TextureSize() const { return textureSize;}
+		int TextureSize() const { return textureSize;}
 		
 		void render( const char* string);
 
@@ -22,12 +22,10 @@ class	FTGLTextureFont : public FTFont
 		// attributes
 		FTTextureGlyph* tempGlyph;
 		
-//		long maxTextSize;
-		int maxTextSize; // For IRIX
+		long maxTextSize;
 		int textureSize;
 		
-//		unsigned long glTextureID;
-		unsigned int glTextureID; // For IRIX
+		unsigned long glTextureID;
 		unsigned char* textMem;
 		
 		int glyphHeight;
@@ -44,4 +42,4 @@ class	FTGLTextureFont : public FTFont
 		
 		
 };
-#endif    //    __FTGLTextureFont__
+#endif

@@ -57,16 +57,11 @@ bool FTGLTextureFont::MakeGlyphList()
 	float currTextU = (float)padding / (float)textureSize;
 	float currTextV = (float)padding / (float)textureSize;
 	
-	int glyphIndex;
-	
-	numGlyphs = 256; // FIXME hack
+//	numGlyphs = 256; // FIXME hack
 	
 	for( int n = 0; n <= numGlyphs; ++n)
 	{
-		glyphIndex = FT_Get_Char_Index( *ftFace, n);
-		
-		err = FT_Load_Glyph( *ftFace, glyphIndex, FT_LOAD_DEFAULT);
-
+		err = FT_Load_Glyph( *ftFace, n, FT_LOAD_DEFAULT);
 		FT_Glyph ftGlyph;
 		
 		err = FT_Get_Glyph( (*ftFace)->glyph, &ftGlyph);
@@ -75,7 +70,7 @@ bool FTGLTextureFont::MakeGlyphList()
 		
 		currTextU = (float)currentTextX / (float)textureSize;
 		
-		tempGlyph = new FTTextureGlyph( ftGlyph, glyphIndex, data, textureSize, currTextU, currTextV);
+		tempGlyph = new FTTextureGlyph( ftGlyph, n, data, textureSize, currTextU, currTextV);
 		glyphList->Add( tempGlyph);
 		
 		currentTextX += glyphWidth;
