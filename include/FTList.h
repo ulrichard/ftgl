@@ -33,7 +33,7 @@ class FTGL_EXPORT FTList
         {
             Node* next;
             
-            for (Node *walk = head;walk;walk = next)
+            for( Node *walk = head; walk; walk = next)
             {
                 next = walk->next;
                 delete walk;
@@ -60,7 +60,10 @@ class FTGL_EXPORT FTList
                 head->next = node;
             }
 
-            if (tail) tail->next = node;
+            if( tail)
+            {
+                tail->next = node;
+            }
             tail = node;
             ++listSize;
         }
