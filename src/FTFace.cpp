@@ -58,11 +58,15 @@ bool FTFace::Attach( const char* filename)
 }
 
 
+#ifndef FT_OPEN_MEMORY
+    #define FT_OPEN_MEMORY (FT_Open_Flags)1
+#endif
+
 bool FTFace::Attach( const unsigned char *pBufferBytes, size_t bufferSizeInBytes)
 {
     FT_Open_Args open;
 
-    open.flags = (FT_Open_Flags)1; // FT_OPEN_MEMORY;
+    open.flags = FT_OPEN_MEMORY;
     open.memory_base = (FT_Byte *)pBufferBytes;
     open.memory_size = bufferSizeInBytes;
 
