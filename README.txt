@@ -85,6 +85,7 @@ TODO:
 	- Distributions MACOS 9/X, IRIX, Linux, Windows
 	- Test with non English(?) fonts
 	- Unicode w_char. May have to use std::wstring and or std::wchar_t.
+	- Check the size stuff. Make all font types consistent.
 	
 FUTURE:
 	- select face ie italic, bold etc
