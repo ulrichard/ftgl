@@ -2,7 +2,7 @@ FTGL 2.0 (FTGL_2_0_0)
     - Fixed some alignment bugs in new ( > 2.0.9) Freetype.
     - Minor fixes to float declarations.
     - Moved FTBBox and FTPoint to their own files and added Move() and
-      operator +, operator += to FTBBox
+      operator += to FTBBox
     - Replaced FT_Vector with FTPoint for kerning.
     - Fixed the glPushAttrib calls.
     - Changed gluTess callback def.
@@ -18,13 +18,15 @@ FTGL 2.0 (FTGL_2_0_0)
     - Unvirtualised functions in FTLibrary and FTGlyphContainer.
     - Fixed empty string bug in FTFont::BBox.
     - Refactored FTContour and moved it to it's own file.
-    - Removed an unnecessary memory allocation in FTOutlineGlyph.
+    - Removed an unnecessary memory allocations in vector Glyphs. They now
+      access the vector data directly.
     - Made vectoriser a local variable in vector glyphs.
     - Fixed a long standing visual bug in FTVectoriser.
     - Changed size calculations to use floats instead of ints. This includes
       FTBBox.
     - Refactored FTGlyph. Now calculates advance (as a float) and bbox.
     - Changed contourList from FTVector to an array in FTVectoriser.
+    - Made function and member names more consistant.
 
 October 23 2002
 FTGL 1.4 (FTGL_1_4)
