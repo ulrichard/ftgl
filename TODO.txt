@@ -4,23 +4,17 @@ November 13 2001
 TODO:
 	- namespace ftgl or gltt?
 	- Distribution MACOS X
-	- Get rid of padding in texture font. It's not needed when using the
-	  global bounding box so FTSize should make that decision.
 	- make a decision about what units to use for font metrics!!!
-	- Hunt down and kill the bug in the polygon code.
 	
 FUTURE:
 	- select face ie italic, bold etc
 	- Multiple sizes
 	- Optimise performance and mem usage.
-	- GL evaluators. Are they of any use?
 	- gl/glu errors
 	- check and confirm the glPixelStore stuff. Data Alignment. Tightly
 	  packed at the moment.
 	- Use the Freetype Cache mechanism. FTC_xxx
 	- Vertical formats
-	- For platforms that have antialiased lines but not polys we could
-	  outline the polyfonts with lines to get better looking glyphs.
 	- Multiple Masters
 	- String Cache or string chunks
 	- Provide an interface to access the point data for outlines and
@@ -41,3 +35,8 @@ BUGS:
 	  stored in Freetype. It is supposed to be in font units but in some
 	  cases it is in 16.16 format. I have implemented a work around but
 	  hopefully the freetype guys will sort this.
+	- The initial position of a glyph is different for (outline, polygon)
+	  & (bitmap, pixmap, texture) See '!' in G.Lanois demo
+	- FTVectoriser seems to position some points incorrectly. confusing
+	  line point with control point at start or end????
+
