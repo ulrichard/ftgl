@@ -6,6 +6,14 @@
 #define CALLBACK
 #endif
 
+#ifdef __APPLE_CC__    
+    typedef GLvoid (*GLUTesselatorFunction)(...);
+#endif
+
+#if defined( __mips ) || defined( __linux__ )
+    typedef GLvoid (*GLUTesselatorFunction)();
+#endif
+    
 
 void CALLBACK ftglError( GLenum errCode, FTMesh* mesh)
 {
@@ -323,9 +331,7 @@ void FTVectoriser::MakeMesh( FTGL_DOUBLE zNormal)
     mesh = new FTMesh;
     
     GLUtesselator* tobj = gluNewTess();
-    
-    typedef GLvoid (*GLUTesselatorFunction)(...);
-    
+
     gluTessCallback( tobj, GLU_TESS_BEGIN_DATA,     (GLUTesselatorFunction)ftglBegin);
     gluTessCallback( tobj, GLU_TESS_VERTEX_DATA,    (GLUTesselatorFunction)ftglVertex);
     gluTessCallback( tobj, GLU_TESS_COMBINE_DATA,   (GLUTesselatorFunction)ftglCombine);
