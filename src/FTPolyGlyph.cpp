@@ -21,6 +21,9 @@ FTPolyGlyph::FTPolyGlyph( FT_Glyph glyph)
 	vectoriser->MakeMesh();
 	numPoints = vectoriser->MeshPoints();
 
+	bBox = FTBBox( glyph);
+	advance = glyph->advance.x >> 16;
+
 	if ( numPoints < 3)
 	{
 		delete vectoriser;
@@ -53,9 +56,6 @@ FTPolyGlyph::FTPolyGlyph( FT_Glyph glyph)
 
 	delete [] data; // FIXME
 	data = 0;
-
-	bBox = FTBBox( glyph);
-	advance = glyph->advance.x >> 16;
 
 	// discard glyph image (bitmap or not)
 	FT_Done_Glyph( glyph); // Why does this have to be HERE

@@ -26,6 +26,10 @@ FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
 	// Make the front polygons
 	vectoriser->MakeMesh( 1.0);
 	
+	bBox = FTBBox( glyph);
+	bBox.z2 = -depth;
+	advance = glyph->advance.x >> 16;
+	
 	numPoints = vectoriser->MeshPoints();
 	if ( numPoints < 3)
 	{
@@ -170,10 +174,6 @@ FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
 	delete [] backMesh;
 	delete [] contourLength;
 
-	bBox = FTBBox( glyph);
-	bBox.z2 = -depth;
-	advance = glyph->advance.x >> 16;
-	
 	// discard glyph image (bitmap or not)
 	FT_Done_Glyph( glyph); // Why does this have to be HERE
 }

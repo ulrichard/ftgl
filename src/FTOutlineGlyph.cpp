@@ -25,6 +25,9 @@ FTOutlineGlyph::FTOutlineGlyph( FT_Glyph glyph)
 	numPoints = vectoriser->points();
 	numContours = vectoriser->contours();
 	
+	bBox = FTBBox( glyph);
+	advance = glyph->advance.x >> 16;
+	
 	if ( ( numContours < 1) || ( numPoints < 3))
 	{
 		delete vectoriser;
@@ -59,9 +62,6 @@ FTOutlineGlyph::FTOutlineGlyph( FT_Glyph glyph)
 
 	delete [] data; // FIXME
 	delete [] contourLength; // FIXME
-
-	bBox = FTBBox( glyph);
-	advance = glyph->advance.x >> 16;
 
 	// discard glyph image (bitmap or not)
 	FT_Done_Glyph( glyph); // Why does this have to be HERE
