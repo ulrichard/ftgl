@@ -1,0 +1,40 @@
+FTGL 1.0b6
+September 20 2001
+
+TODO:
+	- Tidy code, fix compiler warnings, comments.
+	- namespace ftgl or gltt?
+	- Distributions MACOS X, IRIX
+	
+FUTURE:
+	- select face ie italic, bold etc
+	- Multiple sizes
+	- Optimise performance and mem usage.
+	- GL evaluators. Are they of any use?
+	- gl/glu errors
+	- check and confirm the glPixelStore stuff. Data Alignment. Tightly
+	  packed at the moment.
+	- Use the Freetype Cache mechanism. FTC_xxx
+	- Vertical formats
+	- For platforms that have antialiased lines but not polys we could
+	  outline the polyfonts with lines to get better looking glyphs.
+	- Improve the grid fitting scheme in texture fonts.
+	- Multiple Masters
+	- Helper classes...
+	  - String Cache
+	  - Provide an interface to access the point data for outlines and
+	    polygon meshes.
+
+
+BUGS:
+	- Memory Leak in PolyGlyph (glCombine). This may disappear when access
+	  to the point data is sorted. NOTE this is not a fatal leak.
+	- Advance/Kerning is screwed up for really small point sizes eg 2 point.
+	  This is because I'm trying to use FT_Vector which is integer based.
+	  I will probably have to make my own struct with floats.
+	- The texture co-ords in the Texture Font may be wrong for non
+	  scalable fonts.
+	- There is an inconsistancy in the way the global bounding box is
+	  stored in Freetype. It is supposed to be in font units but in some
+	  cases it is in 16.16 format. I have implemented a work around but
+	  hopefully the freetype guys will sort this.

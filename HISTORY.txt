@@ -1,0 +1,82 @@
+FTGL 1.0b7
+September 29 2001
+	1.0b7 (FTGL_1_0_BETA_7)
+	- Tesselation winding rules
+	- Fixed bug in FTContour Add point function
+	- Cleaned up disposal of FTCharmap in FTFace
+	- renamed FTVectorGlyph to FTOutlineGlyph
+	- New distribution structure
+	- Minor changes for windows (VC 6)
+	- Windows and Linux ports.
+
+
+September 20 2001
+	1.0b6 (FTGL_1_0_BETA_6)
+	- Implemented the new FTCharmap class. The performance improvement
+	  is dramatic.
+	- Tidied up the way the freetype FT_Face object is disposed of by
+	  FTFont and FTFace. This was a potential crash.
+	- FTVectorGlyph and FTPolyGlyph now disposes of the freetype glyph
+	  correctly after initialsation. This was a potential crash.
+	- Preliminary support for unicode...wchar_t Tested with non european
+	  fonts.
+	- Added function to calc the advance width of a string.
+	- Minor tidy ups.
+
+August 29 2001
+	1.0b5 (FTGL_1_0_BETA_5)
+	- Settled on integers for FTSize stuff. NOTE the FTGlyph stuff is still
+	  up in the air.
+	- Fixed the positional stuff.
+	- Added Java Doc comments. NOT COMPLETE
+	- Fixes for linux, mainly to clear warnings.
+	- changed the return type for FTFace::Glyph() from a reference to a
+	  pointer so it can return NULL on failure.
+	- Related to above...better error handling and reporting in
+	  FTGLXXXFont::MakeGlyphList()
+	- Fixed a bug in FTVectoriser that was ignoring non printing characters.
+	  This meant that the pen wasn't advanced for spaces etc. It affected
+	  polygon and outline font rendering.
+	- Minor tidy ups.
+
+August 21 2001
+	1.0b4
+	- Changed the mode for FT_Load_Glyph to FT_LOAD_NO_HINTING | FT_LOAD_NO_BITMAP
+	  for outline and polygon fonts & FT_LOAD_NO_HINTING for texture fonts.
+	  Seems to produce better looking glyphs.
+	- FTGLTextureFont can now use multiple textures to render glyphs if
+	  they don't fit within one GL_MAX_TEXTURE_SIZE texture. 
+	- Changed FTSize to use bbox for global width and height. Needs more
+	  work (eg float or int?) and need to check inconsistancies in freetype.
+	- Being more strict with types eg integer indices and sizes are now unsigned.
+
+August 8 2001
+	1.0b3 (FTGL_1_0_BETA_3)
+	- I've made fundamental change to the way the glyphlist is built. This
+	  is to get round the problems I was having with charmaps. At this stage
+	  it is a temporary solution. Previously the glyphList was indexed by
+	  char code. Now it's indexed by glyph index and the conversion is done
+	  by the freetype function FT_Get_Char_Index(). If this proves to be too
+	  slow I'll make my own charmap and use it to index into the glyphlist.
+	  This has fixed all the charmap related problems/bugs.
+	- Enabled alpha blend in Pixmap font.
+	- Enabled LINE_SMOOTH in Outline font
+	- Fixed bug that prevented the display of chars >127
+	- Moved pixel store stuff out of BitmapGlyph into BitmapFont.
+	- Minor changes for IRIX (compiles but isn't tested)
+	- Pixmap fonts can now be in colour. It uses the current colour when the
+	  font is CREATED. This isn't ideal but is better then the alternatives.
+	- Tidied up the error handling.
+	- Minor code clean ups.
+
+August 6 2001
+	BETA release 1.0b2 (FTGL_1_0_BETA_2)
+	- Minor tidy ups for first public release.
+	
+August 3 2001
+	First BETA release 1.0b1 (FTGL_1_0_BETA_1)
+	- All font types are now working, Bitmaps, Pixmaps, Texture, Outline
+	  and Polygons. Quality of output and performance varies wildly:)
+
+July 22 2001
+	First ALPHA Release 1.0a1

@@ -32,6 +32,10 @@ USAGE:
 
 This library was inspired by gltt, Copyright (C) 1998-1999 Stephane Rehel
 ( gltt.sourceforge.net)
+Bezier curve code contributed by Jed Soane.
+Demo, Linux port and gltt maintainance by Gerard Lanois
+Linux port by Matthias Kretz
+Windows port by Max Rheiner
 
 Please contact me if you have any suggestions, feature requests, or problems.
 
@@ -75,119 +79,4 @@ charIndex call went from 9.066 to 1.754. My concerns about the performance
 of std::map seemed to be unfounded in this case. Kerning is still an issue
 as can be seen in the proportional difference in these figures. I don't think
 this can be resolved easily.
-
-TODO:
-	- Tidy code, fix compiler warnings, comments.
-	- namespace ftgl or gltt?
-	- Distributions MACOS 9/X, IRIX, Linux, Windows
-	
-FUTURE:
-	- Memory Leak in PolyGlyph (glCombine). This may disappear when access
-	  to the point data is sorted.
-	- select face ie italic, bold etc
-	- Multiple sizes
-	- Optimise performance and mem usage.
-	- GL evaluators. Are they of any use?
-	- gl/glu errors
-	- tessellation winding rules
-	- check and confirm the glPixelStore stuff. Data Alignment. Tightly
-	  packed at the moment.
-	- Use the Freetype Cache mechanism. See above. FTC_xxx
-	- Vertical formats
-	- For platforms that have antialiased lines but not polys we could
-	  outline the polyfonts with lines to get better looking glyphs.
-	- Improve the grid fitting scheme in texture fonts.
-	- Multiple Masters
-	- Helper classes...
-	  - String Cache
-	  - Provide an interface to access the point data for outlines and
-	    polygon meshes.
-
-
-BUGS:
-	- Advance/Kerning is screwed up for really small point sizes eg 2 point.
-	  This is because I'm trying to use FT_Vector which is integer based.
-	  I will probably have to make my own struct with floats.
-	- The texture co-ords in the Texture Font may be wrong for non
-	  scalable fonts.
-	- There is an inconsistancy in the way the global bounding box is
-	  stored in Freetype. It is supposed to be in font units but in some
-	  cases it is in 16.16 format. I have implemented a work around but
-	  hopefully the freetype guys will sort this.
-
-
-September 20 2001
-	1.0b6
-	- Implemented the new FTCharmap class. The performance improvement
-	  is dramatic.
-	- Tidied up the way the freetype FT_Face object is disposed of by
-	  FTFont and FTFace. This was a potential crash.
-	- FTVectorGlyph and FTPolyGlyph now disposes of the freetype glyph
-	  correctly after initialsation. This was a potential crash.
-	- Preliminary support for unicode...wchar_t Tested with non european
-	  fonts.
-	- Added function to calc the advance width of a string.
-	- Minor tidy ups.
-
-
-August 29 2001
-	1.0b5
-	- Settled on integers for FTSize stuff. NOTE the FTGlyph stuff is still
-	  up in the air.
-	- Fixed the positional stuff.
-	- Added Java Doc comments. NOT COMPLETE
-	- Fixes for linux, mainly to clear warnings.
-	- changed the return type for FTFace::Glyph() from a reference to a
-	  pointer so it can return NULL on failure.
-	- Related to above...better error handling and reporting in
-	  FTGLXXXFont::MakeGlyphList()
-	- Fixed a bug in FTVectoriser that was ignoring non printing characters.
-	  This meant that the pen wasn't advanced for spaces etc. It affected
-	  polygon and outline font rendering.
-	- Minor tidy ups.
-	
-	
-August 21 2001
-	1.0b4
-	- Changed the mode for FT_Load_Glyph to FT_LOAD_NO_HINTING | FT_LOAD_NO_BITMAP
-	  for outline and polygon fonts & FT_LOAD_NO_HINTING for texture fonts.
-	  Seems to produce better looking glyphs.
-	- FTGLTextureFont can now use multiple textures to render glyphs if
-	  they don't fit within one GL_MAX_TEXTURE_SIZE texture. 
-	- Changed FTSize to use bbox for global width and height. Needs more
-	  work (eg float or int?) and need to check inconsistancies in freetype.
-	- Being more strict with types eg integer indices and sizes are now unsigned.
-
-
-August 8 2001
-	1.0b3
-	- I've made fundamental change to the way the glyphlist is built. This
-	  is to get round the problems I was having with charmaps. At this stage
-	  it is a temporary solution. Previously the glyphList was indexed by
-	  char code. Now it's indexed by glyph index and the conversion is done
-	  by the freetype function FT_Get_Char_Index(). If this proves to be too
-	  slow I'll make my own charmap and use it to index into the glyphlist.
-	  This has fixed all the charmap related problems/bugs.
-	- Enabled alpha blend in Pixmap font.
-	- Enabled LINE_SMOOTH in Outline font
-	- Fixed bug that prevented the display of chars >127
-	- Moved pixel store stuff out of BitmapGlyph into BitmapFont.
-	- Minor changes for IRIX (compiles but isn't tested)
-	- Pixmap fonts can now be in colour. It uses the current colour when the
-	  font is CREATED. This isn't ideal but is better then the alternatives.
-	- Tidied up the error handling.
-	- Minor code clean ups.
-
-
-August 6 2001
-	BETA release 1.0b2
-	- Minor tidy ups for first public release.
-	
-August 3 2001
-	First BETA release 1.0b1
-	- All font types are now working, Bitmaps, Pixmaps, Texture, Outline
-	  and Polygons. Quality of output and performance varies wildly:)
-
-July 22 2001
-	First ALPHA Release 1.0a1
 
