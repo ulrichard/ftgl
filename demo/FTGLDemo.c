@@ -21,8 +21,8 @@
 	#define FONT_INFO "/usr/share/fonts/truetype/arial.ttf"
 #endif
 #ifdef __APPLE_CC__
-	#define FONT_FILE "/Volumes/Shiny/Development/Source/GRAPHICS/GLTT/ftgl src /ftgl_dist/mac/build/arial.ttf"
-	#define FONT_INFO "/Volumes/Shiny/Development/Source/GRAPHICS/GLTT/ftgl src /ftgl_dist/mac/build/arial.ttf"
+	#define FONT_FILE "/Volumes/Shiny/Development/Source/GRAPHICS/GLTT/ftgl src /ftgl_dist/demo/arial.ttf"
+	#define FONT_INFO "/Volumes/Shiny/Development/Source/GRAPHICS/GLTT/ftgl src /ftgl_dist/demo/arial.ttf"
 #endif
 
 #define EDITING 1
@@ -42,8 +42,8 @@ float posX, posY, posZ;
 int mode = INTERACTIVE;
 int carat = 0;
 
-// wchar_t myString[16] = { 0x5BE6, 0x0020, 0x6642, 0x0020, 0x5929, 0x0020, 0x6C23};
-wchar_t myString[16] = { 0x6FB3, 0x9580};
+//wchar_t myString[16] = { 0x6FB3, 0x9580};
+wchar_t myString[16];
 
 static FTFont* fonts[6];
 static FTGLPixmapFont* infoFont;
@@ -203,9 +203,7 @@ void do_display (void)
 	int save_font = current_font;
 	current_font = FTGL_PIXMAP;
 	SetCamera();
-//	glDisable( GL_TEXTURE_2D);
-//	glEnable(GL_BLEND);
-//	glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // GL_ONE
+
 	// draw mode
 	glColor3f( 1.0, 1.0, 1.0);
 	glRasterPos2i( 20 , h_win - ( 20 + infoFont->Ascender()));
@@ -323,11 +321,17 @@ void myinit ( const char* fontfile)
 	}
 	
 	infoFont = new FTGLPixmapFont;
-	infoFont->Open( FONT_INFO, false); // FIXME BAARRRFFFFFF!
+	
+	if( !infoFont->Open( FONT_INFO, false))
+	{
+		fprintf( stderr, "Failed to open font %s", FONT_INFO);
+		exit(1);
+	}
+	
 	infoFont->FaceSize( 18);
 
-//	myString[0] = 65;
-//	myString[1] = 0;
+	myString[0] = 65;
+	myString[1] = 0;
 	
 
 	tbInit(GLUT_LEFT_BUTTON);
@@ -366,7 +370,7 @@ void parsekey(unsigned char key, int x, int y)
 			}
 			else
 			{
-				myString[carat] = key;// + 19968;
+				myString[carat] = key;
 				myString[carat + 1] = 0;
 				carat = carat > 14 ? 15 : ++carat;
 			}
@@ -454,8 +458,9 @@ int main(int argc, char *argv[])
 	if (argc == 2)
 		fontfile = argv[1];
 #endif
+
 	glutInit( &argc, argv);
-        glutInitDisplayMode(GLUT_DEPTH | GLUT_RGB | GLUT_DOUBLE | GLUT_MULTISAMPLE);
+    glutInitDisplayMode(GLUT_DEPTH | GLUT_RGB | GLUT_DOUBLE | GLUT_MULTISAMPLE);
 	glutInitWindowPosition(50, 50);
 	glutInitWindowSize( w_win, h_win);
 	glutCreateWindow("FTGL TEST");
