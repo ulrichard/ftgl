@@ -5,6 +5,20 @@
 typedef double   FTGL_DOUBLE;
 typedef float    FTGL_FLOAT;
 
+// Fixes for deprecated identifiers in 2.1.5
+#ifndef FT_OPEN_MEMORY
+    #define FT_OPEN_MEMORY (FT_Open_Flags)1
+#endif
+
+#ifndef FT_RENDER_MODE_MONO
+    #define FT_RENDER_MODE_MONO ft_render_mode_mono
+#endif
+
+#ifndef FT_RENDER_MODE_NORMAL
+    #define FT_RENDER_MODE_NORMAL ft_render_mode_normal
+#endif
+
+  
 #ifdef WIN32
 
     // Under windows avoid including <windows.h> is overrated. 

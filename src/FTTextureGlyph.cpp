@@ -8,7 +8,7 @@ FTTextureGlyph::FTTextureGlyph( FT_Glyph glyph, int id, int xOffset, int yOffset
     glTextureID(id),
     activeTextureID(0)
 {
-    err = FT_Glyph_To_Bitmap( &glyph, ft_render_mode_normal, 0, 1);
+    err = FT_Glyph_To_Bitmap( &glyph, FT_RENDER_MODE_NORMAL, 0, 1);
     if( err || glyph->format != ft_glyph_format_bitmap)
     {
         return;

@@ -276,8 +276,8 @@ class FTVectoriserTest : public CppUnit::TestCase
         
         void testFreetypeVersion()
         {
-            setUpFreetype();
-            
+            setUpFreetype( NULL_CHARACTER_INDEX);
+
             FT_Int amajor;
             FT_Int aminor;
             FT_Int apatch;
@@ -303,8 +303,7 @@ class FTVectoriserTest : public CppUnit::TestCase
         
         void testBadGlyphProcess()
         {
-            setUpFreetype();
-            loadGlyph( NULL_CHARACTER_INDEX);
+            setUpFreetype( NULL_CHARACTER_INDEX);
             
             FTVectoriser vectoriser( glyph);
             CPPUNIT_ASSERT( vectoriser.ContourCount() == 0);
@@ -315,8 +314,7 @@ class FTVectoriserTest : public CppUnit::TestCase
 
         void testSimpleGlyphProcess()
         {
-            setUpFreetype();
-            loadGlyph( SIMPLE_CHARACTER_INDEX);
+            setUpFreetype( SIMPLE_CHARACTER_INDEX);
             
             FTVectoriser vectoriser( glyph);
 
@@ -329,8 +327,7 @@ class FTVectoriserTest : public CppUnit::TestCase
         
         void testComplexGlyphProcess()
         {
-            setUpFreetype();
-            loadGlyph( COMPLEX_CHARACTER_INDEX);
+            setUpFreetype( COMPLEX_CHARACTER_INDEX);
             
             FTVectoriser vectoriser( glyph);
 
@@ -343,8 +340,7 @@ class FTVectoriserTest : public CppUnit::TestCase
         
         void testGetContour()
         {
-            setUpFreetype();
-            loadGlyph( SIMPLE_CHARACTER_INDEX);
+            setUpFreetype( SIMPLE_CHARACTER_INDEX);
             
             FTVectoriser vectoriser( glyph);
 
@@ -357,8 +353,7 @@ class FTVectoriserTest : public CppUnit::TestCase
         
         void testGetOutline()
         {
-            setUpFreetype();
-            loadGlyph( COMPLEX_CHARACTER_INDEX);
+            setUpFreetype( COMPLEX_CHARACTER_INDEX);
             
             FTVectoriser vectoriser( glyph);
             
@@ -381,8 +376,7 @@ class FTVectoriserTest : public CppUnit::TestCase
         
         void testGetMesh()
         {
-            setUpFreetype();
-            loadGlyph( SIMPLE_CHARACTER_INDEX);
+            setUpFreetype( SIMPLE_CHARACTER_INDEX);
             
             FTVectoriser vectoriser( glyph);
             CPPUNIT_ASSERT( vectoriser.GetMesh() == NULL);
@@ -395,8 +389,7 @@ class FTVectoriserTest : public CppUnit::TestCase
         
         void testMakeMesh()
         {
-            setUpFreetype();
-            loadGlyph( COMPLEX_CHARACTER_INDEX);
+            setUpFreetype( COMPLEX_CHARACTER_INDEX);
             
             FTVectoriser vectoriser( glyph);
 
@@ -441,13 +434,14 @@ class FTVectoriserTest : public CppUnit::TestCase
         FT_Face      face;
         FT_Glyph     glyph;
 
-        void setUpFreetype()
+        void setUpFreetype( unsigned int characterIndex)
         {
             FT_Error error = FT_Init_FreeType( &library);
             assert(!error);
             error = FT_New_Face( library, ARIAL_FONT_FILE, 0, &face);
             assert(!error);
             
+            loadGlyph( characterIndex);
         }
         
         void loadGlyph( unsigned int characterIndex)

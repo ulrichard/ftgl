@@ -8,7 +8,7 @@ FTBitmapGlyph::FTBitmapGlyph( FT_Glyph glyph)
     destHeight(0),
     data(0)
 {
-    err = FT_Glyph_To_Bitmap( &glyph, ft_render_mode_mono, 0, 1);
+    err = FT_Glyph_To_Bitmap( &glyph, FT_RENDER_MODE_MONO, 0, 1);
     if( err || ft_glyph_format_bitmap != glyph->format)
     {
         return;
