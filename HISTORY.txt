@@ -1,4 +1,9 @@
-FTGL 1.0b7
+FTGL 1.0
+October 24 2001
+	1.0 (FTGL_1_0_0)
+	- Version 1.0 release
+
+
 September 29 2001
 	1.0b7 (FTGL_1_0_BETA_7)
 	- Tesselation winding rules

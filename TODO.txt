@@ -1,10 +1,9 @@
-FTGL 1.0b6
-September 20 2001
+FTGL 1.0
+October 24 2001
 
 TODO:
-	- Tidy code, fix compiler warnings, comments.
 	- namespace ftgl or gltt?
-	- Distributions MACOS X, IRIX
+	- Distributions MACOS X
 	
 FUTURE:
 	- select face ie italic, bold etc
