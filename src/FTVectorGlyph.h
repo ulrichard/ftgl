@@ -53,7 +53,7 @@ class FTVectoriser
 		// methods
 		int Conic( int index, int first, int last);
 		int Cubic( int index, int first, int last);
-		void deCasteljau(GLint m, GLfloat t, int n, GLfloat bValues[MAX_DEG][MAX_DEG][2]);
+		void deCasteljau( GLfloat t, int n, GLfloat bValues[MAX_DEG][MAX_DEG][2]);
 		void evaluateCurve( int n);
 
 		// attributes

@@ -1,5 +1,3 @@
-#include	<stdio.h>
-
 #include	"gl.h"
 
 #include	"FTVectorGlyph.h"
@@ -29,7 +27,7 @@ void FTContour::AddPoint( int x, int y)
 
 
 //2.De Casteljau algorithm
-void FTVectoriser::deCasteljau(GLint m, GLfloat t, int n, GLfloat bValues[MAX_DEG][MAX_DEG][2])
+void FTVectoriser::deCasteljau( GLfloat t, int n, GLfloat bValues[MAX_DEG][MAX_DEG][2])
 {
     int i, k, l;
 
@@ -62,7 +60,7 @@ void FTVectoriser::evaluateCurve( int n)
     for (m = 0; m <= (1 / stepSize); m++)
     {
     	t = m * stepSize;
-        deCasteljau(m, t, n, bValues);  //calls to evaluate point on curve att.
+        deCasteljau( t, n, bValues);  //calls to evaluate point on curve att.
     } //end for(m...)
 }
 
