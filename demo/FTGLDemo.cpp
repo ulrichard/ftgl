@@ -25,6 +25,10 @@
 	#define FONT_FILE "/Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/demo/arial.ttf"
 	#define FONT_INFO "/Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/demo/arial.ttf"
 #endif
+#ifdef WIN32
+	#define FONT_FILE "C:\\WINNT\\Fonts\\arial.ttf"
+	#define FONT_INFO "C:\\WINNT\\Fonts\\arial.ttf"
+#endif
 
 #define EDITING 1
 #define INTERACTIVE 2
