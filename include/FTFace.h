@@ -81,7 +81,18 @@ class FTGL_EXPORT FTFace
 
         unsigned int UnitsPerEM() const;
 
+        /**
+         * Get the number of character maps in this face.
+         *
+         * @return character map count.
+         */
         unsigned int CharMapCount();
+
+        /**
+         * Get a list of character maps in this face.
+         *
+         * @return pointer to the first encoding.
+         */
         FT_Encoding* CharMapList();
         
         /**

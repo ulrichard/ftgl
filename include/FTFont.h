@@ -82,8 +82,19 @@ class FTGL_EXPORT FTFont
          *                      set correctly
          */
         bool CharMap( FT_Encoding encoding );
-        
+
+        /**
+         * Get the number of character maps in this face.
+         *
+         * @return character map count.
+         */
         unsigned int CharMapCount();
+
+        /**
+         * Get a list of character maps in this face.
+         *
+         * @return pointer to the first encoding.
+         */
         FT_Encoding* CharMapList();
         
         /**
