@@ -77,22 +77,6 @@ class FTGL_EXPORT FTContour
          * @param point The point to be added to the contour.
          */
         void AddPoint( FTPoint point);
-
-        /**
-         * Process a conic (second order) bezier curve.
-         *
-         * @param index
-         * @param pointList
-         */
-        void EvaluateConicCurve( const int index, const FTVector<ContourPoint>& pointList);
-
-        /**
-         * Process a cubic (third order) bezier curve.
-         *
-         * @param index
-         * @param pointList
-         */
-        void EvaluateCubicCurve( const int index, const FTVector<ContourPoint>& pointList);
         
         /**
          * De Casteljau (bezier) algorithm contributed by Jed Soane
