@@ -117,7 +117,7 @@ class FTGL_EXPORT FTVector
             }
            
            ( *this)[size()] = x;
-            Size++;
+            ++Size;
         }
 
         void resize(size_type n, value_type x)
