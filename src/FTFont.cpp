@@ -164,7 +164,8 @@ float FTFont::Advance( const wchar_t* string)
 
     while( *c)
     {
-        width += DoAdvance( *c, *(c + 1));
+        CheckGlyph( *c);
+        width += glyphList->Advance( *c, *(c + 1));
         ++c;
     }
 
@@ -179,19 +180,12 @@ float FTFont::Advance( const char* string)
 
     while( *c)
     {
-        width += DoAdvance( *c, *(c + 1));
+        CheckGlyph( *c);
+        width += glyphList->Advance( *c, *(c + 1));
         ++c;
     }
-
+    
     return width;
-}
-
-
-float FTFont::DoAdvance( const unsigned int chr, const unsigned int nextChr)
-{
-    CheckGlyph( chr);
-
-    return glyphList->Advance( chr, nextChr);
 }
 
 

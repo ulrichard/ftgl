@@ -198,16 +198,6 @@ class FTGL_EXPORT FTFont
         
     private:        
         /**
-         * Get the advance width for a character.
-         * This function does an implicit conversion on it's arguments.
-         *
-         * @param chr       current character
-         * @param nextChr   next character
-         * @return          advance width
-         */
-        inline float DoAdvance( const unsigned int chr, const unsigned int nextChr);
-
-        /**
          * Render a character
          * This function does an implicit conversion on it's arguments.
          * 
