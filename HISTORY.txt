@@ -1,6 +1,7 @@
 FTGL 1.1
 
 October 31 2001
+ 	1.1 (FTGL_1_1_0)
 	- Renamed the source to .cpp
 	- Removed the static activeTextureID from FTTextureGlyph and replaced
 	  it with a call to
