@@ -15,7 +15,7 @@ class	FTTextureGlyph : public FTGlyph
 		// methods
 		FTTextureGlyph( FT_Glyph glyph, unsigned int gi, int id, unsigned char* data, int stride, int height, float u, float v);
 		virtual ~FTTextureGlyph();
-		virtual float Render( const FT_Vector& v);
+		virtual float Render( const FT_Vector& pen);
 		
 		static int activeTextureID;
 	private:

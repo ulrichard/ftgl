@@ -37,10 +37,10 @@ class FTGlyph
 		/**
 		 * Renders this glyph at the current pen position.
 		 *
-		 * @param v		The current pen position.
+		 * @param pen		The current pen position.
 		 * @return		The advance distance for this glyph.
 		 */
-		virtual float Render( const FT_Vector& v) = 0;
+		virtual float Render( const FT_Vector& pen) = 0;
 
 		/**
 		 * Queries for errors.
