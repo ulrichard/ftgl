@@ -73,10 +73,16 @@ class FTGL_EXPORT FTPoint
          */
         friend bool operator != ( const FTPoint &a, const FTPoint &b);
         
+        operator FTGL_DOUBLE*()
+        {
+            return &x;
+        }
+        
         /**
          * The point data
          */
         FTGL_DOUBLE x, y, z; // FIXME make private
+//        FTGL_FLOAT x, y, z; // FIXME make private
         
     private:
 };
