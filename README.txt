@@ -1,4 +1,4 @@
-FTGL 1.0a1 (gltt 3.0a1)
+FTGL 1.0a1
 
 
 USAGE:
@@ -26,7 +26,7 @@ multiple glyphlists. glyphlist manager.
 When is the best time to construct the glyphList? After the call to Size(x)
 is the earliest but what happens if the client doesn't set the char size?
 
-
+The FTSize seems redundant.
 
 TODO:
 	- Finish!!
@@ -38,7 +38,6 @@ TODO:
 	  packed at the moment.
 	- FTOutlineGlyph
 	- FTPolygonGlyph
-	- Fix the FTSize class. The internal FT_Size is never assigned
 	- Change glDrawPixels to use GL_ALPHA instead of GL_RGBA. This may not
 	  work, read red book.
 	- Coloured Pixmaps/ bitmaps
@@ -46,7 +45,6 @@ TODO:
 	- Use the Freetype Cache mechanism. See above. FTC_xxx
 	- Sort out the pixel storage modes.
 	- Pixmaps as textures. FTTextureGlyph
-	- Is this FTGL or GLTT?
 	- Vertical formats
 	
 	
