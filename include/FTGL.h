@@ -37,7 +37,9 @@ typedef float    FTGL_FLOAT;
 
     // Non windows platforms - don't require nonsense as seen above :-)    
     #ifndef __gl_h_
-        #ifdef __APPLE_CC__
+        #ifdef SDL_main
+            #include "SDL_opengl.h"
+        #elif __APPLE_CC__
             #include <OpenGL/gl.h>
             #include <OpenGL/glu.h>
         #else
