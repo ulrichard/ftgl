@@ -5,6 +5,7 @@
 
 FTFace::FTFace( const char* filename)
 :   numGlyphs(0),
+    fontEncodingList(0),
     err(0)
 {
     const FT_Long DEFAULT_FACE_INDEX = 0;
@@ -88,6 +89,27 @@ const FTSize& FTFace::Size( const unsigned int size, const unsigned int res)
     err = charSize.Error();
 
     return charSize;
+}
+
+
+unsigned int FTFace::CharMapCount()
+{
+    return (*ftFace)->num_charmaps;
+}
+
+
+FT_Encoding* FTFace::CharMapList()
+{
+    if( 0 == fontEncodingList)
+    {
+        fontEncodingList = new FT_Encoding[CharMapCount()];
+        for( size_t encodingIndex = 0; encodingIndex < CharMapCount(); ++encodingIndex)
+        {
+            fontEncodingList[encodingIndex] = (*ftFace)->charmaps[encodingIndex]->encoding;
+        }
+    }
+    
+    return fontEncodingList;
 }
 
 
