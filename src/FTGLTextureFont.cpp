@@ -106,7 +106,7 @@ unsigned int FTGLTextureFont::FillGlyphs( unsigned int glyphStart, GLuint id, GL
 	
 	unsigned int n;
         
-	for( n = glyphStart; n <= numGlyphs; ++n)
+	for( n = glyphStart; n < numGlyphs; ++n)
 	{
 		FT_Glyph* ftGlyph = face.Glyph( n, FT_LOAD_NO_HINTING);
 		
