@@ -64,7 +64,7 @@ FTPolyGlyph::~FTPolyGlyph()
 }
 
 
-float FTPolyGlyph::Render( const FTPoint& pen)
+const FTPoint& FTPolyGlyph::Render( const FTPoint& pen)
 {
     glTranslatef(  pen.X(),  pen.Y(), 0.0f);
 

@@ -135,7 +135,7 @@ FTExtrdGlyph::~FTExtrdGlyph()
 }
 
 
-float FTExtrdGlyph::Render( const FTPoint& pen)
+const FTPoint& FTExtrdGlyph::Render( const FTPoint& pen)
 {
     glTranslatef( pen.X(), pen.Y(), 0);
     

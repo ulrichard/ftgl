@@ -46,14 +46,14 @@ class FTGL_EXPORT FTGlyph
          * @param pen   The current pen position.
          * @return      The advance distance for this glyph.
          */
-        virtual float Render( const FTPoint& pen) = 0;
+        virtual const FTPoint& Render( const FTPoint& pen) = 0;
         
         /**
          * Return the advance width for this glyph.
          *
          * @return  advance width.
          */
-        float Advance() const { return advance;}
+        const FTPoint& Advance() const { return advance;}
         
         /**
          * Return the bounding box for this glyph.
@@ -73,7 +73,7 @@ class FTGL_EXPORT FTGlyph
         /**
          * The advance distance for this glyph
          */
-        float advance;
+        FTPoint advance;
 
         /**
          * The bounding box of this glyph.

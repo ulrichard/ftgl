@@ -16,10 +16,10 @@ class TestGlyph : public FTGlyph
         TestGlyph()
         :   FTGlyph(0)
         {
-            advance = 50.0f;
+            advance = FTPoint(50.0f, 0.0f, 0.0f);
         }
         
-        virtual float Render( const FTPoint& pen){ return advance;}
+        virtual const FTPoint& Render( const FTPoint& pen){ return advance;}
 };
 
 

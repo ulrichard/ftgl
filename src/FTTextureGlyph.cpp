@@ -55,7 +55,7 @@ FTTextureGlyph::~FTTextureGlyph()
 {}
 
 
-float FTTextureGlyph::Render( const FTPoint& pen)
+const FTPoint& FTTextureGlyph::Render( const FTPoint& pen)
 {
     if( activeTextureID != glTextureID)
     {

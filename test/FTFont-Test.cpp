@@ -15,7 +15,7 @@ class TestGlyph : public FTGlyph
         :   FTGlyph( glyph)
         {}
         
-        float Render( const FTPoint& pen){ return advance;}
+        const FTPoint& Render( const FTPoint& pen){ return advance;}
 };
 
 

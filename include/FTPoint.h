@@ -105,7 +105,7 @@ class FTGL_EXPORT FTPoint
          * @param multiplier
          * @return <code>multiplier</code> multiplied by <code>point</code>.
          */
-        friend FTPoint operator*( double multiplier, const FTPoint& point);
+        friend FTPoint operator*( double multiplier, FTPoint& point);
 
 
         /**

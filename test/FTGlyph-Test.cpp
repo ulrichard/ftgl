@@ -13,7 +13,7 @@ class TestGlyph : public FTGlyph
         :   FTGlyph(glyph)
         {}
         
-        float Render( const FTPoint& pen) { return 0.0f;};
+        const FTPoint& Render( const FTPoint& pen) { return advance;};
 };
 
 
@@ -34,7 +34,9 @@ class FTGlyphTest : public CppUnit::TestCase
         {            
             TestGlyph testGlyph(0);
             
-            CPPUNIT_ASSERT_DOUBLES_EQUAL( 0, testGlyph.Advance(), 0.01);
+            FTPoint testPoint;
+
+            CPPUNIT_ASSERT( testPoint == testGlyph.Advance());
 
             CPPUNIT_ASSERT_DOUBLES_EQUAL( 0, testGlyph.BBox().upperY, 0.01);
         
@@ -47,7 +49,9 @@ class FTGlyphTest : public CppUnit::TestCase
             setUpFreetype( CHARACTER_CODE_A);
             TestGlyph testGlyph(face->glyph);
             
-            CPPUNIT_ASSERT_DOUBLES_EQUAL( 47, testGlyph.Advance(), 0.01);
+            FTPoint testPoint(47.0f, 0.0f, 0.0f);
+            
+            CPPUNIT_ASSERT( testPoint == testGlyph.Advance());
 
             CPPUNIT_ASSERT_DOUBLES_EQUAL( 51.39, testGlyph.BBox().upperY, 0.01);
         

@@ -49,7 +49,7 @@ FTBitmapGlyph::~FTBitmapGlyph()
 }
 
 
-float FTBitmapGlyph::Render( const FTPoint& pen)
+const FTPoint& FTBitmapGlyph::Render( const FTPoint& pen)
 {
     glBitmap( 0, 0, 0.0f, 0.0f, pen.X() + pos.X(), pen.Y() - pos.Y(), (const GLubyte*)0 );
     
