@@ -13,9 +13,9 @@ class	FTGLTextureFont : public FTFont
 		FTGLTextureFont();
 		~FTGLTextureFont();
 		
-		bool TextureSize(){};
+		bool TextureSize() const { return textureSize;}
 		
-		bool render( const char* string);
+		void render( const char* string);
 
 		
 	private:

@@ -26,7 +26,15 @@ inline UInt32 NextPowerOf2( UInt32 in)
 FTGLTextureFont::FTGLTextureFont()
 :	glTextureID(0),
 	textMem(0),
-	padding(15)
+	padding(15),
+	tempGlyph(0),
+	maxTextSize(0),
+	textureSize(0),
+	glyphHeight(0),
+	glyphWidth(0),
+	horizGlyphs(0),
+	vertGlyphs(0)
+
 {}
 
 
@@ -130,7 +138,7 @@ bool FTGLTextureFont::CreateTexture()
 }
 
 
-bool FTGLTextureFont::render( const char* string)
+void FTGLTextureFont::render( const char* string)
 {	
 	glBindTexture( GL_TEXTURE_2D, glTextureID);
 	
