@@ -1,8 +1,6 @@
-FTGL 1.4
-October 23 2002
+FTGL 1.41
 
 TODO:
-	- use float for all font metrics and advance metrics.
 	
 	
 FUTURE:
@@ -21,6 +19,7 @@ FUTURE:
 	  5 polylines (0.2 step) for every curve, adjust the fineness for
 	  the length of the curve. But then you should also test the angle
 	  of the tangents as well.
+	  Jed's new bezier stuff.
 	- Guard classes - vectoriser
 	- Template methods
     - Move the init code out of the glyph constructors into an init
@@ -40,6 +39,7 @@ BUGS:
 	- Advance/Kerning is screwed up for really small point sizes eg 2 point.
 	  This is because I'm trying to use FT_Vector which is integer based.
 	  I will probably have to make my own struct with floats.
+	  This might be fixed in 1.41
 	- The texture co-ords in the Texture Font may be wrong for non
 	  scalable fonts.
 	- FTVectoriser seems to position some points incorrectly. Confusing

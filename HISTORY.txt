@@ -1,6 +1,26 @@
+FTGL 1.41
+    - Fixed some alignment bugs in new ( > 2.0.9) Freetype.
+    - Minor fixes to float declarations.
+    - Moved FTBBox and FTPoint to their own files and added Move() and
+      operator + to FTBBox
+    - Replaced FT_Vector with FTPoint for kerning.
+    - Fixed the glPushAttrib calls.
+    - Changed gluTess callback def.
+    - Rewriting FTGLDemo.
+    - Minor fixes for irix.
+    - Removed a bunch of redundant members and made them function locals.
+    - Removed Close() from FTFont because there was no way to handle it
+      correctly:)
+    - Improved the robustness of some of the error handling.
+    - Removed the FTCharmap Platform/Encoding function.
+    - Unit tests.
+    - Removed the precache flag.
+    - Unvirtualised functions in FTLibrary
+    - Fixed empty string bug in FTFont::BBox
+
 October 23 2002
 FTGL 1.4 (FTGL_1_4)
-    - FTL now requires 2.0.9 or later. See below for reason.
+    - FTGL now requires 2.0.9 or later. See below for reason.
     - Merged 1.32 branch with main tree
     - Glyph loading has been optimised for pixel based glyphs.
     - Removed mmgr
