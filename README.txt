@@ -51,6 +51,7 @@ TODO:
 	- namespace
 	- gl/glu errors
 	- tesselation winding rules
+	- Distributions MACOS 9/X, IRIX, Linux, Windows
 	
 FUTURE:
 	- pen position eg font.render( 50, 100, "Hello World!");
@@ -58,6 +59,8 @@ FUTURE:
 	- Alignment. left right, centre.
 	- Bounding box, char and string.
 	- Vertical formats
+	- For platforms that have antialiased lines but not polys (sgi O2) we
+	  could outline the polyfonts with lines to get better looking glyphs.
 
 BUGS:
 	MAC OS:
