@@ -44,7 +44,7 @@ class FTBBoxTest : public CppUnit::TestCase
         {    
             setUpFreetype();
 
-            FTBBox boundingBox2( glyph);
+            FTBBox boundingBox2( face->glyph);
 
             CPPUNIT_ASSERT_DOUBLES_EQUAL(   2, boundingBox2.lowerX, 0.01);
             CPPUNIT_ASSERT_DOUBLES_EQUAL( -15, boundingBox2.lowerY, 0.01);
@@ -86,7 +86,7 @@ class FTBBoxTest : public CppUnit::TestCase
             setUpFreetype();
 
             FTBBox boundingBox1;
-            FTBBox boundingBox2( glyph);
+            FTBBox boundingBox2( face->glyph);
             
             boundingBox1 += boundingBox2;
         
@@ -122,7 +122,6 @@ class FTBBoxTest : public CppUnit::TestCase
     private:
         FT_Library   library;
         FT_Face      face;
-        FT_Glyph     glyph;
 
         void setUpFreetype()
         {
@@ -137,13 +136,10 @@ class FTBBoxTest : public CppUnit::TestCase
             
             error = FT_Load_Glyph( face, glyphIndex, FT_LOAD_DEFAULT);
             assert(!error);
-            error = FT_Get_Glyph( face->glyph, &glyph);
-            assert(!error);
         }
         
         void tearDownFreetype()
         {
-            FT_Done_Glyph( glyph);
             FT_Done_Face( face);
             FT_Done_FreeType( library);
         }
