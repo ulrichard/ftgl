@@ -47,6 +47,14 @@ FTGlyph* FTGlyphContainer::Glyph( unsigned int c) const
 }
 
 
+FTBBox FTGlyphContainer::BBox( unsigned int index)
+{
+	unsigned int left = face->CharIndex( index);
+
+	return glyphs[left]->BBox();
+}
+
+
 float FTGlyphContainer::Advance( unsigned int index, unsigned int next)
 {
 	unsigned int left = face->CharIndex( index);

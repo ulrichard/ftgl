@@ -1,16 +1,18 @@
 #ifndef		__FTGlyphContainer__
 #define		__FTGlyphContainer__
 
-#include "FTGL.h"
-
 #include <vector>
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include FT_GLYPH_H
 
+#include "FTGL.h"
+
+#include "FTGlyph.h"
+
 class FTFace;
-class FTGlyph;
+//class FTGlyph;
 
 using namespace std;
 
@@ -55,6 +57,9 @@ class FTGL_EXPORT FTGlyphContainer
 		 */
 		FTGlyph* Glyph( unsigned int c) const;
 
+		
+		FTBBox BBox( unsigned int index);
+		
 		/**
 		* Returns the kerned advance width for a glyph.
 		*
