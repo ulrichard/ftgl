@@ -24,6 +24,7 @@
 	<LI><H3><a href="#CAT">Creating a font</a></H3></LI>
 	<LI><H3><a href="#MFC">More font commands</a></H3></LI>
 	<LI><H3><a href="#FAQ">FAQ</a></H3></LI>
+	<LI><H3><a href="#GLS">Glossary</a></H3></LI>
 </UL>
 <HR ALIGN="center" SIZE="2" WIDTH="80%">
 <A NAME="INT">
@@ -138,12 +139,12 @@ With these three functions an approximate bounding box can be calculated. For an
 <font color="blue"><PRE>
         void FTFont::BBox( string, llx, lly, llz, urx, ury, urz);
         const char* string:    String of text to be tested
-        int& llx:            The bottom left near most ?? in the x axis
-        int& lly:            The bottom left near most ?? in the y axis
-        int& llz:            The bottom left near most ?? in the z axis
-        int& urx:            The top right far most ?? in the x axis
-        int& ury:            The top right far most ?? in the y axis
-        int& urz:            The top right far most ?? in the z axis
+        float& llx:            The bottom left near most ?? in the x axis
+        float& lly:            The bottom left near most ?? in the y axis
+        float& llz:            The bottom left near most ?? in the z axis
+        float& urx:            The top right far most ?? in the x axis
+        float& ury:            The top right far most ?? in the y axis
+        float& urz:            The top right far most ?? in the z axis
 </PRE></font>
 
 <P>
@@ -212,14 +213,14 @@ Couple of extra things to note. The quality of vector glyphs will not change whe
 Early on I did a lot of head scratching over the opengl unit to font size thing because when I was first integrating FTGL into my engine the fonts weren't the size I was expecting. I was tempted to build in some scaling but I decided doing nothing was the best approach because you can't please everyone. Plus it's 'correct' as it is.
 
 
-
-Sample font manager class.
+<H3>Sample font manager class.</H3>
 
 
 <font color="blue"><pre>
 FTGLTextureFont* myFont = FTGLFontManager::Instance().GetFont( "arial.ttf", 72);
 
 #include    &lt;map&gt;
+#include    &lt;string&gt;
 #include    "FTGLTextureFont.h"
 
 using namespace std;
@@ -268,12 +269,14 @@ class FTGLFontManager
             if( !font->Open( fullname.c_str()))
             {
                 LOGERROR( "Font %s failed to open", fullname.c_str());
+                delete font;
                 return NULL;
             }
             
             if( !font->FaceSize( size))
             {
                 LOGERROR( "Font %s failed to set size %i", filename, size);
+                delete font;
                 return NULL;
             }
         
@@ -295,6 +298,12 @@ class FTGLFontManager
     
 };
 </PRE></font>
+
+
+<HR ALIGN="center" SIZE="2" WIDTH="80%">
+
+<A NAME="GLS">
+<H2>Glossary</H2>
 
 
 		</TD>
