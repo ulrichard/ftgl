@@ -1,4 +1,5 @@
-FTGL 2.08
+FTGL 2.0.8 (FTGL_2_0_8)
+9 April 2004
     - Fixes for deprecated identifiers in 2.1.5
     - Changed the internals to use FTGlyphSlot instead of FTGlyph
     - Added a unit test for FTBitmapGlyph, FTCharToGlyphIndexMap.
