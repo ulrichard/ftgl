@@ -30,6 +30,8 @@ FTExtrdGlyph::FTExtrdGlyph( FT_GlyphSlot glyph, float d)
         vectoriser.MakeMesh( 1.0);
         glNormal3d(0.0, 0.0, 1.0);
         
+        unsigned int textureCoordRange = glyph->face->units_per_EM;
+        
         const FTMesh* mesh = vectoriser.GetMesh();
         for( tesselationIndex = 0; tesselationIndex < mesh->TesselationCount(); ++tesselationIndex)
         {
@@ -39,6 +41,9 @@ FTExtrdGlyph::FTExtrdGlyph( FT_GlyphSlot glyph, float d)
             glBegin( polyonType);
                 for( unsigned int pointIndex = 0; pointIndex < subMesh->PointCount(); ++pointIndex)
                 {
+                    glTexCoord2f( subMesh->Point(pointIndex).x / textureCoordRange,
+                                  subMesh->Point(pointIndex).y / textureCoordRange);
+                    
                     glVertex3f( subMesh->Point( pointIndex).x / 64.0f,
                                 subMesh->Point( pointIndex).y / 64.0f,
                                 0.0f);
@@ -58,6 +63,9 @@ FTExtrdGlyph::FTExtrdGlyph( FT_GlyphSlot glyph, float d)
             glBegin( polyonType);
                 for( unsigned int pointIndex = 0; pointIndex < subMesh->PointCount(); ++pointIndex)
                 {
+                    glTexCoord2f( subMesh->Point(pointIndex).x / textureCoordRange,
+                                  subMesh->Point(pointIndex).y / textureCoordRange);
+                    
                     glVertex3f( subMesh->Point( pointIndex).x / 64.0f,
                                 subMesh->Point( pointIndex).y / 64.0f,
                                 -depth);
@@ -83,11 +91,17 @@ FTExtrdGlyph::FTExtrdGlyph( FT_GlyphSlot glyph, float d)
                     
                     if( contourFlag & ft_outline_reverse_fill)
                     {
+                        glTexCoord2f( contour->Point(index).x / textureCoordRange,
+                                      contour->Point(index).y / textureCoordRange);
+                    
                         glVertex3f( contour->Point(index).x / 64.0f, contour->Point(index).y / 64.0f, 0.0f);
                         glVertex3f( contour->Point(index).x / 64.0f, contour->Point(index).y / 64.0f, -depth);
                     }
                     else
                     {
+                        glTexCoord2f( contour->Point(index).x / textureCoordRange,
+                                      contour->Point(index).y / textureCoordRange);
+                    
                         glVertex3f( contour->Point(index).x / 64.0f, contour->Point(index).y / 64.0f, -depth);
                         glVertex3f( contour->Point(index).x / 64.0f, contour->Point(index).y / 64.0f, 0.0f);
                     }
