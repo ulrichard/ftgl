@@ -31,7 +31,6 @@ FTTextureGlyph::FTTextureGlyph( FT_Glyph glyph, int gi, unsigned char* data, int
  	pos.x = bitmap->left;
 	pos.y = bitmap->top;
 	
-   // FIXME The buffer is upside down. What about dest alignment?
     destWidth = srcWidth;
     destHeight = srcHeight;
     
