@@ -1,5 +1,5 @@
-FTGL 1.3b4
-December 11 2001
+FTGL 1.3b5
+January 27 2002
 
 DESCRIPTION:
 
@@ -48,7 +48,36 @@ http://homepages.paradise.net.nz/henryj/
 
 
 
-//========================================================================
+//==============================================================================
+
+Version 2??????
+My initial design of FTGL was in 2 distinct parts...the freetype stuff and
+the FTGL stuff. The freetype side contained wrappers for the freetype stuff
+(surprise) and the ftgl side handled all the opengl stuff. All communication
+was done via FTFace <-> FTFont. This felt right from a design point of view
+because conceptually it made sense, it was clean, simple and it insulated
+FTGL from changes in freetype. Up to version 1.3 I have rigidly stuck to
+this 'rule'. Unfortunately this has been at the expense of the code. This
+became most evident when dealing with char maps. Common sense would argue
+that charmaps and the glyph container are intimately related, but because
+of the 'rule' the communication path between them is...
+FTGlyphContainer <-> FTFont <-> FTFace <-> FTCharMap
+This is bollocks and has lead to some ugly code.
+I am not about abandon the design completely, just the rule that says all
+communication should be via FTFace <-> FTFont. I will still maintain
+wrappers for freetype objects, but they will interface with ftgl in places
+that make the most sense from a code efficiency point of view.
+
+move glyph creation out of constructor, but oad the freetype glyph and get
+the metrics.
+Change all dim stuff to float. Make my own floating point version of
+FT_Vector.
+Move Charmap to be owned by glyph container. See above
+Try out cbloom sorted vector in charmap. faster than std::map?
+Enable access to raw glyph data
+State handling...
+inline base class methods
+
 
 Things to think about...
 
@@ -62,9 +91,6 @@ When is the best time to construct the glyphList? After the call to Size(x)
 is the earliest but what happens if the client doesn't set the char size?
 Define a default size, check if glyphlist is valid in render function, if
 not call size with default size.
-
-Might have to move the init code out of the glyph constructors into an
-init function so that they can return errors.
 
 good sites...
 http://cgm.cs.mcgill.ca/~luc/
@@ -98,7 +124,7 @@ Seems terribily inefficient but to do that, but doing it as
 above I seem to be leaking memory.
 
 
-No, this is the correct behaviour. Each call to TT_Load_Glyph
+No, this is the correct behavior. Each call to TT_Load_Glyph
 overwrites the previous content.. and this was designed on
 purpose because the real content of a TT_Glyph object is
 _really_ complex with TrueType, and you don't want to create

@@ -1,9 +1,10 @@
-FTGL 1.3b4
-December 11 2001
+FTGL 1.3b5
+January 27 2002
 
 TODO:
 	- namespace ftgl or gltt?
-	- make a decision about what units to use for font metrics!!!
+	- use float for all font metrics and advance metrics.
+	
 	
 FUTURE:
 	- select face ie italic, bold etc
@@ -23,8 +24,18 @@ FUTURE:
 	  5 polylines (0.2 step) for every curve, adjust the fineness for
 	  the length of the curve. But then you should also test the angle
 	  of the tangents as well.
+	- Guard classes - vectoriser
+	- Template methods
+    - Move the init code out of the glyph constructors into an init
+      function so that they can return errors.
+      
 
 BUGS:
+	- FTExtrdGlyph - Some glyph contours are 'wound' in reverse causing
+	  the 'sides' of the extrusions to be culled. First fix only half
+	  worked. When calculating the winding using the summed area I need
+	  to use the outside contour only. How do I know it's an outside
+	  contour? A workaround is to disable face culling.
 	- Advance/Kerning is screwed up for really small point sizes eg 2 point.
 	  This is because I'm trying to use FT_Vector which is integer based.
 	  I will probably have to make my own struct with floats.
@@ -36,8 +47,3 @@ BUGS:
 	  hopefully the freetype guys will sort this.
 	- FTVectoriser seems to position some points incorrectly. confusing
 	  line point with control point at start or end????
-	- FTExtrdGlyph - Some glyph contours are 'wound' in reverse causing
-	  the 'sides' of the extrusions to be culled. First fix only half
-	  worked. When calculating the winding using the summed area I need
-	  to use the outside contour only. How do I know it's an outside
-	  contour? A workaround is to disable face culling.
