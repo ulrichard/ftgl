@@ -27,7 +27,6 @@ SRCS =				\
 	FTPixmapGlyph.cpp	\
 	FTPoint.cpp		\
 	FTPolyGlyph.cpp		\
-	FTSimpleLayout.cpp	\
 	FTSize.cpp		\
 	FTTextureGlyph.cpp	\
 	FTVectoriser.cpp
@@ -57,7 +56,6 @@ HEADERS =			\
 	FTPixmapGlyph.h		\
 	FTPoint.h		\
 	FTPolyGlyph.h		\
-	FTSimpleLayout.h	\
 	FTSize.h		\
 	FTTextureGlyph.h	\
 	FTVector.h		\
