@@ -2,7 +2,7 @@
 #include    "FTVectoriser.h"
 
 
-FTOutlineGlyph::FTOutlineGlyph( FT_GlyphSlot glyph)
+FTOutlineGlyph::FTOutlineGlyph( FT_GlyphSlot glyph, bool useDisplayList)
 :   FTGlyph( glyph),
     glList(0)
 {
@@ -20,21 +20,29 @@ FTOutlineGlyph::FTOutlineGlyph( FT_GlyphSlot glyph)
         return;
     }
 
-    glList = glGenLists(1);
-    glNewList( glList, GL_COMPILE);
-        for( unsigned int c = 0; c < numContours; ++c)
-        {
-            const FTContour* contour = vectoriser.Contour(c);
-            
-            glBegin( GL_LINE_LOOP);
-                for( unsigned int pointIndex = 0; pointIndex < contour->PointCount(); ++pointIndex)
-                {
-                    FTPoint point = contour->Point(pointIndex);
-                    glVertex2f( point.x / 64.0f, point.y / 64.0f);
-                }
-            glEnd();
-        }
-    glEndList();
+    if(useDisplayList)
+    {
+        glList = glGenLists(1);
+        glNewList( glList, GL_COMPILE);
+    }
+    
+    for( unsigned int c = 0; c < numContours; ++c)
+    {
+        const FTContour* contour = vectoriser.Contour(c);
+        
+        glBegin( GL_LINE_LOOP);
+            for( unsigned int pointIndex = 0; pointIndex < contour->PointCount(); ++pointIndex)
+            {
+                FTPoint point = contour->Point(pointIndex);
+                glVertex2f( point.x / 64.0f, point.y / 64.0f);
+            }
+        glEnd();
+    }
+
+    if(useDisplayList)
+    {
+        glEndList();
+    }
 }
 
 

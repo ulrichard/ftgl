@@ -14,6 +14,8 @@ class FTGLExtrdFontTest : public CppUnit::TestCase
     CPPUNIT_TEST_SUITE( FTGLExtrdFontTest);
         CPPUNIT_TEST( testConstructor);
         CPPUNIT_TEST( testRender);
+        CPPUNIT_TEST( testBadDisplayList);
+        CPPUNIT_TEST( testGoodDisplayList);
     CPPUNIT_TEST_SUITE_END();
         
     public:
@@ -53,7 +55,42 @@ class FTGLExtrdFontTest : public CppUnit::TestCase
             CPPUNIT_ASSERT( extrudedFont->Error() == 0);        
             CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);        
         }
+        
+        void testBadDisplayList()
+        {
+            buildGLContext();
+        
+            FTGLExtrdFont* extrudedFont = new FTGLExtrdFont( FONT_FILE);
+            extrudedFont->FaceSize(18);
+            
+            int glList = glGenLists(1);
+            glNewList( glList, GL_COMPILE);
 
+                extrudedFont->Render(GOOD_ASCII_TEST_STRING);
+
+            glEndList();
+
+            CPPUNIT_ASSERT( glGetError() == GL_INVALID_OPERATION);
+        }
+        
+        void testGoodDisplayList()
+        {
+            buildGLContext();
+        
+            FTGLExtrdFont* extrudedFont = new FTGLExtrdFont( FONT_FILE);
+            extrudedFont->FaceSize(18);
+
+            extrudedFont->UseDisplayList(false);
+            int glList = glGenLists(1);
+            glNewList( glList, GL_COMPILE);
+
+                extrudedFont->Render(GOOD_ASCII_TEST_STRING);
+
+            glEndList();
+
+            CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);
+        }
+        
         void setUp() 
         {}
         

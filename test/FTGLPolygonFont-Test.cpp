@@ -14,6 +14,8 @@ class FTGLPolygonFontTest : public CppUnit::TestCase
     CPPUNIT_TEST_SUITE( FTGLPolygonFontTest);
         CPPUNIT_TEST( testConstructor);
         CPPUNIT_TEST( testRender);
+        CPPUNIT_TEST( testBadDisplayList);
+        CPPUNIT_TEST( testGoodDisplayList);
     CPPUNIT_TEST_SUITE_END();
         
     public:
@@ -55,6 +57,41 @@ class FTGLPolygonFontTest : public CppUnit::TestCase
             CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);        
         }
 
+        void testBadDisplayList()
+        {
+            buildGLContext();
+        
+            FTGLPolygonFont* polygonFont = new FTGLPolygonFont( FONT_FILE);            
+            polygonFont->FaceSize(18);
+            
+            int glList = glGenLists(1);
+            glNewList( glList, GL_COMPILE);
+
+                polygonFont->Render(GOOD_ASCII_TEST_STRING);
+
+            glEndList();
+
+            CPPUNIT_ASSERT( glGetError() == GL_INVALID_OPERATION);
+        }
+        
+        void testGoodDisplayList()
+        {
+            buildGLContext();
+        
+            FTGLPolygonFont* polygonFont = new FTGLPolygonFont( FONT_FILE);            
+            polygonFont->FaceSize(18);
+
+            polygonFont->UseDisplayList(false);
+            int glList = glGenLists(1);
+            glNewList( glList, GL_COMPILE);
+
+                polygonFont->Render(GOOD_ASCII_TEST_STRING);
+
+            glEndList();
+
+            CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);
+        }
+        
         void setUp() 
         {}
         

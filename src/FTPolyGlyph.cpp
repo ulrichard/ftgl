@@ -2,7 +2,7 @@
 #include "FTVectoriser.h"
 
 
-FTPolyGlyph::FTPolyGlyph( FT_GlyphSlot glyph)
+FTPolyGlyph::FTPolyGlyph( FT_GlyphSlot glyph, bool useDisplayList)
 :   FTGlyph( glyph),
     glList(0)
 {
@@ -24,30 +24,37 @@ FTPolyGlyph::FTPolyGlyph( FT_GlyphSlot glyph)
         
     vectoriser.MakeMesh( 1.0);
     
-    glList = glGenLists( 1);
-    glNewList( glList, GL_COMPILE);
+    if( useDisplayList)
+    {
+        glList = glGenLists( 1);
+        glNewList( glList, GL_COMPILE);
+    }
 
-        const FTMesh* mesh = vectoriser.GetMesh();
-        for( unsigned int index = 0; index < mesh->TesselationCount(); ++index)
-        {
-            const FTTesselation* subMesh = mesh->Tesselation( index);
-            unsigned int polyonType = subMesh->PolygonType();
+    const FTMesh* mesh = vectoriser.GetMesh();
+    for( unsigned int index = 0; index < mesh->TesselationCount(); ++index)
+    {
+        const FTTesselation* subMesh = mesh->Tesselation( index);
+        unsigned int polyonType = subMesh->PolygonType();
 
-            glBegin( polyonType);
-                for( unsigned int pointIndex = 0; pointIndex < subMesh->PointCount(); ++pointIndex)
-                {
-                    FTPoint point = subMesh->Point(pointIndex);
-                    
-                    glTexCoord2f( point.x / horizontalTextureScale,
-                                  point.y / verticalTextureScale);
-                    
-                    glVertex3f( point.x / 64.0f,
-                                point.y / 64.0f,
-                                0.0f);
-                }
-            glEnd();
-        }
-    glEndList();
+        glBegin( polyonType);
+            for( unsigned int pointIndex = 0; pointIndex < subMesh->PointCount(); ++pointIndex)
+            {
+                FTPoint point = subMesh->Point(pointIndex);
+                
+                glTexCoord2f( point.x / horizontalTextureScale,
+                              point.y / verticalTextureScale);
+                
+                glVertex3f( point.x / 64.0f,
+                            point.y / 64.0f,
+                            0.0f);
+            }
+        glEnd();
+    }
+
+    if(useDisplayList)
+    {
+        glEndList();
+    }
 }
 
 
