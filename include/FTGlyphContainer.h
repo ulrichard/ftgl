@@ -25,7 +25,6 @@ class FTGL_EXPORT FTGlyphContainer
          * Constructor
          *
          * @param face      The Freetype face
-         * @param numGlyphs the number of glyphs in this face
          */
         FTGlyphContainer( FTFace* face);
 
