@@ -16,6 +16,7 @@
 #include "FTGLPixmapFont.h"
 #include "FTGLBitmapFont.h"
 
+// YOU'LL PROBABLY WANT TO CHANGE THESE
 #ifdef __linux__
 	#define FONT_FILE "/usr/share/fonts/truetype/arial.ttf"
 	#define FONT_INFO "/usr/share/fonts/truetype/arial.ttf"
