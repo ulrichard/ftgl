@@ -5,14 +5,15 @@
 
 FTGlyphContainer::FTGlyphContainer( FTFace* f, int g, bool p)
 :	preCache( p),
-	numGlyphs(g),
-	face(f)
+	numGlyphs( g),
+	face( f),
+	err( 0)
 {
 	glyphs.reserve( g);
 }
 
 
-// OPSignature:  FTGlyphContainer:~FTGlyphContainer() 
+
 FTGlyphContainer::~FTGlyphContainer()
 {
 	vector<FTGlyph*>::iterator iter;

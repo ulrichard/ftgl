@@ -21,8 +21,6 @@ using namespace std;
 class	FTGlyphContainer
 {
 	public:
-		// methods
-
 		/**
 		 * Constructor
 		 */
@@ -46,13 +44,7 @@ class	FTGlyphContainer
 		 */
 		FT_Vector& render( unsigned int index, unsigned int next, FT_Vector pen);
 		
-		// attributes
-		
 	private:
-		// methods
-		
-		// attributes
-
 		/**
 		 *
 		 */
