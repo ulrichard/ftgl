@@ -69,8 +69,7 @@ class FTFontTest : public CppUnit::TestCase
         void testOpenFont()
         {
             TestFont badFont( BAD_FONT_FILE);
-            // This is a different error # on Mac to other platforms (1)
-            CPPUNIT_ASSERT( badFont.Error() == 6);        
+            CPPUNIT_ASSERT( badFont.Error() == 0x06);        
         
             TestFont goodFont( GOOD_FONT_FILE);
             CPPUNIT_ASSERT( goodFont.Error() == 0);        
@@ -90,14 +89,14 @@ class FTFontTest : public CppUnit::TestCase
         void testAttachFile()
         {
             testFont->Attach( TYPE1_AFM_FILE);
-            CPPUNIT_ASSERT( testFont->Error() == 7);        
+            CPPUNIT_ASSERT( testFont->Error() == 0x07);        
         }
         
         
         void testAttachData()
         {
             testFont->Attach( (unsigned char*)100, 0);
-            CPPUNIT_ASSERT( testFont->Error() == 7);        
+            CPPUNIT_ASSERT( testFont->Error() == 0x07);        
         }
         
         
