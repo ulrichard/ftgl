@@ -1,9 +1,8 @@
+#include	"FTExtrdGlyph.h"
+#include	"FTVectoriser.h"
 #ifdef FTGL_DEBUG
 	#include "mmgr.h"
 #endif
-
-#include	"FTExtrdGlyph.h"
-#include	"FTVectoriser.h"
 
 
 FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
@@ -39,7 +38,7 @@ FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
 		return;
 	}
 	
-	frontMesh = new double[ numPoints * 3];
+	frontMesh = new FTGL_DOUBLE[ numPoints * 3];
 	vectoriser->GetMesh( frontMesh);
 	
 	// Make the back polygons
@@ -53,7 +52,7 @@ FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
 		return;
 	}
 	
-	backMesh =  new double[ numPoints * 3];
+	backMesh =  new FTGL_DOUBLE[ numPoints * 3];
 	vectoriser->GetMesh( backMesh);
 	
 	numPoints = vectoriser->points();
@@ -74,7 +73,7 @@ FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
 		contourLength[cn] = vectoriser->contourSize( cn);
 	}
 	
-	sidemesh = new double[ numPoints * 3];
+	sidemesh = new FTGL_DOUBLE[ numPoints * 3];
 	vectoriser->GetOutline( sidemesh);
 	
 	delete vectoriser;
@@ -129,7 +128,7 @@ FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
 			
 		// Join them together.
 		// Extrude each contour to make the sides.
-		double* contour = sidemesh;
+		FTGL_DOUBLE* contour = sidemesh;
 		for (int c=0; c<numContours; ++c)
 		{
 			// Make a quad strip using each successive
@@ -143,14 +142,14 @@ FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
 					int j1 = (j < numPoints) ? j : 0;
 					int j0 = (j1 == 0) ? (numPoints-1) : (j1-1);
 
-					double* p0 = contour + j0*3;
-					double* p1 = contour + j1*3;
+					FTGL_DOUBLE* p0 = contour + j0*3;
+					FTGL_DOUBLE* p1 = contour + j1*3;
 
 					// Compute normal for this quad.
-					double vx = p1[0] - p0[0];
-					double vy = p1[1] - p0[1];
+					FTGL_DOUBLE vx = p1[0] - p0[0];
+					FTGL_DOUBLE vy = p1[1] - p0[1];
 					// Normalise
-					double length = sqrt( ( ( vx * vx) + ( vy * vy)));
+					FTGL_DOUBLE length = sqrt( ( ( vx * vx) + ( vy * vy)));
 					vx /= length; vy /= length;
 					glNormal3d(-vy, vx, 0.0);
 					
@@ -192,18 +191,18 @@ FTExtrdGlyph::~FTExtrdGlyph()
 }
 
 
-bool FTExtrdGlyph::Winding( int numPoints, double *points)
+bool FTExtrdGlyph::Winding( int numPoints, FTGL_DOUBLE *points)
 {
 	// Calculate the winding direction. use formula from redbook.
-	double area = 0;
+	FTGL_DOUBLE area = 0;
 	
 	for( int count= 0; count <= numPoints; ++count)
 	{
 		int j1 = (count < numPoints) ? count : 0;
 		int j0 = (j1 == 0) ? ( numPoints-1) : ( j1-1);
 
-		double* p0 = points + j0 * 3;
-		double* p1 = points + j1 * 3;
+		FTGL_DOUBLE* p0 = points + j0 * 3;
+		FTGL_DOUBLE* p1 = points + j1 * 3;
 
 		area += ( p0[0] * p1[1]) - ( p1[0] * p0[1]);	
 	}

@@ -1,12 +1,11 @@
 #ifndef		__FTExtrdGlyph__
 #define		__FTExtrdGlyph__
 
-#include "FTGL.h"
-
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include FT_GLYPH_H
 
+#include "FTGL.h"
 #include "FTGlyph.h"
 
 class FTVectoriser;
@@ -49,7 +48,7 @@ class FTGL_EXPORT FTExtrdGlyph : public FTGlyph
 		 * This uses the signed area of the contour. It is required because
 		 * freetype doesn't do this despite the docs saying it does:(
 		 */
-		bool Winding( int numPoints, double *points);
+		bool Winding( int numPoints, FTGL_DOUBLE *points);
 		
 		/**
 		 * An object that helps convert freetype outlines into point
@@ -65,9 +64,9 @@ class FTGL_EXPORT FTExtrdGlyph : public FTGlyph
 		/**
 		 * Pointer to the point data
 		 */
-		double* frontMesh;
-		double* backMesh;
-		double* sidemesh;
+		FTGL_DOUBLE* frontMesh;
+		FTGL_DOUBLE* backMesh;
+		FTGL_DOUBLE* sidemesh;
 		
 		/**
 		 * OpenGL display list

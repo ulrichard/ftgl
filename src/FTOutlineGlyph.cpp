@@ -1,7 +1,8 @@
 #include	"FTOutlineGlyph.h"
 #include	"FTVectoriser.h"
-#include	"FTGL.h"
-
+#ifdef FTGL_DEBUG
+	#include "mmgr.h"
+#endif
 
 
 FTOutlineGlyph::FTOutlineGlyph( FT_Glyph glyph)
@@ -40,7 +41,7 @@ FTOutlineGlyph::FTOutlineGlyph( FT_Glyph glyph)
 		contourLength[cn] = vectoriser->contourSize( cn);
 	}
 	
-	data = new double[ numPoints * 3];
+	data = new FTGL_DOUBLE[ numPoints * 3];
 	vectoriser->GetOutline( data);
 	
 	delete vectoriser;

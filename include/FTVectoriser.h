@@ -8,7 +8,6 @@
 #include FT_GLYPH_H
 
 #include "FTGL.h"
-
 #include "FTGlyph.h"
 
 using namespace std;
@@ -42,7 +41,7 @@ class FTGL_EXPORT ftPoint
 		 * @param Y
 		 * @param Z
 		 */
-		ftPoint( const double X, const double Y, const double Z)
+		ftPoint( const FTGL_DOUBLE X, const FTGL_DOUBLE Y, const FTGL_DOUBLE Z)
 		: x(X), y(Y), z(Z)
 		{}
 		
@@ -67,7 +66,7 @@ class FTGL_EXPORT ftPoint
 		/**
 		 * The point data
 		 */
-		double x, y, z; // FIXME make private
+		FTGL_DOUBLE x, y, z; // FIXME make private
 		
 	private:
 };
@@ -111,7 +110,7 @@ class FTGL_EXPORT FTContour
 		 * @param x	The X component of the point
 		 * @param y The Y component of the point
 		 */
-		void AddPoint( const double x, const double y)
+		void AddPoint( const FTGL_DOUBLE x, const FTGL_DOUBLE y)
 		{
 			ftPoint point( x, y, 0.0); 
 			
@@ -158,7 +157,7 @@ class FTGL_EXPORT FTTesselation
 		}
 
 		
-		void AddPoint( const double x, const double y, const double z)
+		void AddPoint( const FTGL_DOUBLE x, const FTGL_DOUBLE y, const FTGL_DOUBLE z)
 		{	
 			pointList.push_back( ftPoint( x, y, z));
 		}
@@ -179,19 +178,16 @@ class FTGL_EXPORT FTMesh
 		FTMesh();
 		~FTMesh();
 		
-		void AddPoint( const double x, const double y, const double z);
+		void AddPoint( const FTGL_DOUBLE x, const FTGL_DOUBLE y, const FTGL_DOUBLE z);
 		void Begin( GLenum m);
 		void End();
 		
-		double* Point();
+		FTGL_DOUBLE* Point();
 		int size() const;
 		
 		void Error( GLenum e) { err = e;}
 		GLenum Error() const { return err;}
 
-		/**
-		 * Holds points created by glCombine
-		 */
 		vector< ftPoint> tempPool;
 		vector< FTTesselation*> tess;
 	protected:
@@ -239,15 +235,15 @@ class FTGL_EXPORT FTVectoriser
 		bool Process();
 
 		/**
-		 * Copy the outline data into a block of <code>doubles</code>
+		 * Copy the outline data into a block of <code>FTGL_DOUBLEs</code>
 		 *
 		 * @param d	a pointer to the memory to copy the data into.
 		 */
-		void GetOutline( double* d);
+		void GetOutline( FTGL_DOUBLE* d);
 
 		/**
 		 * Build a mesh from the outline and copy the vertex data into a
-		 * block of <code>doubles</code>
+		 * block of <code>FTGL_DOUBLEs</code>
 		 *
 		 * @param zNormal	The direction of the z axis of the normal
 		 * for this mesh
@@ -255,11 +251,11 @@ class FTGL_EXPORT FTVectoriser
 		void MakeMesh( int zNormal = 1.0);
 		
 		/**
-		 * Copy the tesselation data into a block of <code>doubles</code>
+		 * Copy the tesselation data into a block of <code>FTGL_DOUBLEs</code>
 		 *
 		 * @param d	a pointer to the memory to copy the data into.
 		 */
-		void GetMesh( double* d);
+		void GetMesh( FTGL_DOUBLE* d);
 		
 		/** Get the number of points in the tesselation
 		 *

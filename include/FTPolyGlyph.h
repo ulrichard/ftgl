@@ -1,12 +1,12 @@
 #ifndef		__FTPolyGlyph__
 #define		__FTPolyGlyph__
 
-#include "FTGL.h"
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include FT_GLYPH_H
 
+#include "FTGL.h"
 #include "FTGlyph.h"
 
 class FTVectoriser;
@@ -64,7 +64,7 @@ class FTGL_EXPORT FTPolyGlyph : public FTGlyph
 		/**
 		 * Pointer to the point data
 		 */
-		double* data;
+		FTGL_DOUBLE* data;
 		
 		/**
 		 * OpenGL display list

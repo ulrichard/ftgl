@@ -1,5 +1,8 @@
 #include	"FTVectoriser.h"
 #include	"FTGL.h"
+#ifdef FTGL_DEBUG
+	#include "mmgr.h"
+#endif
 
 
 #ifndef CALLBACK
@@ -15,7 +18,7 @@ void CALLBACK ftglError( GLenum errCode, FTMesh* mesh)
 
 void CALLBACK ftglVertex( void* data, FTMesh* mesh)
 {
-	double* vertex = (double*)data;
+	FTGL_DOUBLE* vertex = (FTGL_DOUBLE*)data;
 	mesh->AddPoint( vertex[0], vertex[1], vertex[2]);
 }
 
@@ -32,9 +35,9 @@ void CALLBACK ftglEnd( FTMesh* mesh)
 }
 
 
-void CALLBACK ftglCombine( GLdouble coords[3], void* vertex_data[4], GLfloat weight[4], void** outData, FTMesh* mesh)
+void CALLBACK ftglCombine( FTGL_DOUBLE coords[3], void* vertex_data[4], GLfloat weight[4], void** outData, FTMesh* mesh)
 {
-	double* vertex = (double*)coords;
+	FTGL_DOUBLE* vertex = (FTGL_DOUBLE*)coords;
 	mesh->tempPool.push_back( ftPoint( vertex[0], vertex[1], vertex[2]));
 	
 	*outData = &mesh->tempPool[ mesh->tempPool.size() - 1].x;
@@ -74,7 +77,7 @@ FTMesh::~FTMesh()
 }
 
 
-void FTMesh::AddPoint( const double x, const double y, const double z)
+void FTMesh::AddPoint( const FTGL_DOUBLE x, const FTGL_DOUBLE y, const FTGL_DOUBLE z)
 {
 	tempTess->AddPoint( x, y, z);
 }
@@ -92,7 +95,7 @@ void FTMesh::End()
 }
 
 
-double* FTMesh::Point()
+FTGL_DOUBLE* FTMesh::Point()
 {
 	return &tempTess->pointList[ tempTess->size() - 1].x;
 
@@ -299,7 +302,7 @@ void FTVectoriser::evaluateCurve( const int n)
 }
 
 
-void FTVectoriser::GetOutline( double* data)
+void FTVectoriser::GetOutline( FTGL_DOUBLE* data)
 {
 	int i = 0;
 	
@@ -309,9 +312,9 @@ void FTVectoriser::GetOutline( double* data)
 		
 		for( int p = 0; p < contour->size(); ++p)
 		{
-			data[i] = static_cast<double>(contour->pointList[p].x / 64.0f); // is 64 correct?
-			data[i + 1] = static_cast<double>(contour->pointList[p].y / 64.0f);
-			data[i + 2] = 0.0; // static_cast<double>(contour->pointList[p].z / 64.0f);
+			data[i] = static_cast<FTGL_DOUBLE>(contour->pointList[p].x / 64.0f); // is 64 correct?
+			data[i + 1] = static_cast<FTGL_DOUBLE>(contour->pointList[p].y / 64.0f);
+			data[i + 2] = 0.0; // static_cast<FTGL_DOUBLE>(contour->pointList[p].z / 64.0f);
 			i += 3;
 		}
 	}
@@ -357,7 +360,7 @@ void FTVectoriser::MakeMesh( int zNormal)
 			
 				for( int p = 0; p < contour->size(); ++p)
 				{
-					double* d = const_cast<double*>(&contour->pointList[p].x);
+					FTGL_DOUBLE* d = const_cast<FTGL_DOUBLE*>(&contour->pointList[p].x);
 					gluTessVertex( tobj, d, d);
 				}
 			gluTessEndContour( tobj);
@@ -370,7 +373,7 @@ void FTVectoriser::MakeMesh( int zNormal)
 }
 
 
-void FTVectoriser::GetMesh( double* data)
+void FTVectoriser::GetMesh( FTGL_DOUBLE* data)
 {
  	// Now write it out
 	int i = 0;
@@ -392,7 +395,7 @@ void FTVectoriser::GetMesh( double* data)
 		{
 			data[i] = tess->pointList[q].x / 64.0f; // is 64 correct?
 			data[i + 1] = tess->pointList[q].y / 64.0f;
-			data[i + 2] = 0.0; // static_cast<double>(mesh->pointList[p].z / 64.0f);
+			data[i + 2] = 0.0; // static_cast<FTGL_DOUBLE>(mesh->pointList[p].z / 64.0f);
 			i += 3;
 		
 		}

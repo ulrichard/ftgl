@@ -1,5 +1,8 @@
 #include	"FTPolyGlyph.h"
 #include	"FTVectoriser.h"
+#ifdef FTGL_DEBUG
+	#include "mmgr.h"
+#endif
 
 
 FTPolyGlyph::FTPolyGlyph( FT_Glyph glyph)
@@ -30,7 +33,7 @@ FTPolyGlyph::FTPolyGlyph( FT_Glyph glyph)
 		return;
 	}
 	
-	data = new double[ numPoints * 3];
+	data = new FTGL_DOUBLE[ numPoints * 3];
 	vectoriser->GetMesh( data);
 	delete vectoriser;
 	
