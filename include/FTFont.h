@@ -230,7 +230,7 @@ class FTGL_EXPORT FTFont
          * @param nextChr   next character
          * @return          advance width
          */
-        inline float doAdvance( const unsigned int chr, const unsigned int nextChr);
+        inline float DoAdvance( const unsigned int chr, const unsigned int nextChr);
 
         /**
          * Render a character
@@ -239,7 +239,7 @@ class FTGL_EXPORT FTFont
          * @param chr       current character
          * @param nextChr   next character
          */
-        inline void doRender( const unsigned int chr, const unsigned int nextChr);
+        inline void DoRender( const unsigned int chr, const unsigned int nextChr);
         
         /**
          *

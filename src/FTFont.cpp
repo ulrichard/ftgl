@@ -192,7 +192,7 @@ float FTFont::Advance( const wchar_t* string)
 
     while( *c)
     {
-        width += doAdvance( *c, *(c + 1));
+        width += DoAdvance( *c, *(c + 1));
         ++c;
     }
 
@@ -207,7 +207,7 @@ float FTFont::Advance( const char* string)
 
     while( *c)
     {
-        width += doAdvance( *c, *(c + 1));
+        width += DoAdvance( *c, *(c + 1));
         ++c;
     }
 
@@ -215,7 +215,7 @@ float FTFont::Advance( const char* string)
 }
 
 
-float FTFont::doAdvance( const unsigned int chr, const unsigned int nextChr)
+float FTFont::DoAdvance( const unsigned int chr, const unsigned int nextChr)
 {
     CheckGlyph( chr);
 
@@ -230,7 +230,7 @@ void FTFont::Render( const char* string )
 
     while( *c)
     {
-        doRender( *c, *(c + 1));
+        DoRender( *c, *(c + 1));
         ++c;
     }
 }
@@ -243,13 +243,13 @@ void FTFont::Render( const wchar_t* string )
 
     while( *c)
     {
-        doRender( *c, *(c + 1));
+        DoRender( *c, *(c + 1));
         ++c;
     }
 }
 
 
-void FTFont::doRender( const unsigned int chr, const unsigned int nextChr)
+void FTFont::DoRender( const unsigned int chr, const unsigned int nextChr)
 {
     CheckGlyph( chr);
 
