@@ -62,11 +62,6 @@ This will enable us to have a restricted set of HIGH quality glyphs.
 Might have to move the init code out of the glyph constructors into an
 init function so that they can return errors.
 
-Currently the glyphList is isn't indexed, it's just a vector of glyphs in
-glyphIndex order. I'm using the freetype function FT_Get_Char_Index() to
-convert char codes to glyphIndices. If this proves to be too slow I will
-implement a charmap class that will hold the indices.
-
 good site...http://cgm.cs.mcgill.ca/~luc/
 
 Apparently...C++ guarantees that delete can safely be called on a NULL
@@ -106,7 +101,6 @@ FUTURE:
 	  packed at the moment.
 	- Use the Freetype Cache mechanism. See above. FTC_xxx
 	- Alignment. left right, centre.
-	- Bounding box, char and string.
 	- Vertical formats
 	- For platforms that have antialiased lines but not polys we could
 	  outline the polyfonts with lines to get better looking glyphs.
@@ -139,6 +133,7 @@ BUGS:
 	  correctly after initialsation. This was a potential crash.
 	- Preliminary support for unicode...wchar_t Tested with non european
 	  fonts.
+	- Added function to calc the advance width of a string.
 	- Minor tidy ups.
 
 
