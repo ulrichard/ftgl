@@ -22,12 +22,12 @@ class ftPoint
 		: x(X), y(Y), z(Z)
 		{}
 		
-		friend bool operator == (const ftPoint &a, const ftPoint &b) 
+		friend bool operator == ( const ftPoint &a, const ftPoint &b) 
 		{
 			return((a.x == b.x) && (a.y == b.y) && (a.z == b.z));
 		}
 
-		friend bool operator != (const ftPoint &a, const ftPoint &b) 
+		friend bool operator != ( const ftPoint &a, const ftPoint &b) 
 		{
 			return((a.x != b.x) || (a.y != b.y) || (a.z != b.z));
 		}

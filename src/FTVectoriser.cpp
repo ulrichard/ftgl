@@ -173,7 +173,7 @@ int FTVectoriser::Cubic( const int index, const int first, const int last)
 }
 
 
-// De Casteljau algorithm supplied by Jed Soane
+// De Casteljau algorithm contributed by Jed Soane
 void FTVectoriser::deCasteljau( const float t, const int n)
 {
     //Calculating successive b(i)'s using de Casteljau algorithm.
@@ -189,7 +189,7 @@ void FTVectoriser::deCasteljau( const float t, const int n)
 }
 
 
-// De Casteljau algorithm supplied by Jed Soane
+// De Casteljau algorithm contributed by Jed Soane
 void FTVectoriser::evaluateCurve( const int n)
 {
     // setting the b(0) equal to the control points
@@ -197,15 +197,15 @@ void FTVectoriser::evaluateCurve( const int n)
 	{
 		bValues[0][i][0] = ctrlPtArray[i][0];
 		bValues[0][i][1] = ctrlPtArray[i][1];
-    } //end for(i..)
+    }
 
     float t;            					//parameter for curve point calc. [0.0, 1.0]
 
-    for( int m = 0; m <= (1 / kBSTEPSIZE); m++)
+    for( int m = 0; m <= ( 1 / kBSTEPSIZE); m++)
     {
     	t = m * kBSTEPSIZE;
         deCasteljau( t, n);  //calls to evaluate point on curve att.
-    } //end for(m...)
+    }
 }
 
 
