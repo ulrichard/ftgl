@@ -67,8 +67,9 @@ bool FTFont::Attach( const unsigned char *pBufferBytes, size_t bufferSizeInBytes
 bool FTFont::FaceSize( const unsigned int size, const unsigned int res )
 {
     charSize = face.Size( size, res);
+    err = face.Error();
     
-    if( face.Error())
+    if( err != 0)
     {
         return false;
     }
