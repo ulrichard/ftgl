@@ -346,8 +346,8 @@ void display(void)
 	{
 		case FTGL_BITMAP:
 		case FTGL_PIXMAP:
-			glRasterPos2i( w_win / 2 + OX, h_win / 2 + OY);
-			glTranslatef(  w_win / 2 + OX, h_win / 2 + OY, 0.0);
+			glRasterPos2i((long)( w_win / 2 + OX),(long)( h_win / 2 + OY));
+			glTranslatef(w_win / 2 + OX,h_win / 2 + OY, 0.0);
 			break;
 		case FTGL_OUTLINE:
 		case FTGL_POLYGON:
@@ -411,6 +411,17 @@ void parsekey(unsigned char key, int x, int y)
 				carat = 0;
 			}
 			break;
+      case '\t':
+         if (layouts[currentLayout] && (dynamic_cast <FTSimpleLayout *>(layouts[currentLayout]))) {
+            FTSimpleLayout *simpleLayout = (FTSimpleLayout *)layouts[currentLayout];
+            switch (simpleLayout->GetAlignment()) {
+               case FTSimpleLayout::ALIGN_LEFT: 	simpleLayout->SetAlignment(FTSimpleLayout::ALIGN_RIGHT); break;
+               case FTSimpleLayout::ALIGN_RIGHT: 	simpleLayout->SetAlignment(FTSimpleLayout::ALIGN_CENTER); break;
+               case FTSimpleLayout::ALIGN_CENTER:	simpleLayout->SetAlignment(FTSimpleLayout::ALIGN_JUST); break;
+               case FTSimpleLayout::ALIGN_JUST: 	simpleLayout->SetAlignment(FTSimpleLayout::ALIGN_LEFT); break;
+            } /* Decrement the layout (switch GetAlignemnt()) */
+         } /* If the current layout is a simple layout change it's alignment properties (if simpleLayout) */
+         break;
 		default:
 			if( mode == INTERACTIVE)
 			{
@@ -460,24 +471,10 @@ void parseSpecialKey(int key, int x, int y)
          if (simpleLayout) simpleLayout->SetLineLength(simpleLayout->GetLineLength() + 10.0f);
          break;
 		case GLUT_KEY_LEFT:
-         if (simpleLayout) {
-            switch (simpleLayout->GetAlignment()) {
-               case FTSimpleLayout::ALIGN_LEFT: 	simpleLayout->SetAlignment(FTSimpleLayout::ALIGN_JUST); break;
-               case FTSimpleLayout::ALIGN_RIGHT: 	simpleLayout->SetAlignment(FTSimpleLayout::ALIGN_LEFT); break;
-               case FTSimpleLayout::ALIGN_CENTER:	simpleLayout->SetAlignment(FTSimpleLayout::ALIGN_RIGHT); break;
-               case FTSimpleLayout::ALIGN_JUST: 	simpleLayout->SetAlignment(FTSimpleLayout::ALIGN_CENTER); break;
-            } /* Increment the layout (switch GetAlignemnt()) */
-         } /* If the current layout is a simple layout change it's alignment properties (if simpleLayout) */
-			break;      
+         fonts[current_font]->FaceSize(fonts[current_font]->FaceSize() - 1);
+			break;   
       case GLUT_KEY_RIGHT:
-         if (simpleLayout) { 
-            switch (simpleLayout->GetAlignment()) {
-               case FTSimpleLayout::ALIGN_LEFT: 	simpleLayout->SetAlignment(FTSimpleLayout::ALIGN_RIGHT); break;
-               case FTSimpleLayout::ALIGN_RIGHT: 	simpleLayout->SetAlignment(FTSimpleLayout::ALIGN_CENTER); break;
-               case FTSimpleLayout::ALIGN_CENTER:	simpleLayout->SetAlignment(FTSimpleLayout::ALIGN_JUST); break;
-               case FTSimpleLayout::ALIGN_JUST: 	simpleLayout->SetAlignment(FTSimpleLayout::ALIGN_LEFT); break;
-            } /* Decrement the layout (switch GetAlignemnt()) */
-         } /* If the current layout is a simple layout change it's alignment properties (if simpleLayout) */
+         fonts[current_font]->FaceSize(fonts[current_font]->FaceSize() + 1);
          break;
 	}
 
