@@ -45,9 +45,9 @@ static FT_Vector simpleConicPoints[3] =
 
 static FT_Vector brokenPoints[3] = 
 {
-    { 0,  0},
-    { 0,  0},
-    { 0, -0}
+    { 0, 0},
+    { 0, 0},
+    { 0, 0}
 };
 
 static char simpleConicTags[3] = 
@@ -62,7 +62,7 @@ static FT_Vector doubleConicPoints[4] =
     { 0,  0},
     { 6,  7},
     { 9, -2},
-    { 4, 0}
+    { 4,  0}
 };
 
 static char doubleConicTags[4] = 

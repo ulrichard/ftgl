@@ -70,7 +70,7 @@ class FTFontTest : public CppUnit::TestCase
         void testOpenFont()
         {
             TestFont badFont( BAD_FONT_FILE);
-            // This is a different error # on Mac to other platforms      
+            // This is a different error # on Mac to other platforms (1)
             CPPUNIT_ASSERT( badFont.Error() == 6);        
         
             TestFont goodFont( GOOD_FONT_FILE);
