@@ -4,8 +4,8 @@
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
-#include "FTGL.h"
 #include "FTFace.h"
+#include "FTGL.h"
 
 class FTGlyphContainer;
 class FTGlyph;
@@ -182,24 +182,9 @@ class FTGL_EXPORT FTFont
         inline virtual FTGlyph* MakeGlyph( unsigned int g) = 0;
         
         /**
-         * Construct the internal glyph cache.
-         *
-         * This a list of glyphs processed for openGL Rendering NOT
-         * freetype glyphs.
-         *
-         * @return  <code>true</code> on success.
-         */
-        virtual bool MakeGlyphList();
-        
-        /**
          * Current face object
          */
         FTFace face;
-        
-        /**
-         * Number of faces in this font
-         */
-        unsigned int numFaces;
         
         /**
          * Current size object
@@ -207,21 +192,11 @@ class FTGL_EXPORT FTFont
         FTSize charSize;
 
         /**
-         * An object that holds a list of glyphs
-         */
-        FTGlyphContainer* glyphList;
-        
-        /**
-         * Current pen or cursor position;
-         */
-        FTPoint pen;
-        
-        /**
          * Current error code. Zero means no error.
          */
         FT_Error err;
         
-    private:
+    private:        
         /**
          * Get the advance width for a character.
          * This function does an implicit conversion on it's arguments.
@@ -246,6 +221,15 @@ class FTGL_EXPORT FTFont
          */
         inline void CheckGlyph( const unsigned int chr);
 
+        /**
+         * An object that holds a list of glyphs
+         */
+        FTGlyphContainer* glyphList;
+        
+        /**
+         * Current pen or cursor position;
+         */
+        FTPoint pen;
 };
 
 

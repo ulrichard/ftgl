@@ -5,32 +5,18 @@
 
 
 FTFont::FTFont( const char* fontname)
-:   numFaces(0),
+:   face( fontname),
     glyphList(0)
 {
-    if( face.Open( fontname))
-    {
-        err = 0;
-    }
-    else
-    {
-        err = face.Error();
-    }
+    err = face.Error();
 }
 
 
 FTFont::FTFont( const unsigned char *pBufferBytes, size_t bufferSizeInBytes)
-:   numFaces(0),
+:   face( pBufferBytes, bufferSizeInBytes),
     glyphList(0)
 {
-    if( face.Open( pBufferBytes, bufferSizeInBytes ))
-    {
-        err = 0;
-    }
-    else
-    {
-        err = face.Error();
-    }
+    err = face.Error();
 }
 
 
@@ -70,20 +56,13 @@ bool FTFont::FaceSize( const unsigned int size, const unsigned int res )
     }
     
     glyphList = new FTGlyphContainer( &face);
-    
-    return MakeGlyphList();
+    return true;
 }
 
 
 unsigned int FTFont::FaceSize() const
 {
     return charSize.CharSize();
-}
-
-
-bool FTFont::MakeGlyphList()
-{
-    return true;
 }
 
 
