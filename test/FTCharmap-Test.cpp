@@ -56,7 +56,7 @@ class FTCharmapTest : public CppUnit::TestCase
             
             CPPUNIT_ASSERT( !charmap->CharMap( ft_encoding_johab));
             
-            CPPUNIT_ASSERT( charmap->Error() == 6);
+            CPPUNIT_ASSERT( charmap->Error() == 0x06); // invalid argument
             CPPUNIT_ASSERT( charmap->Encoding() == ft_encoding_none);
         }
         
@@ -72,7 +72,7 @@ class FTCharmapTest : public CppUnit::TestCase
             
             charmap->CharMap( ft_encoding_johab);
             
-            CPPUNIT_ASSERT( charmap->Error() == 6);
+            CPPUNIT_ASSERT( charmap->Error() == 0x06); // invalid argument
             CPPUNIT_ASSERT( charmap->GlyphListIndex( CHARACTER_CODE_A)    == 0);
             CPPUNIT_ASSERT( charmap->GlyphListIndex( BIG_CHARACTER_CODE)  == 0);
             CPPUNIT_ASSERT( charmap->GlyphListIndex( NULL_CHARACTER_CODE) == 0);

@@ -65,7 +65,7 @@ class FTGlyphContainerTest : public CppUnit::TestCase
             CPPUNIT_ASSERT( glyphContainer->Error() == 0);
     
             CPPUNIT_ASSERT( !glyphContainer->CharMap( ft_encoding_johab));
-            CPPUNIT_ASSERT( glyphContainer->Error() == 6);
+            CPPUNIT_ASSERT( glyphContainer->Error() == 0x06); // invalid argument
         }
 
 

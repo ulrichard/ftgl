@@ -49,7 +49,7 @@ class FTFaceTest : public CppUnit::TestCase
         void testAttachFile()
         {
             CPPUNIT_ASSERT( !testFace->Attach( TYPE1_AFM_FILE));
-            CPPUNIT_ASSERT( testFace->Error() == 0x07);
+            CPPUNIT_ASSERT( testFace->Error() == 0x07); // unimplemented feature
         
             FTFace test( TYPE1_FONT_FILE);
             CPPUNIT_ASSERT( test.Error() == 0);
@@ -62,7 +62,7 @@ class FTFaceTest : public CppUnit::TestCase
         void testAttachMemoryData()
         {
             CPPUNIT_ASSERT( !testFace->Attach((unsigned char*)100, 0));
-            CPPUNIT_ASSERT( testFace->Error() == 0x07);        
+            CPPUNIT_ASSERT( testFace->Error() == 0x07); // unimplemented feature
         
             FTFace test( TYPE1_FONT_FILE);
             CPPUNIT_ASSERT( test.Error() == 0);

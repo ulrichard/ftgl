@@ -128,14 +128,14 @@ class FTFontTest : public CppUnit::TestCase
         void testAttachFile()
         {
             testFont->Attach( TYPE1_AFM_FILE);
-            CPPUNIT_ASSERT( testFont->Error() == 0x07);        
+            CPPUNIT_ASSERT( testFont->Error() == 0x07); // unimplemented feature
         }
         
         
         void testAttachData()
         {
             testFont->Attach( (unsigned char*)100, 0);
-            CPPUNIT_ASSERT( testFont->Error() == 0x07);        
+            CPPUNIT_ASSERT( testFont->Error() == 0x07); // unimplemented feature       
         }
         
         
@@ -173,7 +173,7 @@ class FTFontTest : public CppUnit::TestCase
             CPPUNIT_ASSERT( testFont->CharMap( ft_encoding_unicode));
             CPPUNIT_ASSERT( testFont->Error() == 0);        
             CPPUNIT_ASSERT( !testFont->CharMap( ft_encoding_johab));
-            CPPUNIT_ASSERT( testFont->Error() == 6);        
+            CPPUNIT_ASSERT( testFont->Error() == 0x06); // invalid argument
         }
         
         
