@@ -1,5 +1,6 @@
 #include	"FTFace.h"
 #include	"FTFont.h"
+#include	"FTGlyphContainer.h"
 #include	"FTGlyph.h" // for FTBbox
 #ifdef FTGL_DEBUG
 	#include "mmgr.h"
