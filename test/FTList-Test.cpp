@@ -14,6 +14,7 @@ class FTListTest : public CppUnit::TestCase
             CPPUNIT_TEST( testConstructor);
             CPPUNIT_TEST( testPushBack);
             CPPUNIT_TEST( testGetBack);
+            CPPUNIT_TEST( testGetFront);
         CPPUNIT_TEST_SUITE_END();
         
     public:
@@ -46,17 +47,28 @@ class FTListTest : public CppUnit::TestCase
         
         void testGetBack()
         {
-            FTList<float> listOfFloats;
-            
-            listOfFloats.push_back( 0.1);
-            listOfFloats.push_back( 1.2);
-            listOfFloats.push_back( 2.3);
+            FTList<int> listOfIntegers;
 
-            std::cout << listOfFloats.back() << std::endl;
-            CPPUNIT_ASSERT( listOfFloats.back() == 2.3);            
+            listOfIntegers.push_back( 0);
+            listOfIntegers.push_back( 1);
+            listOfIntegers.push_back( 2);
+
+            CPPUNIT_ASSERT( listOfIntegers.back() == 2);
         }
         
         
+        void testGetFront()
+        {
+            FTList<char> listOfChars;
+            
+            listOfChars.push_back( 'a');
+            listOfChars.push_back( 'b');
+            listOfChars.push_back( 'c');
+    
+            CPPUNIT_ASSERT( listOfChars.front() == 'a');       
+        }
+        
+                
         void setUp() 
         {}
         
