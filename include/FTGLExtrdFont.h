@@ -18,11 +18,19 @@ class FTGlyph;
 class FTGL_EXPORT FTGLExtrdFont : public FTFont
 {
 	public:
-		/**
-		 * Default Constructor
-		 */
+        /**
+         * Open and read a font file. Sets Error flag.
+         *
+         * @param fontname  font file name.
+         */
 		FTGLExtrdFont( const char* fontname);
 		
+        /**
+         * Open and read a font from a buffer in memory. Sets Error flag.
+         *
+         * @param pBufferBytes  the in-memory buffer
+         * @param bufferSizeInBytes  the length of the buffer in bytes
+         */
 		FTGLExtrdFont( const unsigned char *pBufferBytes, size_t bufferSizeInBytes);
 		
 		/**

@@ -29,21 +29,17 @@ class FTGL_EXPORT FTFont
 {
     public:
         /**
-         * Open and read a font file.
+         * Open and read a font file. Sets Error flag.
          *
          * @param fontname  font file name.
-         * @return          <code>true</code> if file has opened
-         *                  successfully.
          */
         FTFont( const char* fontname);
         
         /**
-         * Open and read a font from a buffer in memory.
+         * Open and read a font from a buffer in memory. Sets Error flag.
          *
          * @param pBufferBytes  the in-memory buffer
          * @param bufferSizeInBytes  the length of the buffer in bytes
-         * @return          <code>true</code> if the data stream has
-         *                  opened successfully.
          */
         FTFont( const unsigned char *pBufferBytes, size_t bufferSizeInBytes);
         
