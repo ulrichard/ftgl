@@ -15,7 +15,7 @@ FTGL 1.41
     - Removed the FTCharmap Platform/Encoding function.
     - Unit tests.
     - Removed the precache flag.
-    - Unvirtualised functions in FTLibrary
+    - Unvirtualised functions in FTLibrary and FTGlyphContainer.
     - Fixed empty string bug in FTFont::BBox
 
 October 23 2002
