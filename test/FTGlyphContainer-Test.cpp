@@ -34,8 +34,7 @@ class FTGlyphContainerTest : public CppUnit::TestCase
     public:
         FTGlyphContainerTest() : CppUnit::TestCase( "FTGlyphContainer Test")
         {
-            face = new FTFace;
-            face->Open( GOOD_FONT_FILE);
+            face = new FTFace( GOOD_FONT_FILE);
             face->Size( 72, 72);
             face->CharMap( ft_encoding_unicode);
         }
