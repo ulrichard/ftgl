@@ -89,78 +89,71 @@ float FTFont::Descender() const
 void FTFont::BBox( const char* string,
                    float& llx, float& lly, float& llz, float& urx, float& ury, float& urz)
 {
-    llx = lly = llz = urx = ury = urz = 0.0f;
-    
-    if( !*string)
+    FTBBox totalBBox;
+    if( NULL != *string)
     {
-        return;
-    }
-    
-    const unsigned char* c = (unsigned char*)string;
+        const unsigned char* c = (unsigned char*)string;
+        float advance = 0;
 
-    FTBBox bbox;
- 
-    while( *c)
-    {
         CheckGlyph( *c);
 
-        bbox = glyphList->BBox( *c);
-        
-        // Lower extent
-        lly = lly < bbox.lowerY ? lly: bbox.lowerY;
-        // Upper extent
-        ury = ury > bbox.upperY ? ury: bbox.upperY;
-        // Depth
-        urz = urz < bbox.upperZ ? urz: bbox.upperZ;
-
-        // Width
-        urx += glyphList->Advance( *c, *(c + 1));
+        totalBBox = glyphList->BBox( *c);
+        advance = glyphList->Advance( *c, *(c + 1));
         ++c;
+            
+        while( *c)
+        {
+            CheckGlyph( *c);
+            FTBBox tempBBox = glyphList->BBox( *c);
+            tempBBox.Move( FTPoint( advance, 0.0f, 0.0f));
+            totalBBox += tempBBox;
+            advance += glyphList->Advance( *c, *(c + 1));
+            ++c;
+        }
     }
-    
-    //Final adjustments
-    llx = glyphList->BBox( *string).lowerX;
-    urx -= glyphList->Advance( *(c - 1), 0);
-    urx += bbox.upperX;
 
+    llx = totalBBox.lowerX;
+    lly = totalBBox.lowerY;
+    llz = totalBBox.lowerZ;
+    urx = totalBBox.upperX;
+    ury = totalBBox.upperY;
+    urz = totalBBox.upperZ;
 }
+
 
 void FTFont::BBox( const wchar_t* string,
                    float& llx, float& lly, float& llz, float& urx, float& ury, float& urz)
 {
-    llx = lly = llz = urx = ury = urz = 0.0f;
-    
-    if( !*string)
-    {
-        return;
-    }
+    FTBBox totalBBox;
 
-    const wchar_t* c = string;
-    FTBBox bbox;
- 
-    while( *c)
+    if( NULL != *string)
     {
+        const wchar_t* c = string;
+        float advance = 0;
+
         CheckGlyph( *c);
 
-        bbox = glyphList->BBox( *c);
-        
-        // Lower extent
-        lly = lly < bbox.lowerY ? lly: bbox.lowerY;
-        // Upper extent
-        ury = ury > bbox.upperY ? ury: bbox.upperY;
-        // Depth
-        urz = urz < bbox.upperZ ? urz: bbox.upperZ;
-
-        // Width
-        urx += glyphList->Advance( *c, *(c + 1));
+        totalBBox = glyphList->BBox( *c);
+        advance = glyphList->Advance( *c, *(c + 1));
         ++c;
-    }
-    
-    //Final adjustments
-    llx = glyphList->BBox( *string).lowerX;
-    urx -= glyphList->Advance( *(c - 1), 0);
-    urx += bbox.upperX;
 
+        while( *c)
+        {
+            CheckGlyph( *c);
+            FTBBox tempBBox = glyphList->BBox( *c);
+            tempBBox.Move( FTPoint( advance, 0.0f, 0.0f));
+            totalBBox += tempBBox;
+            advance += glyphList->Advance( *c, *(c + 1));
+            ++c;
+        }
+    }
+
+    llx = totalBBox.lowerX;
+    lly = totalBBox.lowerY;
+    llz = totalBBox.lowerZ;
+    urx = totalBBox.upperX;
+    ury = totalBBox.upperY;
+    urz = totalBBox.upperZ;
 }
 
 
