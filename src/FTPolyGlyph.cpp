@@ -12,8 +12,6 @@ FTPolyGlyph::FTPolyGlyph( FT_Glyph glyph)
     }
 
     FTVectoriser* vectoriser = new FTVectoriser( glyph);
-    
-    vectoriser->ProcessContours();
 
     vectoriser->MakeMesh(1.0);
     unsigned int numPoints = vectoriser->MeshPoints();

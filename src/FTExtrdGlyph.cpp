@@ -15,8 +15,6 @@ FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
     }
 
     FTVectoriser* vectoriser = new FTVectoriser( glyph);
-    
-    vectoriser->ProcessContours();
 
     // Make the front polygons
     vectoriser->MakeMesh( 1.0);
@@ -67,11 +65,6 @@ FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
         contourLength[cn] = vectoriser->contourSize( cn);
     }
     
-    FTGL_DOUBLE* sidemesh = new FTGL_DOUBLE[ numPoints * 3];
-    vectoriser->GetOutline( sidemesh);
-    
-    delete vectoriser;
-    
     // Draw the glyph
     int offset = 0;
     glList = glGenLists(1);
@@ -114,61 +107,42 @@ FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
             glEnd();
         }
         
-        FT_OutlineGlyph outline = (FT_OutlineGlyph)glyph;
-        FT_Outline ftOutline = outline->outline;
-        int contourFlag = ftOutline.flags; // this is broken for winding direction in freetype...           
-        // BUT THIS DOESN'T WORK EITHER!!!!!
-//      bool winding = Winding( contourLength[0], sidemesh);
-                        
-    // Join them together.
-        // Extrude each contour to make the sides.
-        FTGL_DOUBLE* contour = sidemesh;
-        for (int c=0; c<numContours; ++c)
+        int contourFlag = vectoriser->ContourFlag();
+        
+        for( unsigned int c = 0; c < numContours; ++c)
         {
-            // Make a quad strip using each successive
-            // pair of points in this contour.
-            numPoints = contourLength[c];
+            FTContour* contour = vectoriser->Contour(c);
+            unsigned int numPoints = contour->Points();
             
             glBegin( GL_QUAD_STRIP);
-
-                for( unsigned int j= 0; j <= numPoints; ++j)
+                for( unsigned int j = 0; j <= numPoints; ++j)
                 {
-                    int j1 = (j < numPoints) ? j : 0;
-                    int j0 = (j1 == 0) ? (numPoints-1) : (j1-1);
-
-                    FTGL_DOUBLE* p0 = contour + j0*3;
-                    FTGL_DOUBLE* p1 = contour + j1*3;
-
-                    // Compute normal for this quad.
-                    FTGL_DOUBLE vx = p1[0] - p0[0];
-                    FTGL_DOUBLE vy = p1[1] - p0[1];
-                    // Normalise
-                    FTGL_DOUBLE length = sqrt( ( ( vx * vx) + ( vy * vy)));
-                    vx /= length; vy /= length;
-                    glNormal3d(-vy, vx, 0.0);
+                    unsigned int index = ( j == numPoints) ? 0 : j;
+                    unsigned int nextIndex = ( index == numPoints - 1) ? 0 : index + 1;
+                    
+                    FTPoint normal = GetNormal( contour->Point(index), contour->Point(nextIndex));
+                    glNormal3f( normal.x, normal.y, 0.0f);
                     
                     // Add vertices to the quad strip.
                     // Winding order
                     if( contourFlag & ft_outline_reverse_fill)
-//                  if( winding)
                     {
-                        glVertex3d(p0[0], p0[1], 0);
-                        glVertex3d(p0[0], p0[1], -depth);
+                        glVertex3f( contour->Point(index).x / 64.0f, contour->Point(index).y / 64.0f, 0.0f);
+                        glVertex3f( contour->Point(index).x / 64.0f, contour->Point(index).y / 64.0f, -depth);
                     }
                     else
                     {
-                        glVertex3d(p0[0], p0[1], -depth);
-                        glVertex3d(p0[0], p0[1], 0);
+                        glVertex3f( contour->Point(index).x / 64.0f, contour->Point(index).y / 64.0f, -depth);
+                        glVertex3f( contour->Point(index).x / 64.0f, contour->Point(index).y / 64.0f, 0.0f);
                     }
                 } // for
             glEnd();
-            contour += numPoints*3;
         } // for 
-        
         
     glEndList();
 
-    delete [] sidemesh; // FIXME
+    delete vectoriser;
+    
     delete [] frontMesh;
     delete [] backMesh;
     delete [] contourLength;
@@ -193,3 +167,26 @@ float FTExtrdGlyph::Render( const FTPoint& pen)
     
     return advance;
 }
+
+
+FTPoint FTExtrdGlyph::GetNormal( const FTPoint &a, const FTPoint &b)
+{
+    float vectorX = a.x - b.x;
+    float vectorY = a.y - b.y;
+                              
+    float length = sqrt( vectorX * vectorX + vectorY * vectorY );
+    
+    if( length > 0.0f)
+    {
+        length = 1 / length;
+    }
+    else
+    {
+        length = 0.0f;
+    }
+    
+    return FTPoint( -vectorY * length,
+                     vectorX * length,
+                     0.0f);
+}
+

@@ -12,39 +12,30 @@ FTOutlineGlyph::FTOutlineGlyph( FT_Glyph glyph)
     }
 
     FTVectoriser* vectoriser = new FTVectoriser( glyph);
-    
-    vectoriser->ProcessContours();
-    
-    unsigned int numPoints = vectoriser->points();
+
     unsigned int numContours = vectoriser->contours();
-    
-    if ( ( numContours < 1) || ( numPoints < 3))
+    if ( ( numContours < 1) || ( vectoriser->points() < 3))
     {
         delete vectoriser;
         return;
     }
-    
-    FTGL_DOUBLE* data = new FTGL_DOUBLE[ numPoints * 3];
-    vectoriser->GetOutline( data);
-    
-    int d = 0;
+
     glList = glGenLists(1);
     glNewList( glList, GL_COMPILE);
         for( unsigned int c = 0; c < numContours; ++c)
         {
+            FTContour* contour = vectoriser->Contour(c);
+            
             glBegin( GL_LINE_LOOP);
-                int contourLength = vectoriser->contourSize( c);
-                for( int p = 0; p < contourLength; ++p)
+                for( unsigned int p = 0; p < contour->Points(); ++p)
                 {
-                    glVertex2dv( data + d);
-                    d += 3;
+                    glVertex2f( contour->Point(p).x / 64.0f, contour->Point(p).y / 64.0f);
                 }
             glEnd();
         }
     glEndList();
 
     delete vectoriser;
-    delete [] data; // FIXME
 
     // discard glyph image (bitmap or not)
     FT_Done_Glyph( glyph); // Why does this have to be HERE

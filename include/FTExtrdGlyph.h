@@ -44,6 +44,17 @@ class FTGL_EXPORT FTExtrdGlyph : public FTGlyph
         
     private:
         /**
+         * Calculate the normal vector to 2 points. This is 2D and ignores
+         * the z component. The normal will be normalised
+         *
+         * @param a
+         * @param b
+         * @return
+         */
+        FTPoint GetNormal( const FTPoint &a, const FTPoint &b);
+        
+        
+        /**
          * OpenGL display list
          */
         GLuint glList;
