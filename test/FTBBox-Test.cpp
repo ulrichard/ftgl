@@ -60,7 +60,7 @@ class FTBBoxTest : public CppUnit::TestCase
         {
             FTBBox  boundingBox;
             FTPoint firstMove( 3.5f, 1.0f, -2.5f);
-            FTPoint secondtMove( -3.5f, -1.0f, 2.5f);
+            FTPoint secondMove( -3.5f, -1.0f, 2.5f);
             
             boundingBox.Move( firstMove);
         
@@ -71,7 +71,7 @@ class FTBBoxTest : public CppUnit::TestCase
             CPPUNIT_ASSERT( boundingBox.upperY ==  1.0f);
             CPPUNIT_ASSERT( boundingBox.upperZ == -2.5f);
 
-            boundingBox.Move( secondtMove);
+            boundingBox.Move( secondMove);
         
             CPPUNIT_ASSERT( boundingBox.lowerX == 0.0f);
             CPPUNIT_ASSERT( boundingBox.lowerY == 0.0f);
