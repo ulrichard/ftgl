@@ -1,11 +1,13 @@
-FTGL 1.21
-November 9 2001
+FTGL 1.3b3
+November 13 2001
 
 TODO:
 	- namespace ftgl or gltt?
 	- Distribution MACOS X
 	- Get rid of padding in texture font. It's not needed when using the
 	  global bounding box so FTSize should make that decision.
+	- make a decision about what units to use for font metrics!!!
+	- Hunt down and kill the bug in the polygon code.
 	
 FUTURE:
 	- select face ie italic, bold etc
@@ -19,17 +21,17 @@ FUTURE:
 	- Vertical formats
 	- For platforms that have antialiased lines but not polys we could
 	  outline the polyfonts with lines to get better looking glyphs.
-	- Improve the grid fitting scheme in texture fonts.
 	- Multiple Masters
 	- String Cache or string chunks
 	- Provide an interface to access the point data for outlines and
-	  polygon meshes.
-	- What effect does gluTessNormal() have?
-
+	  polygon meshes. Part way there with new vectoriser.
+	- Have a look at improving the algorthm for making curves. Maybe a
+	  distance metric might be the way to go so that rather than having
+	  5 polylines (0.2 step) for every curve, adjust the fineness for
+	  the length of the curve. But then you should also test the angle
+	  of the tangents as well.
 
 BUGS:
-	- Memory Leak in PolyGlyph (glCombine). This may disappear when access
-	  to the point data is sorted. NOTE this is not a fatal leak.
 	- Advance/Kerning is screwed up for really small point sizes eg 2 point.
 	  This is because I'm trying to use FT_Vector which is integer based.
 	  I will probably have to make my own struct with floats.

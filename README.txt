@@ -1,9 +1,10 @@
-FTGL 1.21
-November 9 2001
+FTGL 1.3b3
+November 13 2001
 
 DESCRIPTION:
-FTGL library is a cross platform tool to allow OpenGL (www.opengl.org) to
-render characters from arbitrary fonts.
+
+FTGL is a free open source library to enable developers to use arbitrary
+fonts in their OpenGL (www.opengl.org)  applications.
 Unlike other OpenGL font libraries FTGL uses standard font file formats
 so doesn't need a preprocessing step to convert the high quality font data
 into a lesser quality, proprietary format.
@@ -13,10 +14,11 @@ for OpenGL rendering.
 
 Rendering modes supported are
 - Bit maps
-- Pix maps
+- Antialiased Pix maps
 - Texture maps
 - Outlines
 - Polygon meshes
+- Extruded polygon meshes
 
 FTGL is designed to be used in commercial quality software. It has been
 written with performance, robustness and simplicity in mind.
@@ -31,11 +33,12 @@ USAGE:
 	font.render( "Hello World!");
 
 This library was inspired by gltt, Copyright (C) 1998-1999 Stephane Rehel
-( gltt.sourceforge.net)
+(http://gltt.sourceforge.net)
 Bezier curve code contributed by Jed Soane.
-Demo, Linux port and gltt maintainance by Gerard Lanois
+Demo, Linux port, extrusion code and gltt maintainance by Gerard Lanois
 Linux port by Matthias Kretz
 Windows port by Max Rheiner
+Bug fixes by Robert Osfield
 
 Please contact me if you have any suggestions, feature requests, or problems.
 
@@ -65,21 +68,9 @@ init function so that they can return errors.
 
 good site...http://cgm.cs.mcgill.ca/~luc/
 
-PROFILING
-test 1
-100,000 frames. No openGL context.
-The results of the first profile are in and as expected using freetype to
-return the char index for a glyph is costing us. A staggering 10% of the
-rendering time in fact!!! Kerning has a similar impact.
+	glGetIntegerv( GL_TEXTURE_2D_BINDING_EXT, &activeTextureID);
+should really check at run time.
 
-test 2
-100,000 frames. No openGL context.
-Performance results for the new FTCharmap class are quite satisfying:)
-The overall render time went from 12.009 seconds down to 4.595. The
-charIndex call went from 9.066 to 1.754. My concerns about the performance
-of std::map seemed to be unfounded in this case. Kerning is still an issue
-as can be seen in the proportional difference in these figures. I don't think
-this can be resolved easily.
 
 
 Check that I do this properly..

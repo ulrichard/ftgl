@@ -1,4 +1,22 @@
-FTGL 1.21
+FTGL 1.3b3
+November 13 2001
+
+ 	1.3b3 (FTGL_1_3_BETA_3)
+	- Texture fonts now behave the same as the others and can be loaded on
+	  demand. This made FTGLTextureFont MUCH simpler!!!! It has also
+	  improved the grid fitting so less texture mem is needed.
+	- Refactored FTVectoriser...
+	  This now builds contours and meshes internally and then passes the
+	  raw point data onto the glyphs. The gluTess data is captured in an
+	  internal non static data structure fixing a memory Leak in PolyGlyph
+	  (glCombine). This has enabled...
+	- Extruded fonts. FTGLExtrdFont & FTExtrdGlyph.
+	- Reversed the winding for polyglyphs, extruded glyphs and texture
+	  glyphs to make them CCW
+	- Bounding box function
+	- Fixed the != and == operators in ftPoint
+	- Un-virtualised some functions in FTFont
+	- Added a demo app to dist.
 
 November 9 2001
  	1.21 (FTGL_1_2_1)
