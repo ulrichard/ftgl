@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include <cppunit/extensions/HelperMacros.h>
 #include <cppunit/TestCaller.h>
 #include <cppunit/TestCase.h>
@@ -29,6 +31,7 @@ class FTMeshTest : public CppUnit::TestCase
 {
         CPPUNIT_TEST_SUITE( FTMeshTest);
             CPPUNIT_TEST( testAddPoint);
+            CPPUNIT_TEST( testTooManyPoints);
         CPPUNIT_TEST_SUITE_END();
         
     public:
@@ -40,8 +43,11 @@ class FTMeshTest : public CppUnit::TestCase
 
         void testAddPoint()
         {
-            FTMesh mesh;
+            FTGL_DOUBLE testPoint[3] = { 1, 2, 3};
+            FTGL_DOUBLE* hole[] = { 0, 0, 0, 0};
 
+            FTMesh mesh;
+            CPPUNIT_ASSERT( mesh.TesselationCount() == 0);
             CPPUNIT_ASSERT( mesh.Tesselation(0)->PointCount() == 0);
             
             ftglBegin( GL_TRIANGLES, &mesh);
@@ -51,6 +57,7 @@ class FTMeshTest : public CppUnit::TestCase
             ftglVertex( &POINT_DATA[9], &mesh);
             ftglEnd( &mesh);
             
+            CPPUNIT_ASSERT( mesh.TesselationCount() == 1);
             CPPUNIT_ASSERT( mesh.Tesselation(0)->PolygonType() == GL_TRIANGLES);
             CPPUNIT_ASSERT( mesh.Tesselation(0)->PointCount() == 4);
             CPPUNIT_ASSERT( mesh.Error() == 0);
@@ -60,10 +67,12 @@ class FTMeshTest : public CppUnit::TestCase
             ftglVertex( &POINT_DATA[15], &mesh);
             ftglError( 2, &mesh);
             ftglVertex( &POINT_DATA[18], &mesh);
+            ftglCombine( testPoint, NULL, NULL, (void**)hole, &mesh);
             ftglVertex( &POINT_DATA[21], &mesh);
             ftglError( 3, &mesh);
             ftglEnd( &mesh);
 
+            CPPUNIT_ASSERT( mesh.TesselationCount() == 2);
             CPPUNIT_ASSERT( mesh.Tesselation(0)->PointCount() == 4);
             CPPUNIT_ASSERT( mesh.Tesselation(1)->PolygonType() == GL_QUADS);
             CPPUNIT_ASSERT( mesh.Tesselation(1)->PointCount() == 4);
@@ -72,6 +81,29 @@ class FTMeshTest : public CppUnit::TestCase
             CPPUNIT_ASSERT( mesh.TesselationCount() == 2);
         }
         
+        
+        void testTooManyPoints()
+        {
+            FTGL_DOUBLE testPoint[3] = { 1, 2, 3};
+
+            FTGL_DOUBLE* testOutput[] = { 0, 0, 0, 0};
+            FTGL_DOUBLE* hole[] = { 0, 0, 0, 0};
+            
+            FTMesh mesh;
+        
+            ftglBegin( GL_TRIANGLES, &mesh);
+            ftglCombine( testPoint, NULL, NULL, (void**)testOutput, &mesh);
+            
+            for( unsigned int x = 0; x < 300; ++x)
+            {
+                ftglCombine( testPoint, NULL, NULL, (void**)hole, &mesh);            
+            }
+            
+            ftglEnd( &mesh);
+            
+            CPPUNIT_ASSERT( *testOutput == &(mesh.tempPointList[0].x));
+        
+        }
         
         void setUp() 
         {}
