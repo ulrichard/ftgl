@@ -19,6 +19,7 @@ class FTBBoxTest : public CppUnit::TestCase
         CPPUNIT_TEST( testGlyphConstructor);
         CPPUNIT_TEST( testMoveBBox);
         CPPUNIT_TEST( testPlusEquals);
+        CPPUNIT_TEST( testSetDepth);
     CPPUNIT_TEST_SUITE_END();
         
     public:
@@ -117,6 +118,24 @@ class FTBBoxTest : public CppUnit::TestCase
             CPPUNIT_ASSERT_DOUBLES_EQUAL(  75, boundingBox2.upperX, 0.01);
             CPPUNIT_ASSERT_DOUBLES_EQUAL(  38, boundingBox2.upperY, 0.01);
             CPPUNIT_ASSERT_DOUBLES_EQUAL(   0, boundingBox2.upperZ, 0.01);
+
+            tearDownFreetype();
+        }
+        
+        void testSetDepth()
+        {
+            setUpFreetype();
+            
+            FTBBox boundingBox( face->glyph);
+            
+            boundingBox.SetDepth( 37.754);
+            
+            CPPUNIT_ASSERT_DOUBLES_EQUAL(   2, boundingBox.lowerX, 0.01);
+            CPPUNIT_ASSERT_DOUBLES_EQUAL( -15, boundingBox.lowerY, 0.01);
+            CPPUNIT_ASSERT_DOUBLES_EQUAL(   0, boundingBox.lowerZ, 0.01);
+            CPPUNIT_ASSERT_DOUBLES_EQUAL(  35, boundingBox.upperX, 0.01);
+            CPPUNIT_ASSERT_DOUBLES_EQUAL(  38, boundingBox.upperY, 0.01);
+            CPPUNIT_ASSERT_DOUBLES_EQUAL(  37.754, boundingBox.upperZ, 0.01);
 
             tearDownFreetype();
         }
