@@ -59,9 +59,10 @@ float FTGlyphContainer::Advance( unsigned int index, unsigned int next)
 }
 
 
-FT_Vector& FTGlyphContainer::render( unsigned int index, unsigned int next, FT_Vector pen)
+FTPoint FTGlyphContainer::render( unsigned int index, unsigned int next, FTPoint pen)
 {
-	kernAdvance.x = 0; kernAdvance.y = 0;
+	FTPoint kernAdvance;
+    float advance = 0;
 	
 	unsigned int left = face->CharIndex( index);
 	unsigned int right = face->CharIndex( next);

@@ -8,6 +8,7 @@
 #include "FTGL.h"
 #include "FTVector.h"
 #include "FTGlyph.h"
+#include "FTPoint.h"
 
 class FTFace;
 
@@ -71,7 +72,7 @@ class FTGL_EXPORT FTGlyphContainer
          * @param pen   the position to render the glyph
          * @return      The distance to advance the pen position after rendering
          */
-        FT_Vector& render( unsigned int index, unsigned int next, FT_Vector pen);
+        FTPoint render( unsigned int index, unsigned int next, FTPoint pen);
         
         /**
          * Queries the Font for errors.
@@ -95,16 +96,6 @@ class FTGL_EXPORT FTGlyphContainer
          * The current Freetype face
          */
         FTFace* face;
-
-        /**
-         * The kerning vector for the current pair of glyphs
-         */
-        FT_Vector kernAdvance;
-
-        /**
-         * The advance for the glyph being rendered
-         */
-        float advance;
 
         /**
          * A structure to hold the glyphs
