@@ -200,7 +200,7 @@ class FTGL_EXPORT FTVectoriser
          * @param c     The contour index
          * @return      the number of points in contour[c]
          */
-        size_t contourSize( int c) const { return contourList[c]->size();}
+        size_t contourSize( int c) const { return contourList[c]->Points();}
 
         /**
          * Get the flag for the tesselation rule for this outline

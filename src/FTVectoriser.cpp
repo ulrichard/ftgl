@@ -163,7 +163,7 @@ int FTVectoriser::points()
     int s = 0;
     for( size_t c = 0; c < contours(); ++c)
     {
-        s += contourList[c]->size();
+        s += contourList[c]->Points();
     }
     
     return s;
@@ -177,10 +177,10 @@ void FTVectoriser::GetOutline( FTGL_DOUBLE* data)
     {
         const FTContour* contour = contourList[c];
         
-        for( size_t p = 0; p < contour->size(); ++p)
+        for( size_t p = 0; p < contour->Points(); ++p)
         {
-            data[i] = static_cast<FTGL_DOUBLE>(contour->pointList[p].x / 64.0f);
-            data[i + 1] = static_cast<FTGL_DOUBLE>(contour->pointList[p].y / 64.0f);
+            data[i] = static_cast<FTGL_DOUBLE>(contour->Point(p).x / 64.0f);
+            data[i + 1] = static_cast<FTGL_DOUBLE>(contour->Point(p).y / 64.0f);
             data[i + 2] = 0.0f;
             i += 3;
         }
@@ -225,9 +225,9 @@ void FTVectoriser::MakeMesh( FTGL_DOUBLE zNormal)
 
             gluTessBeginContour( tobj);
             
-                for( size_t p = 0; p < contour->size(); ++p)
+                for( size_t p = 0; p < contour->Points(); ++p)
                 {
-                    FTGL_DOUBLE* d = const_cast<FTGL_DOUBLE*>(&contour->pointList[p].x);
+                    FTGL_DOUBLE* d = const_cast<FTGL_DOUBLE*>(&contour->Point(p).x);
                     gluTessVertex( tobj, d, d);
                 }
 
