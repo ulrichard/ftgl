@@ -1,17 +1,34 @@
-Freetype User Guide
+FTGL User Guide
 (work in progress)
 
 Introduction
 
+OpenGL doesn't provide direct font support, so the application must use any of OpenGL's other features for font rendering, such as drawing bitmaps or pixmaps, creating texture maps containing an entire character set, drawing character outlines, or creating 3D geometry for each character.
+
+
+One thing all of these systems have in commen is they require a pre-processing stage to take the native fonts and convert them into proprietry format.
+
+FTGL was borne out of the need to treat fonts in openGL applications just like any other application. For example when using Photoshop you don't need an intermediate pre-processing step to use high quality scalable fonts.
+
 Choosing a font type
+FTGL supports 5 font output types in 3 groups, raster fonts, vector fonts and texure fonts which are a mixture of both. Each font type has it's advantages and disadvantages
 
-
--  Outline
--  Polygonal
--  Texture mapped
+The two raster types are
 -  Bitmapped
 -  Antialiased pixmapped
 
+
+
+
+The vector types are
+-  Outline
+-  Polygonal
+
+
+
+
+-  Texture mapped
+This is probably the most versatile type. It is fast, antialised and can be transformed just like any openGL primitive.
 
 Creating a font
 
@@ -22,16 +39,42 @@ Creating a font
 	
 	font.render( "Hello World!");
 
+	FTFont::Open( string, cache);
+	const char* string;	
+	bool cache;			
+
+A side effect of this is you can specify a sub set of glyphs to be pre-loaded. This will let you use larger higher quality glyphs without consuming huge amounts of ram as you would if you laoded the entire font. For example if your application only needs numbers, eg for scores, you can use the following code to preload them.
+
+	// Open the font with pre-cache set to false
+	font.Open( "Fonts:Arial", false);
+	
+	// Set the size
+	font.FaceSize( 72);
+	
+	// Cause the font to preload the number chars without rendering them.
+	font.Advance( "0123456789");
+
+
 
 More font commands
+
+
+
 
 Specifying a character map encoding.
 
 From the freetype docs...
-By default, when a new face object is created, (freetype) lists all the charmaps contained in the font face and selects the one that supports Unicode character codes if it finds one. Otherwise, it tries to find support for Latin-1, then ASCII.
+"By default, when a new face object is created, (freetype) lists all the charmaps contained in the font face and selects the one that supports Unicode character codes if it finds one. Otherwise, it tries to find support for Latin-1, then ASCII."
 
+It then gives up. In this case FTGL will set the charmap to the first it finds in the fonts charmap list.
 
-Sets the character map for the face.
+You can expilcitly set the char encoding with Charmap:
+	bool FTFont::CharMap( encoding);
+	FT_Encoding encoding;	Freetype code
+	
+for example...
+font.CharMap( ft_encoding_apple_roman);
+
 Valid encodings as at Freetype 2.0.4
 	ft_encoding_none
 	ft_encoding_symbol
@@ -47,13 +90,88 @@ Valid encodings as at Freetype 2.0.4
 	ft_encoding_adobe_custom
 	ft_encoding_apple_roman
 
-You can expilcitly set the char encoding...
-font.CharMap( ft_encoding_apple_roman);
-This will return an error if the encoding can't be found.
+This will return an error if the requested encoding can't be found in the font.
 
 
-
-Problems
 
 FAQ
 
+Sample font manager class.
+
+FTGLTextureFont* myFont = FTGLFontManager::Instance().GetFont( "arial.ttf", 72);
+
+#include	<map>
+#include	"FTGLTextureFont.h"
+
+using namespace std;
+
+typedef map< string, FTFont*> FontList;
+typedef FontList::const_iterator FontIter;
+
+class FTGLFontManager
+{
+	public:
+		static FTGLFontManager& Instance()
+		{
+			static FTGLFontManager tm;
+			return tm;
+		}
+		
+		~FTGLFontManager()
+		{
+    		FontIter font;
+		    for( font = fonts.begin(); font != fonts.end(); font++)
+    		{
+    		    delete (*font).second;;
+		    }
+    
+			fonts.clear();
+		}
+
+		
+		FTFont* GetFont( const char *filename, int size)
+		{
+			char buf[256];
+			sprintf(buf, "%s%i", filename, size);
+			string fontKey = string(buf);
+			
+			FontIter result = fonts.find( fontKey);
+			if( result != fonts.end())
+			{
+				LOGMSG( "Found font %s in list", filename);
+				return result->second;
+			}
+		
+			FTFont* font = new FTGLTextureFont;
+			
+			string fullname = path + string( filename);
+			
+			if( !font->Open( fullname.c_str()))
+			{
+				LOGERROR( "Font %s failed to open", fullname.c_str());
+				return NULL;
+			}
+			
+			if( !font->FaceSize( size))
+			{
+				LOGERROR( "Font %s failed to set size %i", filename, size);
+				return NULL;
+			}
+		
+			fonts[fontKey] = font;
+			
+			return font;
+		
+		}
+	
+		
+	private:
+		// Hide these 'cause this is a singleton.
+		FTGLFontManager(){}
+		FTGLFontManager( const FTGLFontManager&){};
+		FTGLFontManager& operator = ( const FTGLFontManager&){ return *this;};
+		
+		// container for fonts
+		FontList fonts;
+	
+};
