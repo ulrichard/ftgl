@@ -9,6 +9,7 @@
 
 #include "FTGlyph.h"
 
+using namespace std;
 
 // template < typename T>
 // class ftLoop
