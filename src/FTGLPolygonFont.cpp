@@ -20,8 +20,11 @@ bool FTGLPolygonFont::MakeGlyphList()
 	{
 		FT_Glyph* ftGlyph = face.Glyph( n, FT_LOAD_NO_HINTING | FT_LOAD_NO_BITMAP);
 		
-		tempGlyph = new FTPolyGlyph( *ftGlyph, n);
-		glyphList->Add( tempGlyph);
+		if( ftGlyph)
+		{
+			tempGlyph = new FTPolyGlyph( *ftGlyph, n);
+			glyphList->Add( tempGlyph);
+		}
 	}
 	
 	return !err;

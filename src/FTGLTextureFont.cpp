@@ -117,22 +117,25 @@ unsigned int FTGLTextureFont::FillGlyphs( unsigned int glyphStart, int id, int w
 	{
 		FT_Glyph* ftGlyph = face.Glyph( n, FT_LOAD_NO_HINTING);
 		
-		unsigned char* data = textdata + (( currentTextY * width) + currentTextX);
-		
-		currTextU = (float)currentTextX / (float)width;
-		
-		tempGlyph = new FTTextureGlyph( *ftGlyph, n, id, data, width, height, currTextU, currTextV);
-		glyphList->Add( tempGlyph);
-		
-		currentTextX += glyphWidth;
-		if( currentTextX > ( width - glyphWidth))
+		if( ftGlyph)
 		{
-			currentTextY += glyphHeight;
-			if( currentTextY > ( height - glyphHeight))
-				return n;
-				
-			currentTextX = padding;
-			currTextV = (float)currentTextY / (float)height;
+			unsigned char* data = textdata + (( currentTextY * width) + currentTextX);
+			
+			currTextU = (float)currentTextX / (float)width;
+			
+			tempGlyph = new FTTextureGlyph( *ftGlyph, n, id, data, width, height, currTextU, currTextV);
+			glyphList->Add( tempGlyph);
+			
+			currentTextX += glyphWidth;
+			if( currentTextX > ( width - glyphWidth))
+			{
+				currentTextY += glyphHeight;
+				if( currentTextY > ( height - glyphHeight))
+					return n;
+					
+				currentTextX = padding;
+				currTextV = (float)currentTextY / (float)height;
+			}
 		}
 	}
 

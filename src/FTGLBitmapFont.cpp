@@ -23,8 +23,11 @@ bool FTGLBitmapFont::MakeGlyphList()
 		FT_Glyph* ftGlyph = face.Glyph( c, FT_LOAD_DEFAULT);
 //		FT_HAS_VERTICAL(face)
 
-		tempGlyph = new FTBitmapGlyph( *ftGlyph, c);
-		glyphList->Add( tempGlyph);
+		if( ftGlyph)
+		{
+			tempGlyph = new FTBitmapGlyph( *ftGlyph, c);
+			glyphList->Add( tempGlyph);
+		}
 	}
 	
 	return !err;
