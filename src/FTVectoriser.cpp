@@ -92,7 +92,7 @@ int FTMesh::size() const
     for( size_t t = 0; t < tesselationList.size(); ++t)
     {
         s += tesselationList[t]->size();
-// FIXME What the hell is this for?
+// FIXME What the hell is this for? Data in FTPolyglyph
         ++s;
     }
     return s;
@@ -108,10 +108,13 @@ FTVectoriser::FTVectoriser( const FT_Glyph glyph)
     contourFlag(0),
     kBSTEPSIZE( 0.2f)
 {
-    FT_OutlineGlyph outline = (FT_OutlineGlyph)glyph;
-    ftOutline = outline->outline;
+    if( glyph)
+    {
+        FT_OutlineGlyph outline = (FT_OutlineGlyph)glyph;
+        ftOutline = outline->outline;
     
-    contourList.reserve( ftOutline.n_contours);
+        contourList.reserve( ftOutline.n_contours);
+    }
 }
 
 
@@ -141,13 +144,13 @@ int FTVectoriser::points()
 }
 
 
-bool FTVectoriser::Process()
+void FTVectoriser::Process()
 {
     short first = 0;
     short last;
-    const short cont = ftOutline.n_contours;
+    const short contourCount = ftOutline.n_contours;
     
-    for( short c = 0; c < cont; ++c)
+    for( short c = 0; c < contourCount; ++c)
     {
         contour = new FTContour;
         contourFlag = ftOutline.flags;
@@ -172,8 +175,6 @@ bool FTVectoriser::Process()
         contourList.push_back( contour);
         first = last + 1;
     }
-    
-    return true;
 }
 
 

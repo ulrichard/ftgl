@@ -219,10 +219,8 @@ class FTGL_EXPORT FTVectoriser
 
         /**
          * Process the freetype outline data into contours of points
-         *
-         * @return <code>true</code> on success
          */
-        bool Process();
+        void Process();
 
         /**
          * Copy the outline data into a block of <code>FTGL_DOUBLEs</code>
