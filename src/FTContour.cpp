@@ -6,62 +6,81 @@ static const unsigned int THIRD_ORDER_CURVE = 3;
 
 FTContour::FTContour( FT_Vector* contour, char* pointTags, unsigned int numberOfPoints)
 :   kBSTEPSIZE( 0.2f)
-{   
-    FTVector<ContourPoint> tempPointList;
-    
+{
     for( unsigned int pointIndex = 0; pointIndex < numberOfPoints; ++ pointIndex)
     {
-        if( pointIndex == numberOfPoints - 1)
+        char pointTag = pointTags[pointIndex];
+        
+        if( pointTag == FT_Curve_Tag_On)
         {
-            if( pointTags[pointIndex] == FT_Curve_Tag_Conic && pointTags[0] == FT_Curve_Tag_Conic)
-            {
-                tempPointList.push_back( ContourPoint( FTPoint( contour[pointIndex]), pointTags[pointIndex]));
-    
-                FTPoint implicitPoint( static_cast<float>( contour[pointIndex].x + contour[0].x) * 0.5f,
-                                       static_cast<float>( contour[pointIndex].y + contour[0].y) * 0.5f,
-                                       0);
-                tempPointList.push_back( ContourPoint( implicitPoint, FT_Curve_Tag_On));
-            }
-            else
-            {
-                tempPointList.push_back( ContourPoint( FTPoint( contour[pointIndex]), pointTags[pointIndex]));
-            }
+            AddPoint( FTPoint( contour[pointIndex]));
+            continue;
         }
-        else if( pointTags[pointIndex] == FT_Curve_Tag_Conic && pointTags[pointIndex + 1] == FT_Curve_Tag_Conic)
-        {
-            tempPointList.push_back( ContourPoint( FTPoint( contour[pointIndex]), pointTags[pointIndex]));
+        
+        FTPoint controlPoint( contour[pointIndex]);
+        FTPoint previousPoint = ( 0 == pointIndex)
+                                ? FTPoint( contour[numberOfPoints - 1])
+                                : pointList[pointList.size() - 1];
 
-            FTPoint implicitPoint( static_cast<float>( contour[pointIndex].x + contour[pointIndex + 1].x) * 0.5f,
-                                   static_cast<float>( contour[pointIndex].y + contour[pointIndex + 1].y) * 0.5f,
-                                   0);
-            tempPointList.push_back( ContourPoint( implicitPoint, FT_Curve_Tag_On));
-        }
-        else
+        FTPoint nextPoint = ( pointIndex == numberOfPoints - 1)
+                            ? pointList[0]
+                            : FTPoint( contour[pointIndex + 1]);
+
+        if( pointTag == FT_Curve_Tag_Conic)
         {
-            tempPointList.push_back( ContourPoint( FTPoint( contour[pointIndex]), pointTags[pointIndex]));
+            char nextPointTag = ( pointIndex == numberOfPoints - 1)
+                                ? pointTags[0]
+                                : pointTags[pointIndex + 1];
+            
+            while( nextPointTag == FT_Curve_Tag_Conic)
+            {
+                nextPoint = FTPoint( static_cast<float>( controlPoint.x + nextPoint.x) * 0.5f,
+                                     static_cast<float>( controlPoint.y + nextPoint.y) * 0.5f,
+                                     0);
+
+                ctrlPtArray[0][0] = previousPoint.x; ctrlPtArray[0][1] = previousPoint.y;
+                ctrlPtArray[1][0] = controlPoint.x;  ctrlPtArray[1][1] = controlPoint.y;
+                ctrlPtArray[2][0] = nextPoint.x;     ctrlPtArray[2][1] = nextPoint.y;
+                
+                evaluateCurve( SECOND_ORDER_CURVE);
+                ++pointIndex;
+                
+                previousPoint = nextPoint;
+                controlPoint = FTPoint( contour[pointIndex]);
+                nextPoint = ( pointIndex == numberOfPoints - 1)
+                            ? pointList[0]
+                            : FTPoint( contour[pointIndex + 1]);
+                nextPointTag = ( pointIndex == numberOfPoints - 1)
+                               ? pointTags[0]
+                               : pointTags[pointIndex + 1];
+            }
+            
+            ctrlPtArray[0][0] = previousPoint.x; ctrlPtArray[0][1] = previousPoint.y;
+            ctrlPtArray[1][0] = controlPoint.x;  ctrlPtArray[1][1] = controlPoint.y;
+            ctrlPtArray[2][0] = nextPoint.x;     ctrlPtArray[2][1] = nextPoint.y;
+            
+            evaluateCurve( SECOND_ORDER_CURVE);
+            continue;
+        }
+
+        if( pointTag == FT_Curve_Tag_Cubic)
+        {
+            FTPoint controlPoint2 = nextPoint;
+            
+            FTPoint nextPoint = ( pointIndex == numberOfPoints - 2)
+                                ? pointList[0]
+                                : FTPoint( contour[pointIndex + 2]);
+            
+            ctrlPtArray[0][0] = previousPoint.x; ctrlPtArray[0][1] = previousPoint.y;
+            ctrlPtArray[1][0] = controlPoint.x;  ctrlPtArray[1][1] = controlPoint.y;
+            ctrlPtArray[2][0] = controlPoint2.x; ctrlPtArray[2][1] = controlPoint2.y;
+            ctrlPtArray[3][0] = nextPoint.x;     ctrlPtArray[3][1] = nextPoint.y;
+        
+            evaluateCurve( THIRD_ORDER_CURVE);
+            ++pointIndex;
+            continue;
         }
     }
-
-    for( unsigned int pointIndex = 0; pointIndex < tempPointList.size();)
-    {
-        switch( tempPointList[pointIndex].tag)
-        {
-            case FT_Curve_Tag_Conic:
-                EvaluateConicCurve( pointIndex, tempPointList);
-                ++pointIndex;
-                break;
-            case FT_Curve_Tag_Cubic:
-                EvaluateCubicCurve( pointIndex, tempPointList);
-                pointIndex += 2;
-                break;
-            case FT_Curve_Tag_On:
-            default:
-                AddPoint( tempPointList[pointIndex].point);
-                ++pointIndex;
-                break;
-        }
-    }
-    
 }
 
 
@@ -71,61 +90,6 @@ void FTContour::AddPoint( FTPoint point)
     {
         pointList.push_back( point);
     }
-}
-
-
-void FTContour::EvaluateConicCurve( const int index, const FTVector<ContourPoint>& pointList)
-{
-    unsigned int controlPoint = index;
-    unsigned int startPoint = index -1;
-    unsigned int endPoint = index + 1;
-    
-    if( 0 == controlPoint)
-    {
-        startPoint = pointList.size() - 1;
-    }
-    else if( pointList.size() - 1 == controlPoint)
-    {
-        endPoint = 0;
-    }
-    
-    ctrlPtArray[0][0] = pointList[startPoint].point.x;   ctrlPtArray[0][1] = pointList[startPoint].point.y;
-    ctrlPtArray[1][0] = pointList[controlPoint].point.x; ctrlPtArray[1][1] = pointList[controlPoint].point.y;
-    ctrlPtArray[2][0] = pointList[endPoint].point.x;     ctrlPtArray[2][1] = pointList[endPoint].point.y;
-    
-    evaluateCurve( SECOND_ORDER_CURVE);
-}
-
-
-void FTContour::EvaluateCubicCurve( const int index, const FTVector<ContourPoint>& pointList)
-{
-    unsigned int controlPointOne = index;
-    unsigned int controlPointTwo = index + 1;
-    unsigned int startPoint = index -1;
-    
-    if( controlPointOne == pointList.size() - 1)
-    {
-        controlPointTwo = 0; 
-    }
-    
-    unsigned int endPoint = controlPointTwo + 1;
-    
-    if( controlPointTwo == pointList.size() - 1)
-    {
-        endPoint = 0;
-    }
-    
-    if( 0 == controlPointOne)
-    {
-        startPoint = pointList.size() - 1; 
-    }
-
-    ctrlPtArray[0][0] = pointList[startPoint].point.x;      ctrlPtArray[0][1] = pointList[startPoint].point.y;
-    ctrlPtArray[1][0] = pointList[controlPointOne].point.x; ctrlPtArray[1][1] = pointList[controlPointOne].point.y;
-    ctrlPtArray[2][0] = pointList[controlPointTwo].point.x; ctrlPtArray[2][1] = pointList[controlPointTwo].point.y;
-    ctrlPtArray[3][0] = pointList[endPoint].point.x;        ctrlPtArray[3][1] = pointList[endPoint].point.y;
-
-    evaluateCurve( THIRD_ORDER_CURVE);
 }
 
 
