@@ -18,6 +18,9 @@ class	FTSize
 		int	Descender() const;
 		int	Height() const;
 		int	Width() const;
+		int	Underline() const;
+
+		FT_Error Error() const { return err; }
 		
 		// attributes
 		
@@ -27,6 +30,8 @@ class	FTSize
 		// attributes
 		FT_Size   ftSize;
 		int	size;
+		
+		FT_Error err;
 		
 };
 
