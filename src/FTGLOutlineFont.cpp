@@ -17,8 +17,6 @@ FTGLOutlineFont::~FTGLOutlineFont()
 
 bool FTGLOutlineFont::MakeGlyphList()
 {
-	numGlyphs = 127; // FIXME hack
-	
 	for( unsigned int n = 0; n < numGlyphs; ++n)
 	{
 		FT_Glyph ftGlyph = face.Glyph( n, FT_LOAD_NO_HINTING | FT_LOAD_NO_BITMAP);

@@ -18,7 +18,6 @@ FTGLPixmapFont::~FTGLPixmapFont()
 bool FTGLPixmapFont::MakeGlyphList()
 {
 //	if( preCache)
-//	numGlyphs = 256; // FIXME hack
 	for( unsigned int c = 0; c < numGlyphs; ++c)
 	{
 		FT_Glyph ftGlyph = face.Glyph( c, FT_LOAD_DEFAULT);
