@@ -2,10 +2,8 @@
 
 
 // OPSignature:  FTGlyph:FTGlyph( FT_Face:face  int:glyphIndex ) 
-FTGlyph::FTGlyph( unsigned int gi)
+FTGlyph::FTGlyph()
 :	advance(0),
-	glyphIndex(gi),
-	ftGlyph(0),
 	err(0)	
 {
 	pos.x = 0;

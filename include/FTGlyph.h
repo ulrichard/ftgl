@@ -20,14 +20,12 @@
 class FTGlyph
 {
 	public:
-		// methods
-
 		/**
 		 * Constructor
 		 *
 		 * @param glyphIndex	The glyph index for this glyph
 		 */
-		FTGlyph( unsigned int glyphIndex);
+		FTGlyph();
 
 		/**
 		 * Destructor
@@ -37,7 +35,7 @@ class FTGlyph
 		/**
 		 * Renders this glyph at the current pen position.
 		 *
-		 * @param pen		The current pen position.
+		 * @param pen	The current pen position.
 		 * @return		The advance distance for this glyph.
 		 */
 		virtual float Render( const FT_Vector& pen) = 0;
@@ -49,18 +47,7 @@ class FTGlyph
 		 */
 		FT_Error Error() const { return err;}
 		
-		// attributes
-
-		/**
-		 * The glyph index
-		 */
-		const unsigned int glyphIndex; // FIXME make this private
-		
 	protected:
-		// methods
-		
-		// attributes
-
 		/**
 		 * The advance distance for this glyph
 		 */
@@ -72,20 +59,12 @@ class FTGlyph
 		FT_Vector pos;
 
 		/**
-		 * Temporary holder for the Freetype glyph
-		 */
-		FT_Glyph ftGlyph;
-		
-		/**
 		 * Current error code. Zero means no error.
 		 */
 		FT_Error err;
 		
 	private:
-		// methods
-		
-		// attributes
-		
+
 };
 
 
