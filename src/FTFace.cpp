@@ -26,7 +26,7 @@ FTFace::FTFace( const char* filename)
 }
 
 
-FTFace::FTFace( const unsigned char *pBufferBytes, size_t bufferSizeInBytes )
+FTFace::FTFace( const unsigned char *pBufferBytes, size_t bufferSizeInBytes)
 :   charMap(0),
     numGlyphs(0),
     err(0)
@@ -59,6 +59,19 @@ FTFace::~FTFace()
 bool FTFace::Attach( const char* filename)
 {
     err = FT_Attach_File( *ftFace, filename);
+    return !err;
+}
+
+
+bool FTFace::Attach( const unsigned char *pBufferBytes, size_t bufferSizeInBytes)
+{
+    FT_Open_Args open;
+
+    open.flags = (FT_Open_Flags)1; // FT_OPEN_MEMORY;
+    open.memory_base = pBufferBytes;
+    open.memory_size = bufferSizeInBytes;
+
+    err = FT_Attach_Stream( *ftFace, &open);
     return !err;
 }
 

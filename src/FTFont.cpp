@@ -41,6 +41,21 @@ bool FTFont::Attach( const char* filename)
 }
 
 
+bool FTFont::Attach( const unsigned char *pBufferBytes, size_t bufferSizeInBytes)
+{
+    if( face.Attach( pBufferBytes, bufferSizeInBytes))
+    {
+        err = 0;
+        return true;
+    }
+    else
+    {
+        err = face.Error();
+        return false;
+    }
+}
+
+
 bool FTFont::FaceSize( const unsigned int size, const unsigned int res )
 {
     charSize = face.Size( size, res);

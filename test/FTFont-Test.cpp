@@ -55,6 +55,7 @@ class FTFontTest : public CppUnit::TestCase
         CPPUNIT_TEST( testOpenFont);
         CPPUNIT_TEST( testOpenFontFromMemory);
         CPPUNIT_TEST( testAttachFile);
+        CPPUNIT_TEST( testAttachData);
         CPPUNIT_TEST( testSetFontSize);
         CPPUNIT_TEST( testSetCharMap);
         CPPUNIT_TEST( testBoundingBox);
@@ -89,6 +90,13 @@ class FTFontTest : public CppUnit::TestCase
     void testAttachFile()
     {
         testFont->Attach( GOOD_FONT_FILE);
+        CPPUNIT_ASSERT( testFont->Error() == 7);        
+    }
+    
+
+    void testAttachData()
+    {
+        testFont->Attach( (unsigned char*)100, 0);
         CPPUNIT_ASSERT( testFont->Error() == 7);        
     }
     

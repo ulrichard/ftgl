@@ -60,6 +60,18 @@ class FTGL_EXPORT FTFont
         bool Attach( const char* filename);
 
         /**
+         * Attach auxilliary data to font e.g font metrics, from memory
+         *
+         * Note: not all font formats implement this function.
+         *
+         * @param pBufferBytes  the in-memory buffer
+         * @param bufferSizeInBytes  the length of the buffer in bytes
+         * @return          <code>true</code> if file has been attached
+         *                  successfully.
+         */
+        bool Attach( const unsigned char *pBufferBytes, size_t bufferSizeInBytes);
+
+        /**
          * Set the character map for the face.
          *
          * @param encoding      Freetype enumerate for char map code.
