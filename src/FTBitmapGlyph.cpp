@@ -22,7 +22,7 @@ FTBitmapGlyph::FTBitmapGlyph( FT_Glyph glyph)
 	int srcHeight = source->rows;
 	int srcPitch = source->pitch;
     
-	advance = glyph->advance.x >> 16;
+	advance = static_cast<float>(glyph->advance.x >> 16);
 
  	pos.x = bitmap->left;
 	pos.y = srcHeight - bitmap->top;
