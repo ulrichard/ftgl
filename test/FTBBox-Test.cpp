@@ -44,7 +44,7 @@ class FTBBoxTest : public CppUnit::TestCase
         
         void testGlyphConstructor()
         {    
-            setUpFreetype();
+            setUpFreetype( GOOD_FONT_FILE);
 
 //            FTBBox boundingBox1( (FT_GlyphSlot)(0));
 
@@ -70,11 +70,10 @@ class FTBBoxTest : public CppUnit::TestCase
         
         void testBitmapConstructor()
         {
-            setUpFreetype();
+            setUpFreetype( GOOD_FONT_FILE);
             
-            FT_Error error =  FT_Render_Glyph( face->glyph, FT_RENDER_MODE_NORMAL);
+            FT_Load_Char( face, CHARACTER_CODE_G, FT_LOAD_MONOCHROME);
 
-            CPPUNIT_ASSERT( 0 != error);
             CPPUNIT_ASSERT( ft_glyph_format_bitmap != face->glyph->format);
 
             FTBBox boundingBox3( face->glyph);
@@ -115,7 +114,7 @@ class FTBBoxTest : public CppUnit::TestCase
         
         void testPlusEquals()
         {
-            setUpFreetype();
+            setUpFreetype( GOOD_FONT_FILE);
 
             FTBBox boundingBox1;
             FTBBox boundingBox2( face->glyph);
@@ -146,7 +145,7 @@ class FTBBoxTest : public CppUnit::TestCase
         
         void testSetDepth()
         {
-            setUpFreetype();
+            setUpFreetype( GOOD_FONT_FILE);
             
             FTBBox boundingBox( face->glyph);
             
@@ -173,16 +172,16 @@ class FTBBoxTest : public CppUnit::TestCase
         FT_Library   library;
         FT_Face      face;
 
-        void setUpFreetype()
+        void setUpFreetype( const char* fontName)
         {
             FT_Error error = FT_Init_FreeType( &library);
             assert(!error);
-            error = FT_New_Face( library, GOOD_FONT_FILE, 0, &face);
+            error = FT_New_Face( library, fontName, 0, &face);
             assert(!error);
             
             FT_Set_Char_Size( face, 0L, FONT_POINT_SIZE * 64, RESOLUTION, RESOLUTION);
             
-            error = FT_Load_Char( face, CHARACTER_CODE_G, FT_LOAD_DEFAULT);
+            error = FT_Load_Char( face, CHARACTER_CODE_G, FT_LOAD_RENDER);
             assert( !error);
         }
         
