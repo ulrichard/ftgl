@@ -1,10 +1,11 @@
 #ifndef		__FTSize__
 #define		__FTSize__
 
-#include "FTGL.h"
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
+
+#include "FTGL.h"
 
 
 

@@ -1,15 +1,13 @@
 #ifndef		__FTCharmap__
 #define		__FTCharmap__
 
-#include "FTGL.h"
-
 #include <map>
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include FT_GLYPH_H
 
-//#include "FTGL.h"
+#include "FTGL.h"
 
 using namespace std;
 

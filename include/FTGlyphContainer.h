@@ -8,11 +8,9 @@
 #include FT_GLYPH_H
 
 #include "FTGL.h"
-
-#include "FTGlyph.h"
+#include "FTGlyph.h" // for FTBBox
 
 class FTFace;
-//class FTGlyph;
 
 using namespace std;
 
