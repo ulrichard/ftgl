@@ -15,10 +15,12 @@ class ftPoint
 {
 	public:
 		ftPoint()
-		: x(0), y(0), z(0){}
+		: x(0), y(0), z(0)
+		{}
 		
 		ftPoint( const float X, const float Y, const float Z)
-		: x(X), y(Y), z(Z){}
+		: x(X), y(Y), z(Z)
+		{}
 		
 		friend bool operator == (const ftPoint &a, const ftPoint &b) 
 		{
@@ -71,9 +73,9 @@ class FTVectoriser
 		int points();
 		int contours() const { return contourList.size();}
 		int contourSize( int c) const { return contourList[c]->size();}
+		int ContourFlag() const { return contourFlag;}
 		
 		// attributes
-		int contourFlag; 
 		
 	private:
 		// methods
@@ -86,6 +88,7 @@ class FTVectoriser
 		vector< const FTContour*> contourList;
 			
 		FTContour* contour;
+		int contourFlag;
 
 		FT_Outline ftOutline;
 		
