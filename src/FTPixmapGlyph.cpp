@@ -35,7 +35,7 @@ FTPixmapGlyph::FTPixmapGlyph( FT_Glyph glyph, const unsigned int gi)
  	pos.x = bitmap->left;
 	pos.y = srcHeight - bitmap->top;
 	
-   // FIXME The buffer is upside down. What about dest alignment?
+   // FIXME What about dest alignment?
     destWidth = srcWidth;
     destHeight = srcHeight;
     

@@ -44,7 +44,7 @@ FT_Vector& FTGlyphContainer::render( unsigned int index, unsigned int next, FT_V
 	if( !face->Error())
 		advance = glyphs[left]->Render( pen);
 	
-	kernAdvance.x = advance + kernAdvance.x;
+	kernAdvance.x = advance + kernAdvance.x; // FIXME float to long
 //	kernAdvance.y = advance.y + kernAdvance.y;
 	return kernAdvance;
 }
