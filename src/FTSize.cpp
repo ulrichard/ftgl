@@ -15,7 +15,7 @@ FTSize::~FTSize()
 
 bool FTSize::CharSize( FT_Face* face, unsigned int point_size, unsigned int x_resolution, unsigned int y_resolution )
 {
-    err = FT_Set_Char_Size( *ftFace, 0L, point_size * 64, x_resolution, y_resolution);
+    err = FT_Set_Char_Size( *face, 0L, point_size * 64, x_resolution, y_resolution);
 
     if( !err)
     {
