@@ -95,11 +95,11 @@ float FTSize::Underline() const
 
 unsigned int FTSize::XPixelsPerEm() const
 {
-    return ftSize->metrics.x_ppem;
+    return ftSize == 0 ? 0 : ftSize->metrics.x_ppem;
 }
 
 unsigned int FTSize::YPixelsPerEm() const
 {
-    return ftSize->metrics.y_ppem;
+    return ftSize == 0 ? 0 : ftSize->metrics.y_ppem;
 }
 
