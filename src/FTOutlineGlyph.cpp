@@ -13,8 +13,8 @@ FTOutlineGlyph::FTOutlineGlyph( FT_Glyph glyph)
 
     FTVectoriser* vectoriser = new FTVectoriser( glyph);
 
-    unsigned int numContours = vectoriser->contours();
-    if ( ( numContours < 1) || ( vectoriser->points() < 3))
+    size_t numContours = vectoriser->ContourCount();
+    if ( ( numContours < 1) || ( vectoriser->PointCount() < 3))
     {
         delete vectoriser;
         return;
@@ -27,7 +27,7 @@ FTOutlineGlyph::FTOutlineGlyph( FT_Glyph glyph)
             FTContour* contour = vectoriser->Contour(c);
             
             glBegin( GL_LINE_LOOP);
-                for( unsigned int p = 0; p < contour->Points(); ++p)
+                for( unsigned int p = 0; p < contour->PointCount(); ++p)
                 {
                     glVertex2f( contour->Point(p).x / 64.0f, contour->Point(p).y / 64.0f);
                 }
