@@ -1,7 +1,7 @@
 #ifndef     __FTVectoriser__
 #define     __FTVectoriser__
 
-#include <vector>
+//#include <vector>
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
@@ -70,6 +70,9 @@ class FTGL_EXPORT ftPoint
 };
 
 
+#include "FTPointVector.h"
+
+
 /**
  * FTContour class is a container of points that describe an outline
  * point data.
@@ -129,7 +132,8 @@ class FTGL_EXPORT FTContour
         /**
          *  The list of points in this contour
          */
-        std::vector<ftPoint> pointList;
+        typedef FTPointVector PointVector;
+        PointVector pointList;
         
     private:
         /**
@@ -164,10 +168,15 @@ class FTGL_EXPORT FTTesselation
         size_t size() const { return pointList.size();}
 
         GLenum meshType;
-        std::vector<ftPoint> pointList;
+        typedef FTPointVector PointVector;
+        PointVector pointList;
+        
     private:
         
 };
+
+
+#include "FTTesselationVector.h"
 
 
 class FTGL_EXPORT FTMesh
@@ -186,8 +195,12 @@ class FTGL_EXPORT FTMesh
         void Error( GLenum e) { err = e;}
         GLenum Error() const { return err;}
 
-        std::vector<ftPoint> tempPool;
-        std::vector<FTTesselation*> tess;
+        typedef FTPointVector PointVector;
+        PointVector tempPool;
+        
+        typedef FTTesselationVector TesselationVector;
+        TesselationVector tess;
+        
     protected:
     
     private:
@@ -198,6 +211,9 @@ class FTGL_EXPORT FTMesh
         GLenum err;
 
 };
+
+
+#include "FTContourVector.h"
 
 
 /**
@@ -329,7 +345,8 @@ class FTGL_EXPORT FTVectoriser
         /**
          * The list of contours in this outline
          */
-        std::vector<const FTContour*> contourList;
+        typedef FTContourVector ContourVector;
+        ContourVector contourList;
             
         /**
          * A Mesh for tesselations
