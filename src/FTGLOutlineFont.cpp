@@ -27,7 +27,7 @@ FTGlyph* FTGLOutlineFont::MakeGlyph( unsigned int g)
 
 void FTGLOutlineFont::render( const char* string)
 {   
-    glPushAttrib( GL_ENABLE_BIT | GL_HINT_BIT | GL_LINE_BIT | GL_PIXEL_MODE_BIT);
+    glPushAttrib( GL_ENABLE_BIT | GL_HINT_BIT | GL_LINE_BIT | GL_COLOR_BUFFER_BIT);
     
     glDisable( GL_TEXTURE_2D);
     
@@ -45,7 +45,7 @@ void FTGLOutlineFont::render( const char* string)
 
 void FTGLOutlineFont::render( const wchar_t* string)
 {   
-    glPushAttrib( GL_ENABLE_BIT | GL_HINT_BIT | GL_LINE_BIT | GL_PIXEL_MODE_BIT);
+    glPushAttrib( GL_ENABLE_BIT | GL_HINT_BIT | GL_LINE_BIT | GL_COLOR_BUFFER_BIT);
     
     glDisable( GL_TEXTURE_2D);
     
