@@ -42,28 +42,20 @@ class FTGL_EXPORT FTFont
          * Open and read a font file.
          *
          * @param fontname  font file name.
-         * @param preCache  A flag to indicate whether or not to build
-         *                  a complete set of glyphs at startup
-         *                  (<code>true</code>) or as required
-         *                  (<code>false</code>). Defaults to true.
          * @return          <code>true</code> if file has opened
          *                  successfully.
          */
-        bool Open( const char* fontname, bool preCache = true);
+        bool Open( const char* fontname);
         
         /**
          * Open and read a font from a buffer in memory.
          *
          * @param pBufferBytes  the in-memory buffer
          * @param bufferSizeInBytes  the length of the buffer in bytes
-         * @param preCache  A flag to indicate whether or not to build
-         *                  a complete set of glyphs at startup
-         *                  (<code>true</code>) or as prequired
-         *                  (<code>false</code>). Defaults to true.
          * @return          <code>true</code> if file has opened
          *                  successfully.
          */
-        bool Open( const unsigned char *pBufferBytes, size_t bufferSizeInBytes, bool preCache = true);
+        bool Open( const unsigned char *pBufferBytes, size_t bufferSizeInBytes);
 
         /**
          * Attach auxilliary file to font (e.g., font metrics).
@@ -73,6 +65,15 @@ class FTGL_EXPORT FTFont
          */
         bool Attach( const char* filename);
 
+        /**
+         * Set the character map for the face.
+         *
+         * @param encoding      Freetype enumerate for char map code.
+         * @return              <code>true</code> if charmap was valid and
+         *                      set correctly
+         */
+        bool CharMap( FT_Encoding encoding );
+        
         /**
          * Set the char size for the current face.
          *
@@ -97,15 +98,6 @@ class FTGL_EXPORT FTFont
          */
         virtual void Depth( float d){}
 
-        /**
-         * Set the character map for the face.
-         *
-         * @param encoding      Freetype enumerate for char map code.
-         * @return              <code>true</code> if charmap was valid and
-         *                      set correctly
-         */
-        bool CharMap( FT_Encoding encoding );
-        
         /**
          * Get the global ascender height for the face.
          *
@@ -229,11 +221,6 @@ class FTGL_EXPORT FTFont
          * The number of glyphs in this font
          */
         unsigned int numGlyphs;
-        
-        /**
-         * Have glyphs been pre-cached
-         */
-        bool preCache;
         
         /**
          * Current pen or cursor position;

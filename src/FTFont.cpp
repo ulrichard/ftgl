@@ -8,7 +8,6 @@ FTFont::FTFont()
 :   numFaces(0),
     glyphList(0),
     numGlyphs(0),
-    preCache(true),
     err(0)
 {
     pen.x = 0;
@@ -22,10 +21,8 @@ FTFont::~FTFont()
 }
 
 
-bool FTFont::Open( const char* fontname, bool p)
+bool FTFont::Open( const char* fontname)
 {
-    preCache = p;
-    
     if( face.Open( fontname))
     {
         FT_Face* ftFace = face.Face();      
@@ -41,10 +38,8 @@ bool FTFont::Open( const char* fontname, bool p)
 }
 
 
-bool FTFont::Open( const unsigned char *pBufferBytes, size_t bufferSizeInBytes, bool p )
+bool FTFont::Open( const unsigned char *pBufferBytes, size_t bufferSizeInBytes)
 {
-    preCache = p;
-    
     if( face.Open( pBufferBytes, bufferSizeInBytes ))
     {
         FT_Face* ftFace = face.Face();      
@@ -69,20 +64,20 @@ bool FTFont::Attach( const char* filename)
 bool FTFont::FaceSize( const unsigned int size, const unsigned int res )
 {
     charSize = face.Size( size, res);
-
-    if( glyphList)
-        delete glyphList;
     
-    glyphList = new FTGlyphContainer( &face, numGlyphs, preCache);
-    
-    if( MakeGlyphList())
-    {
-        return true;
-    }
-    else
+    if( face.Error())
     {
         return false;
     }
+    
+    if( glyphList)
+    {
+        delete glyphList;
+    }
+    
+    glyphList = new FTGlyphContainer( &face, numGlyphs);
+    
+    return MakeGlyphList();
 }
 
 
@@ -94,19 +89,7 @@ unsigned int FTFont::FaceSize() const
 
 bool FTFont::MakeGlyphList()
 {
-    for( unsigned int c = 0; c < numGlyphs; ++c)
-    {
-        if( preCache)
-        {
-            glyphList->Add( MakeGlyph( c), c);
-        }
-        else
-        {
-            glyphList->Add( NULL, c);
-        }
-    }
-    
-    return !err; // FIXME what err?
+    return true;
 }
 
 
@@ -135,6 +118,12 @@ void FTFont::BBox( const char* string,
 {
     const unsigned char* c = (unsigned char*)string;
     llx = lly = llz = urx = ury = urz = 0.0f;
+    
+    if( !*string)
+    {
+        return;
+    }
+    
     FTBBox bbox;
  
     while( *c)
@@ -171,6 +160,12 @@ void FTFont::BBox( const wchar_t* string,
 {
     const wchar_t* c = string;
     llx = lly = llz = urx = ury = urz = 0.0f;
+    
+    if( !*string)
+    {
+        return;
+    }
+
     FTBBox bbox;
  
     while( *c)
