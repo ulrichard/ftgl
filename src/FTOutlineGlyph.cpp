@@ -77,9 +77,9 @@ float FTOutlineGlyph::Render( const FT_Vector& pen)
 {
     if( glList)
     {
-        glTranslatef( pen.x, pen.y, 0);
-            glCallList( glList);
-        glTranslatef( -pen.x, -pen.y, 0);
+        glTranslatef( pen.x, pen.y, 0.0f);
+        glCallList( glList);
+        glTranslatef( -pen.x, -pen.y, 0.0f);
     }
     
     return advance;

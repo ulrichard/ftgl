@@ -3,7 +3,7 @@
 
 
 FTGLExtrdFont::FTGLExtrdFont()
-:   depth(0)
+:   depth(0.0f)
 {}
 
 

@@ -88,10 +88,15 @@ class FTGL_EXPORT FTLibrary
 //      FTC_Manager* manager;
 
         /**
+         * Freetype library version.
+         */
+        int major, minor, patch;
+
+        /**
          * Current error code. Zero means no error.
          */
         FT_Error err;
-
         
 };
+
 #endif  //  __FTLibrary__

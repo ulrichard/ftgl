@@ -1,8 +1,6 @@
 #ifndef     __FTVectoriser__
 #define     __FTVectoriser__
 
-//#include <vector>
-
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include FT_GLYPH_H
@@ -111,7 +109,7 @@ class FTGL_EXPORT FTContour
          */
         void AddPoint( const FTGL_DOUBLE x, const FTGL_DOUBLE y)
         {
-            ftPoint point( x, y, 0.0); 
+            ftPoint point( x, y, 0.0f); 
             
             // Eliminate duplicate points.
             if( pointList.empty() || ( pointList[pointList.size() - 1] != point && pointList[0] != point))

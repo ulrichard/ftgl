@@ -139,7 +139,7 @@ void FTFont::BBox( const char* string,
                    float& llx, float& lly, float& llz, float& urx, float& ury, float& urz)
 {
     const unsigned char* c = (unsigned char*)string;
-    llx = lly = llz = urx = ury = urz = 0;
+    llx = lly = llz = urx = ury = urz = 0.0f;
     FTBBox bbox;
  
     while( *c)
@@ -175,7 +175,7 @@ void FTFont::BBox( const wchar_t* string,
                    float& llx, float& lly, float& llz, float& urx, float& ury, float& urz)
 {
     const wchar_t* c = string;
-    llx = lly = llz = urx = ury = urz = 0;
+    llx = lly = llz = urx = ury = urz = 0.0f;
     FTBBox bbox;
  
     while( *c)
@@ -211,7 +211,7 @@ void FTFont::BBox( const wchar_t* string,
 float FTFont::Advance( const wchar_t* string)
 {
     const wchar_t* c = string;
-    float width = 0;
+    float width = 0.0f;
 
     while( *c)
     {
@@ -226,7 +226,7 @@ float FTFont::Advance( const wchar_t* string)
 float FTFont::Advance( const char* string)
 {
     const unsigned char* c = (unsigned char*)string;
-    float width = 0;
+    float width = 0.0f;
 
     while( *c)
     {

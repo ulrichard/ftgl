@@ -220,8 +220,8 @@ int FTVectoriser::Conic( const int index, const int first, const int last)
             next2 = first;
         
         // create a phantom point
-        float x = ( ftOutline.points[index].x + ftOutline.points[next].x) / 2;
-        float y = ( ftOutline.points[index].y + ftOutline.points[next].y) / 2;
+        float x = ( ftOutline.points[index].x + ftOutline.points[next].x) * 0.5f;
+        float y = ( ftOutline.points[index].y + ftOutline.points[next].y) * 0.5f;
         
         // process first curve
         ctrlPtArray[0][0] = ftOutline.points[prev].x;   ctrlPtArray[0][1] = ftOutline.points[prev].y;
@@ -321,7 +321,7 @@ void FTVectoriser::GetOutline( FTGL_DOUBLE* data)
         {
             data[i] = static_cast<FTGL_DOUBLE>(contour->pointList[p].x / 64.0f); // is 64 correct?
             data[i + 1] = static_cast<FTGL_DOUBLE>(contour->pointList[p].y / 64.0f);
-            data[i + 2] = 0.0; // static_cast<FTGL_DOUBLE>(contour->pointList[p].z / 64.0f);
+            data[i + 2] = 0.0f; // static_cast<FTGL_DOUBLE>(contour->pointList[p].z / 64.0f);
             i += 3;
         }
     }
@@ -357,7 +357,7 @@ void FTVectoriser::MakeMesh( FTGL_DOUBLE zNormal)
     
     
     gluTessProperty( tobj, GLU_TESS_TOLERANCE, 0);
-    gluTessNormal( tobj, 0.0, 0.0, zNormal);
+    gluTessNormal( tobj, 0.0f, 0.0f, zNormal);
     gluTessBeginPolygon( tobj, mesh);
     
         for( size_t c = 0; c < contours(); ++c)
@@ -402,9 +402,8 @@ void FTVectoriser::GetMesh( FTGL_DOUBLE* data)
         {
             data[i] = tess->pointList[q].x / 64.0f; // is 64 correct?
             data[i + 1] = tess->pointList[q].y / 64.0f;
-            data[i + 2] = 0.0; // static_cast<FTGL_DOUBLE>(mesh->pointList[p].z / 64.0f);
+            data[i + 2] = 0.0f; // static_cast<FTGL_DOUBLE>(mesh->pointList[p].z / 64.0f);
             i += 3;
-        
         }
 
     }
