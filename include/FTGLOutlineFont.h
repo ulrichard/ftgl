@@ -1,8 +1,8 @@
 #ifndef		__FTGLOutlineFont
 #define		__FTGLOutlineFont
 
-#include	"FTFont.h"
 
+#include	"FTFont.h"
 #include "FTGL.h"
 
 
@@ -15,8 +15,6 @@ class	FTGLOutlineFont : public FTFont
 		FTGLOutlineFont();
 		~FTGLOutlineFont();
 		
-//		bool render( const char* string);
-		
 		// attributes
 		
 	private:
@@ -25,7 +23,6 @@ class	FTGLOutlineFont : public FTFont
 		
 		// attributes
 		FTVectorGlyph* tempGlyph;
-
-		
+	
 };
 #endif

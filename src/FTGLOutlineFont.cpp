@@ -1,5 +1,3 @@
-#include	"gl.h"
-
 #include	"FTGLOutlineFont.h"
 #include	"FTGlyphContainer.h"
 #include	"FTGL.h"
@@ -8,31 +6,12 @@
 
 
 FTGLOutlineFont::FTGLOutlineFont()
-//Insert your own initialization here.
-
-//End of user initialization.         
-{
-//Insert your own code here.
-
-//End of user code.         
-}
+:	tempGlyph(0)
+{}
 
 
 FTGLOutlineFont::~FTGLOutlineFont()
-{
-//Insert your own code here.
-
-//End of user code.         
-}
-
-
-//bool FTGLOutlineFont::render( const char* string)
-//{
-//
-//	glBegin( GL_LINE_LOOP);
-//		FTFont::render( string);
-//	glEnd();
-//}
+{}
 
 
 bool FTGLOutlineFont::MakeGlyphList()
@@ -40,7 +19,6 @@ bool FTGLOutlineFont::MakeGlyphList()
 	int glyphIndex;
 	
 	numGlyphs = 127;
-	
 	for( int n = 0; n < numGlyphs; ++n)
 	{
 		FT_Face* ftFace = face.Face();
