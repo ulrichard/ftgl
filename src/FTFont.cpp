@@ -1,6 +1,7 @@
 #include	"FTFace.h"
 #include	"FTFont.h"
 #include	"FTGlyphContainer.h"
+#include	"FTGlyph.h" // for FTBbox
 #include	"FTGL.h"
 
 
@@ -101,6 +102,79 @@ int	FTFont::Ascender() const
 int	FTFont::Descender() const
 {
 	return charSize.Descender();
+}
+
+
+void FTFont::BBox( const char* string,
+                   int& llx, int& lly, int& llz, int& urx, int& ury, int& urz)
+{
+	const unsigned char* c = (unsigned char*)string; // This is ugly, what is the c++ way?
+	llx = lly = llz = urx = ury = urz = 0;
+	FTBBox bbox;
+ 
+	while( *c)
+	{
+		if( !glyphList->Glyph( static_cast<unsigned int>(*c)))
+		{
+			unsigned int g = face.CharIndex( static_cast<unsigned int>(*c));
+			glyphList->Add( MakeGlyph( g), g);
+		}
+		
+		bbox = glyphList->BBox( *c);
+		
+		// Lower extent
+		lly = lly < bbox.y1 ? lly: bbox.y1;
+		// Upper extent
+		ury = ury > bbox.y2 ? ury: bbox.y2;
+		// Depth
+		urz = urz < bbox.z2 ? urz: bbox.z2;
+
+		// Width
+		urx += glyphList->Advance( *c, *(c + 1));
+		++c;
+	}
+	
+	//Final adjustments
+	llx = glyphList->BBox( *string).x1;
+	urx -= glyphList->Advance( *(c - 1), 0);
+	urx += bbox.x2;
+
+}
+
+void FTFont::BBox( const wchar_t* string,
+                   int& llx, int& lly, int& llz, int& urx, int& ury, int& urz)
+{
+	const wchar_t* c = string; // wchar_t IS unsigned?
+	llx = lly = llz = urx = ury = urz = 0;
+	FTBBox bbox;
+ 
+	while( *c)
+	{
+		if( !glyphList->Glyph( static_cast<unsigned int>(*c)))
+		{
+			unsigned int g = face.CharIndex( static_cast<unsigned int>(*c));
+			glyphList->Add( MakeGlyph( g), g);
+		}
+		
+		bbox = glyphList->BBox( *c);
+		
+		// Lower extent
+		lly = lly < bbox.y1 ? lly: bbox.y1;
+		// Upper extent
+		ury = ury > bbox.y2 ? ury: bbox.y2;
+		// Depth
+		urz = urz < bbox.z2 ? urz: bbox.z2;
+
+		// Width
+		urx += glyphList->Advance( *c, *(c + 1));
+		++c;
+	}
+	
+	//Final adjustments
+	llx = glyphList->BBox( *string).x1;
+	urx -= glyphList->Advance( *(c - 1), 0);
+	urx += bbox.x2;
+
 }
 
 
