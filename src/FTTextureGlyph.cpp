@@ -6,8 +6,7 @@ FTTextureGlyph::FTTextureGlyph( FT_GlyphSlot glyph, int id, int xOffset, int yOf
 :   FTGlyph( glyph),
     destWidth(0),
     destHeight(0),
-    glTextureID(id)//,
-//    activeTextureID(0)
+    glTextureID(id)
 {
     err = FT_Render_Glyph( glyph, FT_RENDER_MODE_NORMAL);
     if( err || glyph->format != ft_glyph_format_bitmap)
@@ -68,10 +67,10 @@ float FTTextureGlyph::Render( const FTPoint& pen)
 
     glBegin( GL_QUADS);
         glTexCoord2f( uv[0].x, uv[0].y);
-        glVertex2f( pos.x,             pos.y);
+        glVertex2f( pos.x, pos.y);
 
         glTexCoord2f( uv[0].x, uv[1].y);
-        glVertex2f( pos.x,             pos.y - destHeight);
+        glVertex2f( pos.x, pos.y - destHeight);
 
         glTexCoord2f( uv[1].x, uv[1].y);
         glVertex2f( destWidth + pos.x, pos.y - destHeight);
