@@ -38,6 +38,10 @@ class FTSizeTest : public CppUnit::TestCase
             CPPUNIT_ASSERT_DOUBLES_EQUAL( 0, size.Width(), 0.01);
 
             CPPUNIT_ASSERT_DOUBLES_EQUAL( 0, size.Underline(), 0.01);
+
+            CPPUNIT_ASSERT( size.XPixelsPerEm() == 0);
+            CPPUNIT_ASSERT( size.YPixelsPerEm() == 0);
+            
         }
         
         
@@ -46,13 +50,13 @@ class FTSizeTest : public CppUnit::TestCase
             setUpFreetype();
             
             FTSize size;
-            
+
             CPPUNIT_ASSERT( size.CharSize( &face, FONT_POINT_SIZE, RESOLUTION, RESOLUTION));
             CPPUNIT_ASSERT( size.Error() == 0);
             
             CPPUNIT_ASSERT_DOUBLES_EQUAL(  72, size.CharSize(), 0.01);
             CPPUNIT_ASSERT_DOUBLES_EQUAL(  52, size.Ascender(), 0.01);
-            CPPUNIT_ASSERT_DOUBLES_EQUAL( -14, size.Descender(), 0.01);
+            CPPUNIT_ASSERT_DOUBLES_EQUAL( -15, size.Descender(), 0.01);
 
             CPPUNIT_ASSERT_DOUBLES_EQUAL( 81.86, size.Height(), 0.01);
             CPPUNIT_ASSERT_DOUBLES_EQUAL( 76.32, size.Width(), 0.01);
@@ -67,7 +71,7 @@ class FTSizeTest : public CppUnit::TestCase
             setUpFreetype();
             
             FTSize size;
-            
+
             CPPUNIT_ASSERT( size.CharSize( &face, FONT_POINT_SIZE, RESOLUTION, RESOLUTION));
             CPPUNIT_ASSERT( size.Error() == 0);
 
