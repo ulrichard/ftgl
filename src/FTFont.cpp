@@ -93,12 +93,11 @@ void FTFont::BBox( const char* string,
     if( NULL != *string)
     {
         const unsigned char* c = (unsigned char*)string;
-        float advance = 0;
 
         CheckGlyph( *c);
 
         totalBBox = glyphList->BBox( *c);
-        advance = glyphList->Advance( *c, *(c + 1));
+        float advance = glyphList->Advance( *c, *(c + 1));
         ++c;
             
         while( *c)
@@ -129,12 +128,11 @@ void FTFont::BBox( const wchar_t* string,
     if( NULL != *string)
     {
         const wchar_t* c = string;
-        float advance = 0;
 
         CheckGlyph( *c);
 
         totalBBox = glyphList->BBox( *c);
-        advance = glyphList->Advance( *c, *(c + 1));
+        float advance = glyphList->Advance( *c, *(c + 1));
         ++c;
 
         while( *c)
