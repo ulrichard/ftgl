@@ -105,7 +105,7 @@ class  FTGL_EXPORT FTGLTextureFont : public FTFont
         /**
          * The number of textures required to hold the glyphs
          */
-        int numTextures;
+        unsigned int numTextures;
 
         /**
          * The memory where the textures are built before being transferred 
@@ -127,11 +127,16 @@ class  FTGL_EXPORT FTGLTextureFont : public FTFont
          * A value to be added to the height and width to ensure that
          * glyphs don't overlap in the texture
          */
-        int padding;
+        unsigned int padding;
+        
+        /**
+         *
+         */
+         unsigned int numGlyphs;
         
         /**
          */
-        int remGlyphs;
+        unsigned int remGlyphs;
 
         /**
          */
