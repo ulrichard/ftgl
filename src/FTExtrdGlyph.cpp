@@ -9,68 +9,66 @@ FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
     glList(0),
     depth(d)
 {
-	unsigned int index;
-
+    bBox.upperZ = -depth;
+        
     if( ft_glyph_format_outline != glyph->format)
     {
         return;
     }
 
-    bBox.upperZ = -depth;
-    
-    FTVectoriser* vectoriser = new FTVectoriser( glyph);
-    if ( ( vectoriser->ContourCount() < 1) || ( vectoriser->PointCount() < 3))
+    FTVectoriser vectoriser( glyph);
+    if ( ( vectoriser.ContourCount() < 1) || ( vectoriser.PointCount() < 3))
     {
-        delete vectoriser;
         return;
     }
 
+    unsigned int tesselationIndex;
     glList = glGenLists(1);
     glNewList( glList, GL_COMPILE);
 
-        vectoriser->MakeMesh( 1.0);
+        vectoriser.MakeMesh( 1.0);
         glNormal3d(0.0, 0.0, 1.0);
         
-        const FTMesh* mesh = vectoriser->GetMesh();
-        for( index = 0; index < mesh->TesselationCount(); ++index)
+        const FTMesh* mesh = vectoriser.GetMesh();
+        for( tesselationIndex = 0; tesselationIndex < mesh->TesselationCount(); ++tesselationIndex)
         {
-            const FTTesselation* subMesh = mesh->Tesselation( index);
+            const FTTesselation* subMesh = mesh->Tesselation( tesselationIndex);
             unsigned int polyonType = subMesh->PolygonType();
 
             glBegin( polyonType);
-                for( unsigned int x = 0; x < subMesh->PointCount(); ++x)
+                for( unsigned int pointIndex = 0; pointIndex < subMesh->PointCount(); ++pointIndex)
                 {
-                    glVertex3f( subMesh->Point(x).x / 64.0f,
-                                subMesh->Point(x).y / 64.0f,
+                    glVertex3f( subMesh->Point( pointIndex).x / 64.0f,
+                                subMesh->Point( pointIndex).y / 64.0f,
                                 0.0f);
                 }
             glEnd();
         }
         
-        vectoriser->MakeMesh( -1.0);
+        vectoriser.MakeMesh( -1.0);
         glNormal3d(0.0, 0.0, -1.0);
         
-        mesh = vectoriser->GetMesh();
-        for( index = 0; index < mesh->TesselationCount(); ++index)
+        mesh = vectoriser.GetMesh();
+        for( tesselationIndex = 0; tesselationIndex < mesh->TesselationCount(); ++tesselationIndex)
         {
-            const FTTesselation* subMesh = mesh->Tesselation( index);
+            const FTTesselation* subMesh = mesh->Tesselation( tesselationIndex);
             unsigned int polyonType = subMesh->PolygonType();
 
             glBegin( polyonType);
-                for( unsigned int x = 0; x < subMesh->PointCount(); ++x)
+                for( unsigned int pointIndex = 0; pointIndex < subMesh->PointCount(); ++pointIndex)
                 {
-                    glVertex3f( subMesh->Point(x).x / 64.0f,
-                                subMesh->Point(x).y / 64.0f,
+                    glVertex3f( subMesh->Point( pointIndex).x / 64.0f,
+                                subMesh->Point( pointIndex).y / 64.0f,
                                 -depth);
                 }
             glEnd();
         }
         
-        int contourFlag = vectoriser->ContourFlag();
+        int contourFlag = vectoriser.ContourFlag();
         
-        for( size_t c = 0; c < vectoriser->ContourCount(); ++c)
+        for( size_t c = 0; c < vectoriser.ContourCount(); ++c)
         {
-            const FTContour* contour = vectoriser->Contour(c);
+            const FTContour* contour = vectoriser.Contour(c);
             unsigned int numberOfPoints = contour->PointCount();
             
             glBegin( GL_QUAD_STRIP);
@@ -97,8 +95,6 @@ FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
         }
         
     glEndList();
-
-    delete vectoriser;
 
     // discard glyph image (bitmap or not)
     FT_Done_Glyph( glyph); // Why does this have to be HERE
