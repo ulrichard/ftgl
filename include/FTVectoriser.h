@@ -5,6 +5,7 @@
 #include FT_FREETYPE_H
 #include FT_GLYPH_H
 
+#include "FTContour.h"
 #include "FTPoint.h"
 #include "FTVector.h"
 #include "FTGL.h"
@@ -14,78 +15,6 @@
 #define CALLBACK
 #endif
 
-
-/**
- * FTContour class is a container of points that describe a vector font
- * outline. It is mainly used as a container for the output of the bezier
- * curve evaluator in FTVectoriser.
- *
- * @see FTOutlineGlyph
- * @see FTPolyGlyph
- * @see FTPoint
- *
- */
-class FTGL_EXPORT FTContour
-{
-    public:
-        /**
-         * Default constructor
-         */
-        FTContour()
-        :   kMAXPOINTS( 1000)
-        {   
-            pointList.reserve( kMAXPOINTS);
-        }
-
-        /**
-         *  Destructor
-         */
-        ~FTContour()
-        {
-            pointList.clear();
-        }
-
-        /**
-         * Add a point to the end of this contour.
-         *
-         * Doesn't add the point if it's already on the end or the start
-         * of the contour. The Z component is always 0
-         *
-         * @param x The X component of the point
-         * @param y The Y component of the point
-         */
-        void AddPoint( const FTGL_DOUBLE x, const FTGL_DOUBLE y)
-        {
-            FTPoint point( x, y, 0.0f); 
-            
-            // Eliminate duplicate points.
-            if( pointList.empty() || ( pointList[pointList.size() - 1] != point && pointList[0] != point))
-            {
-                pointList.push_back( point);
-            }
-        }
-
-        /**
-         * How many points define this contour
-         *
-         * @return the number of points in this contour
-         */
-        size_t size() const { return pointList.size();}
-
-        /**
-         *  The list of points in this contour
-         */
-        typedef FTVector<FTPoint> PointVector;
-        PointVector pointList;
-        
-    private:
-        /**
-        * A 'max' number of points that this contour holds. Note however it
-        * can hold more than this number. It is just used to reserve space
-        * in the <vector>
-        */
-        const unsigned int kMAXPOINTS;
-};
 
 
 /**
@@ -220,7 +149,7 @@ class FTGL_EXPORT FTVectoriser
         /**
          * Process the freetype outline data into contours of points
          */
-        void Process();
+        void ProcessContours();
 
         /**
          * Copy the outline data into a block of <code>FTGL_DOUBLEs</code>
@@ -265,7 +194,7 @@ class FTGL_EXPORT FTVectoriser
         size_t contours() const { return contourList.size();}
 
         /**
-         * Get the nuber of points in a contour in this outline
+         * Get the number of points in a specific contour in this outline
          *
          * @param c     The contour index
          * @return      the number of points in contour[c]
@@ -280,41 +209,6 @@ class FTGL_EXPORT FTVectoriser
         int ContourFlag() const { return contourFlag;}
         
     private:
-        /**
-         * Process a conic ( second order) bezier curve.
-         *
-         * @param index The index of the current point in the point list.
-         * @param first The index into the pointlist of the first point in
-         *              the contour that the current point is part of.
-         * @param last  The index into the pointlist of the last point in
-         *              the contour that the current point is part of.
-         * @return      the number of control points processed
-         */
-        int Conic( const int index, const int first, const int last);
-
-        /**
-         * Process a cubic ( third order) bezier curve
-         *
-         * @param index The index of the current point in the point list.
-         * @param first The index into the pointlist of the first point in
-         *              the contour that the current point is part of.
-         * @param last  The index into the pointlist of the last point in
-         *              the contour that the current point is part of.
-         * @return      the number of control points processed
-         */
-        int Cubic( const int index, const int first, const int last);
-
-        /**
-         * @param t
-         * @param n
-         */
-        inline void deCasteljau( const float t, const int n);
-
-        /**
-         * @param n
-         */
-        inline void evaluateCurve( const int n);
-
         /**
          * The list of contours in this outline
          */
