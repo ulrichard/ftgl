@@ -6,6 +6,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 #include "tb.h"
 
@@ -15,13 +16,15 @@
 #include "FTGLTextureFont.h"
 #include "FTGLPixmapFont.h"
 #include "FTGLBitmapFont.h"
+#include "FTSimpleLayout.h"
 
 // YOU'LL PROBABLY WANT TO CHANGE THESE
 #ifdef __linux__
 	#define FONT_FILE "/usr/share/fonts/truetype/arial.ttf"
 #endif
 #ifdef __APPLE_CC__
-	#define FONT_FILE "/Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/test/arial.ttf"
+	//#define FONT_FILE "/Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/test/arial.ttf"
+   #define FONT_FILE "/Users/progers/Desktop/arial.ttf"
 #endif
 #ifdef WIN32
 	#define FONT_FILE "C:\\WINNT\\Fonts\\arial.ttf"
@@ -47,8 +50,18 @@ GLint w_win = 640, h_win = 480;
 int mode = INTERACTIVE;
 int carat = 0;
 
+FTSimpleLayout simpleLayout;
+FTLayout			*layouts[] = { &simpleLayout, NULL};
+int currentLayout = 0;
+const int NumLayouts = 2;
+
+const float InitialLineLength = 300.0f;
+
+const float OX = -100;
+const float OY = 200;
+
 //wchar_t myString[16] = { 0x6FB3, 0x9580};
-wchar_t myString[16];
+char myString[4096];
 
 static FTFont* fonts[6];
 static FTGLPixmapFont* infoFont;
@@ -116,7 +129,7 @@ void setUpFonts( const char* fontfile)
 			exit(1);
 		}
 		
-		if( !fonts[x]->FaceSize( 144))
+		if( !fonts[x]->FaceSize( 24))
 		{
 			fprintf( stderr, "Failed to set size");
 			exit(1);
@@ -137,23 +150,26 @@ void setUpFonts( const char* fontfile)
 	
 	infoFont->FaceSize( 18);
 
-	myString[0] = 65;
-	myString[1] = 0;
+   strcpy(myString,"OpenGL is a powerful software interface for graphics hardware that allows graphics programmers to produce high-quality color images of 3D objects. abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
 }
 
 
 void renderFontmetrics()
 {
 	float x1, y1, z1, x2, y2, z2;
-	fonts[current_font]->BBox( myString, x1, y1, z1, x2, y2, z2);
-	
+   if (layouts[currentLayout]) {
+      layouts[currentLayout]->BBox(myString, x1, y1, z1, x2, y2, z2);
+   } else {
+      fonts[current_font]->BBox( myString, x1, y1, z1, x2, y2, z2);
+   } /* If there is a layout use it to compute the bbox, otherwise query as a string (if/else layouts[]) */
+  
 	// Draw the bounding box
 	glDisable( GL_LIGHTING);
 	glDisable( GL_TEXTURE_2D);
 			glEnable( GL_LINE_SMOOTH);
 			glEnable(GL_BLEND);
 			glBlendFunc( GL_SRC_ALPHA, GL_ONE); // GL_ONE_MINUS_SRC_ALPHA
-
+   
 	glColor3f( 0.0, 1.0, 0.0);
 	// Draw the front face
 	glBegin( GL_LINE_LOOP);
@@ -186,14 +202,27 @@ void renderFontmetrics()
 			glVertex3f( x2, y1, z2);
 		glEnd();
 	}
-		
-		// Draw the baseline, Ascender and Descender
-	glBegin( GL_LINES);
-		glColor3f( 0.0, 0.0, 1.0);
-		glVertex3f( 0.0, 0.0, 0.0);
-		glVertex3f( fonts[current_font]->Advance( myString), 0.0, 0.0);
-		glVertex3f( 0.0, fonts[current_font]->Ascender(), 0.0);
-		glVertex3f( 0.0, fonts[current_font]->Descender(), 0.0);
+	
+   if (!layouts[currentLayout]) {
+		/* There is no layout. Draw the baseline, Ascender and Descender */
+      glBegin( GL_LINES);
+         glColor3f( 0.0, 0.0, 1.0);
+         glVertex3f( 0.0, 0.0, 0.0);
+         glVertex3f( fonts[current_font]->Advance( myString), 0.0, 0.0);
+         glVertex3f( 0.0, fonts[current_font]->Ascender(), 0.0);
+         glVertex3f( 0.0, fonts[current_font]->Descender(), 0.0);
+   } else if (layouts[currentLayout] && (dynamic_cast <FTSimpleLayout *>(layouts[currentLayout]))) {
+      float lineWidth = ((FTSimpleLayout *)layouts[currentLayout])->GetLineLength();
+      
+      /* The layout is a simple layout.  Render guides that mark the edges of the wrap region */
+      glColor3f(0.5,1.0,1.0);
+      glBegin( GL_LINES);
+         glVertex3f( 0, 10000, 0);
+         glVertex3f( 0,-10000, 0);
+         glVertex3f( lineWidth, 10000, 0);
+         glVertex3f( lineWidth,-10000, 0);
+      glEnd();
+   } /* Render layout specific metrics (if/elseif layouts[currentLayout]) */
 		
 	glEnd();
 	
@@ -253,6 +282,16 @@ void renderFontInfo()
 	
 	glRasterPos2f( 20.0f , 20.0f + infoFont->Ascender() - infoFont->Descender());
 	infoFont->Render(fontfile);
+   
+   if (layouts[currentLayout] && (dynamic_cast <FTSimpleLayout *>(layouts[currentLayout]))) { 
+      glRasterPos2f( 20.0f , 20.0f + 2*(infoFont->Ascender() - infoFont->Descender()));
+      switch (((FTSimpleLayout *)layouts[currentLayout])->GetAlignment()) {
+         case FTSimpleLayout::ALIGN_LEFT: infoFont->Render("Align Left"); break;
+         case FTSimpleLayout::ALIGN_RIGHT: infoFont->Render("Align Right"); break;
+         case FTSimpleLayout::ALIGN_CENTER: infoFont->Render("Align Center"); break;
+         case FTSimpleLayout::ALIGN_JUST: infoFont->Render("Align Justified"); break;
+      } /* Output the alignment mode of the layout (switch GetAlignment()) */
+   } /* If the current layout is a simple layout output the alignemnt mode (if layouts[currentLayout]) */
 }
 
 void do_display (void)
@@ -286,9 +325,14 @@ void do_display (void)
 // you will need to explicitly call glRasterPos3f (or its ilk) to lock
 // in a changed current color.
 
-	fonts[current_font]->Render( myString);
-        renderFontmetrics();
-        renderFontInfo();
+   if (layouts[currentLayout]) {
+      layouts[currentLayout]->Render(myString);
+   } else {
+      fonts[current_font]->Render( myString);
+   } /* If there is an active layout use it to render the font (if/else layouts[currentLayout]) */
+   
+   renderFontmetrics();
+   renderFontInfo();
 }
 
 
@@ -302,14 +346,15 @@ void display(void)
 	{
 		case FTGL_BITMAP:
 		case FTGL_PIXMAP:
-			glRasterPos2i( w_win / 2, h_win / 2);
-			glTranslatef(  w_win / 2, h_win / 2, 0.0);
+			glRasterPos2i( w_win / 2 + OX, h_win / 2 + OY);
+			glTranslatef(  w_win / 2 + OX, h_win / 2 + OY, 0.0);
 			break;
 		case FTGL_OUTLINE:
 		case FTGL_POLYGON:
 		case FTGL_EXTRUDE:
 		case FTGL_TEXTURE:
 			tbMatrix();
+         glTranslatef(OX,OY,0);
 			break;
 	}
 	
@@ -342,7 +387,11 @@ void myinit( const char* fontfile)
 	tbInit(GLUT_LEFT_BUTTON);
 	tbAnimate( GL_FALSE);
 
-    setUpFonts( fontfile);
+   setUpFonts( fontfile);
+    
+   /* Configure the simple layout */
+   simpleLayout.SetLineLength(InitialLineLength);
+   simpleLayout.SetFont(fonts[current_font]);
 }
 
 
@@ -362,11 +411,6 @@ void parsekey(unsigned char key, int x, int y)
 				carat = 0;
 			}
 			break;
-		case ' ':
-			current_font++;
-			if(current_font > 5)
-				current_font = 0;
-			break;
 		default:
 			if( mode == INTERACTIVE)
 			{
@@ -378,12 +422,70 @@ void parsekey(unsigned char key, int x, int y)
 			{
 				myString[carat] = key;
 				myString[carat + 1] = 0;
-				carat = carat > 14 ? 14 : ++carat;
+				carat = carat > 2000 ? 2000 : ++carat;
 			}
 	}
-	
+
 	glutPostRedisplay();
 
+}
+
+void parseSpecialKey(int key, int x, int y)
+{
+   FTSimpleLayout *simpleLayout = NULL;
+   if (layouts[currentLayout] && (dynamic_cast <FTSimpleLayout *>(layouts[currentLayout]))) {
+      simpleLayout = (FTSimpleLayout *)layouts[currentLayout];
+   } /* If the currentLayout is a simple layout store a pointer in simpleLayout (if layouts[currentLayout]) */
+
+	switch (key)
+	{
+		case GLUT_KEY_UP:
+			current_font = (current_font + 1)%5;
+			break;
+		case GLUT_KEY_DOWN:
+			current_font = (current_font + 4)%5;
+			break;
+      case GLUT_KEY_PAGE_UP:
+         currentLayout = (currentLayout + 1)%NumLayouts;
+         break;
+      case GLUT_KEY_PAGE_DOWN:
+         currentLayout = (currentLayout + NumLayouts - 1)%NumLayouts;
+         break;
+      case GLUT_KEY_HOME:
+         /* If the current layout is simple decrement its line length */
+         if (simpleLayout) simpleLayout->SetLineLength(simpleLayout->GetLineLength() - 10.0f);
+         break;
+      case GLUT_KEY_END:
+         /* If the current layout is simple increment its line length */
+         if (simpleLayout) simpleLayout->SetLineLength(simpleLayout->GetLineLength() + 10.0f);
+         break;
+		case GLUT_KEY_LEFT:
+         if (simpleLayout) {
+            switch (simpleLayout->GetAlignment()) {
+               case FTSimpleLayout::ALIGN_LEFT: 	simpleLayout->SetAlignment(FTSimpleLayout::ALIGN_JUST); break;
+               case FTSimpleLayout::ALIGN_RIGHT: 	simpleLayout->SetAlignment(FTSimpleLayout::ALIGN_LEFT); break;
+               case FTSimpleLayout::ALIGN_CENTER:	simpleLayout->SetAlignment(FTSimpleLayout::ALIGN_RIGHT); break;
+               case FTSimpleLayout::ALIGN_JUST: 	simpleLayout->SetAlignment(FTSimpleLayout::ALIGN_CENTER); break;
+            } /* Increment the layout (switch GetAlignemnt()) */
+         } /* If the current layout is a simple layout change it's alignment properties (if simpleLayout) */
+			break;      
+      case GLUT_KEY_RIGHT:
+         if (simpleLayout) { 
+            switch (simpleLayout->GetAlignment()) {
+               case FTSimpleLayout::ALIGN_LEFT: 	simpleLayout->SetAlignment(FTSimpleLayout::ALIGN_RIGHT); break;
+               case FTSimpleLayout::ALIGN_RIGHT: 	simpleLayout->SetAlignment(FTSimpleLayout::ALIGN_CENTER); break;
+               case FTSimpleLayout::ALIGN_CENTER:	simpleLayout->SetAlignment(FTSimpleLayout::ALIGN_JUST); break;
+               case FTSimpleLayout::ALIGN_JUST: 	simpleLayout->SetAlignment(FTSimpleLayout::ALIGN_LEFT); break;
+            } /* Decrement the layout (switch GetAlignemnt()) */
+         } /* If the current layout is a simple layout change it's alignment properties (if simpleLayout) */
+         break;
+	}
+
+	if (simpleLayout) { 
+      simpleLayout->SetFont(fonts[current_font]);
+   } /* If the current layout is a simple layout update it's font (if simpleLayout) */
+
+	glutPostRedisplay();
 }
 
 
@@ -457,6 +559,7 @@ int main(int argc, char *argv[])
 	glutCreateWindow("FTGL TEST");
 	glutDisplayFunc(display);
 	glutKeyboardFunc(parsekey);
+   glutSpecialFunc(parseSpecialKey);
 	glutMouseFunc(mouse);
     glutMotionFunc(motion);
 	glutReshapeFunc(myReshape);
