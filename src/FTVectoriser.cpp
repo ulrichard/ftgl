@@ -1,6 +1,46 @@
 #include	"FTVectoriser.h"
 #include	"FTGL.h"
 
+//#include	"mmgr.h"
+
+#ifndef CALLBACK
+#define CALLBACK
+#endif
+
+
+
+void CALLBACK ftglError( GLenum errCode, FTMesh* mesh)
+{
+	mesh->Error( errCode);
+}
+
+void CALLBACK ftglVertex( void* data, FTMesh* mesh)
+{
+	double* vertex = (double*)data;
+	mesh->AddPoint( vertex[0], vertex[1], vertex[2]);
+}
+
+
+void CALLBACK ftglBegin( GLenum type, FTMesh* mesh)
+{
+	mesh->Begin( type);
+}
+
+
+void CALLBACK ftglEnd( FTMesh* mesh)
+{
+	mesh->End();
+}
+
+
+void CALLBACK ftglCombine( GLdouble coords[3], void* vertex_data[4], GLfloat weight[4], void** outData, FTMesh* mesh)
+{
+	double* vertex = (double*)coords;
+	mesh->tempPool.push_back( ftPoint( vertex[0], vertex[1], vertex[2]));
+	
+	*outData = &mesh->tempPool[ mesh->tempPool.size() - 1].x;
+}
+
 
 FTContour::FTContour()
 :	kMAXPOINTS( 1000)
@@ -27,8 +67,81 @@ void FTContour::AddPoint( const float x, const float y)
 }
 
 
+FTTesselation::FTTesselation()
+{
+	pointList.reserve( 128);
+}
+
+
+FTTesselation::~FTTesselation()
+{
+	pointList.clear();
+}
+		
+void FTTesselation::AddPoint( const float x, const float y, const float z)
+{	
+	pointList.push_back( ftPoint( x, y, z));
+}
+
+
+FTMesh::FTMesh()
+:	err(0)
+{
+	tess.reserve( 16);
+	tempPool.reserve( 128);
+}
+
+
+FTMesh::~FTMesh()
+{
+	for( int t = 0; t < tess.size(); ++t)
+	{
+		delete tess[t];
+	}
+	tess.clear();
+
+	tempPool.clear();
+}
+
+
+void FTMesh::AddPoint( const float x, const float y, const float z)
+{
+	tempTess->AddPoint( x, y, z);
+}
+
+void FTMesh::Begin( GLenum m)
+{
+	tempTess = new FTTesselation;
+	tempTess->meshType = m;
+}
+
+
+void FTMesh::End()
+{
+	tess.push_back( tempTess);
+}
+
+double* FTMesh::Point()
+{
+	return &tempTess->pointList[ tempTess->size() - 1].x;
+
+}
+
+int FTMesh::size() const
+{
+	int s = 0;
+	for( int t = 0; t < tess.size(); ++t)
+	{
+		s += tess[t]->size();
+		++s;
+	}
+	return s;
+}
+
+
 FTVectoriser::FTVectoriser( const FT_Glyph glyph)
 :	contour(0),
+	mesh(0),
 	contourFlag(0),
 	kBSTEPSIZE( 0.2)
 {
@@ -47,6 +160,9 @@ FTVectoriser::~FTVectoriser()
 	}
 
 	contourList.clear();
+	
+	if( mesh)
+		delete mesh;
 }
 
 
@@ -226,3 +342,80 @@ void FTVectoriser::MakeOutline( double* data)
 	}
 }
 
+
+void FTVectoriser::MakeMesh()
+{
+	mesh = new FTMesh;
+	
+	GLUtesselator* tobj = gluNewTess();
+	
+	gluTessCallback( tobj, GLU_TESS_BEGIN_DATA,		(void (CALLBACK*)())ftglBegin);
+	gluTessCallback( tobj, GLU_TESS_VERTEX_DATA,	(void (CALLBACK*)())ftglVertex);
+	gluTessCallback( tobj, GLU_TESS_COMBINE_DATA,	(void (CALLBACK*)())ftglCombine);
+	gluTessCallback( tobj, GLU_TESS_END_DATA,		(void (CALLBACK*)())ftglEnd);
+	gluTessCallback( tobj, GLU_TESS_ERROR_DATA,		(void (CALLBACK*)())ftglError);
+	
+	
+	if( contourFlag & ft_outline_even_odd_fill) // ft_outline_reverse_fill
+	{
+		gluTessProperty( tobj, GLU_TESS_WINDING_RULE, GLU_TESS_WINDING_ODD);
+	}
+	else
+	{
+		gluTessProperty( tobj, GLU_TESS_WINDING_RULE, GLU_TESS_WINDING_NONZERO);
+	}
+	
+	
+	gluTessProperty( tobj, GLU_TESS_TOLERANCE, 0);
+	gluTessBeginPolygon( tobj, mesh);
+	
+		for( int c = 0; c < contours(); ++c)
+		{
+			const FTContour* contour = contourList[c];
+			gluTessBeginContour( tobj);
+			
+				for( int p = 0; p < contour->size(); ++p)
+				{
+					double* d = &contour->pointList[p].x;
+					gluTessVertex( tobj, d, d);
+				}
+			gluTessEndContour( tobj);
+		}
+		
+	gluTessEndPolygon( tobj);
+
+	gluDeleteTess( tobj);
+	
+}
+
+
+void FTVectoriser::GetMesh( double* data)
+{
+ 	// Now write it out
+	int i = 0;
+	
+	// fill out the header
+	int msize = mesh->tess.size();
+	data[0] = msize;
+	
+	for( int p = 0; p < data[0]; ++p)
+	{
+		FTTesselation* tess = mesh->tess[p];
+		int tSize =  tess->pointList.size();
+		int tType =  tess->meshType;
+		
+		data[i+1] = tType;
+		data[i+2] = tSize;
+		i += 3;
+		for( int q = 0; q < ( tess->pointList.size()); ++q)
+		{
+			data[i] = tess->pointList[q].x / 64.0f; // is 64 correct?
+			data[i + 1] = tess->pointList[q].y / 64.0f;
+			data[i + 2] = 0.0; // static_cast<double>(mesh->pointList[p].z / 64.0f);
+			i += 3;
+		
+		}
+
+	}
+
+}

@@ -1,56 +1,11 @@
-
 #include	"FTPolyGlyph.h"
 #include	"FTVectoriser.h"
-
-#ifndef CALLBACK
-#define CALLBACK
-#endif
-
-
-void CALLBACK ftglError( GLenum errCode)
-{
-//	const GLubyte* estring;
-//	estring = gluErrorString( errCode);
-//	fprintf( stderr, "ERROR : %s\n", estring);
-//	exit(1);
-}
-
-void CALLBACK ftglVertex( void* data)
-{
-	glVertex3dv( (double*)data);
-}
-
-
-void CALLBACK ftglBegin( GLenum type)
-{
-	glBegin( type);
-}
-
-
-void CALLBACK ftglEnd()
-{
-	glEnd();
-}
-
-
-void CALLBACK ftglCombine( GLdouble coords[3], void* vertex_data[4], GLfloat weight[4], void** outData)
-{
-	double* vertex = new double[3]; // FIXME MEM LEAK
-	
-	vertex[0] = coords[0];
-	vertex[1] = coords[1];
-	vertex[2] = coords[2];
-
-	*outData = vertex;
-}
 
 
 FTPolyGlyph::FTPolyGlyph( FT_Glyph glyph)
 :	FTGlyph(),
 	vectoriser(0),
 	numPoints(0),
-	numContours(0),
-	contourLength(0),
 	data(0),
 	glList(0)
 {
@@ -60,83 +15,57 @@ FTPolyGlyph::FTPolyGlyph( FT_Glyph glyph)
 	vectoriser = new FTVectoriser( glyph);
 	
 	vectoriser->Process();
-	numContours = vectoriser->contours();
-	contourLength = new int[ numContours];
-	
-	for( int c = 0; c < numContours; ++c)
+
+	vectoriser->MakeMesh();
+	numPoints = vectoriser->MeshPoints();
+
+	if ( numPoints < 3)
 	{
-		contourLength[c] = vectoriser->contourSize( c);
+		delete vectoriser;
+		return;
 	}
 	
-	numPoints = vectoriser->points();
 	data = new double[ numPoints * 3];
-	// FIXME MakeMesh
-	vectoriser->MakeOutline( data);
+
+	vectoriser->GetMesh( data);
 	
-	contourFlag = vectoriser->ContourFlag();
 	advance = glyph->advance.x >> 16;
 
 	delete vectoriser;
+	
+	glList = glGenLists(1);
+	int d = 0;
 
-	if ( ( numContours < 1) || ( numPoints < 3))
-		return;
+	glNewList( glList, GL_COMPILE);
+		int BEPairs = data[0];
+		for( int i = 0; i < BEPairs; ++i)
+		{
+			int polyType = (int)data[d + 1];
+			glBegin( polyType);
 
-	Tesselate();
+			int verts = (int)data[d+2];
+			d += 3;
+			for( int x = 0; x < verts; ++x)
+			{
+				glVertex3dv( data + d);
+				d += 3;
+			}
+			glEnd();
+		}
+	glEndList();
+
+	delete [] data; // FIXME
+	data = 0;
 
 	// discard glyph image (bitmap or not)
 	FT_Done_Glyph( glyph); // Why does this have to be HERE
 }
 
 
-void FTPolyGlyph::Tesselate()
-{
-	glList = glGenLists(1);
-	GLUtesselator* tobj = gluNewTess();
-	int d = 0;
-	
-	gluTessCallback( tobj, GLU_TESS_BEGIN, (void (CALLBACK*)())ftglBegin);
-	gluTessCallback( tobj, GLU_TESS_VERTEX, (void (CALLBACK*)())ftglVertex);
-	gluTessCallback( tobj, GLU_TESS_COMBINE, (void (CALLBACK*)())ftglCombine);
-	gluTessCallback( tobj, GLU_TESS_END, ftglEnd);
-	gluTessCallback( tobj, GLU_TESS_ERROR, (void (CALLBACK*)())ftglError);
-	
-	glNewList( glList, GL_COMPILE);
-	
-		if( contourFlag & ft_outline_even_odd_fill) // ft_outline_reverse_fill
-		{
-			gluTessProperty( tobj, GLU_TESS_WINDING_RULE, GLU_TESS_WINDING_ODD);
-		}
-		else
-		{
-			gluTessProperty( tobj, GLU_TESS_WINDING_RULE, GLU_TESS_WINDING_NONZERO);
-		}
-		
-		gluTessProperty( tobj, GLU_TESS_TOLERANCE, 0);
-		gluTessBeginPolygon( tobj, NULL);
-		
-			for( int c = 0; c < numContours; ++c)
-			{
-				gluTessBeginContour( tobj);
-					for( int p = 0; p < ( contourLength[c]); ++p)
-					{
-						gluTessVertex( tobj, data + d, data + d);
-						d += 3;
-					}
-				gluTessEndContour( tobj);
-			}
-			
-		gluTessEndPolygon( tobj);
-		
-	glEndList();
-
-	gluDeleteTess( tobj);
-}
-
-
 FTPolyGlyph::~FTPolyGlyph()
 {
-	delete [] data;
-	delete [] contourLength;
+//	if( data)
+//		delete [] data; // FIXME
 }
 
 

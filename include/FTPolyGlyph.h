@@ -62,21 +62,6 @@ class FTGL_EXPORT FTPolyGlyph : public FTGlyph
 		int numPoints;
 
 		/**
-		 * The totals number of contours in the Freetype outline
-		 */
-		int numContours;
-
-		/**
-		 * An flag indicating the tesselation rules for this glyph
-		 */
-		int contourFlag; 
-
-		/**
-		 * An array containing the number of points in each outline
-		 */
-		int* contourLength;
-
-		/**
 		 * Pointer to the point data
 		 */
 		double* data;

@@ -13,6 +13,10 @@
 
 using namespace std;
 
+#ifndef CALLBACK
+#define CALLBACK
+#endif
+
 /**
  * ftPoint class is a basic 3 dimensional point for holding outline font
  * point data.
@@ -69,9 +73,55 @@ class FTGL_EXPORT ftPoint
 		/**
 		 * The point data
 		 */
-		float x, y, z; // FIXME make private
+		double x, y, z; // FIXME make private
 		
 	private:
+};
+
+
+class FTGL_EXPORT FTTesselation
+{
+	public:
+		FTTesselation();
+		~FTTesselation();
+		
+		void AddPoint( const float x, const float y, const float z);
+
+		int size() const { return pointList.size();}
+
+		GLenum meshType;
+		vector<ftPoint> pointList;
+	private:
+};
+
+
+class FTGL_EXPORT FTMesh
+{
+	public:
+		FTMesh();
+		~FTMesh();
+		
+		void AddPoint( const float x, const float y, const float z);
+		void Begin( GLenum m);
+		void End();
+		
+		double* Point();
+		int size() const;
+		
+		void Error( GLenum e) { err = e;}
+		GLenum Error() const { return err;}
+
+		/**
+		 *	The list of points in this mesh
+		 */
+		vector< FTTesselation*> tess;
+		vector< ftPoint> tempPool;
+	protected:
+	
+	private:
+		FTTesselation* tempTess;
+		GLenum err;
+
 };
 
 
@@ -169,6 +219,16 @@ class FTGL_EXPORT FTVectoriser
 		void MakeOutline( double* d);
 
 		/**
+		 * Build a mesh from the outline and copy the vertx data into a
+		 * block of <code>doubles</code>
+		 * @param d
+		 */
+		void MakeMesh();
+		void GetMesh( double* d);
+		
+		int MeshPoints() const { return mesh->size();}
+		
+		/**
 		 * Get the total count of points in this outline
 		 *
 		 * @return the number of points
@@ -233,15 +293,26 @@ class FTGL_EXPORT FTVectoriser
 		 */
 		void evaluateCurve( const int n);
 
+
+
+//void CALLBACK ftglVertex( void* data);
+
+
+
 		/**
 		 * The list of contours in this outline
 		 */
 		vector< const FTContour*> contourList;
 			
 		/**
-		 * A temporary FTContour
+		 * A Mesh for tesselations
 		 */
 		FTContour* contour;
+			
+		/**
+		 * A Mesh for tesselations
+		 */
+		FTMesh* mesh;
 
 		/**
 		* A flag indicating the tesselation rule for this outline
