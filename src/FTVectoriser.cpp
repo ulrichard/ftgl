@@ -7,7 +7,6 @@
 #endif
 
 
-
 void CALLBACK ftglError( GLenum errCode, FTMesh* mesh)
 {
     mesh->Error( errCode);
@@ -35,22 +34,9 @@ void CALLBACK ftglEnd( FTMesh* mesh)
 void CALLBACK ftglCombine( FTGL_DOUBLE coords[3], void* vertex_data[4], GLfloat weight[4], void** outData, FTMesh* mesh)
 {
     FTGL_DOUBLE* vertex = (FTGL_DOUBLE*)coords;
-    mesh->tempPool.push_back( ftPoint( vertex[0], vertex[1], vertex[2]));
+    mesh->tempPool.push_back( FTPoint( vertex[0], vertex[1], vertex[2]));
     
     *outData = &mesh->tempPool[ mesh->tempPool.size() - 1].x;
-}
-
-
-//=============================================================================
-
-bool operator == ( const ftPoint &a, const ftPoint &b) 
-{
-    return((a.x == b.x) && (a.y == b.y) && (a.z == b.z));
-}
-
-bool operator != ( const ftPoint &a, const ftPoint &b) 
-{
-    return((a.x != b.x) || (a.y != b.y) || (a.z != b.z));
 }
         
 

@@ -5,68 +5,14 @@
 #include FT_FREETYPE_H
 #include FT_GLYPH_H
 
+#include "FTPoint.h"
+#include "FTVector.h"
 #include "FTGL.h"
 
-#include "FTVector.h"
 
 #ifndef CALLBACK
 #define CALLBACK
 #endif
-
-/**
- * ftPoint class is a basic 3 dimensional point for holding vector font
- * point data.
- *
- * @see FTOutlineGlyph
- * @see FTPolyGlyph
- *
- */
-class FTGL_EXPORT ftPoint
-{
-    public:
-        /**
-         * Default constructor. Point is set to zero.
-         */
-        ftPoint()
-        : x(0), y(0), z(0)
-        {}
-        
-        /**
-         * Constructor.
-         *
-         * @param X
-         * @param Y
-         * @param Z
-         */
-        ftPoint( const FTGL_DOUBLE X, const FTGL_DOUBLE Y, const FTGL_DOUBLE Z)
-        : x(X), y(Y), z(Z)
-        {}
-        
-        /**
-         * Operator == Tests for eqaulity
-         *
-         * @param a
-         * @param b
-         * @return
-         */
-        friend bool operator == ( const ftPoint &a, const ftPoint &b);
-
-        /**
-         * Operator != Tests for non equality
-         *
-         * @param a
-         * @param b
-         * @return
-         */
-        friend bool operator != ( const ftPoint &a, const ftPoint &b);
-        
-        /**
-         * The point data
-         */
-        FTGL_DOUBLE x, y, z; // FIXME make private
-        
-    private:
-};
 
 
 /**
@@ -128,7 +74,7 @@ class FTGL_EXPORT FTContour
         /**
          *  The list of points in this contour
          */
-        typedef FTVector<ftPoint> PointVector;
+        typedef FTVector<FTPoint> PointVector;
         PointVector pointList;
         
     private:
@@ -157,14 +103,14 @@ class FTGL_EXPORT FTTesselation
         
         void AddPoint( const FTGL_DOUBLE x, const FTGL_DOUBLE y, const FTGL_DOUBLE z)
         {   
-            pointList.push_back( ftPoint( x, y, z));
+            pointList.push_back( FTPoint( x, y, z));
         }
 
 
         size_t size() const { return pointList.size();}
 
         GLenum meshType;
-        typedef FTVector<ftPoint> PointVector;
+        typedef FTVector<FTPoint> PointVector;
         PointVector pointList;
         
     private:
@@ -188,7 +134,7 @@ class FTGL_EXPORT FTMesh
         void Error( GLenum e) { err = e;}
         GLenum Error() const { return err;}
 
-        typedef FTVector<ftPoint> PointVector;
+        typedef FTVector<FTPoint> PointVector;
         PointVector tempPool;
         
         typedef FTVector<FTTesselation*> TesselationVector;
