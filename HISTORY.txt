@@ -1,5 +1,5 @@
-August 26 2002
-FTGL 1.4
+October 23 2002
+FTGL 1.4 (FTGL_1_4)
     - FTL now requires 2.0.9 or later. See below for reason.
     - Merged 1.32 branch with main tree
     - Glyph loading has been optimised for pixel based glyphs.
