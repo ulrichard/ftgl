@@ -273,9 +273,6 @@ void FTFont::DoRender( const unsigned int chr, const unsigned int nextChr)
     if(CheckGlyph( chr))
     {
         pen = glyphList->Render( chr, nextChr, pen);
-        
-//        pen.X( kernAdvance.X()); // FIXME replace kernAdvance with pen
-//        pen.y = kernAdvance.Y();
     }
 }
 
