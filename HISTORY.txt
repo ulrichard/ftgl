@@ -1,7 +1,10 @@
-FTGL 2.0.10 (FTGL_2_0_10)
+FTGL 2.0.11 (FTGL_2_0_11)
 16 August 2004
-    - Fixed tab problem in unix Makefile.
     - Updated FTFont( *pBufferBytes, bufferSizeInBytes) documentation.
+
+16 August 2004
+    2.0.10 (FTGL_2_0_10)
+    - Fixed tab problem in unix Makefile.
 
 21 April 2004
     2.0.9 (FTGL_2_0_9)
