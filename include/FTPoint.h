@@ -26,9 +26,9 @@ class FTGL_EXPORT FTPoint
         /**
          * Constructor.
          *
-         * @param X
-         * @param Y
-         * @param Z
+         * @param x First component
+         * @param y Second component
+         * @param z Third component
          */
         FTPoint( const FTGL_DOUBLE x, const FTGL_DOUBLE y, const FTGL_DOUBLE z)
         {
@@ -50,7 +50,7 @@ class FTGL_EXPORT FTPoint
         }
         
         /**
-         * Operator +=
+         * Operator += In Place Addition.
          *
          * @param point
          * @return this plus point.
@@ -84,8 +84,8 @@ class FTGL_EXPORT FTPoint
         /**
          * Operator *
          *
-         * @param point
-         * @return this plus point.
+         * @param multiplier
+         * @return <code>this</code> multiplied by <code>multiplier</code>.
          */
         FTPoint operator * ( double multiplier)
         {
@@ -98,6 +98,13 @@ class FTGL_EXPORT FTPoint
         }
         
         
+        /**
+         * Operator *
+         *
+         * @param point
+         * @param multiplier
+         * @return <code>multiplier</code> multiplied by <code>point</code>.
+         */
         friend FTPoint operator*( double multiplier, const FTPoint& point);
 
 
@@ -106,7 +113,7 @@ class FTGL_EXPORT FTPoint
          *
          * @param a
          * @param b
-         * @return
+         * @return true if a & b are equal
          */
         friend bool operator == ( const FTPoint &a, const FTPoint &b);
 
@@ -115,7 +122,7 @@ class FTGL_EXPORT FTPoint
          *
          * @param a
          * @param b
-         * @return
+         * @return true if a & b are not equal
          */
         friend bool operator != ( const FTPoint &a, const FTPoint &b);
         
