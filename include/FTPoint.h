@@ -41,6 +41,21 @@ class FTGL_EXPORT FTPoint
         {}
         
         /**
+         * Operator +=
+         *
+         * @param point
+         * @return this plus point.
+         */
+        FTPoint& operator += ( const FTPoint& point)
+        {
+            x += point.x;
+            y += point.y;
+            z += point.z;
+        
+            return *this;
+        }
+
+        /**
          * Operator == Tests for eqaulity
          *
          * @param a
