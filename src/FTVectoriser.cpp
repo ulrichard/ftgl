@@ -18,18 +18,19 @@ FTContour::~FTContour()
 
 void FTContour::AddPoint( int x, int y)
 {
-	float fx, fy;
+	float fx, fy, fz;
 	
 	fx = static_cast<float>( x);
 	fy = static_cast<float>( y);
+	fy = 0;
 	
-	pointList.push_back( ftPoint( fx, fy));
+	pointList.push_back( ftPoint( fx, fy, fz));
 
 }
 
 
 // De Casteljau algorithm supplied by Jed Soane
-void FTVectoriser::deCasteljau( GLfloat t, int n, GLfloat bValues[MAX_DEG][MAX_DEG][2])
+void FTVectoriser::deCasteljau( float t, int n)
 {
     int i, k;
 
@@ -48,11 +49,9 @@ void FTVectoriser::deCasteljau( GLfloat t, int n, GLfloat bValues[MAX_DEG][MAX_D
 
 void FTVectoriser::evaluateCurve( int n)
 {
-    GLint m, i;            					//loop counters
-    GLfloat t;            					//parameter for curve point calc. [0.0, 1.0]
-    GLfloat bValues[MAX_DEG][MAX_DEG][2];	//3D array storing values
-                                        	//of de Casteljau algorithm.
-    GLfloat stepSize = 0.2;
+    int m, i;            					//loop counters
+    float t;            					//parameter for curve point calc. [0.0, 1.0]
+    float stepSize = 0.2;
 
     // setting the b(0) equal to the control points
     for (i = 0; i <= n; i++)
@@ -64,7 +63,7 @@ void FTVectoriser::evaluateCurve( int n)
     for (m = 0; m <= (1 / stepSize); m++)
     {
     	t = m * stepSize;
-        deCasteljau( t, n, bValues);  //calls to evaluate point on curve att.
+        deCasteljau( t, n);  //calls to evaluate point on curve att.
     } //end for(m...)
 }
 
@@ -242,9 +241,10 @@ void FTVectoriser::Output( float* data)
 		
 		for( int p = 0; p < contour->size(); ++p)
 		{
-			data[i] = contour->pointList[p].first / 64.0f; // is 64 correct?
-			data[i + 1] = contour->pointList[p].second / 64.0f;
-			i += 2;
+			data[i] = contour->pointList[p].x / 64.0f; // is 64 correct?
+			data[i + 1] = contour->pointList[p].y / 64.0f;
+			data[i + 2] = contour->pointList[p].z / 64.0f;
+			i += 3;
 		}
 	}
 }

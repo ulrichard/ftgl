@@ -22,7 +22,17 @@ class FTContour
 
 		// attributes
 		
-		typedef pair<int, int> ftPoint;
+//		typedef pair<int, int> ftPoint;
+		struct ftPoint
+		{
+			float x, y, z;
+			ftPoint()
+			: x(0), y(0), z(0){}
+			
+			ftPoint( float X, float Y, float Z)
+			: x(X), y(Y), z(Z){}
+		};
+
 		vector< ftPoint> pointList;
 		float ctrlPtArray[4][2];
 	private:
@@ -53,18 +63,20 @@ class FTVectoriser
 		// methods
 		int Conic( int index, int first, int last);
 		int Cubic( int index, int first, int last);
-		void deCasteljau( GLfloat t, int n, GLfloat bValues[MAX_DEG][MAX_DEG][2]);
+		void deCasteljau( GLfloat t, int n);
 		void evaluateCurve( int n);
 
 		// attributes
-//		typedef pair<int, int> ftPoint;
-//		vector< FT_Vector> pointList;
 		vector< FTContour*> contourList;
 		float ctrlPtArray[4][2];
 			
 		FTContour* contour;
 
 		FT_Outline ftOutline;
+		
+		float bValues[MAX_DEG][MAX_DEG][2];	//3D array storing values
+                                        	//of de Casteljau algorithm.
+
 
 };
 
