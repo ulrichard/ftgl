@@ -44,20 +44,19 @@ bool FTCharmap::CharMap( FT_Encoding encoding)
 }
 
 
-unsigned int FTCharmap::CharIndex( unsigned int characterCode )
+signed int FTCharmap::GlyphListIndex( unsigned int characterCode )
 {
     return charMap.find( characterCode);
+}
+
+
+signed int FTCharmap::FontIndex( unsigned int characterCode )
+{
+    return FT_Get_Char_Index( ftFace, characterCode);
 }
 
 
 void FTCharmap::InsertIndex( const unsigned int characterCode, const unsigned int containerIndex)
 {
     charMap.insert( characterCode, containerIndex);
-}
-
-
-unsigned int FTCharmap::GlyphIndex( const unsigned int characterCode)
-{
-    unsigned int glyphIndex = FT_Get_Char_Index( ftFace, characterCode);
-    return glyphIndex;
 }
