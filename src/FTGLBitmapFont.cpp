@@ -1,3 +1,5 @@
+#include	"GL/gl.h"
+
 #include	"FTGLBitmapFont.h"
 #include	"FTGlyphContainer.h"
 #include	"FTBitmapGlyph.h"
@@ -40,4 +42,20 @@ bool FTGLBitmapFont::MakeGlyphList()
 		glyphList->Add( tempGlyph);
 		
 	}
+}
+
+
+void FTGLBitmapFont::render( const char* string)
+{	
+	glPushClientAttrib( GL_CLIENT_PIXEL_STORE_BIT);
+	
+	// doing this every frame is a bad?
+	glPixelStorei( GL_UNPACK_LSB_FIRST, GL_FALSE);
+	glPixelStorei( GL_UNPACK_ROW_LENGTH, 0);
+	glPixelStorei( GL_UNPACK_ALIGNMENT, 1);
+
+	FTFont::render( string);
+
+	glPopClientAttrib();
+
 }

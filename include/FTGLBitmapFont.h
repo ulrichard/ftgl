@@ -13,6 +13,8 @@ class	FTGLBitmapFont : public FTFont
 		FTGLBitmapFont();
 		~FTGLBitmapFont();
 		
+		void render( const char* string);
+
 		// attributes
 		
 	private:
