@@ -177,13 +177,8 @@ void FTGLTextureFont::render( const char* string)
 	glEnable(GL_BLEND);
  	glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // GL_ONE
  	
-	glBindTexture( GL_TEXTURE_2D, (GLuint)FTTextureGlyph::activeTextureID);
+ 	FTFont::render( string);
 
- 	// QUADS are faster!? Less function call overhead?
- 	glBegin( GL_QUADS);
- 		FTFont::render( string);
- 	glEnd();
-	
 	glPopAttrib();
 }
 
@@ -195,12 +190,7 @@ void FTGLTextureFont::render( const wchar_t* string)
 	glEnable(GL_BLEND);
  	glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // GL_ONE
  	
-	glBindTexture( GL_TEXTURE_2D, (GLuint)FTTextureGlyph::activeTextureID);
-
- 	// QUADS are faster!? Less function call overhead?
- 	glBegin( GL_QUADS);
- 		FTFont::render( string);
- 	glEnd();
+ 	FTFont::render( string);
 	
 	glPopAttrib();
 }
