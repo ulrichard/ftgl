@@ -11,6 +11,7 @@ FTGL 2.0 (FTGL_2_0_0)
     - Removed a bunch of redundant members and made them function locals.
     - Removed the Open() & Close() functions from FTFont because there was
       no way to handle Close correctly and Open is redundant.
+    - Removed Open() from FTface.
     - Improved the robustness of some of the error handling.
     - Removed the FTCharmap Platform/Encoding function.
     - Added unit tests.
@@ -28,6 +29,8 @@ FTGL 2.0 (FTGL_2_0_0)
     - Changed contourList from FTVector to an array in FTVectoriser.
     - Made function and member names more consistant.
     - Moved header files to include directory.
+    - Mesh now uses a list for glCombine points.
+    - Delete the display lists.
 
 October 23 2002
 FTGL 1.4 (FTGL_1_4)
