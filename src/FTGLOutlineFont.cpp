@@ -17,17 +17,11 @@ FTGLOutlineFont::~FTGLOutlineFont()
 
 bool FTGLOutlineFont::MakeGlyphList()
 {
-//	int glyphIndex;
-	FT_Face* ftFace = face.Face();
-	
 	numGlyphs = 127; // FIXME hack
 	
 	for( unsigned int n = 0; n < numGlyphs; ++n)
 	{
-		err = FT_Load_Glyph( *ftFace, n, FT_LOAD_NO_HINTING | FT_LOAD_NO_BITMAP); // FT_LOAD_DEFAULT... FT_LOAD_NO_SCALE
-		FT_Glyph ftGlyph;
-		
-		err = FT_Get_Glyph( (*ftFace)->glyph, &ftGlyph);
+		FT_Glyph ftGlyph = face.Glyph( n, FT_LOAD_NO_HINTING | FT_LOAD_NO_BITMAP);
 		
 		tempGlyph = new FTVectorGlyph( ftGlyph, n);
 		glyphList->Add( tempGlyph);

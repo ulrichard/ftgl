@@ -104,8 +104,6 @@ bool FTGLTextureFont::MakeGlyphList()
 
 unsigned int FTGLTextureFont::FillGlyphs( unsigned int glyphStart, int id, int width, int height, unsigned char* textdata)
 {
-	FT_Face* ftFace = face.Face();
-	
 	int currentTextX = padding;
 	int currentTextY = padding;// + padding;
 	
@@ -117,11 +115,8 @@ unsigned int FTGLTextureFont::FillGlyphs( unsigned int glyphStart, int id, int w
 	
 	for( n = glyphStart; n <= numGlyphs; ++n)
 	{
-		err = FT_Load_Glyph( *ftFace, n, FT_LOAD_NO_HINTING); // FT_LOAD_DEFAULT
-		FT_Glyph ftGlyph;
+		FT_Glyph ftGlyph = face.Glyph( n, FT_LOAD_NO_HINTING);
 		
-		err = FT_Get_Glyph( (*ftFace)->glyph, &ftGlyph);
-	
 		unsigned char* data = textdata + (( currentTextY * width) + currentTextX);
 		
 		currTextU = (float)currentTextX / (float)width;

@@ -18,17 +18,10 @@ FTGLPixmapFont::~FTGLPixmapFont()
 bool FTGLPixmapFont::MakeGlyphList()
 {
 //	if( preCache)
-	FT_Face* ftFace = face.Face();
-	
 //	numGlyphs = 256; // FIXME hack
-	
 	for( unsigned int c = 0; c < numGlyphs; ++c)
 	{
-		err = FT_Load_Glyph( *ftFace, c, FT_LOAD_DEFAULT);
-		FT_Glyph ftGlyph;
-		
-		err = FT_Get_Glyph( (*ftFace)->glyph, &ftGlyph);
-
+		FT_Glyph ftGlyph = face.Glyph( c, FT_LOAD_DEFAULT);
 //		FT_HAS_VERTICAL(face)
 
 		tempGlyph = new FTPixmapGlyph( ftGlyph, c);
