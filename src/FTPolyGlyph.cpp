@@ -78,7 +78,7 @@ FTPolyGlyph::FTPolyGlyph( FT_Glyph glyph, unsigned int gi)
 			data = new double[ numPoints * 3];
 			vectoriser->Output( data);
 			
-			contourFlag = vectoriser->contourFlag;
+			contourFlag = vectoriser->ContourFlag();
 			advance = glyph->advance.x >> 16; // this is 6 in the freetype docs!!!!!!
 		}
 	
