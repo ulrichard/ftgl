@@ -1,5 +1,9 @@
-FTGL 2.1.2 (FTGL_2_1_2)
+FTGL
+    - Fixed the paths in the XCode project.
+    - Changed the behaviour of some objects so that if there is an error their
+      state isn't changed.
 11 December 2004
+    2.1.2 (FTGL_2_1_2)
     - Changed the way the colour is specified for Pixmap fonts. It can now be
       done per string rather than at start up as previous.
     - Fixed a couple of compilation errors caused by the new FTPoint stuff,
