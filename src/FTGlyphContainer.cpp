@@ -2,8 +2,6 @@
 #include	"FTGlyph.h"
 #include	"FTFace.h"
 
-#include "mmgr.h"
-
 FTGlyphContainer::FTGlyphContainer( FTFace* f, unsigned int g, bool p)
 :	preCache( p),
 	numGlyphs( g),

@@ -1,7 +1,5 @@
 #include    "FTPixmapGlyph.h"
 
-#include "mmgr.h"
-
 FTPixmapGlyph::FTPixmapGlyph( FT_Glyph glyph)
 :   FTGlyph(),
     destWidth(0),
