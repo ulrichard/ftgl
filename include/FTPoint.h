@@ -18,7 +18,11 @@ class FTGL_EXPORT FTPoint
          */
         FTPoint()
         : x(0), y(0), z(0)
-        {}
+        {
+            elements[0] = 0;
+            elements[1] = 0;
+            elements[2] = 0;
+        }
         
         /**
          * Constructor.
@@ -29,7 +33,11 @@ class FTGL_EXPORT FTPoint
          */
         FTPoint( const FTGL_DOUBLE X, const FTGL_DOUBLE Y, const FTGL_DOUBLE Z)
         : x(X), y(Y), z(Z)
-        {}
+        {
+            elements[0] = X;
+            elements[1] = Y;
+            elements[2] = Z;
+        }
         
         /**
          * Constructor. This converts an FT_Vector to an FT_Point
@@ -38,7 +46,11 @@ class FTGL_EXPORT FTPoint
          */
         FTPoint( const FT_Vector& ft_vector)
         : x(ft_vector.x), y(ft_vector.y), z(0)
-        {}
+        {
+            elements[0] = ft_vector.x;
+            elements[1] = ft_vector.y;
+            elements[2] = 0;
+        }
         
         /**
          * Operator +=
@@ -52,6 +64,10 @@ class FTGL_EXPORT FTPoint
             y += point.y;
             z += point.z;
         
+            elements[0] = point.elements[0];
+            elements[1] = point.elements[1];
+            elements[2] = point.elements[2];
+
             return *this;
         }
 
@@ -78,6 +94,13 @@ class FTGL_EXPORT FTPoint
             return &x;
         }
         
+        void X( FTGL_DOUBLE x) { elements[0] = x;};
+        void Y( FTGL_DOUBLE y) { elements[1] = y;};
+        void Z( FTGL_DOUBLE x) { elements[2] = z;};
+        FTGL_DOUBLE X() const { return elements[0];};
+        FTGL_DOUBLE Y() const { return elements[1];};
+        FTGL_DOUBLE Z() const { return elements[2];};
+        
         /**
          * The point data
          */
@@ -85,6 +108,7 @@ class FTGL_EXPORT FTPoint
 //        FTGL_FLOAT x, y, z; // FIXME make private
         
     private:
+        FTGL_DOUBLE elements[3];
 };
 
 #endif  //  __FTPoint__

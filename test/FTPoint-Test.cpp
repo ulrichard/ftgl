@@ -13,7 +13,9 @@ class FTPointTest : public CppUnit::TestCase
         CPPUNIT_TEST( testOperatorEqual);
         CPPUNIT_TEST( testOperatorNotEqual);
         CPPUNIT_TEST( testOperatorPlusEquals);
-        CPPUNIT_TEST( testOperatorStar);
+        CPPUNIT_TEST( testOperatorDouble);
+        CPPUNIT_TEST( testSetters);
+        CPPUNIT_TEST( testGetters);        
     CPPUNIT_TEST_SUITE_END();
         
     public:
@@ -92,6 +94,27 @@ class FTPointTest : public CppUnit::TestCase
             CPPUNIT_ASSERT(pointer[0] == 1.0f);
             CPPUNIT_ASSERT(pointer[1] == 2.0f);
             CPPUNIT_ASSERT(pointer[2] == 3.0f);
+        }
+        
+        void testSetters()
+        {
+            FTPoint point;
+            FTPoint point1( 1.0, 2.0, 3.0);
+            
+            point.X(1.0);
+            point.Y(2.0);
+            point.Z(3.0);
+            
+            CPPUNIT_ASSERT(point == point1);
+        }
+        
+        void testGetters()
+        {
+            FTPoint point( 1.0f, 2.0f, 3.0f);
+            
+            CPPUNIT_ASSERT(point.X() == 1.0);
+            CPPUNIT_ASSERT(point.Y() == 2.0);
+            CPPUNIT_ASSERT(point.Z() == 3.0);
         }
         
         
