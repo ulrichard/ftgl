@@ -15,6 +15,8 @@ class	FTGLOutlineFont : public FTFont
 		FTGLOutlineFont();
 		~FTGLOutlineFont();
 		
+		void render( const char* string);
+
 		// attributes
 		
 	private:
