@@ -5,6 +5,7 @@ FTGL 2.0.11 (FTGL_2_0_11)
 16 August 2004
     2.0.10 (FTGL_2_0_10)
     - Fixed tab problem in unix Makefile.
+    - Added CYGWIN GLUTesselatorFunction define to FTVectoriser.
 
 21 April 2004
     2.0.9 (FTGL_2_0_9)
