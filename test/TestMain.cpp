@@ -35,3 +35,4 @@ void buildGLContext()
         glutInitialised = true;
     }
 }
+
