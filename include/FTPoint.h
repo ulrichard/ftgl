@@ -9,10 +9,6 @@
 
 /**
  * FTPoint class is a basic 3 dimensional point or vector.
- *
- * @see FTOutlineGlyph
- * @see FTPolyGlyph
- *
  */
 class FTGL_EXPORT FTPoint
 {
@@ -36,11 +32,9 @@ class FTGL_EXPORT FTPoint
         {}
         
         /**
-         * Constructor.
+         * Constructor. This converts an FT_Vector to an FT_Point
          *
-         * @param X
-         * @param Y
-         * @param Z
+         * @param ft_vector A freetype vector
          */
         FTPoint( const FT_Vector& ft_vector)
         : x(ft_vector.x), y(ft_vector.y), z(0)

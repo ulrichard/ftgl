@@ -1,5 +1,5 @@
-#include    "FTGLBitmapFont.h"
-#include    "FTBitmapGlyph.h"
+#include "FTGLBitmapFont.h"
+#include "FTBitmapGlyph.h"
 
 
 FTGLBitmapFont::FTGLBitmapFont()

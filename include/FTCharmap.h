@@ -21,6 +21,8 @@
  * freetype calls and will save significant amounts of memory when dealing
  * with uncode encoding
  *
+ * @see "Freetype 2 Documentation" 
+ *
  */
 class FTGL_EXPORT FTCharmap
 {

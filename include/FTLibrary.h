@@ -23,7 +23,7 @@
  * for errors using the following code...
  * <code>err = FTLibrary::Instance().Error();</code>
  *
- * @see "Freetype 2 Documentation - 2.0.4"
+ * @see "Freetype 2 Documentation"
  *
  */
 class FTGL_EXPORT FTLibrary

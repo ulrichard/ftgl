@@ -9,13 +9,14 @@
 
 
 /**
- * FTBBox
- *
- *
+ * FTBBox is a convenience class for handling bounding boxes.
  */
 class FTGL_EXPORT FTBBox
 {
     public:
+        /**
+         * Default constructor. Bounding box is set to zero.
+         */
         FTBBox()
         :   lowerX(0),
             lowerY(0),
@@ -25,6 +26,12 @@ class FTGL_EXPORT FTBBox
             upperZ(0)
         {}
         
+        /**
+         * Constructor. Extracts a bounding box from a freetype glyph. Uses
+         * the control box for the glyph. <code>FT_Glyph_Get_CBox()</code>
+         *
+         * @param glyph A freetype glyph
+         */
         FTBBox( FT_Glyph glyph)
         {
             FT_BBox bbox;
@@ -37,19 +44,16 @@ class FTGL_EXPORT FTBBox
             upperY = bbox.yMax >> 6;
             upperZ = 0; 
         }       
-        
-        FTBBox( int a, int b, int c, int d, int e, int f)
-        :   lowerX(a),
-            lowerY(b),
-            lowerZ(c),
-            upperX(d),
-            upperY(e),
-            upperZ(f)
-        {}
 
+        /**
+         * Destructor
+         */
         ~FTBBox()
         {}
         
+        /**
+         * The bounds of the box
+         */
         // Make these ftPoints & private
         float lowerX, lowerY, lowerZ, upperX, upperY, upperZ;
     protected:

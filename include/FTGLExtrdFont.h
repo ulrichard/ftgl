@@ -9,10 +9,11 @@ class FTGlyph;
 
 
 /**
- * FTGLPolygonFont is a specialisation of the FTFont class for handling
- * tesselated Polygon Mesh fonts
+ * FTGLExtrdFont is a specialisation of the FTFont class for handling
+ * extruded Polygon fonts
  *
  * @see		FTFont
+ * @see		FTGLPolygonFont
  */
 class FTGL_EXPORT FTGLExtrdFont : public FTFont
 {
@@ -34,7 +35,7 @@ class FTGL_EXPORT FTGLExtrdFont : public FTFont
 		 * Construct a FTPolyGlyph.
 		 *
 		 * @param g The glyph index NOT the char code.
-		 * @return	An FTPolyGlyph or <code>null</code> on failure.
+		 * @return	An FTExtrdGlyph or <code>null</code> on failure.
 		 */
 		inline virtual FTGlyph* MakeGlyph( unsigned int g);
 		

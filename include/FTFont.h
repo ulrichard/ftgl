@@ -269,8 +269,6 @@ class FTGL_EXPORT FTFont
          * @param nextChr   next character
          */
         inline void doRender( const unsigned int chr, const unsigned int nextChr);
-        
-
 
 };
 
