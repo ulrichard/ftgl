@@ -149,7 +149,6 @@ class FTGL_EXPORT FTMesh
         void End();
         void Error( GLenum e) { err = e;}
         
-        FTGL_DOUBLE* Point();
         int size() const;
         
         /**
@@ -157,19 +156,25 @@ class FTGL_EXPORT FTMesh
          */
         GLenum Error() const { return err;}
 
+        /**
+         * Holds extra points created by gluTesselator. See ftglCombine.
+         */
         typedef FTVector<FTPoint> PointVector;
-        PointVector tempPool;
+        PointVector tempPointList;
         
+        /**
+         * Holds each sub mesh that comprises this glyph.
+         */
         typedef FTVector<FTTesselation*> TesselationVector;
-        TesselationVector tess;
+        TesselationVector tesselationList;
         
     protected:
     
     private:
         /**
-         *  The list of points in this mesh
+         * The current sub mesh that we are constructing.
          */
-        FTTesselation* tempTess;
+        FTTesselation* currentTesselation;
         
         /**
          * GL ERROR returned by the glu tesselator

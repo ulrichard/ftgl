@@ -42,62 +42,57 @@ void CALLBACK ftglEnd( FTMesh* mesh)
 void CALLBACK ftglCombine( FTGL_DOUBLE coords[3], void* vertex_data[4], GLfloat weight[4], void** outData, FTMesh* mesh)
 {
     FTGL_DOUBLE* vertex = (FTGL_DOUBLE*)coords;
-    mesh->tempPool.push_back( FTPoint( vertex[0], vertex[1], vertex[2]));
+    mesh->tempPointList.push_back( FTPoint( vertex[0], vertex[1], vertex[2]));
     
-    *outData = &mesh->tempPool[ mesh->tempPool.size() - 1].x;
+    *outData = &mesh->tempPointList[ mesh->tempPointList.size() - 1].x;
 }
         
 
 FTMesh::FTMesh()
 :   err(0)
 {
-    tess.reserve( 16);
-    tempPool.reserve( 128);
+    tesselationList.reserve( 16);
+    tempPointList.reserve( 128);
 }
 
 
 FTMesh::~FTMesh()
 {
-    for( size_t t = 0; t < tess.size(); ++t)
+    for( size_t t = 0; t < tesselationList.size(); ++t)
     {
-        delete tess[t];
+        delete tesselationList[t];
     }
-    tess.clear();
+    tesselationList.clear();
 
-    tempPool.clear();
+    tempPointList.clear();
 }
 
 
 void FTMesh::AddPoint( const FTGL_DOUBLE x, const FTGL_DOUBLE y, const FTGL_DOUBLE z)
 {
-    tempTess->AddPoint( x, y, z);
+    currentTesselation->AddPoint( x, y, z);
 }
 
 void FTMesh::Begin( GLenum m)
 {
-    tempTess = new FTTesselation;
-    tempTess->meshType = m;
+    currentTesselation = new FTTesselation;
+    currentTesselation->meshType = m;
 }
 
 
 void FTMesh::End()
 {
-    tess.push_back( tempTess);
-}
-
-
-FTGL_DOUBLE* FTMesh::Point()
-{
-    return &tempTess->pointList[ tempTess->size() - 1].x;
+    tesselationList.push_back( currentTesselation);
 }
 
 
 int FTMesh::size() const
 {
     int s = 0;
-    for( size_t t = 0; t < tess.size(); ++t)
+    for( size_t t = 0; t < tesselationList.size(); ++t)
     {
-        s += tess[t]->size();
+        s += tesselationList[t]->size();
+// FIXME What the hell is this for?
         ++s;
     }
     return s;
@@ -378,22 +373,22 @@ void FTVectoriser::GetMesh( FTGL_DOUBLE* data)
     int i = 0;
     
     // fill out the header
-    size_t msize = mesh->tess.size();
+    size_t msize = mesh->tesselationList.size();
     data[0] = msize;
     
     for( int p = 0; p < data[0]; ++p)
     {
-        FTTesselation* tess = mesh->tess[p];
-        size_t tSize =  tess->pointList.size();
-        int tType =  tess->meshType;
+        FTTesselation* tesselation = mesh->tesselationList[p];
+        size_t tSize =  tesselation->pointList.size();
+        int tType =  tesselation->meshType;
         
         data[i+1] = tType;
         data[i+2] = tSize;
         i += 3;
-        for( size_t q = 0; q < ( tess->pointList.size()); ++q)
+        for( size_t q = 0; q < ( tesselation->pointList.size()); ++q)
         {
-            data[i] = tess->pointList[q].x / 64.0f; // is 64 correct?
-            data[i + 1] = tess->pointList[q].y / 64.0f;
+            data[i] = tesselation->pointList[q].x / 64.0f; // is 64 correct?
+            data[i + 1] = tesselation->pointList[q].y / 64.0f;
             data[i + 2] = 0.0f; // static_cast<FTGL_DOUBLE>(mesh->pointList[p].z / 64.0f);
             i += 3;
         }
