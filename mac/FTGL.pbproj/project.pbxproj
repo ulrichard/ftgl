@@ -1566,8 +1566,8 @@
 		F5CB02F60310FDAF0142A175 = {
 			isa = PBXFileReference;
 			name = libfreetype.a;
-			path = /Users/henry/Development/PROJECTS/iSpot/libraries/libfreetype.a;
-			refType = 0;
+			path = Libraries/libfreetype.a;
+			refType = 2;
 		};
 		F5CB02F70310FDAF0142A175 = {
 			fileRef = F5CB02F60310FDAF0142A175;
