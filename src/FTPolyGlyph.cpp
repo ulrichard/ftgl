@@ -39,7 +39,7 @@ void ftglEnd()
 
 void ftglCombine( GLdouble coords[3], void* vertex_data[4], GLfloat weight[4], void** outData)
 {
-	double* vertex = new double[3];
+	double* vertex = new double[3]; // FIXME MEM LEAK
 	
 	vertex[0] = coords[0];
 	vertex[1] = coords[1];
