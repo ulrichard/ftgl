@@ -1,4 +1,4 @@
-#include	"gl.h"
+#include	"GL/gl.h"
 
 #include	"FTGLTextureFont.h"
 #include	"FTGlyphContainer.h"
@@ -56,10 +56,10 @@ bool FTGLTextureFont::MakeGlyphList()
 	
 	float currTextU = (float)padding / (float)textureSize;
 	float currTextV = (float)padding / (float)textureSize;
-	float Uinc = (float)glyphWidth / (float)textureSize;
-	float Vinc = (float)glyphHeight / (float)textureSize;
+//	float Uinc = (float)glyphWidth / (float)textureSize;
+//	float Vinc = (float)glyphHeight / (float)textureSize;
 	
-	int currGlyph = 0;
+//	int currGlyph = 0;
 	int glyphIndex;
 	
 	for( int n = 0; n <= numGlyphs; ++n)

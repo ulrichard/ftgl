@@ -1,4 +1,4 @@
-#include	"gl.h"
+#include	"GL/gl.h"
 
 #include	"FTVectorGlyph.h"
 #include	"FTVectoriser.h"

@@ -1,8 +1,5 @@
-#include <stdio.h>
-
-
-#include	"gl.h"
-#include	"glu.h"
+#include	"GL/gl.h"
+#include	"GL/glu.h"
 
 #include	"FTPolyGlyph.h"
 #include	"FTVectoriser.h"

@@ -1,4 +1,4 @@
-#include	"gl.h"
+#include	"GL/gl.h"
 
 #include	"FTBitmapGlyph.h"
 #include	"FTGL.h"
