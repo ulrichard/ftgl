@@ -20,7 +20,7 @@ FTGlyph* FTGLPixmapFont::MakeGlyph( unsigned int g)
 	if( ftGlyph)
 	{
 		FTPixmapGlyph* tempGlyph = new FTPixmapGlyph( *ftGlyph);
-        FT_Done_Glyph( *ftGlyph );
+//        FT_Done_Glyph( *ftGlyph );
 		return tempGlyph;
 	}
 
