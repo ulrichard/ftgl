@@ -81,17 +81,16 @@ bool FTCharmap::CharMap( FT_UShort platform, FT_UShort encoding)
 
 unsigned int FTCharmap::CharIndex( unsigned int index )
 {
-    CharacterMap::const_iterator result = charMap.find( index);
-        
-    if( result == charMap.end())
+    const CharacterMap::GlyphIndex *result = charMap.find(index);
+    
+    if( !result)
     {
         unsigned int glyph = FT_Get_Char_Index( ftFace, index);
-        charMap.insert( CharacterMap::value_type( index, glyph));
+        charMap.insert( index, glyph);
         return glyph;
     }
     else
     {
-        return result->second;
+        return *result;
     }
-
 }

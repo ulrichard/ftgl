@@ -1,11 +1,13 @@
 #ifndef     __FTCharmap__
 #define     __FTCharmap__
 
-#include <map>
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include FT_GLYPH_H
+
+//#include <map>
+#include "FTCharToGlyphIndexMap.h"
 
 #include "FTGL.h"
 
@@ -104,7 +106,7 @@ class FTGL_EXPORT FTCharmap
          *
          * < character code, face glyph index>
          */
-        typedef std::map< unsigned long, unsigned long> CharacterMap;
+        typedef FTCharToGlyphIndexMap CharacterMap;
         CharacterMap charMap;
         
         /**
