@@ -10,14 +10,13 @@
 #include "FTGL.h"
 
 #include "FTVector.h"
-#include "FTGlyph.h"
 
 #ifndef CALLBACK
 #define CALLBACK
 #endif
 
 /**
- * ftPoint class is a basic 3 dimensional point for holding outline font
+ * ftPoint class is a basic 3 dimensional point for holding vector font
  * point data.
  *
  * @see FTOutlineGlyph
@@ -73,8 +72,8 @@ class FTGL_EXPORT ftPoint
 
 
 /**
- * FTContour class is a container of points that describe an outline
- * point data.
+ * FTContour class is a container of points that describe a vector font
+ * outline
  *
  * @see FTOutlineGlyph
  * @see FTPolyGlyph
@@ -250,8 +249,7 @@ class FTGL_EXPORT FTVectoriser
         void GetOutline( FTGL_DOUBLE* d);
 
         /**
-         * Build a mesh from the outline and copy the vertex data into a
-         * block of <code>FTGL_DOUBLEs</code>
+         * Build an FTMesh from the vector outline data. 
          *
          * @param zNormal   The direction of the z axis of the normal
          *                  for this mesh
