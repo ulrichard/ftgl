@@ -47,12 +47,12 @@ class FTGL_EXPORT FTBitmapGlyph : public FTGlyph
         /**
          * The width of the glyph 'image'
          */
-        int destWidth;
+        unsigned int destWidth;
 
         /**
          * The height of the glyph 'image'
          */
-        int destHeight;
+        unsigned int destHeight;
         
         /**
          * Pointer to the 'image' data
