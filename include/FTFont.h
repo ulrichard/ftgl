@@ -89,6 +89,10 @@ class	FTFont
 		 */
 		virtual int	Descender() const;
 		
+		float Advance( const wchar_t* string);
+		float Advance( const char* string);
+		
+		
 		/**
 		 * Gets the bounding box dimensions for a string.
 		 * 
@@ -98,7 +102,7 @@ class	FTFont
 		 * @param	XXXXXXX
 		 * @param	XXXXXXX
 		 */
-		virtual void BBox( const char* string, int& llx, int& lly, int& urx, int& ury ) const;
+//		virtual void BBox( const char* string, int& llx, int& lly, int& urx, int& ury ) const;
 		
 		/**
 		 * Renders a string of characters

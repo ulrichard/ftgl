@@ -82,12 +82,42 @@ int	FTFont::Descender() const
 }
 
 
-void FTFont::BBox( const char* text, int& llx, int& lly, int& urx, int& ury ) const
+float FTFont::Advance( const wchar_t* string)
 {
+	const wchar_t* c = string; // wchar_t IS unsigned?
+	float width = 0;
+
+	while( *c)
+	{
+		width += glyphList->Advance( *c, *(c + 1));	
+		++c;
+	}
+
+	return width;
+}
+
+
+float FTFont::Advance( const char* string)
+{
+	const unsigned char* c = (unsigned char*)string; // This is ugly, what is the c++ way?
+	float width = 0;
+
+	while( *c)
+	{
+		width += glyphList->Advance( *c, *(c + 1));	
+		++c;
+	}
+
+	return width;
+}
+
+
+//void FTFont::BBox( const char* text, int& llx, int& lly, int& urx, int& ury ) const
+//{
 //Insert your own code here.
 
 //End of user code.         
-}
+//}
 
 
 void FTFont::render( const char* string )
@@ -110,7 +140,7 @@ void FTFont::render( const char* string )
 
 void FTFont::render( const wchar_t* string )
 {
-	const unsigned wchar_t* c = (unsigned wchar_t*)string; // This is ugly, what is the c++ way?
+	const wchar_t* c = string; // wchar_t IS unsigned?
 	FT_Vector kernAdvance;
 	pen.x = 0; pen.y = 0;
 

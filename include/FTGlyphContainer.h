@@ -40,6 +40,16 @@ class	FTGlyphContainer
 		bool Add( FTGlyph* glyph);
 
 		/**
+		* Returns the kerned advance width for a glyph.
+		*
+		* param index	glyph index of the character
+		* param next	the next glyph in a string
+		* return 		advance width
+		* 
+		*/
+		float Advance( unsigned int index, unsigned int next);
+		
+		/**
 		 * renders a character
 		 */
 		FT_Vector& render( unsigned int index, unsigned int next, FT_Vector pen);

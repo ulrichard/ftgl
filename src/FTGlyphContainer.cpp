@@ -34,6 +34,18 @@ bool FTGlyphContainer::Add( FTGlyph* tempGlyph)
 }
 
 
+float FTGlyphContainer::Advance( unsigned int index, unsigned int next)
+{
+	unsigned int left = face->CharIndex( index);
+	unsigned int right = face->CharIndex( next);
+	
+	float width = face->KernAdvance( left, right).x;
+	width += glyphs[left]->Advance();
+	
+	return width;
+}
+
+
 FT_Vector& FTGlyphContainer::render( unsigned int index, unsigned int next, FT_Vector pen)
 {
 	kernAdvance.x = 0; kernAdvance.y = 0;
@@ -41,9 +53,12 @@ FT_Vector& FTGlyphContainer::render( unsigned int index, unsigned int next, FT_V
 	unsigned int left = face->CharIndex( index);
 	unsigned int right = face->CharIndex( next);
 	
-	kernAdvance = face->KernAdvance( left, right);	
+	kernAdvance = face->KernAdvance( left, right);
+		
 	if( !face->Error())
+	{
 		advance = glyphs[left]->Render( pen);
+	}
 	
 	kernAdvance.x = advance + kernAdvance.x; // FIXME float to long
 //	kernAdvance.y = advance.y + kernAdvance.y;
