@@ -1,5 +1,5 @@
-FTGL 1.32
-April 23 2002
+FTGL 1.4
+August 26 2002
 
 TODO:
 	- use float for all font metrics and advance metrics.
@@ -10,8 +10,6 @@ FUTURE:
 	- Multiple sizes
 	- Optimise performance and mem usage.
 	- gl/glu errors
-	- check and confirm the glPixelStore stuff. Data Alignment. Tightly
-	  packed at the moment.
 	- Use the Freetype Cache mechanism. FTC_xxx
 	- Vertical formats
 	- Multiple Masters
@@ -44,9 +42,5 @@ BUGS:
 	  I will probably have to make my own struct with floats.
 	- The texture co-ords in the Texture Font may be wrong for non
 	  scalable fonts.
-	- There is an inconsistancy in the way the global bounding box is
-	  stored in Freetype. It is supposed to be in font units but in some
-	  cases it is in 16.16 format. I have implemented a work around but
-	  hopefully the freetype guys will sort this.
-	- FTVectoriser seems to position some points incorrectly. confusing
+	- FTVectoriser seems to position some points incorrectly. Confusing
 	  line point with control point at start or end????
