@@ -2,14 +2,13 @@
 {
 	66BA088A01C46338000ABFD4 = {
 		activeBuildStyle = 66BA088C01C46338000ABFD4;
-		activeExecutable = BAF0F09203AF0F9E004F6ED7;
-		activeTarget = BAF0F09003AF0F9E004F6ED7;
+		activeExecutable = F597CC9302C5420F01F03BCF;
+		activeTarget = F597CC8B02C5420F01F03BCF;
 		addToTargets = (
 			BAF0F09003AF0F9E004F6ED7,
-			66BA08E801C4657A000ABFD4,
-			F597CC8B02C5420F01F03BCF,
 		);
 		breakpoints = (
+			BAD3B1F50626597A004F6ED7,
 		);
 		executables = (
 			66BA08EF01C4657A000ABFD4,
@@ -17,7 +16,7 @@
 			BAF0F09203AF0F9E004F6ED7,
 		);
 		perUserDictionary = {
-			PBXPerProjectTemplateStateSaveDate = 83462467;
+			PBXPerProjectTemplateStateSaveDate = 103174740;
 			PBXWorkspaceContents = (
 				{
 					LeftSlideOut = {
@@ -663,7 +662,7 @@
 					WindowLocation = "{-1, 4}";
 				},
 			);
-			PBXWorkspaceStateSaveDate = 83462467;
+			PBXWorkspaceStateSaveDate = 103174740;
 		};
 		perUserProjectItems = {
 			BA0B2EF10491E6CF00696923 = BA0B2EF10491E6CF00696923;
@@ -1245,7 +1244,7 @@
 		rLen = 0;
 		rLoc = 3289;
 		rType = 0;
-		vrLen = 698;
+		vrLen = 690;
 		vrLoc = 3147;
 	};
 	BA0B2F030491E6CF00696923 = {
@@ -4205,7 +4204,7 @@
 		isa = PBXTextBookmark;
 		name = "FTFont.h: MakeGlyph";
 		rLen = 0;
-		rLoc = 6075;
+		rLoc = 6340;
 		rType = 0;
 		vrLen = 1165;
 		vrLoc = 5572;
@@ -4265,7 +4264,7 @@
 		isa = PBXTextBookmark;
 		name = "FTBBox-Test.cpp: 155";
 		rLen = 0;
-		rLoc = 5176;
+		rLoc = 5188;
 		rType = 0;
 		vrLen = 1090;
 		vrLoc = 4086;
@@ -4285,7 +4284,7 @@
 		isa = PBXTextBookmark;
 		name = "FTFont.h: MakeGlyph";
 		rLen = 0;
-		rLoc = 6075;
+		rLoc = 6340;
 		rType = 0;
 		vrLen = 1165;
 		vrLoc = 5572;
@@ -4305,7 +4304,7 @@
 		isa = PBXTextBookmark;
 		name = "FTBBox-Test.cpp: 141";
 		rLen = 0;
-		rLoc = 4934;
+		rLoc = 4946;
 		rType = 0;
 		vrLen = 918;
 		vrLoc = 0;
@@ -4365,7 +4364,7 @@
 		isa = PBXTextBookmark;
 		name = "FTBBox-Test.cpp: 155";
 		rLen = 0;
-		rLoc = 5176;
+		rLoc = 5188;
 		rType = 0;
 		vrLen = 1090;
 		vrLoc = 4086;
@@ -4479,7 +4478,7 @@
 		isa = PBXTextBookmark;
 		name = "FTFont.h: MakeGlyph";
 		rLen = 0;
-		rLoc = 6075;
+		rLoc = 6340;
 		rType = 0;
 		vrLen = 1174;
 		vrLoc = 5572;
@@ -5307,9 +5306,9 @@
 		isa = PBXTextBookmark;
 		name = "FTFace.h: 123";
 		rLen = 0;
-		rLoc = 3188;
+		rLoc = 3461;
 		rType = 0;
-		vrLen = 507;
+		vrLen = 395;
 		vrLoc = 3080;
 	};
 	BAC92AE3048C659C000B15C0 = {
@@ -5452,6 +5451,12 @@
 		vrLen = 523;
 		vrLoc = 0;
 	};
+	BAD3B1F50626597A004F6ED7 = {
+		fileReference = BAF0F09503AF0FF7004F6ED7;
+		isa = PBXFileBreakpoint;
+		lineNumber = 73;
+		state = 1;
+	};
 	BADB51ED04DA8119006AD928 = {
 		fRef = 66BA08A001C4638C000ABFD4;
 		isa = PBXTextBookmark;
@@ -5527,7 +5532,7 @@
 		isa = PBXTextBookmark;
 		name = "FTFont.h: MakeGlyph";
 		rLen = 9;
-		rLoc = 6092;
+		rLoc = 6357;
 		rType = 0;
 		vrLen = 1165;
 		vrLoc = 5572;
@@ -5653,7 +5658,7 @@
 		isa = PBXTextBookmark;
 		name = "FTFont.h: MakeGlyph";
 		rLen = 0;
-		rLoc = 6075;
+		rLoc = 6340;
 		rType = 0;
 		vrLen = 854;
 		vrLoc = 5573;

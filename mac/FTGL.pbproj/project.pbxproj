@@ -980,6 +980,32 @@
 			path = ../test/HPGCalc_afm.cpp;
 			refType = 2;
 		};
+		BAD3B1FD06266914004F6ED7 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			name = "FTBitmapGlyph-Test.cpp";
+			path = "/Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/test/FTBitmapGlyph-Test.cpp";
+			refType = 0;
+		};
+		BAD3B1FE06266914004F6ED7 = {
+			fileRef = BAD3B1FD06266914004F6ED7;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		BAD3B1FF06266945004F6ED7 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			name = "FTFTCharToGlyphIndexMap-Test.cpp";
+			path = "/Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/test/FTFTCharToGlyphIndexMap-Test.cpp";
+			refType = 0;
+		};
+		BAD3B20006266945004F6ED7 = {
+			fileRef = BAD3B1FF06266945004F6ED7;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
 		BADB7E0E03AF1241004F6ED7 = {
 			fileRef = 66BA088F01C4635F000ABFD4;
 			isa = PBXBuildFile;
@@ -1040,6 +1066,8 @@
 				BAF0F0AF03AF0FF7004F6ED7,
 				BA3F38F303B1D4FD004F6ED7,
 				BA3F38F403B1D4FD004F6ED7,
+				BAD3B1FE06266914004F6ED7,
+				BAD3B20006266945004F6ED7,
 			);
 			isa = PBXSourcesBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1104,7 +1132,9 @@
 				BAA7878D03CCC3B8000ABFD4,
 				BA0143B703AFE974000ABFD4,
 				BAF0F09E03AF0FF7004F6ED7,
+				BAD3B1FD06266914004F6ED7,
 				BAF0F09903AF0FF7004F6ED7,
+				BAD3B1FF06266945004F6ED7,
 				BAF0F09603AF0FF7004F6ED7,
 				BAF0F09B03AF0FF7004F6ED7,
 				BAF0F09503AF0FF7004F6ED7,
