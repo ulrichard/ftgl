@@ -79,10 +79,6 @@ class  FTGL_EXPORT FTGLTextureFont : public FTFont
          * GL_TEXTURE_MAG_FILTER = GL_LINEAR
          * GL_TEXTURE_MIN_FILTER = GL_LINEAR
          * Note that mipmapping is NOT used
-         * @param id        The index into an array of glTextureIDs.
-         * @param width     The width of the texture in bytes
-         * @param height    The number of rows of bytes.
-         * @param data      A pointer to the texture data
          */
         inline int CreateTexture();
         

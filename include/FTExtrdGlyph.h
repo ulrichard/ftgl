@@ -25,6 +25,7 @@ class FTGL_EXPORT FTExtrdGlyph : public FTGlyph
          * Constructor
          *
          * @param glyph The Freetype glyph to be processed
+         * @param depth The distance along the z axis to extrude the glyph
          */
         FTExtrdGlyph( FT_Glyph glyph, float depth);
 

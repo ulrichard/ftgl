@@ -100,7 +100,7 @@ class FTGL_EXPORT FTFont
          *
          * @param d  The extrusion distance.
          */
-        virtual void Depth( float){}
+        virtual void Depth( float d){}
 
         /**
          * Set the character map for the face.
@@ -136,7 +136,7 @@ class FTGL_EXPORT FTFont
          * @param ury       upper right far y coord
          * @param urz       upper right far z coord
          */
-        void BBox( const char* text, float& llx, float& lly, float& llz, float& urx, float& ury, float& urz);
+        void BBox( const char* string, float& llx, float& lly, float& llz, float& urx, float& ury, float& urz);
 
         /**
          * Get the bounding box for a string.

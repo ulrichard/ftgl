@@ -68,6 +68,7 @@ class FTGL_EXPORT FTCharmap
         /**
          * Sets the character map for the face.
          *
+         * @param platform      
          * @param encoding      the Freetype encoding symbol. See above.
          * @return              <code>true</code> if charmap was valid
          *                      and set correctly

@@ -37,10 +37,11 @@ class FTGL_EXPORT FTGlyphContainer
         /**
          * Adds a glyph to this glyph list.
          *
-         * @param glyph     
+         * @param glyph The FTGlyph to be inserted into the container
+         * @param g     The glyphs index in the container.
          * @return          <code>true</code>
          */
-        bool Add( FTGlyph* tempGlyph, unsigned int g);
+        bool Add( FTGlyph* glyph, unsigned int g);
 
         /**
          * Get a glyph from the glyph list

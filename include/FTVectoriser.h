@@ -324,13 +324,13 @@ class FTGL_EXPORT FTVectoriser
         int Cubic( const int index, const int first, const int last);
 
         /**
-         * @param a
-         * @param b
+         * @param t
+         * @param n
          */
         inline void deCasteljau( const float t, const int n);
 
         /**
-         * @param a
+         * @param n
          */
         inline void evaluateCurve( const int n);
 

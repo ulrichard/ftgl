@@ -34,12 +34,13 @@ class FTGL_EXPORT FTSize
          * This doesn't guarantee that the size was set correctly. Clients
          * should check errors.
          *
-         * @param point_size        the face size in points (1/72 inch)
-         * @param x_resolution      the horizontal resolution of the target device.
-         * @param y_resolution      the vertical resolution of the target device.
+         * @param face           Parent face for this size object
+         * @param point_size     the face size in points (1/72 inch)
+         * @param x_resolution   the horizontal resolution of the target device.
+         * @param y_resolution   the vertical resolution of the target device.
          * @return          <code>true</code> if the size has been set. Clients should check Error() for more information if this function returns false()
          */
-        bool CharSize( FT_Face* face, unsigned int point_size, unsigned int x_resolution, unsigned int y_resolution );
+        bool CharSize( FT_Face* face, unsigned int point_size, unsigned int x_resolution, unsigned int y_resolution);
         
         /**
          * get the char size for the current face.
