@@ -1,5 +1,5 @@
-FTGL 2.02
-3 April 2003
+FTGL 2.04
+12 April 2003
 
 TODO:
     
@@ -20,7 +20,6 @@ FUTURE:
       the length of the curve. But then you should also test the angle
       of the tangents as well.
       Jed's new bezier stuff.
-    - Guard classes - vectoriser
     - Template methods
     - Move the init code out of the glyph constructors into an init
       function so that they can return errors.

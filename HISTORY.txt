@@ -1,5 +1,9 @@
-FTGL 2.03 (FTGL_2_0_3)
+FTGL 2.04 (FTGL_2_0_4)
+12 April 2003
+    - Fixed resize behavior in FTGLTextureFont.
+    
 9 April 2003
+    2.03 (FTGL_2_0_3)
     - Fix in FTContour to handle broken contours.
     
 3 April 2003
