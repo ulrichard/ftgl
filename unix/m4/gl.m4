@@ -34,7 +34,7 @@ else
 fi
 
 CPPFLAGS="$GL_CFLAGS"
-AC_CHECK_HEADER([GL/gl.h], [], [AC_MSG_ERROR(GL/gl.h is needed, please specify its location with --with-gl-inc)])
+AC_CHECK_HEADER([GL/gl.h], [], [AC_MSG_ERROR(GL/gl.h is needed, please specify its location with --with-gl-inc.  If this still fails, please contact mmagallo@debian.org, include the string FTGL somewhere in the subject line and provide a copy of the config.log file that was left behind.)])
 
 AC_MSG_CHECKING([for GL library])
 if test "x$with_gl_lib" != "x" ; then
@@ -58,7 +58,7 @@ if test "x$HAVE_GL" = xyes ; then
     GL_LIBS=$LIBS
 else
     AC_MSG_RESULT([no])
-    AC_MSG_ERROR([GL library could not be found, please specify its location with --with-gl-lib])
+    AC_MSG_ERROR([GL library could not be found, please specify its location with --with-gl-lib.  If this still fails, please contact mmagallo@debian.org, include the string FTGL somewhere in the subject line and provide a copy of the config.log file that was left behind.])
 fi
 
 AC_CHECK_HEADER([GL/glu.h])
@@ -87,7 +87,7 @@ if test "x$HAVE_GLU" = xyes ; then
     GL_LIBS="$LIBS"
 else
     AC_MSG_RESULT([no])
-    AC_MSG_ERROR([GLU library could not be found, please specify its location with --with-gl-lib])
+    AC_MSG_ERROR([GLU library could not be found, please specify its location with --with-gl-lib.  If this still fails, please contact mmagallo@debian.org, include the string FTGL somewhere in the subject line and provide a copy of the config.log file that was left behind.])
 fi
 
 AC_SUBST(GL_CFLAGS)
