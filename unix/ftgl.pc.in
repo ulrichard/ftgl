@@ -7,5 +7,5 @@ Name: @PACKAGE_NAME@
 Description: OpenGL frontend to Freetype 2
 Version: @PACKAGE_VERSION@
 Requires: 
-Libs: @LIBS@ @FT2_LIBS@ -L${libdir} -lftgl
-Cflags: -I${includedir} @FT2_CFLAGS@
+Libs: @GL_LIBS@ @FT2_LIBS@ -L${libdir} -lftgl
+Cflags: -I${includedir} @GL_CFLAGS@ @FT2_CFLAGS@
