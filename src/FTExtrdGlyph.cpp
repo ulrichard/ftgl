@@ -198,10 +198,10 @@ bool FTExtrdGlyph::Winding( int numPoints, FTGL_DOUBLE *points)
 	// Calculate the winding direction. use formula from redbook.
 	FTGL_DOUBLE area = 0;
 	
-	for( int count= 0; count <= numPoints; ++count)
+	for( int count = 0; count <= numPoints; ++count)
 	{
 		int j1 = (count < numPoints) ? count : 0;
-		int j0 = (j1 == 0) ? ( numPoints-1) : ( j1-1);
+		int j0 = (j1 == 0) ? ( numPoints - 1) : ( j1 - 1);
 
 		FTGL_DOUBLE* p0 = points + j0 * 3;
 		FTGL_DOUBLE* p1 = points + j1 * 3;
