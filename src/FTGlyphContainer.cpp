@@ -34,7 +34,7 @@ bool FTGlyphContainer::CharMap( FT_Encoding encoding)
 }
 
 
-signed int FTGlyphContainer::FontIndex( const unsigned int characterCode) const
+unsigned int FTGlyphContainer::FontIndex( const unsigned int characterCode) const
 {
     return charMap->FontIndex( characterCode);
 }

@@ -78,7 +78,7 @@ class FTGL_EXPORT FTCharmap
          * @return      The FTGlyphContainer index for the character or zero
          *              if it wasn't found
          */
-        signed int GlyphListIndex( const unsigned int characterCode);
+        unsigned int GlyphListIndex( const unsigned int characterCode);
 
         /**
          * Get the font glyph index of the input character.
@@ -87,7 +87,7 @@ class FTGL_EXPORT FTCharmap
          *                      the current encoding eg apple roman.
          * @return      The glyph index for the character.
          */
-        signed int FontIndex( const unsigned int characterCode);
+        unsigned int FontIndex( const unsigned int characterCode);
 
         /**
          * Set the FTGlyphContainer index of the character code.

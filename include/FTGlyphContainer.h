@@ -51,7 +51,7 @@ class FTGL_EXPORT FTGlyphContainer
          *                      current encoding eg apple roman.
          * @return      The font index for the character.
          */
-        signed int FontIndex( const unsigned int characterCode ) const;
+        unsigned int FontIndex( const unsigned int characterCode ) const;
         
         /**
          * Adds a glyph to this glyph list.
