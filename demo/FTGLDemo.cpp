@@ -53,6 +53,13 @@ wchar_t myString[16];
 static FTFont* fonts[6];
 static FTGLPixmapFont* infoFont;
 
+static float texture[] = { 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                           1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                           0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
+                           0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0};
+
+static GLuint textureID;
+
 void SetCamera(void);
 
 void setUpLighting()
@@ -90,12 +97,10 @@ void setUpLighting()
    glColor4fv(front_diffuse);
 
    glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
-   glEnable(GL_CULL_FACE);
    glColorMaterial(GL_FRONT, GL_DIFFUSE);
    glEnable(GL_COLOR_MATERIAL);
 
    glEnable(GL_LIGHTING);
-   glShadeModel(GL_SMOOTH);
 }
 
 
@@ -251,9 +256,10 @@ void renderFontInfo()
 			break;
 	}
 	
-	glRasterPos2f( 20.0f , 20.0f + infoFont->Ascender() - infoFont->Descender());
+	glRasterPos2f( 20.0f , 20.0f + infoFont->LineHeight());
 	infoFont->Render(fontfile);
 }
+
 
 void do_display (void)
 {
@@ -264,12 +270,16 @@ void do_display (void)
 		case FTGL_OUTLINE:
 			break;
 		case FTGL_POLYGON:
+            glEnable( GL_TEXTURE_2D);
+            glBindTexture(GL_TEXTURE_2D, textureID);
 			glDisable( GL_BLEND);
 			setUpLighting();
 			break;
 		case FTGL_EXTRUDE:
 			glEnable( GL_DEPTH_TEST);
 			glDisable( GL_BLEND);
+            glEnable( GL_TEXTURE_2D);
+            glBindTexture(GL_TEXTURE_2D, textureID);
 			setUpLighting();
 			break;
 		case FTGL_TEXTURE:
@@ -339,7 +349,9 @@ void myinit( const char* fontfile)
 	glFrontFace( GL_CCW);
 	
 	glEnable( GL_DEPTH_TEST);
-	
+    glEnable(GL_CULL_FACE);
+    glShadeModel(GL_SMOOTH);
+
 	glEnable( GL_POLYGON_OFFSET_LINE);
 	glPolygonOffset( 1.0, 1.0); // ????
 	 	
@@ -349,6 +361,16 @@ void myinit( const char* fontfile)
 	tbAnimate( GL_FALSE);
 
     setUpFonts( fontfile);
+       
+    glGenTextures(1, &textureID);
+    glBindTexture(GL_TEXTURE_2D, textureID);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 4, 4, 0, GL_RGB, GL_FLOAT, texture);
+    
+
 }
 
 
