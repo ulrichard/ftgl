@@ -92,7 +92,7 @@ FTSize& FTFace::Size( const unsigned int size, const unsigned int res)
 }
 
 
-bool FTFace::CharMap( FT_Encoding encoding)
+bool FTFace::CharMap( FT_Encoding encoding) const
 {
     return charMap->CharMap( encoding);
 }
