@@ -156,6 +156,8 @@
 				F532B52D0394A92901608C9F,
 				BA79CB0303A176E7002F90D7,
 				BA3F38F603B1D529004F6ED7,
+				BA2329E00440D51B009E9A9E,
+				BA2329E20440D52C009E9A9E,
 			);
 			isa = PBXHeadersBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;
@@ -185,6 +187,7 @@
 				66BA08D201C4638C000ABFD4,
 				F532B52C0394A92901608C9F,
 				BA79CB0203A176E7002F90D7,
+				BA2329DE0440D502009E9A9E,
 			);
 			isa = PBXSourcesBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;
@@ -236,6 +239,7 @@
 				66BA08AE01C4638C000ABFD4,
 				66BA08AF01C4638C000ABFD4,
 				66BA08B001C4638C000ABFD4,
+				BA2329E10440D52C009E9A9E,
 				66BA08B101C4638C000ABFD4,
 				66BA08B201C4638C000ABFD4,
 				BA3F38F503B1D529004F6ED7,
@@ -247,6 +251,8 @@
 				F532B52B0394A92901608C9F,
 				66BA08B701C4638C000ABFD4,
 				66BA08B801C4638C000ABFD4,
+				BA2329DD0440D502009E9A9E,
+				BA2329DF0440D51B009E9A9E,
 				66BA08B901C4638C000ABFD4,
 				66BA08BA01C4638C000ABFD4,
 				66BA08BB01C4638C000ABFD4,
@@ -772,6 +778,7 @@
 				66BA08F101C4658D000ABFD4,
 				66BA08F201C4658D000ABFD4,
 				F5D2501F021F19CD019B29E7,
+				BAB31C69043B9C3500B0313F,
 			);
 			isa = PBXSourcesBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;
@@ -836,12 +843,6 @@
 			path = "../test/FTlayout-Test.cpp";
 			refType = 2;
 		};
-		BA013F8303CE32D7000ABFD4 = {
-			fileRef = BA013F8203CE32D7000ABFD4;
-			isa = PBXBuildFile;
-			settings = {
-			};
-		};
 		BA0143B703AFE974000ABFD4 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
@@ -851,6 +852,45 @@
 		};
 		BA0143B803AFE974000ABFD4 = {
 			fileRef = BA0143B703AFE974000ABFD4;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		BA2329DD0440D502009E9A9E = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			name = FTSimpleLayout.cpp;
+			path = ../src/FTSimpleLayout.cpp;
+			refType = 2;
+		};
+		BA2329DE0440D502009E9A9E = {
+			fileRef = BA2329DD0440D502009E9A9E;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		BA2329DF0440D51B009E9A9E = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			name = FTSimpleLayout.h;
+			path = ../include/FTSimpleLayout.h;
+			refType = 2;
+		};
+		BA2329E00440D51B009E9A9E = {
+			fileRef = BA2329DF0440D51B009E9A9E;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		BA2329E10440D52C009E9A9E = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			name = FTLayout.h;
+			path = ../include/FTLayout.h;
+			refType = 2;
+		};
+		BA2329E20440D52C009E9A9E = {
+			fileRef = BA2329E10440D52C009E9A9E;
 			isa = PBXBuildFile;
 			settings = {
 			};
@@ -933,6 +973,18 @@
 			path = ../test/HPGCalc_afm.cpp;
 			refType = 2;
 		};
+		BAB31C68043B8DEA00B0313F = {
+			fileRef = F580402702C549A2013DAE1F;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		BAB31C69043B9C3500B0313F = {
+			fileRef = F580402702C549A2013DAE1F;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
 		BADB7E0E03AF1241004F6ED7 = {
 			fileRef = 66BA088F01C4635F000ABFD4;
 			isa = PBXBuildFile;
@@ -999,7 +1051,6 @@
 				BAF0F0AF03AF0FF7004F6ED7,
 				BA3F38F303B1D4FD004F6ED7,
 				BA3F38F403B1D4FD004F6ED7,
-				BA013F8303CE32D7000ABFD4,
 			);
 			isa = PBXSourcesBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1564,6 +1615,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F597CC8F02C5420F01F03BCF,
+				BAB31C68043B8DEA00B0313F,
 			);
 			isa = PBXSourcesBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;
