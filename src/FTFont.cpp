@@ -4,6 +4,8 @@
 #include	"FTGlyph.h" // for FTBbox
 #include	"FTGL.h"
 
+//#include "mmgr.h"
+
 
 FTFont::FTFont()
 :	numFaces(0),
@@ -82,7 +84,7 @@ bool FTFont::MakeGlyphList()
 		}
 	}
 	
-	return !err;
+	return !err; // FIXME what err?
 }
 
 
