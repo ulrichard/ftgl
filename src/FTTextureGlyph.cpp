@@ -13,13 +13,10 @@ FTTextureGlyph::FTTextureGlyph( FT_Glyph glyph, unsigned int gi, int id, unsigne
 	numGreys(0),
 	glTextureID(id)
 {
-	if( !glyph->format == ft_glyph_format_bitmap)
-	{ return;}
-	
 	// This function will always fail if the glyph's format isn't scalable????
 	err = FT_Glyph_To_Bitmap( &glyph, ft_render_mode_normal, 0, 1);
-	if( err)
-	{return;}
+	if( err || glyph->format != ft_glyph_format_bitmap)
+	{ return;}
 
 	FT_BitmapGlyph  bitmap = ( FT_BitmapGlyph)glyph;
 	FT_Bitmap*      source = &bitmap->bitmap;

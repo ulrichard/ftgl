@@ -10,12 +10,9 @@ FTBitmapGlyph::FTBitmapGlyph( FT_Glyph glyph, unsigned int gi)
 	destHeight(0),
 	data(0)
 {
-	if( !glyph->format == ft_glyph_format_bitmap)
-	{ return;}
-	
 	// This function will always fail if the glyph's format isn't scalable????
 	FT_Error err = FT_Glyph_To_Bitmap( &glyph, ft_render_mode_mono, 0, 1);
-	if( err)
+	if( err || ft_glyph_format_bitmap != glyph->format)
 	{return;}
 
 	FT_BitmapGlyph  bitmap = (FT_BitmapGlyph)glyph;
