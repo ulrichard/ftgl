@@ -288,7 +288,7 @@ class FTVectoriserTest : public CppUnit::TestCase
             // You can still run the tests but some will fail because the hinter changed in 2.1.4 
             CPPUNIT_ASSERT( amajor == 2);
             CPPUNIT_ASSERT( aminor == 1);
-            CPPUNIT_ASSERT( apatch == 4);
+            CPPUNIT_ASSERT( apatch >= 4);
 
             tearDownFreetype();
         }
