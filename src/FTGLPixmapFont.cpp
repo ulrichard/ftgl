@@ -44,7 +44,8 @@ void FTGLPixmapFont::render( const char* string)
 void FTGLPixmapFont::render( const wchar_t* string)
 {   
     glPushAttrib( GL_ENABLE_BIT | GL_PIXEL_MODE_BIT);
-
+    glPushClientAttrib( GL_CLIENT_PIXEL_STORE_BIT);
+        
     glEnable(GL_BLEND);
     glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     
@@ -52,6 +53,7 @@ void FTGLPixmapFont::render( const wchar_t* string)
 
     FTFont::render( string);
 
+    glPopClientAttrib();
     glPopAttrib();
 
 }
