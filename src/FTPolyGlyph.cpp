@@ -3,9 +3,7 @@
 
 
 FTPolyGlyph::FTPolyGlyph( FT_Glyph glyph)
-:   FTGlyph(),
-    numPoints(0),
-    data(0),
+:   FTGlyph( glyph),
     glList(0)
 {
     if( ft_glyph_format_outline != glyph->format)
@@ -18,10 +16,7 @@ FTPolyGlyph::FTPolyGlyph( FT_Glyph glyph)
     vectoriser->ProcessContours();
 
     vectoriser->MakeMesh(1.0);
-    numPoints = vectoriser->MeshPoints();
-
-    bBox = FTBBox( glyph);
-    advance = glyph->advance.x >> 16;
+    unsigned int numPoints = vectoriser->MeshPoints();
 
     if( numPoints < 3)
     {
@@ -29,7 +24,7 @@ FTPolyGlyph::FTPolyGlyph( FT_Glyph glyph)
         return;
     }
     
-    data = new FTGL_DOUBLE[ numPoints * 3];
+    FTGL_DOUBLE* data = new FTGL_DOUBLE[ numPoints * 3];
     vectoriser->GetMesh( data);
     delete vectoriser;
 

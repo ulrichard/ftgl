@@ -3,10 +3,7 @@
 
 
 FTOutlineGlyph::FTOutlineGlyph( FT_Glyph glyph)
-:   FTGlyph(),
-    numPoints(0),
-    numContours(0),
-    data(0),
+:   FTGlyph( glyph),
     glList(0)
 {
     if( ft_glyph_format_outline != glyph->format)
@@ -18,11 +15,8 @@ FTOutlineGlyph::FTOutlineGlyph( FT_Glyph glyph)
     
     vectoriser->ProcessContours();
     
-    numPoints = vectoriser->points();
-    numContours = vectoriser->contours();
-    
-    bBox = FTBBox( glyph);
-    advance = glyph->advance.x >> 16;
+    unsigned int numPoints = vectoriser->points();
+    unsigned int numContours = vectoriser->contours();
     
     if ( ( numContours < 1) || ( numPoints < 3))
     {
@@ -30,13 +24,13 @@ FTOutlineGlyph::FTOutlineGlyph( FT_Glyph glyph)
         return;
     }
     
-    data = new FTGL_DOUBLE[ numPoints * 3];
+    FTGL_DOUBLE* data = new FTGL_DOUBLE[ numPoints * 3];
     vectoriser->GetOutline( data);
     
     int d = 0;
     glList = glGenLists(1);
     glNewList( glList, GL_COMPILE);
-        for( int c = 0; c < numContours; ++c)
+        for( unsigned int c = 0; c < numContours; ++c)
         {
             glBegin( GL_LINE_LOOP);
                 int contourLength = vectoriser->contourSize( c);

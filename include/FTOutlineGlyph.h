@@ -41,22 +41,7 @@ class FTGL_EXPORT FTOutlineGlyph : public FTGlyph
 		 */
 		virtual float Render( const FTPoint& pen);
 		
-	private:
-		/**
-		 * The total number of points in the Freetype outline
-		 */
-		int numPoints;
-
-		/**
-		 * The totals number of contours in the Freetype outline
-		 */
-		int numContours;
-
-		/**
-		 * Pointer to the point data
-		 */
-		FTGL_DOUBLE* data;
-		
+	private:		
 		/**
 		 * OpenGL display list
 		 */

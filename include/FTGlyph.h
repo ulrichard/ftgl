@@ -28,7 +28,7 @@ class FTGL_EXPORT FTGlyph
         /**
          * Constructor
          */
-        FTGlyph();
+        FTGlyph( FT_Glyph glyph);
 
         /**
          * Destructor

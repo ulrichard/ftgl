@@ -44,14 +44,6 @@ class FTGL_EXPORT FTExtrdGlyph : public FTGlyph
         
     private:
         /**
-         * Calculate the winding direction of a contour.
-         *
-         * This uses the signed area of the contour. It is required because
-         * freetype doesn't do this despite the docs saying it does:(
-         */
-        bool Winding( int numPoints, FTGL_DOUBLE *points);
-        
-        /**
          * OpenGL display list
          */
         GLuint glList;

@@ -1,7 +1,7 @@
 #include "FTBitmapGlyph.h"
 
 FTBitmapGlyph::FTBitmapGlyph( FT_Glyph glyph)
-:   FTGlyph(),
+:   FTGlyph( glyph),
     destWidth(0),
     destHeight(0),
     data(0)
@@ -46,8 +46,6 @@ FTBitmapGlyph::FTBitmapGlyph( FT_Glyph glyph)
         }
     }
     
-    bBox = FTBBox( glyph);
-    advance = static_cast<float>(glyph->advance.x >> 16);
     pos.x = bitmap->left;
     pos.y = static_cast<int>(srcHeight) - bitmap->top;
     

@@ -5,7 +5,7 @@
 
 
 FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
-:   FTGlyph(),
+:   FTGlyph( glyph),
     glList(0),
     depth(d)
 {
@@ -25,7 +25,7 @@ FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
     bBox.upperZ = -depth;
     advance = glyph->advance.x >> 16;
     
-    int numPoints = vectoriser->MeshPoints();
+    unsigned int numPoints = vectoriser->MeshPoints();
     if ( numPoints < 3)
     {
         delete vectoriser;
@@ -131,7 +131,7 @@ FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
             
             glBegin( GL_QUAD_STRIP);
 
-                for( int j= 0; j <= numPoints; ++j)
+                for( unsigned int j= 0; j <= numPoints; ++j)
                 {
                     int j1 = (j < numPoints) ? j : 0;
                     int j0 = (j1 == 0) ? (numPoints-1) : (j1-1);
@@ -180,26 +180,6 @@ FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
 
 FTExtrdGlyph::~FTExtrdGlyph()
 {}
-
-
-bool FTExtrdGlyph::Winding( int numPoints, FTGL_DOUBLE *points)
-{
-    // Calculate the winding direction. use formula from redbook.
-    FTGL_DOUBLE area = 0;
-    
-    for( int count = 0; count <= numPoints; ++count)
-    {
-        int j1 = (count < numPoints) ? count : 0;
-        int j0 = (j1 == 0) ? ( numPoints - 1) : ( j1 - 1);
-
-        FTGL_DOUBLE* p0 = points + j0 * 3;
-        FTGL_DOUBLE* p1 = points + j1 * 3;
-
-        area += ( p0[0] * p1[1]) - ( p1[0] * p0[1]);    
-    }
-    
-    return( area >= 0 );
-}
 
 
 float FTExtrdGlyph::Render( const FTPoint& pen)

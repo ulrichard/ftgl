@@ -1,7 +1,7 @@
 #include    "FTPixmapGlyph.h"
 
 FTPixmapGlyph::FTPixmapGlyph( FT_Glyph glyph)
-:   FTGlyph(),
+:   FTGlyph( glyph),
     destWidth(0),
     destHeight(0),
     numGreys(0),
@@ -75,10 +75,8 @@ FTPixmapGlyph::FTPixmapGlyph( FT_Glyph glyph)
 
         destHeight = srcHeight;
     }
-    
-    bBox = FTBBox( glyph);
+
     numGreys = source->num_grays;
-    advance = glyph->advance.x >> 16;
     pos.x = bitmap->left;
     pos.y = srcHeight - bitmap->top;
     

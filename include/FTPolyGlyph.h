@@ -44,23 +44,6 @@ class FTGL_EXPORT FTPolyGlyph : public FTGlyph
         
     private:
         /**
-         * Convert the point data into a mesh.
-         *
-         * Uses GLUtesselator to create a mesh
-         */
-        void Tesselate();
-
-        /**
-         * The total number of points in the Freetype outline
-         */
-        int numPoints;
-
-        /**
-         * Pointer to the point data
-         */
-        FTGL_DOUBLE* data;
-        
-        /**
          * OpenGL display list
          */
         GLuint glList;

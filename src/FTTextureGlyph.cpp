@@ -2,7 +2,7 @@
 
 
 FTTextureGlyph::FTTextureGlyph( FT_Glyph glyph, int id, int xOffset, int yOffset, GLsizei width, GLsizei height)
-:   FTGlyph(),
+:   FTGlyph( glyph),
     destWidth(0),
     destHeight(0),
     numGreys(0),
@@ -48,8 +48,6 @@ FTTextureGlyph::FTTextureGlyph( FT_Glyph glyph, int id, int xOffset, int yOffset
     uv[1].y = static_cast<float>( yOffset + destHeight) / static_cast<float>(height);
     
     numGreys = source->num_grays;
-    advance = glyph->advance.x >> 16;
-    bBox = FTBBox( glyph);
 
     pos.x = bitmap->left;
     pos.y = bitmap->top;
