@@ -9,6 +9,8 @@ FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
     glList(0),
     depth(d)
 {
+	unsigned int index;
+
     if( ft_glyph_format_outline != glyph->format)
     {
         return;
@@ -30,7 +32,7 @@ FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
         glNormal3d(0.0, 0.0, 1.0);
         
         const FTMesh* mesh = vectoriser->GetMesh();
-        for( unsigned int index = 0; index < mesh->TesselationCount(); ++index)
+        for( index = 0; index < mesh->TesselationCount(); ++index)
         {
             const FTTesselation* subMesh = mesh->Tesselation( index);
             unsigned int polyonType = subMesh->PolygonType();
@@ -49,7 +51,7 @@ FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
         glNormal3d(0.0, 0.0, -1.0);
         
         mesh = vectoriser->GetMesh();
-        for( unsigned int index = 0; index < mesh->TesselationCount(); ++index)
+        for( index = 0; index < mesh->TesselationCount(); ++index)
         {
             const FTTesselation* subMesh = mesh->Tesselation( index);
             unsigned int polyonType = subMesh->PolygonType();
