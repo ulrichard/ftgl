@@ -90,7 +90,7 @@ class FTGL_EXPORT FTFont
          * @param res       the resolution of the target device.
          * @return          <code>true</code> if size was set correctly
          */
-        bool FaceSize( const unsigned int size, const unsigned int res = 72);
+        virtual bool FaceSize( const unsigned int size, const unsigned int res = 72);
         
         /**
          * Get the current face size in points.

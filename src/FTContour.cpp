@@ -9,7 +9,7 @@ FTContour::FTContour( FT_Vector* contour, char* pointTags, unsigned int numberOf
     {
         char pointTag = pointTags[pointIndex];
         
-        if( pointTag == FT_Curve_Tag_On)
+        if( pointTag == FT_Curve_Tag_On || numberOfPoints < 2)
         {
             AddPoint( contour[pointIndex].x, contour[pointIndex].y);
             continue;

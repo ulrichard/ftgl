@@ -149,17 +149,19 @@ FTPoint FTFace::KernAdvance( unsigned int index1, unsigned int index2)
 
 FT_Glyph* FTFace::Glyph( unsigned int index, FT_Int load_flags)
 {
-    err = FT_Load_Glyph( *ftFace, index, load_flags);   
-    err = FT_Get_Glyph( (*ftFace)->glyph, &ftGlyph);
-        
-    if( !err)
-    {
-        return &ftGlyph;
-    }
-    else
+    err = FT_Load_Glyph( *ftFace, index, load_flags);
+    if( err)
     {
         return NULL;
     }
+    
+    err = FT_Get_Glyph( (*ftFace)->glyph, &ftGlyph);
+    if( err)
+    {
+        return NULL;
+    }
+
+    return &ftGlyph;
 }
 
 
