@@ -208,7 +208,7 @@ class FTGL_EXPORT FTFont
          *
          * @return  <code>true</code> on success.
          */
-        inline virtual bool MakeGlyphList();
+        virtual bool MakeGlyphList();
         
         /**
          * Current face object
