@@ -1,0 +1,52 @@
+Choosing a font type
+
+
+-  Outline
+-  Polygonal
+-  Texture mapped
+-  Bitmapped
+-  Antialiased pixmapped
+
+
+Creating a font
+
+	FTGLPixmapFont font;
+	
+	font.Open( "Fonts:Arial");
+	font.FaceSize( 72);
+	
+	font.render( "Hello World!");
+
+
+More font commands
+
+Specifying a character map encoding.
+
+From the freetype docs...
+By default, when a new face object is created, (freetype) lists all the charmaps contained in the font face and selects the one that supports Unicode character codes if it finds one. Otherwise, it tries to find support for Latin-1, then ASCII.
+
+
+Sets the character map for the face.
+Valid encodings as at Freetype 2.0.4
+	ft_encoding_none
+	ft_encoding_symbol
+	ft_encoding_unicode
+	ft_encoding_latin_2
+	ft_encoding_sjis
+	ft_encoding_gb2312
+	ft_encoding_big5
+	ft_encoding_wansung
+	ft_encoding_johab
+	ft_encoding_adobe_standard
+	ft_encoding_adobe_expert
+	ft_encoding_adobe_custom
+	ft_encoding_apple_roman
+
+You can expilcitly set the char encoding...
+font.CharMap( ft_encoding_apple_roman);
+This will return an error if the encoding can't be found.
+
+
+
+Problems
+
