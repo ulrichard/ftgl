@@ -21,7 +21,7 @@ FTPolyGlyph::FTPolyGlyph( FT_Glyph glyph)
 	
 	vectoriser->Process();
 
-	vectoriser->MakeMesh();
+	vectoriser->MakeMesh(1.0);
 	numPoints = vectoriser->MeshPoints();
 
 	bBox = FTBBox( glyph);
@@ -40,7 +40,7 @@ FTPolyGlyph::FTPolyGlyph( FT_Glyph glyph)
 	int d = 0;
 	glList = glGenLists(1);
 	glNewList( glList, GL_COMPILE);
-		int BEPairs = data[0];
+		int BEPairs = static_cast<int>(data[0]);
 		for( int i = 0; i < BEPairs; ++i)
 		{
 			int polyType = (int)data[d + 1];
