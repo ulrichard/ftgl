@@ -255,6 +255,7 @@ static double testMesh[] =
 class FTVectoriserTest : public CppUnit::TestCase
 {
     CPPUNIT_TEST_SUITE( FTVectoriserTest);
+        CPPUNIT_TEST( testFreetypeVersion);
         CPPUNIT_TEST( testNullGlyphProcess);
         CPPUNIT_TEST( testBadGlyphProcess);
         CPPUNIT_TEST( testSimpleGlyphProcess);
@@ -271,6 +272,27 @@ class FTVectoriserTest : public CppUnit::TestCase
         
         FTVectoriserTest( const std::string& name) : CppUnit::TestCase(name)
         {}
+        
+        
+        void testFreetypeVersion()
+        {
+            setUpFreetype();
+            
+            FT_Int amajor;
+            FT_Int aminor;
+            FT_Int apatch;
+            
+            FT_Library_Version( library, &amajor, &aminor, &apatch);
+            
+            // If you hit these asserts then you have the wrong library version to run the tests.
+            // You can still run the tests but some will fail because the hinter changed in 2.1.4 
+            CPPUNIT_ASSERT( amajor == 2);
+            CPPUNIT_ASSERT( aminor == 1);
+            CPPUNIT_ASSERT( apatch == 4);
+
+            tearDownFreetype();
+        }
+        
 
         void testNullGlyphProcess()
         {
