@@ -22,8 +22,8 @@
 	#define FONT_INFO "/usr/share/fonts/truetype/arial.ttf"
 #endif
 #ifdef __APPLE_CC__
-	#define FONT_FILE "/Users/henry/Development/PROJECTS/FTGL/demo/arial.ttf"
-	#define FONT_INFO "/Users/henry/Development/PROJECTS/FTGL/demo/arial.ttf"
+	#define FONT_FILE "/Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/demo/arial.ttf"
+	#define FONT_INFO "/Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/demo/arial.ttf"
 #endif
 #ifdef WIN32
 	#define FONT_FILE "C:\\WINNT\\Fonts\\arial.ttf"
