@@ -13,43 +13,33 @@ FTPolyGlyph::FTPolyGlyph( FT_Glyph glyph)
 
     FTVectoriser* vectoriser = new FTVectoriser( glyph);
 
-    vectoriser->MakeMesh(1.0);
-    unsigned int numPoints = vectoriser->MeshPoints();
-
-    if( numPoints < 3)
+    if ( ( vectoriser->ContourCount() < 1) || ( vectoriser->PointCount() < 3))
     {
         delete vectoriser;
         return;
     }
-    
-    FTGL_DOUBLE* data = new FTGL_DOUBLE[ numPoints * 3];
-    vectoriser->GetMesh( data);
-    delete vectoriser;
 
-    int d = 0;
+    vectoriser->MakeMesh(1.0);
+    
     glList = glGenLists(1);
     glNewList( glList, GL_COMPILE);
 
-        int BEPairs = static_cast<int>(data[0]);
-        for( int i = 0; i < BEPairs; ++i)
+        FTMesh* mesh = vectoriser->GetMesh();
+        for( unsigned int index = 0; index < mesh->TesselationCount(); ++index)
         {
-            int polyType = static_cast<int>(data[d + 1]);
-            glBegin( polyType);
+            FTTesselation* subMesh = mesh->Tesselation( index);
+            unsigned int polyonType = subMesh->PolygonType();
 
-            int verts = static_cast<int>(data[d+2]);
-
-            d += 3;
-            for( int x = 0; x < verts; ++x)
-            {
-                glVertex3dv( data + d);
-                d += 3;
-            }
+            glBegin( polyonType);
+                for( unsigned int x = 0; x < subMesh->PointCount(); ++x)
+                {
+                    glVertex3f( subMesh->Point(x).x / 64.0f,
+                                subMesh->Point(x).y / 64.0f,
+                                0.0f);
+                }
             glEnd();
         }
     glEndList();
-
-    delete [] data; // FIXME
-    data = 0;
 
     // discard glyph image (bitmap or not)
     FT_Done_Glyph( glyph); // Why does this have to be HERE
