@@ -17,10 +17,7 @@ FTGlyphContainer::~FTGlyphContainer()
     GlyphVector::iterator glyphIterator;
     for( glyphIterator = glyphs.begin(); glyphIterator != glyphs.end(); ++glyphIterator)
     {
-        if( *glyphIterator)
-        {
-            delete *glyphIterator;
-        }
+        delete *glyphIterator;
     }
     
     glyphs.clear();
