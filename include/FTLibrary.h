@@ -79,7 +79,7 @@ class FTGL_EXPORT FTLibrary
          *          successfully initialised, <code>false</code>
          *          otherwise.
          */
-        bool Init();
+        bool Initialise();
         
         /**
          * Freetype library handle.

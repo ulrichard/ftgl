@@ -32,11 +32,11 @@ FTLibrary::FTLibrary()
 :   library(0),
     err(0)
 {
-    Init();
+    Initialise();
 }
 
 
-bool FTLibrary::Init()
+bool FTLibrary::Initialise()
 {
     if( library != 0)
         return true;
