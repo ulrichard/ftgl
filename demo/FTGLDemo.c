@@ -10,20 +10,30 @@
 #include "tb.h"
 
 #include "FTGLExtrdFont.h"
-//#include "FTGLOutlineFont.h"
-//#include "FTGLPolygonFont.h"
-//#include "FTGLTextureFont.h"
-//#include "FTGLPixmapFont.h"
-//#include "FTGLBitmapFont.h"
+#include "FTGLOutlineFont.h"
+#include "FTGLPolygonFont.h"
+#include "FTGLTextureFont.h"
+#include "FTGLPixmapFont.h"
+#include "FTGLBitmapFont.h"
 
 #ifdef __linux__
 #define FONT_FILE "/usr/share/fonts/truetype/arial.ttf"
 #else
 #define FONT_FILE ":Stacey:Curlz MT"
+//#define FONT_FILE ":Stacey:arial.ttf"
 #endif
 
 #define EDITING 1
 #define INTERACTIVE 2
+
+#define FTGL_BITMAP 0
+#define FTGL_PIXMAP 1
+#define FTGL_OUTLINE 2
+#define FTGL_POLYGON 3
+#define FTGL_EXTRUDE 4
+#define FTGL_TEXTURE 5
+
+int current_font = FTGL_EXTRUDE;
 
 GLint w_win = 640, h_win = 480;
 float posX, posY, posZ;
@@ -31,15 +41,9 @@ int mode = INTERACTIVE;
 int carat = 0;
 char myString[16];
 
-static FTGLExtrdFont font;
-//static FTGLOutlineFont font;
-//static FTGLPolygonFont font;
-//static FTGLTextureFont font;
-//static FTGLPixmapFont font;
-//static FTGLBitmapFont font;
+static FTFont* fonts[6];
 
 void SetCamera(void);
-
 
 void my_lighting()
 {
@@ -76,8 +80,6 @@ void my_lighting()
    glColor4fv(front_diffuse);
 
    glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
-   glCullFace(GL_BACK);
-   glFrontFace(GL_CCW);
    glEnable(GL_CULL_FACE);
    glColorMaterial(GL_FRONT, GL_DIFFUSE);
    glEnable(GL_COLOR_MATERIAL);
@@ -89,59 +91,100 @@ void my_lighting()
 
 void do_display (void)
 {
-	// Render the text
-	font.render( myString);
+	switch( current_font)
+	{
+		case FTGL_BITMAP:
+			glDisable( GL_BLEND);
+			break;
+		case FTGL_PIXMAP:
+			glDisable( GL_TEXTURE_2D);
+			glEnable(GL_BLEND);
+			glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // GL_ONE
+			break;
+		case FTGL_OUTLINE:
+			glDisable( GL_TEXTURE_2D);
+			glEnable( GL_LINE_SMOOTH);
+			glEnable(GL_BLEND);
+			glBlendFunc( GL_SRC_ALPHA, GL_ONE); // GL_ONE_MINUS_SRC_ALPHA
+			break;
+		case FTGL_POLYGON:
+			glDisable( GL_BLEND);
+			my_lighting();
+			break;
+		case FTGL_EXTRUDE:
+			glEnable( GL_DEPTH_TEST);
+			glDisable( GL_BLEND);
+			my_lighting();
+			break;
+		case FTGL_TEXTURE:
+			glEnable( GL_TEXTURE_2D);
+			glDisable( GL_DEPTH_TEST);
+//			glDisable( GL_BLEND);
+			break;
 
-	// get the bounding box for the text
-	int x1, y1, z1, x2, y2, z2;
-	font.BBox( myString, x1, y1, z1, x2, y2, z2);
+	}
+
+	glColor3f( 1.0, 1.0, 1.0);
 	
-	glDisable( GL_LIGHTING);
+	fonts[current_font]->render( myString);
+
+	int x1, y1, z1, x2, y2, z2;
+	fonts[current_font]->BBox( myString, x1, y1, z1, x2, y2, z2);
+	
 	// Draw the bounding box
+	glDisable( GL_LIGHTING);
 	glColor3f( 0.0, 1.0, 0.0);
+	// Draw the front face
 	glBegin( GL_LINE_LOOP);
 		glVertex3f( x1, y1, z1);
 		glVertex3f( x1, y2, z1);
 		glVertex3f( x2, y2, z1);
 		glVertex3f( x2, y1, z1);
 	glEnd();
-	glBegin( GL_LINE_LOOP);
-		glVertex3f( x1, y1, z2);
-		glVertex3f( x1, y2, z2);
-		glVertex3f( x2, y2, z2);
-		glVertex3f( x2, y1, z2);
-	glEnd();
+	// Draw the back face
+	if( current_font == FTGL_EXTRUDE && z1 != z2)
+	{
+		glBegin( GL_LINE_LOOP);
+			glVertex3f( x1, y1, z2);
+			glVertex3f( x1, y2, z2);
+			glVertex3f( x2, y2, z2);
+			glVertex3f( x2, y1, z2);
+		glEnd();
+	// Join the faces
+		glBegin( GL_LINES);
+			glVertex3f( x1, y1, z1);
+			glVertex3f( x1, y1, z2);
+			
+			glVertex3f( x1, y2, z1);
+			glVertex3f( x1, y2, z2);
+			
+			glVertex3f( x2, y2, z1);
+			glVertex3f( x2, y2, z2);
+			
+			glVertex3f( x2, y1, z1);
+			glVertex3f( x2, y1, z2);
+		glEnd();
+	}
+		
+		// Draw the baseline, Ascender and Descender
 	glBegin( GL_LINES);
-		glVertex3f( x1, y1, z1);
-		glVertex3f( x1, y1, z2);
-		
-		glVertex3f( x1, y2, z1);
-		glVertex3f( x1, y2, z2);
-		
-		glVertex3f( x2, y2, z1);
-		glVertex3f( x2, y2, z2);
-		
-		glVertex3f( x2, y1, z1);
-		glVertex3f( x2, y1, z2);
-		
-		// Draw a line along the basline from the origin to the advance width
 		glColor3f( 0.0, 0.0, 1.0);
 		glVertex3f( 0.0, 0.0, 0.0);
-		glVertex3f( font.Advance( myString), 0.0, 0.0);
+		glVertex3f( fonts[current_font]->Advance( myString), 0.0, 0.0);
 		
-		// Draw a line through the origin from the Ascender height to the Descender
-		glVertex3f( 0.0, font.Ascender(), 0.0);
-		glVertex3f( 0.0, font.Descender(), 0.0);
+		glVertex3f( 0.0, fonts[current_font]->Ascender(), 0.0);
+		glVertex3f( 0.0, fonts[current_font]->Descender(), 0.0);
 		
 	glEnd();
 	
-	// Draw a point on the origin
+	// Draw the origin
 	glColor3f( 1.0, 0.0, 0.0);
 	glPointSize( 5.0);
 	glBegin( GL_POINTS);
 		glVertex3f( 0.0, 0.0, 0.0);
 	glEnd();
 
+	glColor3f( 1.0, 1.0, 1.0);
 	glutSwapBuffers();
 }
 
@@ -151,11 +194,23 @@ void display(void)
 
    	SetCamera();
 	
-	my_lighting();
-
 	glPushMatrix();
 
-	tbMatrix();
+	switch( current_font)
+	{
+		case FTGL_BITMAP:
+		case FTGL_PIXMAP:
+			glRasterPos2i( w_win / 2, h_win / 2);
+			glTranslatef(  w_win / 2, h_win / 2, 0.0);
+			break;
+		case FTGL_OUTLINE:
+		case FTGL_POLYGON:
+		case FTGL_EXTRUDE:
+		case FTGL_TEXTURE:
+			tbMatrix();
+			break;
+	}
+	
 	do_display();
 
 	glPopMatrix();
@@ -165,45 +220,47 @@ void display(void)
 void myinit ( const char* fontfile)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glShadeModel (GL_FLAT);
-	glColor3f(1.0, 1.0, 1.0);
 	glClearColor( 0.13, 0.17, 0.32, 0.0);
+	glColor3f( 1.0, 1.0, 1.0);
 	
 	glEnable( GL_CULL_FACE);
 	glFrontFace( GL_CCW);
 	
 	glEnable( GL_DEPTH_TEST);
-	glEnable( GL_TEXTURE_2D);
-
-	glEnable( GL_LINE_SMOOTH);
-	glHint( GL_LINE_SMOOTH_HINT, GL_DONT_CARE);
-	glEnable(GL_BLEND);
-// 	glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // GL_ONE
+	
+	glEnable( GL_POLYGON_OFFSET_LINE);
+	glPolygonOffset( 1.0, 1.0); // ????
 	 	
+	SetCamera();
 
-	// Open the font
-	if( !font.Open( fontfile, false))
+	fonts[FTGL_BITMAP] = new FTGLBitmapFont;
+	fonts[FTGL_PIXMAP] = new FTGLPixmapFont;
+	fonts[FTGL_OUTLINE] = new FTGLOutlineFont;
+	fonts[FTGL_POLYGON] = new FTGLPolygonFont;
+	fonts[FTGL_EXTRUDE] = new FTGLExtrdFont;
+	fonts[FTGL_TEXTURE] = new FTGLTextureFont;
+
+	for( int x = 0; x < 6; ++x)
 	{
-		fprintf( stderr, "Failed to open font %s", fontfile);
-		exit(1);
+		if( !fonts[x]->Open( fontfile, false))
+		{
+			fprintf( stderr, "Failed to open font %s", fontfile);
+			exit(1);
+		}
+		
+		if( !fonts[x]->FaceSize( 144))
+		{
+			fprintf( stderr, "Failed to set size");
+			exit(1);
+		}
+	
+		fonts[x]->Depth(20);
 	}
 	
-	// Set the font size
-	if( !font.FaceSize( 144))
-	{
-		fprintf( stderr, "Failed to set size");
-		exit(1);
-	}
-
-	// Set the depth for extrusion
-	font.Depth(20);
-	
-	// Initial text "A"
 	myString[0] = 65;
 	myString[1] = 0;
 	
 
-	// Do the track ball initialisation
 	tbInit(GLUT_LEFT_BUTTON);
 	tbAnimate( GL_FALSE);
 
@@ -226,7 +283,11 @@ void parsekey(unsigned char key, int x, int y)
 				carat = 0;
 			}
 			break;
-		case ' ':break;
+		case ' ':
+			current_font++;
+			if(current_font > 5)
+				current_font = 0;
+			break;
 		default:
 			if( mode == INTERACTIVE)
 			{
@@ -287,19 +348,32 @@ void myReshape(int w, int h)
 	SetCamera();
 	
 	tbReshape(w_win, h_win);
-
 }
 
 void SetCamera(void)
 {
-	glMatrixMode (GL_PROJECTION);
-	glLoadIdentity ();
-	gluPerspective( 90, w_win/ h_win, 1, 1000);
-
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	gluLookAt( 0.0, 0.0, h_win / 2, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
-
+	switch( current_font)
+	{
+		case FTGL_BITMAP:
+		case FTGL_PIXMAP:
+			glMatrixMode( GL_PROJECTION);
+			glLoadIdentity();
+			gluOrtho2D(0, w_win, 0, h_win);
+			glMatrixMode(GL_MODELVIEW);
+			glLoadIdentity();
+			break;
+		case FTGL_OUTLINE:
+		case FTGL_POLYGON:
+		case FTGL_EXTRUDE:
+		case FTGL_TEXTURE:
+			glMatrixMode (GL_PROJECTION);
+			glLoadIdentity ();
+			gluPerspective( 90, w_win/ h_win, 1, 1000);
+			glMatrixMode(GL_MODELVIEW);
+			glLoadIdentity();
+			gluLookAt( 0.0, 0.0, h_win / 2, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+			break;
+	}	
 }
 
 
@@ -312,7 +386,7 @@ int main(int argc, char *argv[])
 
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_RGB | GLUT_DOUBLE | GLUT_MULTISAMPLE);
 	glutInitWindowPosition(50, 50);
-	glutInitWindowSize(w_win, h_win);
+	glutInitWindowSize( w_win, h_win);
 	glutCreateWindow("FTGL TEST");
 	glutDisplayFunc(display);
 	glutKeyboardFunc(parsekey);
@@ -326,5 +400,5 @@ int main(int argc, char *argv[])
 
 	glutMainLoop();
 
-	return 0;             /* ANSI C requires main to return int. */
+	return 0;
 }
