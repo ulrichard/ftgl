@@ -58,7 +58,9 @@ class FTGL_EXPORT FTFont
         bool Open( const unsigned char *pBufferBytes, size_t bufferSizeInBytes);
 
         /**
-         * Attach auxilliary file to font (e.g. font metrics).
+         * Attach auxilliary file to font e.g font metrics.
+         *
+         * Note: not all font formats implement this function.
          *
          * @param filename  auxilliary font file name.
          * @return          <code>true</code> if file has been attached

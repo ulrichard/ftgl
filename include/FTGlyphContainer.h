@@ -25,8 +25,6 @@ class FTGL_EXPORT FTGlyphContainer
          *
          * @param face      The Freetype face
          * @param numGlyphs the number of glyphs in this face
-         * @param p         A flag to indicate preprocessing of glyphs.
-         *                  Not used.
          */
         FTGlyphContainer( FTFace* face, unsigned int numGlyphs);
 
