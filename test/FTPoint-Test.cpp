@@ -8,12 +8,12 @@
 
 class FTPointTest : public CppUnit::TestCase
 {
-        CPPUNIT_TEST_SUITE( FTPointTest);
-            CPPUNIT_TEST( testConstructor);
-            CPPUNIT_TEST( testOperatorEqual);
-            CPPUNIT_TEST( testOperatorNotEqual);
-            CPPUNIT_TEST( testOperatorPlusEquals);
-        CPPUNIT_TEST_SUITE_END();
+    CPPUNIT_TEST_SUITE( FTPointTest);
+        CPPUNIT_TEST( testConstructor);
+        CPPUNIT_TEST( testOperatorEqual);
+        CPPUNIT_TEST( testOperatorNotEqual);
+        CPPUNIT_TEST( testOperatorPlusEquals);
+    CPPUNIT_TEST_SUITE_END();
         
     public:
         FTPointTest() : CppUnit::TestCase( "FTPoint Test")

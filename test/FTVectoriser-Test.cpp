@@ -253,16 +253,16 @@ static double testMesh[] =
 
 class FTVectoriserTest : public CppUnit::TestCase
 {
-        CPPUNIT_TEST_SUITE( FTVectoriserTest);
-            CPPUNIT_TEST( testNullGlyphProcess);
-            CPPUNIT_TEST( testBadGlyphProcess);
-            CPPUNIT_TEST( testSimpleGlyphProcess);
-            CPPUNIT_TEST( testComplexGlyphProcess);
-            CPPUNIT_TEST( testGetContour);
-            CPPUNIT_TEST( testGetOutline);
-            CPPUNIT_TEST( testGetMesh);
-            CPPUNIT_TEST( testMakeMesh);
-        CPPUNIT_TEST_SUITE_END();
+    CPPUNIT_TEST_SUITE( FTVectoriserTest);
+        CPPUNIT_TEST( testNullGlyphProcess);
+        CPPUNIT_TEST( testBadGlyphProcess);
+        CPPUNIT_TEST( testSimpleGlyphProcess);
+        CPPUNIT_TEST( testComplexGlyphProcess);
+        CPPUNIT_TEST( testGetContour);
+        CPPUNIT_TEST( testGetOutline);
+        CPPUNIT_TEST( testGetMesh);
+        CPPUNIT_TEST( testMakeMesh);
+    CPPUNIT_TEST_SUITE_END();
         
     public:
         FTVectoriserTest() : CppUnit::TestCase( "FTVectoriser Test")

@@ -13,10 +13,10 @@
 
 class FTSizeTest : public CppUnit::TestCase
 {
-        CPPUNIT_TEST_SUITE( FTSizeTest);
-            CPPUNIT_TEST( testConstructor);
-            CPPUNIT_TEST( testSetCharSize);
-        CPPUNIT_TEST_SUITE_END();
+    CPPUNIT_TEST_SUITE( FTSizeTest);
+        CPPUNIT_TEST( testConstructor);
+        CPPUNIT_TEST( testSetCharSize);
+    CPPUNIT_TEST_SUITE_END();
         
     public:
         FTSizeTest() : CppUnit::TestCase( "FTSize Test")

@@ -8,12 +8,12 @@
 
 class FTVectorTest : public CppUnit::TestCase
 {
-        CPPUNIT_TEST_SUITE( FTVectorTest);
-            CPPUNIT_TEST( testConstructor);
-            CPPUNIT_TEST( testReserve);
-            CPPUNIT_TEST( testPushBack);
-            CPPUNIT_TEST( testOperatorSquareBrackets);
-        CPPUNIT_TEST_SUITE_END();
+    CPPUNIT_TEST_SUITE( FTVectorTest);
+        CPPUNIT_TEST( testConstructor);
+        CPPUNIT_TEST( testReserve);
+        CPPUNIT_TEST( testPushBack);
+        CPPUNIT_TEST( testOperatorSquareBrackets);
+    CPPUNIT_TEST_SUITE_END();
         
     public:
         FTVectorTest() : CppUnit::TestCase( "FTVector Test")

@@ -14,11 +14,11 @@
 
 class FTCharmapTest : public CppUnit::TestCase
 {
-        CPPUNIT_TEST_SUITE( FTCharmapTest);
-            CPPUNIT_TEST( testConstructor);
-            CPPUNIT_TEST( testSetEncoding);
-            CPPUNIT_TEST( testGetCharacterIndex);
-        CPPUNIT_TEST_SUITE_END();
+    CPPUNIT_TEST_SUITE( FTCharmapTest);
+        CPPUNIT_TEST( testConstructor);
+        CPPUNIT_TEST( testSetEncoding);
+        CPPUNIT_TEST( testGetCharacterIndex);
+    CPPUNIT_TEST_SUITE_END();
         
     public:
         FTCharmapTest() : CppUnit::TestCase( "FTCharmap Test")

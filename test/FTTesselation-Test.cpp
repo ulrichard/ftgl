@@ -8,10 +8,10 @@
 
 class FTTesselationTest : public CppUnit::TestCase
 {
-        CPPUNIT_TEST_SUITE( FTTesselationTest);
-            CPPUNIT_TEST( testAddPoint);
-            CPPUNIT_TEST( testGetPoint);
-        CPPUNIT_TEST_SUITE_END();
+    CPPUNIT_TEST_SUITE( FTTesselationTest);
+        CPPUNIT_TEST( testAddPoint);
+        CPPUNIT_TEST( testGetPoint);
+    CPPUNIT_TEST_SUITE_END();
         
     public:
         FTTesselationTest() : CppUnit::TestCase( "FTTesselation Test")

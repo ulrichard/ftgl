@@ -27,11 +27,11 @@ static float POINT_DATA[] =
 
 class FTMeshTest : public CppUnit::TestCase
 {
-        CPPUNIT_TEST_SUITE( FTMeshTest);
-            CPPUNIT_TEST( testGetTesselation);
-            CPPUNIT_TEST( testAddPoint);
-            CPPUNIT_TEST( testTooManyPoints);
-        CPPUNIT_TEST_SUITE_END();
+    CPPUNIT_TEST_SUITE( FTMeshTest);
+        CPPUNIT_TEST( testGetTesselation);
+        CPPUNIT_TEST( testAddPoint);
+        CPPUNIT_TEST( testTooManyPoints);
+    CPPUNIT_TEST_SUITE_END();
         
     public:
         FTMeshTest() : CppUnit::TestCase( "FTMesh Test")

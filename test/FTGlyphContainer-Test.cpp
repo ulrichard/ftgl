@@ -25,11 +25,11 @@ class TestGlyph : public FTGlyph
 
 class FTGlyphContainerTest : public CppUnit::TestCase
 {
-        CPPUNIT_TEST_SUITE( FTGlyphContainerTest);
-            CPPUNIT_TEST( testAdd);
-            CPPUNIT_TEST( testAdvance);
-            CPPUNIT_TEST( testRender);
-        CPPUNIT_TEST_SUITE_END();
+    CPPUNIT_TEST_SUITE( FTGlyphContainerTest);
+        CPPUNIT_TEST( testAdd);
+        CPPUNIT_TEST( testAdvance);
+        CPPUNIT_TEST( testRender);
+    CPPUNIT_TEST_SUITE_END();
         
     public:
         FTGlyphContainerTest() : CppUnit::TestCase( "FTGlyphContainer Test")

@@ -8,12 +8,12 @@
 
 class FTListTest : public CppUnit::TestCase
 {
-        CPPUNIT_TEST_SUITE( FTListTest);
-            CPPUNIT_TEST( testConstructor);
-            CPPUNIT_TEST( testPushBack);
-            CPPUNIT_TEST( testGetBack);
-            CPPUNIT_TEST( testGetFront);
-        CPPUNIT_TEST_SUITE_END();
+    CPPUNIT_TEST_SUITE( FTListTest);
+        CPPUNIT_TEST( testConstructor);
+        CPPUNIT_TEST( testPushBack);
+        CPPUNIT_TEST( testGetBack);
+        CPPUNIT_TEST( testGetFront);
+    CPPUNIT_TEST_SUITE_END();
         
     public:
         FTListTest() : CppUnit::TestCase( "FTList Test")

@@ -7,10 +7,10 @@
 
 class FTLibraryTest : public CppUnit::TestCase
 {
-        CPPUNIT_TEST_SUITE( FTLibraryTest);
-            CPPUNIT_TEST( testConstructor);
-            CPPUNIT_TEST( testError);
-        CPPUNIT_TEST_SUITE_END();
+    CPPUNIT_TEST_SUITE( FTLibraryTest);
+        CPPUNIT_TEST( testConstructor);
+        CPPUNIT_TEST( testError);
+    CPPUNIT_TEST_SUITE_END();
         
     public:
         FTLibraryTest() : CppUnit::TestCase( "FTLibrary Test")

@@ -13,12 +13,12 @@
 
 class FTBBoxTest : public CppUnit::TestCase
 {
-        CPPUNIT_TEST_SUITE( FTBBoxTest);
-            CPPUNIT_TEST( testDefaultConstructor);
-            CPPUNIT_TEST( testGlyphConstructor);
-            CPPUNIT_TEST( testMoveBBox);
-            CPPUNIT_TEST( testPlusEquals);
-        CPPUNIT_TEST_SUITE_END();
+    CPPUNIT_TEST_SUITE( FTBBoxTest);
+        CPPUNIT_TEST( testDefaultConstructor);
+        CPPUNIT_TEST( testGlyphConstructor);
+        CPPUNIT_TEST( testMoveBBox);
+        CPPUNIT_TEST( testPlusEquals);
+    CPPUNIT_TEST_SUITE_END();
         
     public:
         FTBBoxTest() : CppUnit::TestCase( "FTBBox Test")
