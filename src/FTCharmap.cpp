@@ -1,3 +1,7 @@
+#ifdef FTGL_DEBUG
+	#include "mmgr.h"
+#endif
+
 #include	"FTCharmap.h"
 
 
