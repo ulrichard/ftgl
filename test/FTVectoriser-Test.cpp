@@ -381,7 +381,7 @@ class FTVectoriserTest : public CppUnit::TestCase
             FTVectoriser vectoriser( face->glyph);
             CPPUNIT_ASSERT( vectoriser.GetMesh() == NULL);
 
-            vectoriser.MakeMesh(1.0);
+            vectoriser.MakeMesh( FTGL_FRONT_FACING);
             
             CPPUNIT_ASSERT( vectoriser.GetMesh());
         }
@@ -393,7 +393,7 @@ class FTVectoriserTest : public CppUnit::TestCase
             
             FTVectoriser vectoriser( face->glyph);
 
-            vectoriser.MakeMesh(1.0);
+            vectoriser.MakeMesh( FTGL_FRONT_FACING);
 
             int d = 0;
             const FTMesh* mesh = vectoriser.GetMesh();
