@@ -10,10 +10,6 @@
 FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
 :	FTGlyph(),
 	vectoriser(0),
-	numPoints(0),
-	frontMesh(0),
-	backMesh(0),
-	sidemesh(0),
 	glList(0),
 	depth(d)
 {
@@ -33,14 +29,14 @@ FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
 	bBox.z2 = -depth;
 	advance = glyph->advance.x >> 16;
 	
-	numPoints = vectoriser->MeshPoints();
+	int numPoints = vectoriser->MeshPoints();
 	if ( numPoints < 3)
 	{
 		delete vectoriser;
 		return;
 	}
 	
-	frontMesh = new FTGL_DOUBLE[ numPoints * 3];
+	FTGL_DOUBLE* frontMesh = new FTGL_DOUBLE[ numPoints * 3];
 	vectoriser->GetMesh( frontMesh);
 	
 	// Make the back polygons
@@ -54,7 +50,7 @@ FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
 		return;
 	}
 	
-	backMesh =  new FTGL_DOUBLE[ numPoints * 3];
+	FTGL_DOUBLE* backMesh =  new FTGL_DOUBLE[ numPoints * 3];
 	vectoriser->GetMesh( backMesh);
 	
 	numPoints = vectoriser->points();
@@ -75,7 +71,7 @@ FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
 		contourLength[cn] = vectoriser->contourSize( cn);
 	}
 	
-	sidemesh = new FTGL_DOUBLE[ numPoints * 3];
+	FTGL_DOUBLE* sidemesh = new FTGL_DOUBLE[ numPoints * 3];
 	vectoriser->GetOutline( sidemesh);
 	
 	delete vectoriser;
@@ -84,7 +80,8 @@ FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
 	int offset = 0;
 	glList = glGenLists(1);
 	glNewList( glList, GL_COMPILE);
-		// Render Front Mesh
+	
+	// Render Front Mesh
 		int BEPairs = static_cast<int>(frontMesh[0]);
 		for( int i = 0; i < BEPairs; ++i)
 		{
@@ -102,7 +99,7 @@ FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
 			glEnd();
 		}
 		
-		// Render Back Mesh
+	// Render Back Mesh
 		offset = 0;
 		BEPairs = static_cast<int>(backMesh[0]);
 		for( int i = 0; i < BEPairs; ++i)
@@ -127,14 +124,14 @@ FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
                 // BUT THIS DOESN'T WORK EITHER!!!!!
 //                bool winding = Winding( contourLength[0], sidemesh);
                         
-		// Join them together.
+	// Join them together.
 		// Extrude each contour to make the sides.
 		FTGL_DOUBLE* contour = sidemesh;
 		for (int c=0; c<numContours; ++c)
 		{
 			// Make a quad strip using each successive
 			// pair of points in this contour.
-			int numPoints = contourLength[c];
+			numPoints = contourLength[c];
 			
 			glBegin( GL_QUAD_STRIP);
 

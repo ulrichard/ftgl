@@ -11,8 +11,8 @@
 class FTVectoriser;
 
 /**
- * FTPolyGlyph is a specialisation of FTGlyph for creating tessellated
- * polygon glyphs.
+ * FTExtrdGlyph is a specialisation of FTGlyph for creating tessellated
+ * extruded polygon glyphs.
  * 
  * @see FTGlyphContainer
  * @see FTVectoriser
@@ -55,24 +55,15 @@ class FTGL_EXPORT FTExtrdGlyph : public FTGlyph
 		 * data
 		 */
 		FTVectoriser* vectoriser;
-
-		/**
-		 * The total number of points in the Freetype outline
-		 */
-		int numPoints;
-
-		/**
-		 * Pointer to the point data
-		 */
-		FTGL_DOUBLE* frontMesh;
-		FTGL_DOUBLE* backMesh;
-		FTGL_DOUBLE* sidemesh;
 		
 		/**
 		 * OpenGL display list
 		 */
 		GLuint glList;
 		
+		/**
+		 * Distance to extrude the glyph
+		 */
 		float depth;
 	
 };
