@@ -29,19 +29,22 @@ FTBitmapGlyph::FTBitmapGlyph( FT_Glyph glyph)
     destWidth = srcWidth;
     destHeight = srcHeight;
     
-    data = new unsigned char[srcPitch * destHeight];
-    
-    for(int y = 0; y < srcHeight; ++y)
+	if( destWidth && destHeight)
     {
-    	--destHeight;
-    	for(int x = 0; x < srcPitch; ++x)
-    	{
-			*( data + ( destHeight * srcPitch + x)) = *( source->buffer + ( y * srcPitch) + x);
-    	}    	
-    }
+		data = new unsigned char[srcPitch * destHeight];
+	    
+	    for(int y = 0; y < srcHeight; ++y)
+	    {
+	    	--destHeight;
+	    	for(int x = 0; x < srcPitch; ++x)
+	    	{
+				*( data + ( destHeight * srcPitch + x)) = *( source->buffer + ( y * srcPitch) + x);
+	    	}    	
+	    }
 
-    destHeight = srcHeight;
-
+	    destHeight = srcHeight;
+	}
+	
 	bBox = FTBBox( glyph);
 	advance = static_cast<float>(glyph->advance.x >> 16);
  	pos.x = bitmap->left;
@@ -55,13 +58,14 @@ FTBitmapGlyph::FTBitmapGlyph( FT_Glyph glyph)
 
 FTBitmapGlyph::~FTBitmapGlyph()
 {
-	delete[] data;
+	if( data)
+		delete [] data;
 }
 
 
 float FTBitmapGlyph::Render( const FT_Vector& pen)
 {
-	if( data != 0 )
+	if( data)
 	{
 		// Move the glyph origin
 		glBitmap( 0, 0, 0.0, 0.0, pen.x + pos.x, pen.y - pos.y, (const GLubyte *)0 );

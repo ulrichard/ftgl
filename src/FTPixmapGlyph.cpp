@@ -32,26 +32,29 @@ FTPixmapGlyph::FTPixmapGlyph( FT_Glyph glyph)
     destWidth = srcWidth;
     destHeight = srcHeight;
     
-    data = new unsigned char[destWidth * destHeight * 4];
-    
-    // Get the current glColor.
-    float ftglColour[4];
-    glGetFloatv( GL_CURRENT_COLOR, ftglColour);
-    
-    for(int y = 0; y < srcHeight; ++y)
+    if( destWidth && destHeight)
     {
-    	--destHeight;
-    	for(int x = 0; x < srcWidth; ++x)
-    	{
-			*( data + ( destHeight * destWidth  + x) * 4 + 0) = static_cast<unsigned char>( ftglColour[0] * 255.0f);
-			*( data + ( destHeight * destWidth  + x) * 4 + 1) = static_cast<unsigned char>( ftglColour[1] * 255.0f);
-			*( data + ( destHeight * destWidth  + x) * 4 + 2) = static_cast<unsigned char>( ftglColour[2] * 255.0f);
-			*( data + ( destHeight * destWidth  + x) * 4 + 3) = static_cast<unsigned char>( ftglColour[3] * (*( source->buffer + ( y * srcPitch) + x)));
-    	}    	
-    }
+	    data = new unsigned char[destWidth * destHeight * 4];
+	    
+	    // Get the current glColor.
+	    float ftglColour[4];
+	    glGetFloatv( GL_CURRENT_COLOR, ftglColour);
+	    
+	    for(int y = 0; y < srcHeight; ++y)
+	    {
+	    	--destHeight;
+	    	for(int x = 0; x < srcWidth; ++x)
+	    	{
+				*( data + ( destHeight * destWidth  + x) * 4 + 0) = static_cast<unsigned char>( ftglColour[0] * 255.0f);
+				*( data + ( destHeight * destWidth  + x) * 4 + 1) = static_cast<unsigned char>( ftglColour[1] * 255.0f);
+				*( data + ( destHeight * destWidth  + x) * 4 + 2) = static_cast<unsigned char>( ftglColour[2] * 255.0f);
+				*( data + ( destHeight * destWidth  + x) * 4 + 3) = static_cast<unsigned char>( ftglColour[3] * (*( source->buffer + ( y * srcPitch) + x)));
+	    	}    	
+	    }
 
-    destHeight = srcHeight;
-
+	    destHeight = srcHeight;
+	}
+	
 	bBox = FTBBox( glyph);
 	numGreys = source->num_grays;
 	advance = glyph->advance.x >> 16;
@@ -66,13 +69,14 @@ FTPixmapGlyph::FTPixmapGlyph( FT_Glyph glyph)
 
 FTPixmapGlyph::~FTPixmapGlyph()
 {
-	delete[] data;
+	if( data)
+		delete [] data;
 }
 
 
 float FTPixmapGlyph::Render( const FT_Vector& pen)
 {
-	if( data != 0 )
+	if( data)
 	{
 		glPushClientAttrib( GL_CLIENT_PIXEL_STORE_BIT);
 		

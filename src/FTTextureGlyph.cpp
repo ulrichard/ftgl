@@ -26,25 +26,26 @@ FTTextureGlyph::FTTextureGlyph( FT_Glyph glyph, int id, int xOffset, int yOffset
 	// FIXME check the pixel mode
 	//ft_pixel_mode_grays
 	    
-	int srcWidth = source->width;
-	int srcHeight = source->rows;
-	int srcPitch = source->pitch;
+	int srcPitch = source->pitch;   
+    destWidth = source->width;
+    destHeight = source->rows;
     
-    destWidth = srcWidth;
-    destHeight = srcHeight;
-    
-    data = new unsigned char[destWidth * destHeight];
-
-    for(int y = 0; y < srcHeight; ++y)
+    // Not sure what the standard behavior should be here?
+    if( destWidth && destHeight)
     {
-    	for(int x = 0; x < srcWidth; ++x)
-    	{
-			*( data + ( y * destWidth  + x)) = *( source->buffer + ( y * srcPitch) + x);
-    	}    	
-    }
+	    data = new unsigned char[destWidth * destHeight];
 
-	glBindTexture( GL_TEXTURE_2D, glTextureID);
-	glTexSubImage2D( GL_TEXTURE_2D, 0, xOffset, yOffset, destWidth, destHeight, GL_ALPHA, GL_UNSIGNED_BYTE, data);
+	    for(int y = 0; y < destHeight; ++y)
+	    {
+	    	for(int x = 0; x < destWidth; ++x)
+	    	{
+				*( data + ( y * destWidth  + x)) = *( source->buffer + ( y * srcPitch) + x);
+	    	}    	
+	    }
+
+		glBindTexture( GL_TEXTURE_2D, glTextureID);
+		glTexSubImage2D( GL_TEXTURE_2D, 0, xOffset, yOffset, destWidth, destHeight, GL_ALPHA, GL_UNSIGNED_BYTE, data);
+	}
 
 
 //		0    
@@ -55,7 +56,7 @@ FTTextureGlyph::FTTextureGlyph( FT_Glyph glyph, int id, int xOffset, int yOffset
 //		+----+
 //		     1
 	
-	// FIXME ????
+	// Texture co-ords
 	uv[0].x = static_cast<float>(xOffset) / static_cast<float>(width);
 	uv[0].y = static_cast<float>(yOffset) / static_cast<float>(height);
 	uv[1].x = static_cast<float>( xOffset + destWidth) / static_cast<float>(width);
@@ -68,7 +69,8 @@ FTTextureGlyph::FTTextureGlyph( FT_Glyph glyph, int id, int xOffset, int yOffset
  	pos.x = bitmap->left;
 	pos.y = bitmap->top;
 	
-	delete [] data;
+	if( data)
+		delete [] data;
 	
 // discard glyph image (bitmap or not)
 	// Is this the right place to do this?
