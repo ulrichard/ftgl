@@ -38,6 +38,7 @@ TODO:
 	- What happens with 2 obj of the same font type
 	- The position stuff is broken again. Check the pen stuff. Plus lower
 	  case 'y's seem to be 1 pixel too low?)
+	- Use glRasterPos() not glBitMap to set raster pos in pixel fonts.
 	- check and confirm the glPixelStore stuff. Data Alignment. Tightly
 	  packed at the moment.
 	- pen position eg font.render( 50, 100, "Hello World!");
