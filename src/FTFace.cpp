@@ -12,12 +12,7 @@ FTFace::FTFace()
 
 FTFace::~FTFace()
 {
-	if( ftFace)
-	{
-		Close();
-		delete ftFace; // is this a prob?
-		ftFace = 0;
-	}
+	Close();
 }
 
 
@@ -41,7 +36,12 @@ bool FTFace::Open( const char* filename)
 
 void FTFace::Close()
 {
-	FT_Done_Face( *ftFace);
+	if( ftFace)
+	{
+		FT_Done_Face( *ftFace);
+		delete ftFace; // is this a prob?
+		ftFace = 0;
+	}
 }
 
 
