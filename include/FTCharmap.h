@@ -6,7 +6,6 @@
 #include FT_FREETYPE_H
 #include FT_GLYPH_H
 
-//#include <map>
 #include "FTCharToGlyphIndexMap.h"
 
 #include "FTGL.h"
