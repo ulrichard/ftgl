@@ -203,6 +203,12 @@ This will return an error if the requested encoding can't be found in the font.
 <A NAME="FAQ">
 <H2>FAQ</H2>
 
+WhenI try to compile FTGL it complains about a missing file from the include:
+
+#include <ft2build.h>
+
+FTGL relies on freetype 2 for opening and decoding font files. This include is the main include for freetype. You will need to download Freetype 2 and install it. Then make sure that the FTGL project that you are using points to your freetype installation.
+
 
 2) Is it possible to map a font to a "unit" size? My application relies on
 the fonts being a certain "physical" height (in OpenGL coordinate space)
@@ -219,6 +225,7 @@ So basically it all depends on your projection matrix. Obviously you can use glS
 Couple of extra things to note. The quality of vector glyphs will not change when you change the size. ie a really small polygon glyph up close will look exactly the same as a big one from far away. They both contain the same amount of data. This doesn't apply to texture fonts. Secondly there is a bug in the advance/ kerning code that will cause ugliness at really small point sizes. This is because the advance and kerning use ints so an advance of 0.4 will become zero. If this is going to be a probelm, I can fix this.
 
 Early on I did a lot of head scratching over the opengl unit to font size thing because when I was first integrating FTGL into my engine the fonts weren't the size I was expecting. I was tempted to build in some scaling but I decided doing nothing was the best approach because you can't please everyone. Plus it's 'correct' as it is.
+
 
 
 <H3>Sample font manager class.</H3>
