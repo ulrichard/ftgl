@@ -56,7 +56,7 @@ my_init( const char* font_filename )
         {
             std::cout << "Reading font " << i << " from " << font_filename << std::endl;
 
-            int point_size = 24;
+            int point_size = 48;
             if (!fonts[i]->FaceSize(point_size))
             {
                 std::cerr << "ERROR: Unable to set font face size " << point_size << std::endl;
