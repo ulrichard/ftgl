@@ -49,7 +49,7 @@ class FTGlyphTest : public CppUnit::TestCase
             
             CPPUNIT_ASSERT_DOUBLES_EQUAL( 47, testGlyph.Advance(), 0.01);
 
-            CPPUNIT_ASSERT_DOUBLES_EQUAL( 51.3906, testGlyph.BBox().upperY, 0.01);
+            CPPUNIT_ASSERT_DOUBLES_EQUAL( 51.39, testGlyph.BBox().upperY, 0.01);
         
             CPPUNIT_ASSERT( testGlyph.Error() == 0);
             
