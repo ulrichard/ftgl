@@ -161,7 +161,8 @@ class FTGL_EXPORT FTMesh
 
 };
 
-
+const FTGL_DOUBLE FTGL_FRONT_FACING = 1.0;
+const FTGL_DOUBLE FTGL_BACK_FACING = -1.0;
 
 /**
  * FTVectoriser class is a helper class that converts font outlines into
@@ -195,7 +196,7 @@ class FTGL_EXPORT FTVectoriser
          * @param zNormal   The direction of the z axis of the normal
          *                  for this mesh
          */
-        void MakeMesh( FTGL_DOUBLE zNormal = 1.0);
+        void MakeMesh( FTGL_DOUBLE zNormal = FTGL_FRONT_FACING);
         
         /**
          * Get the current mesh.
