@@ -93,9 +93,17 @@ This is probably the most versatile type. It is fast, antialised and can be tran
     const char* string;    
     bool cache;            
 </PRE></font>
+<P>
+<font color="blue"><PRE>
+		bool Open( fontname, preCache = true);
+        const char* fontname:   
+        bool preCache:          
+
+</PRE></font>
+
 
 <P>
-A side effect of this is you can specify a sub set of glyphs to be pre-loaded. This will let you use larger higher quality glyphs without consuming huge amounts of ram as you would if you laoded the entire font. For example if your application only needs numbers, eg for scores, you can use the following code to preload them.
+A side effect of this is you can specify a sub set of glyphs to be pre-loaded. This will let you use larger higher quality glyphs without consuming huge amounts of ram as you would if you loaded the entire font. For example if your application only needs numbers, eg for scores, you can use the following code to preload them.
 </P>
 
 <font color="blue"><PRE>
