@@ -1,4 +1,17 @@
-FTGL 1.01
+FTGL 1.1
+
+October 31 2001
+	- Renamed the source to .cpp
+	- Removed the static activeTextureID from FTTextureGlyph and replaced
+	  it with a call to
+	  glGetIntegerv( GL_TEXTURE_2D_BINDING_EXT, &activeTextureID);
+	- Added an include for glext.h in FTGL.h
+	- Tidied up the glbegin/glEnd pairs in FTTextureGlyph & FTGLTextureFont
+	- Fixed the problem with doc filenames.
+	- Tidied up some implicit type conversions.
+	- Fixed FTCharMap to ensure that a valid default charmap is always
+	  created by the c_stor.
+	
 October 26 2001
 	1.01 (FTGL_1_0_1)
 	- Removed the glEnable( GL_TEXTURE_2D) from FTGLTextureFont

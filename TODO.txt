@@ -1,11 +1,9 @@
-FTGL 1.01
-October 26 2001
+FTGL 1.1
+October 31 2001
 
 TODO:
 	- namespace ftgl or gltt?
 	- Distribution MACOS X
-	- Get rid of the static activeTextureID in FTTextureGlyph. Maybe
-	  replace with glGetIntegerv( GL_TEXTURE_2D_BINDING, activeTextureID);
 	
 FUTURE:
 	- select face ie italic, bold etc
