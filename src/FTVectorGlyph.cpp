@@ -6,7 +6,7 @@
 
 
 
-FTVectorGlyph::FTVectorGlyph( FT_Glyph glyph, int gi)
+FTVectorGlyph::FTVectorGlyph( FT_Glyph glyph, unsigned int gi)
 :	FTGlyph(gi),
 	vectoriser(0),
 	numPoints(0),

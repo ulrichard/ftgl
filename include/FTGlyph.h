@@ -12,14 +12,14 @@ class FTGlyph
 {
 	public:
 		// methods
-		FTGlyph( int glyphIndex);
+		FTGlyph( unsigned int glyphIndex);
 		virtual ~FTGlyph();
 		virtual float Render( const FT_Vector& v) = 0;
 		
 		FT_Error Error() const { return err;}
 		
 		// attributes
-		const int glyphIndex;
+		const unsigned int glyphIndex;
 		
 	protected:
 		// methods

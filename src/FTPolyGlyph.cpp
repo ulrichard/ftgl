@@ -49,7 +49,7 @@ void ftglCombine( GLdouble coords[3], void* vertex_data[4], GLfloat weight[4], v
 }
 
 
-FTPolyGlyph::FTPolyGlyph( FT_Glyph glyph, int gi)
+FTPolyGlyph::FTPolyGlyph( FT_Glyph glyph, unsigned int gi)
 :	FTGlyph(gi),
 	vectoriser(0),
 	numPoints(0),

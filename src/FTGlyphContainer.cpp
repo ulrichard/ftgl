@@ -33,12 +33,12 @@ bool FTGlyphContainer::Add( FTGlyph* tempGlyph)
 }
 
 
-FT_Vector& FTGlyphContainer::render( int index, int next, FT_Vector pen)
+FT_Vector& FTGlyphContainer::render( unsigned int index, unsigned int next, FT_Vector pen)
 {
 	kernAdvance.x = 0; kernAdvance.y = 0;
 	
-	int left = face->CharIndex( index);
-	int right = face->CharIndex( next);
+	unsigned int left = face->CharIndex( index);
+	unsigned int right = face->CharIndex( next);
 	
 	kernAdvance = face->KernAdvance( left, right);	
 	if( !face->Error())

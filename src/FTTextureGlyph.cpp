@@ -6,7 +6,7 @@
 
 int FTTextureGlyph::activeTextureID = 0;
 
-FTTextureGlyph::FTTextureGlyph( FT_Glyph glyph, int gi, int id, unsigned char* data, int stride, int height, float u, float v)
+FTTextureGlyph::FTTextureGlyph( FT_Glyph glyph, unsigned int gi, int id, unsigned char* data, int stride, int height, float u, float v)
 :	FTGlyph(gi),
 	destWidth(0),
 	destHeight(0),
@@ -81,7 +81,7 @@ float FTTextureGlyph::Render( const FT_Vector& pen)
 	if( activeTextureID != glTextureID)
 	{
 		glEnd();
-		glBindTexture( GL_TEXTURE_2D, glTextureID);
+		glBindTexture( GL_TEXTURE_2D, (GLuint)glTextureID);
 		activeTextureID = glTextureID;
 		glBegin( GL_QUADS);
 	}

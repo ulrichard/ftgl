@@ -34,16 +34,13 @@ class	FTGLTextureFont : public FTFont
 		int glyphHeight;
 		int glyphWidth;
 
-		int horizGlyphs;
-		int vertGlyphs;
-
 		int padding;
 		
 		// methods
 		bool MakeGlyphList();
 		void CreateTexture( int id, int width, int height, unsigned char* data);
 		void GetSize();
-		int FillGlyphs( int glyphStart, int textID, int textureWidth, int textureHeight, unsigned char* textMem);
+		unsigned int FillGlyphs( unsigned int glyphStart, int textID, int textureWidth, int textureHeight, unsigned char* textMem);
 		
 		
 };

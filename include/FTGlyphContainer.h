@@ -22,7 +22,7 @@ class	FTGlyphContainer
 
 		bool Add( FTGlyph* tempGlyph);
 
-		FT_Vector& render( int index, int next, FT_Vector pen);
+		FT_Vector& render( unsigned int index, unsigned int next, FT_Vector pen);
 		
 		// attributes
 		

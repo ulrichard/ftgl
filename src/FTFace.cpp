@@ -45,7 +45,7 @@ void FTFace::Close()
 }
 
 
-FTSize& FTFace::Size( const int size, const int res )
+FTSize& FTFace::Size( const unsigned int size, const unsigned int res )
 {
 	charSize.CharSize( ftFace, size, res, res);
 	return charSize;
@@ -73,13 +73,13 @@ bool FTFace::CharMap( FT_Encoding encoding )
 }
 
 
-int FTFace::CharIndex( int index ) const
+int FTFace::CharIndex( unsigned int index ) const
 {
 	return FT_Get_Char_Index( *ftFace, index);
 }
 
 
-FT_Vector& FTFace::KernAdvance( int index1, int index2 )
+FT_Vector& FTFace::KernAdvance( unsigned int index1, unsigned int index2 )
 {
 	kernAdvance.x = 0; kernAdvance.y = 0;
 	

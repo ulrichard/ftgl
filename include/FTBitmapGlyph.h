@@ -12,7 +12,7 @@ class	FTBitmapGlyph : public FTGlyph
 {
 	public:
 		// methods
-		FTBitmapGlyph( FT_Glyph glyph, int glyphIndex);
+		FTBitmapGlyph( FT_Glyph glyph, unsigned int glyphIndex);
 		virtual ~FTBitmapGlyph();
 		virtual float Render( const FT_Vector& v);
 		

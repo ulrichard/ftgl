@@ -24,7 +24,7 @@ class	FTFont
 		virtual ~FTFont();
 		virtual bool Open( const char* fontname );
 		virtual void Close();
-		virtual bool FaceSize( const int size, const int res = 72 );
+		virtual bool FaceSize( const unsigned int size, const unsigned int res = 72 );
 		virtual bool CharMap( FT_Encoding encoding );
 		virtual int	Ascender() const;
 		virtual int	Descender() const;

@@ -22,7 +22,7 @@ bool FTGLPixmapFont::MakeGlyphList()
 	
 //	numGlyphs = 256; // FIXME hack
 	
-	for( int c = 0; c < numGlyphs; ++c)
+	for( unsigned int c = 0; c < numGlyphs; ++c)
 	{
 		err = FT_Load_Glyph( *ftFace, c, FT_LOAD_DEFAULT);
 		FT_Glyph ftGlyph;

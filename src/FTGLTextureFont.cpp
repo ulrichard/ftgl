@@ -67,7 +67,7 @@ bool FTGLTextureFont::MakeGlyphList()
 		textMem = new unsigned char[totalMem]; // GL_ALPHA texture;
 		std::memset( textMem, 0, totalMem);
 			
-		int glyphNum = 0;
+		unsigned int glyphNum = 0;
 		unsigned char* currTextPtr = textMem;
 		
 		for( int x = 0; x < numTextures - 1; ++x)
@@ -102,7 +102,7 @@ bool FTGLTextureFont::MakeGlyphList()
 }
 
 
-int FTGLTextureFont::FillGlyphs( int glyphStart, int id, int width, int height, unsigned char* textdata)
+unsigned int FTGLTextureFont::FillGlyphs( unsigned int glyphStart, int id, int width, int height, unsigned char* textdata)
 {
 	FT_Face* ftFace = face.Face();
 	
@@ -113,7 +113,7 @@ int FTGLTextureFont::FillGlyphs( int glyphStart, int id, int width, int height, 
 	float currTextV = (float)padding / (float)height;
 	
 //	numGlyphs = 256; // FIXME hack
-	int n;
+	unsigned int n;
 	
 	for( n = glyphStart; n <= numGlyphs; ++n)
 	{
@@ -179,7 +179,7 @@ void FTGLTextureFont::render( const char* string)
 	glEnable(GL_BLEND);
  	glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // GL_ONE
  	
-	glBindTexture( GL_TEXTURE_2D, FTTextureGlyph::activeTextureID);
+	glBindTexture( GL_TEXTURE_2D, (GLuint)FTTextureGlyph::activeTextureID);
 
  	// QUADS are faster!? Less function call overhead?
  	glBegin( GL_QUADS);

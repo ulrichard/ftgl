@@ -4,7 +4,7 @@
 #include	"FTGL.h"
 
 
-FTBitmapGlyph::FTBitmapGlyph( FT_Glyph glyph, int gi)
+FTBitmapGlyph::FTBitmapGlyph( FT_Glyph glyph, unsigned int gi)
 :	FTGlyph( gi),
 	destWidth(0),
 	destHeight(0),

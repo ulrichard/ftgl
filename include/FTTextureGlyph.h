@@ -1,18 +1,19 @@
 #ifndef		__FTTextureGlyph__
 #define		__FTTextureGlyph__
 
+
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include FT_GLYPH_H
 
-#include	"FTGlyph.h"
+#include "FTGlyph.h"
 
 
 class	FTTextureGlyph : public FTGlyph
 {
 	public:
 		// methods
-		FTTextureGlyph( FT_Glyph glyph, int gi, int id, unsigned char* data, int stride, int height, float u, float v);
+		FTTextureGlyph( FT_Glyph glyph, unsigned int gi, int id, unsigned char* data, int stride, int height, float u, float v);
 		virtual ~FTTextureGlyph();
 		virtual float Render( const FT_Vector& v);
 		

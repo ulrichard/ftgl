@@ -11,7 +11,7 @@ FTSize::~FTSize()
 {}
 
 
-bool	FTSize::CharSize( FT_Face* ftFace, int point_size, int x_resolution, int y_resolution )
+bool FTSize::CharSize( FT_Face* ftFace, unsigned int point_size, unsigned int x_resolution, unsigned int y_resolution )
 {
 	this->ftFace = ftFace;
 	size = point_size;

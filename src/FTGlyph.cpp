@@ -2,7 +2,7 @@
 
 
 // OPSignature:  FTGlyph:FTGlyph( FT_Face:face  int:glyphIndex ) 
-FTGlyph::FTGlyph( int gi)
+FTGlyph::FTGlyph( unsigned int gi)
 :	advance(0),
 	glyphIndex(gi),
 	ftGlyph(0),

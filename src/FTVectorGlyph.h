@@ -13,7 +13,7 @@ class	FTVectorGlyph : public FTGlyph
 {
 	public:
 		// methods
-		FTVectorGlyph( FT_Glyph glyph, int glyphIndex);
+		FTVectorGlyph( FT_Glyph glyph, unsigned int glyphIndex);
 		virtual ~FTVectorGlyph();
 		virtual float Render( const FT_Vector& pen);
 		

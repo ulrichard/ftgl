@@ -13,7 +13,7 @@ class	FTSize
 		// methods
 		FTSize();
 		virtual ~FTSize();
-		bool CharSize( FT_Face* face, int point_size, int x_resolution, int y_resolution );
+		bool CharSize( FT_Face* face, unsigned int point_size, unsigned int x_resolution, unsigned int y_resolution );
 		float Ascender() const;
 		float Descender() const;
 		float Height() const;
@@ -29,8 +29,8 @@ class	FTSize
 		
 		// attributes
 		FT_Face* ftFace;
-		FT_Size   ftSize;
-		int	size;
+		FT_Size ftSize;
+		unsigned int size;
 		
 		FT_Error err;
 		

@@ -44,7 +44,7 @@ void FTFont::Close()
 }
 
 
-bool FTFont::FaceSize( const int size, const int res )
+bool FTFont::FaceSize( const unsigned int size, const unsigned int res )
 {
 	charSize = face.Size( size, res);
 
