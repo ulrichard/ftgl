@@ -4,8 +4,12 @@
 #include	"FTGL.h"
 
 
-FTPixmapGlyph::FTPixmapGlyph( FT_Glyph glyph, int gi)
-:	FTGlyph(gi)
+FTPixmapGlyph::FTPixmapGlyph( FT_Glyph glyph, const int gi)
+:	FTGlyph(gi),
+	destWidth(0),
+	destHeight(0),
+	numGreys(0),
+	data(0)
 {
 	if( !glyph->format == ft_glyph_format_bitmap)
 	{ return;}
@@ -63,7 +67,7 @@ FTPixmapGlyph::~FTPixmapGlyph()
 }
 
 
-float FTPixmapGlyph::Render( FT_Vector& pen)
+float FTPixmapGlyph::Render( const FT_Vector& pen)
 {
 	if( data != 0 )
 	{
