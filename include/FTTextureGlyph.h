@@ -32,7 +32,7 @@ class FTGL_EXPORT FTTextureGlyph : public FTGlyph
 		 * @param u			The texture co-ord for this glyph
 		 * @param v			The texture co-ord for this glyph
 		 */
-		FTTextureGlyph( FT_Glyph glyph, int id, unsigned char* data, int stride, int height, float u, float v);
+		FTTextureGlyph( FT_Glyph glyph, int id, unsigned char* data, GLsizei stride, GLsizei height, float u, float v);
 
 		/**
 		 * Destructor

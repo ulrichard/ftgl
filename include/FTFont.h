@@ -146,7 +146,7 @@ class FTGL_EXPORT FTFont
 		/**
 		 * Number of faces in this font
 		 */
-		int	numFaces;
+		unsigned int numFaces;
 		
 		/**
 		 * Current size object

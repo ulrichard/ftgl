@@ -31,7 +31,7 @@ class FTGL_EXPORT FTGlyphContainer
 		 * @param p			A flag to indicate preprocessing of glyphs.
 		 *					Not used.
 		 */
-		FTGlyphContainer( FTFace* face, int numGlyphs, bool p = false);
+		FTGlyphContainer( FTFace* face, unsigned int numGlyphs, bool p = false);
 
 		/**
 		 * Destructor
