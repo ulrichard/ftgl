@@ -67,11 +67,14 @@ class FTGL_EXPORT FTContour
         
         /**
          * De Casteljau (bezier) algorithm contributed by Jed Soane
-         *
-         * @param curveOrder The order of the curve to be evaluated.
-         * <code>2</code> equals conic (quadratic) and <code>3</code> equals cubic
+         * Evaluates a quadratic or conic (second degree) curve
          */
         void evaluateQuadraticCurve();
+
+        /**
+         * De Casteljau (bezier) algorithm contributed by Jed Soane
+         * Evaluates a cubic (third degree) curve
+         */
         void evaluateCubicCurve();
 
         /**
