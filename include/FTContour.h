@@ -1,10 +1,6 @@
 #ifndef     __FTContour__
 #define     __FTContour__
 
-#include <ft2build.h>
-#include FT_FREETYPE_H
-#include FT_GLYPH_H
-
 #include "FTPoint.h"
 #include "FTVector.h"
 #include "FTGL.h"
@@ -36,7 +32,7 @@ class FTGL_EXPORT FTContour
 {
     public:
         /**
-         *  Constructor
+         * Constructor
          *
          * @param contour
          * @param pointTags
@@ -45,7 +41,7 @@ class FTGL_EXPORT FTContour
         FTContour( FT_Vector* contour, char* pointTags, unsigned int numberOfPoints);
 
         /**
-         *  Destructor
+         * Destructor
          */
         ~FTContour()
         {
@@ -75,7 +71,7 @@ class FTGL_EXPORT FTContour
         
     private:
         /**
-         * Add a point to this contour. This functional tests for duplicate
+         * Add a point to this contour. This function tests for duplicate
          * points.
          *
          * @param point The point to be added to the contour.
