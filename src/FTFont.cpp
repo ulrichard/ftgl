@@ -1,7 +1,7 @@
 #include    "FTFace.h"
 #include    "FTFont.h"
 #include    "FTGlyphContainer.h"
-#include    "FTGlyph.h" // for FTBbox
+#include    "FTBBox.h"
 
 
 FTFont::FTFont()
@@ -153,11 +153,11 @@ void FTFont::BBox( const char* string,
         bbox = glyphList->BBox( *c);
         
         // Lower extent
-        lly = lly < bbox.y1 ? lly: bbox.y1;
+        lly = lly < bbox.lowerY ? lly: bbox.lowerY;
         // Upper extent
-        ury = ury > bbox.y2 ? ury: bbox.y2;
+        ury = ury > bbox.upperY ? ury: bbox.upperY;
         // Depth
-        urz = urz < bbox.z2 ? urz: bbox.z2;
+        urz = urz < bbox.upperZ ? urz: bbox.upperZ;
 
         // Width
         urx += glyphList->Advance( *c, *(c + 1));
@@ -165,9 +165,9 @@ void FTFont::BBox( const char* string,
     }
     
     //Final adjustments
-    llx = glyphList->BBox( *string).x1;
+    llx = glyphList->BBox( *string).lowerX;
     urx -= glyphList->Advance( *(c - 1), 0);
-    urx += bbox.x2;
+    urx += bbox.upperX;
 
 }
 
@@ -189,11 +189,11 @@ void FTFont::BBox( const wchar_t* string,
         bbox = glyphList->BBox( *c);
         
         // Lower extent
-        lly = lly < bbox.y1 ? lly: bbox.y1;
+        lly = lly < bbox.lowerY ? lly: bbox.lowerY;
         // Upper extent
-        ury = ury > bbox.y2 ? ury: bbox.y2;
+        ury = ury > bbox.upperY ? ury: bbox.upperY;
         // Depth
-        urz = urz < bbox.z2 ? urz: bbox.z2;
+        urz = urz < bbox.upperZ ? urz: bbox.upperZ;
 
         // Width
         urx += glyphList->Advance( *c, *(c + 1));
@@ -201,9 +201,9 @@ void FTFont::BBox( const wchar_t* string,
     }
     
     //Final adjustments
-    llx = glyphList->BBox( *string).x1;
+    llx = glyphList->BBox( *string).lowerX;
     urx -= glyphList->Advance( *(c - 1), 0);
-    urx += bbox.x2;
+    urx += bbox.upperX;
 
 }
 
@@ -284,7 +284,7 @@ void FTFont::doRender( const unsigned int chr, const unsigned int nextChr)
         glyphList->Add( MakeGlyph( g), g);
     }
 
-    FT_Vector kernAdvance = glyphList->render( chr, nextChr, pen);
+    FTPoint kernAdvance = glyphList->render( chr, nextChr, pen);
     
     pen.x += kernAdvance.x;
     pen.y += kernAdvance.y;

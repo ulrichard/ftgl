@@ -243,7 +243,7 @@ class FTGL_EXPORT FTFont
         /**
          * Current pen or cursor position;
          */
-        FT_Vector pen;
+        FTPoint pen;
         
         /**
          * Current error code. Zero means no error.
@@ -269,6 +269,8 @@ class FTGL_EXPORT FTFont
          * @param nextChr   next character
          */
         inline void doRender( const unsigned int chr, const unsigned int nextChr);
+        
+
 
 };
 
