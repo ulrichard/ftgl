@@ -36,14 +36,15 @@ FTLibrary::FTLibrary()
 }
 
 
-bool	FTLibrary::Init()
+bool FTLibrary::Init()
 {
 	if( lib != 0 )
 		return true;
 
 	lib = new FT_Library;
-
-	if( FT_Init_FreeType( lib)) // false = no error
+	
+	err = FT_Init_FreeType( lib);
+	if( err)
 	{
 		delete lib;
 		lib= 0;

@@ -16,6 +16,8 @@ class	FTLibrary
 		static FTLibrary& Instance();
 		FT_Library*	GetLibrary() const { return lib;}
 		
+		virtual FT_Error Error() const { return err;}
+		
 		virtual  ~FTLibrary();
 		
 		// attributes
@@ -30,6 +32,8 @@ class	FTLibrary
 		// attributes
 		FT_Library*	lib;
 //		FTC_Manager* manager;      /* the cache manager               */
+
+		FT_Error err;
 
 		
 };
