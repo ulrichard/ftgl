@@ -252,15 +252,6 @@ class FTGL_EXPORT FTFont
         
     private:        
         /**
-         * Render a character
-         * This function does an implicit conversion on it's arguments.
-         * 
-         * @param chr       current character
-         * @param nextChr   next character
-         */
-        inline void DoRender( const unsigned int chr, const unsigned int nextChr);
-        
-        /**
          * Check that the glyph at <code>chr</code> exist. If not load it.
          *
          * @param chr  character index

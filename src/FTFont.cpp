@@ -249,7 +249,10 @@ void FTFont::Render( const char* string )
 
     while( *c)
     {
-        DoRender( *c, *(c + 1));
+        if(CheckGlyph( *c))
+        {
+            pen = glyphList->Render( *c, *(c + 1), pen);
+        }
         ++c;
     }
 }
@@ -262,19 +265,14 @@ void FTFont::Render( const wchar_t* string )
 
     while( *c)
     {
-        DoRender( *c, *(c + 1));
+        if(CheckGlyph( *c))
+        {
+            pen = glyphList->Render( *c, *(c + 1), pen);
+        }
         ++c;
     }
 }
 
-
-void FTFont::DoRender( const unsigned int chr, const unsigned int nextChr)
-{
-    if(CheckGlyph( chr))
-    {
-        pen = glyphList->Render( chr, nextChr, pen);
-    }
-}
 
 bool FTFont::CheckGlyph( const unsigned int characterCode)
 {
