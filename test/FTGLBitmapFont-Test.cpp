@@ -14,6 +14,7 @@ class FTGLBitmapFontTest : public CppUnit::TestCase
     CPPUNIT_TEST_SUITE( FTGLBitmapFontTest);
         CPPUNIT_TEST( testConstructor);
         CPPUNIT_TEST( testRender);
+        CPPUNIT_TEST( testPenPosition);
         CPPUNIT_TEST( testDisplayList);
     CPPUNIT_TEST_SUITE_END();
         
@@ -41,7 +42,7 @@ class FTGLBitmapFontTest : public CppUnit::TestCase
         void testRender()
         {
             buildGLContext();
-        
+
             FTGLBitmapFont* bitmapFont = new FTGLBitmapFont( FONT_FILE);            
             bitmapFont->Render(GOOD_ASCII_TEST_STRING);
 
@@ -54,6 +55,29 @@ class FTGLBitmapFontTest : public CppUnit::TestCase
             CPPUNIT_ASSERT( bitmapFont->Error() == 0);        
             CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);        
         }
+        
+        
+        void testPenPosition()
+        {
+            buildGLContext();
+            float rasterPosition[4];
+            
+            glRasterPos2f(0.0f,0.0f);
+            
+            glGetFloatv(GL_CURRENT_RASTER_POSITION, rasterPosition);
+            CPPUNIT_ASSERT_DOUBLES_EQUAL( 0.0, rasterPosition[0], 0.01);
+            
+            FTGLBitmapFont* bitmapFont = new FTGLBitmapFont( FONT_FILE);            
+            bitmapFont->FaceSize(18);
+
+            bitmapFont->Render(GOOD_ASCII_TEST_STRING);
+            bitmapFont->Render(GOOD_ASCII_TEST_STRING);
+
+            glGetFloatv(GL_CURRENT_RASTER_POSITION, rasterPosition);
+            CPPUNIT_ASSERT_DOUBLES_EQUAL( 122, rasterPosition[0], 0.01);
+            CPPUNIT_ASSERT_DOUBLES_EQUAL( 0.0, rasterPosition[1], 0.01);
+        }
+
 
         void testDisplayList()
         {

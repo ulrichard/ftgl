@@ -41,7 +41,7 @@ class FTGLPixmapFontTest : public CppUnit::TestCase
         void testRender()
         {
             buildGLContext();
-        
+            
             FTGLPixmapFont* pixmapFont = new FTGLPixmapFont( FONT_FILE);            
 
             pixmapFont->Render(GOOD_ASCII_TEST_STRING);
