@@ -431,7 +431,7 @@ class FTVectoriserTest : public CppUnit::TestCase
         {
             long glyphIndex = FT_Get_Char_Index( face, characterIndex);
             
-            FT_Set_Char_Size( face, 0L, GOOD_SIZE * 64, RESOLUTION, RESOLUTION);
+            FT_Set_Char_Size( face, 0L, FONT_POINT_SIZE * 64, RESOLUTION, RESOLUTION);
             
             FT_Error error = FT_Load_Glyph( face, glyphIndex, FT_LOAD_DEFAULT);
             assert(!error);

@@ -49,7 +49,13 @@ class FTFaceTest : public CppUnit::TestCase
     void testAttachFile()
     {
         CPPUNIT_ASSERT( !testFace->Attach( GOOD_FONT_FILE));
-        CPPUNIT_ASSERT( testFace->Error() == 7);        
+        CPPUNIT_ASSERT( testFace->Error() == 7);
+
+        FTFace test( TYPE1_FONT_FILE);
+        CPPUNIT_ASSERT( test.Error() == 0);
+
+        CPPUNIT_ASSERT( test.Attach( TYPE1_AFM_FILE));
+        CPPUNIT_ASSERT( test.Error() == 0);
     }
     
 
@@ -68,7 +74,7 @@ class FTFaceTest : public CppUnit::TestCase
 
     void testSetFontSize()
     {
-        FTSize size = testFace->Size( GOOD_SIZE, RESOLUTION);
+        FTSize size = testFace->Size( FONT_POINT_SIZE, RESOLUTION);
         CPPUNIT_ASSERT( testFace->Error() == 0);
     }
     

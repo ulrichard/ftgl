@@ -45,7 +45,7 @@ class FTSizeTest : public CppUnit::TestCase
             
             FTSize size;
             
-            CPPUNIT_ASSERT( size.CharSize( &face, GOOD_SIZE, RESOLUTION, RESOLUTION));
+            CPPUNIT_ASSERT( size.CharSize( &face, FONT_POINT_SIZE, RESOLUTION, RESOLUTION));
             CPPUNIT_ASSERT( size.Error() == 0);
             
             CPPUNIT_ASSERT_DOUBLES_EQUAL(  72, size.CharSize(), 0.01);

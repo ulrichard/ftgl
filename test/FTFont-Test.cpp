@@ -106,18 +106,18 @@ class FTFontTest : public CppUnit::TestCase
         CPPUNIT_ASSERT_DOUBLES_EQUAL( 0, testFont->Ascender(), 0.01);
         CPPUNIT_ASSERT_DOUBLES_EQUAL( 0, testFont->Descender(), 0.01);
 
-        CPPUNIT_ASSERT( testFont->FaceSize( GOOD_SIZE));
+        CPPUNIT_ASSERT( testFont->FaceSize( FONT_POINT_SIZE));
         CPPUNIT_ASSERT( testFont->Error() == 0);
         
-        CPPUNIT_ASSERT( testFont->FaceSize() == GOOD_SIZE);
+        CPPUNIT_ASSERT( testFont->FaceSize() == FONT_POINT_SIZE);
         
         CPPUNIT_ASSERT_DOUBLES_EQUAL(  52, testFont->Ascender(), 0.01);
         CPPUNIT_ASSERT_DOUBLES_EQUAL( -14, testFont->Descender(), 0.01);
 
-        CPPUNIT_ASSERT( testFont->FaceSize( GOOD_SIZE * 2));
+        CPPUNIT_ASSERT( testFont->FaceSize( FONT_POINT_SIZE * 2));
         CPPUNIT_ASSERT( testFont->Error() == 0);
 
-        CPPUNIT_ASSERT( testFont->FaceSize() == GOOD_SIZE * 2);
+        CPPUNIT_ASSERT( testFont->FaceSize() == FONT_POINT_SIZE * 2);
 
         CPPUNIT_ASSERT_DOUBLES_EQUAL( 103, testFont->Ascender(), 0.01);
         CPPUNIT_ASSERT_DOUBLES_EQUAL( -29, testFont->Descender(), 0.01);
@@ -135,7 +135,7 @@ class FTFontTest : public CppUnit::TestCase
     
     void testBoundingBox()
     {
-        CPPUNIT_ASSERT( testFont->FaceSize( GOOD_SIZE));
+        CPPUNIT_ASSERT( testFont->FaceSize( FONT_POINT_SIZE));
         CPPUNIT_ASSERT( testFont->Error() == 0);
         
         float llx, lly, llz, urx, ury, urz;
@@ -180,7 +180,7 @@ class FTFontTest : public CppUnit::TestCase
 
     void testAdvance()
     {
-        CPPUNIT_ASSERT( testFont->FaceSize( GOOD_SIZE));
+        CPPUNIT_ASSERT( testFont->FaceSize( FONT_POINT_SIZE));
         CPPUNIT_ASSERT( testFont->Error() == 0);
         
         float advance = testFont->Advance( GOOD_ASCII_TEST_STRING);
