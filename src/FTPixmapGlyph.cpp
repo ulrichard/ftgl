@@ -50,10 +50,10 @@ FTPixmapGlyph::FTPixmapGlyph( FT_Glyph glyph, const unsigned int gi)
     	--destHeight;
     	for(int x = 0; x < srcWidth; ++x)
     	{
-			*( data + ( destHeight * destWidth  + x) * 4 + 0) = ftglColour[0] * 255.0f;
-			*( data + ( destHeight * destWidth  + x) * 4 + 1) = ftglColour[1] * 255.0f;
-			*( data + ( destHeight * destWidth  + x) * 4 + 2) = ftglColour[2] * 255.0f;
-			*( data + ( destHeight * destWidth  + x) * 4 + 3) = ftglColour[3] * (*( source->buffer + ( y * srcPitch) + x));
+			*( data + ( destHeight * destWidth  + x) * 4 + 0) = static_cast<unsigned char>( ftglColour[0] * 255.0f);
+			*( data + ( destHeight * destWidth  + x) * 4 + 1) = static_cast<unsigned char>( ftglColour[1] * 255.0f);
+			*( data + ( destHeight * destWidth  + x) * 4 + 2) = static_cast<unsigned char>( ftglColour[2] * 255.0f);
+			*( data + ( destHeight * destWidth  + x) * 4 + 3) = static_cast<unsigned char>( ftglColour[3] * (*( source->buffer + ( y * srcPitch) + x)));
     	}    	
     }
 
