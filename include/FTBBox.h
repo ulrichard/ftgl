@@ -55,21 +55,8 @@ class FTGL_EXPORT FTBBox
             upperZ(0.0f)
         {
             FT_BBox bbox;
-            if( ft_glyph_format_outline == glyph->format)
-            {
-                FT_Outline_Get_CBox( &(glyph->outline), &bbox);
-            }
-            else
-            {
-                FT_Glyph glyphImage;
-                if( 0 != FT_Get_Glyph( glyph, &glyphImage ))
-                {
-                    return;
-                }
-                FT_Glyph_Get_CBox( glyphImage, ft_glyph_bbox_subpixels, &bbox );
-                FT_Done_Glyph( glyphImage);
-            }
-            
+            FT_Outline_Get_CBox( &(glyph->outline), &bbox);
+
             lowerX = static_cast<float>( bbox.xMin) / 64.0f;
             lowerY = static_cast<float>( bbox.yMin) / 64.0f;
             lowerZ = 0.0f;
