@@ -192,7 +192,7 @@ class FTGL_EXPORT FTVectoriser
          *
          * @return the number of contours
          */
-        size_t contours() const { return contourList.size();}
+        size_t contours() const { return ftContourCount;}
 
         /**
          * Get the number of points in a specific contour in this outline
@@ -213,9 +213,8 @@ class FTGL_EXPORT FTVectoriser
         /**
          * The list of contours in the glyph
          */
-        typedef FTVector<FTContour*> ContourVector;
-        ContourVector contourList;
-            
+        FTContour** contourList;
+
         /**
          * A Mesh for tesselations
          */

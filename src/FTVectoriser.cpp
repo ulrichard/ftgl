@@ -101,11 +101,9 @@ int FTMesh::size() const
 }
 
 
-//=============================================================================
-
-
 FTVectoriser::FTVectoriser( const FT_Glyph glyph)
 :   mesh(0),
+    ftContourCount(0),
     contourFlag(0),
     kBSTEPSIZE( 0.2f)
 {
@@ -115,7 +113,7 @@ FTVectoriser::FTVectoriser( const FT_Glyph glyph)
         ftOutline = outline->outline;
         
         ftContourCount = ftOutline.n_contours;;
-        contourList.reserve( ftContourCount);
+        contourList = 0;
         contourFlag = ftOutline.flags;
     }
 }
@@ -128,7 +126,7 @@ FTVectoriser::~FTVectoriser()
         delete contourList[c];
     }
 
-    contourList.clear();
+    delete [] contourList;
     
     if( mesh)
         delete mesh;
@@ -141,6 +139,8 @@ void FTVectoriser::ProcessContours()
     short startIndex = 0;
     short endIndex = 0;
     
+    contourList = new (FTContour*)[ftContourCount];
+    
     for( short contourIndex = 0; contourIndex < ftContourCount; ++contourIndex)
     {
         FT_Vector* pointList = &ftOutline.points[startIndex];
@@ -151,7 +151,7 @@ void FTVectoriser::ProcessContours()
 
         FTContour* contour = new FTContour( pointList, tagList, contourLength);
         
-        contourList.push_back( contour);
+        contourList[contourIndex] = contour;
         
         startIndex = endIndex + 1;
     }
