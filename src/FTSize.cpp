@@ -23,19 +23,19 @@ bool FTSize::CharSize( FT_Face* ftFace, unsigned int point_size, unsigned int x_
 }
 
 
-float FTSize::Ascender() const
+int FTSize::Ascender() const
 {
 	return ftSize->metrics.ascender >> 6;
 }
 
 
-float FTSize::Descender() const
+int FTSize::Descender() const
 {
 	return ftSize->metrics.descender >> 6;
 }
 
 
-float FTSize::Height() const
+int FTSize::Height() const
 {
 	if( FT_IS_SCALABLE((*ftFace)))
 	{
@@ -50,7 +50,7 @@ float FTSize::Height() const
 		}
 
 		height =  height * ( (float)ftSize->metrics.y_ppem / (float)(*ftFace)->units_per_EM);
-		return height;
+		return static_cast<int>(height);
 	}
 	else
 	{
@@ -59,7 +59,7 @@ float FTSize::Height() const
 }
 
 
-float FTSize::Width() const
+int FTSize::Width() const
 {
 	if( FT_IS_SCALABLE((*ftFace)))
 	{
@@ -74,7 +74,7 @@ float FTSize::Width() const
 		}
 		
 		width = width * ( (float)ftSize->metrics.x_ppem / (float)(*ftFace)->units_per_EM);
-		return width;
+		return static_cast<int>(width);
 	}
 	else
 	{
@@ -83,7 +83,7 @@ float FTSize::Width() const
 }
 
 
-float FTSize::Underline() const
+int FTSize::Underline() const
 {
 	return 0;
 }
