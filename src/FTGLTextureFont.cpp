@@ -64,11 +64,9 @@ FTGlyph* FTGLTextureFont::MakeGlyph( unsigned int g)
     
     if( ftGlyph)
     {
-        // Estimate the glyph size size - global bbox
         glyphHeight = static_cast<int>( charSize.Height());
         glyphWidth = static_cast<int>( charSize.Width());
         
-        // Is there a current texture
         if( numTextures == 0)
         {
             glTextureID[0] = CreateTexture();
@@ -76,7 +74,6 @@ FTGlyph* FTGLTextureFont::MakeGlyph( unsigned int g)
             ++numTextures;
         }
         
-        // will it fit in the current texture
         if( xOffset > ( textureWidth - glyphWidth))
         {
             xOffset = padding;
@@ -84,18 +81,15 @@ FTGlyph* FTGLTextureFont::MakeGlyph( unsigned int g)
             
             if( yOffset > ( textureHeight - glyphHeight))
             {
-                // no - make a new texture
                 glTextureID[numTextures] = CreateTexture();
                 ++numTextures;
                 yOffset = padding;
             }
         }
         
-        // yes - load the glyph
         FTTextureGlyph* tempGlyph = new FTTextureGlyph( *ftGlyph, glTextureID[numTextures - 1],
                                                         xOffset, yOffset, textureWidth, textureHeight);
         
-        // FIXME ceiling
         xOffset += static_cast<int>( tempGlyph->BBox().upperX - tempGlyph->BBox().lowerX + padding);
         
         --remGlyphs;
@@ -107,25 +101,20 @@ FTGlyph* FTGLTextureFont::MakeGlyph( unsigned int g)
 }
 
 
-bool FTGLTextureFont::MakeGlyphList()
+void FTGLTextureFont::CalculateTextureSize()
 {
     if( !maxTextSize)
+    {
         glGetIntegerv( GL_MAX_TEXTURE_SIZE, (GLint*)&maxTextSize);
-
-    return FTFont::MakeGlyphList();
-}
-
-
-void FTGLTextureFont::GetSize()
-{
-    //work out the max width. Most likely maxTextSize
-    textureWidth = NextPowerOf2( (remGlyphs * glyphWidth) + padding * 2);
+    }
+    
+    textureWidth = NextPowerOf2( (remGlyphs * glyphWidth) + ( padding * 2));
     if( textureWidth > maxTextSize)
     {
         textureWidth = maxTextSize;
     }
     
-    int h = static_cast<int>( (textureWidth - padding * 2) / glyphWidth);
+    int h = static_cast<int>( (textureWidth - ( padding * 2)) / glyphWidth);
         
     textureHeight = NextPowerOf2( (( numGlyphs / h) + 1) * glyphHeight);
     textureHeight = textureHeight > maxTextSize ? maxTextSize : textureHeight;
@@ -134,15 +123,12 @@ void FTGLTextureFont::GetSize()
 
 GLuint FTGLTextureFont::CreateTexture()
 {   
-    // calc the size
-    GetSize();
+    CalculateTextureSize();
     
-    // allocate some mem and clear it to black
     int totalMem = textureWidth * textureHeight;
-    textMem = new unsigned char[totalMem]; // GL_ALPHA texture;
+    textMem = new unsigned char[totalMem];
     memset( textMem, 0, totalMem);
 
-    // Create the blank texture
     GLuint textID;
     glGenTextures( 1, (GLuint*)&textID);
 

@@ -1,8 +1,8 @@
 #ifndef     __FTGLTextureFont__
 #define     __FTGLTextureFont__
 
-#include "FTGL.h"
 #include "FTFont.h"
+#include "FTGL.h"
 
 class FTTextureGlyph;
 
@@ -62,23 +62,21 @@ class  FTGL_EXPORT FTGLTextureFont : public FTFont
 
         
     private:
+        /**
+         * Construct a FTTextureGlyph.
+         *
+         * @param g The glyph index NOT the char code.
+         * @return  An FTTextureGlyph or <code>null</code> on failure.
+         */
         inline virtual FTGlyph* MakeGlyph( unsigned int g);
                 
-        /**
-         * Constructs the internal glyph cache.
-         *
-         * This a list of glyphs processed for openGL Rendering NOT
-         * freetype glyphs
-         */
-        virtual bool MakeGlyphList();
-
         /**
          * Get the size of a block of memory required to layout the glyphs
          *
          * Calculates a width and height based on the glyph sizes and the
          * number of glyphs. It over estimates.
          */
-        inline void GetSize();
+        inline void CalculateTextureSize();
 
         /**
          * Creates a 'blank' OpenGL texture object.
