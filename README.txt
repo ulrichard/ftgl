@@ -2,8 +2,8 @@ FTGL 1.0b3
 August 8 2001
 
 DESCRIPTION:
-FTGL is a library a tool to allow OpenGL (www.opengl.org) to render
-characters from arbitrary fonts.
+FTGL library is a cross platform tool to allow OpenGL (www.opengl.org) to
+render characters from arbitrary fonts.
 Unlike other OpenGL font libraries FTGL uses standard font file formats
 so doesn't need a preprocessing step to convert the high quality font data
 into a lesser quality, proprietary format.
@@ -18,6 +18,8 @@ Rendering modes supported are
 - Outlines
 - Polygon meshes
 
+FTGL is design to be used in commercial quality software. It has been
+written with performance, robustness and simplicity in mind.
 
 USAGE:
 
@@ -28,10 +30,14 @@ USAGE:
 	
 	font.render( "Hello World!");
 
-
 This library was inspired by gltt, Copyright (C) 1998-1999 Stephane Rehel
 ( gltt.sourceforge.net)
 
+Please conatct me if you have any suggestions, feature requests, or problems.
+
+Henry Maddocks
+henryj@paradise.net.nz
+http://homepages.paradise.net.nz/henryj/
 
 
 Things to think about...
@@ -68,7 +74,7 @@ good site...http://cgm.cs.mcgill.ca/~luc/
 
 PROFILING
 test 1
-100,000 frames. Outline Font, No openGL context.
+100,000 frames. No openGL context.
 The results of the first profile are in and as expected using freetype to
 return the char index for a glyph is costing us. A staggering 10% of the
 rendering time in fact!!!
@@ -76,8 +82,6 @@ rendering time in fact!!!
 TODO:
 	- Tidy code, fix compiler warnings, comments.
 	- Memory Leak in PolyGlyph (glCombine)
-	- The position stuff is broken again. Check the pen stuff. Plus lower
-	  case 'y's seem to be 1 pixel too low?
 	- check and confirm the glPixelStore stuff. Data Alignment. Tightly
 	  packed at the moment.
 	- namespace
@@ -92,22 +96,25 @@ FUTURE:
 	- Optimise performance!! and mem usage.
 	  - don't process chars that map to glyph 0
 	  - Make our own char map processing class
+	- GL evaluators. Are they of any use?
 	- Use the Freetype Cache mechanism. See above. FTC_xxx
 	- Alignment. left right, centre.
 	- Bounding box, char and string.
 	- Vertical formats
 	- For platforms that have antialiased lines but not polys we could
 	  outline the polyfonts with lines to get better looking glyphs.
-	- Provide an interface to access the point data for outlines and polygon
-	  meshes.
 	- Unicode w_char. May have to use std::wstring and or std::wchar_t.
 	- Improve the grid fitting scheme in texture fonts.
+	- Helper classes...
+	  - String Cache
+	  - Provide an interface to access the point data for outlines and
+	    polygon meshes.
+
 
 BUGS:
-	- Memory corruption in FTTextureFont
-	- Kerning is screwed up for really small point sizes eg 2 point.
+	- Advance/Kerning is screwed up for really small point sizes eg 2 point.
 	  Freetype bug?
-	- The texture co-ords in the Texture Font made be wrong for none
+	- The texture co-ords in the Texture Font may be wrong for none
 	  scalable fonts.
 	MAC OS:
 		- Exits with some fonts at large sizes. GLUT Memory Bug?
@@ -115,9 +122,13 @@ BUGS:
 		  is becoming REALLY annoying!!!
 
 
-
-
-
+	1.0b5
+	- Settled on integers for size stuff.
+	- Fixed the positional stuff.
+	- Added Java Doc comments.
+	- Fixes for linux, mainly to clear warnings.
+	
+	
 August 21 2001
 	1.0b4
 	- Changed the mode for FT_Load_Glyph to FT_LOAD_NO_HINTING | FT_LOAD_NO_BITMAP
