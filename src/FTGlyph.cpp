@@ -5,7 +5,8 @@
 FTGlyph::FTGlyph( int gi)
 :	advance(0),
 	glyphIndex(gi),
-	ftGlyph(0)
+	ftGlyph(0),
+	err(0)	
 {
 	pos.x = 0;
 	pos.y = 0;

@@ -14,7 +14,7 @@ class FTGlyph
 		// methods
 		FTGlyph( int glyphIndex);
 		virtual ~FTGlyph();
-		virtual float Render( FT_Vector& v) = 0;
+		virtual float Render( const FT_Vector& v) = 0;
 		
 		FT_Error Error() const { return err;}
 		
