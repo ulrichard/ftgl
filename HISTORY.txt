@@ -1,5 +1,9 @@
-FTGL 2.0 (FTGL_2_0_0)
+FTGL 2.01 (FTGL_2_0_1)
+14 March 2003
+    - Minor changes to autoconf to detect glu
+    
 11 March 2003
+    2.0 (FTGL_2_0_0)
     - Fixed some alignment bugs caused by changes to Freetype ( > 2.0.9).
     - Minor fixes to float declarations.
     - Moved FTBBox and FTPoint to their own files and added Move() and
