@@ -16,7 +16,9 @@ FTVectorGlyph::FTVectorGlyph( FT_Glyph glyph, unsigned int gi)
 	glList(0)
 {
 	if( ft_glyph_format_outline != glyph->format)
-	{ return;}
+	{
+		return;
+	}
 
 	vectoriser = new FTVectoriser( glyph);
 	
@@ -56,6 +58,8 @@ FTVectorGlyph::FTVectorGlyph( FT_Glyph glyph, unsigned int gi)
 		}
 	glEndList();
 
+	// discard glyph image (bitmap or not)
+	FT_Done_Glyph( glyph); // Why does this have to be HERE
 }
 
 

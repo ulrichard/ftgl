@@ -85,6 +85,9 @@ FTPolyGlyph::FTPolyGlyph( FT_Glyph glyph, unsigned int gi)
 		return;
 
 	Tesselate();
+
+	// discard glyph image (bitmap or not)
+	FT_Done_Glyph( glyph); // Why does this have to be HERE
 }
 
 
