@@ -182,6 +182,23 @@ class FTGL_EXPORT FTFont
 		virtual bool MakeGlyphList();
 		
 		/**
+		 * Get the advance width for a character.
+		 *
+		 * @param chr		current character
+		 * @param nextChr	next character
+		 * @return			advance width
+		 */
+		float doAdvance( const unsigned int chr, const unsigned int nextChr);
+
+		/**
+		 * Render a character
+		 * 
+		 * @param chr		current character
+		 * @param nextChr	next character
+		 */
+		void doRender( const unsigned int chr, const unsigned int nextChr);
+		
+		/**
 		 * Current face object
 		 */
 		FTFace face;

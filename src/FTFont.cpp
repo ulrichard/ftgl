@@ -2,9 +2,9 @@
 #include	"FTFont.h"
 #include	"FTGlyphContainer.h"
 #include	"FTGlyph.h" // for FTBbox
-#include	"FTGL.h"
-
-//#include "mmgr.h"
+#ifdef FTGL_DEBUG
+	#include "mmgr.h"
+#endif
 
 
 FTFont::FTFont()
@@ -110,7 +110,7 @@ int	FTFont::Descender() const
 void FTFont::BBox( const char* string,
                    int& llx, int& lly, int& llz, int& urx, int& ury, int& urz)
 {
-	const unsigned char* c = (unsigned char*)string; // This is ugly, what is the c++ way?
+	const unsigned char* c = (unsigned char*)string;
 	llx = lly = llz = urx = ury = urz = 0;
 	FTBBox bbox;
  
@@ -146,7 +146,7 @@ void FTFont::BBox( const char* string,
 void FTFont::BBox( const wchar_t* string,
                    int& llx, int& lly, int& llz, int& urx, int& ury, int& urz)
 {
-	const wchar_t* c = string; // wchar_t IS unsigned?
+	const wchar_t* c = string;
 	llx = lly = llz = urx = ury = urz = 0;
 	FTBBox bbox;
  
@@ -182,18 +182,12 @@ void FTFont::BBox( const wchar_t* string,
 
 float FTFont::Advance( const wchar_t* string)
 {
-	const wchar_t* c = string; // wchar_t IS unsigned?
+	const wchar_t* c = string;
 	float width = 0;
 
 	while( *c)
 	{
-		if( !glyphList->Glyph( static_cast<unsigned int>(*c)))
-		{
-			unsigned int g = face.CharIndex( static_cast<unsigned int>(*c));
-			glyphList->Add( MakeGlyph( g), g);
-		}
-
-		width += glyphList->Advance( *c, *(c + 1));	
+		width += doAdvance( *c, *(c + 1));
 		++c;
 	}
 
@@ -203,18 +197,12 @@ float FTFont::Advance( const wchar_t* string)
 
 float FTFont::Advance( const char* string)
 {
-	const unsigned char* c = (unsigned char*)string; // This is ugly, what is the c++ way?
+	const unsigned char* c = (unsigned char*)string;
 	float width = 0;
 
 	while( *c)
 	{
-		if( !glyphList->Glyph( static_cast<unsigned int>(*c)))
-		{
-			unsigned int g = face.CharIndex( static_cast<unsigned int>(*c));
-			glyphList->Add( MakeGlyph( g), g);
-		}
-
-		width += glyphList->Advance( *c, *(c + 1));
+		width += doAdvance( *c, *(c + 1));
 		++c;
 	}
 
@@ -222,24 +210,26 @@ float FTFont::Advance( const char* string)
 }
 
 
+float FTFont::doAdvance( const unsigned int chr, const unsigned int nextChr)
+{
+	if( !glyphList->Glyph( chr))
+	{
+		unsigned int g = face.CharIndex( chr);
+		glyphList->Add( MakeGlyph( g), g);
+	}
+
+	return glyphList->Advance( chr, nextChr);
+}
+
+
 void FTFont::render( const char* string )
 {
-	const unsigned char* c = (unsigned char*)string; // This is ugly, what is the c++ way?
-	FT_Vector kernAdvance;
+	const unsigned char* c = (unsigned char*)string;
 	pen.x = 0; pen.y = 0;
 
 	while( *c)
 	{
-		if( !glyphList->Glyph( static_cast<unsigned int>(*c)))
-		{
-			unsigned int g = face.CharIndex( static_cast<unsigned int>(*c));
-			glyphList->Add( MakeGlyph( g), g);
-		}
-
-		kernAdvance = glyphList->render( *c, *(c + 1), pen);
-		
-		pen.x += kernAdvance.x;
-		pen.y += kernAdvance.y;
+		doRender( *c, *(c + 1));
 		++c;
 	}
 }
@@ -247,23 +237,28 @@ void FTFont::render( const char* string )
 
 void FTFont::render( const wchar_t* string )
 {
-	const wchar_t* c = string; // wchar_t IS unsigned?
-	FT_Vector kernAdvance;
+	const wchar_t* c = string;
 	pen.x = 0; pen.y = 0;
 
 	while( *c)
 	{
-		if( !glyphList->Glyph( static_cast<unsigned int>(*c)))
-		{
-			unsigned int g = face.CharIndex( static_cast<unsigned int>(*c));
-			glyphList->Add( MakeGlyph( g), g);
-		}
-
-		kernAdvance = glyphList->render( *c, *(c + 1), pen);
-		
-		pen.x += kernAdvance.x;
-		pen.y += kernAdvance.y;
+		doRender( *c, *(c + 1));
 		++c;
 	}
+}
+
+
+void FTFont::doRender( const unsigned int chr, const unsigned int nextChr)
+{
+	if( !glyphList->Glyph( chr))
+	{
+		unsigned int g = face.CharIndex( chr);
+		glyphList->Add( MakeGlyph( g), g);
+	}
+
+	FT_Vector kernAdvance = glyphList->render( chr, nextChr, pen);
+	
+	pen.x += kernAdvance.x;
+	pen.y += kernAdvance.y;
 }
 
