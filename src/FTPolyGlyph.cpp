@@ -106,7 +106,7 @@ void FTPolyGlyph::Tesselate()
 	
 	glNewList( glList, GL_COMPILE);
 	
-//		if( contourFlag & ft_outline_even_odd_fill)
+//		if( contourFlag & ft_outline_even_odd_fill) // ft_outline_reverse_fill
 //		{
 //			gluTessProperty( tobj, GLU_TESS_WINDING_RULE, GLU_TESS_WINDING_ODD);
 //		}
