@@ -1,3 +1,8 @@
+Freetype User Guide
+(work in progress)
+
+Introduction
+
 Choosing a font type
 
 
@@ -49,4 +54,6 @@ This will return an error if the encoding can't be found.
 
 
 Problems
+
+FAQ
 
