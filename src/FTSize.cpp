@@ -26,11 +26,13 @@ FTSize::~FTSize()
 
 
 // OPSignature: bool FTSize:SetCharSize( FT_Face:face  int:point_size  int:x_resolution  int:y_resolution ) 
-bool	FTSize::CharSize( FT_Face* face, int point_size, int x_resolution, int y_resolution )
+bool	FTSize::CharSize( FT_Face* ftFace, int point_size, int x_resolution, int y_resolution )
 {
 	size = point_size;
-	FT_Error err = FT_Set_Char_Size( *face, 0L, point_size * 64, x_resolution, y_resolution);
-
+	FT_Error err = FT_Set_Char_Size( *ftFace, 0L, point_size * 64, x_resolution, y_resolution);
+	
+	ftSize = (*ftFace)->size;
+	
 	return !err;
 }
 
@@ -38,16 +40,26 @@ bool	FTSize::CharSize( FT_Face* face, int point_size, int x_resolution, int y_re
 // OPSignature: int FTSize:GetAscender() 
 int	FTSize::Ascender() const
 {
-//Insert your own code here.
-
-//End of user code.         
+	return ftSize->metrics.ascender;
 }
 
 
 // OPSignature: int FTSize:GetDescender() 
 int	FTSize::Descender() const
 {
-//Insert your own code here.
+	return ftSize->metrics.descender;
+}
 
-//End of user code.         
+
+// OPSignature: int FTSize:Height() 
+int	FTSize::Height() const
+{
+	return ftSize->metrics.height;
+}
+
+
+// OPSignature: int FTSize:Width() 
+int	FTSize::Width() const
+{
+	return ftSize->metrics.max_advance;
 }

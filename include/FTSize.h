@@ -16,6 +16,8 @@ class	FTSize
 		bool CharSize( FT_Face* face, int point_size, int x_resolution, int y_resolution );
 		int	Ascender() const;
 		int	Descender() const;
+		int	Height() const;
+		int	Width() const;
 		
 		// attributes
 		
