@@ -108,7 +108,7 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				HEADER_SEARCH_PATHS = "/Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/test /Users/henry/Development/PROJECTS/iSpot/includes /usr/local/include/freetype2 /usr/local/include/freetype2/freetype";
 				LIBRARY_STYLE = STATIC;
-				OPTIMIZATION_CFLAGS = "-O2";
+				OPTIMIZATION_CFLAGS = "-O0";
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOL_FLAGS = "";
@@ -829,6 +829,19 @@
 //BA2
 //BA3
 //BA4
+		BA013F8203CE32D7000ABFD4 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			name = "FTlayout-Test.cpp";
+			path = "../test/FTlayout-Test.cpp";
+			refType = 2;
+		};
+		BA013F8303CE32D7000ABFD4 = {
+			fileRef = BA013F8203CE32D7000ABFD4;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
 		BA0143B703AFE974000ABFD4 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
@@ -906,6 +919,20 @@
 			settings = {
 			};
 		};
+		BAA7878C03CCC3B8000ABFD4 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			name = HPGCalc_pfb.cpp;
+			path = ../test/HPGCalc_pfb.cpp;
+			refType = 2;
+		};
+		BAA7878D03CCC3B8000ABFD4 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			name = HPGCalc_afm.cpp;
+			path = ../test/HPGCalc_afm.cpp;
+			refType = 2;
+		};
 		BADB7E0E03AF1241004F6ED7 = {
 			fileRef = 66BA088F01C4635F000ABFD4;
 			isa = PBXBuildFile;
@@ -972,6 +999,7 @@
 				BAF0F0AF03AF0FF7004F6ED7,
 				BA3F38F303B1D4FD004F6ED7,
 				BA3F38F403B1D4FD004F6ED7,
+				BA013F8303CE32D7000ABFD4,
 			);
 			isa = PBXSourcesBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1030,7 +1058,8 @@
 		};
 		BAF0F09303AF0FBA004F6ED7 = {
 			children = (
-				BAF0F09403AF0FF7004F6ED7,
+				BAA7878C03CCC3B8000ABFD4,
+				BAA7878D03CCC3B8000ABFD4,
 				BA0143B703AFE974000ABFD4,
 				BAF0F09E03AF0FF7004F6ED7,
 				BAF0F09903AF0FF7004F6ED7,
@@ -1046,19 +1075,13 @@
 				BAF0F0A003AF0FF7004F6ED7,
 				BA3F38F103B1D4FD004F6ED7,
 				BA3F38F203B1D4FD004F6ED7,
+				BA013F8203CE32D7000ABFD4,
 				BAF0F0A103AF0FF7004F6ED7,
 			);
 			isa = PBXGroup;
 			name = "Unit Tests";
 			path = "";
 			refType = 4;
-		};
-		BAF0F09403AF0FF7004F6ED7 = {
-			fileEncoding = 30;
-			isa = PBXFileReference;
-			name = arial_ttf.cpp;
-			path = ../test/arial_ttf.cpp;
-			refType = 2;
 		};
 		BAF0F09503AF0FF7004F6ED7 = {
 			fileEncoding = 30;
