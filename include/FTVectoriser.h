@@ -45,7 +45,7 @@ class FTContour
 		FTContour();
 		~FTContour();
 	
-		void AddPoint( const int x, const int y);
+		void AddPoint( const float x, const float y);
 		
 		int size() const { return pointList.size();}
 

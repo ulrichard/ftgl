@@ -15,7 +15,7 @@ FTContour::~FTContour()
 }
 
 
-void FTContour::AddPoint( const int x, const int y)
+void FTContour::AddPoint( const float x, const float y)
 {
 	ftPoint point( static_cast<float>( x), static_cast<float>( y), 0.0); 
 	
