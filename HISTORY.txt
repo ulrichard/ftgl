@@ -1,6 +1,8 @@
 FTGL 1.3b4
 December 11 2001
 
+	- FTBbox now uses float rather then int
+
  	1.3b4 (FTGL_1_3_BETA_4)
 	- Added MAC OSX project (Project Builder)
 	- Added a function for extruded glyphs that calculates the winding
