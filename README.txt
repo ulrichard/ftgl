@@ -1,5 +1,5 @@
-FTGL 1.0b6
-September 20 2001
+FTGL 1.0
+October 24 2001
 
 DESCRIPTION:
 FTGL library is a cross platform tool to allow OpenGL (www.opengl.org) to
@@ -44,7 +44,11 @@ henryj@paradise.net.nz
 http://homepages.paradise.net.nz/henryj/
 
 
+
+//========================================================================
+
 Things to think about...
+
 The whole char size thing is major headache.
 At the moment if you call font.CharSize( x) the glyph list is destroyed and
 rebuilt, which will be really, really, really inefficient if you change sizes
@@ -80,3 +84,32 @@ of std::map seemed to be unfounded in this case. Kerning is still an issue
 as can be seen in the proportional difference in these figures. I don't think
 this can be resolved easily.
 
+
+Check that I do this properly..
+============================
+
+Dave Williss a Žcrit :
+
+Question:
+
+If I do this...
+
+    TT_New_Glyph(face, &glyph);
+    for (i = 0 ; i < n ; ++i) {
+        TT_Load_Glyph(instance, glyph, index[i], flags);
+            ... use glyph...
+    }
+
+    TT_Done_Glyph(glyph)
+
+Will I be leaking memory on each call to Load Glyph or
+should I create and destroy the glyph handle for each call?
+Seems terribily inefficient but to do that, but doing it as
+above I seem to be leaking memory.
+
+
+No, this is the correct behaviour. Each call to TT_Load_Glyph
+overwrites the previous content.. and this was designed on
+purpose because the real content of a TT_Glyph object is
+_really_ complex with TrueType, and you don't want to create
+them on each glyph load..
