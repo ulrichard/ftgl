@@ -65,6 +65,11 @@ class FTGL_EXPORT FTFace
          */
         void Close();
 
+        /**
+         * Get the freetype face object..
+         *
+         * @return pointer to an FT_Face.
+         */
         FT_Face* Face() const { return ftFace;}
         
         /**
