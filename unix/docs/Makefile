@@ -9,7 +9,7 @@ all: doc
 
 doc: doc-stamp
 doc-stamp: $(DOXYFILE)
-	sed 's,^INPUT\b.*,INPUT=../../src,' $^ | $(DOXYGEN) -
+	sed 's,^INPUT[ 	].*,INPUT=../../src,' $^ | $(DOXYGEN) -
 	touch $@
 
 install-local: doc
