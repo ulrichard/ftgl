@@ -1,5 +1,5 @@
-#include    "FTFace.h"
-#include    "FTLibrary.h"
+#include "FTFace.h"
+#include "FTLibrary.h"
 
 #include FT_TRUETYPE_TABLES_H
 
