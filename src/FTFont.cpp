@@ -104,7 +104,7 @@ void	FTFont::BBox( const char* text, int& llx, int& lly, int& urx, int& ury ) co
 
 void FTFont::render( const char* string )
 {
-	const char* c = string;
+	const unsigned char* c = (unsigned char*)string; // This is ugly, what is the c++ way?
 	FT_Vector kernAdvance;
 	pen.x = 0; pen.y = 0;
 
