@@ -30,7 +30,7 @@
         #define APIENTRY
     #endif
 
-#else
+#else	//	 WIN32
 
     // Under windows avoid including <windows.h>
     // to avoid name space pollution, but Win32's <GL/gl.h> 
@@ -74,7 +74,7 @@
         #include <GL/glu.h>
     #endif
 
-#endif
+#endif	//	 WIN32
 
 
 // lifted from glext.h, to remove dependancy on glext.h
