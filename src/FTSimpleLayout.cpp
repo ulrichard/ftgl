@@ -1,53 +1,56 @@
-#include "FTSimpleLayout.h"
+#include <ctype.h>
 
 #include "FTFont.h"
 #include "FTGlyphContainer.h"
 #include "FTBBox.h"
+#include "FTSimpleLayout.h"
 
-#include <ctype.h>
+FTSimpleLayout::FTSimpleLayout()
+:   currentFont(NULL),
+    lineLength(100.0f),
+    alignment(ALIGN_LEFT),
+    lineSpacing(1.0f)
+{}
 
+void FTSimpleLayout::BBox(const char *String,float& llx, float& lly, float& llz, float& urx, float& ury, float& urz)
+{
+    FTBBox bounds; 
 
-FTSimpleLayout::FTSimpleLayout() {
-   currentFont = NULL;
-   lineLength = 100.0f;
-   alignment = ALIGN_LEFT;
-   lineSpacing = 1.0f;
-} /* FTSimpleLayout::FTSimpleLayout() */
-
-void FTSimpleLayout::BBox(const char *String,float& llx, float& lly, float& llz, float& urx, float& ury, float& urz) {
-   FTBBox bounds; 
-   
-   WrapText(String,&bounds); 
-   llx = bounds.lowerX; lly = bounds.lowerY; llz = bounds.lowerZ;
-   urx = bounds.upperX; ury = bounds.upperY; urz = bounds.upperZ;
+    WrapText(String,&bounds);
+    llx = bounds.lowerX; lly = bounds.lowerY; llz = bounds.lowerZ;
+    urx = bounds.upperX; ury = bounds.upperY; urz = bounds.upperZ;
 } /* FTSimpleLayout::BBox() */
 
-void FTSimpleLayout::BBox(const wchar_t *String,float& llx, float& lly, float& llz, float& urx, float& ury, float& urz) {
-   FTBBox bounds; 
-   
-   WrapText(String,&bounds); 
-   llx = bounds.lowerX; lly = bounds.lowerY; llz = bounds.lowerZ;
-   urx = bounds.upperX; ury = bounds.upperY; urz = bounds.upperZ;
+void FTSimpleLayout::BBox(const wchar_t *String,float& llx, float& lly, float& llz, float& urx, float& ury, float& urz) 
+{
+    FTBBox bounds; 
+
+    WrapText(String,&bounds);
+    llx = bounds.lowerX; lly = bounds.lowerY; llz = bounds.lowerZ;
+    urx = bounds.upperX; ury = bounds.upperY; urz = bounds.upperZ;
 } /* FTSimpleLayout::BBox() */
 
-void FTSimpleLayout::Render(const char *String) {
-   pen.x = pen.y = 0.0f;
-   WrapText(String,NULL);
+void FTSimpleLayout::Render(const char *String) 
+{
+    pen.x = pen.y = 0.0f;
+    WrapText(String,NULL);
 } /* FTSimpleLayout::Render() */
 
-void FTSimpleLayout::Render(const wchar_t* String) {
-   pen.x = pen.y = 0.0f;
-   WrapText(String,NULL);
+void FTSimpleLayout::Render(const wchar_t* String) 
+{
+    pen.x = pen.y = 0.0f;
+    WrapText(String,NULL);
 } /* FTSimpleLayout::Render() */
 
-void FTSimpleLayout::WrapText(const char *Buffer,FTBBox *bounds) {
-   int breakIdx = 0;					// The index of the last break character
-   int lineStart = 0;				// The character index of the line start
-   float nextStart = 0.0;			// The total width of the line being generated
-   float breakWidth = 0.0;			// The width of the line up to the last word break
-   float currentWidth = 0.0;		// The width of all characters on the line being generated
-   float prevWidth;					// The width of all characters but the current glyph
-   float wordLength = 0.0;			// The length of the block since the last break character
+void FTSimpleLayout::WrapText(const char *Buffer,FTBBox *bounds) 
+{
+   int breakIdx = 0;                    // The index of the last break character
+   int lineStart = 0;               // The character index of the line start
+   float nextStart = 0.0f;           // The total width of the line being generated
+   float breakWidth = 0.0f;          // The width of the line up to the last word break
+   float currentWidth = 0.0f;        // The width of all characters on the line being generated
+   float prevWidth;                 // The width of all characters but the current glyph
+   float wordLength = 0.0f;          // The length of the block since the last break character
    float glyphWidth,advance;
    FTBBox glyphBounds;
    /* Reset the pen position */
@@ -131,13 +134,13 @@ void FTSimpleLayout::WrapText(const char *Buffer,FTBBox *bounds) {
 } /* FTSimpleLayout::WrapText() */
 
 void FTSimpleLayout::WrapText(const wchar_t* Buffer,FTBBox *bounds) {
-   int breakIdx = 0;					// The index of the last break character
-   int lineStart = 0;				// The character index of the line start
-   float nextStart = 0.0;			// The total width of the line being generated
-   float breakWidth = 0.0;			// The width of the line up to the last word break
-   float currentWidth = 0.0;		// The width of all characters on the line being generated
-   float prevWidth;					// The width of all characters but the current glyph
-   float wordLength = 0.0;			// The length of the block since the last break character
+   int breakIdx = 0;                    // The index of the last break character
+   int lineStart = 0;               // The character index of the line start
+   float nextStart = 0.0f;           // The total width of the line being generated
+   float breakWidth = 0.0f;          // The width of the line up to the last word break
+   float currentWidth = 0.0f;        // The width of all characters on the line being generated
+   float prevWidth;                 // The width of all characters but the current glyph
+   float wordLength = 0.0f;          // The length of the block since the last break character
    float glyphWidth,advance;
    FTBBox glyphBounds;
    /* Reset the pen position */

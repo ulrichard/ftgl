@@ -1,6 +1,3 @@
-// source changed by mrn@paus.ch/ max rheiner
-// original source: henryj@paradise.net.nz
-
 #include <iostream>
 #include <stdlib.h> // exit()
 
@@ -16,7 +13,7 @@
 #include "FTGLTextureFont.h"
 #include "FTGLPixmapFont.h"
 
-//#include "mmgr.h"
+#include "mmgr.h"
 
 static FTFont* fonts[5];
 static int width;
@@ -25,13 +22,13 @@ static int height;
 
 // YOU'LL PROBABLY WANT TO CHANGE THESE
 #ifdef __linux__
-	#define DEFAULT_FONT "/usr/share/fonts/truetype/arial.ttf"
+    #define DEFAULT_FONT "/usr/share/fonts/truetype/arial.ttf"
 #endif
 #ifdef __APPLE_CC__
-	#define DEFAULT_FONT "/Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/test/arial.ttf"
+    #define DEFAULT_FONT "/Users/henry/Development/PROJECTS/FTGL/test/font_pack/arial.ttf"
 #endif
 #ifdef WIN32
-	#define DEFAULT_FONT "C:\\WINNT\\Fonts\\arial.ttf"
+    #define DEFAULT_FONT "C:\\WINNT\\Fonts\\arial.ttf"
 #endif
 
 
@@ -56,7 +53,7 @@ my_init( const char* font_filename )
         {
             std::cout << "Reading font " << i << " from " << font_filename << std::endl;
 
-            int point_size = 24;
+            int point_size = 48;
             if (!fonts[i]->FaceSize(point_size))
             {
                 std::cerr << "ERROR: Unable to set font face size " << point_size << std::endl;
@@ -68,97 +65,95 @@ my_init( const char* font_filename )
 static void
 do_ortho()
 {
-  int w;
-  int h;
-  GLdouble size;
-  GLdouble aspect;
-
-  w = width;
-  h = height;
-  aspect = (GLdouble)w / (GLdouble)h;
-
-  // Use the whole window.
-  glViewport(0, 0, w, h);
-
-  // We are going to do some 2-D orthographic drawing.
-  glMatrixMode(GL_PROJECTION);
-  glLoadIdentity();
-  size = (GLdouble)((w >= h) ? w : h) / 2.0;
-  if (w <= h) {
-    aspect = (GLdouble)h/(GLdouble)w;
-    glOrtho(-size, size, -size*aspect, size*aspect,
-            -100000.0, 100000.0);
-  }
-  else {
-    aspect = (GLdouble)w/(GLdouble)h;
-    glOrtho(-size*aspect, size*aspect, -size, size,
-            -100000.0, 100000.0);
-  }
-
-  // Make the world and window coordinates coincide so that 1.0 in
-  // model space equals one pixel in window space.
-  glScaled(aspect, aspect, 1.0);
-
-   // Now determine where to draw things.
-  glMatrixMode(GL_MODELVIEW);
-  glLoadIdentity();
+    int w;
+    int h;
+    GLdouble size;
+    GLdouble aspect;
+    
+    w = width;
+    h = height;
+    aspect = (GLdouble)w / (GLdouble)h;
+    
+    // Use the whole window.
+    glViewport(0, 0, w, h);
+    
+    // We are going to do some 2-D orthographic drawing.
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    size = (GLdouble)((w >= h) ? w : h) / 2.0;
+    if (w <= h) {
+        aspect = (GLdouble)h/(GLdouble)w;
+        glOrtho(-size, size, -size*aspect, size*aspect,
+                -100000.0, 100000.0);
+    }
+    else {
+        aspect = (GLdouble)w/(GLdouble)h;
+        glOrtho(-size*aspect, size*aspect, -size, size,
+                -100000.0, 100000.0);
+    }
+    
+    // Make the world and window coordinates coincide so that 1.0 in
+    // model space equals one pixel in window space.
+    glScaled(aspect, aspect, 1.0);
+    
+    // Now determine where to draw things.
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
 }
 
 
 void
 my_reshape(int w, int h)
 {
-  width = w;
-  height = h;
-
-  do_ortho( );
+    width = w;
+    height = h;
+    
+    do_ortho( );
 }
 
 void
 my_handle_key(unsigned char key, int x, int y)
 {
-   switch (key) {
-
-	   //!!ELLERS
-   case 'q':   // Esc or 'q' Quits the program.
-   case 27:    
-	   {
-       for (int i=0; i<5; i++) {
-           if (fonts[i]) {
-               delete fonts[i];
-               fonts[i] = 0;
-           }
-       }
-      exit(1);
-	   }
-      break;
-
-   default:
-      break;
-   }
+    switch (key) {
+        case 'q':   // Esc or 'q' Quits the program.
+        case 27:
+        {
+            for (int i=0; i<5; i++) {
+                if (fonts[i]) {
+                    delete fonts[i];
+                    fonts[i] = 0;
+                }
+            }
+            exit(1);
+        }
+            break;
+        default:
+            break;
+    }
 }
 
 void
 draw_scene()
 {
-   /* Set up some strings with the characters to draw. */
-   unsigned int count = 0;
-   char string[8][256];
-   int i;
-   for (i=1; i < 32; i++) { /* Skip zero - it's the null terminator! */
-      string[0][count] = i;
-      count++;
-   }
-   string[0][count] = '\0';
+    /* Set up some strings with the characters to draw. */
+    unsigned int count = 0;
+    char string[8][256];
+    int i;
+    for (i=1; i < 32; i++) { /* Skip zero - it's the null terminator! */
+        string[0][count] = i;
+        count++;
+    }
 
-   count = 0;
-   for (i=32; i < 64; i++) {
-      string[1][count] = i;
-      count++;
-   }
-   string[1][count] = '\0';
+    string[0][count] = '\0';
 
-   count = 0;
+    count = 0;
+    for (i=32; i < 64; i++) {
+        string[1][count] = i;
+        count++;
+    }
+    string[1][count] = '\0';
+
+    count = 0;
    for (i=64; i < 96; i++) {
       string[2][count] = i;
       count++;
@@ -253,72 +248,72 @@ my_idle()
 int 
 file_exists( const char * filename )
 {
-	FILE * fp = fopen( filename, "r" );
+    FILE * fp = fopen( filename, "r" );
 
-	if ( fp == NULL )
-	{
-		// That fopen failed does _not_ definitely mean the file isn't there 
-		// but for now this is ok
-		return 0;
-	}
-	fclose( fp );
-	return 1;
+    if ( fp == NULL )
+    {
+        // That fopen failed does _not_ definitely mean the file isn't there 
+        // but for now this is ok
+        return 0;
+    }
+    fclose( fp );
+    return 1;
 }
 
 void
 usage( const char * program )
 {
-	std::cerr << "Usage: " << program << " <filename.ttf>\n" << std::endl;
+    std::cerr << "Usage: " << program << " <filename.ttf>\n" << std::endl;
 }
 
 int
 main(int argc, char **argv)
 {
-	char * filename;
+    char * filename;
 
-	glutInitWindowSize(600, 600);
-	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_RGB|GLUT_DOUBLE);
+    glutInitWindowSize(600, 600);
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_RGB|GLUT_DOUBLE);
 
-	glutCreateWindow("FTGL demo");
+    glutCreateWindow("FTGL demo");
 
-	if ( argc >= 2 ) 
-	{
-		if ( !file_exists( argv[ 1 ] ))
-		{
-			usage( argv[ 0 ]);
-			std::cerr << "Couldn't open file '" << argv[ 1 ] << "'" << std::endl;
-			exit( -1 );
-		}
-		filename = argv[ 1 ];
-	}
-	else 
-	{
-		// try a default font
-		filename = DEFAULT_FONT;
-
-		if ( !file_exists( filename ))
-		{
-			usage( argv[ 0 ]);
-			std::cerr << "Couldn't open default file '" << filename << "'" << std::endl;
-			exit( -1 );
-		}
-	}
-
-	my_init( filename );
-
-	glutDisplayFunc(my_display);
-	glutReshapeFunc(my_reshape);
-	glutIdleFunc(my_idle);
-	glutKeyboardFunc(my_handle_key);
-
-	glutMainLoop();
-        
-        for(int x = 0; x < 5; ++x)
+    if ( argc >= 2 ) 
+    {
+        if ( !file_exists( argv[ 1 ] ))
         {
-            delete fonts[x];
+            usage( argv[ 0 ]);
+            std::cerr << "Couldn't open file '" << argv[ 1 ] << "'" << std::endl;
+            exit( -1 );
         }
+        filename = argv[ 1 ];
+    }
+    else 
+    {
+        // try a default font
+        filename = DEFAULT_FONT;
+
+        if ( !file_exists( filename ))
+        {
+            usage( argv[ 0 ]);
+            std::cerr << "Couldn't open default file '" << filename << "'" << std::endl;
+            exit( -1 );
+        }
+    }
+
+    my_init( filename );
+
+    glutDisplayFunc(my_display);
+    glutReshapeFunc(my_reshape);
+    glutIdleFunc(my_idle);
+    glutKeyboardFunc(my_handle_key);
+
+    glutMainLoop();
         
-	return 0;
+    for(int x = 0; x < 5; ++x)
+    {
+        delete fonts[x];
+    }
+        
+    return 0;
 }
 
