@@ -20,6 +20,9 @@ class FTGlyph;
  * <code>MakeGlyph</code> function to create glyphs of the
  * appropriate type.
  *
+ * It is good practice after using these functions to test the error
+ * code returned. <code>FT_Error Error()</code>
+ *
  * @see     FTFace
  * @see     FTSize
  * @see     FTGlyphContainer
@@ -90,7 +93,7 @@ class FTGL_EXPORT FTFont
         bool FaceSize( const unsigned int size, const unsigned int res = 72);
         
         /**
-         * Get the the current face.
+         * Get the current face size in points.
          *
          * @return face size
          */
