@@ -702,6 +702,7 @@
 			buildSettings = {
 				DEBUGGING_SYMBOLS = NO;
 				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_VERSION = 3.x;
 				HEADER_SEARCH_PATHS = "/Users/henry/Development/PROJECTS/iSpot/includes /usr/local/include/freetype2 /usr/local/include/freetype2/freetype";
 				LIBRARY_SEARCH_PATHS = /Users/henry/Development/PROJECTS/iSpot/libraries;
 				OPTIMIZATION_CFLAGS = "-O3";
@@ -1545,7 +1546,6 @@
 				OTHER_REZFLAGS = "";
 				PREBINDING = NO;
 				PRODUCT_NAME = ftglTest;
-				PROFILING_CODE = YES;
 				SECTORDER_FLAGS = "";
 				WARNING_CFLAGS = "-Wmost -Wno-four-char-constants -Wno-unknown-pragmas";
 				WRAPPER_EXTENSION = app;
