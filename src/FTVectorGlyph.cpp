@@ -6,8 +6,8 @@
 
 
 
-FTVectorGlyph::FTVectorGlyph( FT_Glyph glyph, unsigned int gi)
-:	FTGlyph(gi),
+FTVectorGlyph::FTVectorGlyph( FT_Glyph glyph)
+:	FTGlyph(),
 	vectoriser(0),
 	numPoints(0),
 	numContours(0),
@@ -35,7 +35,7 @@ FTVectorGlyph::FTVectorGlyph( FT_Glyph glyph, unsigned int gi)
 	data = new double[ numPoints * 3];
 	vectoriser->Output( data);
 	
-	advance = glyph->advance.x >> 16; // this is 6 in the freetype docs!!!!!!
+	advance = glyph->advance.x >> 16;
 
 	delete vectoriser;
 	

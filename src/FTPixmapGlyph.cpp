@@ -4,8 +4,8 @@
 #include	"FTGL.h"
 
 
-FTPixmapGlyph::FTPixmapGlyph( FT_Glyph glyph, const unsigned int gi)
-:	FTGlyph(gi),
+FTPixmapGlyph::FTPixmapGlyph( FT_Glyph glyph)
+:	FTGlyph(),
 	destWidth(0),
 	destHeight(0),
 	numGreys(0),
@@ -14,7 +14,9 @@ FTPixmapGlyph::FTPixmapGlyph( FT_Glyph glyph, const unsigned int gi)
 	// This function will always fail if the glyph's format isn't scalable????
 	FT_Error err = FT_Glyph_To_Bitmap( &glyph, ft_render_mode_normal, 0, 1);
 	if( err || ft_glyph_format_bitmap != glyph->format)
-	{ return;}
+	{
+		return;
+	}
 
 	FT_BitmapGlyph  bitmap = (FT_BitmapGlyph)glyph;
 	FT_Bitmap*      source = &bitmap->bitmap;
@@ -27,7 +29,7 @@ FTPixmapGlyph::FTPixmapGlyph( FT_Glyph glyph, const unsigned int gi)
 	int srcPitch = source->pitch;
     
 	numGreys = source->num_grays;
-	advance = glyph->advance.x >> 16; // this is 6 in the freetype docs!!!!!!
+	advance = glyph->advance.x >> 16;
 
  	pos.x = bitmap->left;
 	pos.y = srcHeight - bitmap->top;
@@ -80,6 +82,7 @@ float FTPixmapGlyph::Render( const FT_Vector& pen)
 		glPixelStorei( GL_UNPACK_ROW_LENGTH, destWidth);
 
 		glDrawPixels( destWidth, destHeight, GL_RGBA, GL_UNSIGNED_BYTE, (const GLvoid*)data);
+
 
 		// Restore the glyph origin
 		glBitmap( 0, 0, 0.0, 0.0, -pen.x - pos.x, -pen.y + pos.y, (const GLubyte *)0);

@@ -12,7 +12,7 @@ class FTPixmapGlyph : public FTGlyph
 {
 	public:
 		// methods
-		FTPixmapGlyph( FT_Glyph glyph, const unsigned int glyphIndex);
+		FTPixmapGlyph( FT_Glyph glyph);
 		virtual ~FTPixmapGlyph();
 		virtual float Render( const FT_Vector& pen);
 		

@@ -6,8 +6,8 @@
 
 int FTTextureGlyph::activeTextureID = 0;
 
-FTTextureGlyph::FTTextureGlyph( FT_Glyph glyph, unsigned int gi, int id, unsigned char* data, int stride, int height, float u, float v)
-:	FTGlyph(gi),
+FTTextureGlyph::FTTextureGlyph( FT_Glyph glyph, int id, unsigned char* data, int stride, int height, float u, float v)
+:	FTGlyph(),
 	destWidth(0),
 	destHeight(0),
 	numGreys(0),

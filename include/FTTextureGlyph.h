@@ -13,7 +13,7 @@ class	FTTextureGlyph : public FTGlyph
 {
 	public:
 		// methods
-		FTTextureGlyph( FT_Glyph glyph, unsigned int gi, int id, unsigned char* data, int stride, int height, float u, float v);
+		FTTextureGlyph( FT_Glyph glyph, int id, unsigned char* data, int stride, int height, float u, float v);
 		virtual ~FTTextureGlyph();
 		virtual float Render( const FT_Vector& pen);
 		

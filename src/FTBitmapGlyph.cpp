@@ -4,8 +4,8 @@
 #include	"FTGL.h"
 
 
-FTBitmapGlyph::FTBitmapGlyph( FT_Glyph glyph, unsigned int gi)
-:	FTGlyph( gi),
+FTBitmapGlyph::FTBitmapGlyph( FT_Glyph glyph)
+:	FTGlyph(),
 	destWidth(0),
 	destHeight(0),
 	data(0)
@@ -25,7 +25,7 @@ FTBitmapGlyph::FTBitmapGlyph( FT_Glyph glyph, unsigned int gi)
 	int srcHeight = source->rows;
 	int srcPitch = source->pitch;
     
-	advance = glyph->advance.x >> 16; // this is 6 in the freetype docs!!!!!!
+	advance = glyph->advance.x >> 16;
 
  	pos.x = bitmap->left;
 	pos.y = srcHeight - bitmap->top;

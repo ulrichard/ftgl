@@ -49,8 +49,8 @@ void ftglCombine( GLdouble coords[3], void* vertex_data[4], GLfloat weight[4], v
 }
 
 
-FTPolyGlyph::FTPolyGlyph( FT_Glyph glyph, unsigned int gi)
-:	FTGlyph(gi),
+FTPolyGlyph::FTPolyGlyph( FT_Glyph glyph)
+:	FTGlyph(),
 	vectoriser(0),
 	numPoints(0),
 	numContours(0),
@@ -77,7 +77,7 @@ FTPolyGlyph::FTPolyGlyph( FT_Glyph glyph, unsigned int gi)
 	vectoriser->Output( data);
 	
 	contourFlag = vectoriser->ContourFlag();
-	advance = glyph->advance.x >> 16; // this is 6 in the freetype docs!!!!!!
+	advance = glyph->advance.x >> 16;
 
 	delete vectoriser;
 

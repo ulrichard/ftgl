@@ -11,9 +11,24 @@
 class	FTBitmapGlyph : public FTGlyph
 {
 	public:
-		// methods
-		FTBitmapGlyph( FT_Glyph glyph, unsigned int glyphIndex);
+		/**
+		 * Constructor
+		 *
+		 * @param
+		 */
+		FTBitmapGlyph( FT_Glyph glyph);
+
+		/**
+		 *
+		 */
 		virtual ~FTBitmapGlyph();
+
+		/**
+		 *
+		 * @param pen	
+		 *
+		 * @return		
+		 */
 		virtual float Render( const FT_Vector& pen);
 		
 		// attributes
