@@ -3,7 +3,6 @@
 #include "cppunit/TestCase.h"
 #include "cppunit/TestSuite.h"
 
-
 #include "Fontdefs.h"
 #include "FTGlyph.h"
 #include "FTFont.h"
@@ -81,7 +80,7 @@ class FTFontTest : public CppUnit::TestCase
         void testOpenFontFromMemory()
         {
             TestFont badFont( (unsigned char*)100, 0);
-            CPPUNIT_ASSERT( badFont.Error() == 85);        
+            CPPUNIT_ASSERT( badFont.Error() == 0x02);
         
             TestFont goodFont( HPGCalc_pfb.dataBytes, HPGCalc_pfb.numBytes);
             CPPUNIT_ASSERT( goodFont.Error() == 0);        

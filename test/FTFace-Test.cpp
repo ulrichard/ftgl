@@ -39,7 +39,7 @@ class FTFaceTest : public CppUnit::TestCase
         void testOpenFaceFromMemory()
         {
             FTFace face1( (unsigned char*)100, 0);
-            CPPUNIT_ASSERT( face1.Error() == 85);        
+            CPPUNIT_ASSERT( face1.Error() == 0x02);        
         
             FTFace face2( HPGCalc_pfb.dataBytes, HPGCalc_pfb.numBytes);
             CPPUNIT_ASSERT( face2.Error() == 0);        
