@@ -19,8 +19,12 @@ AC_CHECK_HEADER([stdlib.h])
 
 # Checks for libraries.
 
+AC_PATH_X
+
 AC_CHECK_FT2([9.0.3],[],
              [AC_MSG_ERROR([FreeType2 is required to compile this library])])
+
+AC_PATH_XTRA
 
 FTGL_CHECK_GL
 FTGL_CHECK_GLUT
