@@ -277,6 +277,7 @@ class FTGL_EXPORT FTFont
          * Current pen or cursor position;
          */
         FTPoint pen;
+        
 };
 
 
