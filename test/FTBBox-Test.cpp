@@ -71,11 +71,10 @@ class FTBBoxTest : public CppUnit::TestCase
         void testBitmapConstructor()
         {
             setUpFreetype();
-
+            
             FT_Error error =  FT_Render_Glyph( face->glyph, FT_RENDER_MODE_NORMAL);
-            if(0 != error)
-            {}
-//            CPPUNIT_ASSERT( 0 != error);
+
+            CPPUNIT_ASSERT( 0 != error);
             CPPUNIT_ASSERT( ft_glyph_format_bitmap != face->glyph->format);
 
             FTBBox boundingBox3( face->glyph);
