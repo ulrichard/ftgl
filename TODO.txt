@@ -1,5 +1,5 @@
-FTGL 2.0
-11 March 2003
+FTGL 2.01
+14 March 2003
 
 TODO:
     
@@ -39,6 +39,6 @@ BUGS:
     - Advance/Kerning is screwed up for really small point sizes eg 2 point.
       This is because I'm trying to use FT_Vector which is integer based.
       I will probably have to make my own struct with floats.
-      This might be fixed in 1.41
+      This might be fixed in 2.0
     - The texture co-ords in the Texture Font may be wrong for non
       scalable fonts.
