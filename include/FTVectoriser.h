@@ -1,13 +1,13 @@
 #ifndef		__FTVectoriser__
 #define		__FTVectoriser__
 
-#include "FTGL.h"
-
 #include <vector>
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include FT_GLYPH_H
+
+#include "FTGL.h"
 
 #include "FTGlyph.h"
 
@@ -42,7 +42,7 @@ class FTGL_EXPORT ftPoint
 		 * @param Y
 		 * @param Z
 		 */
-		ftPoint( const float X, const float Y, const float Z)
+		ftPoint( const double X, const double Y, const double Z)
 		: x(X), y(Y), z(Z)
 		{}
 		
@@ -53,10 +53,7 @@ class FTGL_EXPORT ftPoint
 		 * @param b
 		 * @return
 		 */
-		friend bool operator == ( const ftPoint &a, const ftPoint &b) 
-		{
-			return((a.x == b.x) && (a.y == b.y) && (a.z == b.z));
-		}
+		friend bool operator == ( const ftPoint &a, const ftPoint &b);
 
 		/**
 		 * Operator != Tests for non equality
@@ -65,10 +62,7 @@ class FTGL_EXPORT ftPoint
 		 * @param b
 		 * @return
 		 */
-		friend bool operator != ( const ftPoint &a, const ftPoint &b) 
-		{
-			return((a.x != b.x) || (a.y != b.y) || (a.z != b.z));
-		}
+		friend bool operator != ( const ftPoint &a, const ftPoint &b);
 		
 		/**
 		 * The point data
@@ -76,52 +70,6 @@ class FTGL_EXPORT ftPoint
 		double x, y, z; // FIXME make private
 		
 	private:
-};
-
-
-class FTGL_EXPORT FTTesselation
-{
-	public:
-		FTTesselation();
-		~FTTesselation();
-		
-		void AddPoint( const float x, const float y, const float z);
-
-		int size() const { return pointList.size();}
-
-		GLenum meshType;
-		vector<ftPoint> pointList;
-	private:
-};
-
-
-class FTGL_EXPORT FTMesh
-{
-	public:
-		FTMesh();
-		~FTMesh();
-		
-		void AddPoint( const float x, const float y, const float z);
-		void Begin( GLenum m);
-		void End();
-		
-		double* Point();
-		int size() const;
-		
-		void Error( GLenum e) { err = e;}
-		GLenum Error() const { return err;}
-
-		/**
-		 *	The list of points in this mesh
-		 */
-		vector< FTTesselation*> tess;
-		vector< ftPoint> tempPool;
-	protected:
-	
-	private:
-		FTTesselation* tempTess;
-		GLenum err;
-
 };
 
 
@@ -140,13 +88,20 @@ class FTGL_EXPORT FTContour
 		/**
 		 * Default constructor
 		 */
-		FTContour();
+		FTContour()
+		:	kMAXPOINTS( 1000)
+		{	
+			pointList.reserve( kMAXPOINTS);
+		}
 
 		/**
 		 *	Destructor
 		 */
-		~FTContour();
-	
+		~FTContour()
+		{
+			pointList.clear();
+		}
+
 		/**
 		 * Add a point to the end of this contour.
 		 *
@@ -156,8 +111,17 @@ class FTGL_EXPORT FTContour
 		 * @param x	The X component of the point
 		 * @param y The Y component of the point
 		 */
-		void AddPoint( const float x, const float y);
-		
+		void AddPoint( const double x, const double y)
+		{
+			ftPoint point( x, y, 0.0); 
+			
+			// Eliminate duplicate points.
+			if( pointList.empty() || ( pointList[pointList.size() - 1] != point && pointList[0] != point))
+			{
+				pointList.push_back( point);
+			}
+		}
+
 		/**
 		 * How many points define this contour
 		 *
@@ -177,6 +141,65 @@ class FTGL_EXPORT FTContour
 		* in the <vector>
 		*/
 		const unsigned int kMAXPOINTS;
+};
+
+
+class FTGL_EXPORT FTTesselation
+{
+	public:
+		FTTesselation()
+		{
+			pointList.reserve( 128);
+		}
+
+		~FTTesselation()
+		{
+			pointList.clear();
+		}
+
+		
+		void AddPoint( const double x, const double y, const double z)
+		{	
+			pointList.push_back( ftPoint( x, y, z));
+		}
+
+
+		int size() const { return pointList.size();}
+
+		GLenum meshType;
+		vector<ftPoint> pointList;
+	private:
+		
+};
+
+
+class FTGL_EXPORT FTMesh
+{
+	public:
+		FTMesh();
+		~FTMesh();
+		
+		void AddPoint( const double x, const double y, const double z);
+		void Begin( GLenum m);
+		void End();
+		
+		double* Point();
+		int size() const;
+		
+		void Error( GLenum e) { err = e;}
+		GLenum Error() const { return err;}
+
+		vector< ftPoint> tempPool;
+		vector< FTTesselation*> tess;
+	protected:
+	
+	private:
+		/**
+		 *	The list of points in this mesh
+		 */
+		FTTesselation* tempTess;
+		GLenum err;
+
 };
 
 
@@ -214,18 +237,31 @@ class FTGL_EXPORT FTVectoriser
 
 		/**
 		 * Copy the outline data into a block of <code>doubles</code>
-		 * @param d
+		 *
+		 * @param d	a pointer to the memory to copy the data into.
 		 */
-		void MakeOutline( double* d);
+		void GetOutline( double* d);
 
 		/**
-		 * Build a mesh from the outline and copy the vertx data into a
+		 * Build a mesh from the outline and copy the vertex data into a
 		 * block of <code>doubles</code>
-		 * @param d
+		 *
+		 * @param zNormal	The direction of the z axis of the normal
+		 * for this mesh
 		 */
-		void MakeMesh();
+		void MakeMesh( int zNormal = 1.0);
+		
+		/**
+		 * Copy the tesselation data into a block of <code>doubles</code>
+		 *
+		 * @param d	a pointer to the memory to copy the data into.
+		 */
 		void GetMesh( double* d);
 		
+		/** Get the number of points in the tesselation
+		 *
+		 * @return the number of points.
+		 */
 		int MeshPoints() const { return mesh->size();}
 		
 		/**
@@ -292,12 +328,6 @@ class FTGL_EXPORT FTVectoriser
 		 * @param a
 		 */
 		void evaluateCurve( const int n);
-
-
-
-//void CALLBACK ftglVertex( void* data);
-
-
 
 		/**
 		 * The list of contours in this outline
