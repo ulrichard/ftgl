@@ -60,9 +60,9 @@ class FTGL_EXPORT FTTextureGlyph : public FTGlyph
         int destHeight;
 
         /**
-         * The number of greys or bit depth of the image
+         * Vector from the pen position to the topleft corner of the pixmap
          */
-        int numGreys;
+        FTPoint pos;
         
         /**
          * The texture co-ords of this glyph within the texture.

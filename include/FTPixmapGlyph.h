@@ -53,10 +53,10 @@ class  FTGL_EXPORT FTPixmapGlyph : public FTGlyph
         int destHeight;
         
         /**
-         * The number of greys or bit depth of the image
+         * Vector from the pen position to the topleft corner of the pixmap
          */
-        int numGreys;
-
+        FTPoint pos;
+        
         /**
          * Pointer to the 'image' data
          */

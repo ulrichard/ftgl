@@ -4,7 +4,6 @@ FTPixmapGlyph::FTPixmapGlyph( FT_Glyph glyph)
 :   FTGlyph( glyph),
     destWidth(0),
     destHeight(0),
-    numGreys(0),
     data(0)
 {
     // This function will always fail if the glyph's format isn't scalable????
@@ -76,7 +75,6 @@ FTPixmapGlyph::FTPixmapGlyph( FT_Glyph glyph)
         destHeight = srcHeight;
     }
 
-    numGreys = source->num_grays;
     pos.x = bitmap->left;
     pos.y = srcHeight - bitmap->top;
     
@@ -87,10 +85,7 @@ FTPixmapGlyph::FTPixmapGlyph( FT_Glyph glyph)
 
 FTPixmapGlyph::~FTPixmapGlyph()
 {
-    if( data)
-    {
-        delete [] data;
-    }
+    delete [] data;
 }
 
 

@@ -71,11 +71,6 @@ class FTGL_EXPORT FTGlyph
         float advance;
 
         /**
-         * Vector from the pen position to the topleft corner of the glyph
-         */
-        FTPoint pos;
-        
-        /**
          * The bounding box of this glyph.
          */
         FTBBox bBox;

@@ -55,6 +55,11 @@ class FTGL_EXPORT FTBitmapGlyph : public FTGlyph
         unsigned int destHeight;
         
         /**
+         * Vector from the pen position to the topleft corner of the bitmap
+         */
+        FTPoint pos;
+        
+        /**
          * Pointer to the 'image' data
          */
         unsigned char* data;

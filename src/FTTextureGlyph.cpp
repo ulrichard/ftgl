@@ -5,7 +5,6 @@ FTTextureGlyph::FTTextureGlyph( FT_Glyph glyph, int id, int xOffset, int yOffset
 :   FTGlyph( glyph),
     destWidth(0),
     destHeight(0),
-    numGreys(0),
     glTextureID(id),
     activeTextureID(0)
 {
@@ -47,8 +46,6 @@ FTTextureGlyph::FTTextureGlyph( FT_Glyph glyph, int id, int xOffset, int yOffset
     uv[1].x = static_cast<float>( xOffset + destWidth) / static_cast<float>(width);
     uv[1].y = static_cast<float>( yOffset + destHeight) / static_cast<float>(height);
     
-    numGreys = source->num_grays;
-
     pos.x = bitmap->left;
     pos.y = bitmap->top;
     
