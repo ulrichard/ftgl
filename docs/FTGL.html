@@ -231,6 +231,10 @@ typedef FontList::const_iterator FontIter;
 class FTGLFontManager
 {
     public:
+        // NOTE
+        // This is shown here for brevity. The implementation should be in the source
+        // file otherwise your compiler may inline the function resulting in 
+        // multiple instances of FTGLFontManager
         static FTGLFontManager& Instance()
         {
             static FTGLFontManager tm;
