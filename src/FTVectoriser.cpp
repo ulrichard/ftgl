@@ -111,8 +111,9 @@ FTVectoriser::FTVectoriser( const FT_Glyph glyph)
     {
         FT_OutlineGlyph outline = (FT_OutlineGlyph)glyph;
         ftOutline = outline->outline;
-    
-        contourList.reserve( ftOutline.n_contours);
+        
+        ftContourCount = ftOutline.n_contours;;
+        contourList.reserve( ftContourCount);
         contourFlag = ftOutline.flags;
     }
 }
@@ -134,12 +135,11 @@ FTVectoriser::~FTVectoriser()
 
 void FTVectoriser::ProcessContours()
 {
-    const short contourCount = ftOutline.n_contours;
     short contourLength = 0;
     short startIndex = 0;
     short endIndex = 0;
     
-    for( short contourIndex = 0; contourIndex < contourCount; ++contourIndex)
+    for( short contourIndex = 0; contourIndex < ftContourCount; ++contourIndex)
     {
         FT_Vector* pointList = &ftOutline.points[startIndex];
         char* tagList = &ftOutline.tags[startIndex];

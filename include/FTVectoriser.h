@@ -220,9 +220,14 @@ class FTGL_EXPORT FTVectoriser
          * A Mesh for tesselations
          */
         FTMesh* mesh;
+        
+        /**
+         *
+         */
+        short ftContourCount;
 
         /**
-        * A flag indicating the tesselation rule for the glyph
+         * A flag indicating the tesselation rule for the glyph
          */
         int contourFlag;
 
