@@ -14,7 +14,11 @@
 
     // non windows, doesn't require nonesense as seen below :-)    
     #ifndef __gl_h_
-        #include <GL/gl.h>
+        #ifdef __APPLE_CC__
+            #include <OpenGL/gl.h>
+        #else
+	    	#include <GL/gl.h>
+		#endif
     #endif
 
     // required for compatibility with glext.h style function definitions of 
