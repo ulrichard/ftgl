@@ -25,6 +25,7 @@ bool FTCharmap::CharMap( FT_Encoding encoding)
 {
     if( ftEncoding == encoding)
     {
+        err = 0;
         return true;
     }
     
