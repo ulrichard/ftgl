@@ -97,6 +97,18 @@ bool FTFont::CharMap( FT_Encoding encoding)
 }
 
 
+unsigned int FTFont::CharMapCount()
+{
+    return face.CharMapCount();
+}
+
+
+FT_Encoding* FTFont::CharMapList()
+{
+    return face.CharMapList();
+}
+
+
 float FTFont::Ascender() const
 {
     return charSize.Ascender();
