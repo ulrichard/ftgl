@@ -997,98 +997,98 @@
 			fileEncoding = 30;
 			isa = PBXFileReference;
 			name = arial_ttf.cpp;
-			path = /Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/test/arial_ttf.cpp;
-			refType = 0;
+			path = ../test/arial_ttf.cpp;
+			refType = 2;
 		};
 		BAF0F09503AF0FF7004F6ED7 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
 			name = "FTFont-Test.cpp";
-			path = "/Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/test/FTFont-Test.cpp";
-			refType = 0;
+			path = "../test/FTFont-Test.cpp";
+			refType = 2;
 		};
 		BAF0F09603AF0FF7004F6ED7 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
 			name = "FTContour-Test.cpp";
-			path = "/Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/test/FTContour-Test.cpp";
-			refType = 0;
+			path = "../test/FTContour-Test.cpp";
+			refType = 2;
 		};
 		BAF0F09703AF0FF7004F6ED7 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
 			name = "FTMesh-Test.cpp";
-			path = "/Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/test/FTMesh-Test.cpp";
-			refType = 0;
+			path = "../test/FTMesh-Test.cpp";
+			refType = 2;
 		};
 		BAF0F09803AF0FF7004F6ED7 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
 			name = "FTLibrary-Test.cpp";
-			path = "/Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/test/FTLibrary-Test.cpp";
-			refType = 0;
+			path = "../test/FTLibrary-Test.cpp";
+			refType = 2;
 		};
 		BAF0F09903AF0FF7004F6ED7 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
 			name = "FTCharmap-Test.cpp";
-			path = "/Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/test/FTCharmap-Test.cpp";
-			refType = 0;
+			path = "../test/FTCharmap-Test.cpp";
+			refType = 2;
 		};
 		BAF0F09A03AF0FF7004F6ED7 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
 			name = "FTTesselation-Test.cpp";
-			path = "/Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/test/FTTesselation-Test.cpp";
-			refType = 0;
+			path = "../test/FTTesselation-Test.cpp";
+			refType = 2;
 		};
 		BAF0F09B03AF0FF7004F6ED7 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
 			name = "FTFace-Test.cpp";
-			path = "/Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/test/FTFace-Test.cpp";
-			refType = 0;
+			path = "../test/FTFace-Test.cpp";
+			refType = 2;
 		};
 		BAF0F09C03AF0FF7004F6ED7 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
 			name = "FTPoint-Test.cpp";
-			path = "/Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/test/FTPoint-Test.cpp";
-			refType = 0;
+			path = "../test/FTPoint-Test.cpp";
+			refType = 2;
 		};
 		BAF0F09D03AF0FF7004F6ED7 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
 			name = "FTGlyphContainer-Test.cpp";
-			path = "/Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/test/FTGlyphContainer-Test.cpp";
-			refType = 0;
+			path = "../test/FTGlyphContainer-Test.cpp";
+			refType = 2;
 		};
 		BAF0F09E03AF0FF7004F6ED7 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
 			name = "FTBBox-Test.cpp";
-			path = "/Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/test/FTBBox-Test.cpp";
-			refType = 0;
+			path = "../test/FTBBox-Test.cpp";
+			refType = 2;
 		};
 		BAF0F09F03AF0FF7004F6ED7 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
 			name = "FTSize-Test.cpp";
-			path = "/Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/test/FTSize-Test.cpp";
-			refType = 0;
+			path = "../test/FTSize-Test.cpp";
+			refType = 2;
 		};
 		BAF0F0A003AF0FF7004F6ED7 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
 			name = "FTVectoriser-Test.cpp";
-			path = "/Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/test/FTVectoriser-Test.cpp";
-			refType = 0;
+			path = "../test/FTVectoriser-Test.cpp";
+			refType = 2;
 		};
 		BAF0F0A103AF0FF7004F6ED7 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
 			name = TestMain.cpp;
-			path = /Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/test/TestMain.cpp;
+			path = /Users/henry/Development/PROJECTS/FTGL/test/TestMain.cpp;
 			refType = 0;
 		};
 		BAF0F0A303AF0FF7004F6ED7 = {
