@@ -1,3 +1,5 @@
+#include	<math.h>
+
 #include	"FTExtrdGlyph.h"
 #include	"FTVectoriser.h"
 #ifdef FTGL_DEBUG
