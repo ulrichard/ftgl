@@ -10,6 +10,7 @@
 
 
 #include "Fontdefs.h"
+#include "FTFace.h"
 #include "FTCharmap.h"
 
 
@@ -86,23 +87,18 @@ class FTCharmapTest : public CppUnit::TestCase
         }
         
     private:
-        FT_Library   library;
-        FT_Face      face;
-        
+        FTFace*      face;
         FTCharmap* charmap;
 
         void setUpFreetype()
         {
-            FT_Error error = FT_Init_FreeType( &library);
-            assert(!error);
-            error = FT_New_Face( library, GOOD_FONT_FILE, 0, &face);
-            assert(!error);
+            face = new FTFace( GOOD_FONT_FILE);
+            CPPUNIT_ASSERT( !face->Error());
         }
         
         void tearDownFreetype()
         {
-            FT_Done_Face( face);
-            FT_Done_FreeType( library);
+            delete face;
         }
 };
 
