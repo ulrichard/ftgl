@@ -17,7 +17,8 @@
 
 /**
  * FTContour class is a container of points that describe a vector font
- * outline
+ * outline. It is mainly used as a container for the output of the bezier
+ * curve evaluator in FTVectoriser.
  *
  * @see FTOutlineGlyph
  * @see FTPolyGlyph
@@ -128,7 +129,7 @@ class FTGL_EXPORT FTTesselation
 
 
 /**
- * FTMesh is a container of FTTesselation s that make up a polygon glyph
+ * FTMesh is a container of FTTesselation's that make up a polygon glyph
  */
 class FTGL_EXPORT FTMesh
 {
