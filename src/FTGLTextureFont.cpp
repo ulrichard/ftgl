@@ -24,122 +24,167 @@ inline UInt32 NextPowerOf2( UInt32 in)
 
 
 FTGLTextureFont::FTGLTextureFont()
-:	glTextureID(0),
+:	numTextures(1),
 	textMem(0),
-	padding(15),
+	padding(1),
 	tempGlyph(0),
 	maxTextSize(0),
-	textureSize(0),
+	textureWidth(0),
+	textureHeight(0),
 	glyphHeight(0),
-	glyphWidth(0),
-	horizGlyphs(0),
-	vertGlyphs(0)
-
+	glyphWidth(0)
 {}
 
 
 FTGLTextureFont::~FTGLTextureFont()
 {
-	glDeleteTextures( 1, &glTextureID);
-	delete [] textMem;
+	glDeleteTextures( numTextures, glTextureID);
 }
 
 
 bool FTGLTextureFont::MakeGlyphList()
 {
+	if( !maxTextSize)
+		glGetIntegerv( GL_MAX_TEXTURE_SIZE, &maxTextSize);
+	
+	glyphHeight = ( charSize.Height()) + padding;
+	glyphWidth = ( charSize.Width()) + padding;
+	
+	GetSize();
+	int totalMem;
+	
+	if( textureHeight > maxTextSize)
+	{
+		numTextures = static_cast<int>( textureHeight / maxTextSize) + 1;
+		if( numTextures > 15)
+			numTextures = 15;
+		
+		int heightRemain = NextPowerOf2( textureHeight % maxTextSize);
+		totalMem = ((maxTextSize * ( numTextures - 1)) + heightRemain) * textureWidth;
+
+		glGenTextures( numTextures, &glTextureID[0]);
+
+		textMem = new unsigned char[totalMem]; // GL_ALPHA texture;
+		std::memset( textMem, 0, totalMem);
+			
+		int glyphNum = 0;
+		unsigned char* currTextPtr = textMem;
+		
+		for( int x = 0; x < numTextures - 1; ++x)
+		{
+			glyphNum = FillGlyphs( glyphNum, glTextureID[x], textureWidth, maxTextSize, currTextPtr);
+			
+			CreateTexture( x, textureWidth, maxTextSize, currTextPtr);
+			
+			currTextPtr += ( textureWidth * maxTextSize);
+			++glyphNum;
+		}
+		
+		glyphNum = FillGlyphs( glyphNum, glTextureID[numTextures - 1], textureWidth, heightRemain, currTextPtr);
+		CreateTexture( numTextures - 1, textureWidth, heightRemain, currTextPtr);
+	}
+	else
+	{
+		textureHeight = NextPowerOf2( textureHeight);
+		totalMem = textureWidth * textureHeight;
+		
+		glGenTextures( numTextures, &glTextureID[0]);
+
+		textMem = new unsigned char[totalMem]; // GL_ALPHA texture;
+		std::memset( textMem, 0, totalMem);
+
+		FillGlyphs( 0, glTextureID[0], textureWidth, textureHeight, textMem);
+		CreateTexture( 0, textureWidth, textureHeight, textMem);
+	}
+
+	delete [] textMem;
+	return !err;
+}
+
+
+int FTGLTextureFont::FillGlyphs( int glyphStart, int id, int width, int height, unsigned char* textdata)
+{
 	FT_Face* ftFace = face.Face();
 	
-	CreateTexture();
-
 	int currentTextX = padding;
-	int currentTextY = padding + padding;
+	int currentTextY = padding;// + padding;
 	
-	float currTextU = (float)padding / (float)textureSize;
-	float currTextV = (float)padding / (float)textureSize;
+	float currTextU = (float)padding / (float)width;
+	float currTextV = (float)padding / (float)height;
 	
 //	numGlyphs = 256; // FIXME hack
+	int n;
 	
-	for( int n = 0; n <= numGlyphs; ++n)
+	for( n = glyphStart; n <= numGlyphs; ++n)
 	{
-		err = FT_Load_Glyph( *ftFace, n, FT_LOAD_DEFAULT);
+		err = FT_Load_Glyph( *ftFace, n, FT_LOAD_NO_HINTING); // FT_LOAD_DEFAULT
 		FT_Glyph ftGlyph;
 		
 		err = FT_Get_Glyph( (*ftFace)->glyph, &ftGlyph);
 	
-		unsigned char* data = textMem + ( ( currentTextY * textureSize) + currentTextX);
+		unsigned char* data = textdata + (( currentTextY * width) + currentTextX);
 		
-		currTextU = (float)currentTextX / (float)textureSize;
+		currTextU = (float)currentTextX / (float)width;
 		
-		tempGlyph = new FTTextureGlyph( ftGlyph, n, data, textureSize, currTextU, currTextV);
+		tempGlyph = new FTTextureGlyph( ftGlyph, n, id, data, width, height, currTextU, currTextV);
 		glyphList->Add( tempGlyph);
 		
 		currentTextX += glyphWidth;
-		if( currentTextX > ( textureSize - glyphWidth))
+		if( currentTextX > ( width - glyphWidth))
 		{
 			currentTextY += glyphHeight;
+			if( currentTextY > ( height - glyphHeight))
+				return n;
+				
 			currentTextX = padding;
-			currTextV = (float)currentTextY / (float)textureSize;
+			currTextV = (float)currentTextY / (float)height;
 		}
 	}
 
+	return n;
+}
+
+
+void FTGLTextureFont::GetSize()
+{
+	//work out the max width. Most likely maxTextSize!
+	textureWidth = NextPowerOf2( numGlyphs * glyphWidth);
+	if( textureWidth > maxTextSize)
+	{
+		textureWidth = maxTextSize;
+	}
 	
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1); //What does this do exactly?
-	glBindTexture( GL_TEXTURE_2D, glTextureID);
+	int h = static_cast<int>( textureWidth / glyphWidth);
+	textureHeight = (( numGlyphs / h) + 1) * glyphHeight;
+}
+
+
+void FTGLTextureFont::CreateTexture( int id, int width, int height, unsigned char* data)
+{
+	glPixelStorei( GL_UNPACK_ALIGNMENT, 1); //What does this do exactly?
+	glBindTexture( GL_TEXTURE_2D, glTextureID[id]);
 	glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
 	glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
 	glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
-	glTexImage2D( GL_TEXTURE_2D, 0, GL_ALPHA, textureSize, textureSize, 0, GL_ALPHA, GL_UNSIGNED_BYTE, textMem);
-
-	return !err;
-}
-
-
-bool FTGLTextureFont::CreateTexture()
-{
-	glGetIntegerv( GL_MAX_TEXTURE_SIZE, &maxTextSize);
-	glGenTextures( 1, &glTextureID);
-
-//	There is a fixed relationship between ppem, point size, and the
-//	resulting pixel size.  The real dimension of the glyphs are not
-//	covered by this.  The field `bbox' in FT_Face gives a maximal bounding
-//	box large enough to hold all bboxes of single glyphs.
-	
-	// calc the area required for this font
-	glyphHeight = ( charSize.Height()) + padding;
-	glyphWidth = ( charSize.Width()) + padding;
-	
-	//FIXME	
-//	textureSize = 1024;
-	int t;
-	for( t = 64; t <= maxTextSize; t *=2)
-	{		
-		int h = static_cast<int>( t / glyphWidth);
-		if( t > ( ( numGlyphs / h) * glyphHeight))
-			break;
-	}
-	
-	textureSize = t;
-	
-	horizGlyphs = static_cast<int>( textureSize / glyphWidth);
-	vertGlyphs = static_cast<int>(( numGlyphs / horizGlyphs) + 1);
-	
-	// build the texture.
-	textMem = new unsigned char[ textureSize * textureSize]; // GL_ALPHA texture;
-	
-	//FIXME
-	for( int i = 0; i < ( textureSize * textureSize); ++i)
-		textMem[i] = 0;
+	glTexImage2D( GL_TEXTURE_2D, 0, GL_ALPHA, width, height, 0, GL_ALPHA, GL_UNSIGNED_BYTE, data);
 }
 
 
 void FTGLTextureFont::render( const char* string)
 {	
-	glBindTexture( GL_TEXTURE_2D, glTextureID);
+	glPushAttrib( GL_ENABLE_BIT | GL_HINT_BIT | GL_LINE_BIT | GL_PIXEL_MODE_BIT);
 	
-	// QUADS are faster!? Less function call overhead?
-	glBegin( GL_QUADS);
-		FTFont::render( string);
-	glEnd();
+	glEnable(GL_BLEND);
+ 	glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // GL_ONE
+ 	
+	glBindTexture( GL_TEXTURE_2D, FTTextureGlyph::activeTextureID);
+
+ 	// QUADS are faster!? Less function call overhead?
+ 	glBegin( GL_QUADS);
+ 		FTFont::render( string);
+ 	glEnd();
+	
+	glPopAttrib();
 }

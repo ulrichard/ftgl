@@ -12,10 +12,11 @@ class	FTTextureGlyph : public FTGlyph
 {
 	public:
 		// methods
-		FTTextureGlyph( FT_Glyph glyph, int gi, unsigned char* data, int stride, float u, float v);
+		FTTextureGlyph( FT_Glyph glyph, int gi, int id, unsigned char* data, int stride, int height, float u, float v);
 		virtual ~FTTextureGlyph();
 		virtual float Render( const FT_Vector& v);
 		
+		static int activeTextureID;
 	private:
 		// attributes
 		// What about the other point class in vectoriser?
@@ -31,6 +32,7 @@ class	FTTextureGlyph : public FTGlyph
 		int numGreys;
 		
 		FTPoint uv[2];
+		int glTextureID;
 };
 
 

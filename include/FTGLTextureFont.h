@@ -11,11 +11,12 @@ class	FTGLTextureFont : public FTFont
 	public:
 		// methods
 		FTGLTextureFont();
-		~FTGLTextureFont();
+		virtual ~FTGLTextureFont();
 		
-		int TextureSize() const { return textureSize;}
+		virtual int TextureWidth() const { return textureWidth;}
+		virtual int TextureHeight() const { return textureHeight;}
 		
-		void render( const char* string);
+		virtual void render( const char* string);
 
 		
 	private:
@@ -23,9 +24,11 @@ class	FTGLTextureFont : public FTFont
 		FTTextureGlyph* tempGlyph;
 		
 		long maxTextSize;
-		int textureSize;
+		int textureWidth;
+		int textureHeight;
 		
-		unsigned long glTextureID;
+		unsigned long glTextureID[16];
+		int numTextures;
 		unsigned char* textMem;
 		
 		int glyphHeight;
@@ -38,7 +41,9 @@ class	FTGLTextureFont : public FTFont
 		
 		// methods
 		bool MakeGlyphList();
-		bool CreateTexture();
+		void CreateTexture( int id, int width, int height, unsigned char* data);
+		void GetSize();
+		int FillGlyphs( int glyphStart, int textID, int textureWidth, int textureHeight, unsigned char* textMem);
 		
 		
 };
