@@ -29,12 +29,12 @@ class  FTGL_EXPORT FTGLTextureFont : public FTFont
 		/**
 		 * Get the total width of the texture that holds this font
 		 */
-		virtual GLsizei TextureWidth() const { return textureWidth;}
+		GLsizei TextureWidth() const { return textureWidth;}
 		
 		/**
 		 * Get the total height of the texture that holds this font
 		 */
-		virtual GLsizei TextureHeight() const { return textureHeight;}
+		GLsizei TextureHeight() const { return textureHeight;}
 		
 		/**
 		 * Renders a string of characters
@@ -52,7 +52,7 @@ class  FTGL_EXPORT FTGLTextureFont : public FTFont
 
 		
 	private:
-		virtual FTGlyph* MakeGlyph( unsigned int g){ return NULL;}
+		virtual FTGlyph* MakeGlyph( unsigned int g);
 				
 		/**
 		 * Constructs the internal glyph cache.
@@ -61,22 +61,6 @@ class  FTGL_EXPORT FTGLTextureFont : public FTFont
 		 * freetype glyphs
 		 */
 		virtual bool MakeGlyphList();
-		
-		/**
-		 * Draw a series of glyphs into texture memory
-		 *
-		 * This function will start with glyph index glyphStart and draw each
-		 * glyph into the texture until it runs out of space in the current
-		 * texture. It will return the index of the last glyph it drew so
-		 * that if more textures are required, we know where to start from.
-		 *
-		 * @param glyphStart	The index of the first glyph to be drawn
-		 * @param textID		The index of the openGLtexture to draw glyphs into
-		 * @param textureWidth	The texture width
-		 * @param textureHeight	The texture height
-		 * @param textMem		A pointer to the texture memory.
-		 */
-		unsigned int FillGlyphs( unsigned int glyphStart, GLuint textID, GLsizei textureWidth, GLsizei textureHeight, unsigned char* textMem);
 
 		/**
 		 * Get the size of a block of memory required to layout the glyphs
@@ -100,7 +84,7 @@ class  FTGL_EXPORT FTGLTextureFont : public FTFont
 		 * @param height	The number of rows of bytes.
 		 * @param data		A pointer to the texture data
 		 */
-		void CreateTexture( GLuint id, GLsizei width, GLsizei height, unsigned char* data);
+		int CreateTexture();
 		
 		/**
 		 * The maximum texture dimension on this OpenGL implemetation
@@ -118,9 +102,9 @@ class  FTGL_EXPORT FTGLTextureFont : public FTFont
 		GLsizei textureHeight;
 		
 		/**
-		 * An array of texture ids
+		 *An array of texture ids
 		 */
-		unsigned long glTextureID[16];
+		unsigned long glTextureID[1024];
 		
 		/**
 		 * The number of textures required to hold the glyphs
@@ -148,6 +132,11 @@ class  FTGL_EXPORT FTGLTextureFont : public FTFont
 		 * glyphs don't overlap in the texture
 		 */
 		int padding;
+		
+		int remGlyphs;
+		int xOffset;
+		int yOffset;
+
 
 };
 

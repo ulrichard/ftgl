@@ -1,15 +1,19 @@
 #include	"FTTextureGlyph.h"
 #include	"FTGL.h"
 
+//#include "mmgr.h"
 
-FTTextureGlyph::FTTextureGlyph( FT_Glyph glyph, int id, unsigned char* data, GLsizei stride, GLsizei height, float u, float v)
+
+FTTextureGlyph::FTTextureGlyph( FT_Glyph glyph, int id, int xOffset, int yOffset, GLsizei width, GLsizei height)
 :	FTGlyph(),
+	data(0),
 	destWidth(0),
 	destHeight(0),
 	numGreys(0),
-	glTextureID(id)
+	glTextureID(id),
+	activeTextureID(0)
 {
-	// This function will always fail if the glyph's format isn't scalable????
+	// FIXME This function will always fail if the glyph's format isn't scalable????
 	err = FT_Glyph_To_Bitmap( &glyph, ft_render_mode_normal, 0, 1);
 	if( err || glyph->format != ft_glyph_format_bitmap)
 	{
@@ -19,7 +23,7 @@ FTTextureGlyph::FTTextureGlyph( FT_Glyph glyph, int id, unsigned char* data, GLs
 	FT_BitmapGlyph  bitmap = ( FT_BitmapGlyph)glyph;
 	FT_Bitmap*      source = &bitmap->bitmap;
 
-	//check the pixel mode
+	// FIXME check the pixel mode
 	//ft_pixel_mode_grays
 	    
 	int srcWidth = source->width;
@@ -29,13 +33,19 @@ FTTextureGlyph::FTTextureGlyph( FT_Glyph glyph, int id, unsigned char* data, GLs
     destWidth = srcWidth;
     destHeight = srcHeight;
     
+    data = new unsigned char[destWidth * destHeight];
+
     for(int y = 0; y < srcHeight; ++y)
     {
     	for(int x = 0; x < srcWidth; ++x)
     	{
-			*( data + ( y * stride  + x)) = *( source->buffer + ( y * srcPitch) + x);
+			*( data + ( y * destWidth  + x)) = *( source->buffer + ( y * srcPitch) + x);
     	}    	
     }
+
+	glBindTexture( GL_TEXTURE_2D, glTextureID);
+	glTexSubImage2D( GL_TEXTURE_2D, 0, xOffset, yOffset, destWidth, destHeight, GL_ALPHA, GL_UNSIGNED_BYTE, data);
+
 
 //		0    
 //		+----+
@@ -45,17 +55,20 @@ FTTextureGlyph::FTTextureGlyph( FT_Glyph glyph, int id, unsigned char* data, GLs
 //		+----+
 //		     1
 	
-	uv[0].x = u;
-	uv[0].y = v;
-	uv[1].x = uv[0].x + ( (float)destWidth / (float)stride);
-	uv[1].y = uv[0].y + ( (float)destHeight / (float)height);
-
-	bBox = FTBBox( glyph);
+	// FIXME ????
+	uv[0].x = static_cast<float>(xOffset) / static_cast<float>(width);
+	uv[0].y = static_cast<float>(yOffset) / static_cast<float>(height);
+	uv[1].x = static_cast<float>( xOffset + destWidth) / static_cast<float>(width);
+	uv[1].y = static_cast<float>( yOffset + destHeight) / static_cast<float>(height);
+	
 	numGreys = source->num_grays;
 	advance = glyph->advance.x >> 16;
+	bBox = FTBBox( glyph);
 
  	pos.x = bitmap->left;
 	pos.y = bitmap->top;
+	
+	delete [] data;
 	
 // discard glyph image (bitmap or not)
 	// Is this the right place to do this?
@@ -64,9 +77,7 @@ FTTextureGlyph::FTTextureGlyph( FT_Glyph glyph, int id, unsigned char* data, GLs
 
 
 FTTextureGlyph::~FTTextureGlyph()
-{
-
-}
+{}
 
 
 float FTTextureGlyph::Render( const FT_Vector& pen)

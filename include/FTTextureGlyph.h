@@ -24,15 +24,16 @@ class FTGL_EXPORT FTTextureGlyph : public FTGlyph
 		 * Constructor
 		 *
 		 * @param glyph		The Freetype glyph to be processed
-		 * @param id		The index of the texture that this glyph will
-		 *					be drawn in
-		 * @param data		A pointer to the texture memory
-		 * @param stride	The stride of the texture memory
-		 * @param height	The height (number of rows) of the texture memory
-		 * @param u			The texture co-ord for this glyph
-		 * @param v			The texture co-ord for this glyph
+		 * @param id		The id the texture that this glyph will be
+		 *					drawn in
+		 * @param xOffset	The x offset into the parent texture to draw
+		 *					this glyph
+		 * @param yOffset	The y offset into the parent texture to draw
+		 *					this glyph
+		 * @param width		The width of the parent texture
+		 * @param height	The height (number of rows) of the parent texture
 		 */
-		FTTextureGlyph( FT_Glyph glyph, int id, unsigned char* data, GLsizei stride, GLsizei height, float u, float v);
+		FTTextureGlyph( FT_Glyph glyph, int id, int xOffset, int yOffset, GLsizei width, GLsizei height);
 
 		/**
 		 * Destructor
@@ -47,16 +48,12 @@ class FTGL_EXPORT FTTextureGlyph : public FTGlyph
 		 */
 		virtual float Render( const FT_Vector& pen);
 		
-		/**
-		 * The texture index of the currently active texture
-		 *
-		 * We call glGetIntegerv( GL_TEXTURE_2D_BINDING, activeTextureID);
-		 * to get the currently active texture to try to reduce the number
-		 * of texture bind operations
-		 */
-		GLint activeTextureID;
-		
 	private:
+		/**
+		 * Pointer to the 'image' data
+		 */
+		unsigned char* data;
+		 
 		/**
 		 * The width of the glyph 'image'
 		 */
@@ -90,6 +87,16 @@ class FTGL_EXPORT FTTextureGlyph : public FTGlyph
 		 * The texture index that this glyph is contained in.
 		 */
 		int glTextureID;
+
+		/**
+		 * The texture index of the currently active texture
+		 *
+		 * We call glGetIntegerv( GL_TEXTURE_2D_BINDING, activeTextureID);
+		 * to get the currently active texture to try to reduce the number
+		 * of texture bind operations
+		 */
+		GLint activeTextureID;
+		
 };
 
 
