@@ -72,13 +72,15 @@ class FTGL_EXPORT FTLibrary
 		 * Initialises the Freetype library
 		 *
 		 * Even though this function indicates success via the return value,
-		 * clients can't see this so must check the error codes.
+		 * clients can't see this so must check the error codes. This function
+		 * is only ever called by the default c_stor
 		 *
 		 * @return	<code>true</code> if the Freetype library was
 		 * 			successfully initialised, <code>false</code>
 		 * 			otherwise.
 		 */
 		bool Init();
+		
 		/**
 		 * Freetype library handle.
 		 */
