@@ -58,7 +58,8 @@ FTPolyGlyph::FTPolyGlyph( FT_Glyph glyph, int gi)
 	numPoints(0),
 	numContours(0),
 	contourLength(0),
-	data(0)
+	data(0),
+	glList(0)
 {
 	if( glyph->format == ft_glyph_format_outline)
 	{
@@ -142,10 +143,11 @@ void FTPolyGlyph::Tesselate()
 FTPolyGlyph::~FTPolyGlyph()
 {
 	delete [] data;
+	delete [] contourLength;
 }
 
 
-float FTPolyGlyph::Render( FT_Vector& pen)
+float FTPolyGlyph::Render( const FT_Vector& pen)
 {
 	glTranslatef( pen.x, pen.y, 0);
 		glCallList( glList);	

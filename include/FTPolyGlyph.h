@@ -15,7 +15,7 @@ class	FTPolyGlyph : public FTGlyph
 		// methods
 		FTPolyGlyph( FT_Glyph glyph, int glyphIndex);
 		virtual ~FTPolyGlyph();
-		virtual float Render( FT_Vector& pen);
+		virtual float Render( const FT_Vector& pen);
 		
 		// attributes
 	
@@ -27,8 +27,9 @@ class	FTPolyGlyph : public FTGlyph
 		FTVectoriser* vectoriser;
 		int numPoints;
 		int numContours;
-		int * contourLength;
-		float* data;
+		int contourFlag; 
+		int* contourLength;
+		double* data;
 		int glList;
 	
 };
