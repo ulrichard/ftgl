@@ -21,14 +21,14 @@ inline UInt32 NextPowerOf2( UInt32 in)
 
 
 FTGLTextureFont::FTGLTextureFont()
-:	numTextures(1),
-	textMem(0),
-	padding(1),
-	maxTextSize(0),
+:	maxTextSize(0),
 	textureWidth(0),
 	textureHeight(0),
+	numTextures(1),
+	textMem(0),
 	glyphHeight(0),
-	glyphWidth(0)
+	glyphWidth(0),
+	padding(1)
 {}
 
 

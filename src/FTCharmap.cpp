@@ -2,8 +2,8 @@
 
 
 FTCharmap::FTCharmap( FT_Face face)
-:	err(0),
-	ftFace( face)
+:	ftFace( face),
+	err(0)
 {
 	ftEncoding = face->charmap->encoding;
 }
