@@ -100,7 +100,7 @@ class  FTGL_EXPORT FTGLTextureFont : public FTFont
         /**
          *An array of texture ids
          */
-        unsigned long glTextureID[1024];
+        unsigned long glTextureID[128];
         
         /**
          * The number of textures required to hold the glyphs
