@@ -1,5 +1,5 @@
-FTGL 1.3b3
-November 13 2001
+FTGL 1.3b4
+December 11 2001
 
 DESCRIPTION:
 
