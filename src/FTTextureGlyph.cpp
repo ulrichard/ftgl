@@ -1,24 +1,23 @@
 #include    "FTTextureGlyph.h"
 
 
-FTTextureGlyph::FTTextureGlyph( FT_Glyph glyph, int id, int xOffset, int yOffset, GLsizei width, GLsizei height)
+FTTextureGlyph::FTTextureGlyph( FT_GlyphSlot glyph, int id, int xOffset, int yOffset, GLsizei width, GLsizei height)
 :   FTGlyph( glyph),
     destWidth(0),
     destHeight(0),
     glTextureID(id),
     activeTextureID(0)
 {
-    err = FT_Glyph_To_Bitmap( &glyph, FT_RENDER_MODE_NORMAL, 0, 1);
+    err = FT_Render_Glyph( glyph, FT_RENDER_MODE_NORMAL);
     if( err || glyph->format != ft_glyph_format_bitmap)
     {
         return;
     }
 
-    FT_BitmapGlyph  bitmap = ( FT_BitmapGlyph)glyph;
-    FT_Bitmap*      source = &bitmap->bitmap;
+    FT_Bitmap      bitmap = glyph->bitmap;
 
-    destWidth  = source->width;
-    destHeight = source->rows;
+    destWidth  = bitmap.width;
+    destHeight = bitmap.rows;
     
     if( destWidth && destHeight)
     {
@@ -28,7 +27,7 @@ FTTextureGlyph::FTTextureGlyph( FT_Glyph glyph, int id, int xOffset, int yOffset
         glPixelStorei( GL_UNPACK_ALIGNMENT, 1);
 
         glBindTexture( GL_TEXTURE_2D, glTextureID);
-        glTexSubImage2D( GL_TEXTURE_2D, 0, xOffset, yOffset, destWidth, destHeight, GL_ALPHA, GL_UNSIGNED_BYTE, source->buffer);
+        glTexSubImage2D( GL_TEXTURE_2D, 0, xOffset, yOffset, destWidth, destHeight, GL_ALPHA, GL_UNSIGNED_BYTE, bitmap.buffer);
 
         glPopClientAttrib();
     }
@@ -47,10 +46,8 @@ FTTextureGlyph::FTTextureGlyph( FT_Glyph glyph, int id, int xOffset, int yOffset
     uv[1].x = static_cast<float>( xOffset + destWidth) / static_cast<float>(width);
     uv[1].y = static_cast<float>( yOffset + destHeight) / static_cast<float>(height);
     
-    pos.x = bitmap->left;
-    pos.y = bitmap->top;
-    
-    FT_Done_Glyph( glyph);
+    pos.x = glyph->bitmap_left;
+    pos.y = glyph->bitmap_top;
 }
 
 

@@ -23,11 +23,11 @@ class FTGL_EXPORT FTPolyGlyph : public FTGlyph
 {
     public:
         /**
-         * Constructor
+         * Constructor. Sets the Error to Invalid_Outline if the glyphs isn't an outline.
          *
          * @param glyph The Freetype glyph to be processed
          */
-        FTPolyGlyph( FT_Glyph glyph);
+        FTPolyGlyph( FT_GlyphSlot glyph);
 
         /**
          * Destructor

@@ -4,7 +4,7 @@
 #include    "FTVectoriser.h"
 
 
-FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
+FTExtrdGlyph::FTExtrdGlyph( FT_GlyphSlot glyph, float d)
 :   FTGlyph( glyph),
     glList(0),
     depth(d)
@@ -13,6 +13,7 @@ FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
         
     if( ft_glyph_format_outline != glyph->format)
     {
+        err = 0x14; // Invalid_Outline
         return;
     }
 
@@ -95,8 +96,6 @@ FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
         }
         
     glEndList();
-
-    FT_Done_Glyph( glyph); // Why does this have to be HERE
 }
 
 

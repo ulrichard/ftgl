@@ -2,12 +2,13 @@
 #include "FTVectoriser.h"
 
 
-FTPolyGlyph::FTPolyGlyph( FT_Glyph glyph)
+FTPolyGlyph::FTPolyGlyph( FT_GlyphSlot glyph)
 :   FTGlyph( glyph),
     glList(0)
 {
     if( ft_glyph_format_outline != glyph->format)
     {
+        err = 0x14; // Invalid_Outline
         return;
     }
 
@@ -39,8 +40,6 @@ FTPolyGlyph::FTPolyGlyph( FT_Glyph glyph)
             glEnd();
         }
     glEndList();
-
-    FT_Done_Glyph( glyph);
 }
 
 

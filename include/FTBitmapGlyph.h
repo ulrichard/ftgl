@@ -28,7 +28,7 @@ class FTGL_EXPORT FTBitmapGlyph : public FTGlyph
          *
          * @param glyph The Freetype glyph to be processed
          */
-        FTBitmapGlyph( FT_Glyph glyph);
+        FTBitmapGlyph( FT_GlyphSlot glyph);
 
         /**
          * Destructor

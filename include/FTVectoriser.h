@@ -182,7 +182,7 @@ class FTGL_EXPORT FTVectoriser
          *
          * @param glyph The freetype glyph to be processed
          */
-        FTVectoriser( const FT_Glyph glyph);
+        FTVectoriser( const FT_GlyphSlot glyph);
 
         /**
          *  Destructor
@@ -267,7 +267,7 @@ class FTGL_EXPORT FTVectoriser
         /**
          * A Freetype outline
          */
-        FT_Outline ftOutline;
+        FT_Outline outline;
 };
 
 

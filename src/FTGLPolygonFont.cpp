@@ -18,11 +18,11 @@ FTGLPolygonFont::~FTGLPolygonFont()
 
 FTGlyph* FTGLPolygonFont::MakeGlyph( unsigned int g)
 {
-    FT_Glyph* ftGlyph = face.Glyph( g, FT_LOAD_NO_HINTING);
+    FT_GlyphSlot ftGlyph = face.Glyph( g, FT_LOAD_NO_HINTING);
 
     if( ftGlyph)
     {
-        FTPolyGlyph* tempGlyph = new FTPolyGlyph( *ftGlyph);
+        FTPolyGlyph* tempGlyph = new FTPolyGlyph( ftGlyph);
         return tempGlyph;
     }
 

@@ -2,12 +2,13 @@
 #include    "FTVectoriser.h"
 
 
-FTOutlineGlyph::FTOutlineGlyph( FT_Glyph glyph)
+FTOutlineGlyph::FTOutlineGlyph( FT_GlyphSlot glyph)
 :   FTGlyph( glyph),
     glList(0)
 {
     if( ft_glyph_format_outline != glyph->format)
     {
+        err = 0x14; // Invalid_Outline
         return;
     }
 
@@ -33,10 +34,6 @@ FTOutlineGlyph::FTOutlineGlyph( FT_Glyph glyph)
             glEnd();
         }
     glEndList();
-
-
-    // discard glyph image (bitmap or not)
-    FT_Done_Glyph( glyph); // Why does this have to be HERE
 }
 
 

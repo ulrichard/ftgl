@@ -33,7 +33,7 @@ class FTGL_EXPORT FTTextureGlyph : public FTGlyph
          * @param width     The width of the parent texture
          * @param height    The height (number of rows) of the parent texture
          */
-        FTTextureGlyph( FT_Glyph glyph, int id, int xOffset, int yOffset, GLsizei width, GLsizei height);
+        FTTextureGlyph( FT_GlyphSlot glyph, int id, int xOffset, int yOffset, GLsizei width, GLsizei height);
 
         /**
          * Destructor

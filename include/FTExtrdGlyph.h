@@ -22,12 +22,12 @@ class FTGL_EXPORT FTExtrdGlyph : public FTGlyph
 {
     public:
         /**
-         * Constructor
+         * Constructor. Sets the Error to Invalid_Outline if the glyphs isn't an outline.
          *
          * @param glyph The Freetype glyph to be processed
          * @param depth The distance along the z axis to extrude the glyph
          */
-        FTExtrdGlyph( FT_Glyph glyph, float depth);
+        FTExtrdGlyph( FT_GlyphSlot glyph, float depth);
 
         /**
          * Destructor

@@ -89,7 +89,7 @@ class FTGL_EXPORT FTFace
         /**
          * Loads and creates a Freetype glyph.
          */
-        FT_Glyph* Glyph( unsigned int index, FT_Int load_flags);
+        FT_GlyphSlot Glyph( unsigned int index, FT_Int load_flags);
 
         /**
          * Gets the number of glyphs in the current face.
@@ -114,11 +114,6 @@ class FTGL_EXPORT FTFace
          */
         FTSize  charSize;
         
-        /**
-         * Temporary variable to hold a glyph
-         */
-        FT_Glyph ftGlyph;
-
         /**
          * The number of glyphs in this face
          */

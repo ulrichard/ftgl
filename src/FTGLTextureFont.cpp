@@ -58,7 +58,7 @@ FTGLTextureFont::~FTGLTextureFont()
 
 FTGlyph* FTGLTextureFont::MakeGlyph( unsigned int glyphIndex)
 {
-    FT_Glyph* ftGlyph = face.Glyph( glyphIndex, FT_LOAD_NO_HINTING);
+    FT_GlyphSlot ftGlyph = face.Glyph( glyphIndex, FT_LOAD_NO_HINTING);
     
     if( ftGlyph)
     {
@@ -85,7 +85,7 @@ FTGlyph* FTGLTextureFont::MakeGlyph( unsigned int glyphIndex)
             }
         }
         
-        FTTextureGlyph* tempGlyph = new FTTextureGlyph( *ftGlyph, glTextureID[numTextures - 1],
+        FTTextureGlyph* tempGlyph = new FTTextureGlyph( ftGlyph, glTextureID[numTextures - 1],
                                                         xOffset, yOffset, textureWidth, textureHeight);
         xOffset += static_cast<int>( tempGlyph->BBox().upperX - tempGlyph->BBox().lowerX + padding);
         

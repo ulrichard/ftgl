@@ -2,24 +2,23 @@
 
 #include "FTBitmapGlyph.h"
 
-FTBitmapGlyph::FTBitmapGlyph( FT_Glyph glyph)
+FTBitmapGlyph::FTBitmapGlyph( FT_GlyphSlot glyph)
 :   FTGlyph( glyph),
     destWidth(0),
     destHeight(0),
     data(0)
 {
-    err = FT_Glyph_To_Bitmap( &glyph, FT_RENDER_MODE_MONO, 0, 1);
+    err = FT_Render_Glyph( glyph, FT_RENDER_MODE_MONO);
     if( err || ft_glyph_format_bitmap != glyph->format)
     {
         return;
     }
 
-    FT_BitmapGlyph  bitmap = (FT_BitmapGlyph)glyph;
-    FT_Bitmap*      source = &bitmap->bitmap;
+    FT_Bitmap bitmap = glyph->bitmap;
 
-    unsigned int srcWidth = source->width;
-    unsigned int srcHeight = source->rows;
-    unsigned int srcPitch = source->pitch;
+    unsigned int srcWidth = bitmap.width;
+    unsigned int srcHeight = bitmap.rows;
+    unsigned int srcPitch = bitmap.pitch;
     
     destWidth = srcWidth;
     destHeight = srcHeight;
@@ -30,7 +29,7 @@ FTBitmapGlyph::FTBitmapGlyph( FT_Glyph glyph)
         data = new unsigned char[destPitch * destHeight];
         unsigned char* dest = data + (( destHeight - 1) * destPitch);
 
-        unsigned char* src = source->buffer;
+        unsigned char* src = bitmap.buffer;
 
         for( unsigned int y = 0; y < srcHeight; ++y)
         {
@@ -40,10 +39,8 @@ FTBitmapGlyph::FTBitmapGlyph( FT_Glyph glyph)
         }
     }
     
-    pos.x = bitmap->left;
-    pos.y = static_cast<int>(srcHeight) - bitmap->top;
-    
-    FT_Done_Glyph( glyph );
+    pos.x = glyph->bitmap_left;
+    pos.y = static_cast<int>(srcHeight) - glyph->bitmap_top;
 }
 
 

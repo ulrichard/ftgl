@@ -1,25 +1,24 @@
 #include    "FTPixmapGlyph.h"
 
-FTPixmapGlyph::FTPixmapGlyph( FT_Glyph glyph)
+FTPixmapGlyph::FTPixmapGlyph( FT_GlyphSlot glyph)
 :   FTGlyph( glyph),
     destWidth(0),
     destHeight(0),
     data(0)
 {
-    err = FT_Glyph_To_Bitmap( &glyph, FT_RENDER_MODE_NORMAL, 0, 1);
+    err = FT_Render_Glyph( glyph, FT_RENDER_MODE_NORMAL);
     if( err || ft_glyph_format_bitmap != glyph->format)
     {
         return;
     }
 
-    FT_BitmapGlyph  bitmap = (FT_BitmapGlyph)glyph;
-    FT_Bitmap*      source = &bitmap->bitmap;
+    FT_Bitmap bitmap = glyph->bitmap;
 
     //check the pixel mode
     //ft_pixel_mode_grays
         
-    int srcWidth = source->width;
-    int srcHeight = source->rows;
+    int srcWidth = bitmap.width;
+    int srcHeight = bitmap.rows;
     
    // FIXME What about dest alignment?
     destWidth = srcWidth;
@@ -37,7 +36,7 @@ FTPixmapGlyph::FTPixmapGlyph( FT_Glyph glyph)
         unsigned char greenComponent = static_cast<unsigned char>( ftglColour[1] * 255.0f);
         unsigned char blueComponent =  static_cast<unsigned char>( ftglColour[2] * 255.0f);
 
-        unsigned char* src = source->buffer;
+        unsigned char* src = bitmap.buffer;
 
         unsigned char* dest = data + ((destHeight - 1) * destWidth) * 4;
         size_t destStep = destWidth * 4 * 2;
@@ -74,10 +73,8 @@ FTPixmapGlyph::FTPixmapGlyph( FT_Glyph glyph)
         destHeight = srcHeight;
     }
 
-    pos.x = bitmap->left;
-    pos.y = srcHeight - bitmap->top;
-    
-    FT_Done_Glyph( glyph );
+    pos.x = glyph->bitmap_left;
+    pos.y = srcHeight - glyph->bitmap_top;
 }
 
 

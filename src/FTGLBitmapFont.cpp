@@ -18,11 +18,11 @@ FTGLBitmapFont::~FTGLBitmapFont()
 
 FTGlyph* FTGLBitmapFont::MakeGlyph( unsigned int g)
 {
-    FT_Glyph* ftGlyph = face.Glyph( g, FT_LOAD_DEFAULT);
+    FT_GlyphSlot ftGlyph = face.Glyph( g, FT_LOAD_DEFAULT);
 
     if( ftGlyph)
     {
-        FTBitmapGlyph* tempGlyph = new FTBitmapGlyph( *ftGlyph);
+        FTBitmapGlyph* tempGlyph = new FTBitmapGlyph( ftGlyph);
         return tempGlyph;
     }
 

@@ -11,10 +11,10 @@
 class TestGlyph : public FTGlyph
 {
     public:
-        TestGlyph( FT_Glyph glyph)
+        TestGlyph( FT_GlyphSlot glyph)
         :   FTGlyph( glyph)
         {
-            FT_Done_Glyph( glyph );
+//            FT_Done_Glyph( glyph );
         }
         
         float Render( const FTPoint& pen){ return advance;}
@@ -34,11 +34,11 @@ class TestFont : public FTFont
 
         FTGlyph* MakeGlyph( unsigned int g)
         {
-            FT_Glyph* ftGlyph = face.Glyph( g, FT_LOAD_NO_HINTING);
+            FT_GlyphSlot ftGlyph = face.Glyph( g, FT_LOAD_NO_HINTING);
         
             if( ftGlyph)
             {
-                TestGlyph* tempGlyph = new TestGlyph( *ftGlyph);
+                TestGlyph* tempGlyph = new TestGlyph( ftGlyph);
                 return tempGlyph;
             }
         

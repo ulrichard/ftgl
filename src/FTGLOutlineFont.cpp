@@ -18,11 +18,11 @@ FTGLOutlineFont::~FTGLOutlineFont()
 
 FTGlyph* FTGLOutlineFont::MakeGlyph( unsigned int g)
 {
-    FT_Glyph* ftGlyph = face.Glyph( g, FT_LOAD_NO_HINTING);
+    FT_GlyphSlot ftGlyph = face.Glyph( g, FT_LOAD_NO_HINTING);
 
     if( ftGlyph)
     {
-        FTOutlineGlyph* tempGlyph = new FTOutlineGlyph( *ftGlyph);
+        FTOutlineGlyph* tempGlyph = new FTOutlineGlyph( ftGlyph);
         return tempGlyph;
     }
 

@@ -98,7 +98,7 @@ const FTTesselation* const FTMesh::Tesselation( unsigned int index) const
 }
 
 
-FTVectoriser::FTVectoriser( const FT_Glyph glyph)
+FTVectoriser::FTVectoriser( const FT_GlyphSlot glyph)
 :   contourList(0),
     mesh(0),
     ftContourCount(0),
@@ -106,12 +106,11 @@ FTVectoriser::FTVectoriser( const FT_Glyph glyph)
 {
     if( glyph)
     {
-        FT_OutlineGlyph outline = (FT_OutlineGlyph)glyph;
-        ftOutline = outline->outline;
+        outline = glyph->outline;
         
-        ftContourCount = ftOutline.n_contours;;
+        ftContourCount = outline.n_contours;;
         contourList = 0;
-        contourFlag = ftOutline.flags;
+        contourFlag = outline.flags;
         
         ProcessContours();
     }
@@ -140,10 +139,10 @@ void FTVectoriser::ProcessContours()
     
     for( short contourIndex = 0; contourIndex < ftContourCount; ++contourIndex)
     {
-        FT_Vector* pointList = &ftOutline.points[startIndex];
-        char* tagList = &ftOutline.tags[startIndex];
+        FT_Vector* pointList = &outline.points[startIndex];
+        char* tagList = &outline.tags[startIndex];
         
-        endIndex = ftOutline.contours[contourIndex];
+        endIndex = outline.contours[contourIndex];
         contourLength =  ( endIndex - startIndex) + 1;
 
         FTContour* contour = new FTContour( pointList, tagList, contourLength);
