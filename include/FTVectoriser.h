@@ -123,12 +123,13 @@ class FTGL_EXPORT FTMesh
 
 /**
  * FTVectoriser class is a helper class that converts font outlines into
- * point data. It includes a bezier curve evaluator
+ * point data.
  *
+ * @see FTExtrdGlyph
  * @see FTOutlineGlyph
  * @see FTPolyGlyph
  * @see FTContour
- * @see ftPoint
+ * @see FTPoint
  *
  */
 class FTGL_EXPORT FTVectoriser
@@ -210,7 +211,7 @@ class FTGL_EXPORT FTVectoriser
         
     private:
         /**
-         * The list of contours in this outline
+         * The list of contours in the glyph
          */
         typedef FTVector<FTContour*> ContourVector;
         ContourVector contourList;
@@ -218,15 +219,10 @@ class FTGL_EXPORT FTVectoriser
         /**
          * A Mesh for tesselations
          */
-        FTContour* contour;
-            
-        /**
-         * A Mesh for tesselations
-         */
         FTMesh* mesh;
 
         /**
-        * A flag indicating the tesselation rule for this outline
+        * A flag indicating the tesselation rule for the glyph
          */
         int contourFlag;
 

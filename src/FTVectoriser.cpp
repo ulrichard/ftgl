@@ -103,8 +103,7 @@ int FTMesh::size() const
 
 
 FTVectoriser::FTVectoriser( const FT_Glyph glyph)
-:   contour(0),
-    mesh(0),
+:   mesh(0),
     contourFlag(0),
     kBSTEPSIZE( 0.2f)
 {
@@ -148,9 +147,9 @@ void FTVectoriser::ProcessContours()
         endIndex = ftOutline.contours[contourIndex];
         contourLength =  ( endIndex - startIndex) + 1;
 
-        FTContour* countour = new FTContour( pointList, tagList, contourLength);
+        FTContour* contour = new FTContour( pointList, tagList, contourLength);
         
-        contourList.push_back( countour);
+        contourList.push_back( contour);
         
         startIndex = endIndex + 1;
     }
