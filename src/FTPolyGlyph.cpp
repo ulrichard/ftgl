@@ -11,7 +11,7 @@
 #endif
 
 
-void ftglError( GLenum errCode)
+void CALLBACK ftglError( GLenum errCode)
 {
 //	const GLubyte* estring;
 //	estring = gluErrorString( errCode);
@@ -19,25 +19,25 @@ void ftglError( GLenum errCode)
 //	exit(1);
 }
 
-void ftglVertex( void* data)
+void CALLBACK ftglVertex( void* data)
 {
 	glVertex3dv( (double*)data);
 }
 
 
-void ftglBegin( GLenum type)
+void CALLBACK ftglBegin( GLenum type)
 {
 	glBegin( type);
 }
 
 
-void ftglEnd()
+void CALLBACK ftglEnd()
 {
 	glEnd();
 }
 
 
-void ftglCombine( GLdouble coords[3], void* vertex_data[4], GLfloat weight[4], void** outData)
+void CALLBACK ftglCombine( GLdouble coords[3], void* vertex_data[4], GLfloat weight[4], void** outData)
 {
 	double* vertex = new double[3]; // FIXME MEM LEAK
 	
