@@ -60,6 +60,7 @@ class FTFontTest : public CppUnit::TestCase
         CPPUNIT_TEST( testGetCharmapList);
         CPPUNIT_TEST( testBoundingBox);
         CPPUNIT_TEST( testAdvance);
+        CPPUNIT_TEST( testRender);
     CPPUNIT_TEST_SUITE_END();
 
     public:
@@ -105,6 +106,7 @@ class FTFontTest : public CppUnit::TestCase
         {
             CPPUNIT_ASSERT_DOUBLES_EQUAL( 0, testFont->Ascender(), 0.01);
             CPPUNIT_ASSERT_DOUBLES_EQUAL( 0, testFont->Descender(), 0.01);
+            CPPUNIT_ASSERT_DOUBLES_EQUAL( 0, testFont->LineHeight(), 0.01);
 
             float advance = testFont->Advance( GOOD_UNICODE_TEST_STRING);
             CPPUNIT_ASSERT( advance == 0);
@@ -116,6 +118,7 @@ class FTFontTest : public CppUnit::TestCase
             
             CPPUNIT_ASSERT_DOUBLES_EQUAL(  52, testFont->Ascender(), 0.01);
             CPPUNIT_ASSERT_DOUBLES_EQUAL( -15, testFont->Descender(), 0.01);
+            CPPUNIT_ASSERT_DOUBLES_EQUAL(  81.86, testFont->LineHeight(), 0.01);
         
             CPPUNIT_ASSERT( testFont->FaceSize( FONT_POINT_SIZE * 2));
             CPPUNIT_ASSERT( testFont->Error() == 0);
@@ -124,6 +127,7 @@ class FTFontTest : public CppUnit::TestCase
         
             CPPUNIT_ASSERT_DOUBLES_EQUAL( 104, testFont->Ascender(), 0.01);
             CPPUNIT_ASSERT_DOUBLES_EQUAL( -29, testFont->Descender(), 0.01);
+            CPPUNIT_ASSERT_DOUBLES_EQUAL( 163.72, testFont->LineHeight(), 0.01);
         }
         
         
@@ -217,6 +221,12 @@ class FTFontTest : public CppUnit::TestCase
             
             advance = testFont->Advance( BAD_UNICODE_TEST_STRING);
             CPPUNIT_ASSERT_DOUBLES_EQUAL( 0, advance, 0.01);
+        }
+        
+        void testRender()
+        {
+            testFont->Render(GOOD_ASCII_TEST_STRING);
+            CPPUNIT_ASSERT( testFont->Error() == 0);    
         }
         
         

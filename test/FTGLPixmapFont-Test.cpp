@@ -13,6 +13,7 @@ class FTGLPixmapFontTest : public CppUnit::TestCase
 {
     CPPUNIT_TEST_SUITE( FTGLPixmapFontTest);
         CPPUNIT_TEST( testConstructor);
+        CPPUNIT_TEST( testRender);
     CPPUNIT_TEST_SUITE_END();
         
     public:
@@ -33,6 +34,18 @@ class FTGLPixmapFontTest : public CppUnit::TestCase
             FTGLPixmapFont* pixmapFont = new FTGLPixmapFont( FONT_FILE);            
             CPPUNIT_ASSERT( pixmapFont->Error() == 0);
         
+            CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);        
+        }
+
+        void testRender()
+        {
+            buildGLContext();
+        
+            FTGLPixmapFont* pixmapFont = new FTGLPixmapFont( FONT_FILE);            
+            pixmapFont->FaceSize(18);
+            pixmapFont->Render(GOOD_ASCII_TEST_STRING);
+
+            CPPUNIT_ASSERT( pixmapFont->Error() == 0);        
             CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);        
         }
 
