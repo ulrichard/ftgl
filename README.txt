@@ -66,9 +66,11 @@ not call size with default size.
 Might have to move the init code out of the glyph constructors into an
 init function so that they can return errors.
 
-good site...http://cgm.cs.mcgill.ca/~luc/
+good sites...
+http://cgm.cs.mcgill.ca/~luc/
+http://www.blackpawn.com/texts/lightmaps/default.html
 
-	glGetIntegerv( GL_TEXTURE_2D_BINDING_EXT, &activeTextureID);
+glGetIntegerv( GL_TEXTURE_2D_BINDING_EXT, &activeTextureID);
 should really check at run time.
 
 
