@@ -17,19 +17,43 @@ class FTPixmapGlyph;
 class FTGL_EXPORT FTGLPixmapFont : public FTFont
 {
 	public:
-		// methods
+		/**
+		 * Default Constructor
+		 */
 		FTGLPixmapFont();
+		
+		/**
+		 * Destructor
+		 */
 		~FTGLPixmapFont();
 		
+		/**
+		 * Renders a string of characters
+		 * 
+		 * @param string	'C' style string to be output.	 
+		 */
 		void render( const char* string);
+		
+		/**
+		 * Renders a string of characters
+		 * 
+		 * @param string	wchar_t string to be output.	 
+		 */
 		void render( const wchar_t* string);
 
 
 	private:
-		// methods
+		/**
+		 * Constructs the internal glyph cache.
+		 *
+		 * This a list of glyphs processed for openGL rendering NOT
+		 * freetype glyphs
+		 */
 		bool MakeGlyphList();
 		
-		// attributes
+		/**
+		 * A temporary FTPixmapGlyph used for building the glyphList
+		 */
 		FTPixmapGlyph* tempGlyph;
 		
 };

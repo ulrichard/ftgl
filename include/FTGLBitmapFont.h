@@ -37,7 +37,7 @@ class FTGL_EXPORT FTGLBitmapFont : public FTFont
 		/**
 		 * Renders a string of characters
 		 * 
-		 * @param string	'C' style string to be output.	 
+		 * @param string	'C' style wide string to be output.	 
 		 */
 		void render( const wchar_t* string);
 

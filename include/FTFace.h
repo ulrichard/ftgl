@@ -61,6 +61,9 @@ class FTGL_EXPORT FTFace
 		/**
 		 * Sets the character map for the face.
 		 *
+		 * This doesn't guarantee that the size was set correctly. Clients
+		 * should check errors.
+		 *
 		 * @param encoding		the Freetype encoding symbol. See above.
 		 * @return				<code>true</code> if charmap was valid
 		 *						and set correctly

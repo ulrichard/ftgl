@@ -17,17 +17,28 @@ class FTPolyGlyph;
 class FTGL_EXPORT FTGLPolygonFont : public FTFont
 {
 	public:
-		// methods
+		/**
+		 * Default Constructor
+		 */
 		FTGLPolygonFont();
+		
+		/**
+		 * Destructor
+		 */
 		~FTGLPolygonFont();
 		
-		// attributes
-		
 	private:
-		// methods
+		/**
+		 * Constructs the internal glyph cache.
+		 *
+		 * This a list of glyphs processed for openGL rendering NOT
+		 * freetype glyphs
+		 */
 		bool MakeGlyphList();
 		
-		// attributes
+		/**
+		 * A temporary FTPolyGlyph used for building the glyphList
+		 */
 		FTPolyGlyph* tempGlyph;
 
 		

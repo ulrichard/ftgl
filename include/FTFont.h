@@ -120,8 +120,7 @@ class FTGL_EXPORT FTFont
 		 * @param string	wchar_t string to be output.	 
 		 */
 		virtual void render( const wchar_t* string );
-		
-		
+
 		/**
 		 * Queries the Font for errors.
 		 *
@@ -143,6 +142,7 @@ class FTGL_EXPORT FTFont
 		 * Current face object
 		 */
 		FTFace face;
+		
 		/**
 		 * Number of faces in this font
 		 */

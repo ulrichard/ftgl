@@ -29,7 +29,6 @@
 class FTGL_EXPORT FTLibrary
 {
 	public:
-		// methods
 		/**
 		 * Global acces point to the single FTLibrary object.
 		 * 
@@ -58,10 +57,7 @@ class FTGL_EXPORT FTLibrary
 		 */
 		virtual  ~FTLibrary();
 		
-		// attributes
-		
 	private:
-		// methods
 		/**
 		 * Default constructors.
 		 *
@@ -83,8 +79,6 @@ class FTGL_EXPORT FTLibrary
 		 * 			otherwise.
 		 */
 		bool Init();
-		
-		// attributes
 		/**
 		 * Freetype library handle.
 		 */

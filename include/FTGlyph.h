@@ -10,7 +10,7 @@
 //#include "FTGL.h"
 
 /**
- * FTGlyph is the base clas for FTGL glyphs.
+ * FTGlyph is the base class for FTGL glyphs.
  *
  * It provides the interface between Freetype glyphs and their openGL
  * renderable counterparts. This is an abstract class and derived classes
