@@ -38,7 +38,7 @@ class FTGL_EXPORT FTContour
         /**
          * Return a point at index.
          *
-         * @param the index in the curve of the point.
+         * @param index of the point in the curve.
          * @return const point reference
          */
         const FTPoint& Point( unsigned int index) const { return pointList[index];}
