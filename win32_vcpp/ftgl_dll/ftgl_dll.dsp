@@ -55,7 +55,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /machine:I386
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib opengl32.lib glu32.lib freetype204.lib /nologo /dll /machine:I386 /out:"../Build/ftgl_dynamic_ST.dll" /libpath:"D:\cots\freetype-2.0.5\objs"
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib opengl32.lib glu32.lib freetype204.lib /nologo /dll /machine:I386 /out:"../Build/ftgl_dynamic_MT.dll" /libpath:"D:\cots\freetype-2.0.5\objs"
 
 !ELSEIF  "$(CFG)" == "ftgl_dll - Win32 Debug"
 
@@ -81,7 +81,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib opengl32.lib glu32.lib freetype204_D.lib /nologo /dll /pdb:"Debug_ST/ftgl_dynamic_ST_d.pdb" /debug /machine:I386 /out:"../Build/ftgl_dynamic_ST_d.dll" /pdbtype:sept /libpath:"D:\cots\freetype-2.0.5\objs"
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib opengl32.lib glu32.lib freetype204_D.lib /nologo /dll /pdb:"Debug_ST/ftgl_dynamic_ST_d.pdb" /debug /machine:I386 /out:"../Build/ftgl_dynamic_MT_d.dll" /pdbtype:sept /libpath:"D:\cots\freetype-2.0.5\objs"
 # SUBTRACT LINK32 /pdb:none
 
 !ELSEIF  "$(CFG)" == "ftgl_dll - Win32 Release MT"
@@ -108,7 +108,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /machine:I386
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib opengl32.lib glu32.lib freetype204MT.lib /nologo /dll /machine:I386 /out:"../Build/ftgl_dynamic_MT.dll" /libpath:"D:\cots\freetype-2.0.5\objs"
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib opengl32.lib glu32.lib freetype204MT.lib /nologo /dll /machine:I386 /out:"../Build/ftgl_dynamic_MTD.dll" /libpath:"D:\cots\freetype-2.0.5\objs"
 
 !ELSEIF  "$(CFG)" == "ftgl_dll - Win32 Debug MT"
 
@@ -134,7 +134,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib opengl32.lib glu32.lib freetype204MT_D.lib /nologo /dll /pdb:"Debug_ST/ftgl_dynamic_MT_d.pdb" /debug /machine:I386 /out:"../Build/ftgl_dynamic_MT_d.dll" /pdbtype:sept /libpath:"D:\cots\freetype-2.0.5\objs"
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib opengl32.lib glu32.lib freetype204MT_D.lib /nologo /dll /pdb:"Debug_ST/ftgl_dynamic_MT_d.pdb" /debug /machine:I386 /out:"../Build/ftgl_dynamic_MTD_d.dll" /pdbtype:sept /libpath:"D:\cots\freetype-2.0.5\objs"
 # SUBTRACT LINK32 /pdb:none
 
 !ENDIF 

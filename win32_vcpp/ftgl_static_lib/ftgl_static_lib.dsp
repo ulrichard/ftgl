@@ -51,7 +51,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo
-# ADD LIB32 /nologo /out:"..\Build\ftgl_static_ST.lib"
+# ADD LIB32 /nologo /out:"..\Build\ftgl_static_MT.lib"
 
 !ELSEIF  "$(CFG)" == "ftgl_static_lib - Win32 Debug"
 
@@ -74,7 +74,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo
-# ADD LIB32 /nologo /out:"..\Build\ftgl_static_ST_d.lib"
+# ADD LIB32 /nologo /out:"..\Build\ftgl_static_MT_d.lib"
 
 !ELSEIF  "$(CFG)" == "ftgl_static_lib - Win32 Debug MT"
 
@@ -97,7 +97,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo
-# ADD LIB32 /nologo /out:"..\Build\ftgl_static_MT_d.lib"
+# ADD LIB32 /nologo /out:"..\Build\ftgl_static_MTD_d.lib"
 
 !ELSEIF  "$(CFG)" == "ftgl_static_lib - Win32 Release MT"
 
@@ -120,7 +120,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo
-# ADD LIB32 /nologo /out:"..\Build\ftgl_static_MT.lib"
+# ADD LIB32 /nologo /out:"..\Build\ftgl_static_MTD.lib"
 
 !ENDIF 
 
