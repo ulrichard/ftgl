@@ -46,10 +46,20 @@ class FTGL_EXPORT FTBBox
          * @param glyph A freetype glyph
          */
         FTBBox( FT_GlyphSlot glyph)
+        :   lowerX(0.0f),
+            lowerY(0.0f),
+            lowerZ(0.0f),
+            upperX(0.0f),
+            upperY(0.0f),
+            upperZ(0.0f)
         {
             FT_BBox bbox;
             FT_Glyph glyphImage;
-            FT_Get_Glyph( glyph, &glyphImage ); // FIXME err
+            if( FT_Get_Glyph( glyph, &glyphImage ))
+            {
+                return;
+            }
+            
             FT_Glyph_Get_CBox( glyphImage, ft_glyph_bbox_subpixels, &bbox );
             
             lowerX = static_cast<float>( bbox.xMin) / 64.0f;
@@ -57,7 +67,9 @@ class FTGL_EXPORT FTBBox
             lowerZ = 0.0f;
             upperX = static_cast<float>( bbox.xMax) / 64.0f;
             upperY = static_cast<float>( bbox.yMax) / 64.0f;
-            upperZ = 0.0f; 
+            upperZ = 0.0f;
+            
+            FT_Done_Glyph( glyphImage);
         }       
 
         /**
