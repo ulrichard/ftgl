@@ -39,8 +39,6 @@ class FTBitmapGlyphTest : public CppUnit::TestCase
             error = FT_Load_Char( face, CHARACTER_CODE_A, FT_LOAD_DEFAULT);
             assert( !error);
         
-//            makeBitMap( glyph);
-            
             FTBitmapGlyph* bitmapGlyph = new FTBitmapGlyph( face->glyph);            
             CPPUNIT_ASSERT( bitmapGlyph->Error() == 0);
         
@@ -49,13 +47,6 @@ class FTBitmapGlyphTest : public CppUnit::TestCase
             
         }
 
-            
-        void makeBitMap( FT_Glyph glyph)
-        {
-            FT_Error error = FT_Glyph_To_Bitmap( &glyph, FT_RENDER_MODE_MONO, 0, 0);
-            assert( !error);
-        }
-        
         void setUp() 
         {}
         
