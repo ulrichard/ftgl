@@ -104,7 +104,9 @@ FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
 
 
 FTExtrdGlyph::~FTExtrdGlyph()
-{}
+{
+    glDeleteLists( glList, 1);
+}
 
 
 float FTExtrdGlyph::Render( const FTPoint& pen)

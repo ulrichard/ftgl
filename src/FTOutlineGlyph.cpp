@@ -43,7 +43,9 @@ FTOutlineGlyph::FTOutlineGlyph( FT_Glyph glyph)
 
 
 FTOutlineGlyph::~FTOutlineGlyph()
-{}
+{
+    glDeleteLists( glList, 1);
+}
 
 
 float FTOutlineGlyph::Render( const FTPoint& pen)

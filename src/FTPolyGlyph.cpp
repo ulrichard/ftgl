@@ -13,15 +13,15 @@ FTPolyGlyph::FTPolyGlyph( FT_Glyph glyph)
 
     FTVectoriser* vectoriser = new FTVectoriser( glyph);
 
-    if ( ( vectoriser->ContourCount() < 1) || ( vectoriser->PointCount() < 3))
+    if(( vectoriser->ContourCount() < 1) || ( vectoriser->PointCount() < 3))
     {
         delete vectoriser;
         return;
     }
 
-    vectoriser->MakeMesh(1.0);
+    vectoriser->MakeMesh( 1.0);
     
-    glList = glGenLists(1);
+    glList = glGenLists( 1);
     glNewList( glList, GL_COMPILE);
 
         const FTMesh* mesh = vectoriser->GetMesh();
@@ -41,13 +41,14 @@ FTPolyGlyph::FTPolyGlyph( FT_Glyph glyph)
         }
     glEndList();
 
-    // discard glyph image (bitmap or not)
-    FT_Done_Glyph( glyph); // Why does this have to be HERE
+    FT_Done_Glyph( glyph);
 }
 
 
 FTPolyGlyph::~FTPolyGlyph()
-{}
+{
+    glDeleteLists( glList, 1);
+}
 
 
 float FTPolyGlyph::Render( const FTPoint& pen)
