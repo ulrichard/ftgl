@@ -1,5 +1,9 @@
-FTGL 2.06 (FTGL_2_0_6)
+FTGL 2.07
+    - Minor fix for unix build scripts.
+    - Minor fix for unit tests.
+    
 25 August 2003
+    2.06 (FTGL_2_0_6)
     - Updated the unix build scripts.
 
 25 August 2003
