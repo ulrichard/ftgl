@@ -28,6 +28,18 @@ class FTGL_EXPORT FTBBox
         {}
         
         /**
+         * Constructor.
+         */
+        FTBBox( float lx, float ly, float lz, float ux, float uy, float uz)
+        :   lowerX(lx),
+            lowerY(ly),
+            lowerZ(lz),
+            upperX(ux),
+            upperY(uy),
+            upperZ(uz)
+        {}
+        
+        /**
          * Constructor. Extracts a bounding box from a freetype glyph. Uses
          * the control box for the glyph. <code>FT_Glyph_Get_CBox()</code>
          *
@@ -38,11 +50,11 @@ class FTGL_EXPORT FTBBox
             FT_BBox bbox;
             FT_Glyph_Get_CBox( glyph, ft_glyph_bbox_subpixels, &bbox );
             
-            lowerX = static_cast<float>( bbox.xMin) / 64;
-            lowerY = static_cast<float>( bbox.yMin) / 64;
+            lowerX = static_cast<float>( bbox.xMin) / 64.0f;
+            lowerY = static_cast<float>( bbox.yMin) / 64.0f;
             lowerZ = 0.0f;
-            upperX = static_cast<float>( bbox.xMax) / 64;
-            upperY = static_cast<float>( bbox.yMax) / 64;
+            upperX = static_cast<float>( bbox.xMax) / 64.0f;
+            upperY = static_cast<float>( bbox.yMax) / 64.0f;
             upperZ = 0.0f; 
         }       
 
@@ -58,7 +70,7 @@ class FTGL_EXPORT FTBBox
          *
          * @param distance The distance to move the bbox in 3D space.
          */
-        FTBBox Move( FTPoint distance)
+        FTBBox& Move( FTPoint distance)
         {
             lowerX += distance.x;
             lowerY += distance.y;
@@ -78,6 +90,18 @@ class FTGL_EXPORT FTBBox
          */
         friend FTBBox operator + ( const FTBBox &a, const FTBBox &b);
 
+        FTBBox& operator += ( const FTBBox& bbox) 
+        {
+            lowerX = bbox.lowerX < lowerX? bbox.lowerX: lowerX; 
+            lowerY = bbox.lowerY < lowerY? bbox.lowerY: lowerY;
+            lowerZ = bbox.lowerZ < lowerZ? bbox.lowerZ: lowerZ; 
+            upperX = bbox.upperX > upperX? bbox.upperX: upperX; 
+            upperY = bbox.upperY > upperY? bbox.upperY: upperY; 
+            upperZ = bbox.upperZ > upperZ? bbox.upperZ: upperZ; 
+            
+            return *this;
+        }
+        
         /**
          * The bounds of the box
          */
