@@ -113,10 +113,10 @@ class FTMeshTest : public CppUnit::TestCase
             
             for( x = 0; x < 200; ++x)
             {
-                ftglCombine( testPoint, NULL, NULL, (void**)hole, &mesh);            
+                ftglCombine( testPoint, NULL, NULL, (void**)hole, &mesh);
             }
 
-            CPPUNIT_ASSERT( *testOutput == &(mesh.TempPointList().front().x));
+            CPPUNIT_ASSERT( *testOutput == static_cast<FTGL_DOUBLE*>(mesh.TempPointList().front()));
             
             for( x = 201; x < 300; ++x)
             {
@@ -125,7 +125,7 @@ class FTMeshTest : public CppUnit::TestCase
 
             ftglEnd( &mesh);
             
-            CPPUNIT_ASSERT( *testOutput == &(mesh.TempPointList().front().x));
+            CPPUNIT_ASSERT( *testOutput == static_cast<FTGL_DOUBLE*>(mesh.TempPointList().front()));
         }
         
         void setUp() 

@@ -41,11 +41,11 @@ FTPolyGlyph::FTPolyGlyph( FT_GlyphSlot glyph, bool useDisplayList)
             {
                 FTPoint point = subMesh->Point(pointIndex);
                 
-                glTexCoord2f( point.x / horizontalTextureScale,
-                              point.y / verticalTextureScale);
+                glTexCoord2f( point.X() / horizontalTextureScale,
+                              point.Y() / verticalTextureScale);
                 
-                glVertex3f( point.x / 64.0f,
-                            point.y / 64.0f,
+                glVertex3f( point.X() / 64.0f,
+                            point.Y() / 64.0f,
                             0.0f);
             }
         glEnd();
@@ -66,7 +66,7 @@ FTPolyGlyph::~FTPolyGlyph()
 
 float FTPolyGlyph::Render( const FTPoint& pen)
 {
-    glTranslatef(  pen.x,  pen.y, 0.0f);
+    glTranslatef(  pen.X(),  pen.Y(), 0.0f);
 
     if( glList)
     {

@@ -76,7 +76,8 @@ void FTMesh::AddPoint( const FTGL_DOUBLE x, const FTGL_DOUBLE y, const FTGL_DOUB
 FTGL_DOUBLE* FTMesh::Combine( const FTGL_DOUBLE x, const FTGL_DOUBLE y, const FTGL_DOUBLE z)
 {
     tempPointList.push_back( FTPoint( x, y,z));
-    return &tempPointList.back().x;
+//    return &tempPointList.back().X();
+    return static_cast<FTGL_DOUBLE*>(tempPointList.back());
 }
 
 
@@ -211,7 +212,8 @@ void FTVectoriser::MakeMesh( FTGL_DOUBLE zNormal)
             
                 for( size_t p = 0; p < contour->PointCount(); ++p)
                 {
-                    FTGL_DOUBLE* d = const_cast<FTGL_DOUBLE*>(&contour->Point(p).x);
+                    FTPoint point = contour->Point(p);
+                    FTGL_DOUBLE* d = static_cast<FTGL_DOUBLE*>(point);
                     gluTessVertex( tobj, d, d);
                 }
 

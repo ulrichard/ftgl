@@ -95,7 +95,7 @@ class FTGlyphContainerTest : public CppUnit::TestCase
             
             FTPoint pen;
             
-            float advance = glyphContainer->Render( 'A', 0, pen).x;
+            float advance = glyphContainer->Render( 'A', 0, pen).X();
             
             CPPUNIT_ASSERT_DOUBLES_EQUAL( 50, advance, 0.01);
         }

@@ -50,11 +50,11 @@ FTExtrdGlyph::FTExtrdGlyph( FT_GlyphSlot glyph, float d, bool useDisplayList)
             {
                 FTPoint point = subMesh->Point(pointIndex);
 
-                glTexCoord2f( point.x / horizontalTextureScale,
-                              point.y / verticalTextureScale);
+                glTexCoord2f( point.X() / horizontalTextureScale,
+                              point.Y() / verticalTextureScale);
                 
-                glVertex3f( point.x / 64.0f,
-                            point.y / 64.0f,
+                glVertex3f( point.X() / 64.0f,
+                            point.Y() / 64.0f,
                             0.0f);
             }
         glEnd();
@@ -74,11 +74,11 @@ FTExtrdGlyph::FTExtrdGlyph( FT_GlyphSlot glyph, float d, bool useDisplayList)
             {
                 FTPoint point = subMesh->Point(pointIndex);
 
-                glTexCoord2f( subMesh->Point(pointIndex).x / horizontalTextureScale,
-                              subMesh->Point(pointIndex).y / verticalTextureScale);
+                glTexCoord2f( subMesh->Point(pointIndex).X() / horizontalTextureScale,
+                              subMesh->Point(pointIndex).Y() / verticalTextureScale);
                 
-                glVertex3f( subMesh->Point( pointIndex).x / 64.0f,
-                            subMesh->Point( pointIndex).y / 64.0f,
+                glVertex3f( subMesh->Point( pointIndex).X() / 64.0f,
+                            subMesh->Point( pointIndex).Y() / 64.0f,
                             -depth);
             }
         glEnd();
@@ -100,23 +100,23 @@ FTExtrdGlyph::FTExtrdGlyph( FT_GlyphSlot glyph, float d, bool useDisplayList)
                 FTPoint point = contour->Point(pointIndex);
 
                 FTPoint normal = GetNormal( point, contour->Point(nextPointIndex));
-                glNormal3f( normal.x, normal.y, 0.0f);
+                glNormal3f( normal.X(), normal.Y(), 0.0f);
                 
                 if( contourFlag & ft_outline_reverse_fill)
                 {
-                    glTexCoord2f( point.x / horizontalTextureScale,
-                                  point.y / verticalTextureScale);
+                    glTexCoord2f( point.X() / horizontalTextureScale,
+                                  point.X() / verticalTextureScale);
                 
-                    glVertex3f( point.x / 64.0f, point.y / 64.0f, 0.0f);
-                    glVertex3f( point.x / 64.0f, point.y / 64.0f, -depth);
+                    glVertex3f( point.X() / 64.0f, point.Y() / 64.0f, 0.0f);
+                    glVertex3f( point.X() / 64.0f, point.Y() / 64.0f, -depth);
                 }
                 else
                 {
-                    glTexCoord2f( point.x / horizontalTextureScale,
-                                  point.y / verticalTextureScale);
+                    glTexCoord2f( point.X() / horizontalTextureScale,
+                                  point.Y() / verticalTextureScale);
                 
-                    glVertex3f( point.x / 64.0f, point.y / 64.0f, -depth);
-                    glVertex3f( point.x / 64.0f, point.y / 64.0f, 0.0f);
+                    glVertex3f( point.X() / 64.0f, point.Y() / 64.0f, -depth);
+                    glVertex3f( point.X() / 64.0f, point.Y() / 64.0f, 0.0f);
                 }
             }
         glEnd();
@@ -137,7 +137,7 @@ FTExtrdGlyph::~FTExtrdGlyph()
 
 float FTExtrdGlyph::Render( const FTPoint& pen)
 {
-    glTranslatef( pen.x, pen.y, 0);
+    glTranslatef( pen.X(), pen.Y(), 0);
     
     if( glList)
     {
@@ -150,8 +150,8 @@ float FTExtrdGlyph::Render( const FTPoint& pen)
 
 FTPoint FTExtrdGlyph::GetNormal( const FTPoint &a, const FTPoint &b)
 {
-    float vectorX = a.x - b.x;
-    float vectorY = a.y - b.y;
+    float vectorX = a.X() - b.X();
+    float vectorY = a.Y() - b.Y();
                               
     float length = sqrt( vectorX * vectorX + vectorY * vectorY );
     

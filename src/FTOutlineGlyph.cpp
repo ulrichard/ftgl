@@ -34,7 +34,7 @@ FTOutlineGlyph::FTOutlineGlyph( FT_GlyphSlot glyph, bool useDisplayList)
             for( unsigned int pointIndex = 0; pointIndex < contour->PointCount(); ++pointIndex)
             {
                 FTPoint point = contour->Point(pointIndex);
-                glVertex2f( point.x / 64.0f, point.y / 64.0f);
+                glVertex2f( point.X() / 64.0f, point.Y() / 64.0f);
             }
         glEnd();
     }
@@ -54,7 +54,7 @@ FTOutlineGlyph::~FTOutlineGlyph()
 
 float FTOutlineGlyph::Render( const FTPoint& pen)
 {
-    glTranslatef( pen.x, pen.y, 0.0f);
+    glTranslatef( pen.X(), pen.Y(), 0.0f);
 
     if( glList)
     {

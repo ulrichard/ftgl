@@ -72,8 +72,8 @@ FTPixmapGlyph::FTPixmapGlyph( FT_GlyphSlot glyph)
         destHeight = srcHeight;
     }
 
-    pos.x = glyph->bitmap_left;
-    pos.y = srcHeight - glyph->bitmap_top;
+    pos.X( glyph->bitmap_left);
+    pos.Y( srcHeight - glyph->bitmap_top);
 }
 
 
@@ -85,7 +85,7 @@ FTPixmapGlyph::~FTPixmapGlyph()
 
 float FTPixmapGlyph::Render( const FTPoint& pen)
 {
-    glBitmap( 0, 0, 0.0f, 0.0f, pen.x + pos.x, pen.y - pos.y, (const GLubyte*)0);
+    glBitmap( 0, 0, 0.0f, 0.0f, pen.X() + pos.X(), pen.Y() - pos.Y(), (const GLubyte*)0);
     
     if( data)
     {
@@ -93,7 +93,7 @@ float FTPixmapGlyph::Render( const FTPoint& pen)
         glDrawPixels( destWidth, destHeight, GL_RGBA, GL_UNSIGNED_BYTE, (const GLvoid*)data);
     }
         
-    glBitmap( 0, 0, 0.0f, 0.0f, -pos.x, pos.y, (const GLubyte*)0);
+    glBitmap( 0, 0, 0.0f, 0.0f, -pos.X(), pos.Y(), (const GLubyte*)0);
 
     return advance;
 }

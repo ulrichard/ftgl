@@ -99,14 +99,14 @@ class FTFaceTest : public CppUnit::TestCase
         {
             FTFace test(ARIAL_FONT_FILE);
             FTPoint kerningVector = test.KernAdvance( 'A', 'A');
-            CPPUNIT_ASSERT( kerningVector.x == 0);
-            CPPUNIT_ASSERT( kerningVector.y == 0);
-            CPPUNIT_ASSERT( kerningVector.z == 0);
+            CPPUNIT_ASSERT( kerningVector.X() == 0);
+            CPPUNIT_ASSERT( kerningVector.Y() == 0);
+            CPPUNIT_ASSERT( kerningVector.Z() == 0);
         
             kerningVector = test.KernAdvance( 0x6FB3, 0x9580);
-            CPPUNIT_ASSERT( kerningVector.x == 0);
-            CPPUNIT_ASSERT( kerningVector.y == 0);
-            CPPUNIT_ASSERT( kerningVector.z == 0);
+            CPPUNIT_ASSERT( kerningVector.X() == 0);
+            CPPUNIT_ASSERT( kerningVector.Y() == 0);
+            CPPUNIT_ASSERT( kerningVector.Z() == 0);
         }
         
         

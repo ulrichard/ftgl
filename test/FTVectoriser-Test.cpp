@@ -364,8 +364,8 @@ class FTVectoriserTest : public CppUnit::TestCase
                 
                 for( size_t p = 0; p < contour->PointCount(); ++p)
                 {
-                    CPPUNIT_ASSERT_DOUBLES_EQUAL( *(testOutline + d),     contour->Point(p).x / 64.0f, 0.01);
-                    CPPUNIT_ASSERT_DOUBLES_EQUAL( *(testOutline + d + 1), contour->Point(p).y / 64.0f, 0.01);
+                    CPPUNIT_ASSERT_DOUBLES_EQUAL( *(testOutline + d),     contour->Point(p).X() / 64.0f, 0.01);
+                    CPPUNIT_ASSERT_DOUBLES_EQUAL( *(testOutline + d + 1), contour->Point(p).Y() / 64.0f, 0.01);
                     d += 3;
                 }
             }
@@ -412,8 +412,8 @@ class FTVectoriserTest : public CppUnit::TestCase
 
                 for( unsigned int x = 0; x < numberOfVertices; ++x)
                 {
-                    CPPUNIT_ASSERT_DOUBLES_EQUAL( *(testMesh + d),     subMesh->Point(x).x / 64, 0.01);
-                    CPPUNIT_ASSERT_DOUBLES_EQUAL( *(testMesh + d + 1), subMesh->Point(x).y / 64, 0.01);
+                    CPPUNIT_ASSERT_DOUBLES_EQUAL( *(testMesh + d),     subMesh->Point(x).X() / 64, 0.01);
+                    CPPUNIT_ASSERT_DOUBLES_EQUAL( *(testMesh + d + 1), subMesh->Point(x).Y() / 64, 0.01);
                     d += 3;
                 }
             }

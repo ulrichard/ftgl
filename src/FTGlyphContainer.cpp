@@ -65,7 +65,7 @@ float FTGlyphContainer::Advance( const unsigned int characterCode, const unsigne
     unsigned int left = charMap->FontIndex( characterCode);
     unsigned int right = charMap->FontIndex( nextCharacterCode);
 
-    float width = face->KernAdvance( left, right).x;
+    float width = face->KernAdvance( left, right).X();
     width += glyphs[charMap->GlyphListIndex( characterCode)]->Advance();
     
     return width;
@@ -87,7 +87,7 @@ FTPoint FTGlyphContainer::Render( const unsigned int characterCode, const unsign
         advance = glyphs[charMap->GlyphListIndex( characterCode)]->Render( penPosition);
     }
     
-    kernAdvance.x = advance + kernAdvance.x;
-//  kernAdvance.y = advance.y + kernAdvance.y;
+    kernAdvance.X( advance + kernAdvance.X());
+//  kernAdvance.Y( advance.y + kernAdvance.X());
     return kernAdvance;
 }

@@ -41,13 +41,13 @@ FTTextureGlyph::FTTextureGlyph( FT_GlyphSlot glyph, int id, int xOffset, int yOf
 //      +----+
 //           1
     
-    uv[0].x = static_cast<float>(xOffset) / static_cast<float>(width);
-    uv[0].y = static_cast<float>(yOffset) / static_cast<float>(height);
-    uv[1].x = static_cast<float>( xOffset + destWidth) / static_cast<float>(width);
-    uv[1].y = static_cast<float>( yOffset + destHeight) / static_cast<float>(height);
+    uv[0].X( static_cast<float>(xOffset) / static_cast<float>(width));
+    uv[0].Y( static_cast<float>(yOffset) / static_cast<float>(height));
+    uv[1].X( static_cast<float>( xOffset + destWidth) / static_cast<float>(width));
+    uv[1].Y( static_cast<float>( yOffset + destHeight) / static_cast<float>(height));
     
-    pos.x = glyph->bitmap_left;
-    pos.y = glyph->bitmap_top;
+    pos.X( glyph->bitmap_left);
+    pos.Y( glyph->bitmap_top);
 }
 
 
@@ -63,20 +63,20 @@ float FTTextureGlyph::Render( const FTPoint& pen)
         activeTextureID = glTextureID;
     }
     
-    glTranslatef(  pen.x,  pen.y, 0);
+    glTranslatef( pen.X(),  pen.Y(), 0.0f);
 
     glBegin( GL_QUADS);
-        glTexCoord2f( uv[0].x, uv[0].y);
-        glVertex2f( pos.x, pos.y);
+        glTexCoord2f( uv[0].X(), uv[0].Y());
+        glVertex2f( pos.X(), pos.Y());
 
-        glTexCoord2f( uv[0].x, uv[1].y);
-        glVertex2f( pos.x, pos.y - destHeight);
+        glTexCoord2f( uv[0].X(), uv[1].Y());
+        glVertex2f( pos.X(), pos.Y() - destHeight);
 
-        glTexCoord2f( uv[1].x, uv[1].y);
-        glVertex2f( destWidth + pos.x, pos.y - destHeight);
+        glTexCoord2f( uv[1].X(), uv[1].Y());
+        glVertex2f( destWidth + pos.X(), pos.Y() - destHeight);
         
-        glTexCoord2f( uv[1].x, uv[0].y);
-        glVertex2f( destWidth + pos.x, pos.y);
+        glTexCoord2f( uv[1].X(), uv[0].Y());
+        glVertex2f( destWidth + pos.X(), pos.Y());
     glEnd();
 
     return advance;

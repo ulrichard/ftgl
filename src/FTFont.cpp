@@ -245,7 +245,7 @@ float FTFont::Advance( const char* string)
 void FTFont::Render( const char* string )
 {
     const unsigned char* c = (unsigned char*)string;
-    pen.x = 0; pen.y = 0;
+    pen.X(0); pen.Y(0);
 
     while( *c)
     {
@@ -258,7 +258,7 @@ void FTFont::Render( const char* string )
 void FTFont::Render( const wchar_t* string )
 {
     const wchar_t* c = string;
-    pen.x = 0; pen.y = 0;
+    pen.X(0); pen.Y(0);
 
     while( *c)
     {
@@ -272,10 +272,10 @@ void FTFont::DoRender( const unsigned int chr, const unsigned int nextChr)
 {
     if(CheckGlyph( chr))
     {
-        FTPoint kernAdvance = glyphList->Render( chr, nextChr, pen);
+        pen = glyphList->Render( chr, nextChr, pen);
         
-        pen.x = kernAdvance.x;
-        pen.y = kernAdvance.y;
+//        pen.X( kernAdvance.X()); // FIXME replace kernAdvance with pen
+//        pen.y = kernAdvance.Y();
     }
 }
 

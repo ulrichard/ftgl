@@ -28,15 +28,15 @@ class FTPointTest : public CppUnit::TestCase
         {
             FTPoint point1;
 
-            CPPUNIT_ASSERT( point1.x == 0.0f);
-            CPPUNIT_ASSERT( point1.y == 0.0f);
-            CPPUNIT_ASSERT( point1.z == 0.0f);
+            CPPUNIT_ASSERT( point1.X() == 0.0f);
+            CPPUNIT_ASSERT( point1.Y() == 0.0f);
+            CPPUNIT_ASSERT( point1.Z() == 0.0f);
             
             FTPoint point2( 1.0f, 2.0f, 3.0f);
 
-            CPPUNIT_ASSERT( point2.x == 1.0f);
-            CPPUNIT_ASSERT( point2.y == 2.0f);
-            CPPUNIT_ASSERT( point2.z == 3.0f);
+            CPPUNIT_ASSERT( point2.X() == 1.0f);
+            CPPUNIT_ASSERT( point2.Y() == 2.0f);
+            CPPUNIT_ASSERT( point2.Z() == 3.0f);
             
             FT_Vector ftVector;
             ftVector.x = 4;
@@ -44,9 +44,9 @@ class FTPointTest : public CppUnit::TestCase
             
             FTPoint point3( ftVector);
             
-            CPPUNIT_ASSERT( point3.x ==  4.0f);
-            CPPUNIT_ASSERT( point3.y == 23.0f);
-            CPPUNIT_ASSERT( point3.z ==  0.0f); 
+            CPPUNIT_ASSERT( point3.X() ==  4.0f);
+            CPPUNIT_ASSERT( point3.Y() == 23.0f);
+            CPPUNIT_ASSERT( point3.Z() ==  0.0f); 
         }
 
         
@@ -99,11 +99,11 @@ class FTPointTest : public CppUnit::TestCase
         void testSetters()
         {
             FTPoint point;
-            FTPoint point1( 1.0, 2.0, 3.0);
+            FTPoint point1( 1, 2, 3);
             
-            point.X(1.0);
-            point.Y(2.0);
-            point.Z(3.0);
+            point.X(1);
+            point.Y(2);
+            point.Z(3);
             
             CPPUNIT_ASSERT(point == point1);
         }

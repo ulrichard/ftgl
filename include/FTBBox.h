@@ -80,12 +80,12 @@ class FTGL_EXPORT FTBBox
          */
         FTBBox& Move( FTPoint distance)
         {
-            lowerX += distance.x;
-            lowerY += distance.y;
-            lowerZ += distance.z;
-            upperX += distance.x;
-            upperY += distance.y;
-            upperZ += distance.z;
+            lowerX += distance.X();
+            lowerY += distance.Y();
+            lowerZ += distance.Z();
+            upperX += distance.X();
+            upperY += distance.Y();
+            upperZ += distance.Z();
             return *this;
         }
 
