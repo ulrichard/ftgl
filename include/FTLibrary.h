@@ -41,21 +41,21 @@ class FTGL_EXPORT FTLibrary
          * 
          * @return A handle to a FreeType library instance. 
          */
-        FT_Library* GetLibrary() const { return lib;}
+        FT_Library* GetLibrary() const { return library;}
         
         /**
          * Queries the library for errors.
          *
          * @return  The current error code.
          */
-        virtual FT_Error Error() const { return err;}
+        FT_Error Error() const { return err;}
         
         /**
          * Destructor
          *
          * Disposes of the Freetype library
          */
-        virtual  ~FTLibrary();
+        ~FTLibrary();
         
     private:
         /**
@@ -66,7 +66,7 @@ class FTGL_EXPORT FTLibrary
          */
         FTLibrary();
         FTLibrary( const FT_Library&){}
-        FTLibrary&  operator=( const FT_Library&) { return *this; }
+        FTLibrary& operator=( const FT_Library&) { return *this; }
         
         /**
          * Initialises the Freetype library
@@ -84,13 +84,8 @@ class FTGL_EXPORT FTLibrary
         /**
          * Freetype library handle.
          */
-        FT_Library* lib;
+        FT_Library* library;
 //      FTC_Manager* manager;
-
-        /**
-         * Freetype library version.
-         */
-        int major, minor, patch;
 
         /**
          * Current error code. Zero means no error.

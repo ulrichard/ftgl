@@ -10,12 +10,12 @@ FTLibrary&  FTLibrary::Instance()
 
 FTLibrary::~FTLibrary()
 {
-    if( lib != 0)
+    if( library != 0)
     {
-        FT_Done_FreeType( *lib);
+        FT_Done_FreeType( *library);
 
-        delete lib;
-        lib= 0;
+        delete library;
+        library= 0;
     }
 
 //  if( manager != 0)
@@ -29,7 +29,7 @@ FTLibrary::~FTLibrary()
 
 
 FTLibrary::FTLibrary()
-:   lib(0),
+:   library(0),
     err(0)
 {
     Init();
@@ -38,16 +38,16 @@ FTLibrary::FTLibrary()
 
 bool FTLibrary::Init()
 {
-    if( lib != 0 )
+    if( library != 0)
         return true;
 
-    lib = new FT_Library;
+    library = new FT_Library;
     
-    err = FT_Init_FreeType( lib);
+    err = FT_Init_FreeType( library);
     if( err)
     {
-        delete lib;
-        lib = 0;
+        delete library;
+        library = 0;
         return false;
     }
     
