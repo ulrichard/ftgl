@@ -47,7 +47,11 @@ void FTFace::Close()
 
 FTSize& FTFace::Size( const unsigned int size, const unsigned int res )
 {
-	charSize.CharSize( ftFace, size, res, res);
+	if( !charSize.CharSize( ftFace, size, res, res))
+	{
+		err = charSize.Error();
+	}
+	
 	return charSize;
 }
 
@@ -68,6 +72,28 @@ bool FTFace::CharMap( FT_Encoding encoding )
 // 	ft_encoding_adobe_custom,   'A', 'D', 'B', 'C'
 // 	ft_encoding_apple_roman, 'a', 'r', 'm', 'n'
 	
+// 	FT_CharMap  found = 0;
+//     FT_CharMap  charmap;
+//     int         n;
+// 
+//     for ( n = 0; n < face->num_charmaps; n++ )
+//     {
+//       charmap = face->charmaps[n];
+//       if ( charmap->platform_id == my_platform_id &&
+//            charmap->encoding_id == my_encoding_id )
+//       {
+//         found = charmap;
+//         break;
+//       }
+//     }
+// 
+//     if ( !found ) { ... }
+// 
+//     /* now, select the charmap for the face object */
+//     error = FT_Set_CharMap( face, found );
+//    if ( error ) { ... }
+
+
 	err = FT_Select_Charmap( *ftFace, encoding );
 	return !err;
 }
@@ -103,7 +129,7 @@ FT_Glyph& FTFace::Glyph( unsigned int index, FT_Int load_flags)
 	}
 	else
 	{
-		return NULL;
+		return NULL; // FIXME
 	}
 }
 
