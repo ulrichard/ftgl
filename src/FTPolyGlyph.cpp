@@ -146,9 +146,12 @@ FTPolyGlyph::~FTPolyGlyph()
 
 float FTPolyGlyph::Render( const FT_Vector& pen)
 {
-	glTranslatef( pen.x, pen.y, 0);
-		glCallList( glList);	
-	glTranslatef( -pen.x, -pen.y, 0);
+	if( glList)
+	{
+		glTranslatef( pen.x, pen.y, 0);
+			glCallList( glList);	
+		glTranslatef( -pen.x, -pen.y, 0);
+	}
 	
 	return advance;
 }
