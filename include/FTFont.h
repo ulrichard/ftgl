@@ -21,7 +21,8 @@ class FTGlyph;
  * appropriate type.
  *
  * It is good practice after using these functions to test the error
- * code returned. <code>FT_Error Error()</code>
+ * code returned. <code>FT_Error Error()</code>. Check the freetype file fterrdef.h
+ * for error definitions.
  *
  * @see     FTFace
  * @see     FTSize
@@ -119,10 +120,18 @@ class FTGL_EXPORT FTFont
          * Set the extrusion distance for the font. Only implemented by
          * FTGLExtrdFont
          *
-         * @param d  The extrusion distance.
+         * @param depth  The extrusion distance.
          */
-        virtual void Depth( float d){}
+        virtual void Depth( float depth){}
 
+        /**
+         * Enable or disable the use of Display Lists inside FTGL
+         *
+         * @param  useList <code>true</code> turns ON display lists.
+         *                 <code>false</code> turns OFF display lists.
+         */
+        void UseDisplayList( bool useList);
+        
         /**
          * Get the global ascender height for the face.
          *
@@ -140,7 +149,7 @@ class FTGL_EXPORT FTFont
         /**
          * Gets the line spacing for the font.
          *
-         * @return  Line Height
+         * @return  Line height
          */
         float LineHeight() const;
         
@@ -230,6 +239,13 @@ class FTGL_EXPORT FTFont
         FTSize charSize;
 
         /**
+         * Flag to enable or disable the use of Display Lists inside FTGL
+         * <code>true</code> turns ON display lists.
+         * <code>false</code> turns OFF display lists.
+         */
+        bool useDisplayLists;
+
+        /**
          * Current error code. Zero means no error.
          */
         FT_Error err;
@@ -248,8 +264,9 @@ class FTGL_EXPORT FTFont
          * Check that the glyph at <code>chr</code> exist. If not load it.
          *
          * @param chr  character index
+         * @return <code>true</code> if the glyph can be created.
          */
-        inline void CheckGlyph( const unsigned int chr);
+        inline bool CheckGlyph( const unsigned int chr);
 
         /**
          * An object that holds a list of glyphs
