@@ -10,8 +10,11 @@ FTGlyphContainer::FTGlyphContainer( FTFace* f, unsigned int g, bool p)
 	err( 0)
 {
 	glyphs.reserve( g);
+	
 	for( unsigned int i = 0; i < g; ++i)
+	{
 		glyphs.push_back( NULL);
+	}
 }
 
 
@@ -20,7 +23,10 @@ FTGlyphContainer::~FTGlyphContainer()
 	vector<FTGlyph*>::iterator iter;
 	for( iter = glyphs.begin(); iter != glyphs.end(); ++iter)
 	{
-		delete *iter;
+		if( *iter)
+		{
+			delete *iter;
+		}
 	}
 	
 	glyphs.clear();
@@ -29,9 +35,6 @@ FTGlyphContainer::~FTGlyphContainer()
 
 bool FTGlyphContainer::Add( FTGlyph* tempGlyph, unsigned int g)
 {
-	// At the moment we are using a vector. Vectors don't return bool.
-//	unsigned int glyphIndex = face->CharIndex( g);
-
 	glyphs[g] = tempGlyph;
 	return true;
 }
@@ -42,6 +45,7 @@ FTGlyph* FTGlyphContainer::Glyph( unsigned int c) const
 	unsigned int g = face->CharIndex( c);
 	return glyphs[g];
 }
+
 
 float FTGlyphContainer::Advance( unsigned int index, unsigned int next)
 {
