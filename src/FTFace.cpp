@@ -21,29 +21,21 @@ FTFace::~FTFace()
 }
 
 
-bool	FTFace::Open( const char* filename)
+bool FTFace::Open( const char* filename)
 {
 	ftFace = new FT_Face;
 	err = FT_New_Face( *FTLibrary::Instance().GetLibrary(), filename, 0, ftFace);
-	
-	if( err == FT_Err_Unknown_File_Format)
+
+	if( err)
     {
-//      ... the font file could be opened and read, but it appears
-//      ... that its font format is unsupported
 		delete ftFace;
 		ftFace = 0;
 	    return false;
     }
-    else if( err)
+    else
     {
-//      ... another error code means that the font file could not
-//      ... be opened or read, or simply that it is broken...
-		delete ftFace;
-		ftFace = 0;
-	    return false;
-    }
-    
-    return true;
+		return true;
+	}
 }
 
 
@@ -69,7 +61,7 @@ bool FTFace::CharMap( CHARMAP encoding )
 }
 
 
-FT_Glyph	FTFace::Glyph( int index )
+FT_Glyph FTFace::Glyph( int index )
 {
 //Insert your own code here.
 
@@ -77,7 +69,7 @@ FT_Glyph	FTFace::Glyph( int index )
 }
 
 
-FT_Vector	FTFace::KernAdvance( int index1, int index2 )
+FT_Vector FTFace::KernAdvance( int index1, int index2 )
 {
 //Insert your own code here.
 
