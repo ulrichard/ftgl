@@ -36,7 +36,7 @@ class FTGL_EXPORT FTGlyphContainer
 		/**
 		 * Destructor
 		 */
-		~FTGlyphContainer();
+		virtual ~FTGlyphContainer();
 
 		/**
 		 * Adds a glyph to this glyph list.
