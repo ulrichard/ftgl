@@ -1,6 +1,5 @@
 #include	"FTFace.h"
 #include	"FTFont.h"
-#include	"FTGlyphContainer.h"
 #include	"FTGlyph.h" // for FTBbox
 #ifdef FTGL_DEBUG
 	#include "mmgr.h"
@@ -70,24 +69,6 @@ bool FTFont::FaceSize( const unsigned int size, const unsigned int res )
 }
 
 
-bool FTFont::MakeGlyphList()
-{
-	for( unsigned int c = 0; c < numGlyphs; ++c)
-	{
-		if( preCache)
-		{
-			glyphList->Add( MakeGlyph( c), c);
-		}
-		else
-		{
-			glyphList->Add( NULL, c);
-		}
-	}
-	
-	return !err; // FIXME what err?
-}
-
-
 bool FTFont::CharMap( FT_Encoding encoding)
 {
 	err = face.CharMap( encoding);
@@ -95,15 +76,21 @@ bool FTFont::CharMap( FT_Encoding encoding)
 }
 
 
-int	FTFont::Ascender() const
+bool FTFont::MakeGlyphList()
 {
-	return charSize.Ascender();
-}
-
-
-int	FTFont::Descender() const
-{
-	return charSize.Descender();
+    for( unsigned int c = 0; c < numGlyphs; ++c)
+    {
+        if( preCache)
+        {
+            glyphList->Add( MakeGlyph( c), c);
+        }
+        else
+        {
+            glyphList->Add( NULL, c);
+        }
+    }
+    
+    return !err; // From derived class MakeGlyph()
 }
 
 

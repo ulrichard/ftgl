@@ -1,16 +1,16 @@
 #ifndef		__FTFont__
 #define		__FTFont__
 
-#include <string>
+#include    <string>
 
-#include <ft2build.h>
-#include FT_FREETYPE_H
+#include    <ft2build.h>
+#include    FT_FREETYPE_H
 
-#include "FTGL.h"
-#include "FTFace.h"
+#include    "FTGL.h"
+#include    "FTFace.h"
 
-class FTGlyphContainer;
 class FTGlyph;
+class FTGlyphContainer;
 
 using namespace std;
 
@@ -92,14 +92,14 @@ class FTGL_EXPORT FTFont
 		 *
 		 * @return	Ascender height
 		 */
-		int	Ascender() const;
+		inline int	Ascender() const { return charSize.Ascender(); }
 		
 		/**
 		 * Gets the global descender height for the face.
 		 *
 		 * @return	Descender height
 		 */
-		int	Descender() const;
+		inline int	Descender() const { return charSize.Descender(); }
 
 		/**
 		 * Get the bounding box for a string.
@@ -186,7 +186,7 @@ class FTGL_EXPORT FTFont
 		 * @return	<code>true</code> on success.
 		 */
 		virtual bool MakeGlyphList();
-		
+
 		/**
 		 * Get the advance width for a character.
 		 *
