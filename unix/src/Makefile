@@ -81,6 +81,6 @@ clean-local:
 
 distclean-local:
 	$(RM) $(TARGET)
-	$(RM) -r .libs
+	$(RM) -r .libs ii_files
 
 include $(top_builddir)/Make.rules
