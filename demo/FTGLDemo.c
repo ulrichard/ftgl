@@ -21,8 +21,8 @@
 	#define FONT_INFO "/usr/share/fonts/truetype/arial.ttf"
 #endif
 #ifdef __APPLE_CC__
-	#define FONT_FILE "/Volumes/Shiny/Development/Source/GRAPHICS/GLTT/ftgl src /ftgl_dist/demo/arial.ttf"
-	#define FONT_INFO "/Volumes/Shiny/Development/Source/GRAPHICS/GLTT/ftgl src /ftgl_dist/demo/arial.ttf"
+	#define FONT_FILE "/Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/demo/arial.ttf"
+	#define FONT_INFO "/Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/demo/arial.ttf"
 #endif
 
 #define EDITING 1
@@ -99,18 +99,18 @@ void do_display (void)
 	switch( current_font)
 	{
 		case FTGL_BITMAP:
-			glDisable( GL_BLEND);
+//			glDisable( GL_BLEND);
 			break;
 		case FTGL_PIXMAP:
-			glDisable( GL_TEXTURE_2D);
-			glEnable(GL_BLEND);
-			glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // GL_ONE
+//			glDisable( GL_TEXTURE_2D);
+//			glEnable(GL_BLEND);
+//			glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // GL_ONE
 			break;
 		case FTGL_OUTLINE:
-			glDisable( GL_TEXTURE_2D);
-			glEnable( GL_LINE_SMOOTH);
-			glEnable(GL_BLEND);
-			glBlendFunc( GL_SRC_ALPHA, GL_ONE); // GL_ONE_MINUS_SRC_ALPHA
+//			glDisable( GL_TEXTURE_2D);
+//			glEnable( GL_LINE_SMOOTH);
+//			glEnable(GL_BLEND);
+//			glBlendFunc( GL_SRC_ALPHA, GL_ONE); // GL_ONE_MINUS_SRC_ALPHA
 			break;
 		case FTGL_POLYGON:
 			glDisable( GL_BLEND);
