@@ -34,28 +34,22 @@ class FTGL_EXPORT FTContour
         {
             pointList.clear();
         }
+        
+        /**
+         * Return a point at index.
+         *
+         * @param the index in the curve of the point.
+         * @return const point reference
+         */
+        const FTPoint& Point( unsigned int index) const { return pointList[index];}
 
         /**
          * How many points define this contour
          *
          * @return the number of points in this contour
          */
-        size_t size() const { return pointList.size();}
-        
-        /**
-         * How many points define this contour
-         *
-         * @return the number of points in this contour
-         */
-        size_t Points() const { return size();}
+        size_t Points() const { return pointList.size();}
 
-        // FIXME make private
-        /**
-         *  The list of points in this contour
-         */
-        typedef FTVector<FTPoint> PointVector;
-        PointVector pointList;
-        
     private:
         /**
          * Add a point to this contour. This function tests for duplicate
@@ -77,6 +71,12 @@ class FTGL_EXPORT FTContour
          */
         void evaluateCubicCurve();
 
+        /**
+         *  The list of points in this contour
+         */
+        typedef FTVector<FTPoint> PointVector;
+        PointVector pointList;
+        
         /**
          * 2D array storing values of de Casteljau algorithm.
          */
