@@ -1,4 +1,4 @@
-#include    "FTBitmapGlyph.h"
+#include "FTBitmapGlyph.h"
 
 FTBitmapGlyph::FTBitmapGlyph( FT_Glyph glyph)
 :   FTGlyph(),
@@ -49,7 +49,7 @@ FTBitmapGlyph::FTBitmapGlyph( FT_Glyph glyph)
     bBox = FTBBox( glyph);
     advance = static_cast<float>(glyph->advance.x >> 16);
     pos.x = bitmap->left;
-    pos.y = srcHeight - bitmap->top;
+    pos.y = static_cast<int>(srcHeight) - bitmap->top;
     
     // Is this the right place to do this?
     FT_Done_Glyph( glyph );
