@@ -3,7 +3,7 @@
 #include	"FTGLOutlineFont.h"
 #include	"FTGlyphContainer.h"
 #include	"FTGL.h"
-#include	"FTVectorGlyph.h"
+#include	"FTOutlineGlyph.h"
 
 
 FTGLOutlineFont::FTGLOutlineFont()
@@ -23,7 +23,7 @@ bool FTGLOutlineFont::MakeGlyphList()
 		
 		if( ftGlyph)
 		{
-			tempGlyph = new FTVectorGlyph( *ftGlyph);
+			tempGlyph = new FTOutlineGlyph( *ftGlyph);
 			glyphList->Add( tempGlyph);
 		}
 		else

@@ -6,7 +6,7 @@
 #include "FTGL.h"
 
 
-class FTVectorGlyph;
+class FTOutlineGlyph;
 
 /**
  * FTGLOutlineFont is a specialisation of the FTFont class for handling
@@ -31,7 +31,7 @@ class	FTGLOutlineFont : public FTFont
 		bool MakeGlyphList();
 		
 		// attributes
-		FTVectorGlyph* tempGlyph;
+		FTOutlineGlyph* tempGlyph;
 	
 };
 #endif
