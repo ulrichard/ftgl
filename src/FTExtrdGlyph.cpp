@@ -14,14 +14,11 @@ FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
         return;
     }
 
+    bBox.upperZ = -depth;
+    
     FTVectoriser* vectoriser = new FTVectoriser( glyph);
 
-    // Make the front polygons
     vectoriser->MakeMesh( 1.0);
-    
-    bBox = FTBBox( glyph);
-    bBox.upperZ = -depth;
-    advance = glyph->advance.x >> 16;
     
     unsigned int numPoints = vectoriser->MeshPoints();
     if ( numPoints < 3)
@@ -32,8 +29,7 @@ FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
     
     FTGL_DOUBLE* frontMesh = new FTGL_DOUBLE[ numPoints * 3];
     vectoriser->GetMesh( frontMesh);
-    
-    // Make the back polygons
+
     vectoriser->MakeMesh( -1.0);
     
     numPoints = vectoriser->MeshPoints();
@@ -56,13 +52,6 @@ FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
         delete [] frontMesh;
         delete [] backMesh;
         return;
-    }
-    
-    // Build the edge polygons
-    int* contourLength = new int[ numContours];
-    for( int cn = 0; cn < numContours; ++cn)
-    {
-        contourLength[cn] = vectoriser->contourSize( cn);
     }
     
     // Draw the glyph
@@ -109,22 +98,20 @@ FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
         
         int contourFlag = vectoriser->ContourFlag();
         
-        for( unsigned int c = 0; c < numContours; ++c)
+        for( unsigned int c = 0; c < vectoriser->contours(); ++c)
         {
             FTContour* contour = vectoriser->Contour(c);
-            unsigned int numPoints = contour->Points();
+            unsigned int numberOfPoints = contour->Points();
             
             glBegin( GL_QUAD_STRIP);
-                for( unsigned int j = 0; j <= numPoints; ++j)
+                for( unsigned int j = 0; j <= numberOfPoints; ++j)
                 {
-                    unsigned int index = ( j == numPoints) ? 0 : j;
-                    unsigned int nextIndex = ( index == numPoints - 1) ? 0 : index + 1;
+                    unsigned int index = ( j == numberOfPoints) ? 0 : j;
+                    unsigned int nextIndex = ( index == numberOfPoints - 1) ? 0 : index + 1;
                     
                     FTPoint normal = GetNormal( contour->Point(index), contour->Point(nextIndex));
                     glNormal3f( normal.x, normal.y, 0.0f);
                     
-                    // Add vertices to the quad strip.
-                    // Winding order
                     if( contourFlag & ft_outline_reverse_fill)
                     {
                         glVertex3f( contour->Point(index).x / 64.0f, contour->Point(index).y / 64.0f, 0.0f);
@@ -145,7 +132,6 @@ FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
     
     delete [] frontMesh;
     delete [] backMesh;
-    delete [] contourLength;
 
     // discard glyph image (bitmap or not)
     FT_Done_Glyph( glyph); // Why does this have to be HERE
