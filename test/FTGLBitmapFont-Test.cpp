@@ -9,20 +9,21 @@
 
 extern void buildGLContext();
 
-class FTGLPolygonFontTest : public CppUnit::TestCase
+class FTGLBitmapFontTest : public CppUnit::TestCase
 {
-    CPPUNIT_TEST_SUITE( FTGLPolygonFontTest);
+    CPPUNIT_TEST_SUITE( FTGLBitmapFontTest);
         CPPUNIT_TEST( testConstructor);
+        CPPUNIT_TEST( testRender);
     CPPUNIT_TEST_SUITE_END();
         
     public:
-        FTGLPolygonFontTest() : CppUnit::TestCase( "FTGLPolygonFont Test")
+        FTGLBitmapFontTest() : CppUnit::TestCase( "FTGLBitmapFont Test")
         {
         }
         
-        FTGLPolygonFontTest( const std::string& name) : CppUnit::TestCase(name) {}
+        FTGLBitmapFontTest( const std::string& name) : CppUnit::TestCase(name) {}
         
-        ~FTGLPolygonFontTest()
+        ~FTGLBitmapFontTest()
         {
         }
         
@@ -36,6 +37,23 @@ class FTGLPolygonFontTest : public CppUnit::TestCase
             CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);        
         }
 
+        void testRender()
+        {
+            buildGLContext();
+        
+            FTGLBitmapFont* bitmapFont = new FTGLBitmapFont( FONT_FILE);            
+            bitmapFont->Render(GOOD_ASCII_TEST_STRING);
+
+            CPPUNIT_ASSERT( bitmapFont->Error() == 0);        
+            CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);        
+
+            bitmapFont->FaceSize(18);
+            bitmapFont->Render(GOOD_ASCII_TEST_STRING);
+
+            CPPUNIT_ASSERT( bitmapFont->Error() == 0);        
+            CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);        
+        }
+
         void setUp() 
         {}
         
@@ -45,5 +63,5 @@ class FTGLPolygonFontTest : public CppUnit::TestCase
     private:
 };
 
-CPPUNIT_TEST_SUITE_REGISTRATION( FTGLPolygonFontTest);
+CPPUNIT_TEST_SUITE_REGISTRATION( FTGLBitmapFontTest);
 

@@ -42,6 +42,11 @@ class FTGLPixmapFontTest : public CppUnit::TestCase
             buildGLContext();
         
             FTGLPixmapFont* pixmapFont = new FTGLPixmapFont( FONT_FILE);            
+
+            pixmapFont->Render(GOOD_ASCII_TEST_STRING);
+            CPPUNIT_ASSERT( pixmapFont->Error() == 0x97);   // Invalid pixels per em       
+            CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);        
+
             pixmapFont->FaceSize(18);
             pixmapFont->Render(GOOD_ASCII_TEST_STRING);
 

@@ -14,6 +14,7 @@ class FTGLTextureFontTest : public CppUnit::TestCase
     CPPUNIT_TEST_SUITE( FTGLTextureFontTest);
         CPPUNIT_TEST( testConstructor);
         CPPUNIT_TEST( testResizeBug);
+        CPPUNIT_TEST( testRender);
     CPPUNIT_TEST_SUITE_END();
         
     public:
@@ -49,6 +50,23 @@ class FTGLTextureFontTest : public CppUnit::TestCase
             textureFont->FaceSize(38);
             textureFont->Render("second");
             
+            CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);        
+        }
+
+        void testRender()
+        {
+            buildGLContext();
+        
+            FTGLTextureFont* textureFont = new FTGLTextureFont( FONT_FILE);            
+
+            textureFont->Render(GOOD_ASCII_TEST_STRING);
+            CPPUNIT_ASSERT( textureFont->Error() == 0x97);   // Invalid pixels per em       
+            CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);        
+
+            textureFont->FaceSize(18);
+            textureFont->Render(GOOD_ASCII_TEST_STRING);
+
+            CPPUNIT_ASSERT( textureFont->Error() == 0);        
             CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);        
         }
 

@@ -13,6 +13,7 @@ class FTGLPolygonFontTest : public CppUnit::TestCase
 {
     CPPUNIT_TEST_SUITE( FTGLPolygonFontTest);
         CPPUNIT_TEST( testConstructor);
+        CPPUNIT_TEST( testRender);
     CPPUNIT_TEST_SUITE_END();
         
     public:
@@ -33,6 +34,24 @@ class FTGLPolygonFontTest : public CppUnit::TestCase
             FTGLPolygonFont* polygonFont = new FTGLPolygonFont( FONT_FILE);            
             CPPUNIT_ASSERT( polygonFont->Error() == 0);
         
+            CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);        
+        }
+
+        void testRender()
+        {
+            buildGLContext();
+        
+            FTGLPolygonFont* polygonFont = new FTGLPolygonFont( FONT_FILE);            
+
+            polygonFont->Render(GOOD_ASCII_TEST_STRING);
+
+            CPPUNIT_ASSERT( polygonFont->Error() == 0x97);   // Invalid pixels per em       
+            CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);        
+
+            polygonFont->FaceSize(18);
+            polygonFont->Render(GOOD_ASCII_TEST_STRING);
+
+            CPPUNIT_ASSERT( polygonFont->Error() == 0);        
             CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);        
         }
 

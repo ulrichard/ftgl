@@ -13,6 +13,7 @@ class FTGLExtrdFontTest : public CppUnit::TestCase
 {
     CPPUNIT_TEST_SUITE( FTGLExtrdFontTest);
         CPPUNIT_TEST( testConstructor);
+        CPPUNIT_TEST( testRender);
     CPPUNIT_TEST_SUITE_END();
         
     public:
@@ -33,6 +34,23 @@ class FTGLExtrdFontTest : public CppUnit::TestCase
             FTGLExtrdFont* extrudedFont = new FTGLExtrdFont( FONT_FILE);            
             CPPUNIT_ASSERT( extrudedFont->Error() == 0);
         
+            CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);        
+        }
+
+        void testRender()
+        {
+            buildGLContext();
+        
+            FTGLExtrdFont* extrudedFont = new FTGLExtrdFont( FONT_FILE);            
+            extrudedFont->Render(GOOD_ASCII_TEST_STRING);
+
+            CPPUNIT_ASSERT( extrudedFont->Error() == 0x97);   // Invalid pixels per em
+            CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);        
+
+            extrudedFont->FaceSize(18);
+            extrudedFont->Render(GOOD_ASCII_TEST_STRING);
+
+            CPPUNIT_ASSERT( extrudedFont->Error() == 0);        
             CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);        
         }
 
