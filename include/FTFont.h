@@ -33,8 +33,6 @@ using namespace std;
 class	FTFont
 {
 	public:
-		// methods
-		
 		/**
 		 * Default Constructor
 		 */
@@ -108,6 +106,13 @@ class	FTFont
 		 * @param string	'C' style string to be output.	 
 		 */
 		virtual void render( const char* string );
+
+		/**
+		 * Renders a string of characters
+		 * 
+		 * @param string	'C' style string to be output.	 
+		 */
+		virtual void render( const wchar_t* string );
 		
 		
 		/**
@@ -118,11 +123,7 @@ class	FTFont
 		virtual FT_Error Error() const { return err;}
 //		virtual const char* ErrorString();
 
-		// attributes
-		
 	protected:
-		// methods
-
 		/**
 		 * Constructs the internal glyph cache.
 		 *
@@ -131,8 +132,6 @@ class	FTFont
 		 */
 		virtual bool MakeGlyphList() = 0;
 		
-		// attributes
-
 		/**
 		 * Current face object
 		 */
@@ -158,7 +157,7 @@ class	FTFont
 		int numGlyphs;
 		
 		/**
-		 * Current pen or sursor position;
+		 * Current pen or cursor position;
 		 */
 		FT_Vector pen;
 		
@@ -168,9 +167,7 @@ class	FTFont
 		FT_Error err;
 		
 	private:
-		// methods
-		
-		// attributes
+
 };
 
 
