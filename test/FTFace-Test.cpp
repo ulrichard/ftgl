@@ -40,8 +40,8 @@ class FTFaceTest : public CppUnit::TestCase
         CPPUNIT_ASSERT( !testFace->Open( (unsigned char*)100, 0));
         CPPUNIT_ASSERT( testFace->Error() == 85);        
 
-//        CPPUNIT_ASSERT( testFace->Open( arial_ttf.dataBytes, arial_ttf.numBytes));
-//        CPPUNIT_ASSERT( testFace->Error() == 0);        
+        CPPUNIT_ASSERT( testFace->Open( arial_ttf.dataBytes, arial_ttf.numBytes));
+        CPPUNIT_ASSERT( testFace->Error() == 0);        
     }
     
     
