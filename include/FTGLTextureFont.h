@@ -52,7 +52,7 @@ class  FTGL_EXPORT FTGLTextureFont : public FTFont
 
         
     private:
-        virtual FTGlyph* MakeGlyph( unsigned int g);
+        inline virtual FTGlyph* MakeGlyph( unsigned int g);
                 
         /**
          * Constructs the internal glyph cache.
@@ -60,7 +60,7 @@ class  FTGL_EXPORT FTGLTextureFont : public FTFont
          * This a list of glyphs processed for openGL rendering NOT
          * freetype glyphs
          */
-        virtual bool MakeGlyphList();
+        inline virtual bool MakeGlyphList();
 
         /**
          * Get the size of a block of memory required to layout the glyphs
@@ -68,7 +68,7 @@ class  FTGL_EXPORT FTGLTextureFont : public FTFont
          * Calculates a width and height based on the glyph sizes and the
          * number of glyphs. It over estimates.
          */
-        void GetSize();
+        inline void GetSize();
 
         /**
          * Creates a 'blank' OpenGL texture object.
@@ -84,7 +84,7 @@ class  FTGL_EXPORT FTGLTextureFont : public FTFont
          * @param height    The number of rows of bytes.
          * @param data      A pointer to the texture data
          */
-        int CreateTexture();
+        inline int CreateTexture();
         
         /**
          * The maximum texture dimension on this OpenGL implemetation

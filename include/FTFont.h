@@ -188,7 +188,6 @@ class FTGL_EXPORT FTFont
          */
         FT_Error Error() const { return err;}
 
-
     protected:
         /**
          * Construct a glyph of the correct type.
@@ -199,7 +198,7 @@ class FTGL_EXPORT FTFont
          * @param g The glyph index NOT the char code.
          * @return  An FT****Glyph or <code>null</code> on failure.
          */
-        virtual FTGlyph* MakeGlyph( unsigned int g) = 0;
+        inline virtual FTGlyph* MakeGlyph( unsigned int g) = 0;
         
         /**
          * Construct the internal glyph cache.
@@ -209,24 +208,7 @@ class FTGL_EXPORT FTFont
          *
          * @return  <code>true</code> on success.
          */
-        virtual bool MakeGlyphList();
-        
-        /**
-         * Get the advance width for a character.
-         *
-         * @param chr       current character
-         * @param nextChr   next character
-         * @return          advance width
-         */
-        float doAdvance( const unsigned int chr, const unsigned int nextChr);
-
-        /**
-         * Render a character
-         * 
-         * @param chr       current character
-         * @param nextChr   next character
-         */
-        void doRender( const unsigned int chr, const unsigned int nextChr);
+        inline virtual bool MakeGlyphList();
         
         /**
          * Current face object
@@ -269,6 +251,24 @@ class FTGL_EXPORT FTFont
         FT_Error err;
         
     private:
+        /**
+         * Get the advance width for a character.
+         *
+         * @param chr       current character
+         * @param nextChr   next character
+         * @return          advance width
+         */
+        inline float doAdvance( const unsigned int chr, const unsigned int nextChr);
+
+        /**
+         * Render a character
+         * 
+         * @param chr       current character
+         * @param nextChr   next character
+         */
+        inline void doRender( const unsigned int chr, const unsigned int nextChr);
+        
+
 
 };
 

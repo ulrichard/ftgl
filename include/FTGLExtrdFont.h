@@ -36,7 +36,7 @@ class FTGL_EXPORT FTGLExtrdFont : public FTFont
 		 * @param g The glyph index NOT the char code.
 		 * @return	An FTPolyGlyph or <code>null</code> on failure.
 		 */
-		virtual FTGlyph* MakeGlyph( unsigned int g);
+		inline virtual FTGlyph* MakeGlyph( unsigned int g);
 		
 		float depth;
 		
