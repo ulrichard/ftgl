@@ -7,6 +7,7 @@ FTGL 2.1
     - Got rid of the GL_TEXTURE_2D_BINDING_EXT call and replaced it with a
       static member.
     - Fixed a bug where resizing FTGLTextureFont caused a GL error.
+    - Refactored FTPoint quite a bit.
     - More unit tests. Fixed a heap of bugs.
     
 16 August 2004
