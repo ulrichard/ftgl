@@ -45,7 +45,6 @@ class	FTFace
 		 */
 		void Close();
 		
-
 		/**
 		 * Sets the char size for the current face.
 		 *
@@ -60,10 +59,24 @@ class	FTFace
 
 		/**
 		 * Sets the character map for the face.
+		 * Valid encodings as at Freetype 2.0.4
+		 *		ft_encoding_none
+		 *		ft_encoding_symbol
+		 *		ft_encoding_unicode
+		 *		ft_encoding_latin_2
+		 *		ft_encoding_sjis
+		 *		ft_encoding_gb2312
+		 *		ft_encoding_big5
+		 *		ft_encoding_wansung
+		 *		ft_encoding_johab
+		 *		ft_encoding_adobe_standard
+		 *		ft_encoding_adobe_expert
+		 *		ft_encoding_adobe_custom
+		 *		ft_encoding_apple_roman
 		 *
-		 * @param encoding		XXXXXXX
-		 * @return				<code>true</code> if charmap was valid and
-		 *						set correctly
+		 * @param encoding		the Freetype encoding symbol. See above.
+		 * @return				<code>true</code> if charmap was valid
+		 *						and set correctly
 		 */
 		bool CharMap( FT_Encoding encoding);
 

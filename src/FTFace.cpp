@@ -58,19 +58,6 @@ FTSize& FTFace::Size( const unsigned int size, const unsigned int res )
 
 bool FTFace::CharMap( FT_Encoding encoding )
 {
-// 	ft_encoding_none, 0, 0, 0, 0
-// 	ft_encoding_symbol,  's', 'y', 'm', 'b'
-// 	ft_encoding_unicode, 'u', 'n', 'i', 'c'
-// 	ft_encoding_latin_2, 'l', 'a', 't', '2'
-// 	ft_encoding_sjis,    's', 'j', 'i', 's'
-// 	ft_encoding_gb2312,  'g', 'b', ' ', ' '
-// 	ft_encoding_big5,    'b', 'i', 'g', '5'
-// 	ft_encoding_wansung, 'w', 'a', 'n', 's'
-// 	ft_encoding_johab,   'j', 'o', 'h', 'a'
-// 	ft_encoding_adobe_standard, 'A', 'D', 'O', 'B'
-// 	ft_encoding_adobe_expert,   'A', 'D', 'B', 'E'
-// 	ft_encoding_adobe_custom,   'A', 'D', 'B', 'C'
-// 	ft_encoding_apple_roman, 'a', 'r', 'm', 'n'
 	
 // 	FT_CharMap  found = 0;
 //     FT_CharMap  charmap;
