@@ -1,5 +1,5 @@
 #ifdef __APPLE_CC__
-	#include <OpenGL/glut.h>
+	#include <GLUT/glut.h>
 #else
 	#include <GL/glut.h>
 #endif
@@ -17,10 +17,12 @@
 #include "FTGLBitmapFont.h"
 
 #ifdef __linux__
-#define FONT_FILE "/usr/share/fonts/truetype/arial.ttf"
-#else
-#define FONT_FILE ":Stacey:Curlz MT"
-//#define FONT_FILE ":Stacey:arial.ttf"
+	#define FONT_FILE "/usr/share/fonts/truetype/arial.ttf"
+	#define FONT_INFO "/usr/share/fonts/truetype/arial.ttf"
+#endif
+#ifdef __APPLE_CC__
+	#define FONT_FILE "/Volumes/Shiny/Development/Source/GRAPHICS/GLTT/ftgl src /ftgl_dist/mac/build/arial.ttf"
+	#define FONT_INFO "/Volumes/Shiny/Development/Source/GRAPHICS/GLTT/ftgl src /ftgl_dist/mac/build/arial.ttf"
 #endif
 
 #define EDITING 1
@@ -39,9 +41,12 @@ GLint w_win = 640, h_win = 480;
 float posX, posY, posZ;
 int mode = INTERACTIVE;
 int carat = 0;
-char myString[16];
+
+// wchar_t myString[16] = { 0x5BE6, 0x0020, 0x6642, 0x0020, 0x5929, 0x0020, 0x6C23};
+wchar_t myString[16] = { 0x6FB3, 0x9580};
 
 static FTFont* fonts[6];
+static FTGLPixmapFont* infoFont;
 
 void SetCamera(void);
 
@@ -66,7 +71,7 @@ void my_lighting()
    glLightfv(GL_LIGHT2, GL_DIFFUSE,  light2_diffuse);
    glLightfv(GL_LIGHT2, GL_SPECULAR, light2_specular);
    glLightfv(GL_LIGHT2, GL_POSITION, light2_position);
-   glEnable(GL_LIGHT2);
+//   glEnable(GL_LIGHT2);
 
    float front_emission[4] = { 0.3, 0.2, 0.1, 0.0 };
    float front_ambient[4]  = { 0.2, 0.2, 0.2, 0.0 };
@@ -127,7 +132,10 @@ void do_display (void)
 	}
 
 	glColor3f( 1.0, 1.0, 1.0);
-	
+// If you do want to switch the color of bitmaps rendered with glBitmap,
+// you will need to explicitly call glRasterPos3f (or its ilk) to lock
+// in a changed current color.
+
 	fonts[current_font]->render( myString);
 
 	int x1, y1, z1, x2, y2, z2;
@@ -135,6 +143,11 @@ void do_display (void)
 	
 	// Draw the bounding box
 	glDisable( GL_LIGHTING);
+	glDisable( GL_TEXTURE_2D);
+			glEnable( GL_LINE_SMOOTH);
+			glEnable(GL_BLEND);
+			glBlendFunc( GL_SRC_ALPHA, GL_ONE); // GL_ONE_MINUS_SRC_ALPHA
+
 	glColor3f( 0.0, 1.0, 0.0);
 	// Draw the front face
 	glBegin( GL_LINE_LOOP);
@@ -186,7 +199,55 @@ void do_display (void)
 		glVertex3f( 0.0, 0.0, 0.0);
 	glEnd();
 
+	// draw the info
+	int save_font = current_font;
+	current_font = FTGL_PIXMAP;
+	SetCamera();
+//	glDisable( GL_TEXTURE_2D);
+//	glEnable(GL_BLEND);
+//	glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // GL_ONE
+	// draw mode
 	glColor3f( 1.0, 1.0, 1.0);
+	glRasterPos2i( 20 , h_win - ( 20 + infoFont->Ascender()));
+
+	switch( mode)
+	{
+		case EDITING:
+			infoFont->render("Edit Mode");
+			break;
+		case INTERACTIVE:
+			break;
+	}
+	
+	// draw font type
+	glRasterPos2i( 20 , 20);
+	switch( save_font)
+	{
+		case FTGL_BITMAP:
+			infoFont->render("Bitmap Font");
+			break;
+		case FTGL_PIXMAP:
+			infoFont->render("Pixmap Font");
+			break;
+		case FTGL_OUTLINE:
+			infoFont->render("Outline Font");
+			break;
+		case FTGL_POLYGON:
+			infoFont->render("Polygon Font");
+			break;
+		case FTGL_EXTRUDE:
+			infoFont->render("Extruded Font");
+			break;
+		case FTGL_TEXTURE:
+			infoFont->render("Texture Font");
+			break;
+	}
+	
+	glRasterPos2i( 20 , 20 + infoFont->Ascender() - infoFont->Descender());
+	infoFont->render(FONT_FILE);
+	
+	current_font = save_font;
+	
 	glutSwapBuffers();
 }
 
@@ -257,10 +318,16 @@ void myinit ( const char* fontfile)
 		}
 	
 		fonts[x]->Depth(20);
+		
+		fonts[x]->CharMap(ft_encoding_unicode);
 	}
 	
-	myString[0] = 65;
-	myString[1] = 0;
+	infoFont = new FTGLPixmapFont;
+	infoFont->Open( FONT_INFO, false); // FIXME BAARRRFFFFFF!
+	infoFont->FaceSize( 18);
+
+//	myString[0] = 65;
+//	myString[1] = 0;
 	
 
 	tbInit(GLUT_LEFT_BUTTON);
@@ -299,7 +366,7 @@ void parsekey(unsigned char key, int x, int y)
 			}
 			else
 			{
-				myString[carat] = key;
+				myString[carat] = key;// + 19968;
 				myString[carat + 1] = 0;
 				carat = carat > 14 ? 15 : ++carat;
 			}
@@ -370,10 +437,10 @@ void SetCamera(void)
 		case FTGL_TEXTURE:
 			glMatrixMode (GL_PROJECTION);
 			glLoadIdentity ();
-			gluPerspective( 90, w_win/ h_win, 1, 1000);
+			gluPerspective( 90, (float)w_win / (float)h_win, 1, 1000);
 			glMatrixMode(GL_MODELVIEW);
 			glLoadIdentity();
-			gluLookAt( 0.0, 0.0, h_win / 2, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+			gluLookAt( 0.0, 0.0, (float)h_win / 2.0f, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 			break;
 	}	
 }
@@ -383,10 +450,12 @@ int main(int argc, char *argv[])
 {
 	char* fontfile = FONT_FILE;
 
+#ifndef __APPLE_CC__ // Bloody finder args???
 	if (argc == 2)
 		fontfile = argv[1];
-
-	glutInitDisplayMode(GLUT_DEPTH | GLUT_RGB | GLUT_DOUBLE | GLUT_MULTISAMPLE);
+#endif
+	glutInit( &argc, argv);
+        glutInitDisplayMode(GLUT_DEPTH | GLUT_RGB | GLUT_DOUBLE | GLUT_MULTISAMPLE);
 	glutInitWindowPosition(50, 50);
 	glutInitWindowSize( w_win, h_win);
 	glutCreateWindow("FTGL TEST");
