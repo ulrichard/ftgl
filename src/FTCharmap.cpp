@@ -3,10 +3,9 @@
 
 FTCharmap::FTCharmap( FT_Face face)
 :	err(0),
-	ftEncoding( ft_encoding_none),
 	ftFace( face)
 {
-//	charMap.reserve( 1000);
+	ftEncoding = face->charmap->encoding;
 }
 
 

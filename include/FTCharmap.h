@@ -87,7 +87,7 @@ class FTCharmap
 		
 	protected:
 		/**
-		 * Current cahracter map code.
+		 * Current character map code.
 		 */
 		FT_Encoding ftEncoding;
 		
