@@ -63,25 +63,21 @@ FTPolyGlyph::FTPolyGlyph( FT_Glyph glyph, unsigned int gi)
 
 	vectoriser = new FTVectoriser( glyph);
 	
-	if( vectoriser->Ingest())
+	vectoriser->Ingest();
+	numContours = vectoriser->contours();
+	contourLength = new int[ numContours];
+	
+	for( int c = 0; c < numContours; ++c)
 	{
-		numContours = vectoriser->contours();
-		
-		contourLength = new int[ numContours];
-		
-		for( int c = 0; c < numContours; ++c)
-		{
-			contourLength[c] = vectoriser->contourSize( c);
-		}
-		
-
-		numPoints = vectoriser->points();
-		data = new double[ numPoints * 3];
-		vectoriser->Output( data);
-		
-		contourFlag = vectoriser->ContourFlag();
-		advance = glyph->advance.x >> 16; // this is 6 in the freetype docs!!!!!!
+		contourLength[c] = vectoriser->contourSize( c);
 	}
+	
+	numPoints = vectoriser->points();
+	data = new double[ numPoints * 3];
+	vectoriser->Output( data);
+	
+	contourFlag = vectoriser->ContourFlag();
+	advance = glyph->advance.x >> 16; // this is 6 in the freetype docs!!!!!!
 
 	delete vectoriser;
 

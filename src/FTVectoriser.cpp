@@ -65,9 +65,6 @@ int FTVectoriser::points()
 
 bool FTVectoriser::Ingest()
 {
-    if ( ( ftOutline.n_contours < 1) || ( ftOutline.n_points < 3))
-		return false;
-
 	short first = 0;
 	short last;
 	const short cont = ftOutline.n_contours;
