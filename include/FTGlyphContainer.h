@@ -28,17 +28,21 @@ class	FTGlyphContainer
 		
 	private:
 		// methods
-//		bool	MakeGlyphList( FT_Face* face);
 		
 		// attributes
-//		FONTTYPE fontType;
+		FT_Error err;
 		bool preCache;
 		int numGlyphs;
 		FTGlyph* tempGlyph;
 		FT_Face* face;
 		
-//		typedef pair<int, FTGlyph*> CHARREF;
+		FT_Vector kernAdvance;
+		float advance;
+
+		
+//		typedef pair<int, FTGlyph*> CHARREF; // glyphIndex, glyph
 //		vector<CHARREF> glyphs;
+//		map< int, FTGlyph*> CHARREF; // charCode, glyph
 		vector<FTGlyph*> glyphs;
 		
 };
