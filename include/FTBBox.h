@@ -6,6 +6,7 @@
 #include FT_GLYPH_H
 
 #include "FTGL.h"
+#include "FTPoint.h"
 
 
 /**
@@ -51,6 +52,32 @@ class FTGL_EXPORT FTBBox
         ~FTBBox()
         {}
         
+
+        /**
+         * Move the Bounding Box by a vector.
+         *
+         * @param distance The distance to move the bbox in 3D space.
+         */
+        FTBBox Move( FTPoint distance)
+        {
+            lowerX += distance.x;
+            lowerY += distance.y;
+            lowerZ += distance.z;
+            upperX += distance.x;
+            upperY += distance.y;
+            upperZ += distance.z;
+            return *this;
+        }
+
+        /**
+         * Operator + Adds two FTBBox's together
+         *
+         * @param a
+         * @param b
+         * @return
+         */
+        friend FTBBox operator + ( const FTBBox &a, const FTBBox &b);
+
         /**
          * The bounds of the box
          */
