@@ -11,38 +11,6 @@
 
 using namespace std;
 
-// template < typename T>
-// class ftLoop
-// {
-// 	public:	
-// 		ftLoop();
-// 		~ftLoop()
-// 		{
-// 			list.clear();
-// 		}
-// 		
-// 		T& operator [] (unsigned int i)
-// 		{
-// 			int x = i;
-// 			if( i < 0)
-// 				x = i + list.size();
-// 			
-// 			if( i > list.size())
-// 				x = i % list.size();
-// 			
-// 			return list[x];
-// 		}
-// 		
-// 		void push_back( T t)
-// 		{
-// 			list.push_back(t);
-// 		}
-// 		
-// 	private:
-// 		vector<T> list;
-// };
-
-
 class ftPoint
 {
 	public:
