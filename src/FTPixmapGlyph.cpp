@@ -1,5 +1,7 @@
 #include	"FTPixmapGlyph.h"
-#include	"FTGL.h"
+#ifdef FTGL_DEBUG
+	#include "mmgr.h"
+#endif
 
 
 FTPixmapGlyph::FTPixmapGlyph( FT_Glyph glyph)

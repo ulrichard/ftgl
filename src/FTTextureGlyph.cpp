@@ -1,7 +1,7 @@
 #include	"FTTextureGlyph.h"
-#include	"FTGL.h"
-
-//#include "mmgr.h"
+#ifdef FTGL_DEBUG
+	#include "mmgr.h"
+#endif
 
 
 FTTextureGlyph::FTTextureGlyph( FT_Glyph glyph, int id, int xOffset, int yOffset, GLsizei width, GLsizei height)

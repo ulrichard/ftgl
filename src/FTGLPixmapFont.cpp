@@ -1,6 +1,8 @@
 #include	"FTGLPixmapFont.h"
-#include	"FTGlyphContainer.h"
 #include	"FTPixmapGlyph.h"
+#ifdef FTGL_DEBUG
+	#include "mmgr.h"
+#endif
 
 
 FTGLPixmapFont::FTGLPixmapFont()

@@ -1,7 +1,8 @@
 #include	"FTGLPolygonFont.h"
-#include	"FTGlyphContainer.h"
-#include	"FTGL.h"
 #include	"FTPolyGlyph.h"
+#ifdef FTGL_DEBUG
+	#include "mmgr.h"
+#endif
 
 
 FTGLPolygonFont::FTGLPolygonFont()

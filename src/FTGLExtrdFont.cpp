@@ -1,9 +1,8 @@
 #include	"FTGLExtrdFont.h"
-#include	"FTGlyphContainer.h"
-#include	"FTGL.h"
 #include	"FTExtrdGlyph.h"
-
-//#include "mmgr.h"
+#ifdef FTGL_DEBUG
+	#include "mmgr.h"
+#endif
 
 
 FTGLExtrdFont::FTGLExtrdFont()

@@ -1,4 +1,7 @@
 #include	"FTLibrary.h"
+#ifdef FTGL_DEBUG
+	#include "mmgr.h"
+#endif
 
 
 FTLibrary&	FTLibrary::Instance()

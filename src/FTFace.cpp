@@ -1,7 +1,10 @@
 #include	"FTFace.h"
 #include	"FTLibrary.h"
 #include	"FTCharmap.h"
-#include	"FTGL.h"
+
+#ifdef FTGL_DEBUG
+	#include "mmgr.h"
+#endif
 
 
 FTFace::FTFace()
@@ -24,6 +27,8 @@ FTFace::~FTFace()
 bool FTFace::Open( const char* filename)
 {
 	ftFace = new FT_Face;
+	
+	// FIXME check library for errors
 	err = FT_New_Face( *FTLibrary::Instance().GetLibrary(), filename, 0, ftFace);
 
 	if( err)

@@ -1,4 +1,7 @@
 #include	"FTGlyph.h"
+#ifdef FTGL_DEBUG
+	#include "mmgr.h"
+#endif
 
 
 FTGlyph::FTGlyph()

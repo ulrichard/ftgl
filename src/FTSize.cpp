@@ -1,5 +1,7 @@
 #include	"FTSize.h"
-#include	"FTGL.h"
+#ifdef FTGL_DEBUG
+	#include "mmgr.h"
+#endif
 
 
 FTSize::FTSize()

@@ -1,4 +1,7 @@
 #include	"FTBitmapGlyph.h"
+#ifdef FTGL_DEBUG
+	#include "mmgr.h"
+#endif
 
 
 FTBitmapGlyph::FTBitmapGlyph( FT_Glyph glyph)
