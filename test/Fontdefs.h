@@ -2,18 +2,17 @@
 #define    __Font_defs__
 
 
-const char* const BAD_FONT_FILE  =  "missing_font.ttf";
+const char* const BAD_FONT_FILE  = "missing_font.ttf";
 const char* const GOOD_FONT_FILE = "../../test/MHei-Medium-Acro";
 const char* const FONT_FILE      = "../../test/arial.ttf";
 
-const char* const GOOD_ASCII_TEST_STRING        = "test string";
-const char* const BAD_ASCII_TEST_STRING         = "";
-const wchar_t GOOD_UNICODE_TEST_STRING[4] = { 0x6FB3, 0x9580, 0x0};
-const wchar_t* const BAD_UNICODE_TEST_STRING    = L"";
+const char* const    GOOD_ASCII_TEST_STRING        = "test string";
+const char* const    BAD_ASCII_TEST_STRING         = "";
+const wchar_t        GOOD_UNICODE_TEST_STRING[4]   = { 0x6FB3, 0x9580, 0x0};
+const wchar_t* const BAD_UNICODE_TEST_STRING       = L"";
 
 const unsigned int GOOD_SIZE  = 72;
 const unsigned int RESOLUTION = 72;
-const unsigned int CHARACTER_SIZE      = 72 * 64;
 
 const unsigned int CHARACTER_CODE_A        = 'A';
 const unsigned int CHARACTER_CODE_G        = 'g';

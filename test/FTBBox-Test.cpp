@@ -132,7 +132,7 @@ class FTBBoxTest : public CppUnit::TestCase
             
             long glyphIndex = FT_Get_Char_Index( face, CHARACTER_CODE_G);
             
-            FT_Set_Char_Size( face, 0L, GOOD_SIZE, RESOLUTION, RESOLUTION);
+            FT_Set_Char_Size( face, 0L, GOOD_SIZE * 64, RESOLUTION, RESOLUTION);
             
             error = FT_Load_Glyph( face, glyphIndex, FT_LOAD_DEFAULT);
             assert(!error);
