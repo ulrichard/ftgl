@@ -107,6 +107,8 @@ unsigned int FTFace::CharIndex( unsigned int index) const
 FTPoint FTFace::KernAdvance( unsigned int index1, unsigned int index2)
 {
     FT_Vector kernAdvance;
+    kernAdvance.x = 0;
+    kernAdvance.y = 0;
     
     if( FT_HAS_KERNING((*ftFace)) && index1 && index2)
     {
