@@ -28,7 +28,7 @@ class FTGlyphContainerTest : public CppUnit::TestCase
     CPPUNIT_TEST_SUITE( FTGlyphContainerTest);
         CPPUNIT_TEST( testAdd);
         CPPUNIT_TEST( testSetCharMap);
-        CPPUNIT_TEST( testCharacterIndex);
+        CPPUNIT_TEST( testGlyphIndex);
         CPPUNIT_TEST( testAdvance);
         CPPUNIT_TEST( testRender);
     CPPUNIT_TEST_SUITE_END();
@@ -48,11 +48,14 @@ class FTGlyphContainerTest : public CppUnit::TestCase
         void testAdd()
         {
             TestGlyph* glyph = new TestGlyph();
-            glyphContainer->Add( glyph, 'A');
-            glyphContainer->Add( 0, 0);
+            CPPUNIT_ASSERT( glyphContainer->Glyph( CHARACTER_CODE_A) == NULL);
 
-            CPPUNIT_ASSERT( glyphContainer->Glyph( 0) == 0);
-            CPPUNIT_ASSERT( glyphContainer->Glyph( 'A') == glyph);
+            glyphContainer->Add( glyph, CHARACTER_CODE_A);
+            glyphContainer->Add( NULL, 0);
+
+            CPPUNIT_ASSERT( glyphContainer->Glyph( 0) == NULL);
+            CPPUNIT_ASSERT( glyphContainer->Glyph( 999) == NULL);
+            CPPUNIT_ASSERT( glyphContainer->Glyph( CHARACTER_CODE_A) == glyph);
         }
 
     
@@ -66,19 +69,19 @@ class FTGlyphContainerTest : public CppUnit::TestCase
         }
 
 
-        void testCharacterIndex()
+        void testGlyphIndex()
         {
-            CPPUNIT_ASSERT( glyphContainer->CharIndex( 'A') == 34);
-            CPPUNIT_ASSERT( glyphContainer->CharIndex( 0x6FB3) == 4838);
-        }    
-        
-        
+            CPPUNIT_ASSERT( glyphContainer->GlyphIndex( CHARACTER_CODE_A) == FONT_INDEX_OF_A);
+            CPPUNIT_ASSERT( glyphContainer->GlyphIndex( BIG_CHARACTER_CODE) == BIG_FONT_INDEX);
+        }
+
+
         void testAdvance()
         {
             TestGlyph* glyph = new TestGlyph();
 
-            glyphContainer->Add( glyph, 'A');
-            float advance = glyphContainer->Advance( 'A', 0);
+            glyphContainer->Add( glyph, CHARACTER_CODE_A);
+            float advance = glyphContainer->Advance( CHARACTER_CODE_A, 0);
             
             CPPUNIT_ASSERT_DOUBLES_EQUAL( 50, advance, 0.01);
         }
@@ -107,7 +110,6 @@ class FTGlyphContainerTest : public CppUnit::TestCase
         void tearDown() 
         {
             delete glyphContainer;
-            delete face;
         }
         
     private:

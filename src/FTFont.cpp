@@ -9,6 +9,10 @@ FTFont::FTFont( const char* fontname)
     glyphList(0)
 {
     err = face.Error();
+    if( err == 0)
+    {
+        glyphList = new FTGlyphContainer( &face);
+    }
 }
 
 
@@ -17,6 +21,10 @@ FTFont::FTFont( const unsigned char *pBufferBytes, size_t bufferSizeInBytes)
     glyphList(0)
 {
     err = face.Error();
+    if( err == 0)
+    {
+        glyphList = new FTGlyphContainer( &face);
+    }
 }
 
 
@@ -83,8 +91,8 @@ unsigned int FTFont::FaceSize() const
 
 bool FTFont::CharMap( FT_Encoding encoding)
 {
-    bool result = face.CharMap( encoding);
-    err = face.Error();
+    bool result = glyphList->CharMap( encoding);
+    err = glyphList->Error();
     return result;
 }
 
@@ -240,12 +248,12 @@ void FTFont::DoRender( const unsigned int chr, const unsigned int nextChr)
 }
 
 
-void FTFont::CheckGlyph( const unsigned int chr)
+void FTFont::CheckGlyph( const unsigned int characterCode)
 {
-    if( !glyphList->Glyph( chr))
+    if( NULL == glyphList->Glyph( characterCode))
     {
-        unsigned int g = face.CharIndex( chr);
-        glyphList->Add( MakeGlyph( g), g);
+        unsigned int glyphIndex = glyphList->GlyphIndex( characterCode);
+        glyphList->Add( MakeGlyph( glyphIndex), characterCode);
     }
 }
 

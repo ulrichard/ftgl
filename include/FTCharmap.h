@@ -71,14 +71,33 @@ class FTGL_EXPORT FTCharmap
         bool CharMap( FT_Encoding encoding);
 
         /**
-         * Get the glyph index of the input character.
+         * Get the FTGlyphContainer index of the input character.
          *
-         * @param index The character code of the requested glyph in the
-         *              current encoding eg apple roman.
+         * @param characterCode The character code of the requested glyph in
+         *                      the current encoding eg apple roman.
+         * @return      The FTGlyphContainer index for the character or zero
+         *              if it wasn't found
+         */
+        unsigned int CharIndex( const unsigned int characterCode);
+
+        /**
+         * Set the FTGlyphContainer index of the character code.
+         *
+         * @param characterCode  The character code of the requested glyph in
+         *                       the current encoding eg apple roman.
+         * @param containerIndex The index into the FTGlyphContainer of the
+         *                       character code.
+         */
+        void InsertIndex( const unsigned int characterCode, const unsigned int containerIndex);
+
+        /**
+         * Get the font glyph index of the input character.
+         *
+         * @param characterCode The character code of the requested glyph in
+         *                      the current encoding eg apple roman.
          * @return      The glyph index for the character.
          */
-        unsigned int CharIndex( unsigned int characterCode);
-        unsigned int GlyphIndex( unsigned int characterCode, unsigned int glyphIndex);
+        unsigned int GlyphIndex( const unsigned int characterCode);
 
         /**
          * Queries for errors.

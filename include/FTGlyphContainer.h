@@ -36,7 +36,7 @@ class FTGL_EXPORT FTGlyphContainer
         ~FTGlyphContainer();
 
         /**
-            * Sets the character map for the face.
+         * Sets the character map for the face.
          *
          * @param encoding      the Freetype encoding symbol. See above.
          * @return              <code>true</code> if charmap was valid
@@ -45,13 +45,13 @@ class FTGL_EXPORT FTGlyphContainer
         bool CharMap( FT_Encoding encoding);
 
         /**
-         *  Get the glyph index of the input character.
+         * Get the glyph index of the input character.
          *
          * @param characterCode The character code of the requested glyph in the
          *                      current encoding eg apple roman.
          * @return      The glyph index for the character.
          */
-        unsigned int CharIndex( unsigned int characterCode ) const;
+        unsigned int GlyphIndex( const unsigned int characterCode ) const;
         
         /**
          * Adds a glyph to this glyph list.
@@ -83,7 +83,7 @@ class FTGL_EXPORT FTGlyphContainer
         * @param nextCharacterCode the next glyph in a string
         * @return                  advance width
         */
-        float Advance( unsigned int characterCode, unsigned int nextCharacterCode);
+        float Advance( const unsigned int characterCode, const unsigned int nextCharacterCode);
         
         /**
          * Renders a character
@@ -92,7 +92,7 @@ class FTGL_EXPORT FTGlyphContainer
          * @param penPosition        the position to Render the glyph
          * @return                   The distance to advance the pen position after Rendering
          */
-        FTPoint Render( unsigned int characterCode, unsigned int nextCharacterCode, FTPoint penPosition);
+        FTPoint Render( const unsigned int characterCode, const unsigned int nextCharacterCode, FTPoint penPosition);
         
         /**
          * Queries the Font for errors.
@@ -102,11 +102,6 @@ class FTGL_EXPORT FTGlyphContainer
         FT_Error Error() const { return err;}
 
     private:
-        /**
-         * How many glyphs are reserved in this container
-         */
-        unsigned int numberOfGlyphs;
-
         /**
          * The FTGL face
          */
@@ -126,7 +121,6 @@ class FTGL_EXPORT FTGlyphContainer
          * Current error code. Zero means no error.
          */
         FT_Error err;
-        
 };
 
 
