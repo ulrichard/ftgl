@@ -26,8 +26,11 @@ class FTGL_EXPORT FTExtrdGlyph : public FTGlyph
          *
          * @param glyph The Freetype glyph to be processed
          * @param depth The distance along the z axis to extrude the glyph
+         * @param useDisplayList Enable or disable the use of Display Lists for this glyph
+         *                       <code>true</code> turns ON display lists.
+         *                       <code>false</code> turns OFF display lists.
          */
-        FTExtrdGlyph( FT_GlyphSlot glyph, float depth);
+        FTExtrdGlyph( FT_GlyphSlot glyph, float depth, bool useDisplayList);
 
         /**
          * Destructor

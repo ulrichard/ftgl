@@ -25,8 +25,11 @@ class FTGL_EXPORT FTOutlineGlyph : public FTGlyph
          * Constructor. Sets the Error to Invalid_Outline if the glyphs isn't an outline.
          *
          * @param glyph The Freetype glyph to be processed
+         * @param useDisplayList Enable or disable the use of Display Lists for this glyph
+         *                       <code>true</code> turns ON display lists.
+         *                       <code>false</code> turns OFF display lists.
          */
-        FTOutlineGlyph( FT_GlyphSlot glyph);
+        FTOutlineGlyph( FT_GlyphSlot glyph, bool useDisplayList);
 
         /**
          * Destructor

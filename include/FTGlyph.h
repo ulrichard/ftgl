@@ -27,8 +27,13 @@ class FTGL_EXPORT FTGlyph
     public:
         /**
          * Constructor
+         *
+         * @param glyph The Freetype glyph to be processed
+         * @param useDisplayList Enable or disable the use of Display Lists for this glyph
+         *                       <code>true</code> turns ON display lists.
+         *                       <code>false</code> turns OFF display lists.
          */
-        FTGlyph( FT_GlyphSlot glyph);
+        FTGlyph( FT_GlyphSlot glyph, bool useDisplayList = true);
 
         /**
          * Destructor
@@ -74,6 +79,13 @@ class FTGL_EXPORT FTGlyph
          * The bounding box of this glyph.
          */
         FTBBox bBox;
+        
+        /**
+         * Flag to enable or disable the use of Display Lists inside FTGL
+         * <code>true</code> turns ON display lists.
+         * <code>false</code> turns OFF display lists.
+         */
+        bool useDisplayList;
         
         /**
          * Current error code. Zero means no error.
