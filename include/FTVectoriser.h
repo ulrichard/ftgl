@@ -101,7 +101,7 @@ class FTGL_EXPORT FTMesh
         /**
          *  Create a combine point for the gluTesselator
          */
-        FTGL_DOUBLE* Combine( const FTGL_DOUBLE x, const FTGL_DOUBLE y, const FTGL_DOUBLE z);
+        const FTGL_DOUBLE* Combine( const FTGL_DOUBLE x, const FTGL_DOUBLE y, const FTGL_DOUBLE z);
         
         /**
          * Begin a new polygon

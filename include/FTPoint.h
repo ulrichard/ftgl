@@ -130,7 +130,7 @@ class FTGL_EXPORT FTPoint
         /**
          * Cast to FTGL_DOUBLE*
          */
-        operator FTGL_DOUBLE*()
+        operator const FTGL_DOUBLE*() const
         {
             return values;
         }

@@ -101,7 +101,7 @@ FTExtrdGlyph::FTExtrdGlyph( FT_GlyphSlot glyph, float depth, bool useDisplayList
                 FTPoint normal = GetNormal( point, contour->Point(nextPointIndex));
                 if(normal != FTPoint( 0.0f, 0.0f, 0.0f))
                 {                   
-                    glNormal3dv((FTGL_DOUBLE*)normal);
+                    glNormal3dv(static_cast<const FTGL_DOUBLE*>(normal));
                 }
 
                 if( contourFlag & ft_outline_reverse_fill)

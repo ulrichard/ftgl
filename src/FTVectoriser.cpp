@@ -31,8 +31,8 @@ void CALLBACK ftglVertex( void* data, FTMesh* mesh)
 
 void CALLBACK ftglCombine( FTGL_DOUBLE coords[3], void* vertex_data[4], GLfloat weight[4], void** outData, FTMesh* mesh)
 {
-    FTGL_DOUBLE* vertex = static_cast<FTGL_DOUBLE*>(coords);
-    *outData = mesh->Combine( vertex[0], vertex[1], vertex[2]);
+    const FTGL_DOUBLE* vertex = static_cast<const FTGL_DOUBLE*>(coords);
+    *outData = const_cast<FTGL_DOUBLE*>(mesh->Combine( vertex[0], vertex[1], vertex[2]));
 }
         
 
@@ -73,10 +73,10 @@ void FTMesh::AddPoint( const FTGL_DOUBLE x, const FTGL_DOUBLE y, const FTGL_DOUB
 }
 
 
-FTGL_DOUBLE* FTMesh::Combine( const FTGL_DOUBLE x, const FTGL_DOUBLE y, const FTGL_DOUBLE z)
+const FTGL_DOUBLE* FTMesh::Combine( const FTGL_DOUBLE x, const FTGL_DOUBLE y, const FTGL_DOUBLE z)
 {
     tempPointList.push_back( FTPoint( x, y,z));
-    return static_cast<FTGL_DOUBLE*>(tempPointList.back());
+    return static_cast<const FTGL_DOUBLE*>(tempPointList.back());
 }
 
 
@@ -211,8 +211,8 @@ void FTVectoriser::MakeMesh( FTGL_DOUBLE zNormal)
             
                 for( size_t p = 0; p < contour->PointCount(); ++p)
                 {
-                    FTGL_DOUBLE* d = (FTGL_DOUBLE*)(contour->Point(p)); // FIXME use c++ cast
-                    gluTessVertex( tobj, d, d);
+                    const FTGL_DOUBLE* d = static_cast<const FTGL_DOUBLE*>(contour->Point(p));
+                    gluTessVertex( tobj, (GLdouble*)d, (GLdouble*)d);
                 }
 
             gluTessEndContour( tobj);

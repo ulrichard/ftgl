@@ -120,7 +120,7 @@ class FTPointTest : public CppUnit::TestCase
         {
             FTPoint point1(  1.0f, 2.0f, 3.0f);
         
-            double* pointer = static_cast<double*>(point1);
+            const double* pointer = static_cast<const double*>(point1);
             CPPUNIT_ASSERT(pointer[0] == 1.0f);
             CPPUNIT_ASSERT(pointer[1] == 2.0f);
             CPPUNIT_ASSERT(pointer[2] == 3.0f);

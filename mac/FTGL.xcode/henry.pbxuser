@@ -15,7 +15,7 @@
 		isa = PBXTextBookmark;
 		name = "FTExtrdGlyph.cpp: 174";
 		rLen = 0;
-		rLoc = 5135;
+		rLoc = 5152;
 		rType = 0;
 		vrLen = 661;
 		vrLoc = 4474;
@@ -49,6 +49,36 @@
 		rType = 0;
 		vrLen = 953;
 		vrLoc = 67;
+	};
+	BA4BA776076467A4006E3FE1 = {
+		fRef = BA63B13606D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTTextureGlyph::Render";
+		rLen = 22;
+		rLoc = 1541;
+		rType = 0;
+		vrLen = 830;
+		vrLoc = 1415;
+	};
+	BA4BA77C076467D6006E3FE1 = {
+		fRef = BA63B12B06D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTGLPixmapFont.cpp: 51";
+		rLen = 0;
+		rLoc = 1219;
+		rType = 0;
+		vrLen = 1008;
+		vrLoc = 616;
+	};
+	BA4BA79707646A5C006E3FE1 = {
+		fRef = BA4DCBB306D84BD30090441D;
+		isa = PBXTextBookmark;
+		name = "demo.cpp: 213";
+		rLen = 0;
+		rLoc = 4414;
+		rType = 0;
+		vrLen = 946;
+		vrLoc = 4133;
 	};
 	BA4DCB0B06D848A60090441D = {
 		uiCtxt = {
@@ -137,8 +167,8 @@
 	BA4DCBB306D84BD30090441D = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {955, 4549}}";
-			sepNavSelRange = "{6001, 0}";
-			sepNavVisRect = "{{0, 1064}, {955, 500}}";
+			sepNavSelRange = "{4414, 0}";
+			sepNavVisRect = "{{0, 2855}, {955, 500}}";
 		};
 	};
 	BA514271071DCFA400479336 = {
@@ -271,30 +301,10 @@
 		vrLen = 457;
 		vrLoc = 0;
 	};
-	BA579C49076310CE00F095FF = {
-		fRef = BA4DCBB306D84BD30090441D;
-		isa = PBXTextBookmark;
-		name = "demo.cpp: 298";
-		rLen = 0;
-		rLoc = 6001;
-		rType = 0;
-		vrLen = 847;
-		vrLoc = 1760;
-	};
-	BA579C4D076310CF00F095FF = {
-		fRef = BA4DCBB306D84BD30090441D;
-		isa = PBXTextBookmark;
-		name = "demo.cpp: 298";
-		rLen = 0;
-		rLoc = 6001;
-		rType = 0;
-		vrLen = 847;
-		vrLoc = 1760;
-	};
 	BA63B0C006D1C62B00CD5F16 = {
 		activeBuildStyle = BA63B0BF06D1C62B00CD5F16;
-		activeExecutable = BA63B16F06D1C8FD00CD5F16;
-		activeTarget = BA63B16D06D1C8FD00CD5F16;
+		activeExecutable = BA4DCBAE06D84BA70090441D;
+		activeTarget = BA4DCBAC06D84BA70090441D;
 		addToTargets = (
 			BA63B16D06D1C8FD00CD5F16,
 		);
@@ -423,7 +433,7 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 123932872;
+			PBXPerProjectTemplateStateSaveDate = 124063752;
 			PBXPrepackagedSmartGroups_v2 = (
 				{
 					PBXTransientLocationAtTop = bottom;
@@ -853,7 +863,7 @@
 				PBXModuleWindowStatusBarHidden = YES;
 				RubberWindowFrame = "267 352 745 464 0 0 1280 832 ";
 			};
-			PBXWorkspaceStateSaveDate = 123932872;
+			PBXWorkspaceStateSaveDate = 124063752;
 		};
 		perUserProjectItems = {
 			BA006F3007246AC7006A2EFF = BA006F3007246AC7006A2EFF;
@@ -861,6 +871,9 @@
 			BA1F9BEC072F06F400EE6DC2 = BA1F9BEC072F06F400EE6DC2;
 			BA49A362074981D200A87295 = BA49A362074981D200A87295;
 			BA49A364074981D200A87295 = BA49A364074981D200A87295;
+			BA4BA776076467A4006E3FE1 = BA4BA776076467A4006E3FE1;
+			BA4BA77C076467D6006E3FE1 = BA4BA77C076467D6006E3FE1;
+			BA4BA79707646A5C006E3FE1 = BA4BA79707646A5C006E3FE1;
 			BA514271071DCFA400479336 = BA514271071DCFA400479336;
 			BA514277071DCFA400479336 = BA514277071DCFA400479336;
 			BA51427A071DD02B00479336 = BA51427A071DD02B00479336;
@@ -874,8 +887,6 @@
 			BA579C170763078900F095FF = BA579C170763078900F095FF;
 			BA579C1E07630C6100F095FF = BA579C1E07630C6100F095FF;
 			BA579C2E07630D1500F095FF = BA579C2E07630D1500F095FF;
-			BA579C49076310CE00F095FF = BA579C49076310CE00F095FF;
-			BA579C4D076310CF00F095FF = BA579C4D076310CF00F095FF;
 			BA6A383C07261AE2006BFEAE = BA6A383C07261AE2006BFEAE;
 			BA6A385507261C05006BFEAE = BA6A385507261C05006BFEAE;
 			BA6A385B07261C2C006BFEAE = BA6A385B07261C2C006BFEAE;
@@ -883,6 +894,107 @@
 			BA6A386E07261CC5006BFEAE = BA6A386E07261CC5006BFEAE;
 			BA6A387007261CC5006BFEAE = BA6A387007261CC5006BFEAE;
 			BA711EC5073587C600B5EF8E = BA711EC5073587C600B5EF8E;
+			BA9E7A1D0764F73200AF32B6 = BA9E7A1D0764F73200AF32B6;
+			BA9E7A200764F73200AF32B6 = BA9E7A200764F73200AF32B6;
+			BA9E7A210764F73200AF32B6 = BA9E7A210764F73200AF32B6;
+			BA9E7A220764F73200AF32B6 = BA9E7A220764F73200AF32B6;
+			BA9E7A230764F73200AF32B6 = BA9E7A230764F73200AF32B6;
+			BA9E7A2F0764F8B100AF32B6 = BA9E7A2F0764F8B100AF32B6;
+			BA9E7A300764F8B100AF32B6 = BA9E7A300764F8B100AF32B6;
+			BA9E7A310764F8B100AF32B6 = BA9E7A310764F8B100AF32B6;
+			BA9E7A320764F8B100AF32B6 = BA9E7A320764F8B100AF32B6;
+			BA9E7A330764F8B100AF32B6 = BA9E7A330764F8B100AF32B6;
+			BA9E7AA80765075C00AF32B6 = BA9E7AA80765075C00AF32B6;
+			BA9E7B050765104F00AF32B6 = BA9E7B050765104F00AF32B6;
+			BA9E7B060765104F00AF32B6 = BA9E7B060765104F00AF32B6;
+			BA9E7B070765104F00AF32B6 = BA9E7B070765104F00AF32B6;
+			BA9E7B080765104F00AF32B6 = BA9E7B080765104F00AF32B6;
+			BA9E7B090765104F00AF32B6 = BA9E7B090765104F00AF32B6;
+			BA9E7B0A0765104F00AF32B6 = BA9E7B0A0765104F00AF32B6;
+			BA9E7B0D076510D500AF32B6 = BA9E7B0D076510D500AF32B6;
+			BA9E7B0E076510D500AF32B6 = BA9E7B0E076510D500AF32B6;
+			BA9E7B0F076510D500AF32B6 = BA9E7B0F076510D500AF32B6;
+			BA9E7B10076510D500AF32B6 = BA9E7B10076510D500AF32B6;
+			BA9E7B1E076511DA00AF32B6 = BA9E7B1E076511DA00AF32B6;
+			BA9E7B1F076511DA00AF32B6 = BA9E7B1F076511DA00AF32B6;
+			BA9E7B20076511DA00AF32B6 = BA9E7B20076511DA00AF32B6;
+			BA9E7B21076511DA00AF32B6 = BA9E7B21076511DA00AF32B6;
+			BA9E7B22076511DA00AF32B6 = BA9E7B22076511DA00AF32B6;
+			BA9E7B23076511DA00AF32B6 = BA9E7B23076511DA00AF32B6;
+			BA9E7B24076511DA00AF32B6 = BA9E7B24076511DA00AF32B6;
+			BA9E7B25076511DA00AF32B6 = BA9E7B25076511DA00AF32B6;
+			BA9E7B26076511DA00AF32B6 = BA9E7B26076511DA00AF32B6;
+			BA9E7B27076511E100AF32B6 = BA9E7B27076511E100AF32B6;
+			BA9E7B280765120200AF32B6 = BA9E7B280765120200AF32B6;
+			BA9E7B2C0765120600AF32B6 = BA9E7B2C0765120600AF32B6;
+			BA9E7B2D0765120600AF32B6 = BA9E7B2D0765120600AF32B6;
+			BA9E7B2E0765120600AF32B6 = BA9E7B2E0765120600AF32B6;
+			BA9E7B2F0765120600AF32B6 = BA9E7B2F0765120600AF32B6;
+			BA9E7B300765120600AF32B6 = BA9E7B300765120600AF32B6;
+			BA9E7B310765120600AF32B6 = BA9E7B310765120600AF32B6;
+			BA9E7B320765120600AF32B6 = BA9E7B320765120600AF32B6;
+			BA9E7B330765120600AF32B6 = BA9E7B330765120600AF32B6;
+			BA9E7B340765120600AF32B6 = BA9E7B340765120600AF32B6;
+			BA9E7B350765120600AF32B6 = BA9E7B350765120600AF32B6;
+			BA9E7B360765120600AF32B6 = BA9E7B360765120600AF32B6;
+			BA9E7B370765120600AF32B6 = BA9E7B370765120600AF32B6;
+			BA9E7B380765120600AF32B6 = BA9E7B380765120600AF32B6;
+			BA9E7B390765120600AF32B6 = BA9E7B390765120600AF32B6;
+			BA9E7B3C0765120C00AF32B6 = BA9E7B3C0765120C00AF32B6;
+			BA9E7B3D0765125B00AF32B6 = BA9E7B3D0765125B00AF32B6;
+			BA9E7B3E0765125B00AF32B6 = BA9E7B3E0765125B00AF32B6;
+			BA9E7B3F0765125B00AF32B6 = BA9E7B3F0765125B00AF32B6;
+			BA9E7B400765125B00AF32B6 = BA9E7B400765125B00AF32B6;
+			BA9E7B410765128100AF32B6 = BA9E7B410765128100AF32B6;
+			BA9E7B420765128100AF32B6 = BA9E7B420765128100AF32B6;
+			BA9E7B4A0765131400AF32B6 = BA9E7B4A0765131400AF32B6;
+			BA9E7B4E0765133D00AF32B6 = BA9E7B4E0765133D00AF32B6;
+			BA9E7B4F0765133D00AF32B6 = BA9E7B4F0765133D00AF32B6;
+			BA9E7B500765133D00AF32B6 = BA9E7B500765133D00AF32B6;
+			BA9E7B510765133D00AF32B6 = BA9E7B510765133D00AF32B6;
+			BA9E7B520765137100AF32B6 = BA9E7B520765137100AF32B6;
+			BA9E7B530765137300AF32B6 = BA9E7B530765137300AF32B6;
+			BA9E7B570765137500AF32B6 = BA9E7B570765137500AF32B6;
+			BA9E7B580765137500AF32B6 = BA9E7B580765137500AF32B6;
+			BA9E7B590765137500AF32B6 = BA9E7B590765137500AF32B6;
+			BA9E7B5A0765137500AF32B6 = BA9E7B5A0765137500AF32B6;
+			BA9E7B5B0765137500AF32B6 = BA9E7B5B0765137500AF32B6;
+			BA9E7B5C0765137500AF32B6 = BA9E7B5C0765137500AF32B6;
+			BA9E7B5D0765137500AF32B6 = BA9E7B5D0765137500AF32B6;
+			BA9E7B5E0765137500AF32B6 = BA9E7B5E0765137500AF32B6;
+			BA9E7B5F0765137B00AF32B6 = BA9E7B5F0765137B00AF32B6;
+			BA9E7B600765138200AF32B6 = BA9E7B600765138200AF32B6;
+			BA9E7B700765144700AF32B6 = BA9E7B700765144700AF32B6;
+			BA9E7B780765144800AF32B6 = BA9E7B780765144800AF32B6;
+			BA9E7B790765144800AF32B6 = BA9E7B790765144800AF32B6;
+			BA9E7B7A0765144D00AF32B6 = BA9E7B7A0765144D00AF32B6;
+			BA9E7B7B0765145F00AF32B6 = BA9E7B7B0765145F00AF32B6;
+			BA9E7B7F0765146000AF32B6 = BA9E7B7F0765146000AF32B6;
+			BA9E7B800765146000AF32B6 = BA9E7B800765146000AF32B6;
+			BA9E7B810765146E00AF32B6 = BA9E7B810765146E00AF32B6;
+			BA9E7B850765148600AF32B6 = BA9E7B850765148600AF32B6;
+			BA9E7B860765148600AF32B6 = BA9E7B860765148600AF32B6;
+			BA9E7B870765148600AF32B6 = BA9E7B870765148600AF32B6;
+			BA9E7B8B0765151900AF32B6 = BA9E7B8B0765151900AF32B6;
+			BA9E7B8C0765151900AF32B6 = BA9E7B8C0765151900AF32B6;
+			BA9E7B900765161B00AF32B6 = BA9E7B900765161B00AF32B6;
+			BA9E7B910765161B00AF32B6 = BA9E7B910765161B00AF32B6;
+			BA9E7B9B076517C200AF32B6 = BA9E7B9B076517C200AF32B6;
+			BA9E7B9C076517C200AF32B6 = BA9E7B9C076517C200AF32B6;
+			BA9E7B9D076517C200AF32B6 = BA9E7B9D076517C200AF32B6;
+			BA9E7B9E076517C200AF32B6 = BA9E7B9E076517C200AF32B6;
+			BA9E7B9F076517C200AF32B6 = BA9E7B9F076517C200AF32B6;
+			BA9E7BA0076517C200AF32B6 = BA9E7BA0076517C200AF32B6;
+			BA9E7BA1076517C200AF32B6 = BA9E7BA1076517C200AF32B6;
+			BA9E7BA2076517C200AF32B6 = BA9E7BA2076517C200AF32B6;
+			BA9E7BA3076517C200AF32B6 = BA9E7BA3076517C200AF32B6;
+			BA9E7BA4076517C200AF32B6 = BA9E7BA4076517C200AF32B6;
+			BA9E7BA5076517C200AF32B6 = BA9E7BA5076517C200AF32B6;
+			BA9E7BA6076517C200AF32B6 = BA9E7BA6076517C200AF32B6;
+			BA9E7BA7076517C200AF32B6 = BA9E7BA7076517C200AF32B6;
+			BA9E7BA8076517C200AF32B6 = BA9E7BA8076517C200AF32B6;
+			BA9E7BA9076517C200AF32B6 = BA9E7BA9076517C200AF32B6;
+			BA9E7BAA076517C200AF32B6 = BA9E7BAA076517C200AF32B6;
 			BA9EEBA7071F71A100DA4FC6 = BA9EEBA7071F71A100DA4FC6;
 			BA9EEBA9071F71A100DA4FC6 = BA9EEBA9071F71A100DA4FC6;
 			BA9EEBAA071F71A100DA4FC6 = BA9EEBAA071F71A100DA4FC6;
@@ -892,6 +1004,7 @@
 			BAA7C127071CC2DF00B139B5 = BAA7C127071CC2DF00B139B5;
 			BAA7C128071CC2DF00B139B5 = BAA7C128071CC2DF00B139B5;
 			BAA7C131071CC30800B139B5 = BAA7C131071CC30800B139B5;
+			BADFB8780763ABC700DC5643 = BADFB8780763ABC700DC5643;
 			BAE83F4907289E59007C557D = BAE83F4907289E59007C557D;
 			BAE83F4A07289E59007C557D = BAE83F4A07289E59007C557D;
 			BAF9DD780721D40300698F3A = BAF9DD780721D40300698F3A;
@@ -925,14 +1038,11 @@
 			BAF9DEF90721F26200698F3A = BAF9DEF90721F26200698F3A;
 			BAF9DEFA0721F26200698F3A = BAF9DEFA0721F26200698F3A;
 			BAF9DEFB0721F26200698F3A = BAF9DEFB0721F26200698F3A;
-			BAF9DEFC0721F26200698F3A = BAF9DEFC0721F26200698F3A;
 			BAF9DEFD0721F26200698F3A = BAF9DEFD0721F26200698F3A;
-			BAF9DEFE0721F26200698F3A = BAF9DEFE0721F26200698F3A;
 			BAF9DEFF0721F26200698F3A = BAF9DEFF0721F26200698F3A;
 			BAF9DF000721F26200698F3A = BAF9DF000721F26200698F3A;
 			BAF9DF020721F26200698F3A = BAF9DF020721F26200698F3A;
 			BAF9DF380721F4CC00698F3A = BAF9DF380721F4CC00698F3A;
-			BAF9DF3D0722051600698F3A = BAF9DF3D0722051600698F3A;
 			BAF9DF430722051600698F3A = BAF9DF430722051600698F3A;
 			BAF9DF4A0722064A00698F3A = BAF9DF4A0722064A00698F3A;
 			BAF9DF4C0722064A00698F3A = BAF9DF4C0722064A00698F3A;
@@ -1121,9 +1231,9 @@
 	};
 	BA63B0FC06D1C70900CD5F16 = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {955, 2281}}";
-			sepNavSelRange = "{1079, 0}";
-			sepNavVisRect = "{{0, 312}, {955, 500}}";
+			sepNavIntBoundsRect = "{{0, 0}, {813, 2281}}";
+			sepNavSelRange = "{3209, 0}";
+			sepNavVisRect = "{{0, 1760}, {813, 191}}";
 			sepNavWindowFrame = "{{38, 162}, {750, 558}}";
 		};
 	};
@@ -1157,9 +1267,9 @@
 	};
 	BA63B10106D1C70900CD5F16 = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {973, 3863}}";
-			sepNavSelRange = "{2590, 0}";
-			sepNavVisRect = "{{0, 1569}, {973, 461}}";
+			sepNavIntBoundsRect = "{{0, 0}, {813, 3863}}";
+			sepNavSelRange = "{2131, 0}";
+			sepNavVisRect = "{{0, 1354}, {813, 191}}";
 			sepNavWindowFrame = "{{15, 183}, {750, 558}}";
 		};
 	};
@@ -1167,7 +1277,7 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {955, 923}}";
 			sepNavSelRange = "{22, 27}";
-			sepNavVisRect = "{{0, 14}, {955, 500}}";
+			sepNavVisRect = "{{0, 406}, {955, 500}}";
 		};
 	};
 	BA63B12206D1C72100CD5F16 = {
@@ -1186,9 +1296,9 @@
 	};
 	BA63B12406D1C72100CD5F16 = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {955, 2435}}";
-			sepNavSelRange = "{5135, 0}";
-			sepNavVisRect = "{{0, 1935}, {955, 500}}";
+			sepNavIntBoundsRect = "{{0, 0}, {813, 2435}}";
+			sepNavSelRange = "{3523, 0}";
+			sepNavVisRect = "{{0, 1354}, {813, 191}}";
 		};
 	};
 	BA63B12506D1C72100CD5F16 = {
@@ -1208,9 +1318,9 @@
 	};
 	BA63B12706D1C72100CD5F16 = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {986, 937}}";
+			sepNavIntBoundsRect = "{{0, 0}, {955, 937}}";
 			sepNavSelRange = "{139, 0}";
-			sepNavVisRect = "{{0, 0}, {986, 471}}";
+			sepNavVisRect = "{{0, 410}, {955, 500}}";
 		};
 	};
 	BA63B12906D1C72100CD5F16 = {
@@ -1229,9 +1339,9 @@
 	};
 	BA63B12B06D1C72100CD5F16 = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {977, 951}}";
-			sepNavSelRange = "{133, 12}";
-			sepNavVisRect = "{{0, 0}, {977, 388}}";
+			sepNavIntBoundsRect = "{{0, 0}, {955, 1175}}";
+			sepNavSelRange = "{622, 14}";
+			sepNavVisRect = "{{0, 331}, {955, 500}}";
 		};
 	};
 	BA63B12C06D1C72100CD5F16 = {
@@ -1279,16 +1389,16 @@
 	};
 	BA63B13206D1C72100CD5F16 = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {955, 1399}}";
-			sepNavSelRange = "{2293, 0}";
-			sepNavVisRect = "{{0, 899}, {955, 500}}";
+			sepNavIntBoundsRect = "{{0, 0}, {955, 1035}}";
+			sepNavSelRange = "{1170, 0}";
+			sepNavVisRect = "{{0, 448}, {955, 500}}";
 		};
 	};
 	BA63B13306D1C72100CD5F16 = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {955, 500}}";
-			sepNavSelRange = "{395, 0}";
-			sepNavVisRect = "{{0, 0}, {955, 500}}";
+			sepNavIntBoundsRect = "{{0, 0}, {813, 279}}";
+			sepNavSelRange = "{414, 4}";
+			sepNavVisRect = "{{0, 88}, {813, 191}}";
 		};
 	};
 	BA63B13406D1C72100CD5F16 = {
@@ -1310,15 +1420,15 @@
 	BA63B13606D1C72100CD5F16 = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {955, 1189}}";
-			sepNavSelRange = "{1540, 0}";
-			sepNavVisRect = "{{0, 689}, {955, 500}}";
+			sepNavSelRange = "{1541, 22}";
+			sepNavVisRect = "{{0, 658}, {955, 500}}";
 		};
 	};
 	BA63B13706D1C72100CD5F16 = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {955, 3163}}";
-			sepNavSelRange = "{4948, 94}";
-			sepNavVisRect = "{{0, 1764}, {955, 500}}";
+			sepNavSelRange = "{5018, 74}";
+			sepNavVisRect = "{{0, 2663}, {955, 500}}";
 		};
 	};
 	BA63B16D06D1C8FD00CD5F16 = {
@@ -1426,9 +1536,9 @@
 	};
 	BA63B18F06D1C95D00CD5F16 = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {955, 2001}}";
-			sepNavSelRange = "{4106, 0}";
-			sepNavVisRect = "{{0, 1409}, {955, 500}}";
+			sepNavIntBoundsRect = "{{0, 0}, {813, 2001}}";
+			sepNavSelRange = "{3855, 0}";
+			sepNavVisRect = "{{0, 1564}, {813, 191}}";
 		};
 	};
 	BA63B19006D1C95D00CD5F16 = {
@@ -1440,9 +1550,9 @@
 	};
 	BA63B19106D1C95D00CD5F16 = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {955, 2281}}";
-			sepNavSelRange = "{2734, 0}";
-			sepNavVisRect = "{{0, 1001}, {955, 500}}";
+			sepNavIntBoundsRect = "{{0, 0}, {813, 2281}}";
+			sepNavSelRange = "{3561, 0}";
+			sepNavVisRect = "{{0, 1620}, {813, 191}}";
 		};
 	};
 	BA63B19206D1C95D00CD5F16 = {
@@ -1641,6 +1751,1006 @@
 			sepNavVisRect = "{{0, 966}, {955, 500}}";
 		};
 	};
+	BA9E7A1D0764F73200AF32B6 = {
+		fRef = BA63B12706D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTGLBitmapFont.cpp: 6";
+		rLen = 0;
+		rLoc = 139;
+		rType = 0;
+		vrLen = 718;
+		vrLoc = 587;
+	};
+	BA9E7A200764F73200AF32B6 = {
+		fRef = BA63B13206D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTPixmapGlyph.cpp: 23";
+		rLen = 0;
+		rLoc = 481;
+		rType = 0;
+		vrLen = 843;
+		vrLoc = 362;
+	};
+	BA9E7A210764F73200AF32B6 = {
+		fRef = BA63B12006D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "#include \"FTBitmapGlyph.h\"\n";
+		rLen = 27;
+		rLoc = 22;
+		rType = 0;
+		vrLen = 885;
+		vrLoc = 665;
+	};
+	BA9E7A220764F73200AF32B6 = {
+		fRef = BA63B12706D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTGLBitmapFont.cpp: 6";
+		rLen = 0;
+		rLoc = 139;
+		rType = 0;
+		vrLen = 718;
+		vrLoc = 587;
+	};
+	BA9E7A230764F73200AF32B6 = {
+		fRef = BA63B12006D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "#include \"FTBitmapGlyph.h\"\n";
+		rLen = 27;
+		rLoc = 22;
+		rType = 0;
+		vrLen = 885;
+		vrLoc = 665;
+	};
+	BA9E7A2F0764F8B100AF32B6 = {
+		fRef = BA63B12B06D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = FTGLPixmapFont;
+		rLen = 14;
+		rLoc = 622;
+		rType = 0;
+		vrLen = 872;
+		vrLoc = 469;
+	};
+	BA9E7A300764F8B100AF32B6 = {
+		fRef = BA63B12006D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "#include \"FTBitmapGlyph.h\"\n";
+		rLen = 27;
+		rLoc = 22;
+		rType = 0;
+		vrLen = 885;
+		vrLoc = 665;
+	};
+	BA9E7A310764F8B100AF32B6 = {
+		fRef = BA63B13206D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTPixmapGlyph.cpp: Render";
+		rLen = 0;
+		rLoc = 1251;
+		rType = 0;
+		vrLen = 822;
+		vrLoc = 791;
+	};
+	BA9E7A320764F8B100AF32B6 = {
+		fRef = BA63B12B06D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = FTGLPixmapFont;
+		rLen = 14;
+		rLoc = 622;
+		rType = 0;
+		vrLen = 872;
+		vrLoc = 469;
+	};
+	BA9E7A330764F8B100AF32B6 = {
+		fRef = BA63B12006D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "#include \"FTBitmapGlyph.h\"\n";
+		rLen = 27;
+		rLoc = 22;
+		rType = 0;
+		vrLen = 885;
+		vrLoc = 665;
+	};
+	BA9E7AA80765075C00AF32B6 = {
+		fRef = BA63B13206D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTPixmapGlyph.cpp: 51";
+		rLen = 0;
+		rLoc = 1170;
+		rType = 0;
+		vrLen = 822;
+		vrLoc = 791;
+	};
+	BA9E7B050765104F00AF32B6 = {
+		fRef = BA63B13206D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTPixmapGlyph.cpp: 51";
+		rLen = 0;
+		rLoc = 1170;
+		rType = 0;
+		vrLen = 822;
+		vrLoc = 791;
+	};
+	BA9E7B060765104F00AF32B6 = {
+		fRef = BA63B13306D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "    ";
+		rLen = 4;
+		rLoc = 414;
+		rType = 0;
+		vrLen = 456;
+		vrLoc = 0;
+	};
+	BA9E7B070765104F00AF32B6 = {
+		fRef = BA63B0FC06D1C70900CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTPoint.h: 48";
+		rLen = 0;
+		rLoc = 1079;
+		rType = 0;
+		vrLen = 880;
+		vrLoc = 2789;
+	};
+	BA9E7B080765104F00AF32B6 = {
+		fRef = BA63B13206D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTPixmapGlyph.cpp: 51";
+		rLen = 0;
+		rLoc = 1170;
+		rType = 0;
+		vrLen = 822;
+		vrLoc = 791;
+	};
+	BA9E7B090765104F00AF32B6 = {
+		fRef = BA63B13306D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "    ";
+		rLen = 4;
+		rLoc = 414;
+		rType = 0;
+		vrLen = 456;
+		vrLoc = 0;
+	};
+	BA9E7B0A0765104F00AF32B6 = {
+		fRef = BA63B0FC06D1C70900CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTPoint.h: 48";
+		rLen = 0;
+		rLoc = 1079;
+		rType = 0;
+		vrLen = 880;
+		vrLoc = 2789;
+	};
+	BA9E7B0D076510D500AF32B6 = {
+		fRef = BA63B13706D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "                    FTGL_DOUBLE* d = (FTGL_DOUBLE*)(contour->Point(p)); // FIXME use c++ cast \n";
+		rLen = 101;
+		rLoc = 4992;
+		rType = 0;
+		vrLen = 577;
+		vrLoc = 4649;
+	};
+	BA9E7B0E076510D500AF32B6 = {
+		fRef = BA63B18406D1C95D00CD5F16;
+		isa = PBXTextBookmark;
+		rLen = 0;
+		rLoc = 0;
+		rType = 1;
+	};
+	BA9E7B0F076510D500AF32B6 = {
+		fRef = BA63B13706D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "                    FTGL_DOUBLE* d = (FTGL_DOUBLE*)(contour->Point(p)); // FIXME use c++ cast \n";
+		rLen = 101;
+		rLoc = 4992;
+		rType = 0;
+		vrLen = 577;
+		vrLoc = 4649;
+	};
+	BA9E7B10076510D500AF32B6 = {
+		fRef = BA63B18406D1C95D00CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTBBox-Test.cpp: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 520;
+		vrLoc = 0;
+	};
+	BA9E7B1E076511DA00AF32B6 = {
+		fRef = BA63B18406D1C95D00CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTBBox-Test.cpp: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 520;
+		vrLoc = 0;
+	};
+	BA9E7B1F076511DA00AF32B6 = {
+		fRef = BA63B18F06D1C95D00CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTMesh-Test.cpp: 119";
+		rLen = 0;
+		rLoc = 3855;
+		rType = 0;
+		vrLen = 553;
+		vrLoc = 3793;
+	};
+	BA9E7B20076511DA00AF32B6 = {
+		fRef = BA63B13706D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = const;
+		rLen = 5;
+		rLoc = 1632;
+		rType = 0;
+		vrLen = 456;
+		vrLoc = 1454;
+	};
+	BA9E7B21076511DA00AF32B6 = {
+		fRef = BA63B10106D1C70900CD5F16;
+		isa = PBXTextBookmark;
+		rLen = 1;
+		rLoc = 103;
+		rType = 1;
+	};
+	BA9E7B22076511DA00AF32B6 = {
+		fRef = BA63B18406D1C95D00CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTBBox-Test.cpp: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 520;
+		vrLoc = 0;
+	};
+	BA9E7B23076511DA00AF32B6 = {
+		fRef = BA63B13706D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTVectoriser.cpp: 214";
+		rLen = 0;
+		rLoc = 5024;
+		rType = 0;
+		vrLen = 583;
+		vrLoc = 4661;
+	};
+	BA9E7B24076511DA00AF32B6 = {
+		fRef = BA63B18F06D1C95D00CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTMesh-Test.cpp: 119";
+		rLen = 0;
+		rLoc = 3855;
+		rType = 0;
+		vrLen = 553;
+		vrLoc = 3793;
+	};
+	BA9E7B25076511DA00AF32B6 = {
+		fRef = BA63B13706D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = const;
+		rLen = 5;
+		rLoc = 1632;
+		rType = 0;
+		vrLen = 456;
+		vrLoc = 1454;
+	};
+	BA9E7B26076511DA00AF32B6 = {
+		fRef = BA63B10106D1C70900CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTVectoriser.h: Combine";
+		rLen = 0;
+		rLoc = 2131;
+		rType = 0;
+		vrLen = 544;
+		vrLoc = 1853;
+	};
+	BA9E7B27076511E100AF32B6 = {
+		fRef = BA63B10106D1C70900CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTVectoriser.h: Combine";
+		rLen = 0;
+		rLoc = 2131;
+		rType = 0;
+		vrLen = 544;
+		vrLoc = 1853;
+	};
+	BA9E7B280765120200AF32B6 = {
+		fRef = BA63B10106D1C70900CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTVectoriser.h: Combine";
+		rLen = 0;
+		rLoc = 2131;
+		rType = 0;
+		vrLen = 544;
+		vrLoc = 1853;
+	};
+	BA9E7B2C0765120600AF32B6 = {
+		fRef = BA63B13306D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "    ";
+		rLen = 4;
+		rLoc = 414;
+		rType = 0;
+		vrLen = 456;
+		vrLoc = 0;
+	};
+	BA9E7B2D0765120600AF32B6 = {
+		fRef = BA63B0FC06D1C70900CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTPoint.h: operator const";
+		rLen = 0;
+		rLoc = 3209;
+		rType = 0;
+		vrLen = 892;
+		vrLoc = 2789;
+	};
+	BA9E7B2E0765120600AF32B6 = {
+		fRef = BA63B18F06D1C95D00CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTMesh-Test.cpp: 119";
+		rLen = 0;
+		rLoc = 3855;
+		rType = 0;
+		vrLen = 1079;
+		vrLoc = 3254;
+	};
+	BA9E7B2F0765120600AF32B6 = {
+		fRef = BA63B19106D1C95D00CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTPoint-Test.cpp: 123";
+		rLen = 0;
+		rLoc = 3561;
+		rType = 0;
+		vrLen = 971;
+		vrLoc = 3098;
+	};
+	BA9E7B300765120600AF32B6 = {
+		fRef = BA63B13706D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTVectoriser.cpp: 79";
+		rLen = 0;
+		rLoc = 1810;
+		rType = 0;
+		vrLen = 747;
+		vrLoc = 1317;
+	};
+	BA9E7B310765120600AF32B6 = {
+		fRef = BA63B0FC06D1C70900CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTPoint.h: 48";
+		rLen = 0;
+		rLoc = 1079;
+		rType = 0;
+		vrLen = 880;
+		vrLoc = 2789;
+	};
+	BA9E7B320765120600AF32B6 = {
+		fRef = BA63B13706D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTVectoriser.cpp: 214";
+		rLen = 0;
+		rLoc = 5092;
+		rType = 0;
+		vrLen = 1128;
+		vrLoc = 4098;
+	};
+	BA9E7B330765120600AF32B6 = {
+		fRef = BA63B13306D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "    ";
+		rLen = 4;
+		rLoc = 414;
+		rType = 0;
+		vrLen = 456;
+		vrLoc = 0;
+	};
+	BA9E7B340765120600AF32B6 = {
+		fRef = BA63B0FC06D1C70900CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTPoint.h: operator const";
+		rLen = 0;
+		rLoc = 3209;
+		rType = 0;
+		vrLen = 892;
+		vrLoc = 2789;
+	};
+	BA9E7B350765120600AF32B6 = {
+		fRef = BA63B13706D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTVectoriser.cpp: 79";
+		rLen = 0;
+		rLoc = 1810;
+		rType = 0;
+		vrLen = 819;
+		vrLoc = 1317;
+	};
+	BA9E7B360765120600AF32B6 = {
+		fRef = BA63B18F06D1C95D00CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTMesh-Test.cpp: 119";
+		rLen = 0;
+		rLoc = 3855;
+		rType = 0;
+		vrLen = 1079;
+		vrLoc = 3254;
+	};
+	BA9E7B370765120600AF32B6 = {
+		fRef = BA63B19106D1C95D00CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTPoint-Test.cpp: 123";
+		rLen = 0;
+		rLoc = 3561;
+		rType = 0;
+		vrLen = 971;
+		vrLoc = 3098;
+	};
+	BA9E7B380765120600AF32B6 = {
+		fRef = BA63B13706D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTVectoriser.cpp: 214";
+		rLen = 0;
+		rLoc = 5072;
+		rType = 0;
+		vrLen = 980;
+		vrLoc = 4282;
+	};
+	BA9E7B390765120600AF32B6 = {
+		fRef = BA63B10106D1C70900CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTVectoriser.h: Combine";
+		rLen = 0;
+		rLoc = 2131;
+		rType = 0;
+		vrLen = 544;
+		vrLoc = 1853;
+	};
+	BA9E7B3C0765120C00AF32B6 = {
+		fRef = BA63B10106D1C70900CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTVectoriser.h: Combine";
+		rLen = 0;
+		rLoc = 2131;
+		rType = 0;
+		vrLen = 544;
+		vrLoc = 1853;
+	};
+	BA9E7B3D0765125B00AF32B6 = {
+		fRef = BA63B10106D1C70900CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTVectoriser.h: Combine";
+		rLen = 0;
+		rLoc = 2131;
+		rType = 0;
+		vrLen = 544;
+		vrLoc = 1853;
+	};
+	BA9E7B3E0765125B00AF32B6 = {
+		fRef = BA63B13706D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		rLen = 1;
+		rLoc = 34;
+		rType = 1;
+	};
+	BA9E7B3F0765125B00AF32B6 = {
+		fRef = BA63B10106D1C70900CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTVectoriser.h: Combine";
+		rLen = 0;
+		rLoc = 2131;
+		rType = 0;
+		vrLen = 544;
+		vrLoc = 1853;
+	};
+	BA9E7B400765125B00AF32B6 = {
+		fRef = BA63B13706D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTVectoriser.cpp: 34";
+		rLen = 0;
+		rLoc = 975;
+		rType = 0;
+		vrLen = 562;
+		vrLoc = 631;
+	};
+	BA9E7B410765128100AF32B6 = {
+		fRef = BA63B13706D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		rLen = 1;
+		rLoc = 34;
+		rType = 1;
+	};
+	BA9E7B420765128100AF32B6 = {
+		fRef = BA63B13706D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "    *outData = mesh->Combine( vertex[0], vertex[1], vertex[2]);\n";
+		rLen = 90;
+		rLoc = 998;
+		rType = 0;
+		vrLen = 562;
+		vrLoc = 631;
+	};
+	BA9E7B4A0765131400AF32B6 = {
+		fRef = BA63B13706D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "    *outData = mesh->Combine( vertex[0], vertex[1], vertex[2]);\n";
+		rLen = 90;
+		rLoc = 998;
+		rType = 0;
+		vrLen = 562;
+		vrLoc = 631;
+	};
+	BA9E7B4C0765133A00AF32B6 = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.cpp.cpp;
+		name = FTVectoriser.cpp;
+		path = /Users/henry/Development/PROJECTS/FTGL/src/FTVectoriser.cpp;
+		refType = 0;
+		sourceTree = "<absolute>";
+	};
+	BA9E7B4E0765133D00AF32B6 = {
+		fRef = BA63B13706D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "    *outData = mesh->Combine( vertex[0], vertex[1], vertex[2]);\n";
+		rLen = 90;
+		rLoc = 998;
+		rType = 0;
+		vrLen = 562;
+		vrLoc = 631;
+	};
+	BA9E7B4F0765133D00AF32B6 = {
+		fRef = BA63B12406D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		rLen = 1;
+		rLoc = 103;
+		rType = 1;
+	};
+	BA9E7B500765133D00AF32B6 = {
+		fRef = BA63B13706D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "    *outData = mesh->Combine( vertex[0], vertex[1], vertex[2]);\n";
+		rLen = 90;
+		rLoc = 998;
+		rType = 0;
+		vrLen = 562;
+		vrLoc = 631;
+	};
+	BA9E7B510765133D00AF32B6 = {
+		fRef = BA63B12406D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTExtrdGlyph.cpp: 104";
+		rLen = 0;
+		rLoc = 3523;
+		rType = 0;
+		vrLen = 1011;
+		vrLoc = 2941;
+	};
+	BA9E7B520765137100AF32B6 = {
+		fRef = BA63B12406D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTExtrdGlyph.cpp: 104";
+		rLen = 0;
+		rLoc = 3523;
+		rType = 0;
+		vrLen = 1011;
+		vrLoc = 2941;
+	};
+	BA9E7B530765137300AF32B6 = {
+		fRef = BA63B12406D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTExtrdGlyph.cpp: 104";
+		rLen = 0;
+		rLoc = 3523;
+		rType = 0;
+		vrLen = 1011;
+		vrLoc = 2941;
+	};
+	BA9E7B570765137500AF32B6 = {
+		fRef = BA63B12406D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTExtrdGlyph.cpp: 104";
+		rLen = 0;
+		rLoc = 3516;
+		rType = 0;
+		vrLen = 1659;
+		vrLoc = 2662;
+	};
+	BA9E7B580765137500AF32B6 = {
+		fRef = BA9E7B4C0765133A00AF32B6;
+		isa = PBXTextBookmark;
+		rLen = 1;
+		rLoc = 34;
+		rType = 1;
+	};
+	BA9E7B590765137500AF32B6 = {
+		fRef = BA63B13706D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTVectoriser.cpp: 214";
+		rLen = 0;
+		rLoc = 5092;
+		rType = 0;
+		vrLen = 979;
+		vrLoc = 4294;
+	};
+	BA9E7B5A0765137500AF32B6 = {
+		fRef = BA63B12406D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTExtrdGlyph.cpp: 104";
+		rLen = 0;
+		rLoc = 3515;
+		rType = 0;
+		vrLen = 1657;
+		vrLoc = 2662;
+	};
+	BA9E7B5B0765137500AF32B6 = {
+		fRef = BA63B13706D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "    *outData = mesh->Combine( vertex[0], vertex[1], vertex[2]);\n";
+		rLen = 90;
+		rLoc = 998;
+		rType = 0;
+		vrLen = 728;
+		vrLoc = 541;
+	};
+	BA9E7B5C0765137500AF32B6 = {
+		fRef = BA63B12406D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTExtrdGlyph.cpp: 104";
+		rLen = 0;
+		rLoc = 3516;
+		rType = 0;
+		vrLen = 1659;
+		vrLoc = 2662;
+	};
+	BA9E7B5D0765137500AF32B6 = {
+		fRef = BA63B13706D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTVectoriser.cpp: 35";
+		rLen = 0;
+		rLoc = 1036;
+		rType = 0;
+		vrLen = 804;
+		vrLoc = 438;
+	};
+	BA9E7B5E0765137500AF32B6 = {
+		fRef = BA63B12406D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTExtrdGlyph.cpp: 104";
+		rLen = 0;
+		rLoc = 3523;
+		rType = 0;
+		vrLen = 1011;
+		vrLoc = 2941;
+	};
+	BA9E7B5F0765137B00AF32B6 = {
+		fRef = BA63B12406D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTExtrdGlyph.cpp: 104";
+		rLen = 0;
+		rLoc = 3523;
+		rType = 0;
+		vrLen = 1011;
+		vrLoc = 2941;
+	};
+	BA9E7B600765138200AF32B6 = {
+		fRef = BA63B12406D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTExtrdGlyph.cpp: 104";
+		rLen = 0;
+		rLoc = 3523;
+		rType = 0;
+		vrLen = 1011;
+		vrLoc = 2941;
+	};
+	BA9E7B700765144700AF32B6 = {
+		fRef = BA63B12406D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTExtrdGlyph.cpp: 104";
+		rLen = 0;
+		rLoc = 3523;
+		rType = 0;
+		vrLen = 1011;
+		vrLoc = 2941;
+	};
+	BA9E7B780765144800AF32B6 = {
+		fRef = BA63B13706D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTVectoriser.cpp: 35";
+		rLen = 0;
+		rLoc = 1036;
+		rType = 0;
+		vrLen = 804;
+		vrLoc = 438;
+	};
+	BA9E7B790765144800AF32B6 = {
+		fRef = BA63B12406D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTExtrdGlyph.cpp: 104";
+		rLen = 0;
+		rLoc = 3523;
+		rType = 0;
+		vrLen = 1011;
+		vrLoc = 2941;
+	};
+	BA9E7B7A0765144D00AF32B6 = {
+		fRef = BA63B12406D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTExtrdGlyph.cpp: 104";
+		rLen = 0;
+		rLoc = 3523;
+		rType = 0;
+		vrLen = 1011;
+		vrLoc = 2941;
+	};
+	BA9E7B7B0765145F00AF32B6 = {
+		fRef = BA63B12406D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTExtrdGlyph.cpp: 104";
+		rLen = 0;
+		rLoc = 3523;
+		rType = 0;
+		vrLen = 1011;
+		vrLoc = 2941;
+	};
+	BA9E7B7F0765146000AF32B6 = {
+		fRef = BA63B13706D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTVectoriser.cpp: 35";
+		rLen = 0;
+		rLoc = 1036;
+		rType = 0;
+		vrLen = 804;
+		vrLoc = 438;
+	};
+	BA9E7B800765146000AF32B6 = {
+		fRef = BA63B12406D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTExtrdGlyph.cpp: 104";
+		rLen = 0;
+		rLoc = 3523;
+		rType = 0;
+		vrLen = 1011;
+		vrLoc = 2941;
+	};
+	BA9E7B810765146E00AF32B6 = {
+		fRef = BA63B12406D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTExtrdGlyph.cpp: 104";
+		rLen = 0;
+		rLoc = 3523;
+		rType = 0;
+		vrLen = 1011;
+		vrLoc = 2941;
+	};
+	BA9E7B850765148600AF32B6 = {
+		fRef = BA63B13706D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTVectoriser.cpp: 35";
+		rLen = 0;
+		rLoc = 1036;
+		rType = 0;
+		vrLen = 859;
+		vrLoc = 381;
+	};
+	BA9E7B860765148600AF32B6 = {
+		fRef = BA63B13706D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "                    const FTGL_DOUBLE* d = static_cast<const FTGL_DOUBLE*>(contour->Point(p));\n";
+		rLen = 95;
+		rLoc = 4998;
+		rType = 0;
+		vrLen = 979;
+		vrLoc = 4320;
+	};
+	BA9E7B870765148600AF32B6 = {
+		fRef = BA63B12406D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTExtrdGlyph.cpp: 104";
+		rLen = 0;
+		rLoc = 3523;
+		rType = 0;
+		vrLen = 1011;
+		vrLoc = 2941;
+	};
+	BA9E7B8B0765151900AF32B6 = {
+		fRef = BA63B13706D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "const FTGL_DOUBLE* d = static_cast<const FTGL_DOUBLE*>(contour->Point(p));";
+		rLen = 74;
+		rLoc = 5018;
+		rType = 0;
+		vrLen = 979;
+		vrLoc = 4320;
+	};
+	BA9E7B8C0765151900AF32B6 = {
+		fRef = BA63B12406D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTExtrdGlyph.cpp: 104";
+		rLen = 0;
+		rLoc = 3523;
+		rType = 0;
+		vrLen = 1011;
+		vrLoc = 2941;
+	};
+	BA9E7B900765161B00AF32B6 = {
+		fRef = BA63B13706D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "const FTGL_DOUBLE* d = static_cast<const FTGL_DOUBLE*>(contour->Point(p));";
+		rLen = 74;
+		rLoc = 5018;
+		rType = 0;
+		vrLen = 979;
+		vrLoc = 4320;
+	};
+	BA9E7B910765161B00AF32B6 = {
+		fRef = BA63B12406D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTExtrdGlyph.cpp: 104";
+		rLen = 0;
+		rLoc = 3523;
+		rType = 0;
+		vrLen = 1011;
+		vrLoc = 2941;
+	};
+	BA9E7B9B076517C200AF32B6 = {
+		fRef = BA63B13706D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "const FTGL_DOUBLE* d = static_cast<const FTGL_DOUBLE*>(contour->Point(p));";
+		rLen = 74;
+		rLoc = 5018;
+		rType = 0;
+		vrLen = 979;
+		vrLoc = 4320;
+	};
+	BA9E7B9C076517C200AF32B6 = {
+		fRef = BA63B12406D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTExtrdGlyph.cpp: 104";
+		rLen = 0;
+		rLoc = 3523;
+		rType = 0;
+		vrLen = 1011;
+		vrLoc = 2941;
+	};
+	BA9E7B9D076517C200AF32B6 = {
+		fRef = BA63B13306D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "    ";
+		rLen = 4;
+		rLoc = 414;
+		rType = 0;
+		vrLen = 269;
+		vrLoc = 187;
+	};
+	BA9E7B9E076517C200AF32B6 = {
+		fRef = BA63B13706D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "const FTGL_DOUBLE* d = static_cast<const FTGL_DOUBLE*>(contour->Point(p));";
+		rLen = 74;
+		rLoc = 5018;
+		rType = 0;
+		vrLen = 475;
+		vrLoc = 4794;
+	};
+	BA9E7B9F076517C200AF32B6 = {
+		fRef = BA63B0FC06D1C70900CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTPoint.h: operator const";
+		rLen = 0;
+		rLoc = 3209;
+		rType = 0;
+		vrLen = 289;
+		vrLoc = 3029;
+	};
+	BA9E7BA0076517C200AF32B6 = {
+		fRef = BA63B18F06D1C95D00CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTMesh-Test.cpp: 119";
+		rLen = 0;
+		rLoc = 3855;
+		rType = 0;
+		vrLen = 534;
+		vrLoc = 3564;
+	};
+	BA9E7BA1076517C200AF32B6 = {
+		fRef = BA63B10106D1C70900CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTVectoriser.h: Combine";
+		rLen = 0;
+		rLoc = 2131;
+		rType = 0;
+		vrLen = 447;
+		vrLoc = 1893;
+	};
+	BA9E7BA2076517C200AF32B6 = {
+		fRef = BA63B19106D1C95D00CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTPoint-Test.cpp: 123";
+		rLen = 0;
+		rLoc = 3561;
+		rType = 0;
+		vrLen = 401;
+		vrLoc = 3414;
+	};
+	BA9E7BA3076517C200AF32B6 = {
+		fRef = BA63B12406D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTExtrdGlyph.cpp: 104";
+		rLen = 0;
+		rLoc = 3523;
+		rType = 0;
+		vrLen = 686;
+		vrLoc = 3092;
+	};
+	BA9E7BA4076517C200AF32B6 = {
+		fRef = BA63B13306D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "    ";
+		rLen = 4;
+		rLoc = 414;
+		rType = 0;
+		vrLen = 269;
+		vrLoc = 187;
+	};
+	BA9E7BA5076517C200AF32B6 = {
+		fRef = BA63B13706D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "const FTGL_DOUBLE* d = static_cast<const FTGL_DOUBLE*>(contour->Point(p));";
+		rLen = 74;
+		rLoc = 5018;
+		rType = 0;
+		vrLen = 475;
+		vrLoc = 4794;
+	};
+	BA9E7BA6076517C200AF32B6 = {
+		fRef = BA63B0FC06D1C70900CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTPoint.h: operator const";
+		rLen = 0;
+		rLoc = 3209;
+		rType = 0;
+		vrLen = 289;
+		vrLoc = 3029;
+	};
+	BA9E7BA7076517C200AF32B6 = {
+		fRef = BA63B18F06D1C95D00CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTMesh-Test.cpp: 119";
+		rLen = 0;
+		rLoc = 3855;
+		rType = 0;
+		vrLen = 534;
+		vrLoc = 3564;
+	};
+	BA9E7BA8076517C200AF32B6 = {
+		fRef = BA63B10106D1C70900CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTVectoriser.h: Combine";
+		rLen = 0;
+		rLoc = 2131;
+		rType = 0;
+		vrLen = 447;
+		vrLoc = 1893;
+	};
+	BA9E7BA9076517C200AF32B6 = {
+		fRef = BA63B19106D1C95D00CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTPoint-Test.cpp: 123";
+		rLen = 0;
+		rLoc = 3561;
+		rType = 0;
+		vrLen = 401;
+		vrLoc = 3414;
+	};
+	BA9E7BAA076517C200AF32B6 = {
+		fRef = BA63B12406D1C72100CD5F16;
+		isa = PBXTextBookmark;
+		name = "FTExtrdGlyph.cpp: 104";
+		rLen = 0;
+		rLoc = 3523;
+		rType = 0;
+		vrLen = 686;
+		vrLoc = 3092;
+	};
 	BA9EEBA7071F71A100DA4FC6 = {
 		fRef = BA63B0FE06D1C70900CD5F16;
 		isa = PBXTextBookmark;
@@ -1731,6 +2841,16 @@
 		vrLen = 756;
 		vrLoc = 2117;
 	};
+	BADFB8780763ABC700DC5643 = {
+		fRef = BA4DCBB306D84BD30090441D;
+		isa = PBXTextBookmark;
+		name = "demo.cpp: 298";
+		rLen = 0;
+		rLoc = 6044;
+		rType = 0;
+		vrLen = 847;
+		vrLoc = 1760;
+	};
 	BAE83F4907289E59007C557D = {
 		fRef = BA63B13506D1C72100CD5F16;
 		isa = PBXTextBookmark;
@@ -1764,8 +2884,8 @@
 		fRef = BA63B13706D1C72100CD5F16;
 		isa = PBXTextBookmark;
 		name = "                    FTGL_DOUBLE* d = (FTGL_DOUBLE*)(contour->Point(p)); // FIXME use c++ cast\n";
-		rLen = 94;
-		rLoc = 4948;
+		rLen = 101;
+		rLoc = 4986;
 		rType = 0;
 		vrLen = 850;
 		vrLoc = 2482;
@@ -1777,7 +2897,7 @@
 		rLen = 54;
 		rLoc = 358;
 		rType = 0;
-		vrLen = 466;
+		vrLen = 460;
 		vrLoc = 0;
 	};
 	BAF9DD7D0721D40300698F3A = {
@@ -1805,7 +2925,7 @@
 		isa = PBXTextBookmark;
 		name = "FTExtrdGlyph.cpp: 147";
 		rLen = 0;
-		rLoc = 4577;
+		rLoc = 4594;
 		rType = 0;
 		vrLen = 658;
 		vrLoc = 4389;
@@ -1825,10 +2945,10 @@
 		isa = PBXTextBookmark;
 		name = "FTPixmapGlyph.cpp: 98";
 		rLen = 0;
-		rLoc = 2695;
+		rLoc = 1716;
 		rType = 0;
-		vrLen = 847;
-		vrLoc = 1854;
+		vrLen = 0;
+		vrLoc = 1716;
 	};
 	BAF9DD840721D40300698F3A = {
 		fRef = BA63B13406D1C72100CD5F16;
@@ -2070,16 +3190,6 @@
 		vrLen = 637;
 		vrLoc = 699;
 	};
-	BAF9DEFC0721F26200698F3A = {
-		fRef = BA63B13206D1C72100CD5F16;
-		isa = PBXTextBookmark;
-		name = "FTPixmapGlyph.cpp: Render";
-		rLen = 0;
-		rLoc = 2293;
-		rType = 0;
-		vrLen = 852;
-		vrLoc = 1854;
-	};
 	BAF9DEFD0721F26200698F3A = {
 		fRef = BA63B13406D1C72100CD5F16;
 		isa = PBXTextBookmark;
@@ -2089,16 +3199,6 @@
 		rType = 0;
 		vrLen = 709;
 		vrLoc = 1140;
-	};
-	BAF9DEFE0721F26200698F3A = {
-		fRef = BA63B13606D1C72100CD5F16;
-		isa = PBXTextBookmark;
-		name = "FTTextureGlyph.cpp: Render";
-		rLen = 0;
-		rLoc = 1540;
-		rType = 0;
-		vrLen = 794;
-		vrLoc = 1452;
 	};
 	BAF9DEFF0721F26200698F3A = {
 		fRef = BA63B18A06D1C95D00CD5F16;
@@ -2140,16 +3240,6 @@
 		vrLen = 997;
 		vrLoc = 1642;
 	};
-	BAF9DF3D0722051600698F3A = {
-		fRef = BA63B12006D1C72100CD5F16;
-		isa = PBXTextBookmark;
-		name = "#include \"FTBitmapGlyph.h\"\n";
-		rLen = 27;
-		rLoc = 22;
-		rType = 0;
-		vrLen = 896;
-		vrLoc = 21;
-	};
 	BAF9DF430722051600698F3A = {
 		fRef = BA63B12306D1C72100CD5F16;
 		isa = PBXTextBookmark;
@@ -2164,8 +3254,8 @@
 		fRef = BA63B13706D1C72100CD5F16;
 		isa = PBXTextBookmark;
 		name = "                    FTGL_DOUBLE* d = (FTGL_DOUBLE*)(contour->Point(p)); // FIXME use c++ cast\n";
-		rLen = 94;
-		rLoc = 4948;
+		rLen = 101;
+		rLoc = 4986;
 		rType = 0;
 		vrLen = 878;
 		vrLoc = 2606;
