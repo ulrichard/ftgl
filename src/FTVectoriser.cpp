@@ -17,7 +17,7 @@ FTContour::~FTContour()
 
 void FTContour::AddPoint( const float x, const float y)
 {
-	ftPoint point( static_cast<float>( x), static_cast<float>( y), 0.0); 
+	ftPoint point( x, y, 0.0); 
 	
 	// Eliminate duplicate points.
 	if( ( pointList[pointList.size() - 1] != point) && pointList[0] != point)
