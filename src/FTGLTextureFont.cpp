@@ -1,3 +1,4 @@
+#include <cassert>
 #include <string> // For memset
 
 #include "FTGLTextureFont.h"
