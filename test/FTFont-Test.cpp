@@ -170,9 +170,9 @@ class FTFontTest : public CppUnit::TestCase
         
         void testSetCharMap()
         {
-            CPPUNIT_ASSERT( testFont->CharMap( ft_encoding_unicode));
+            CPPUNIT_ASSERT( true == testFont->CharMap( ft_encoding_unicode));
             CPPUNIT_ASSERT( testFont->Error() == 0);        
-            CPPUNIT_ASSERT( !testFont->CharMap( ft_encoding_johab));
+            CPPUNIT_ASSERT( false == testFont->CharMap( ft_encoding_johab));
             CPPUNIT_ASSERT( testFont->Error() == 0x06); // invalid argument
         }
         
