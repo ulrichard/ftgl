@@ -71,7 +71,8 @@ class FTGL_EXPORT FTContour
          * @param curveOrder The order of the curve to be evaluated.
          * <code>2</code> equals conic (quadratic) and <code>3</code> equals cubic
          */
-        inline void evaluateCurve( const int curveOrder);
+        void evaluateQuadraticCurve();
+        void evaluateCubicCurve();
 
         /**
          * 2D array storing values of de Casteljau algorithm.
