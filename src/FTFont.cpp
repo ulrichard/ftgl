@@ -149,8 +149,8 @@ void FTFont::BBox( const char* string,
                     tempBBox.Move( FTPoint( advance, 0.0f, 0.0f));
                     totalBBox += tempBBox;
                     advance += glyphList->Advance( *c, *(c + 1));
-                    ++c;
                 }
+                ++c;
             }
         }
     }
@@ -187,8 +187,8 @@ void FTFont::BBox( const wchar_t* string,
                     tempBBox.Move( FTPoint( advance, 0.0f, 0.0f));
                     totalBBox += tempBBox;
                     advance += glyphList->Advance( *c, *(c + 1));
-                    ++c;
                 }
+                ++c;
             }
         }
     }
@@ -212,8 +212,8 @@ float FTFont::Advance( const wchar_t* string)
         if(CheckGlyph( *c))
         {
             width += glyphList->Advance( *c, *(c + 1));
-            ++c;
         }
+        ++c;
     }
     
     return width;
@@ -230,8 +230,8 @@ float FTFont::Advance( const char* string)
         if(CheckGlyph( *c))
         {
             width += glyphList->Advance( *c, *(c + 1));
-            ++c;
         }
+        ++c;
     }
     
     return width;
