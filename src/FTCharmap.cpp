@@ -1,11 +1,12 @@
-#include    "FTCharmap.h"
+#include "FTFace.h"
+#include "FTCharmap.h"
 
 
-FTCharmap::FTCharmap( FT_Face face)
-:   ftFace( face),
+FTCharmap::FTCharmap( FTFace* face)
+:   ftFace( *(face->Face())),
     err(0)
 {
-    if( !face->charmap)
+    if( !ftFace->charmap)
     {
         err = FT_Set_Charmap( ftFace, ftFace->charmaps[0]);
     }

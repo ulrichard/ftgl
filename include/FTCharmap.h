@@ -23,13 +23,16 @@
  * @see "Freetype 2 Documentation" 
  *
  */
+
+class FTFace;
+
 class FTGL_EXPORT FTCharmap
 {
     public:
         /**
          * Constructor
          */
-        FTCharmap( FT_Face ftFace);
+        FTCharmap( FTFace* face);
 
         /**
          * Destructor
@@ -74,12 +77,13 @@ class FTGL_EXPORT FTCharmap
          *              current encoding eg apple roman.
          * @return      The glyph index for the character.
          */
-        unsigned int CharIndex( unsigned int index );
+        unsigned int CharIndex( unsigned int characterCode);
+        unsigned int GlyphIndex( unsigned int characterCode, unsigned int glyphIndex);
 
         /**
          * Queries for errors.
          *
-         * @return  The current error code.
+         * @return  The current error code. Zero means no error.
          */
         FT_Error Error() const { return err;}
         
@@ -103,7 +107,7 @@ class FTGL_EXPORT FTCharmap
         CharacterMap charMap;
         
         /**
-         * Current error code. Zero means no error.
+         * Current error code.
          */
         FT_Error err;
         
