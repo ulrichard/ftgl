@@ -1,5 +1,5 @@
-FTGL 1.0b3
-August 8 2001
+FTGL 1.0b4
+August 21 2001
 
 DESCRIPTION:
 FTGL library is a cross platform tool to allow OpenGL (www.opengl.org) to
@@ -33,7 +33,7 @@ USAGE:
 This library was inspired by gltt, Copyright (C) 1998-1999 Stephane Rehel
 ( gltt.sourceforge.net)
 
-Please conatct me if you have any suggestions, feature requests, or problems.
+Please contact me if you have any suggestions, feature requests, or problems.
 
 Henry Maddocks
 henryj@paradise.net.nz
@@ -48,12 +48,7 @@ often. Will the freetype cache stuff help here or should we cache internally?
 Multiple glyphlists. glyphlist manager. Multiple glyphLists will chew up
 memory. Maybe a <map> will help here, maybe a map will let us cache glyphs
 as required rather than all at startup? This wont help texture glyphs.
-If a font is defined uniquely by it's face and size ie
-font.Open("Fonts:Arial", 72);
-Then we don't need FTFace and FTSize, their functionality could be internal
-to FTFont. Alternatively if we allow multiple faces and sizes how should
-they be handled. The FTSize seems redundant (depends on the out come of the
-above). For the time being I'm treating this as a feature!
+If we allow multiple faces and sizes how should they be handled.
 
 When is the best time to construct the glyphList? After the call to Size(x)
 is the earliest but what happens if the client doesn't set the char size?
@@ -77,7 +72,7 @@ test 1
 100,000 frames. No openGL context.
 The results of the first profile are in and as expected using freetype to
 return the char index for a glyph is costing us. A staggering 10% of the
-rendering time in fact!!!
+rendering time in fact!!! Kerning has a similar impact.
 
 TODO:
 	- Tidy code, fix compiler warnings, comments.
@@ -113,9 +108,14 @@ FUTURE:
 
 BUGS:
 	- Advance/Kerning is screwed up for really small point sizes eg 2 point.
-	  Freetype bug?
+	  This is because I'm trying to use FT_Vector which is integer based.
+	  I will probably have to make my own struct with floats.
 	- The texture co-ords in the Texture Font may be wrong for none
 	  scalable fonts.
+	- There is an inconsistancy in the way the global bounding box is
+	  stored in Freetype. It is supposed to be in font units but in some
+	  cases it is in 16.16 format. I have implemented a work around but
+	  hopefully the freetype guys will sort this.
 	MAC OS:
 		- Exits with some fonts at large sizes. GLUT Memory Bug?
 		  also with large numbers of glyphs at any size eg helvetica. This
@@ -125,8 +125,13 @@ BUGS:
 	1.0b5
 	- Settled on integers for size stuff.
 	- Fixed the positional stuff.
-	- Added Java Doc comments.
+	- Added Java Doc comments. NOT COMPLETE
 	- Fixes for linux, mainly to clear warnings.
+	- changed the return type for FTFace::Glyph() from a reference to a
+	  pointer so it can return NULL on failure.
+	- Related to above...better error handling and reporting in
+	  FTGLXXXFont::MakeGlyphList()
+	- Minor tidy ups.
 	
 	
 August 21 2001
@@ -135,7 +140,7 @@ August 21 2001
 	  for outline and polygon fonts & FT_LOAD_NO_HINTING for texture fonts.
 	  Seems to produce better looking glyphs.
 	- FTGLTextureFont can now use multiple textures to render glyphs if
-	  they don't fit within a GL_MAX_TEXTURE_SIZE texture. 
+	  they don't fit within one GL_MAX_TEXTURE_SIZE texture. 
 	- Changed FTSize to use bbox for global width and height. Needs more
 	  work (eg float or int?) and need to check inconsistancies in freetype.
 	- Being more strict with types eg integer indices and sizes are now unsigned.
