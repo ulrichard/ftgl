@@ -8,6 +8,12 @@
 
 class FTVectorGlyph;
 
+/**
+ * FTGLOutlineFont is a specialisation of the FTFont class for handling
+ * Vector Outline fonts
+ *
+ * @see		FTFont
+ */
 class	FTGLOutlineFont : public FTFont
 {
 	public:
@@ -16,6 +22,7 @@ class	FTGLOutlineFont : public FTFont
 		~FTGLOutlineFont();
 		
 		void render( const char* string);
+		void render( const wchar_t* string);
 
 		// attributes
 		

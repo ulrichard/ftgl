@@ -25,7 +25,7 @@ bool FTGLPixmapFont::MakeGlyphList()
 	
 		if( ftGlyph)
 		{
-			tempGlyph = new FTPixmapGlyph( *ftGlyph, c);
+			tempGlyph = new FTPixmapGlyph( *ftGlyph);
 			glyphList->Add( tempGlyph);
 		}
 		else
@@ -39,6 +39,20 @@ bool FTGLPixmapFont::MakeGlyphList()
 
 
 void FTGLPixmapFont::render( const char* string)
+{	
+	glPushAttrib( GL_ENABLE_BIT | GL_PIXEL_MODE_BIT);
+
+	glEnable(GL_BLEND);
+ 	glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	FTFont::render( string);
+
+	glPopAttrib();
+
+}
+
+
+void FTGLPixmapFont::render( const wchar_t* string)
 {	
 	glPushAttrib( GL_ENABLE_BIT | GL_PIXEL_MODE_BIT);
 

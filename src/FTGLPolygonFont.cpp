@@ -22,7 +22,7 @@ bool FTGLPolygonFont::MakeGlyphList()
 		
 		if( ftGlyph)
 		{
-			tempGlyph = new FTPolyGlyph( *ftGlyph, n);
+			tempGlyph = new FTPolyGlyph( *ftGlyph);
 			glyphList->Add( tempGlyph);
 		}
 		else

@@ -6,6 +6,12 @@
 
 class FTPixmapGlyph;
 
+/**
+ * FTGLPixmapFont is a specialisation of the FTFont class for handling
+ * Pixmap (Grey Scale) fonts
+ *
+ * @see		FTFont
+ */
 class	FTGLPixmapFont : public FTFont
 {
 	public:
@@ -14,6 +20,7 @@ class	FTGLPixmapFont : public FTFont
 		~FTGLPixmapFont();
 		
 		void render( const char* string);
+		void render( const wchar_t* string);
 
 
 	private:

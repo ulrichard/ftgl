@@ -6,7 +6,13 @@
 
 class FTTextureGlyph;
 
-class	FTGLTextureFont : public FTFont
+/**
+ * FTGLTextureFont is a specialisation of the FTFont class for handling
+ * Texture mapped fonts
+ *
+ * @see		FTFont
+ */
+class FTGLTextureFont : public FTFont
 {
 	public:
 		// methods
@@ -17,6 +23,7 @@ class	FTGLTextureFont : public FTFont
 		virtual int TextureHeight() const { return textureHeight;}
 		
 		virtual void render( const char* string);
+		virtual void render( const wchar_t* string);
 
 		
 	private:

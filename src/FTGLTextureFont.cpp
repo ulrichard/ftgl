@@ -122,7 +122,7 @@ unsigned int FTGLTextureFont::FillGlyphs( unsigned int glyphStart, int id, int w
 			
 			currTextU = (float)currentTextX / (float)width;
 			
-			tempGlyph = new FTTextureGlyph( *ftGlyph, n, id, data, width, height, currTextU, currTextV);
+			tempGlyph = new FTTextureGlyph( *ftGlyph, id, data, width, height, currTextU, currTextV);
 			glyphList->Add( tempGlyph);
 
 			currentTextX += glyphWidth;
@@ -174,6 +174,24 @@ void FTGLTextureFont::CreateTexture( int id, int width, int height, unsigned cha
 
 
 void FTGLTextureFont::render( const char* string)
+{	
+	glPushAttrib( GL_ENABLE_BIT | GL_HINT_BIT | GL_LINE_BIT | GL_PIXEL_MODE_BIT);
+	
+	glEnable(GL_BLEND);
+ 	glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // GL_ONE
+ 	
+	glBindTexture( GL_TEXTURE_2D, (GLuint)FTTextureGlyph::activeTextureID);
+
+ 	// QUADS are faster!? Less function call overhead?
+ 	glBegin( GL_QUADS);
+ 		FTFont::render( string);
+ 	glEnd();
+	
+	glPopAttrib();
+}
+
+
+void FTGLTextureFont::render( const wchar_t* string)
 {	
 	glPushAttrib( GL_ENABLE_BIT | GL_HINT_BIT | GL_LINE_BIT | GL_PIXEL_MODE_BIT);
 	
