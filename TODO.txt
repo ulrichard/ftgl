@@ -4,6 +4,8 @@ October 31 2001
 TODO:
 	- namespace ftgl or gltt?
 	- Distribution MACOS X
+	- Get rid of padding in texture font. It's not needed when using the
+	  global bounding box so FTSize should make that decision.
 	
 FUTURE:
 	- select face ie italic, bold etc
