@@ -27,9 +27,10 @@ FTOutlineGlyph::FTOutlineGlyph( FT_GlyphSlot glyph)
             const FTContour* contour = vectoriser.Contour(c);
             
             glBegin( GL_LINE_LOOP);
-                for( unsigned int p = 0; p < contour->PointCount(); ++p)
+                for( unsigned int pointIndex = 0; pointIndex < contour->PointCount(); ++pointIndex)
                 {
-                    glVertex2f( contour->Point(p).x / 64.0f, contour->Point(p).y / 64.0f);
+                    FTPoint point = contour->Point(pointIndex);
+                    glVertex2f( point.x / 64.0f, point.y / 64.0f);
                 }
             glEnd();
         }

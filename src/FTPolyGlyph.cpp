@@ -19,8 +19,9 @@ FTPolyGlyph::FTPolyGlyph( FT_GlyphSlot glyph)
         return;
     }
     
-    unsigned int textureCoordRange = glyph->face->units_per_EM;
-
+    unsigned int horizontalTextureScale = glyph->face->size->metrics.x_ppem * 64;
+    unsigned int verticalTextureScale = glyph->face->size->metrics.y_ppem * 64;        
+        
     vectoriser.MakeMesh( 1.0);
     
     glList = glGenLists( 1);
@@ -35,11 +36,13 @@ FTPolyGlyph::FTPolyGlyph( FT_GlyphSlot glyph)
             glBegin( polyonType);
                 for( unsigned int pointIndex = 0; pointIndex < subMesh->PointCount(); ++pointIndex)
                 {
-                    glTexCoord2f( subMesh->Point(pointIndex).x / textureCoordRange,
-                                  subMesh->Point(pointIndex).y / textureCoordRange);
+                    FTPoint point = subMesh->Point(pointIndex);
                     
-                    glVertex3f( subMesh->Point(pointIndex).x / 64.0f,
-                                subMesh->Point(pointIndex).y / 64.0f,
+                    glTexCoord2f( point.x / horizontalTextureScale,
+                                  point.y / verticalTextureScale);
+                    
+                    glVertex3f( point.x / 64.0f,
+                                point.y / 64.0f,
                                 0.0f);
                 }
             glEnd();
