@@ -2,7 +2,6 @@
 #include	"FTGL.h"
 
 
-// OPSignature: FTLibrary& FTLibrary:Instance() 
 FTLibrary&	FTLibrary::Instance()
 {
 	static FTLibrary ftlib;
@@ -10,7 +9,6 @@ FTLibrary&	FTLibrary::Instance()
 }
 
 
-// OPSignature:  FTLibrary:~FTLibrary() 
 FTLibrary::~FTLibrary()
 {
 	if( lib != 0)
@@ -31,7 +29,6 @@ FTLibrary::~FTLibrary()
 }
 
 
-// OPSignature:  FTLibrary:FTLibrary() 
 FTLibrary::FTLibrary()
 : lib(0)
 {
@@ -39,7 +36,6 @@ FTLibrary::FTLibrary()
 }
 
 
-// OPSignature: bool FTLibrary:Init() 
 bool	FTLibrary::Init()
 {
 	if( lib != 0 )
@@ -62,7 +58,6 @@ bool	FTLibrary::Init()
 // 		manager= 0;
 // 		return false;
 // 	}
-
 
 	return true;
 }

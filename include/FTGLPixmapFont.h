@@ -12,7 +12,7 @@ class	FTGLPixmapFont : public FTFont
 		// methods
 		FTGLPixmapFont();
 		~FTGLPixmapFont();
-		
+
 	private:
 		// methods
 		bool MakeGlyphList();

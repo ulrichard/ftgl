@@ -4,22 +4,12 @@
 
 
 FTGLPixmapFont::FTGLPixmapFont()
-//Insert your own initialization here.
-
-//End of user initialization.         
-{
-//Insert your own code here.
-
-//End of user code.         
-}
+:	tempGlyph(0)
+{}
 
 
 FTGLPixmapFont::~FTGLPixmapFont()
-{
-//Insert your own code here.
-
-//End of user code.         
-}
+{}
 
 
 // OPSignature: bool FTGlyphContainer:MakeGlyphList() 

@@ -1,5 +1,5 @@
-#ifndef		__FTGLBitmapFont
-#define		__FTGLBitmapFont
+#ifndef		__FTGLBitmapFont__
+#define		__FTGLBitmapFont__
 
 
 #include	"FTFont.h"
@@ -23,4 +23,4 @@ class	FTGLBitmapFont : public FTFont
 		FTBitmapGlyph* tempGlyph;
 		
 };
-#endif
+#endif	//	__FTGLBitmapFont__

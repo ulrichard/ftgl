@@ -4,22 +4,12 @@
 
 
 FTGLBitmapFont::FTGLBitmapFont()
-//Insert your own initialization here.
-
-//End of user initialization.         
-{
-//Insert your own code here.
-
-//End of user code.         
-}
+:	tempGlyph(0)
+{}
 
 
 FTGLBitmapFont::~FTGLBitmapFont()
-{
-//Insert your own code here.
-
-//End of user code.         
-}
+{}
 
 
 // OPSignature: bool FTGlyphContainer:MakeGlyphList() 
@@ -29,7 +19,6 @@ bool FTGLBitmapFont::MakeGlyphList()
 
 	FT_Face* ftFace = face.Face();
 	long glyphIndex;
-	FT_Error err;
 	
 	for( int c = 0; c < numGlyphs; ++c)
 	{

@@ -8,7 +8,7 @@
 
 #include "FTGL.h"
 
-// OPSignature: FTLibrary
+
 class	FTLibrary
 {
 	public:
