@@ -81,30 +81,30 @@ rendering time in fact!!! Kerning has a similar impact.
 
 TODO:
 	- Tidy code, fix compiler warnings, comments.
-	- Memory Leak in PolyGlyph (glCombine)
-	- check and confirm the glPixelStore stuff. Data Alignment. Tightly
-	  packed at the moment.
 	- namespace ftgl or gltt?
-	- gl/glu errors
-	- tessellation winding rules
 	- Distributions MACOS 9/X, IRIX, Linux, Windows
-	- Test with non European (Roman?) fonts
 	
 FUTURE:
+	- Memory Leak in PolyGlyph (glCombine). This may disappear when access
+	  to the point data is sorted.
 	- select face ie italic, bold etc
 	- Multiple sizes
 	- Optimise performance!! and mem usage.
 	  - don't process chars that map to glyph 0
 	  - Make our own char map processing class
 	- GL evaluators. Are they of any use?
+	- gl/glu errors
+	- tessellation winding rules
+	- check and confirm the glPixelStore stuff. Data Alignment. Tightly
+	  packed at the moment.
 	- Use the Freetype Cache mechanism. See above. FTC_xxx
 	- Alignment. left right, centre.
 	- Bounding box, char and string.
 	- Vertical formats
 	- For platforms that have antialiased lines but not polys we could
 	  outline the polyfonts with lines to get better looking glyphs.
-	- Unicode w_char. May have to use std::wstring and or std::wchar_t.
 	- Improve the grid fitting scheme in texture fonts.
+	- Multiple Masters
 	- Helper classes...
 	  - String Cache
 	  - Provide an interface to access the point data for outlines and
@@ -121,18 +121,16 @@ BUGS:
 	  stored in Freetype. It is supposed to be in font units but in some
 	  cases it is in 16.16 format. I have implemented a work around but
 	  hopefully the freetype guys will sort this.
-	MAC OS:
-		- Exits with some fonts at large sizes. GLUT Memory Bug?
-		  also with large numbers of glyphs at any size eg helvetica. This
-		  is becoming REALLY annoying!!!
 
 
 	1.0b6
 	- Tidied up the way the freetype FT_Face object is disposed of by
 	  FTFont and FTFace. This was a potential crash.
-	- FTVectorGlyph and FTPolyGlyph now disposed of the freetype glyph
+	- FTVectorGlyph and FTPolyGlyph now disposes of the freetype glyph
 	  correctly after initialsation. This was a potential crash.
-	-
+	- Preliminary support for unicode...wchar_t Tested with non european
+	  fonts.
+	- Minor tidy ups.
 
 
 August 29 2001
