@@ -87,7 +87,7 @@ class FTGL_EXPORT FTFace
          * @return              <code>true</code> if charmap was valid
          *                      and set correctly
          */
-        bool CharMap( FT_Encoding encoding) const;
+        bool CharMap( FT_Encoding encoding);
 
         /**
          *  Get the glyph index of the input character.
