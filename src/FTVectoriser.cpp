@@ -173,16 +173,15 @@ int FTVectoriser::points()
 void FTVectoriser::GetOutline( FTGL_DOUBLE* data)
 {
     int i = 0;
-    
     for( size_t c= 0; c < contours(); ++c)
     {
         const FTContour* contour = contourList[c];
         
         for( size_t p = 0; p < contour->size(); ++p)
         {
-            data[i] = static_cast<FTGL_DOUBLE>(contour->pointList[p].x / 64.0f); // is 64 correct?
+            data[i] = static_cast<FTGL_DOUBLE>(contour->pointList[p].x / 64.0f);
             data[i + 1] = static_cast<FTGL_DOUBLE>(contour->pointList[p].y / 64.0f);
-            data[i + 2] = 0.0f; // static_cast<FTGL_DOUBLE>(contour->pointList[p].z / 64.0f);
+            data[i + 2] = 0.0f;
             i += 3;
         }
     }
@@ -243,12 +242,11 @@ void FTVectoriser::MakeMesh( FTGL_DOUBLE zNormal)
 
 void FTVectoriser::GetMesh( FTGL_DOUBLE* data)
 {
-    int i = 0;
-    
     // fill out the header
     size_t msize = mesh->tesselationList.size();
     data[0] = msize;
     
+    int i = 0;
     for( int p = 0; p < data[0]; ++p)
     {
         FTTesselation* tesselation = mesh->tesselationList[p];
@@ -261,9 +259,9 @@ void FTVectoriser::GetMesh( FTGL_DOUBLE* data)
         i += 3;
         for( size_t q = 0; q < ( tesselation->pointList.size()); ++q)
         {
-            data[i] = tesselation->pointList[q].x / 64.0f; // is 64 correct?
+            data[i] = tesselation->pointList[q].x / 64.0f;
             data[i + 1] = tesselation->pointList[q].y / 64.0f;
-            data[i + 2] = 0.0f; // static_cast<FTGL_DOUBLE>(mesh->pointList[p].z / 64.0f);
+            data[i + 2] = 0.0f;
             i += 3;
         }
     }

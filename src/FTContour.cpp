@@ -142,7 +142,7 @@ void FTContour::deCasteljau( const float t, const int n)
     }
        
     //Specify next vertex to be included on curve
-    AddPoint( FTPoint( bValues[n][0][0], bValues[n][0][1], 0));
+    AddPoint( FTPoint( bValues[n][0][0], bValues[n][0][1], 0.0f));
 }
 
 
