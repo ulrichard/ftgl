@@ -8701,6 +8701,10 @@ if test $ac_cv_lib_glut_glutInit = yes; then
 fi
 
 
+# Work-arround for broken dynamic linkers and/or systems with non-broken
+# linkers but suffering from PEBKAC.  The list of libraries is a bit
+# over-generous, AFAIK -lXi is needed only on (some versions of?) SuSE
+
 if test -z "${LIBGLUT}" ; then
     echo "Couldn't find GLUT, trying again with extra linker flags"
     unset ac_cv_lib_glut_glutInit
@@ -8710,7 +8714,7 @@ if test "${ac_cv_lib_glut_glutInit+set}" = set; then
   echo $ECHO_N "(cached) $ECHO_C" >&6
 else
   ac_check_lib_save_LIBS=$LIBS
-LIBS="-lglut -lX11 $LIBS"
+LIBS="-lglut -lX11 -lXmu -lXi -lm $LIBS"
 cat >conftest.$ac_ext <<_ACEOF
 #line $LINENO "configure"
 /* confdefs.h.  */
@@ -8766,6 +8770,7 @@ echo "$as_me: error: libglut is required to compile this library" >&2;}
    { (exit 1); exit 1; }; }
 fi
 
+    LIBGLUT="$LIBGLUT -lX11 -lXmu -lXi -lm"
 fi
 
 
