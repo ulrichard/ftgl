@@ -1,16 +1,15 @@
-FTGL Version 1.4
+FTGL Version 2.0
 
-Unit Tests
+Unit Tests.
 
-cppunit is available from...
+The unit tests in this directory are built using the cppunit unit testing framework. cppunit is available from...
 cppunit.sf.net
 
+Refer to that website for build and usage instructions.
 
-raghu.ttf is available from http://rohini.ncst.ernet.in/indix/download/font/
-HPGCalc.pfb & HPGCalc.afm are available from http://www.geocities.com/jking_ok/font.html
-LucidaSansRegular.ttf and Thoburi.ttf are part of the Java 2 SDK from IBM
-TIMES.TTF is a windows system font.
+Check the 'Fontdefs.h' file or the README.txt in the font_pack directory for the list of fonts required for the tests and where to get them from.
 
+The file 'demo.cpp' is for visually checking the library. It displays a test string of characters in each font 'type'.
 
 
 Please contact me if you have any suggestions, feature requests, or problems.
