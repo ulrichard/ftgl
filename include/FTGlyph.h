@@ -37,7 +37,14 @@ class FTGlyph
 		 * @return		The advance distance for this glyph.
 		 */
 		virtual float Render( const FT_Vector& pen) = 0;
-
+		
+		/**
+		 * Return the advance width for this glyph.
+		 *
+		 * @return	advance width.
+		 */
+		float Advance() const { return advance;}
+		
 		/**
 		 * Queries for errors.
 		 *
