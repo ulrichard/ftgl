@@ -22,8 +22,8 @@ class TestGlyph : public FTGlyph
 class TestFont : public FTFont
 {
     public:
-        TestFont( const char* fontname)
-        :   FTFont( fontname)
+        TestFont( const char* fontFilePath)
+        :   FTFont( fontFilePath)
         {}
         
         TestFont( const unsigned char *pBufferBytes, size_t bufferSizeInBytes)
@@ -49,8 +49,8 @@ class TestFont : public FTFont
 class BadGlyphTestFont : public FTFont
 {
     public:
-        BadGlyphTestFont( const char* fontname)
-        :   FTFont( fontname)
+        BadGlyphTestFont( const char* fontFilePath)
+        :   FTFont( fontFilePath)
         {}
         
         FTGlyph* MakeGlyph( unsigned int g)

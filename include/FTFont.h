@@ -35,9 +35,9 @@ class FTGL_EXPORT FTFont
         /**
          * Open and read a font file. Sets Error flag.
          *
-         * @param fontname  font file name.
+         * @param fontFilePath  font file path.
          */
-        FTFont( const char* fontname);
+        FTFont( const char* fontFilePath);
         
         /**
          * Open and read a font from a buffer in memory. Sets Error flag.
@@ -59,11 +59,11 @@ class FTGL_EXPORT FTFont
          *
          * Note: not all font formats implement this function.
          *
-         * @param filename  auxilliary font file name.
+         * @param fontFilePath  auxilliary font file path.
          * @return          <code>true</code> if file has been attached
          *                  successfully.
          */
-        bool Attach( const char* filename);
+        bool Attach( const char* fontFilePath);
 
         /**
          * Attach auxilliary data to font e.g font metrics, from memory

@@ -21,9 +21,9 @@ class FTGL_EXPORT FTFace
         /**
          * Opens and reads a face file. Error is set.
          *
-         * @param filename  font file name.
+         * @param fontFilePath  font file path.
          */
-        FTFace( const char* filename);
+        FTFace( const char* fontFilePath);
 
         /**
          * Read face data from an in-memory buffer. Error is set.
@@ -43,11 +43,11 @@ class FTGL_EXPORT FTFace
         /**
          * Attach auxilliary file to font (e.g., font metrics).
          *
-         * @param filename  auxilliary font file name.
+         * @param fontFilePath  auxilliary font file path.
          * @return          <code>true</code> if file has opened
          *                  successfully.
          */
-        bool Attach( const char* filename);
+        bool Attach( const char* fontFilePath);
 
         /**
          * Attach auxilliary data to font (e.g., font metrics) from memory

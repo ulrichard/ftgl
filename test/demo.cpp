@@ -251,9 +251,9 @@ my_idle()
 }
 
 int 
-file_exists( const char * filename )
+file_exists( const char * fontFilePath )
 {
-	FILE * fp = fopen( filename, "r" );
+	FILE * fp = fopen( fontFilePath, "r" );
 
 	if ( fp == NULL )
 	{
@@ -268,13 +268,13 @@ file_exists( const char * filename )
 void
 usage( const char * program )
 {
-	std::cerr << "Usage: " << program << " <filename.ttf>\n" << std::endl;
+	std::cerr << "Usage: " << program << " <fontFilePath.ttf>\n" << std::endl;
 }
 
 int
 main(int argc, char **argv)
 {
-	char * filename;
+	char * fontFilePath;
 
 	glutInitWindowSize(600, 600);
 	glutInit(&argc, argv);
@@ -290,22 +290,22 @@ main(int argc, char **argv)
 			std::cerr << "Couldn't open file '" << argv[ 1 ] << "'" << std::endl;
 			exit( -1 );
 		}
-		filename = argv[ 1 ];
+		fontFilePath = argv[ 1 ];
 	}
 	else 
 	{
 		// try a default font
-		filename = DEFAULT_FONT;
+		fontFilePath = DEFAULT_FONT;
 
-		if ( !file_exists( filename ))
+		if ( !file_exists( fontFilePath ))
 		{
 			usage( argv[ 0 ]);
-			std::cerr << "Couldn't open default file '" << filename << "'" << std::endl;
+			std::cerr << "Couldn't open default file '" << fontFilePath << "'" << std::endl;
 			exit( -1 );
 		}
 	}
 
-	my_init( filename );
+	my_init( fontFilePath );
 
 	glutDisplayFunc(my_display);
 	glutReshapeFunc(my_reshape);

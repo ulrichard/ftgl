@@ -4,8 +4,8 @@
 #include    "FTBBox.h"
 
 
-FTFont::FTFont( const char* fontname)
-:   face( fontname),
+FTFont::FTFont( const char* fontFilePath)
+:   face( fontFilePath),
     useDisplayLists(true),
     glyphList(0)
 {
@@ -35,9 +35,9 @@ FTFont::~FTFont()
 }
 
 
-bool FTFont::Attach( const char* filename)
+bool FTFont::Attach( const char* fontFilePath)
 {
-    if( face.Attach( filename))
+    if( face.Attach( fontFilePath))
     {
         err = 0;
         return true;

@@ -3,7 +3,7 @@
 
 #include FT_TRUETYPE_TABLES_H
 
-FTFace::FTFace( const char* filename)
+FTFace::FTFace( const char* fontFilePath)
 :   numGlyphs(0),
     fontEncodingList(0),
     err(0)
@@ -11,7 +11,7 @@ FTFace::FTFace( const char* filename)
     const FT_Long DEFAULT_FACE_INDEX = 0;
     ftFace = new FT_Face;
 
-    err = FT_New_Face( *FTLibrary::Instance().GetLibrary(), filename, DEFAULT_FACE_INDEX, ftFace);
+    err = FT_New_Face( *FTLibrary::Instance().GetLibrary(), fontFilePath, DEFAULT_FACE_INDEX, ftFace);
 
     if( err)
     {
@@ -58,9 +58,9 @@ FTFace::~FTFace()
 }
 
 
-bool FTFace::Attach( const char* filename)
+bool FTFace::Attach( const char* fontFilePath)
 {
-    err = FT_Attach_File( *ftFace, filename);
+    err = FT_Attach_File( *ftFace, fontFilePath);
     return !err;
 }
 

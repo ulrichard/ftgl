@@ -13,6 +13,7 @@ class FTPointTest : public CppUnit::TestCase
         CPPUNIT_TEST( testOperatorEqual);
         CPPUNIT_TEST( testOperatorNotEqual);
         CPPUNIT_TEST( testOperatorPlusEquals);
+        CPPUNIT_TEST( testOperatorStar);
     CPPUNIT_TEST_SUITE_END();
         
     public:
@@ -80,6 +81,14 @@ class FTPointTest : public CppUnit::TestCase
             point1 += point2;
             
             CPPUNIT_ASSERT( point1 == point3);
+        }
+        
+        
+        void testOperatorStar()
+        {
+            FTPoint point1(  1.0f, 2.0f, 3.0f);
+        
+//            double* pointer = point1;
         }
         
         

@@ -2,8 +2,8 @@
 #include "FTBitmapGlyph.h"
 
 
-FTGLBitmapFont::FTGLBitmapFont( const char* fontname)
-:   FTFont( fontname)
+FTGLBitmapFont::FTGLBitmapFont( const char* fontFilePath)
+:   FTFont( fontFilePath)
 {}
 
 
