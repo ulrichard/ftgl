@@ -49,7 +49,7 @@ class FTGL_EXPORT FTGlyphContainer
          * @return  An FTGlyph or <code>null</code> is it hasn't been
          * loaded.
          */
-        FTGlyph* Glyph( const unsigned int c) const;
+        const FTGlyph* const Glyph( const unsigned int c) const;
 
         
         FTBBox BBox( const unsigned int index) const;

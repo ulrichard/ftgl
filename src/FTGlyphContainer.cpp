@@ -4,8 +4,8 @@
 
 
 FTGlyphContainer::FTGlyphContainer( FTFace* f)
-:   face( f),
-    err( 0)
+:   face(f),
+    err(0)
 {
     numberOfGlyphs = face->GlyphCount();
     glyphs.resize( numberOfGlyphs, NULL);
@@ -39,7 +39,7 @@ bool FTGlyphContainer::Add( FTGlyph* tempGlyph, unsigned int g)
 }
 
 
-FTGlyph* FTGlyphContainer::Glyph( const unsigned int c) const
+const FTGlyph* const FTGlyphContainer::Glyph( const unsigned int c) const
 {
     return glyphs[face->CharIndex( c)];
 }
