@@ -1,4 +1,9 @@
-FTGL 1.2
+FTGL 1.21
+
+November 9 2001
+ 	1.21 (FTGL_1_2_1)
+ 	- Visual Studio projects updated for .cpp source file extensions.
+ 	- A couple of windows 'cast' warnings have been fixed.
 
 November 6 2001
  	1.2 (FTGL_1_2_0)
