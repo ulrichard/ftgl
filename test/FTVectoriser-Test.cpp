@@ -422,7 +422,7 @@ class FTVectoriserTest : public CppUnit::TestCase
         {
             FT_Error error = FT_Init_FreeType( &library);
             assert(!error);
-            error = FT_New_Face( library, FONT_FILE, 0, &face);
+            error = FT_New_Face( library, ARIAL_FONT_FILE, 0, &face);
             assert(!error);
             
         }
