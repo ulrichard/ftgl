@@ -18,7 +18,7 @@ FTFont::FTFont()
 
 FTFont::~FTFont()
 {
-    Close();
+    delete glyphList;
 }
 
 
@@ -30,7 +30,7 @@ bool FTFont::Open( const char* fontname, bool p)
     {
         FT_Face* ftFace = face.Face();      
         numGlyphs = (*ftFace)->num_glyphs;
-        
+        err = 0;
         return true;
     }
     else
@@ -63,12 +63,6 @@ bool FTFont::Open( const unsigned char *pBufferBytes, size_t bufferSizeInBytes, 
 bool FTFont::Attach( const char* filename)
 {
     return face.Attach( filename);
-}
-
-
-void FTFont::Close()
-{
-    delete glyphList;
 }
 
 
@@ -118,8 +112,9 @@ bool FTFont::MakeGlyphList()
 
 bool FTFont::CharMap( FT_Encoding encoding)
 {
-    err = face.CharMap( encoding);
-    return !err;
+    bool result = face.CharMap( encoding);
+    err = face.Error();
+    return result;
 }
 
 

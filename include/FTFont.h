@@ -74,11 +74,6 @@ class FTGL_EXPORT FTFont
         bool Attach( const char* filename);
 
         /**
-         * Disposes of the font
-         */
-        void Close();
-        
-        /**
          * Set the char size for the current face.
          *
          * @param size      the face size in points (1/72 inch)
