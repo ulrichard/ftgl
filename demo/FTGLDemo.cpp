@@ -150,9 +150,9 @@ void renderFontmetrics()
 	// Draw the bounding box
 	glDisable( GL_LIGHTING);
 	glDisable( GL_TEXTURE_2D);
-			glEnable( GL_LINE_SMOOTH);
-			glEnable(GL_BLEND);
-			glBlendFunc( GL_SRC_ALPHA, GL_ONE); // GL_ONE_MINUS_SRC_ALPHA
+    glEnable( GL_LINE_SMOOTH);
+    glEnable(GL_BLEND);
+    glBlendFunc( GL_SRC_ALPHA, GL_ONE); // GL_ONE_MINUS_SRC_ALPHA
 
 	glColor3f( 0.0, 1.0, 0.0);
 	// Draw the front face
@@ -286,9 +286,15 @@ void do_display (void)
 // you will need to explicitly call glRasterPos3f (or its ilk) to lock
 // in a changed current color.
 
-	fonts[current_font]->Render( myString);
+	glPushMatrix();
+        fonts[current_font]->Render( myString);
+	glPopMatrix();
+
+	glPushMatrix();
         renderFontmetrics();
-        renderFontInfo();
+	glPopMatrix();
+
+    renderFontInfo();
 }
 
 

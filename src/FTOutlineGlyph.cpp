@@ -45,11 +45,11 @@ FTOutlineGlyph::~FTOutlineGlyph()
 
 float FTOutlineGlyph::Render( const FTPoint& pen)
 {
+    glTranslatef( pen.x, pen.y, 0);
+
     if( glList)
     {
-        glTranslatef( pen.x, pen.y, 0);
-            glCallList( glList);
-        glTranslatef( -pen.x, -pen.y, 0);
+        glCallList( glList);
     }
     
     return advance;

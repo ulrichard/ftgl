@@ -63,18 +63,20 @@ float FTTextureGlyph::Render( const FTPoint& pen)
         glBindTexture( GL_TEXTURE_2D, (GLuint)glTextureID);
     }
     
+    glTranslatef(  pen.x,  pen.y, 0);
+
     glBegin( GL_QUADS);
         glTexCoord2f( uv[0].x, uv[0].y);
-        glVertex2f( pen.x + pos.x,             pen.y + pos.y);
+        glVertex2f( pos.x,             pos.y);
 
         glTexCoord2f( uv[0].x, uv[1].y);
-        glVertex2f( pen.x + pos.x,             pen.y + pos.y - destHeight);
+        glVertex2f( pos.x,             pos.y - destHeight);
 
         glTexCoord2f( uv[1].x, uv[1].y);
-        glVertex2f( pen.x + destWidth + pos.x, pen.y + pos.y - destHeight);
+        glVertex2f( destWidth + pos.x, pos.y - destHeight);
         
         glTexCoord2f( uv[1].x, uv[0].y);
-        glVertex2f( pen.x + destWidth + pos.x, pen.y + pos.y);
+        glVertex2f( destWidth + pos.x, pos.y);
     glEnd();
 
     return advance;

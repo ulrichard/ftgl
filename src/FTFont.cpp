@@ -256,8 +256,8 @@ void FTFont::DoRender( const unsigned int chr, const unsigned int nextChr)
 
     FTPoint kernAdvance = glyphList->Render( chr, nextChr, pen);
     
-    pen.x += kernAdvance.x;
-    pen.y += kernAdvance.y;
+    pen.x = kernAdvance.x;
+    pen.y = kernAdvance.y;
 }
 
 
