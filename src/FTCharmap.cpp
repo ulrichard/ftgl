@@ -3,7 +3,8 @@
 
 
 FTCharmap::FTCharmap( FTFace* face)
-:   ftFace( *(face->Face())),
+:   fontEncodingList(0),
+    ftFace( *(face->Face())),
     err(0)
 {
     if( !ftFace->charmap)
@@ -41,6 +42,27 @@ bool FTCharmap::CharMap( FT_Encoding encoding)
         
     charMap.clear();
     return !err;
+}
+
+
+unsigned int FTCharmap::CharMapCount()
+{
+    return ftFace->num_charmaps;
+}
+
+
+FT_Encoding* FTCharmap::CharMapList()
+{
+    if( 0 == fontEncodingList)
+    {
+        fontEncodingList = new FT_Encoding[CharMapCount()];
+        for( size_t encodingIndex = 0; encodingIndex < CharMapCount(); ++encodingIndex)
+        {
+            fontEncodingList[encodingIndex] = ftFace->charmaps[encodingIndex]->encoding;
+        }
+    }
+    
+    return fontEncodingList;
 }
 
 

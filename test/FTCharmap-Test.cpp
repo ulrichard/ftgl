@@ -22,6 +22,7 @@ class FTCharmapTest : public CppUnit::TestCase
         CPPUNIT_TEST( testGetCharacterIndex);
         CPPUNIT_TEST( testGetGlyphIndex);
         CPPUNIT_TEST( testInsertCharacterIndex);
+        CPPUNIT_TEST( testGetCharmapList);
     CPPUNIT_TEST_SUITE_END();
         
     public:
@@ -97,6 +98,16 @@ class FTCharmapTest : public CppUnit::TestCase
 
             charmap->InsertIndex( CHARACTER_CODE_A, 999);
             CPPUNIT_ASSERT( charmap->CharIndex( CHARACTER_CODE_A) == 999);
+        }
+        
+        void testGetCharmapList()
+        {
+            CPPUNIT_ASSERT( charmap->CharMapCount() == 2);
+            
+            FT_Encoding* charmapList = charmap->CharMapList();
+            
+            CPPUNIT_ASSERT( charmapList[0] == ft_encoding_unicode);
+            CPPUNIT_ASSERT( charmapList[1] == ft_encoding_adobe_standard);
         }
         
         
