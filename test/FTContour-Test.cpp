@@ -9,6 +9,12 @@
 // FT_Curve_Tag_Conic        0
 // FT_Curve_Tag_Cubic        2
 
+static FT_Vector shortLine[2] =
+{
+    { 1, 1},
+    { 2, 2},
+};
+
 static FT_Vector straightLinePoints[3] = 
 {
     { 0,  0},
@@ -152,6 +158,12 @@ class FTContourTest : public CppUnit::TestCase
         {
             FTContour contour( brokenPoints, simpleConicTags, 3);
             CPPUNIT_ASSERT( contour.PointCount() == 1);
+
+            FTContour shortContour( shortLine, simpleConicTags, 2);
+            CPPUNIT_ASSERT_DOUBLES_EQUAL( 6, shortContour.PointCount(), 0.0);
+
+            FTContour reallyShortContour( shortLine, simpleConicTags, 1);
+            CPPUNIT_ASSERT_DOUBLES_EQUAL( 1, reallyShortContour.PointCount(), 0.0);
         }
 
 
