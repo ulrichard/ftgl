@@ -29,10 +29,10 @@ FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
         vectoriser->MakeMesh( 1.0);
         glNormal3d(0.0, 0.0, 1.0);
         
-        FTMesh* mesh = vectoriser->GetMesh();
+        const FTMesh* mesh = vectoriser->GetMesh();
         for( unsigned int index = 0; index < mesh->TesselationCount(); ++index)
         {
-            FTTesselation* subMesh = mesh->Tesselation( index);
+            const FTTesselation* subMesh = mesh->Tesselation( index);
             unsigned int polyonType = subMesh->PolygonType();
 
             glBegin( polyonType);
@@ -51,7 +51,7 @@ FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
         mesh = vectoriser->GetMesh();
         for( unsigned int index = 0; index < mesh->TesselationCount(); ++index)
         {
-            FTTesselation* subMesh = mesh->Tesselation( index);
+            const FTTesselation* subMesh = mesh->Tesselation( index);
             unsigned int polyonType = subMesh->PolygonType();
 
             glBegin( polyonType);
@@ -68,7 +68,7 @@ FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
         
         for( size_t c = 0; c < vectoriser->ContourCount(); ++c)
         {
-            FTContour* contour = vectoriser->Contour(c);
+            const FTContour* contour = vectoriser->Contour(c);
             unsigned int numberOfPoints = contour->PointCount();
             
             glBegin( GL_QUAD_STRIP);

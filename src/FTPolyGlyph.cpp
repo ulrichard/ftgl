@@ -24,10 +24,10 @@ FTPolyGlyph::FTPolyGlyph( FT_Glyph glyph)
     glList = glGenLists(1);
     glNewList( glList, GL_COMPILE);
 
-        FTMesh* mesh = vectoriser->GetMesh();
+        const FTMesh* mesh = vectoriser->GetMesh();
         for( unsigned int index = 0; index < mesh->TesselationCount(); ++index)
         {
-            FTTesselation* subMesh = mesh->Tesselation( index);
+            const FTTesselation* subMesh = mesh->Tesselation( index);
             unsigned int polyonType = subMesh->PolygonType();
 
             glBegin( polyonType);

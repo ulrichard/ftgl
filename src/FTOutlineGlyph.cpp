@@ -24,7 +24,7 @@ FTOutlineGlyph::FTOutlineGlyph( FT_Glyph glyph)
     glNewList( glList, GL_COMPILE);
         for( unsigned int c = 0; c < numContours; ++c)
         {
-            FTContour* contour = vectoriser->Contour(c);
+            const FTContour* contour = vectoriser->Contour(c);
             
             glBegin( GL_LINE_LOOP);
                 for( unsigned int p = 0; p < contour->PointCount(); ++p)
