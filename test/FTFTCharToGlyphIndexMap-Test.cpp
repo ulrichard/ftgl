@@ -24,8 +24,8 @@ class FTCharToGlyphIndexMapTest : public CppUnit::TestCase
         {
             FTCharToGlyphIndexMap testMap;
             
-            CPPUNIT_ASSERT( testMap.find( 2) == NULL);
-            CPPUNIT_ASSERT( testMap.find( 5) == NULL);
+            CPPUNIT_ASSERT( testMap.find( 2) == 0);
+            CPPUNIT_ASSERT( testMap.find( 5) == 0);
         }
         
         void testInsert()
@@ -34,8 +34,8 @@ class FTCharToGlyphIndexMapTest : public CppUnit::TestCase
             
             testMap.insert( 2, 37);
             
-            CPPUNIT_ASSERT( *(testMap.find( 2)) == 37);
-            CPPUNIT_ASSERT( testMap.find( 5) == NULL);
+            CPPUNIT_ASSERT( testMap.find( 2) == 37);
+            CPPUNIT_ASSERT( testMap.find( 5) == 0);
         }
         
         void testClear()
@@ -45,8 +45,8 @@ class FTCharToGlyphIndexMapTest : public CppUnit::TestCase
             testMap.insert( 2, 37);
             testMap.clear();
             
-            CPPUNIT_ASSERT( testMap.find( 2) == NULL);
-            CPPUNIT_ASSERT( testMap.find( 5) == NULL);
+            CPPUNIT_ASSERT( testMap.find( 2) == 0);
+            CPPUNIT_ASSERT( testMap.find( 5) == 0);
         }
         
         

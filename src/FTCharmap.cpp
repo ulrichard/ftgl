@@ -46,15 +46,7 @@ bool FTCharmap::CharMap( FT_Encoding encoding)
 
 unsigned int FTCharmap::CharIndex( unsigned int characterCode )
 {
-    const CharacterMap::GlyphIndex *result = charMap.find( characterCode);
-    if( !result)
-    {
-        return 0;
-    }
-    else
-    {
-        return *result;
-    }
+    return charMap.find( characterCode);
 }
 
 
