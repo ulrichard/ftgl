@@ -68,24 +68,15 @@ class FTGL_EXPORT FTContour
         /**
          * De Casteljau (bezier) algorithm contributed by Jed Soane
          *
-         * @param t 
-         * @param curveOrder The order of the curve to be evaluated.
-         * <code>2</code> equals conic (quadratic) and <code>3</code> equals cubic
-         */
-        inline void deCasteljau( const float t, const int curveOrder);
-
-        /**
-         * De Casteljau (bezier) algorithm contributed by Jed Soane
-         *
          * @param curveOrder The order of the curve to be evaluated.
          * <code>2</code> equals conic (quadratic) and <code>3</code> equals cubic
          */
         inline void evaluateCurve( const int curveOrder);
 
         /**
+         * 2D array storing values of de Casteljau algorithm.
          */
-         // Magic numbers -- #define MAX_DEG 4
-        float bValues[4][4][2];  //3D array storing values of de Casteljau algorithm.
+        float bValues[4][2];
 };
 
 #endif // __FTContour__

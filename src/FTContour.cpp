@@ -1,7 +1,7 @@
 #include "FTContour.h"
 
-static const unsigned int SECOND_ORDER_CURVE = 2;
-static const unsigned int THIRD_ORDER_CURVE = 3;
+static const unsigned int SECOND_DEGREE_CURVE = 2;
+static const unsigned int THIRD_DEGREE_CURVE = 3;
 static const float BEZIER_STEP_SIZE = 0.2f;
 
 
@@ -38,11 +38,11 @@ FTContour::FTContour( FT_Vector* contour, char* pointTags, unsigned int numberOf
                                      static_cast<float>( controlPoint.y + nextPoint.y) * 0.5f,
                                      0);
 
-                bValues[0][0][0] = previousPoint.x; bValues[0][0][1] = previousPoint.y;
-                bValues[0][1][0] = controlPoint.x;  bValues[0][1][1] = controlPoint.y;
-                bValues[0][2][0] = nextPoint.x;     bValues[0][2][1] = nextPoint.y;
+                bValues[0][0] = previousPoint.x; bValues[0][1] = previousPoint.y;
+                bValues[1][0] = controlPoint.x;  bValues[1][1] = controlPoint.y;
+                bValues[2][0] = nextPoint.x;     bValues[2][1] = nextPoint.y;
                 
-                evaluateCurve( SECOND_ORDER_CURVE);
+                evaluateCurve( SECOND_DEGREE_CURVE);
                 ++pointIndex;
                 
                 previousPoint = nextPoint;
@@ -55,11 +55,11 @@ FTContour::FTContour( FT_Vector* contour, char* pointTags, unsigned int numberOf
                                : pointTags[pointIndex + 1];
             }
             
-            bValues[0][0][0] = previousPoint.x; bValues[0][0][1] = previousPoint.y;
-            bValues[0][1][0] = controlPoint.x;  bValues[0][1][1] = controlPoint.y;
-            bValues[0][2][0] = nextPoint.x;     bValues[0][2][1] = nextPoint.y;
+            bValues[0][0] = previousPoint.x; bValues[0][1] = previousPoint.y;
+            bValues[1][0] = controlPoint.x;  bValues[1][1] = controlPoint.y;
+            bValues[2][0] = nextPoint.x;     bValues[2][1] = nextPoint.y;
             
-            evaluateCurve( SECOND_ORDER_CURVE);
+            evaluateCurve( SECOND_DEGREE_CURVE);
             continue;
         }
 
@@ -71,12 +71,12 @@ FTContour::FTContour( FT_Vector* contour, char* pointTags, unsigned int numberOf
                                 ? pointList[0]
                                 : FTPoint( contour[pointIndex + 2]);
             
-            bValues[0][0][0] = previousPoint.x; bValues[0][0][1] = previousPoint.y;
-            bValues[0][1][0] = controlPoint.x;  bValues[0][1][1] = controlPoint.y;
-            bValues[0][2][0] = controlPoint2.x; bValues[0][2][1] = controlPoint2.y;
-            bValues[0][3][0] = nextPoint.x;     bValues[0][3][1] = nextPoint.y;
+            bValues[0][0] = previousPoint.x; bValues[0][1] = previousPoint.y;
+            bValues[1][0] = controlPoint.x;  bValues[1][1] = controlPoint.y;
+            bValues[2][0] = controlPoint2.x; bValues[2][1] = controlPoint2.y;
+            bValues[3][0] = nextPoint.x;     bValues[3][1] = nextPoint.y;
         
-            evaluateCurve( THIRD_ORDER_CURVE);
+            evaluateCurve( THIRD_DEGREE_CURVE);
             ++pointIndex;
             continue;
         }
@@ -93,30 +93,22 @@ void FTContour::AddPoint( FTPoint point)
 }
 
 
-void FTContour::deCasteljau( const float t, const int n)
+void FTContour::evaluateCurve( const int curveDegree)
 {
-    //Calculating successive b(i)'s using de Casteljau algorithm.
-    for( int i = 1; i <= n; i++)
+    for( unsigned int i = 0; i <= ( 1.0f / BEZIER_STEP_SIZE); i++)
     {
-        for( int k = 0; k <= (n - i); k++)
+        float t = static_cast<float>(i) * BEZIER_STEP_SIZE;
+
+        for( unsigned int m = curveDegree; m > 0; m--)
         {
-            bValues[i][k][0] = (1 - t) * bValues[i - 1][k][0] + t * bValues[i - 1][k + 1][0];
-            bValues[i][k][1] = (1 - t) * bValues[i - 1][k][1] + t * bValues[i - 1][k + 1][1];
+            for ( unsigned int j = 0; j < m; j++)
+            {
+                bValues[j][0] = (1.0f - t) * bValues[j][0] + t * bValues[j + 1][0];
+                bValues[j][1] = (1.0f - t) * bValues[j][1] + t * bValues[j + 1][1];
+            }
         }
-    }
 
-    AddPoint( FTPoint( bValues[n][0][0], bValues[n][0][1], 0.0f));
-}
-
-
-void FTContour::evaluateCurve( const int n)
-{
-    float t; //parameter for curve point calc. [0.0, 1.0]
-
-    for( int m = 0; m <= ( 1 / BEZIER_STEP_SIZE); m++)
-    {
-        t = m * BEZIER_STEP_SIZE;
-        deCasteljau( t, n);  //calls to evaluate point on curve at t.
+    	AddPoint( FTPoint( bValues[0][0], bValues[0][1], 0.0f));
     }
 }
 
