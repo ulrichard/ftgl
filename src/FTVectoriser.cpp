@@ -62,7 +62,7 @@ int FTVectoriser::points()
 }
 
 
-bool FTVectoriser::Ingest()
+bool FTVectoriser::Process()
 {
 	short first = 0;
 	short last;
@@ -208,7 +208,7 @@ void FTVectoriser::evaluateCurve( const int n)
 }
 
 
-void FTVectoriser::Output( double* data)
+void FTVectoriser::MakeOutline( double* data)
 {
 	int i = 0;
 	
@@ -225,3 +225,4 @@ void FTVectoriser::Output( double* data)
 		}
 	}
 }
+
