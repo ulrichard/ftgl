@@ -18,6 +18,8 @@
  * must implement the <code>render</code> function. 
  * 
  * @see FTGlyphContainer
+ * @see FTBBox
+ * @see FTPoint
  *
  */
 class FTGL_EXPORT FTGlyph
@@ -71,10 +73,10 @@ class FTGL_EXPORT FTGlyph
         /**
          * Vector from the pen position to the topleft corner of the glyph
          */
-        FT_Vector pos;
+        FTPoint pos;
         
         /**
-         * A freetype bounding box
+         * The bounding box of this glyph.
          */
         FTBBox bBox;
         
