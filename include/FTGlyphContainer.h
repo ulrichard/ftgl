@@ -84,7 +84,7 @@ class FTGL_EXPORT FTGlyphContainer
         /**
          * How many glyphs are reserved in this container
          */
-        int numGlyphs;
+        unsigned int numGlyphs;
 
         /**
          * The current FTGL face
