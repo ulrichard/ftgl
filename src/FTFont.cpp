@@ -73,7 +73,7 @@ bool FTFont::FaceSize( const unsigned int size, const unsigned int res )
         return false;
     }
     
-    if( glyphList)
+    if( glyphList != NULL)
     {
         delete glyphList;
     }
