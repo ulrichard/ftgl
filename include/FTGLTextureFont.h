@@ -100,12 +100,6 @@ class  FTGL_EXPORT FTGLTextureFont : public FTFont
 		void CreateTexture( int id, int width, int height, unsigned char* data);
 		
 		/**
-		 * A temporary FTTextureGlyph used for building the glyphList
-		 */
-		FTTextureGlyph* tempGlyph;
-		
-		
-		/**
 		 * The maximum texture dimension on this OpenGL implemetation
 		 */
 		long maxTextSize;

@@ -4,7 +4,6 @@
 
 
 FTGLBitmapFont::FTGLBitmapFont()
-:	tempGlyph(0)
 {}
 
 
@@ -23,7 +22,7 @@ bool FTGLBitmapFont::MakeGlyphList()
 
 		if( ftGlyph)
 		{
-			tempGlyph = new FTBitmapGlyph( *ftGlyph);
+			FTBitmapGlyph* tempGlyph = new FTBitmapGlyph( *ftGlyph);
 			glyphList->Add( tempGlyph);
 		}
 		else

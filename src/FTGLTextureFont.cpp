@@ -24,7 +24,6 @@ FTGLTextureFont::FTGLTextureFont()
 :	numTextures(1),
 	textMem(0),
 	padding(1),
-	tempGlyph(0),
 	maxTextSize(0),
 	textureWidth(0),
 	textureHeight(0),
@@ -122,7 +121,7 @@ unsigned int FTGLTextureFont::FillGlyphs( unsigned int glyphStart, int id, int w
 			
 			currTextU = (float)currentTextX / (float)width;
 			
-			tempGlyph = new FTTextureGlyph( *ftGlyph, id, data, width, height, currTextU, currTextV);
+			FTTextureGlyph* tempGlyph = new FTTextureGlyph( *ftGlyph, id, data, width, height, currTextU, currTextV);
 			glyphList->Add( tempGlyph);
 
 			currentTextX += glyphWidth;
