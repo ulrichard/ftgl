@@ -219,7 +219,9 @@ class FTGL_EXPORT FTFont
         inline void DoRender( const unsigned int chr, const unsigned int nextChr);
         
         /**
+         * Check that the glyph at <code>chr</code> exist. If not load it.
          *
+         * @param chr  character index
          */
         inline void CheckGlyph( const unsigned int chr);
 
