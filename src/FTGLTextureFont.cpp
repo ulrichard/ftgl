@@ -137,6 +137,10 @@ unsigned int FTGLTextureFont::FillGlyphs( unsigned int glyphStart, int id, int w
 				currTextV = (float)currentTextY / (float)height;
 			}
 		}
+		else
+		{
+			err = face.Error();
+		}
 	}
 
 	return n;

@@ -25,6 +25,10 @@ bool FTGLPolygonFont::MakeGlyphList()
 			tempGlyph = new FTPolyGlyph( *ftGlyph, n);
 			glyphList->Add( tempGlyph);
 		}
+		else
+		{
+			err = face.Error();
+		}
 	}
 	
 	return !err;

@@ -28,6 +28,10 @@ bool FTGLPixmapFont::MakeGlyphList()
 			tempGlyph = new FTPixmapGlyph( *ftGlyph, c);
 			glyphList->Add( tempGlyph);
 		}
+		else
+		{
+			err = face.Error();
+		}
 	}
 	
 	return !err;

@@ -26,6 +26,10 @@ bool FTGLOutlineFont::MakeGlyphList()
 			tempGlyph = new FTVectorGlyph( *ftGlyph, n);
 			glyphList->Add( tempGlyph);
 		}
+		else
+		{
+			err = face.Error();
+		}
 	}
 	
 	return !err;
