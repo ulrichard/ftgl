@@ -81,15 +81,6 @@ class FTGL_EXPORT FTBBox
             return *this;
         }
 
-        /**
-         * Operator + Adds two FTBBox's together
-         *
-         * @param a
-         * @param b
-         * @return
-         */
-        friend FTBBox operator + ( const FTBBox &a, const FTBBox &b);
-
         FTBBox& operator += ( const FTBBox& bbox) 
         {
             lowerX = bbox.lowerX < lowerX? bbox.lowerX: lowerX; 
