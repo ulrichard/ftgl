@@ -48,15 +48,15 @@ class ftPoint
 		ftPoint()
 		: x(0), y(0), z(0){}
 		
-		ftPoint( float X, float Y, float Z)
+		ftPoint( const float X, const float Y, const float Z)
 		: x(X), y(Y), z(Z){}
 		
-		friend bool operator == (const ftPoint &a, const ftPoint &b)
+		friend bool operator == (const ftPoint &a, const ftPoint &b) 
 		{
 			return((a.x == b.x) && (a.y == b.y) && (a.z == b.z));
 		}
 
-		friend bool operator != (const ftPoint &a, const ftPoint &b)
+		friend bool operator != (const ftPoint &a, const ftPoint &b) 
 		{
 			return((a.x != b.x) || (a.y != b.y) || (a.z != b.z));
 		}
@@ -74,7 +74,7 @@ class FTContour
 		FTContour();
 		~FTContour();
 	
-		void AddPoint( int x, int y);
+		void AddPoint( const int x, const int y);
 		
 		int size() const { return pointList.size();}
 
@@ -107,23 +107,21 @@ class FTVectoriser
 		
 	private:
 		// methods
-		int Conic( int index, int first, int last);
-		int Cubic( int index, int first, int last);
-		void deCasteljau( GLfloat t, int n);
-		void evaluateCurve( int n);
+		int Conic( const int index, const int first, const int last);
+		int Cubic( const int index, const int first, const int last);
+		void deCasteljau( const float t, const int n);
+		void evaluateCurve( const int n);
 
 		// attributes
-		vector< FTContour*> contourList;
-		float ctrlPtArray[4][2]; // Magic numbers
+		vector< const FTContour*> contourList;
 			
 		FTContour* contour;
 
 		FT_Outline ftOutline;
 		
 		 // Magic numbers -- #define MAX_DEG 4
-		float bValues[4][4][2];	//3D array storing values
-                                        	//of de Casteljau algorithm.
-
+		float bValues[4][4][2];	//3D array storing values of de Casteljau algorithm.
+		float ctrlPtArray[4][2]; // Magic numbers
 
 };
 
