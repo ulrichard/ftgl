@@ -58,10 +58,7 @@ FTOutlineGlyph::FTOutlineGlyph( FT_Glyph glyph)
 
 
 FTOutlineGlyph::~FTOutlineGlyph()
-{
-//  delete [] data;
-//  delete [] contourLength;
-}
+{}
 
 
 float FTOutlineGlyph::Render( const FTPoint& pen)

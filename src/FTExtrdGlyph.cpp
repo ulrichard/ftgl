@@ -179,8 +179,7 @@ FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
 
 
 FTExtrdGlyph::~FTExtrdGlyph()
-{
-}
+{}
 
 
 bool FTExtrdGlyph::Winding( int numPoints, FTGL_DOUBLE *points)

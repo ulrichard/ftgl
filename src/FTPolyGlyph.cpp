@@ -23,7 +23,7 @@ FTPolyGlyph::FTPolyGlyph( FT_Glyph glyph)
     bBox = FTBBox( glyph);
     advance = glyph->advance.x >> 16;
 
-    if ( numPoints < 3)
+    if( numPoints < 3)
     {
         delete vectoriser;
         return;
