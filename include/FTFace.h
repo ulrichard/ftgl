@@ -60,11 +60,6 @@ class FTGL_EXPORT FTFace
         bool Attach( const unsigned char *pBufferBytes, size_t bufferSizeInBytes);
 
         /**
-         * Disposes of the face
-         */
-        void Close();
-
-        /**
          * Get the freetype face object..
          *
          * @return pointer to an FT_Face.
@@ -82,8 +77,6 @@ class FTGL_EXPORT FTFace
          * @return          <code>FTSize</code> object
          */
         const FTSize& Size( const unsigned int size, const unsigned int res);
-
-        unsigned int UnitsPerEM() const;
 
         /**
          * Get the number of character maps in this face.
@@ -138,6 +131,11 @@ class FTGL_EXPORT FTFace
         int numGlyphs;
         
         FT_Encoding* fontEncodingList;
+
+        /**
+         * This face has kerning tables
+         */
+         bool hasKerningTable;
 
         /**
          * Current error code. Zero means no error.

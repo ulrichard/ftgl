@@ -21,6 +21,7 @@ FTFace::FTFace( const char* filename)
     else
     {
         numGlyphs = (*ftFace)->num_glyphs;
+        hasKerningTable = FT_HAS_KERNING((*ftFace));
     }
 }
 
@@ -48,7 +49,12 @@ FTFace::FTFace( const unsigned char *pBufferBytes, size_t bufferSizeInBytes)
 
 FTFace::~FTFace()
 {
-    Close();
+    if( ftFace)
+    {
+        FT_Done_Face( *ftFace);
+        delete ftFace;
+        ftFace = 0;
+    }
 }
 
 
@@ -69,17 +75,6 @@ bool FTFace::Attach( const unsigned char *pBufferBytes, size_t bufferSizeInBytes
 
     err = FT_Attach_Stream( *ftFace, &open);
     return !err;
-}
-
-
-void FTFace::Close()
-{
-    if( ftFace)
-    {
-        FT_Done_Face( *ftFace);
-        delete ftFace;
-        ftFace = 0;
-    }
 }
 
 
@@ -113,18 +108,12 @@ FT_Encoding* FTFace::CharMapList()
 }
 
 
-unsigned int FTFace::UnitsPerEM() const
-{
-    return (*ftFace)->units_per_EM;
-}
-
-
 FTPoint FTFace::KernAdvance( unsigned int index1, unsigned int index2)
 {
     float x, y;
     x = y = 0.0f;
 
-    if( FT_HAS_KERNING((*ftFace)) && index1 && index2)
+    if( hasKerningTable && index1 && index2)
     {
         FT_Vector kernAdvance;
         kernAdvance.x = kernAdvance.y = 0;
