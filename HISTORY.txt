@@ -11,7 +11,7 @@ FTGL 2.0 (FTGL_2_0_0)
     - Minor fixes for irix.
     - Removed a bunch of redundant members and made them function locals.
     - Removed the Open() & Close() functions from FTFont because there was
-      no way to handle Close correctly and Open is redundant.
+      no way to handle Close correctly which makes Open redundant.
     - Removed Open() from FTface.
     - Improved the robustness of some of the error handling.
     - Removed the FTCharmap Platform/Encoding function.
@@ -20,7 +20,7 @@ FTGL 2.0 (FTGL_2_0_0)
     - Unvirtualised functions in FTLibrary and FTGlyphContainer.
     - Fixed empty string bug in FTFont::BBox.
     - Refactored FTContour and moved it to it's own file.
-    - Removed an unnecessary memory allocations in vector Glyphs. They now
+    - Removed unnecessary memory allocations in vector Glyphs. They now
       access the vector data directly.
     - Made vectoriser a local variable in vector glyphs.
     - Fixed a long standing visual bug in FTVectoriser.
