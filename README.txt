@@ -66,6 +66,12 @@ implement a charmap class that will hold the indices.
 
 good site...http://cgm.cs.mcgill.ca/~luc/
 
+PROFILING
+test 1
+100,000 frames. Outline Font, No openGL context.
+The results of the first profile are in and as expected using freetype to
+return the char index for a glyph is costing us. A staggering 10% of the
+rendering time in fact!!!
 
 TODO:
 	- Tidy code, fix compiler warnings, comments.
@@ -82,10 +88,10 @@ TODO:
 	
 FUTURE:
 	- select face ie italic, bold etc
-	- select charmap
 	- Multiple sizes
 	- Optimise performance!! and mem usage.
 	  - don't process chars that map to glyph 0
+	  - Make our own char map processing class
 	- Use the Freetype Cache mechanism. See above. FTC_xxx
 	- Alignment. left right, centre.
 	- Bounding box, char and string.
@@ -95,8 +101,10 @@ FUTURE:
 	- Provide an interface to access the point data for outlines and polygon
 	  meshes.
 	- Unicode w_char. May have to use std::wstring and or std::wchar_t.
+	- Improve the grid fitting scheme in texture fonts.
 
 BUGS:
+	- Memory corruption in FTTextureFont
 	- Kerning is screwed up for really small point sizes eg 2 point.
 	  Freetype bug?
 	- The texture co-ords in the Texture Font made be wrong for none
@@ -107,7 +115,10 @@ BUGS:
 		  is becoming REALLY annoying!!!
 
 
-August 20 2001
+
+
+
+August 21 2001
 	1.0b4
 	- Changed the mode for FT_Load_Glyph to FT_LOAD_NO_HINTING | FT_LOAD_NO_BITMAP
 	  for outline and polygon fonts & FT_LOAD_NO_HINTING for texture fonts.
@@ -115,7 +126,8 @@ August 20 2001
 	- FTGLTextureFont can now use multiple textures to render glyphs if
 	  they don't fit within a GL_MAX_TEXTURE_SIZE texture. 
 	- Changed FTSize to use bbox for global width and height. Needs more
-	  work and need to check inconsistancies in freetype.
+	  work (eg float or int?) and need to check inconsistancies in freetype.
+	- Being more strict with types eg integer indices and sizes are now unsigned.
 
 
 August 8 2001
@@ -149,5 +161,4 @@ August 3 2001
 
 July 22 2001
 	First ALPHA Release 1.0a1
-
 
