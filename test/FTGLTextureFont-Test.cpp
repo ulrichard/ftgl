@@ -15,6 +15,7 @@ class FTGLTextureFontTest : public CppUnit::TestCase
         CPPUNIT_TEST( testConstructor);
         CPPUNIT_TEST( testResizeBug);
         CPPUNIT_TEST( testRender);
+        CPPUNIT_TEST( testDisplayList);
     CPPUNIT_TEST_SUITE_END();
         
     public:
@@ -70,6 +71,23 @@ class FTGLTextureFontTest : public CppUnit::TestCase
             CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);        
         }
 
+        void testDisplayList()
+        {
+            buildGLContext();
+        
+            FTGLTextureFont* textureFont = new FTGLTextureFont( FONT_FILE);            
+            textureFont->FaceSize(18);
+            
+            int glList = glGenLists(1);
+            glNewList( glList, GL_COMPILE);
+
+                textureFont->Render(GOOD_ASCII_TEST_STRING);
+
+            glEndList();
+
+            CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);
+        }
+        
         void setUp() 
         {}
         

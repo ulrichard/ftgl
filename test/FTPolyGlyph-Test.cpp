@@ -33,7 +33,7 @@ class FTPolyGlyphTest : public CppUnit::TestCase
             
             buildGLContext();
         
-            FTPolyGlyph* polyGlyph = new FTPolyGlyph( face->glyph);            
+            FTPolyGlyph* polyGlyph = new FTPolyGlyph( face->glyph, true);
             CPPUNIT_ASSERT( polyGlyph->Error() == 0);
         
             CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);        
@@ -47,7 +47,7 @@ class FTPolyGlyphTest : public CppUnit::TestCase
             
             buildGLContext();
         
-            FTPolyGlyph* polyGlyph = new FTPolyGlyph( face->glyph);
+            FTPolyGlyph* polyGlyph = new FTPolyGlyph( face->glyph, true);
             polyGlyph->Render(FTPoint( 0, 0, 0));           
             CPPUNIT_ASSERT( polyGlyph->Error() == 0);
         

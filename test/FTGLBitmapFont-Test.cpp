@@ -14,6 +14,7 @@ class FTGLBitmapFontTest : public CppUnit::TestCase
     CPPUNIT_TEST_SUITE( FTGLBitmapFontTest);
         CPPUNIT_TEST( testConstructor);
         CPPUNIT_TEST( testRender);
+        CPPUNIT_TEST( testDisplayList);
     CPPUNIT_TEST_SUITE_END();
         
     public:
@@ -54,6 +55,23 @@ class FTGLBitmapFontTest : public CppUnit::TestCase
             CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);        
         }
 
+        void testDisplayList()
+        {
+            buildGLContext();
+        
+            FTGLBitmapFont* bitmapFont = new FTGLBitmapFont( FONT_FILE);            
+            bitmapFont->FaceSize(18);
+            
+            int glList = glGenLists(1);
+            glNewList( glList, GL_COMPILE);
+
+                bitmapFont->Render(GOOD_ASCII_TEST_STRING);
+
+            glEndList();
+
+            CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);
+        }
+        
         void setUp() 
         {}
         

@@ -69,7 +69,6 @@ FTPixmapGlyph::FTPixmapGlyph( FT_GlyphSlot glyph)
                 dest -= destStep;
             }
         }
-
         destHeight = srcHeight;
     }
 

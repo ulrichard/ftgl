@@ -33,7 +33,7 @@ class FTExtrdGlyphTest : public CppUnit::TestCase
             
             buildGLContext();
         
-            FTExtrdGlyph* extrudedGlyph = new FTExtrdGlyph( face->glyph, 0.0f);            
+            FTExtrdGlyph* extrudedGlyph = new FTExtrdGlyph( face->glyph, 0.0f, true);
             CPPUNIT_ASSERT( extrudedGlyph->Error() == 0);
         
             CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);        
@@ -47,7 +47,7 @@ class FTExtrdGlyphTest : public CppUnit::TestCase
             
             buildGLContext();
         
-            FTExtrdGlyph* extrudedGlyph = new FTExtrdGlyph( face->glyph, 0.0f);            
+            FTExtrdGlyph* extrudedGlyph = new FTExtrdGlyph( face->glyph, 0.0f, true);
             CPPUNIT_ASSERT( extrudedGlyph->Error() == 0);
             extrudedGlyph->Render(FTPoint(0, 0, 0));
 
