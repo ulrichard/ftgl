@@ -127,6 +127,29 @@
 			files = (
 				F56BF03D031A2DEC010B7DB9,
 				F56BF03F031A2E04010B7DB9,
+				F58312C3038F7F440124B165,
+				F58312C4038F7F450124B165,
+				F58312C5038F7F460124B165,
+				F58312C6038F7F460124B165,
+				F58312C7038F7F470124B165,
+				F58312C8038F7F480124B165,
+				F58312C9038F7F490124B165,
+				F58312CA038F7F490124B165,
+				F58312CB038F7F4A0124B165,
+				F58312CC038F7F4B0124B165,
+				F58312CD038F7F4B0124B165,
+				F58312CE038F7F4C0124B165,
+				F58312CF038F7F4D0124B165,
+				F58312D0038F7F4E0124B165,
+				F58312D1038F7F500124B165,
+				F58312D2038F7F510124B165,
+				F58312D3038F7F520124B165,
+				F58312D4038F7F520124B165,
+				F58312D5038F7F530124B165,
+				F58312D6038F7F540124B165,
+				F58312D7038F7F550124B165,
+				F532B5290394A91C01608C9F,
+				F532B52D0394A92901608C9F,
 			);
 			isa = PBXHeadersBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;
@@ -154,6 +177,8 @@
 				66BA08D001C4638C000ABFD4,
 				66BA08D101C4638C000ABFD4,
 				66BA08D201C4638C000ABFD4,
+				F532B52C0394A92901608C9F,
+				F57F8A74039749B401709C0C,
 			);
 			isa = PBXSourcesBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;
@@ -174,6 +199,8 @@
 		};
 		66BA089501C4638C000ABFD4 = {
 			children = (
+				F532B5280394A91C01608C9F,
+				F57F8A73039749B401709C0C,
 				66BA089601C4638C000ABFD4,
 				66BA089701C4638C000ABFD4,
 				66BA089801C4638C000ABFD4,
@@ -208,6 +235,8 @@
 				66BA08B401C4638C000ABFD4,
 				66BA08B501C4638C000ABFD4,
 				66BA08B601C4638C000ABFD4,
+				F532B52A0394A92901608C9F,
+				F532B52B0394A92901608C9F,
 				66BA08B701C4638C000ABFD4,
 				66BA08B801C4638C000ABFD4,
 				66BA08B901C4638C000ABFD4,
@@ -597,7 +626,7 @@
 			buildSettings = {
 				DEBUGGING_SYMBOLS = NO;
 				FRAMEWORK_SEARCH_PATHS = "";
-				HEADER_SEARCH_PATHS = "/usr/local/include/freetype2 /usr/local/include/freetype2/freetype";
+				HEADER_SEARCH_PATHS = "/Users/henry/Development/PROJECTS/iSpot/includes /usr/local/include/freetype2 /usr/local/include/freetype2/freetype";
 				LIBRARY_SEARCH_PATHS = /Users/henry/Development/PROJECTS/iSpot/libraries;
 				OPTIMIZATION_CFLAGS = "-O3";
 				OTHER_REZFLAGS = "";
@@ -733,6 +762,39 @@
 			settings = {
 			};
 		};
+		F532B5280394A91C01608C9F = {
+			isa = PBXFileReference;
+			path = FTBBox.h;
+			refType = 4;
+		};
+		F532B5290394A91C01608C9F = {
+			fileRef = F532B5280394A91C01608C9F;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F532B52A0394A92901608C9F = {
+			isa = PBXFileReference;
+			path = FTPoint.cpp;
+			refType = 4;
+		};
+		F532B52B0394A92901608C9F = {
+			isa = PBXFileReference;
+			path = FTPoint.h;
+			refType = 4;
+		};
+		F532B52C0394A92901608C9F = {
+			fileRef = F532B52A0394A92901608C9F;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F532B52D0394A92901608C9F = {
+			fileRef = F532B52B0394A92901608C9F;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
 		F56BF03C031A2DEC010B7DB9 = {
 			isa = PBXFileReference;
 			name = FTCharToGlyphIndexMap.h;
@@ -757,11 +819,148 @@
 			settings = {
 			};
 		};
+		F57F8A73039749B401709C0C = {
+			isa = PBXFileReference;
+			path = FTBBox.cpp;
+			refType = 4;
+		};
+		F57F8A74039749B401709C0C = {
+			fileRef = F57F8A73039749B401709C0C;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
 		F580402702C549A2013DAE1F = {
 			isa = PBXFileReference;
 			name = mmgr.cpp;
 			path = ../test/mmgr.cpp;
 			refType = 2;
+		};
+		F58312C3038F7F440124B165 = {
+			fileRef = 66BA089701C4638C000ABFD4;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F58312C4038F7F450124B165 = {
+			fileRef = 66BA089901C4638C000ABFD4;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F58312C5038F7F460124B165 = {
+			fileRef = 66BA089B01C4638C000ABFD4;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F58312C6038F7F460124B165 = {
+			fileRef = 66BA089D01C4638C000ABFD4;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F58312C7038F7F470124B165 = {
+			fileRef = 66BA089F01C4638C000ABFD4;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F58312C8038F7F480124B165 = {
+			fileRef = 66BA08A001C4638C000ABFD4;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F58312C9038F7F490124B165 = {
+			fileRef = 66BA08A201C4638C000ABFD4;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F58312CA038F7F490124B165 = {
+			fileRef = 66BA08A401C4638C000ABFD4;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F58312CB038F7F4A0124B165 = {
+			fileRef = 66BA08A601C4638C000ABFD4;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F58312CC038F7F4B0124B165 = {
+			fileRef = 66BA08A801C4638C000ABFD4;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F58312CD038F7F4B0124B165 = {
+			fileRef = 66BA08AA01C4638C000ABFD4;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F58312CE038F7F4C0124B165 = {
+			fileRef = 66BA08AC01C4638C000ABFD4;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F58312CF038F7F4D0124B165 = {
+			fileRef = 66BA08AE01C4638C000ABFD4;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F58312D0038F7F4E0124B165 = {
+			fileRef = 66BA08B001C4638C000ABFD4;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F58312D1038F7F500124B165 = {
+			fileRef = 66BA08B201C4638C000ABFD4;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F58312D2038F7F510124B165 = {
+			fileRef = 66BA08B401C4638C000ABFD4;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F58312D3038F7F520124B165 = {
+			fileRef = 66BA08B601C4638C000ABFD4;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F58312D4038F7F520124B165 = {
+			fileRef = 66BA08B801C4638C000ABFD4;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F58312D5038F7F530124B165 = {
+			fileRef = 66BA08BA01C4638C000ABFD4;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F58312D6038F7F540124B165 = {
+			fileRef = 66BA08BC01C4638C000ABFD4;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F58312D7038F7F550124B165 = {
+			fileRef = 66BA08BE01C4638C000ABFD4;
+			isa = PBXBuildFile;
+			settings = {
+			};
 		};
 		F597CC8702C541D501F03BCF = {
 			children = (
@@ -958,9 +1157,8 @@
 		};
 		F5D2501E021F19CD019B29E7 = {
 			isa = PBXFileReference;
-			name = FTGLDemo.cpp;
-			path = /Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/demo/FTGLDemo.cpp;
-			refType = 0;
+			path = FTGLDemo.cpp;
+			refType = 4;
 		};
 		F5D2501F021F19CD019B29E7 = {
 			fileRef = F5D2501E021F19CD019B29E7;
