@@ -79,6 +79,15 @@ The results of the first profile are in and as expected using freetype to
 return the char index for a glyph is costing us. A staggering 10% of the
 rendering time in fact!!! Kerning has a similar impact.
 
+test 2
+100,000 frames. No openGL context.
+Performance results for the new FTCharmap class are quite satisfying:)
+The overall render time went from 12.009 seconds down to 4.595. The
+charIndex call went from 9.066 to 1.754. My concerns about the performance
+of std::map seemed to be unfounded in this case. Kerning is still an issue
+as can be seen in the proportional difference in these figures. I don't think
+this can be resolved easily.
+
 TODO:
 	- Tidy code, fix compiler warnings, comments.
 	- namespace ftgl or gltt?
@@ -89,9 +98,7 @@ FUTURE:
 	  to the point data is sorted.
 	- select face ie italic, bold etc
 	- Multiple sizes
-	- Optimise performance!! and mem usage.
-	  - don't process chars that map to glyph 0
-	  - Make our own char map processing class
+	- Optimise performance and mem usage.
 	- GL evaluators. Are they of any use?
 	- gl/glu errors
 	- tessellation winding rules
@@ -124,6 +131,8 @@ BUGS:
 
 
 	1.0b6
+	- Implemented the new FTCharmap class. The performance improvement
+	  is dramatic.
 	- Tidied up the way the freetype FT_Face object is disposed of by
 	  FTFont and FTFace. This was a potential crash.
 	- FTVectorGlyph and FTPolyGlyph now disposes of the freetype glyph
