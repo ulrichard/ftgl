@@ -54,6 +54,7 @@ class FTGL_EXPORT FTTextureGlyph : public FTGlyph
 		 * to keep track of the current active texture to try to reduce the
 		 * number of texture bind operations
 		 */
+		// Replace this with glGetIntegerv( GL_TEXTURE_2D_BINDING, activeTextureID);
 		static int activeTextureID;
 		
 	private:
