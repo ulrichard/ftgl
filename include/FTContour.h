@@ -48,7 +48,7 @@ class FTGL_EXPORT FTContour
          *
          * @return the number of points in this contour
          */
-        size_t Points() const { return pointList.size();}
+        size_t PointCount() const { return pointList.size();}
 
     private:
         /**
