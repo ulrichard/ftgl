@@ -26,8 +26,8 @@ class	FTVectorGlyph : public FTGlyph
 		FTVectoriser* vectoriser;
 		int numPoints;
 		int numContours;
-		int * contourLength;
-		float* data;
+		int* contourLength;
+		double* data;
 		int glList;
 	
 };

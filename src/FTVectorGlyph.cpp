@@ -30,7 +30,7 @@ FTVectorGlyph::FTVectorGlyph( FT_Glyph glyph, int gi)
 			}
 			
 			numPoints = vectoriser->points();
-			data = new float[ numPoints * 3];
+			data = new double[ numPoints * 3];
 			vectoriser->Output( data);
 			
 			advance = glyph->advance.x >> 16; // this is 6 in the freetype docs!!!!!!
@@ -50,7 +50,7 @@ FTVectorGlyph::FTVectorGlyph( FT_Glyph glyph, int gi)
  				glBegin( GL_LINE_LOOP);
  				for( int p = 0; p < ( contourLength[c]); ++p)
  				{
- 					glVertex2f( data[d], data[d + 1]);
+ 					glVertex2dv( data + d);
  					d += 3;
  				}
  				glEnd();
