@@ -1,12 +1,11 @@
+#include	"FTGLTextureFont.h"
+#include	"FTTextureGlyph.h"
 #ifdef FTGL_DEBUG
 	#include "mmgr.h"
 #endif
 
-#include	"FTGLTextureFont.h"
-#include	"FTGlyphContainer.h"
-#include	"FTTextureGlyph.h"
 
-using namespace std;
+using namespace std; // for memset
 
 
 inline GLuint NextPowerOf2( GLuint in)
@@ -35,8 +34,7 @@ FTGLTextureFont::FTGLTextureFont()
 	remGlyphs(0),
 	xOffset(0),
 	yOffset(0)
-{
-}
+{}
 
 
 FTGLTextureFont::~FTGLTextureFont()
@@ -61,7 +59,6 @@ FTGlyph* FTGLTextureFont::MakeGlyph( unsigned int g)
 			glTextureID[0] = CreateTexture();
 			xOffset = yOffset = padding;
 			++numTextures;
-
 		}
 		
 		// will it fit in the current texture
@@ -93,8 +90,6 @@ FTGlyph* FTGLTextureFont::MakeGlyph( unsigned int g)
 	return NULL;
 
 }
-
-
 
 
 bool FTGLTextureFont::MakeGlyphList()

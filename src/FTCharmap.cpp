@@ -1,8 +1,7 @@
+#include	"FTCharmap.h"
 #ifdef FTGL_DEBUG
 	#include "mmgr.h"
 #endif
-
-#include	"FTCharmap.h"
 
 
 FTCharmap::FTCharmap( FT_Face face)
