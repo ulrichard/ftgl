@@ -73,7 +73,7 @@ bool FTFace::CharMap( FT_Encoding encoding )
 }
 
 
-int FTFace::CharIndex( unsigned int index ) const
+unsigned int FTFace::CharIndex( unsigned int index ) const
 {
 	return FT_Get_Char_Index( *ftFace, index);
 }
