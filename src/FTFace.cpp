@@ -16,6 +16,7 @@ FTFace::FTFace()
 FTFace::~FTFace()
 {
 	delete charMap;
+	charMap = 0;
 	Close();
 }
 
