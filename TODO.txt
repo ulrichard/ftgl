@@ -1,5 +1,5 @@
-FTGL 2.01
-14 March 2003
+FTGL 2.02
+3 April 2003
 
 TODO:
     
@@ -36,9 +36,5 @@ BUGS:
       glGet call to check the current texture id can't be used in a display
       list. It is only a valid call when the list is compiled and is ignore after
       that.
-    - Advance/Kerning is screwed up for really small point sizes eg 2 point.
-      This is because I'm trying to use FT_Vector which is integer based.
-      I will probably have to make my own struct with floats.
-      This might be fixed in 2.0
     - The texture co-ords in the Texture Font may be wrong for non
       scalable fonts.

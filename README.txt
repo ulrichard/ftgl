@@ -1,5 +1,5 @@
-FTGL 2.01
-14 March 2003
+FTGL 2.02
+3 April 2003
 
 
 DESCRIPTION:
@@ -38,9 +38,11 @@ Bezier curve code contributed by Jed Soane.
 Demo, Linux port, extrusion code and gltt maintainance by Gerard Lanois
 Linux port by Matthias Kretz
 Windows port by Andrew Ellerton & Max Rheiner
-Bug fixes by Robert Osfield, Marcelo E. Magallon, Markku Rontu, Mark A. Fox
+Bug fixes by Robert Osfield, Marcelo E. Magallon, Markku Rontu, Mark A. Fox,
+Patrick Rogers
 Containers and optimisations by Sebastien Barre
 Autoconf Marcelo E. Magallon.
+
 
 Please contact me if you have any suggestions, feature requests, or problems.
 
