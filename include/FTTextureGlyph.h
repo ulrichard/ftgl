@@ -50,11 +50,6 @@ class FTGL_EXPORT FTTextureGlyph : public FTGlyph
 		
 	private:
 		/**
-		 * Pointer to the 'image' data
-		 */
-		unsigned char* data;
-		 
-		/**
 		 * The width of the glyph 'image'
 		 */
 		int destWidth;
@@ -64,11 +59,6 @@ class FTGL_EXPORT FTTextureGlyph : public FTGlyph
 		 */
 		int destHeight;
 
-		/**
-		 * The number of greys or bit depth of the image
-		 */
-		int numGreys;
-		
 		/**
 		 * A structure to hold the uv co-ords.
 		 */

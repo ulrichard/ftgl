@@ -6,10 +6,8 @@
 
 FTTextureGlyph::FTTextureGlyph( FT_Glyph glyph, int id, int xOffset, int yOffset, GLsizei width, GLsizei height)
 :	FTGlyph(),
-	data(0),
 	destWidth(0),
 	destHeight(0),
-	numGreys(0),
 	glTextureID(id),
 	activeTextureID(0)
 {
@@ -33,7 +31,7 @@ FTTextureGlyph::FTTextureGlyph( FT_Glyph glyph, int id, int xOffset, int yOffset
     // Not sure what the standard behavior should be here?
     if( destWidth && destHeight)
     {
-	    data = new unsigned char[destWidth * destHeight];
+	    unsigned char* data = new unsigned char[destWidth * destHeight];
 
 	    for(int y = 0; y < destHeight; ++y)
 	    {
@@ -63,7 +61,6 @@ FTTextureGlyph::FTTextureGlyph( FT_Glyph glyph, int id, int xOffset, int yOffset
 	uv[1].x = static_cast<float>( xOffset + destWidth) / static_cast<float>(width);
 	uv[1].y = static_cast<float>( yOffset + destHeight) / static_cast<float>(height);
 	
-	numGreys = source->num_grays;
 	advance = glyph->advance.x >> 16;
 	bBox = FTBBox( glyph);
 
@@ -84,18 +81,14 @@ float FTTextureGlyph::Render( const FT_Vector& pen)
 		glBindTexture( GL_TEXTURE_2D, (GLuint)glTextureID);
 	}
 	
+	float x = pen.x + pos.x;
+	float y = pen.y + pos.y;
+	 
 	glBegin( GL_QUADS);
-		glTexCoord2f( uv[0].x, uv[0].y);
-		glVertex2f( pen.x + pos.x,				pen.y + pos.y);
-
-		glTexCoord2f( uv[0].x, uv[1].y);
-		glVertex2f( pen.x + pos.x,				pen.y + pos.y - destHeight);
-
-		glTexCoord2f( uv[1].x, uv[1].y);
-		glVertex2f( pen.x + destWidth + pos.x,	pen.y + pos.y - destHeight);
-		
-		glTexCoord2f( uv[1].x, uv[0].y);
-		glVertex2f( pen.x + destWidth + pos.x,	pen.y + pos.y);
+		glTexCoord2f( uv[0].x, uv[0].y);    glVertex2f( x, y);
+		glTexCoord2f( uv[0].x, uv[1].y);    glVertex2f( x, y - destHeight);
+		glTexCoord2f( uv[1].x, uv[1].y);    glVertex2f( x + destWidth,	y - destHeight);
+		glTexCoord2f( uv[1].x, uv[0].y);    glVertex2f( x + destWidth,	y);
 	glEnd();
 
 	return advance;
