@@ -27,11 +27,7 @@ FTGLTextureFont::FTGLTextureFont()
 :	glTextureID(0),
 	textMem(0),
 	padding(15)
-{
-//	glGetIntegerv( GL_MAX_TEXTURE_SIZE, &maxTextSize);
-//	glGenTextures( 1, &glTextureID);
-
-}
+{}
 
 
 FTGLTextureFont::~FTGLTextureFont()
@@ -60,32 +56,32 @@ bool FTGLTextureFont::MakeGlyphList()
 	
 	for( int n = 0; n <= numGlyphs; ++n)
 	{
-			glyphIndex = FT_Get_Char_Index( *ftFace, n);
-			
-			err = FT_Load_Glyph( *ftFace, glyphIndex, FT_LOAD_DEFAULT);
-			if( err)
-			{ }
-	
-			FT_Glyph ftGlyph;
-			
-			err = FT_Get_Glyph( (*ftFace)->glyph, &ftGlyph);
-			if( err)
-			{}
+		glyphIndex = FT_Get_Char_Index( *ftFace, n);
 		
-			unsigned char* data = textMem + ( ( currentTextY * textureSize) + currentTextX);
-			
-			currTextU = (float)currentTextX / (float)textureSize;
-			
-			tempGlyph = new FTTextureGlyph( ftGlyph, glyphIndex, data, textureSize, currTextU, currTextV);
-			glyphList->Add( tempGlyph);
-			
-			currentTextX += glyphWidth;
-			if( currentTextX > ( textureSize - glyphWidth))
-			{
-				currentTextY += glyphHeight;
-				currentTextX = padding;
-				currTextV = (float)currentTextY / (float)textureSize;
-			}
+		err = FT_Load_Glyph( *ftFace, glyphIndex, FT_LOAD_DEFAULT);
+		if( err)
+		{ }
+
+		FT_Glyph ftGlyph;
+		
+		err = FT_Get_Glyph( (*ftFace)->glyph, &ftGlyph);
+		if( err)
+		{}
+	
+		unsigned char* data = textMem + ( ( currentTextY * textureSize) + currentTextX);
+		
+		currTextU = (float)currentTextX / (float)textureSize;
+		
+		tempGlyph = new FTTextureGlyph( ftGlyph, glyphIndex, data, textureSize, currTextU, currTextV);
+		glyphList->Add( tempGlyph);
+		
+		currentTextX += glyphWidth;
+		if( currentTextX > ( textureSize - glyphWidth))
+		{
+			currentTextY += glyphHeight;
+			currentTextX = padding;
+			currTextV = (float)currentTextY / (float)textureSize;
+		}
 	}
 
 	
@@ -110,20 +106,18 @@ bool FTGLTextureFont::CreateTexture()
 	glyphHeight = ( charSize.Height()) + padding;
 	glyphWidth = ( charSize.Width()) + padding;
 	
-	// calc the smallest texture size to fit the glyphs
-//FIXME
-//		     x * y
-//		o = --------
-//		     x + y
-//	int x = glyphWidth * numGlyphs;
-//	int y = glyphHeight * numGlyphs;
+	//FIXME	
+//	textureSize = 1024;
+	int t;
+	for( t = 64; t <= maxTextSize; t *=2)
+	{		
+		int h = static_cast<int>( t / glyphWidth);
+		if( t > ( ( numGlyphs / h) * glyphHeight))
+			break;
+	}
 	
-//	int o = ( x * y) / ( x + y);
+	textureSize = t;
 	
-//	textureSize = NextPowerOf2( o);
-	
-	textureSize = 1024;
-		
 	horizGlyphs = static_cast<int>( textureSize / glyphWidth);
 	vertGlyphs = static_cast<int>(( numGlyphs / horizGlyphs) + 1);
 	
@@ -137,26 +131,11 @@ bool FTGLTextureFont::CreateTexture()
 
 
 bool FTGLTextureFont::render( const char* string)
-{
-	char* c = string;
-	FT_Vector kernAdvance;
-	pen.x = 0; pen.y = 0;
-	
+{	
 	glBindTexture( GL_TEXTURE_2D, glTextureID);
-	glBegin( GL_QUADS);
 	
-	while( *c)
-	{
-		kernAdvance = glyphList->render( *c, *(c + 1), pen);
-		
-		pen.x += kernAdvance.x;
-		pen.y += kernAdvance.y;
-		
-		++c;
-	}
-
+	// QUADS are faster!? Less function call overhead?
+	glBegin( GL_QUADS);
+		FTFont::render( string);
 	glEnd();
 }
-
-
-
