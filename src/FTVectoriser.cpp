@@ -20,7 +20,7 @@ void FTContour::AddPoint( const float x, const float y)
 	ftPoint point( x, y, 0.0); 
 	
 	// Eliminate duplicate points.
-	if( ( pointList[pointList.size() - 1] != point) && pointList[0] != point)
+	if( pointList.empty() || ( pointList[pointList.size() - 1] != point && pointList[0] != point))
 	{
 		pointList.push_back( point);
 	}
@@ -31,7 +31,6 @@ FTVectoriser::FTVectoriser( const FT_Glyph glyph)
 :	contourFlag(0),
 	contour(0),
 	kBSTEPSIZE( 0.2)
-
 {
 	FT_OutlineGlyph outline = (FT_OutlineGlyph)glyph;
 	ftOutline = outline->outline;
