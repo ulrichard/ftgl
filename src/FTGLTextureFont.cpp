@@ -1,7 +1,7 @@
-#include    <string>
+#include <string> // For memset
 
-#include    "FTGLTextureFont.h"
-#include    "FTTextureGlyph.h"
+#include "FTGLTextureFont.h"
+#include "FTTextureGlyph.h"
 
 
 inline GLuint NextPowerOf2( GLuint in)
@@ -24,7 +24,6 @@ FTGLTextureFont::FTGLTextureFont( const char* fontname)
     textureWidth(0),
     textureHeight(0),
     numTextures(0),
-    textMem(0),
     glyphHeight(0),
     glyphWidth(0),
     padding(3),
@@ -41,7 +40,6 @@ FTGLTextureFont::FTGLTextureFont( const unsigned char *pBufferBytes, size_t buff
     textureWidth(0),
     textureHeight(0),
     numTextures(0),
-    textMem(0),
     glyphHeight(0),
     glyphWidth(0),
     padding(3),
@@ -125,9 +123,9 @@ GLuint FTGLTextureFont::CreateTexture()
 {   
     CalculateTextureSize();
     
-    int totalMem = textureWidth * textureHeight;
-    textMem = new unsigned char[totalMem];
-    memset( textMem, 0, totalMem);
+    int totalMemory = textureWidth * textureHeight;
+    unsigned char* textureMemory = new unsigned char[totalMemory];
+    memset( textureMemory, 0, totalMemory);
 
     GLuint textID;
     glGenTextures( 1, (GLuint*)&textID);
@@ -138,11 +136,24 @@ GLuint FTGLTextureFont::CreateTexture()
     glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
-    glTexImage2D( GL_TEXTURE_2D, 0, GL_ALPHA, textureWidth, textureHeight, 0, GL_ALPHA, GL_UNSIGNED_BYTE, textMem);
+    glTexImage2D( GL_TEXTURE_2D, 0, GL_ALPHA, textureWidth, textureHeight, 0, GL_ALPHA, GL_UNSIGNED_BYTE, textureMemory);
 
-    delete [] textMem;
+    delete [] textureMemory;
 
     return textID;
+}
+
+
+bool FTGLTextureFont::FaceSize( const unsigned int size, const unsigned int res)
+{
+    if( numTextures)
+    {
+        glDeleteTextures( numTextures, (const GLuint*)glTextureID);
+        numTextures = 0;
+        remGlyphs = numGlyphs = face.GlyphCount();
+    }
+
+    return FTFont::FaceSize( size, res);
 }
 
 

@@ -35,17 +35,16 @@ class  FTGL_EXPORT FTGLTextureFont : public FTFont
          * Destructor
          */
         virtual ~FTGLTextureFont();
-        
+
         /**
-         * Get the total width of the texture that holds this font
+            * Set the char size for the current face.
+         *
+         * @param size      the face size in points (1/72 inch)
+         * @param res       the resolution of the target device.
+         * @return          <code>true</code> if size was set correctly
          */
-        GLsizei TextureWidth() const { return textureWidth;}
-        
-        /**
-         * Get the total height of the texture that holds this font
-         */
-        GLsizei TextureHeight() const { return textureHeight;}
-        
+        virtual bool FaceSize( const unsigned int size, const unsigned int res = 72);
+
         /**
          * Renders a string of characters
          * 
@@ -115,12 +114,6 @@ class  FTGL_EXPORT FTGLTextureFont : public FTFont
          */
         unsigned int numTextures;
 
-        /**
-         * The memory where the textures are built before being transferred 
-         * to OpenGL
-         */
-        unsigned char* textMem;
-        
         /**
          * The max height for glyphs in the current font
          */
