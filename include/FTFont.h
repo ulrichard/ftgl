@@ -48,7 +48,7 @@ class FTGL_EXPORT FTFont
 		 * @param fontname	font file name.
 		 * @param preCache	A flag to indicate whether or not to build
 		 * 					a complete set of glyphs at startup
-		 *					(<code>true</code>) or as prequired
+		 *					(<code>true</code>) or as required
 		 *					(<code>false</code>). Defaults to true.
 		 * @return			<code>true</code> if file has opened
 		 *					successfully.
@@ -69,6 +69,12 @@ class FTGL_EXPORT FTFont
 		 */
 		bool FaceSize( const unsigned int size, const unsigned int res = 72);
 		
+		/**
+		 * Set the extrusion distance for the font. Only availbale for
+		 * Extruded fonts
+		 *
+		 * @param d	 The extrusion distance.
+		 */
 		virtual void Depth( float d){}
 
 		
