@@ -1,5 +1,3 @@
-#include	"GL/gl.h"
-
 #include	"FTOutlineGlyph.h"
 #include	"FTVectoriser.h"
 #include	"FTGL.h"
@@ -81,3 +79,4 @@ float FTOutlineGlyph::Render( const FT_Vector& pen)
 	
 	return advance;
 }
+
