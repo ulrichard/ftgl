@@ -41,7 +41,7 @@ Windows port by Andrew Ellerton & Max Rheiner
 Bug fixes by Robert Osfield, Marcelo E. Magallon, Markku Rontu, Mark A. Fox,
 Patrick Rogers
 Containers and optimisations by Sebastien Barre
-Autoconf Marcelo E. Magallon.
+Autoconf Marcelo E. Magallon <mmagallo@debian.org>
 
 
 Please contact me if you have any suggestions, feature requests, or problems.
