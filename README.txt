@@ -52,6 +52,7 @@ TODO:
 	- Optimise performance!! and mem usage.
 	  - Make outlines and polys into display list and use glTranslate to
 	    advance the pen.
+	    NEWSFLASH did this to FTVectorGlyph and it made NO difference.
 	  - don't process chars that map to glyph 0
 	- Use the Freetype Cache mechanism. See above. FTC_xxx
 	- Vertical formats
