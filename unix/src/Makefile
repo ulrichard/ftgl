@@ -49,7 +49,6 @@ HEADERS =			\
 	FTGLTextureFont.h	\
 	FTGlyph.h		\
 	FTGlyphContainer.h	\
-	FTLayout.h		\
 	FTLibrary.h		\
 	FTList.h		\
 	FTOutlineGlyph.h	\
