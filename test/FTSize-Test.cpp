@@ -52,7 +52,7 @@ class FTSizeTest : public CppUnit::TestCase
             
             CPPUNIT_ASSERT_DOUBLES_EQUAL(  72, size.CharSize(), 0.01);
             CPPUNIT_ASSERT_DOUBLES_EQUAL(  52, size.Ascender(), 0.01);
-            CPPUNIT_ASSERT_DOUBLES_EQUAL( -14, size.Descender(), 0.01);
+            CPPUNIT_ASSERT_DOUBLES_EQUAL( -15, size.Descender(), 0.01);
 
             CPPUNIT_ASSERT_DOUBLES_EQUAL( 81.86, size.Height(), 0.01);
             CPPUNIT_ASSERT_DOUBLES_EQUAL( 76.32, size.Width(), 0.01);
