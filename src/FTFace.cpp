@@ -104,6 +104,12 @@ bool FTFace::CharMap( FT_Encoding encoding)
 }
 
 
+unsigned int FTFace::UnitsPerEM() const
+{
+    return (*ftFace)->units_per_EM;
+}
+
+
 unsigned int FTFace::CharIndex( unsigned int index) const
 {
     return charMap->CharIndex( index);

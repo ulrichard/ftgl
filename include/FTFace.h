@@ -79,6 +79,8 @@ class FTGL_EXPORT FTFace
          */
         const FTSize& Size( const unsigned int size, const unsigned int res);
 
+        unsigned int UnitsPerEM() const;
+
         /**
          * Sets the character map for the face.
          *

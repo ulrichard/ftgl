@@ -61,10 +61,7 @@ float FTSize::Height() const
     
     if( FT_IS_SCALABLE((*ftFace)))
     {
-        float height = ( (*ftFace)->bbox.yMax - (*ftFace)->bbox.yMin)
-                     * ( (float)ftSize->metrics.y_ppem / (float)(*ftFace)->units_per_EM);
-                     
-        return height;
+        return ( (*ftFace)->bbox.yMax - (*ftFace)->bbox.yMin) * ( (float)ftSize->metrics.y_ppem / (float)(*ftFace)->units_per_EM);
     }
     else
     {
@@ -82,10 +79,7 @@ float FTSize::Width() const
     
     if( FT_IS_SCALABLE((*ftFace)))
     {
-        float width = ( (*ftFace)->bbox.xMax - (*ftFace)->bbox.xMin)
-                    * ( (float)ftSize->metrics.x_ppem / (float)(*ftFace)->units_per_EM);
-                    
-        return width;
+        return ( (*ftFace)->bbox.xMax - (*ftFace)->bbox.xMin) * ( static_cast<float>(ftSize->metrics.x_ppem) / static_cast<float>((*ftFace)->units_per_EM));
     }
     else
     {
@@ -98,3 +92,14 @@ float FTSize::Underline() const
 {
     return 0.0f;
 }
+
+unsigned int FTSize::XPixelsPerEm() const
+{
+    return ftSize->metrics.x_ppem;
+}
+
+unsigned int FTSize::YPixelsPerEm() const
+{
+    return ftSize->metrics.y_ppem;
+}
+

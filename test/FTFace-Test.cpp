@@ -16,6 +16,7 @@ class FTFaceTest : public CppUnit::TestCase
         CPPUNIT_TEST( testAttachMemoryData);
         CPPUNIT_TEST( testGlyphCount);
         CPPUNIT_TEST( testSetFontSize);
+        CPPUNIT_TEST( testUnitPerEMSquare);
         CPPUNIT_TEST( testSetCharMap);
         CPPUNIT_TEST( testCharacterIndex);
         CPPUNIT_TEST( testKerning);
@@ -84,6 +85,10 @@ class FTFaceTest : public CppUnit::TestCase
             CPPUNIT_ASSERT( testFace->Error() == 0);
         }
         
+        void testUnitPerEMSquare()
+        {
+            CPPUNIT_ASSERT_DOUBLES_EQUAL( 1000, testFace->UnitsPerEM(), 0.01);
+        }
         
         void testSetCharMap()
         {

@@ -94,6 +94,10 @@ class FTGL_EXPORT FTSize
          */
         float Underline() const;
 
+        unsigned int XPixelsPerEm() const;
+
+        unsigned int YPixelsPerEm() const;
+
         /**
          * Queries for errors.
          *
