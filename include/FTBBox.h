@@ -19,12 +19,12 @@ class FTGL_EXPORT FTBBox
          * Default constructor. Bounding box is set to zero.
          */
         FTBBox()
-        :   lowerX(0),
-            lowerY(0),
-            lowerZ(0),
-            upperX(0),
-            upperY(0),
-            upperZ(0)
+        :   lowerX(0.0f),
+            lowerY(0.0f),
+            lowerZ(0.0f),
+            upperX(0.0f),
+            upperY(0.0f),
+            upperZ(0.0f)
         {}
         
         /**
@@ -38,12 +38,12 @@ class FTGL_EXPORT FTBBox
             FT_BBox bbox;
             FT_Glyph_Get_CBox( glyph, ft_glyph_bbox_subpixels, &bbox );
             
-            lowerX = bbox.xMin >> 6;
-            lowerY = bbox.yMin >> 6;
-            lowerZ = 0;
-            upperX = bbox.xMax >> 6;
-            upperY = bbox.yMax >> 6;
-            upperZ = 0; 
+            lowerX = static_cast<float>( bbox.xMin) / 64;
+            lowerY = static_cast<float>( bbox.yMin) / 64;
+            lowerZ = 0.0f;
+            upperX = static_cast<float>( bbox.xMax) / 64;
+            upperY = static_cast<float>( bbox.yMax) / 64;
+            upperZ = 0.0f; 
         }       
 
         /**
