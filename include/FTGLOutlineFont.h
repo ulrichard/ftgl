@@ -51,8 +51,6 @@ class FTGL_EXPORT FTGLOutlineFont : public FTFont
          */
         void Render( const wchar_t* string);
 
-        // attributes
-        
     private:
         /**
          * Construct a FTOutlineGlyph.

@@ -52,7 +52,6 @@ class FTGL_EXPORT FTGLPixmapFont : public FTFont
          */
         void Render( const wchar_t* string);
 
-
     private:
         /**
          * Construct a FTPixmapGlyph.
