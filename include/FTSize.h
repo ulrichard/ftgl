@@ -16,8 +16,6 @@
 class	FTSize
 {
 	public:
-		// methods
-		
 		/**
 		 * Default Constructor
 		 */
@@ -80,7 +78,7 @@ class	FTSize
 		int Width() const;
 		
 		/**
-		 * Gets the underline posiotn for the face.
+		 * Gets the underline position for the face.
 		 *
 		 * @return	underline position in pixels
 		 */
@@ -94,13 +92,7 @@ class	FTSize
 		 */
 		FT_Error Error() const { return err; }
 		
-		// attributes
-		
 	private:
-		// methods
-		
-		// attributes
-		
 		/**
 		 * The current Freetype face that this FTSize object relates to.
 		 */

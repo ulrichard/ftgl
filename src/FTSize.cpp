@@ -3,7 +3,9 @@
 
 
 FTSize::FTSize()
-:	size(0)
+:	size(0),
+	ftFace(0),
+	err(0)
 {}
 
 
