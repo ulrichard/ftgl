@@ -243,6 +243,13 @@ my_display(void)
     glutSwapBuffers();
 }
 
+
+void
+my_idle()
+{
+    glutPostRedisplay();
+}
+
 int 
 file_exists( const char * filename )
 {
@@ -302,6 +309,7 @@ main(int argc, char **argv)
 
 	glutDisplayFunc(my_display);
 	glutReshapeFunc(my_reshape);
+	glutIdleFunc(my_idle);
 	glutKeyboardFunc(my_handle_key);
 
 	glutMainLoop();
