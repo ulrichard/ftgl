@@ -17,91 +17,59 @@ FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
     bBox.upperZ = -depth;
     
     FTVectoriser* vectoriser = new FTVectoriser( glyph);
+    if ( ( vectoriser->ContourCount() < 1) || ( vectoriser->PointCount() < 3))
+    {
+        delete vectoriser;
+        return;
+    }
 
-    vectoriser->MakeMesh( 1.0);
-    
-    unsigned int numPoints = vectoriser->MeshPoints();
-    if ( numPoints < 3)
-    {
-        delete vectoriser;
-        return;
-    }
-    
-    FTGL_DOUBLE* frontMesh = new FTGL_DOUBLE[ numPoints * 3];
-    vectoriser->GetMesh( frontMesh);
-
-    vectoriser->MakeMesh( -1.0);
-    
-    numPoints = vectoriser->MeshPoints();
-    if ( numPoints < 3)
-    {
-        delete vectoriser;
-        delete [] frontMesh;
-        return;
-    }
-    
-    FTGL_DOUBLE* backMesh =  new FTGL_DOUBLE[ numPoints * 3];
-    vectoriser->GetMesh( backMesh);
-    
-    numPoints = vectoriser->points();
-    int numContours = vectoriser->contours(); // FIXME
-    
-    if ( ( numContours < 1) || ( numPoints < 3))
-    {
-        delete vectoriser;
-        delete [] frontMesh;
-        delete [] backMesh;
-        return;
-    }
-    
-    // Draw the glyph
-    int offset = 0;
     glList = glGenLists(1);
     glNewList( glList, GL_COMPILE);
-    // Render Front Mesh
-        int i;
-        int BEPairs = static_cast<int>(frontMesh[0]);
-        for( i = 0; i < BEPairs; ++i)
-        {
-            int polyType = (int)frontMesh[offset + 1];
-            glBegin( polyType);
-                glNormal3d(0.0, 0.0, 1.0);
+
+        vectoriser->MakeMesh( 1.0);
+        glNormal3d(0.0, 0.0, 1.0);
         
-                int verts = (int)frontMesh[offset+2];
-                offset += 3;
-                for( int x = 0; x < verts; ++x)
+        FTMesh* mesh = vectoriser->GetMesh();
+        for( unsigned int index = 0; index < mesh->TesselationCount(); ++index)
+        {
+            FTTesselation* subMesh = mesh->Tesselation( index);
+            unsigned int polyonType = subMesh->PolygonType();
+
+            glBegin( polyonType);
+                for( unsigned int x = 0; x < subMesh->PointCount(); ++x)
                 {
-                    glVertex3dv( frontMesh + offset);
-                    offset += 3;
+                    glVertex3f( subMesh->Point(x).x / 64.0f,
+                                subMesh->Point(x).y / 64.0f,
+                                0.0f);
                 }
             glEnd();
         }
         
-    // Render Back Mesh
-        offset = 0;
-        BEPairs = static_cast<int>(backMesh[0]);
-        for( i = 0; i < BEPairs; ++i)
+        vectoriser->MakeMesh( -1.0);
+        glNormal3d(0.0, 0.0, -1.0);
+        
+        mesh = vectoriser->GetMesh();
+        for( unsigned int index = 0; index < mesh->TesselationCount(); ++index)
         {
-            int polyType = (int)backMesh[offset + 1];
-            glBegin( polyType);
+            FTTesselation* subMesh = mesh->Tesselation( index);
+            unsigned int polyonType = subMesh->PolygonType();
 
-                glNormal3d(0.0, 0.0, -1.0);
-                int verts = (int)backMesh[offset+2];
-                offset += 3;
-                for( int x = 0; x < verts; ++x)
+            glBegin( polyonType);
+                for( unsigned int x = 0; x < subMesh->PointCount(); ++x)
                 {
-                    glVertex3d( backMesh[offset], backMesh[offset + 1], -depth); // FIXME
-                    offset += 3;
+                    glVertex3f( subMesh->Point(x).x / 64.0f,
+                                subMesh->Point(x).y / 64.0f,
+                                -depth);
                 }
             glEnd();
         }
         
         int contourFlag = vectoriser->ContourFlag();
         
-        for( unsigned int c = 0; c < vectoriser->contours(); ++c)
+        for( size_t c = 0; c < vectoriser->ContourCount(); ++c)
         {
             FTContour* contour = vectoriser->Contour(c);
-            unsigned int numberOfPoints = contour->Points();
+            unsigned int numberOfPoints = contour->PointCount();
             
             glBegin( GL_QUAD_STRIP);
                 for( unsigned int j = 0; j <= numberOfPoints; ++j)
@@ -129,9 +97,6 @@ FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
     glEndList();
 
     delete vectoriser;
-    
-    delete [] frontMesh;
-    delete [] backMesh;
 
     // discard glyph image (bitmap or not)
     FT_Done_Glyph( glyph); // Why does this have to be HERE
