@@ -102,7 +102,8 @@ int FTMesh::size() const
 
 
 FTVectoriser::FTVectoriser( const FT_Glyph glyph)
-:   mesh(0),
+:   contourList(0),
+    mesh(0),
     ftContourCount(0),
     contourFlag(0),
     kBSTEPSIZE( 0.2f)
@@ -115,6 +116,8 @@ FTVectoriser::FTVectoriser( const FT_Glyph glyph)
         ftContourCount = ftOutline.n_contours;;
         contourList = 0;
         contourFlag = ftOutline.flags;
+        
+        ProcessContours();
     }
 }
 
@@ -128,8 +131,7 @@ FTVectoriser::~FTVectoriser()
 
     delete [] contourList;
     
-    if( mesh)
-        delete mesh;
+    delete mesh;
 }
 
 
@@ -167,24 +169,6 @@ int FTVectoriser::points()
     }
     
     return s;
-}
-
-
-void FTVectoriser::GetOutline( FTGL_DOUBLE* data)
-{
-    int i = 0;
-    for( size_t c= 0; c < contours(); ++c)
-    {
-        const FTContour* contour = contourList[c];
-        
-        for( size_t p = 0; p < contour->Points(); ++p)
-        {
-            data[i] = static_cast<FTGL_DOUBLE>(contour->Point(p).x / 64.0f);
-            data[i + 1] = static_cast<FTGL_DOUBLE>(contour->Point(p).y / 64.0f);
-            data[i + 2] = 0.0f;
-            i += 3;
-        }
-    }
 }
 
 

@@ -148,18 +148,6 @@ class FTGL_EXPORT FTVectoriser
         virtual ~FTVectoriser();
 
         /**
-         * Process the freetype outline data into contours of points
-         */
-        void ProcessContours();
-
-        /**
-         * Copy the outline data into a block of <code>FTGL_DOUBLEs</code>
-         *
-         * @param d a pointer to the memory to copy the data into.
-         */
-        void GetOutline( FTGL_DOUBLE* d);
-
-        /**
          * Build an FTMesh from the vector outline data. 
          *
          * @param zNormal   The direction of the z axis of the normal
@@ -195,6 +183,13 @@ class FTGL_EXPORT FTVectoriser
         size_t contours() const { return ftContourCount;}
 
         /**
+         * Get the count of contours in this outline
+         *
+         * @return the number of contours
+         */
+         FTContour* Contour( unsigned int index) const { return contourList[index];}
+
+        /**
          * Get the number of points in a specific contour in this outline
          *
          * @param c     The contour index
@@ -210,6 +205,11 @@ class FTGL_EXPORT FTVectoriser
         int ContourFlag() const { return contourFlag;}
         
     private:
+        /**
+         * Process the freetype outline data into contours of points
+         */
+        void ProcessContours();
+
         /**
          * The list of contours in the glyph
          */
