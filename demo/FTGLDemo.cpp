@@ -19,15 +19,15 @@
 // YOU'LL PROBABLY WANT TO CHANGE THESE
 #ifdef __linux__
 	#define FONT_FILE "/usr/share/fonts/truetype/arial.ttf"
-	#define FONT_INFO "/usr/share/fonts/truetype/arial.ttf"
 #endif
 #ifdef __APPLE_CC__
 	#define FONT_FILE "/Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/test/arial.ttf"
-	#define FONT_INFO "/Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/test/arial.ttf"
 #endif
 #ifdef WIN32
 	#define FONT_FILE "C:\\WINNT\\Fonts\\arial.ttf"
-	#define FONT_INFO "C:\\WINNT\\Fonts\\arial.ttf"
+#endif
+#ifndef FONT_FILE
+	#define FONT_FILE 0
 #endif
 
 #define EDITING 1
@@ -40,6 +40,7 @@
 #define FTGL_EXTRUDE 4
 #define FTGL_TEXTURE 5
 
+char* fontfile = FONT_FILE;
 int current_font = FTGL_EXTRUDE;
 
 GLint w_win = 640, h_win = 480;
@@ -130,7 +131,7 @@ void setUpFonts( const char* fontfile)
 	
 	if( infoFont->Error())
 	{
-		fprintf( stderr, "Failed to open font %s", FONT_INFO);
+		fprintf( stderr, "Failed to open font %s", fontfile);
 		exit(1);
 	}
 	
@@ -251,7 +252,7 @@ void renderFontInfo()
 	}
 	
 	glRasterPos2f( 20.0f , 20.0f + infoFont->Ascender() - infoFont->Descender());
-	infoFont->Render(FONT_FILE);
+	infoFont->Render(fontfile);
 }
 
 void do_display (void)
@@ -438,12 +439,16 @@ void SetCamera(void)
 
 int main(int argc, char *argv[])
 {
-	char* fontfile = FONT_FILE;
-
 #ifndef __APPLE_CC__ // Bloody finder args???
 	if (argc == 2)
 		fontfile = argv[1];
 #endif
+
+	if (!fontfile)
+	{
+		fprintf(stderr, "A font file must be specified on the command line\n");
+		exit(1);
+	}
 
 	glutInit( &argc, argv);
     glutInitDisplayMode(GLUT_DEPTH | GLUT_RGB | GLUT_DOUBLE | GLUT_MULTISAMPLE);
