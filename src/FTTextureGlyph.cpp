@@ -1,12 +1,13 @@
 #include    "FTTextureGlyph.h"
 
-
+GLint FTTextureGlyph::activeTextureID = 0;
+ 
 FTTextureGlyph::FTTextureGlyph( FT_GlyphSlot glyph, int id, int xOffset, int yOffset, GLsizei width, GLsizei height)
 :   FTGlyph( glyph),
     destWidth(0),
     destHeight(0),
-    glTextureID(id),
-    activeTextureID(0)
+    glTextureID(id)//,
+//    activeTextureID(0)
 {
     err = FT_Render_Glyph( glyph, FT_RENDER_MODE_NORMAL);
     if( err || glyph->format != ft_glyph_format_bitmap)
@@ -57,10 +58,10 @@ FTTextureGlyph::~FTTextureGlyph()
 
 float FTTextureGlyph::Render( const FTPoint& pen)
 {
-    glGetIntegerv( GL_TEXTURE_2D_BINDING_EXT, &activeTextureID);
     if( activeTextureID != glTextureID)
     {
         glBindTexture( GL_TEXTURE_2D, (GLuint)glTextureID);
+        activeTextureID = glTextureID;
     }
     
     glTranslatef(  pen.x,  pen.y, 0);

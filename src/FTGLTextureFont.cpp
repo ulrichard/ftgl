@@ -157,6 +157,8 @@ void FTGLTextureFont::Render( const char* string)
     
     glEnable(GL_BLEND);
     glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // GL_ONE
+
+    FTTextureGlyph::ResetActiveTexture();
     
     FTFont::Render( string);
 
@@ -170,6 +172,8 @@ void FTGLTextureFont::Render( const wchar_t* string)
     
     glEnable(GL_BLEND);
     glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // GL_ONE
+    
+    FTTextureGlyph::ResetActiveTexture();
     
     FTFont::Render( string);
     

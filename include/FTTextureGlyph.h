@@ -48,6 +48,12 @@ class FTGL_EXPORT FTTextureGlyph : public FTGlyph
          */
         virtual float Render( const FTPoint& pen);
         
+        /**
+         * Reset the currently active texture to zero to get into a known state before
+         * drawing a string. This is to get round possible threading issues.
+         */
+        static void FTTextureGlyph::ResetActiveTexture(){ activeTextureID = 0;}
+        
     private:
         /**
          * The width of the glyph 'image'
@@ -77,11 +83,10 @@ class FTGL_EXPORT FTTextureGlyph : public FTGlyph
         /**
          * The texture index of the currently active texture
          *
-         * We call glGetIntegerv( GL_TEXTURE_2D_BINDING, activeTextureID);
-         * to get the currently active texture to try to reduce the number
-         * of texture bind operations
+         * We keep track of the currently active texture to try to reduce the number
+         * of texture bind operations.
          */
-        GLint activeTextureID;
+        static GLint activeTextureID;
         
 };
 
