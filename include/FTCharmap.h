@@ -1,6 +1,8 @@
 #ifndef		__FTCharmap__
 #define		__FTCharmap__
 
+#include "FTGL.h"
+
 #include <map>
 
 #include <ft2build.h>
@@ -17,7 +19,7 @@ using namespace std;
  *
   *
  */
-class FTCharmap
+class FTGL_EXPORT FTCharmap
 {
 	public:
 		/**
