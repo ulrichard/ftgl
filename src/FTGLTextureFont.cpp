@@ -49,8 +49,8 @@ FTGlyph* FTGLTextureFont::MakeGlyph( unsigned int g)
 	if( ftGlyph)
 	{
 		// Estimate the glyph size size - global bbox
-		glyphHeight = ( charSize.Height()) + padding;
-		glyphWidth = ( charSize.Width()) + padding;
+		glyphHeight = ( charSize.Height());
+		glyphWidth = ( charSize.Width());
 		
 		// Is there a current texture
 		if( numTextures == 0)
@@ -80,7 +80,7 @@ FTGlyph* FTGLTextureFont::MakeGlyph( unsigned int g)
 		FTTextureGlyph* tempGlyph = new FTTextureGlyph( *ftGlyph, glTextureID[numTextures - 1],
 															xOffset, yOffset, textureWidth, textureHeight);
 		
-		xOffset += tempGlyph->BBox().x2 - tempGlyph->BBox().x1;
+		xOffset += tempGlyph->BBox().x2 - tempGlyph->BBox().x1 + padding;
 		
 		--remGlyphs;
 		return tempGlyph;
