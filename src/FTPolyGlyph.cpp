@@ -2,8 +2,6 @@
 #include	"FTPolyGlyph.h"
 #include	"FTVectoriser.h"
 
-#include	"GL/glu.h"
-
 #ifndef CALLBACK
 #define CALLBACK
 #endif
