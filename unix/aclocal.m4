@@ -157,8 +157,14 @@ dnl
 AC_DEFUN([FTGL_CHECK_GL],
 [dnl
 AC_CHECK_HEADER([GL/gl.h])
-AC_CHECK_LIB(GL, [glBegin],
-             [], [AC_MSG_ERROR([libGL is required to compile this library])])
+AC_CHECK_LIB(GL, [glBegin], [],
+    [AC_MSG_NOTICE([GL not found in the compiler's path, looking in the X11 tree])
+     unset ac_cv_lib_GL_glBegin
+     LDFLAGS="-L${x_libraries} $LDFLAGS"
+     AC_CHECK_LIB(GL, [glBegin], [],
+         [AC_MSG_ERROR([libGL is required to compile this library])])
+    ])
+
 AC_CHECK_HEADER([GL/glu.h])
 AC_MSG_CHECKING([for GLU version >= 1.2])
 AC_TRY_COMPILE([#include <GL/glu.h>], [
@@ -1694,7 +1700,7 @@ else
 	allow_undefined_flag='${wl}-berok'
 	# This is a bit strange, but is similar to how AIX traditionally builds
 	# it's shared libraries.
-	archive_expsym_cmds="\$CC $shared_flag"' -o $output_objdir/$soname $libobjs $deplibs $compiler_flags ${allow_undefined_flag} '"\${wl}$no_entry_flag \${wl}$exp_sym_flag:\$export_symbols"' ~$AR -crlo $objdir/$libname$release.a $objdir/$soname'
+	archive_expsym_cmds="\$CC $shared_flag"' -o $output_objdir/$soname $libobjs $deplibs $compiler_flags ${allow_undefined_flag} '"\${wl}$no_entry_flag \${wl}$exp_sym_flag:\$export_symbols"' ~$AR -crlo $output_objdir/$libname$release.a $output_objdir/$soname'
       fi
     fi
     ;;

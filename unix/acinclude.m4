@@ -145,8 +145,14 @@ dnl
 AC_DEFUN([FTGL_CHECK_GL],
 [dnl
 AC_CHECK_HEADER([GL/gl.h])
-AC_CHECK_LIB(GL, [glBegin],
-             [], [AC_MSG_ERROR([libGL is required to compile this library])])
+AC_CHECK_LIB(GL, [glBegin], [],
+    [AC_MSG_NOTICE([GL not found in the compiler's path, looking in the X11 tree])
+     unset ac_cv_lib_GL_glBegin
+     LDFLAGS="-L${x_libraries} $LDFLAGS"
+     AC_CHECK_LIB(GL, [glBegin], [],
+         [AC_MSG_ERROR([libGL is required to compile this library])])
+    ])
+
 AC_CHECK_HEADER([GL/glu.h])
 AC_MSG_CHECKING([for GLU version >= 1.2])
 AC_TRY_COMPILE([#include <GL/glu.h>], [
