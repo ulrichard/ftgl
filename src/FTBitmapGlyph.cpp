@@ -71,12 +71,12 @@ float FTBitmapGlyph::Render( FT_Vector& pen)
 		glPixelStorei( GL_UNPACK_ALIGNMENT, 1);
 
 		// Move the glyph origin
-		glBitmap( 0, 0, 0.0, 0.0, pen.x - pos.x, pen.y - pos.y, (const GLubyte *)0 );
+		glBitmap( 0, 0, 0.0, 0.0, pen.x + pos.x, pen.y - pos.y, (const GLubyte *)0 );
 
 		glBitmap( destWidth, destHeight, 0.0f, 0.0, 0.0, 0.0, (const GLubyte *)data);
 
 		// Restore the glyph origin
-		glBitmap( 0, 0, 0.0, 0.0, -pen.x, -pen.y + pos.y, (const GLubyte *)0 );
+		glBitmap( 0, 0, 0.0, 0.0, -pen.x - pos.x, -pen.y + pos.y, (const GLubyte *)0 );
 
 		glPopClientAttrib();
 	}
