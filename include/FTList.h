@@ -31,12 +31,12 @@ class FTGL_EXPORT FTList
          */
         ~FTList()
         {
-            Node* temp = head;
+            Node* next;
             
-            while( temp->next)
+            for (Node *walk = head;walk;walk = next)
             {
-                temp = head->next;
-                delete head;
+                next = walk->next;
+                delete walk;
             }
         }
 
@@ -59,11 +59,12 @@ class FTGL_EXPORT FTList
             {
                 head->next = node;
             }
-            
+
+            if (tail) tail->next = node;
             tail = node;
             ++listSize;
         }
-
+        
         /**
          * Get the item at the front of the list
          */

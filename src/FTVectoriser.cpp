@@ -1,7 +1,6 @@
 #include    "FTVectoriser.h"
 #include    "FTGL.h"
 
-
 #ifndef CALLBACK
 #define CALLBACK
 #endif

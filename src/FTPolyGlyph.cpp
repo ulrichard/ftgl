@@ -11,20 +11,19 @@ FTPolyGlyph::FTPolyGlyph( FT_Glyph glyph)
         return;
     }
 
-    FTVectoriser* vectoriser = new FTVectoriser( glyph);
+    FTVectoriser vectoriser( glyph);
 
-    if(( vectoriser->ContourCount() < 1) || ( vectoriser->PointCount() < 3))
+    if(( vectoriser.ContourCount() < 1) || ( vectoriser.PointCount() < 3))
     {
-        delete vectoriser;
         return;
     }
 
-    vectoriser->MakeMesh( 1.0);
+    vectoriser.MakeMesh( 1.0);
     
     glList = glGenLists( 1);
     glNewList( glList, GL_COMPILE);
 
-        const FTMesh* mesh = vectoriser->GetMesh();
+        const FTMesh* mesh = vectoriser.GetMesh();
         for( unsigned int index = 0; index < mesh->TesselationCount(); ++index)
         {
             const FTTesselation* subMesh = mesh->Tesselation( index);
