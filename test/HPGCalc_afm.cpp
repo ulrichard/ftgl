@@ -7,7 +7,7 @@
 
 typedef struct BINARYFILEDUMP_struct {
 	const unsigned char * dataBytes;
-	size_t numBytes;
+	int numBytes;
 } BINARYFILEDUMP;
 
 #endif
