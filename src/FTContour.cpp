@@ -38,9 +38,9 @@ FTContour::FTContour( FT_Vector* contour, char* pointTags, unsigned int numberOf
                                      static_cast<float>( controlPoint.y + nextPoint.y) * 0.5f,
                                      0);
 
-                ctrlPtArray[0][0] = previousPoint.x; ctrlPtArray[0][1] = previousPoint.y;
-                ctrlPtArray[1][0] = controlPoint.x;  ctrlPtArray[1][1] = controlPoint.y;
-                ctrlPtArray[2][0] = nextPoint.x;     ctrlPtArray[2][1] = nextPoint.y;
+                bValues[0][0][0] = previousPoint.x; bValues[0][0][1] = previousPoint.y;
+                bValues[0][1][0] = controlPoint.x;  bValues[0][1][1] = controlPoint.y;
+                bValues[0][2][0] = nextPoint.x;     bValues[0][2][1] = nextPoint.y;
                 
                 evaluateCurve( SECOND_ORDER_CURVE);
                 ++pointIndex;
@@ -55,9 +55,9 @@ FTContour::FTContour( FT_Vector* contour, char* pointTags, unsigned int numberOf
                                : pointTags[pointIndex + 1];
             }
             
-            ctrlPtArray[0][0] = previousPoint.x; ctrlPtArray[0][1] = previousPoint.y;
-            ctrlPtArray[1][0] = controlPoint.x;  ctrlPtArray[1][1] = controlPoint.y;
-            ctrlPtArray[2][0] = nextPoint.x;     ctrlPtArray[2][1] = nextPoint.y;
+            bValues[0][0][0] = previousPoint.x; bValues[0][0][1] = previousPoint.y;
+            bValues[0][1][0] = controlPoint.x;  bValues[0][1][1] = controlPoint.y;
+            bValues[0][2][0] = nextPoint.x;     bValues[0][2][1] = nextPoint.y;
             
             evaluateCurve( SECOND_ORDER_CURVE);
             continue;
@@ -71,10 +71,10 @@ FTContour::FTContour( FT_Vector* contour, char* pointTags, unsigned int numberOf
                                 ? pointList[0]
                                 : FTPoint( contour[pointIndex + 2]);
             
-            ctrlPtArray[0][0] = previousPoint.x; ctrlPtArray[0][1] = previousPoint.y;
-            ctrlPtArray[1][0] = controlPoint.x;  ctrlPtArray[1][1] = controlPoint.y;
-            ctrlPtArray[2][0] = controlPoint2.x; ctrlPtArray[2][1] = controlPoint2.y;
-            ctrlPtArray[3][0] = nextPoint.x;     ctrlPtArray[3][1] = nextPoint.y;
+            bValues[0][0][0] = previousPoint.x; bValues[0][0][1] = previousPoint.y;
+            bValues[0][1][0] = controlPoint.x;  bValues[0][1][1] = controlPoint.y;
+            bValues[0][2][0] = controlPoint2.x; bValues[0][2][1] = controlPoint2.y;
+            bValues[0][3][0] = nextPoint.x;     bValues[0][3][1] = nextPoint.y;
         
             evaluateCurve( THIRD_ORDER_CURVE);
             ++pointIndex;
@@ -111,13 +111,6 @@ void FTContour::deCasteljau( const float t, const int n)
 
 void FTContour::evaluateCurve( const int n)
 {
-    // setting the b(0) equal to the control points
-    for( int i = 0; i <= n; i++)
-    {
-        bValues[0][i][0] = ctrlPtArray[i][0];
-        bValues[0][i][1] = ctrlPtArray[i][1];
-    }
-
     float t; //parameter for curve point calc. [0.0, 1.0]
 
     for( int m = 0; m <= ( 1 / BEZIER_STEP_SIZE); m++)

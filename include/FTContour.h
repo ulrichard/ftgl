@@ -86,7 +86,6 @@ class FTGL_EXPORT FTContour
          */
          // Magic numbers -- #define MAX_DEG 4
         float bValues[4][4][2];  //3D array storing values of de Casteljau algorithm.
-        float ctrlPtArray[4][2]; // Magic numbers
 };
 
 #endif // __FTContour__
