@@ -16,7 +16,9 @@ FTTextureGlyph::FTTextureGlyph( FT_Glyph glyph, int id, unsigned char* data, int
 	// This function will always fail if the glyph's format isn't scalable????
 	err = FT_Glyph_To_Bitmap( &glyph, ft_render_mode_normal, 0, 1);
 	if( err || glyph->format != ft_glyph_format_bitmap)
-	{ return;}
+	{
+		return;
+	}
 
 	FT_BitmapGlyph  bitmap = ( FT_BitmapGlyph)glyph;
 	FT_Bitmap*      source = &bitmap->bitmap;
@@ -29,7 +31,7 @@ FTTextureGlyph::FTTextureGlyph( FT_Glyph glyph, int id, unsigned char* data, int
 	int srcPitch = source->pitch;
     
 	numGreys = source->num_grays;
-	advance = glyph->advance.x >> 16; // this is 6 in the freetype docs!!!!!!
+	advance = glyph->advance.x >> 16;
 
  	pos.x = bitmap->left;
 	pos.y = bitmap->top;
