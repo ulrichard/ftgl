@@ -211,7 +211,7 @@ draw_scene()
            y = 275.0-font*120.0-j*yild;
            if (font >= 3) {
                glRasterPos2f(x, y);
-               fonts[font]->render(string[j]);
+               fonts[font]->Render(string[j]);
            }
            else {
                if (font == 2) {
@@ -221,7 +221,7 @@ draw_scene()
                }
                glPushMatrix(); {
                    glTranslatef(x, y, 0.0);
-                   fonts[font]->render(string[j]);
+                   fonts[font]->Render(string[j]);
                } glPopMatrix();
                if (font == 2) {
                    glDisable(GL_TEXTURE_2D);

@@ -220,7 +220,7 @@ void renderFontInfo()
 	switch( mode)
 	{
 		case EDITING:
-			infoFont->render("Edit Mode");
+			infoFont->Render("Edit Mode");
 			break;
 		case INTERACTIVE:
 			break;
@@ -231,27 +231,27 @@ void renderFontInfo()
 	switch( current_font)
 	{
 		case FTGL_BITMAP:
-			infoFont->render("Bitmap Font");
+			infoFont->Render("Bitmap Font");
 			break;
 		case FTGL_PIXMAP:
-			infoFont->render("Pixmap Font");
+			infoFont->Render("Pixmap Font");
 			break;
 		case FTGL_OUTLINE:
-			infoFont->render("Outline Font");
+			infoFont->Render("Outline Font");
 			break;
 		case FTGL_POLYGON:
-			infoFont->render("Polygon Font");
+			infoFont->Render("Polygon Font");
 			break;
 		case FTGL_EXTRUDE:
-			infoFont->render("Extruded Font");
+			infoFont->Render("Extruded Font");
 			break;
 		case FTGL_TEXTURE:
-			infoFont->render("Texture Font");
+			infoFont->Render("Texture Font");
 			break;
 	}
 	
 	glRasterPos2i( 20 , 20 + infoFont->Ascender() - infoFont->Descender());
-	infoFont->render(FONT_FILE);
+	infoFont->Render(FONT_FILE);
 }
 
 void do_display (void)
@@ -285,7 +285,7 @@ void do_display (void)
 // you will need to explicitly call glRasterPos3f (or its ilk) to lock
 // in a changed current color.
 
-	fonts[current_font]->render( myString);
+	fonts[current_font]->Render( myString);
         renderFontmetrics();
         renderFontInfo();
 }
