@@ -24,6 +24,7 @@ FUTURE:
 	- String Cache or string chunks
 	- Provide an interface to access the point data for outlines and
 	  polygon meshes.
+	- What effect does gluTessNormal() have?
 
 
 BUGS:
