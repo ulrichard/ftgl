@@ -6,7 +6,8 @@
 FTFace::FTFace()
 :	ftFace(0),
 	numCharMaps(0),
-	numGlyphs(0)
+	numGlyphs(0),
+	err(0)
 {}
 
 

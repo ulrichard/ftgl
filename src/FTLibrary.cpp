@@ -30,7 +30,8 @@ FTLibrary::~FTLibrary()
 
 
 FTLibrary::FTLibrary()
-: lib(0)
+:	lib(0),
+	err(0)
 {
 	Init();
 }
