@@ -40,7 +40,7 @@ class FTGL_EXPORT FTGlyphContainer
          * @param g     The glyphs index in the container.
          * @return          <code>true</code>
          */
-        bool Add( FTGlyph* glyph, unsigned int g);
+        bool Add( FTGlyph* glyph, unsigned int glyphIndex);
 
         /**
          * Get a glyph from the glyph list
@@ -49,10 +49,12 @@ class FTGL_EXPORT FTGlyphContainer
          * @return  An FTGlyph or <code>null</code> is it hasn't been
          * loaded.
          */
-        const FTGlyph* const Glyph( const unsigned int c) const;
+        const FTGlyph* const Glyph( const unsigned int characterCode) const;
 
-        
-        FTBBox BBox( const unsigned int index) const;
+        /**
+         * Get the bounding box for a character.
+         */
+        FTBBox BBox( const unsigned int characterCode) const;
         
         /**
         * Returns the kerned advance width for a glyph.
@@ -61,7 +63,7 @@ class FTGL_EXPORT FTGlyphContainer
         * @param next   the next glyph in a string
         * @return       advance width
         */
-        float Advance( unsigned int index, unsigned int next);
+        float Advance( unsigned int characterCode, unsigned int nextCharacterCode);
         
         /**
          * Renders a character
@@ -70,7 +72,7 @@ class FTGL_EXPORT FTGlyphContainer
          * @param pen   the position to Render the glyph
          * @return      The distance to advance the pen position after Rendering
          */
-        FTPoint Render( unsigned int index, unsigned int next, FTPoint pen);
+        FTPoint Render( unsigned int characterCode, unsigned int nextCharacterCode, FTPoint penPosition);
         
         /**
          * Queries the Font for errors.
