@@ -1,9 +1,9 @@
-#ifndef     __FTGLBitmapFont__
-#define     __FTGLBitmapFont__
-
-#include "FTGL.h"
+#ifndef __FTGLBitmapFont__
+#define __FTGLBitmapFont__
 
 #include "FTFont.h"
+#include "FTGL.h"
+
 
 class FTGlyph;
 

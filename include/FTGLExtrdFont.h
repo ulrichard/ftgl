@@ -1,9 +1,9 @@
-#ifndef		__FTGLExtrdFont__
-#define		__FTGLExtrdFont__
+#ifndef __FTGLExtrdFont__
+#define __FTGLExtrdFont__
 
+#include "FTFont.h"
 #include "FTGL.h"
 
-#include	"FTFont.h"
 
 class FTGlyph;
 

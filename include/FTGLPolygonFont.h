@@ -1,9 +1,9 @@
 #ifndef     __FTGLPolygonFont__
 #define     __FTGLPolygonFont__
 
-#include "FTGL.h"
 
-#include    "FTFont.h"
+#include "FTFont.h"
+#include "FTGL.h"
 
 class FTGlyph;
 

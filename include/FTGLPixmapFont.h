@@ -2,9 +2,9 @@
 #define     __FTGLPixmapFont__
 
 
+#include "FTFont.h"
 #include "FTGL.h"
 
-#include "FTFont.h"
 
 class FTGlyph;
 

@@ -94,7 +94,6 @@ class FTGL_EXPORT FTSize
          */
         float Underline() const;
 
-        
         /**
          * Queries for errors.
          *

@@ -1,9 +1,9 @@
 #ifndef     __FTGLOutlineFont__
 #define     __FTGLOutlineFont__
 
-#include "FTGL.h"
 
 #include "FTFont.h"
+#include "FTGL.h"
 
 class FTGlyph;
 
