@@ -27,7 +27,7 @@ class FTGL_EXPORT FTGlyphContainer
          * @param face      The Freetype face
          * @param numGlyphs the number of glyphs in this face
          */
-        FTGlyphContainer( FTFace* face, unsigned int numGlyphs);
+        FTGlyphContainer( FTFace* face);
 
         /**
          * Destructor
@@ -84,7 +84,7 @@ class FTGL_EXPORT FTGlyphContainer
         /**
          * How many glyphs are reserved in this container
          */
-        unsigned int numGlyphs;
+        unsigned int numberOfGlyphs;
 
         /**
          * The current FTGL face

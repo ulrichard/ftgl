@@ -3,12 +3,12 @@
 #include    "FTFace.h"
 
 
-FTGlyphContainer::FTGlyphContainer( FTFace* f, unsigned int g)
-:   numGlyphs( g),
-    face( f),
+FTGlyphContainer::FTGlyphContainer( FTFace* f)
+:   face( f),
     err( 0)
 {
-    glyphs.resize( g, NULL);
+    numberOfGlyphs = face->GlyphCount();
+    glyphs.resize( numberOfGlyphs, NULL);
 }
 
 
@@ -29,7 +29,7 @@ FTGlyphContainer::~FTGlyphContainer()
 
 bool FTGlyphContainer::Add( FTGlyph* tempGlyph, unsigned int g)
 {
-    if( g >= numGlyphs)
+    if( g >= numberOfGlyphs)
     {
         return false;
     }

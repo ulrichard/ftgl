@@ -111,7 +111,9 @@ class FTGL_EXPORT FTFace
         /**
          * Gets the current Freetype face.
          */
-        FT_Face* Face() const { return ftFace;}
+//        FT_Face* Face() const { return ftFace;}
+
+        unsigned int GlyphCount() const { return numGlyphs;}
 
         /**
          * Queries for errors.

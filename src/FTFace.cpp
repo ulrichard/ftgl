@@ -36,6 +36,7 @@ bool FTFace::Open( const char* filename)
     else
     {
         charMap = new FTCharmap( *ftFace);
+        numGlyphs = (*ftFace)->num_glyphs;
         return true;
     }
 }
@@ -58,6 +59,7 @@ bool FTFace::Open( const unsigned char *pBufferBytes, size_t bufferSizeInBytes )
     else
     {
         charMap = new FTCharmap( *ftFace);
+        numGlyphs = (*ftFace)->num_glyphs;
         return true;
     }
 }
