@@ -1,14 +1,13 @@
 #ifndef     __FTGlyphContainer__
 #define     __FTGlyphContainer__
 
-#include <vector>
-
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include FT_GLYPH_H
 
 #include "FTGL.h"
-#include "FTGlyph.h" // for FTBBox
+#include "FTVector.h"
+#include "FTGlyph.h"
 
 class FTFace;
 
@@ -109,7 +108,8 @@ class FTGL_EXPORT FTGlyphContainer
         /**
          * A structure to hold the glyphs
          */
-        std::vector<FTGlyph*> glyphs;
+        typedef FTVector<FTGlyph*> GlyphVector;
+        GlyphVector glyphs;
 
         /**
          * Current error code. Zero means no error.

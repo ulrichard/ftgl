@@ -2,6 +2,7 @@
 #include	"FTGlyph.h"
 #include	"FTFace.h"
 
+#include "mmgr.h"
 
 FTGlyphContainer::FTGlyphContainer( FTFace* f, unsigned int g, bool p)
 :	preCache( p),
@@ -16,7 +17,7 @@ FTGlyphContainer::FTGlyphContainer( FTFace* f, unsigned int g, bool p)
 
 FTGlyphContainer::~FTGlyphContainer()
 {
-	vector<FTGlyph*>::iterator iter;
+	GlyphVector::iterator iter;
 	for( iter = glyphs.begin(); iter != glyphs.end(); ++iter)
 	{
 		if( *iter)
