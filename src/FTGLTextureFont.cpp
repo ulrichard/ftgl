@@ -56,25 +56,20 @@ bool FTGLTextureFont::MakeGlyphList()
 	
 	float currTextU = (float)padding / (float)textureSize;
 	float currTextV = (float)padding / (float)textureSize;
-//	float Uinc = (float)glyphWidth / (float)textureSize;
-//	float Vinc = (float)glyphHeight / (float)textureSize;
 	
-//	int currGlyph = 0;
 	int glyphIndex;
+	
+	numGlyphs = 256; // FIXME hack
 	
 	for( int n = 0; n <= numGlyphs; ++n)
 	{
 		glyphIndex = FT_Get_Char_Index( *ftFace, n);
 		
 		err = FT_Load_Glyph( *ftFace, glyphIndex, FT_LOAD_DEFAULT);
-		if( err)
-		{ }
 
 		FT_Glyph ftGlyph;
 		
 		err = FT_Get_Glyph( (*ftFace)->glyph, &ftGlyph);
-		if( err)
-		{}
 	
 		unsigned char* data = textMem + ( ( currentTextY * textureSize) + currentTextX);
 		
@@ -102,6 +97,7 @@ bool FTGLTextureFont::MakeGlyphList()
 
 	glTexImage2D( GL_TEXTURE_2D, 0, GL_ALPHA, textureSize, textureSize, 0, GL_ALPHA, GL_UNSIGNED_BYTE, textMem);
 
+	return !err;
 }
 
 
@@ -110,6 +106,11 @@ bool FTGLTextureFont::CreateTexture()
 	glGetIntegerv( GL_MAX_TEXTURE_SIZE, &maxTextSize);
 	glGenTextures( 1, &glTextureID);
 
+//	There is a fixed relationship between ppem, point size, and the
+//	resulting pixel size.  The real dimension of the glyphs are not
+//	covered by this.  The field `bbox' in FT_Face gives a maximal bounding
+//	box large enough to hold all bboxes of single glyphs.
+	
 	// calc the area required for this font
 	glyphHeight = ( charSize.Height()) + padding;
 	glyphWidth = ( charSize.Width()) + padding;
