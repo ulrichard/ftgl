@@ -26,12 +26,6 @@ FTTextureGlyph::FTTextureGlyph( FT_Glyph glyph, int id, unsigned char* data, GLs
 	int srcHeight = source->rows;
 	int srcPitch = source->pitch;
     
-	numGreys = source->num_grays;
-	advance = glyph->advance.x >> 16;
-
- 	pos.x = bitmap->left;
-	pos.y = bitmap->top;
-	
     destWidth = srcWidth;
     destHeight = srcHeight;
     
@@ -56,7 +50,14 @@ FTTextureGlyph::FTTextureGlyph( FT_Glyph glyph, int id, unsigned char* data, GLs
 	uv[1].x = uv[0].x + ( (float)destWidth / (float)stride);
 	uv[1].y = uv[0].y + ( (float)destHeight / (float)height);
 
-	// discard glyph image (bitmap or not)
+	bBox = FTBBox( glyph);
+	numGreys = source->num_grays;
+	advance = glyph->advance.x >> 16;
+
+ 	pos.x = bitmap->left;
+	pos.y = bitmap->top;
+	
+// discard glyph image (bitmap or not)
 	// Is this the right place to do this?
 	FT_Done_Glyph( glyph);
 }
@@ -77,10 +78,17 @@ float FTTextureGlyph::Render( const FT_Vector& pen)
 	}
 	
 	glBegin( GL_QUADS);
-	glTexCoord2f( uv[0].x, uv[0].y); glVertex2f( pen.x + pos.x,				pen.y + pos.y);
-	glTexCoord2f( uv[1].x, uv[0].y); glVertex2f( pen.x + destWidth + pos.x,	pen.y + pos.y);
-	glTexCoord2f( uv[1].x, uv[1].y); glVertex2f( pen.x + destWidth + pos.x,	pen.y + pos.y - destHeight);
-	glTexCoord2f( uv[0].x, uv[1].y); glVertex2f( pen.x + pos.x,				pen.y + pos.y - destHeight);
+		glTexCoord2f( uv[0].x, uv[0].y);
+		glVertex2f( pen.x + pos.x,				pen.y + pos.y);
+
+		glTexCoord2f( uv[0].x, uv[1].y);
+		glVertex2f( pen.x + pos.x,				pen.y + pos.y - destHeight);
+
+		glTexCoord2f( uv[1].x, uv[1].y);
+		glVertex2f( pen.x + destWidth + pos.x,	pen.y + pos.y - destHeight);
+		
+		glTexCoord2f( uv[1].x, uv[0].y);
+		glVertex2f( pen.x + destWidth + pos.x,	pen.y + pos.y);
 	glEnd();
 
 	return advance;
