@@ -7,14 +7,14 @@
 
 #ifdef __APPLE_CC__    
     typedef GLvoid (*GLUTesselatorFunction)(...);
-#elif defined( __mips ) || defined( __linux__ )
+#elif defined( __mips ) || defined( __linux__ ) || defined( __FreeBSD__ ) || defined( __OpenBSD__ ) || defined( __sun )
     typedef GLvoid (*GLUTesselatorFunction)();
 #elif defined ( WIN32)
     typedef GLvoid (CALLBACK *GLUTesselatorFunction)( );
 #else
     #error "Error - need to define type GLUTesselatorFunction for this platform/compiler"
 #endif
-    
+
 
 void CALLBACK ftglError( GLenum errCode, FTMesh* mesh)
 {
