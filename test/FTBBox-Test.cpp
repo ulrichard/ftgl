@@ -17,6 +17,7 @@ class FTBBoxTest : public CppUnit::TestCase
     CPPUNIT_TEST_SUITE( FTBBoxTest);
         CPPUNIT_TEST( testDefaultConstructor);
         CPPUNIT_TEST( testGlyphConstructor);
+        CPPUNIT_TEST( testBitmapConstructor);
         CPPUNIT_TEST( testMoveBBox);
         CPPUNIT_TEST( testPlusEquals);
         CPPUNIT_TEST( testSetDepth);
@@ -63,8 +64,30 @@ class FTBBoxTest : public CppUnit::TestCase
             CPPUNIT_ASSERT_DOUBLES_EQUAL(  38, boundingBox2.upperY, 0.01);
             CPPUNIT_ASSERT_DOUBLES_EQUAL(   0, boundingBox2.upperZ, 0.01);
 
+            
             tearDownFreetype();
-        }     
+        }    
+        
+        void testBitmapConstructor()
+        {
+            setUpFreetype();
+
+            FT_Error error =  FT_Render_Glyph( face->glyph, FT_RENDER_MODE_NORMAL);
+            if(0 != error)
+            {}
+//            CPPUNIT_ASSERT( 0 != error);
+            CPPUNIT_ASSERT( ft_glyph_format_bitmap != face->glyph->format);
+
+            FTBBox boundingBox3( face->glyph);
+
+            CPPUNIT_ASSERT_DOUBLES_EQUAL(   2, boundingBox3.lowerX, 0.01);
+            CPPUNIT_ASSERT_DOUBLES_EQUAL( -15, boundingBox3.lowerY, 0.01);
+            CPPUNIT_ASSERT_DOUBLES_EQUAL(   0, boundingBox3.lowerZ, 0.01);
+            CPPUNIT_ASSERT_DOUBLES_EQUAL(  35, boundingBox3.upperX, 0.01);
+            CPPUNIT_ASSERT_DOUBLES_EQUAL(  38, boundingBox3.upperY, 0.01);
+            CPPUNIT_ASSERT_DOUBLES_EQUAL(   0, boundingBox3.upperZ, 0.01);
+
+        }
 
         void testMoveBBox()
         {
@@ -158,12 +181,10 @@ class FTBBoxTest : public CppUnit::TestCase
             error = FT_New_Face( library, GOOD_FONT_FILE, 0, &face);
             assert(!error);
             
-            long glyphIndex = FT_Get_Char_Index( face, CHARACTER_CODE_G);
-            
             FT_Set_Char_Size( face, 0L, FONT_POINT_SIZE * 64, RESOLUTION, RESOLUTION);
             
-            error = FT_Load_Glyph( face, glyphIndex, FT_LOAD_DEFAULT);
-            assert(!error);
+            error = FT_Load_Char( face, CHARACTER_CODE_G, FT_LOAD_DEFAULT);
+            assert( !error);
         }
         
         void tearDownFreetype()
