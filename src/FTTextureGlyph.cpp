@@ -4,7 +4,7 @@
 #include	"FTGL.h"
 
 
-FTTextureGlyph::FTTextureGlyph( FT_Glyph glyph, int gi, pointer to data location, stride)
+FTTextureGlyph::FTTextureGlyph( FT_Glyph glyph, int gi, unsigned char* data, int stride, float u, float v)
 :	FTGlyph(gi)
 {
 	if( !glyph->format == ft_glyph_format_bitmap)
@@ -29,27 +29,32 @@ FTTextureGlyph::FTTextureGlyph( FT_Glyph glyph, int gi, pointer to data location
 	advance = glyph->advance.x >> 16; // this is 6 in the freetype docs!!!!!!
 
  	pos.x = bitmap->left;
-	pos.y = srcHeight - bitmap->top;
+	pos.y = bitmap->top;
 	
    // FIXME The buffer is upside down. What about dest alignment?
     destWidth = srcWidth;
     destHeight = srcHeight;
     
-    data = new unsigned char[destWidth * destHeight * 4];
-    
     for(int y = 0; y < srcHeight; ++y)
     {
-    	--destHeight;
     	for(int x = 0; x < srcWidth; ++x)
     	{
-			*( data + ( destHeight * destWidth  + x) * 4 + 0) = 0xFF;
-			*( data + ( destHeight * destWidth  + x) * 4 + 1) = 0xFF;
-			*( data + ( destHeight * destWidth  + x) * 4 + 2) = 0xFF;
-			*( data + ( destHeight * destWidth  + x) * 4 + 3) = *( source->buffer + ( y * srcPitch) + x);
+			*( data + ( y * stride  + x)) = *( source->buffer + ( y * srcPitch) + x);
     	}    	
     }
 
-    destHeight = srcHeight;
+//		0    
+//		+----+
+//		|    |
+//		|    |
+//		|    |
+//		+----+
+//		     1
+	
+	uv[0].x = u;
+	uv[0].y = v;
+	uv[1].x = uv[0].x + ( (float)destWidth / (float)stride);
+	uv[1].y = uv[0].y + ( (float)destHeight / (float)stride);
 
 	// discard glyph image (bitmap or not)
 	// Is this the right place to do this?
@@ -59,28 +64,18 @@ FTTextureGlyph::FTTextureGlyph( FT_Glyph glyph, int gi, pointer to data location
 
 FTTextureGlyph::~FTTextureGlyph()
 {
-	delete[] data;
+
 }
 
 
-float FTTextureGlyph::Render( FT_Vector v)
+float FTTextureGlyph::Render( FT_Vector& pen)
 {
-	int adv = advance/* + pos.x */+ ( v.x >> 16); // FIXME ??? pos.x = bearing X
-	if( data != 0 )
-	{
-		// Move the glyph origin
-		glBitmap( 0, 0, 0.0, 0.0, 0, -pos.y, (const GLubyte *)0 );
+//	int adv = advance/* + pos.x */+ ( v.x >> 16); // FIXME ??? pos.x = bearing X
 
-		glPixelStorei( GL_UNPACK_ROW_LENGTH, destWidth);
-
-		glDrawPixels( destWidth, destHeight, GL_RGBA, GL_UNSIGNED_BYTE, (const GLvoid*)data );
-
-		// Restore the glyph origin
-		glBitmap( 0, 0, 0.0, 0.0, 0, pos.y, (const GLubyte *)0 );
-	}
-	
-	// Advance the raster pos.
-	glBitmap( 0, 0, 0.0, 0.0, adv, 0, (const GLubyte *)0 );
+	glTexCoord2f( uv[0].x, uv[0].y); glVertex2f( pen.x,				pen.y + pos.y);
+	glTexCoord2f( uv[1].x, uv[0].y); glVertex2f( pen.x + destWidth,	pen.y + pos.y);
+	glTexCoord2f( uv[1].x, uv[1].y); glVertex2f( pen.x + destWidth,	pen.y + pos.y - destHeight);
+	glTexCoord2f( uv[0].x, uv[1].y); glVertex2f( pen.x,				pen.y + pos.y - destHeight);
 
 	return advance;
 }

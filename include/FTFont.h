@@ -58,6 +58,8 @@ class	FTFont
 		
 		FTGlyphContainer*	glyphList;
 		
+		FT_Vector pen;
+		
 	private:
 		// methods
 		

@@ -59,9 +59,8 @@ FTBitmapGlyph::~FTBitmapGlyph()
 }
 
 
-float FTBitmapGlyph::Render( FT_Vector v)
+float FTBitmapGlyph::Render( FT_Vector& pen)
 {
-	int adv = advance - pos.x + ( v.x >> 16); // FIXME ??? pos.x = bearing X
 	if( data != 0 )
 	{
 		glPushClientAttrib( GL_CLIENT_PIXEL_STORE_BIT);
@@ -71,13 +70,16 @@ float FTBitmapGlyph::Render( FT_Vector v)
 		glPixelStorei( GL_UNPACK_ROW_LENGTH, 0);
 		glPixelStorei( GL_UNPACK_ALIGNMENT, 1);
 
-		glBitmap( destWidth, destHeight, 0.0f, pos.y, (float)adv, (double)0.0, (const GLubyte *)data);
+		// Move the glyph origin
+		glBitmap( 0, 0, 0.0, 0.0, pen.x - pos.x, pen.y - pos.y, (const GLubyte *)0 );
+
+		glBitmap( destWidth, destHeight, 0.0f, 0.0, 0.0, 0.0, (const GLubyte *)data);
+
+		// Restore the glyph origin
+		glBitmap( 0, 0, 0.0, 0.0, -pen.x, -pen.y + pos.y, (const GLubyte *)0 );
 
 		glPopClientAttrib();
 	}
 	
-	// Advance the raster pos.
-//	glBitmap( 0, 0, 0.0, 0.0, adv, 0, (const GLubyte *)0 );
-
 	return advance;
 }

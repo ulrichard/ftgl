@@ -12,19 +12,24 @@ class	FTTextureGlyph : public FTGlyph
 {
 	public:
 		// methods
-		FTTextureGlyph( FT_Glyph glyph, int glyphIndex);
+		FTTextureGlyph( FT_Glyph glyph, int gi, unsigned char* data, int stride, float u, float v);
 		virtual ~FTTextureGlyph();
-		virtual float Render( FT_Vector v);
+		virtual float Render( FT_Vector& v);
 		
+	private:
 		// attributes
+		struct FTPoint
+		{
+			float x;
+			float y;
+		};
+
 		int destWidth;
 		int destHeight;
 		
 		int numGreys;
-
-		unsigned char* data;
 		
-		FT_Vector uv[4];
+		FTPoint uv[2];
 };
 
 

@@ -12,9 +12,8 @@ FTFont::FTFont()
 	numFaces(0),
 	glyphList(0)
 {
-//Insert your own code here.
-
-//End of user code.         
+	pen.x = 0;
+	pen.y = 0;
 }
 
 
@@ -126,10 +125,16 @@ void	FTFont::BBox( const char* text, int& llx, int& lly, int& urx, int& ury ) co
 bool FTFont::render( const char* string )
 {
 	char* c = string;
+	FT_Vector kernAdvance;
+	pen.x = 0; pen.y = 0;
 
 	while( *c)
 	{
-		glyphList->render( *c, *(c + 1));
+		kernAdvance = glyphList->render( *c, *(c + 1), pen);
+		
+		pen.x += kernAdvance.x;
+		pen.y += kernAdvance.y;
+		
 		++c;
 	}
 }

@@ -14,7 +14,7 @@ class FTPixmapGlyph : public FTGlyph
 		// methods
 		FTPixmapGlyph( FT_Glyph glyph, int glyphIndex);
 		virtual ~FTPixmapGlyph();
-		virtual float Render( FT_Vector v);
+		virtual float Render( FT_Vector& v);
 		
 		// attributes
 
