@@ -105,7 +105,8 @@ void FTFont::BBox( const char* string,
                    float& llx, float& lly, float& llz, float& urx, float& ury, float& urz)
 {
     FTBBox totalBBox;
-    if( NULL != *string)
+
+    if((NULL != string) && ('\0' != *string))
     {
         const unsigned char* c = (unsigned char*)string;
 
@@ -140,7 +141,7 @@ void FTFont::BBox( const wchar_t* string,
 {
     FTBBox totalBBox;
 
-    if( NULL != *string)
+    if((NULL != string) && ('\0' != *string))
     {
         const wchar_t* c = string;
 

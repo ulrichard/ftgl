@@ -166,9 +166,18 @@ class FTFontTest : public CppUnit::TestCase
             CPPUNIT_ASSERT_DOUBLES_EQUAL( 134.28, urx, 0.01);
             CPPUNIT_ASSERT_DOUBLES_EQUAL(  61.12, ury, 0.01);
             CPPUNIT_ASSERT_DOUBLES_EQUAL(   0.00, urz, 0.01);
-            
+
             testFont->BBox( BAD_UNICODE_TEST_STRING, llx, lly, llz, urx, ury, urz);
-        
+
+            CPPUNIT_ASSERT_DOUBLES_EQUAL( 0, llx, 0.01);
+            CPPUNIT_ASSERT_DOUBLES_EQUAL( 0, lly, 0.01);
+            CPPUNIT_ASSERT_DOUBLES_EQUAL( 0, llz, 0.01);
+            CPPUNIT_ASSERT_DOUBLES_EQUAL( 0, urx, 0.01);
+            CPPUNIT_ASSERT_DOUBLES_EQUAL( 0, ury, 0.01);
+            CPPUNIT_ASSERT_DOUBLES_EQUAL( 0, urz, 0.01);
+            
+            testFont->BBox( (char*)0, llx, lly, llz, urx, ury, urz);
+
             CPPUNIT_ASSERT_DOUBLES_EQUAL( 0, llx, 0.01);
             CPPUNIT_ASSERT_DOUBLES_EQUAL( 0, lly, 0.01);
             CPPUNIT_ASSERT_DOUBLES_EQUAL( 0, llz, 0.01);
