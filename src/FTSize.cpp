@@ -29,14 +29,6 @@ bool FTSize::CharSize( FT_Face* face, unsigned int pointSize, unsigned int xRes,
             yResolution = yRes;
             ftSize = (*ftFace)->size;
         }
-        else
-        {
-            ftFace = 0;
-            size = 0;
-            xResolution = 0;
-            yResolution = 0;
-            ftSize = 0;
-        }
     }
     
     return !err;

@@ -32,7 +32,7 @@ class FTGL_EXPORT FTSize
          * Sets the char size for the current face.
          *
          * This doesn't guarantee that the size was set correctly. Clients
-         * should check errors.
+         * should check errors. If an error does occur the size object isn't modified.
          *
          * @param face           Parent face for this size object
          * @param point_size     the face size in points (1/72 inch)

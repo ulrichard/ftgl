@@ -47,7 +47,7 @@ class FTGL_EXPORT FTCharmap
         FT_Encoding Encoding() const { return ftEncoding;}
         
         /**
-         * Sets the character map for the face.
+         * Sets the character map for the face. If an error occurs the object is not modified.
          * Valid encodings as at Freetype 2.0.4
          *      ft_encoding_none
          *      ft_encoding_symbol
@@ -65,8 +65,7 @@ class FTGL_EXPORT FTCharmap
          *
          * @param encoding  the Freetype encoding symbol. See above.
          * @return          <code>true</code> if charmap was valid and set
-         *                  correctly. If the requested encoding is
-         *                  unavailable it will be set to ft_encoding_none.
+         *                  correctly.
          */
         bool CharMap( FT_Encoding encoding);
         

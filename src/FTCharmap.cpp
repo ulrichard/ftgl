@@ -33,13 +33,9 @@ bool FTCharmap::CharMap( FT_Encoding encoding)
     if( !err)
     {
         ftEncoding = encoding;
-    }
-    else
-    {
-        ftEncoding = ft_encoding_none;
+        charMap.clear();
     }
         
-    charMap.clear();
     return !err;
 }
 
