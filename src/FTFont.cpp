@@ -121,6 +121,10 @@ float FTFont::Descender() const
     return charSize.Descender();
 }
 
+float FTFont::LineHeight() const
+{
+    return charSize.Height();
+}
 
 void FTFont::BBox( const char* string,
                    float& llx, float& lly, float& llz, float& urx, float& ury, float& urz)

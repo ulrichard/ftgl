@@ -136,7 +136,14 @@ class FTGL_EXPORT FTFont
          * @return  Descender height
          */
         float Descender() const;
-
+        
+        /**
+         * Gets the line spacing for the font.
+         *
+         * @return  Line Height
+         */
+        float LineHeight() const;
+        
         /**
          * Get the bounding box for a string.
          *
