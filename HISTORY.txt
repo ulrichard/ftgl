@@ -9,8 +9,8 @@ FTGL 2.0 (FTGL_2_0_0)
     - Rewriting FTGLDemo.
     - Minor fixes for irix.
     - Removed a bunch of redundant members and made them function locals.
-    - Removed Close() from FTFont because there was no way to handle it
-      correctly.
+    - Removed the Open() & Close() functions from FTFont because there was
+      no way to handle Close correctly and Open is redundant.
     - Improved the robustness of some of the error handling.
     - Removed the FTCharmap Platform/Encoding function.
     - Unit tests.

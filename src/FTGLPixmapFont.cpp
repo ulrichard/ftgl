@@ -2,7 +2,13 @@
 #include    "FTPixmapGlyph.h"
 
 
-FTGLPixmapFont::FTGLPixmapFont()
+FTGLPixmapFont::FTGLPixmapFont( const char* fontname)
+:   FTFont( fontname)
+{}
+
+
+FTGLPixmapFont::FTGLPixmapFont( const unsigned char *pBufferBytes, size_t bufferSizeInBytes)
+:   FTFont( pBufferBytes, bufferSizeInBytes)
 {}
 
 

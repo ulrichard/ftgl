@@ -17,9 +17,11 @@ class  FTGL_EXPORT FTGLTextureFont : public FTFont
 {
     public:
         /**
-         * Default Constructor
+         * Constructor
          */
-        FTGLTextureFont();
+        FTGLTextureFont( const char* fontname);
+        
+        FTGLTextureFont( const unsigned char *pBufferBytes, size_t bufferSizeInBytes);
         
         /**
          * Destructor

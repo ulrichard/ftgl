@@ -20,7 +20,9 @@ class FTGL_EXPORT FTGLPolygonFont : public FTFont
         /**
          * Default Constructor
          */
-        FTGLPolygonFont();
+        FTGLPolygonFont( const char* fontname);
+        
+        FTGLPolygonFont( const unsigned char *pBufferBytes, size_t bufferSizeInBytes);
         
         /**
          * Destructor

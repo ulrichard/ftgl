@@ -100,16 +100,16 @@ void setUpLighting()
 
 void setUpFonts( const char* fontfile)
 {
-	fonts[FTGL_BITMAP] = new FTGLBitmapFont;
-	fonts[FTGL_PIXMAP] = new FTGLPixmapFont;
-	fonts[FTGL_OUTLINE] = new FTGLOutlineFont;
-	fonts[FTGL_POLYGON] = new FTGLPolygonFont;
-	fonts[FTGL_EXTRUDE] = new FTGLExtrdFont;
-	fonts[FTGL_TEXTURE] = new FTGLTextureFont;
+	fonts[FTGL_BITMAP] = new FTGLBitmapFont( fontfile);
+	fonts[FTGL_PIXMAP] = new FTGLPixmapFont( fontfile);
+	fonts[FTGL_OUTLINE] = new FTGLOutlineFont( fontfile);
+	fonts[FTGL_POLYGON] = new FTGLPolygonFont( fontfile);
+	fonts[FTGL_EXTRUDE] = new FTGLExtrdFont( fontfile);
+	fonts[FTGL_TEXTURE] = new FTGLTextureFont( fontfile);
 
 	for( int x = 0; x < 6; ++x)
 	{
-		if( !fonts[x]->Open( fontfile))
+		if( fonts[x]->Error())
 		{
 			fprintf( stderr, "Failed to open font %s", fontfile);
 			exit(1);
@@ -126,9 +126,9 @@ void setUpFonts( const char* fontfile)
 		fonts[x]->CharMap(ft_encoding_unicode);
 	}
 	
-	infoFont = new FTGLPixmapFont;
+	infoFont = new FTGLPixmapFont( fontfile);
 	
-	if( !infoFont->Open( FONT_INFO))
+	if( infoFont->Error())
 	{
 		fprintf( stderr, "Failed to open font %s", FONT_INFO);
 		exit(1);

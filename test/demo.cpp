@@ -41,14 +41,14 @@ my_init( const char* font_filename )
     glClearColor(0.0, 0.0, 0.0, 0.0);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-    fonts[0] = new FTGLOutlineFont;
-    fonts[1] = new FTGLPolygonFont;
-    fonts[2] = new FTGLTextureFont;
-    fonts[3] = new FTGLBitmapFont;
-    fonts[4] = new FTGLPixmapFont;
+    fonts[0] = new FTGLOutlineFont( font_filename);
+    fonts[1] = new FTGLPolygonFont( font_filename);
+    fonts[2] = new FTGLTextureFont( font_filename);
+    fonts[3] = new FTGLBitmapFont( font_filename);
+    fonts[4] = new FTGLPixmapFont( font_filename);
     for (int i=0; i< 5; i++)
     {
-        if (!fonts[i]->Open(font_filename))
+        if (fonts[i]->Error())
         {
             std::cerr << "ERROR: Unable to open file " << font_filename << std::endl;
         }

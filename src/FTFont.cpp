@@ -4,46 +4,39 @@
 #include    "FTBBox.h"
 
 
-FTFont::FTFont()
+FTFont::FTFont( const char* fontname)
 :   numFaces(0),
-    glyphList(0),
-    err(0)
-{}
+    glyphList(0)
+{
+    if( face.Open( fontname))
+    {
+        err = 0;
+    }
+    else
+    {
+        err = face.Error();
+    }
+}
+
+
+FTFont::FTFont( const unsigned char *pBufferBytes, size_t bufferSizeInBytes)
+:   numFaces(0),
+    glyphList(0)
+{
+    if( face.Open( pBufferBytes, bufferSizeInBytes ))
+    {
+        err = 0;
+    }
+    else
+    {
+        err = face.Error();
+    }
+}
 
 
 FTFont::~FTFont()
 {
     delete glyphList;
-}
-
-
-bool FTFont::Open( const char* fontname)
-{
-    if( face.Open( fontname))
-    {
-        err = 0;
-        return true;
-    }
-    else
-    {
-        err = face.Error();
-        return false;
-    }
-}
-
-
-bool FTFont::Open( const unsigned char *pBufferBytes, size_t bufferSizeInBytes)
-{
-    if( face.Open( pBufferBytes, bufferSizeInBytes ))
-    {
-        err = 0;
-        return true;
-    }
-    else
-    {
-        err = face.Error();
-        return false;
-    }
 }
 
 

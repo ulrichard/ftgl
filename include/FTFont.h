@@ -29,23 +29,13 @@ class FTGL_EXPORT FTFont
 {
     public:
         /**
-         * Default Constructor
-         */
-        FTFont();
-        
-        /**
-         * Destructor
-         */
-        virtual ~FTFont();
-        
-        /**
          * Open and read a font file.
          *
          * @param fontname  font file name.
          * @return          <code>true</code> if file has opened
          *                  successfully.
          */
-        bool Open( const char* fontname);
+        FTFont( const char* fontname);
         
         /**
          * Open and read a font from a buffer in memory.
@@ -55,8 +45,13 @@ class FTGL_EXPORT FTFont
          * @return          <code>true</code> if the data stream has
          *                  opened successfully.
          */
-        bool Open( const unsigned char *pBufferBytes, size_t bufferSizeInBytes);
-
+        FTFont( const unsigned char *pBufferBytes, size_t bufferSizeInBytes);
+        
+        /**
+         * Destructor
+         */
+        virtual ~FTFont();
+        
         /**
          * Attach auxilliary file to font e.g font metrics.
          *

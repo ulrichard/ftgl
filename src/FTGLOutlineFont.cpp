@@ -2,7 +2,13 @@
 #include    "FTOutlineGlyph.h"
 
 
-FTGLOutlineFont::FTGLOutlineFont()
+FTGLOutlineFont::FTGLOutlineFont( const char* fontname)
+:   FTFont( fontname)
+{}
+
+
+FTGLOutlineFont::FTGLOutlineFont( const unsigned char *pBufferBytes, size_t bufferSizeInBytes)
+:   FTFont( pBufferBytes, bufferSizeInBytes)
 {}
 
 

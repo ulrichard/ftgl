@@ -2,8 +2,15 @@
 #include    "FTExtrdGlyph.h"
 
 
-FTGLExtrdFont::FTGLExtrdFont()
-:   depth(0.0f)
+FTGLExtrdFont::FTGLExtrdFont( const char* fontname)
+:   FTFont( fontname),
+    depth( 0.0f)
+{}
+
+
+FTGLExtrdFont::FTGLExtrdFont( const unsigned char *pBufferBytes, size_t bufferSizeInBytes)
+:   FTFont( pBufferBytes, bufferSizeInBytes),
+    depth( 0.0f)
 {}
 
 

@@ -2,7 +2,13 @@
 #include "FTBitmapGlyph.h"
 
 
-FTGLBitmapFont::FTGLBitmapFont()
+FTGLBitmapFont::FTGLBitmapFont( const char* fontname)
+:   FTFont( fontname)
+{}
+
+
+FTGLBitmapFont::FTGLBitmapFont( const unsigned char *pBufferBytes, size_t bufferSizeInBytes)
+:   FTFont( pBufferBytes, bufferSizeInBytes)
 {}
 
 

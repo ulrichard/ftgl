@@ -21,7 +21,9 @@ class FTGL_EXPORT FTGLExtrdFont : public FTFont
 		/**
 		 * Default Constructor
 		 */
-		FTGLExtrdFont();
+		FTGLExtrdFont( const char* fontname);
+		
+		FTGLExtrdFont( const unsigned char *pBufferBytes, size_t bufferSizeInBytes);
 		
 		/**
 		 * Destructor

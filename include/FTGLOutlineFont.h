@@ -20,7 +20,9 @@ class FTGL_EXPORT FTGLOutlineFont : public FTFont
         /**
          * Default Constructor
          */
-        FTGLOutlineFont();
+        FTGLOutlineFont( const char* fontname);
+        
+        FTGLOutlineFont( const unsigned char *pBufferBytes, size_t bufferSizeInBytes);
         
         /**
          * Destructor

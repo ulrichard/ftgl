@@ -21,7 +21,9 @@ class FTGL_EXPORT FTGLPixmapFont : public FTFont
         /**
          * Default Constructor
          */
-        FTGLPixmapFont();
+        FTGLPixmapFont( const char* fontname);
+        
+        FTGLPixmapFont( const unsigned char *pBufferBytes, size_t bufferSizeInBytes);
         
         /**
          * Destructor

@@ -18,8 +18,9 @@ inline GLuint NextPowerOf2( GLuint in)
 }
 
 
-FTGLTextureFont::FTGLTextureFont()
-:   maxTextSize(0),
+FTGLTextureFont::FTGLTextureFont( const char* fontname)
+:   FTFont( fontname),
+    maxTextSize(0),
     textureWidth(0),
     textureHeight(0),
     numTextures(0),
@@ -27,10 +28,28 @@ FTGLTextureFont::FTGLTextureFont()
     glyphHeight(0),
     glyphWidth(0),
     padding(3),
-    remGlyphs(0),
     xOffset(0),
     yOffset(0)
-{}
+{
+    remGlyphs = numGlyphs = face.GlyphCount();
+}
+
+
+FTGLTextureFont::FTGLTextureFont( const unsigned char *pBufferBytes, size_t bufferSizeInBytes)
+:   FTFont( pBufferBytes, bufferSizeInBytes),
+    maxTextSize(0),
+    textureWidth(0),
+    textureHeight(0),
+    numTextures(0),
+    textMem(0),
+    glyphHeight(0),
+    glyphWidth(0),
+    padding(3),
+    xOffset(0),
+    yOffset(0)
+{
+    remGlyphs = numGlyphs = face.GlyphCount();
+}
 
 
 FTGLTextureFont::~FTGLTextureFont()
@@ -92,8 +111,6 @@ bool FTGLTextureFont::MakeGlyphList()
 {
     if( !maxTextSize)
         glGetIntegerv( GL_MAX_TEXTURE_SIZE, (GLint*)&maxTextSize);
-
-    remGlyphs = numGlyphs = face.GlyphCount();
 
     return FTFont::MakeGlyphList();
 }

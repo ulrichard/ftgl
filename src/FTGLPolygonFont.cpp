@@ -2,7 +2,13 @@
 #include    "FTPolyGlyph.h"
 
 
-FTGLPolygonFont::FTGLPolygonFont()
+FTGLPolygonFont::FTGLPolygonFont( const char* fontname)
+:   FTFont( fontname)
+{}
+
+
+FTGLPolygonFont::FTGLPolygonFont( const unsigned char *pBufferBytes, size_t bufferSizeInBytes)
+:   FTFont( pBufferBytes, bufferSizeInBytes)
 {}
 
 
