@@ -24,7 +24,7 @@ class FTGL_EXPORT FTOutlineGlyph : public FTGlyph
 		/**
 		 * Constructor
 		 *
-		 * @param glyph	The Freetype glyph to be processed
+		 * @param glyph The Freetype glyph to be processed
 		 */
 		FTOutlineGlyph( FT_Glyph glyph);
 

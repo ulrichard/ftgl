@@ -1,5 +1,5 @@
-#ifndef		__FTExtrdGlyph__
-#define		__FTExtrdGlyph__
+#ifndef     __FTExtrdGlyph__
+#define     __FTExtrdGlyph__
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
@@ -20,54 +20,54 @@ class FTVectoriser;
  */
 class FTGL_EXPORT FTExtrdGlyph : public FTGlyph
 {
-	public:
-		/**
-		 * Constructor
-		 *
-		 * @param glyph	The Freetype glyph to be processed
-		 */
-		FTExtrdGlyph( FT_Glyph glyph, float depth);
+    public:
+        /**
+         * Constructor
+         *
+         * @param glyph The Freetype glyph to be processed
+         */
+        FTExtrdGlyph( FT_Glyph glyph, float depth);
 
-		/**
-		 * Destructor
-		 */
-		virtual ~FTExtrdGlyph();
+        /**
+         * Destructor
+         */
+        virtual ~FTExtrdGlyph();
 
-		/**
-		 * Renders this glyph at the current pen position.
-		 *
-		 * @param pen	The current pen position.
-		 * @return		The advance distance for this glyph.
-		 */
-		virtual float Render( const FT_Vector& pen);
-		
-	private:
-		/**
-		 * Calculate the winding direction of a contour.
-		 *
-		 * This uses the signed area of the contour. It is required because
-		 * freetype doesn't do this despite the docs saying it does:(
-		 */
-		bool Winding( int numPoints, FTGL_DOUBLE *points);
-		
-		/**
-		 * An object that helps convert freetype outlines into point
-		 * data
-		 */
-		FTVectoriser* vectoriser;
-		
-		/**
-		 * OpenGL display list
-		 */
-		GLuint glList;
-		
-		/**
-		 * Distance to extrude the glyph
-		 */
-		float depth;
-	
+        /**
+         * Renders this glyph at the current pen position.
+         *
+         * @param pen   The current pen position.
+         * @return      The advance distance for this glyph.
+         */
+        virtual float Render( const FT_Vector& pen);
+        
+    private:
+        /**
+         * Calculate the winding direction of a contour.
+         *
+         * This uses the signed area of the contour. It is required because
+         * freetype doesn't do this despite the docs saying it does:(
+         */
+        bool Winding( int numPoints, FTGL_DOUBLE *points);
+        
+        /**
+         * An object that helps convert freetype outlines into point
+         * data
+         */
+        FTVectoriser* vectoriser;
+        
+        /**
+         * OpenGL display list
+         */
+        GLuint glList;
+        
+        /**
+         * Distance to extrude the glyph
+         */
+        float depth;
+    
 };
 
 
-#endif	//	__FTExtrdGlyph__
+#endif  //  __FTExtrdGlyph__
 

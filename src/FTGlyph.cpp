@@ -1,15 +1,12 @@
-#include	"FTGlyph.h"
-#ifdef FTGL_DEBUG
-	#include "mmgr.h"
-#endif
+#include    "FTGlyph.h"
 
 
 FTGlyph::FTGlyph()
-:	advance(0),
-	err(0)	
+:   advance(0),
+    err(0)  
 {
-	pos.x = 0;
-	pos.y = 0;
+    pos.x = 0;
+    pos.y = 0;
 }
 
 

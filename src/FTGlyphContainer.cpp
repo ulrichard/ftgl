@@ -1,9 +1,6 @@
 #include	"FTGlyphContainer.h"
 #include	"FTGlyph.h"
 #include	"FTFace.h"
-#ifdef FTGL_DEBUG
-	#include "mmgr.h"
-#endif
 
 
 FTGlyphContainer::FTGlyphContainer( FTFace* f, unsigned int g, bool p)

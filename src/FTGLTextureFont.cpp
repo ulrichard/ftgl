@@ -1,11 +1,7 @@
+#include    <string>
+
 #include    "FTGLTextureFont.h"
 #include    "FTTextureGlyph.h"
-#ifdef FTGL_DEBUG
-    #include "mmgr.h"
-#endif
-
-
-using namespace std; // for memset
 
 
 inline GLuint NextPowerOf2( GLuint in)
@@ -78,13 +74,12 @@ FTGlyph* FTGLTextureFont::MakeGlyph( unsigned int g)
         
         // yes - load the glyph
         FTTextureGlyph* tempGlyph = new FTTextureGlyph( *ftGlyph, glTextureID[numTextures - 1],
-                                                            xOffset, yOffset, textureWidth, textureHeight);
+                                                        xOffset, yOffset, textureWidth, textureHeight);
         
         // FIXME ceiling
         xOffset += tempGlyph->BBox().x2 - tempGlyph->BBox().x1 + padding;
         
         --remGlyphs;
-//                FT_Done_Glyph( *ftGlyph );
         return tempGlyph;
     }
     
