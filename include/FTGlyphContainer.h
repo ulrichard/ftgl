@@ -64,13 +64,13 @@ class FTGL_EXPORT FTGlyphContainer
         float Advance( unsigned int index, unsigned int next);
         
         /**
-         * renders a character
-         * @param index the glyph to be rendered
+         * Renders a character
+         * @param index the glyph to be Rendered
          * @param next  the next glyph in the string. Used for kerning.
-         * @param pen   the position to render the glyph
-         * @return      The distance to advance the pen position after rendering
+         * @param pen   the position to Render the glyph
+         * @return      The distance to advance the pen position after Rendering
          */
-        FTPoint render( unsigned int index, unsigned int next, FTPoint pen);
+        FTPoint Render( unsigned int index, unsigned int next, FTPoint pen);
         
         /**
          * Queries the Font for errors.

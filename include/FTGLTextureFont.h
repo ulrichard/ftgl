@@ -51,14 +51,14 @@ class  FTGL_EXPORT FTGLTextureFont : public FTFont
          * 
          * @param string    'C' style string to be output.   
          */
-        virtual void render( const char* string);
+        virtual void Render( const char* string);
         
         /**
          * Renders a string of characters
          * 
          * @param string    wchar_t string to be output.     
          */
-        virtual void render( const wchar_t* string);
+        virtual void Render( const wchar_t* string);
 
         
     private:
@@ -67,7 +67,7 @@ class  FTGL_EXPORT FTGLTextureFont : public FTFont
         /**
          * Constructs the internal glyph cache.
          *
-         * This a list of glyphs processed for openGL rendering NOT
+         * This a list of glyphs processed for openGL Rendering NOT
          * freetype glyphs
          */
         virtual bool MakeGlyphList();

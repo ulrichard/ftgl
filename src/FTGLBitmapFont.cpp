@@ -31,7 +31,7 @@ FTGlyph* FTGLBitmapFont::MakeGlyph( unsigned int g)
 }
 
 
-void FTGLBitmapFont::render( const char* string)
+void FTGLBitmapFont::Render( const char* string)
 {   
     glPushClientAttrib( GL_CLIENT_PIXEL_STORE_BIT);
     glPushAttrib( GL_ENABLE_BIT);
@@ -42,14 +42,14 @@ void FTGLBitmapFont::render( const char* string)
 
     glDisable( GL_BLEND);
 
-    FTFont::render( string);
+    FTFont::Render( string);
 
     glPopAttrib();
     glPopClientAttrib();
 }
 
 
-void FTGLBitmapFont::render( const wchar_t* string)
+void FTGLBitmapFont::Render( const wchar_t* string)
 {   
     glPushClientAttrib( GL_CLIENT_PIXEL_STORE_BIT);
     glPushAttrib( GL_ENABLE_BIT);
@@ -60,7 +60,7 @@ void FTGLBitmapFont::render( const wchar_t* string)
     
     glDisable( GL_BLEND);
 
-    FTFont::render( string);
+    FTFont::Render( string);
 
     glPopAttrib();
     glPopClientAttrib();

@@ -223,7 +223,7 @@ float FTFont::doAdvance( const unsigned int chr, const unsigned int nextChr)
 }
 
 
-void FTFont::render( const char* string )
+void FTFont::Render( const char* string )
 {
     const unsigned char* c = (unsigned char*)string;
     pen.x = 0; pen.y = 0;
@@ -236,7 +236,7 @@ void FTFont::render( const char* string )
 }
 
 
-void FTFont::render( const wchar_t* string )
+void FTFont::Render( const wchar_t* string )
 {
     const wchar_t* c = string;
     pen.x = 0; pen.y = 0;
@@ -253,7 +253,7 @@ void FTFont::doRender( const unsigned int chr, const unsigned int nextChr)
 {
     CheckGlyph( chr);
 
-    FTPoint kernAdvance = glyphList->render( chr, nextChr, pen);
+    FTPoint kernAdvance = glyphList->Render( chr, nextChr, pen);
     
     pen.x += kernAdvance.x;
     pen.y += kernAdvance.y;

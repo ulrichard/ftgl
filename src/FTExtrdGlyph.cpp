@@ -90,9 +90,9 @@ FTExtrdGlyph::FTExtrdGlyph( FT_Glyph glyph, float d)
                         glVertex3f( contour->Point(index).x / 64.0f, contour->Point(index).y / 64.0f, -depth);
                         glVertex3f( contour->Point(index).x / 64.0f, contour->Point(index).y / 64.0f, 0.0f);
                     }
-                } // for
+                }
             glEnd();
-        } // for 
+        }
         
     glEndList();
 

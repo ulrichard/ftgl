@@ -153,14 +153,14 @@ class FTGL_EXPORT FTFont
          * 
          * @param string    'C' style string to be output.   
          */
-        virtual void render( const char* string );
+        virtual void Render( const char* string );
 
         /**
          * Render a string of characters
          * 
          * @param string    wchar_t string to be output.     
          */
-        virtual void render( const wchar_t* string );
+        virtual void Render( const wchar_t* string );
 
         /**
          * Queries the Font for errors.
@@ -184,7 +184,7 @@ class FTGL_EXPORT FTFont
         /**
          * Construct the internal glyph cache.
          *
-         * This a list of glyphs processed for openGL rendering NOT
+         * This a list of glyphs processed for openGL Rendering NOT
          * freetype glyphs.
          *
          * @return  <code>true</code> on success.

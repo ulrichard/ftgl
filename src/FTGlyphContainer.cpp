@@ -63,7 +63,7 @@ float FTGlyphContainer::Advance( unsigned int index, unsigned int next)
 }
 
 
-FTPoint FTGlyphContainer::render( unsigned int index, unsigned int next, FTPoint pen)
+FTPoint FTGlyphContainer::Render( unsigned int index, unsigned int next, FTPoint pen)
 {
     FTPoint kernAdvance;
     float advance = 0;

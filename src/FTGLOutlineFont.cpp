@@ -31,7 +31,7 @@ FTGlyph* FTGLOutlineFont::MakeGlyph( unsigned int g)
 }
 
 
-void FTGLOutlineFont::render( const char* string)
+void FTGLOutlineFont::Render( const char* string)
 {   
     glPushAttrib( GL_ENABLE_BIT | GL_HINT_BIT | GL_LINE_BIT | GL_COLOR_BUFFER_BIT);
     
@@ -42,14 +42,13 @@ void FTGLOutlineFont::render( const char* string)
     glEnable(GL_BLEND);
     glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // GL_ONE
 
-    FTFont::render( string);
+    FTFont::Render( string);
 
     glPopAttrib();
-
 }
 
 
-void FTGLOutlineFont::render( const wchar_t* string)
+void FTGLOutlineFont::Render( const wchar_t* string)
 {   
     glPushAttrib( GL_ENABLE_BIT | GL_HINT_BIT | GL_LINE_BIT | GL_COLOR_BUFFER_BIT);
     
@@ -60,9 +59,8 @@ void FTGLOutlineFont::render( const wchar_t* string)
     glEnable(GL_BLEND);
     glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // GL_ONE
 
-    FTFont::render( string);
+    FTFont::Render( string);
 
     glPopAttrib();
-
 }
 

@@ -42,14 +42,14 @@ class FTGL_EXPORT FTGLOutlineFont : public FTFont
          * 
          * @param string    'C' style string to be output.   
          */
-        void render( const char* string);
+        void Render( const char* string);
         
         /**
          * Renders a string of characters
          * 
          * @param string    wchar_t string to be output.     
          */
-        void render( const wchar_t* string);
+        void Render( const wchar_t* string);
 
         // attributes
         
