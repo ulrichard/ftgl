@@ -7,6 +7,7 @@
 #include FT_FREETYPE_H
 #include FT_GLYPH_H
 
+#include "FTPoint.h"
 #include "FTSize.h"
 
 class FTCharmap;
@@ -100,7 +101,7 @@ class FTGL_EXPORT FTFace
         /**
          * Gets the kerning vector between two glyphs
          */
-        FT_Vector& KernAdvance( unsigned int index1, unsigned int index2);
+        FTPoint KernAdvance( unsigned int index1, unsigned int index2);
 
         /**
          * Loads and creates a Freetype glyph.
@@ -150,11 +151,6 @@ class FTGL_EXPORT FTFace
          */
         int numGlyphs;
 
-        /**
-         * Temporary variable to holding a kerning vector.
-         */
-        FT_Vector kernAdvance;
-        
         /**
          * Current error code. Zero means no error.
          */

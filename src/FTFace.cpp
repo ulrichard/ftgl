@@ -104,20 +104,21 @@ unsigned int FTFace::CharIndex( unsigned int index) const
 }
 
 
-FT_Vector& FTFace::KernAdvance( unsigned int index1, unsigned int index2)
+FTPoint FTFace::KernAdvance( unsigned int index1, unsigned int index2)
 {
-    kernAdvance.x = 0; kernAdvance.y = 0;
+    FT_Vector kernAdvance;
     
     if( FT_HAS_KERNING((*ftFace)) && index1 && index2)
     {
         err = FT_Get_Kerning( *ftFace, index1, index2, ft_kerning_unfitted, &kernAdvance);
         if( !err)
         {   
-            kernAdvance.x /= 64; kernAdvance.y /= 64;
+            kernAdvance.x /= 64;
+            kernAdvance.y /= 64;
         }
     }
     
-    return kernAdvance;
+    return FTPoint( kernAdvance);
 }
 
 
