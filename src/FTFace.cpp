@@ -117,8 +117,8 @@ FTPoint FTFace::KernAdvance( unsigned int index1, unsigned int index2)
         err = FT_Get_Kerning( *ftFace, index1, index2, ft_kerning_unfitted, &kernAdvance);
         if( !err)
         {   
-            x = static_cast<float>( kernAdvance.x) / 64;
-            y = static_cast<float>( kernAdvance.y) / 64;
+            x = static_cast<float>( kernAdvance.x) / 64.0f;
+            y = static_cast<float>( kernAdvance.y) / 64.0f;
         }
     }
     
