@@ -117,7 +117,7 @@ class FTMeshTest : public CppUnit::TestCase
                 ftglCombine( testPoint, NULL, NULL, (void**)hole, &mesh);            
             }
 
-            CPPUNIT_ASSERT( *testOutput == &(mesh.tempPointList[0].x));
+            CPPUNIT_ASSERT( *testOutput == &(mesh.TempPointList().front().x));
             
             for( unsigned int x = 201; x < 300; ++x)
             {
@@ -126,7 +126,7 @@ class FTMeshTest : public CppUnit::TestCase
 
             ftglEnd( &mesh);
             
-            CPPUNIT_ASSERT( *testOutput == &(mesh.tempPointList[0].x));
+            CPPUNIT_ASSERT( *testOutput == &(mesh.TempPointList().front().x));
         }
         
         void setUp() 
