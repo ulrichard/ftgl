@@ -93,7 +93,7 @@ class  FTGL_EXPORT FTGLTextureFont : public FTFont
         /**
          * The maximum texture dimension on this OpenGL implemetation
          */
-        GLsizei maxTextSize;
+        GLsizei maximumGLTextureSize;
         
         /**
          * The minimum texture width required to hold the glyphs

@@ -20,7 +20,7 @@ inline GLuint NextPowerOf2( GLuint in)
 
 FTGLTextureFont::FTGLTextureFont( const char* fontname)
 :   FTFont( fontname),
-    maxTextSize(0),
+    maximumGLTextureSize(0),
     textureWidth(0),
     textureHeight(0),
     glyphHeight(0),
@@ -35,7 +35,7 @@ FTGLTextureFont::FTGLTextureFont( const char* fontname)
 
 FTGLTextureFont::FTGLTextureFont( const unsigned char *pBufferBytes, size_t bufferSizeInBytes)
 :   FTFont( pBufferBytes, bufferSizeInBytes),
-    maxTextSize(0),
+    maximumGLTextureSize(0),
     textureWidth(0),
     textureHeight(0),
     glyphHeight(0),
@@ -96,21 +96,19 @@ FTGlyph* FTGLTextureFont::MakeGlyph( unsigned int glyphIndex)
 
 void FTGLTextureFont::CalculateTextureSize()
 {
-    if( !maxTextSize)
+    if( !maximumGLTextureSize)
     {
-        glGetIntegerv( GL_MAX_TEXTURE_SIZE, (GLint*)&maxTextSize);
+        glGetIntegerv( GL_MAX_TEXTURE_SIZE, (GLint*)&maximumGLTextureSize);
+        assert(maximumGLTextureSize); // If you hit this then you have an invalid OpenGL context.
     }
     
     textureWidth = NextPowerOf2( (remGlyphs * glyphWidth) + ( padding * 2));
-    if( textureWidth > maxTextSize)
-    {
-        textureWidth = maxTextSize;
-    }
+    textureWidth = textureWidth > maximumGLTextureSize ? maximumGLTextureSize : textureWidth;
     
     int h = static_cast<int>( (textureWidth - ( padding * 2)) / glyphWidth);
         
     textureHeight = NextPowerOf2( (( numGlyphs / h) + 1) * glyphHeight);
-    textureHeight = textureHeight > maxTextSize ? maxTextSize : textureHeight;
+    textureHeight = textureHeight > maximumGLTextureSize ? maximumGLTextureSize : textureHeight;
 }
 
 
