@@ -52,13 +52,15 @@ If we allow multiple faces and sizes how should they be handled.
 
 When is the best time to construct the glyphList? After the call to Size(x)
 is the earliest but what happens if the client doesn't set the char size?
-
+Define a default size, check if glyphlist is valid in render function, if
+not call size with default size.
+ 
 Need a way to restrict the glyphs to a custom set. eg an app only needs
 numbers so we should only create a glyphList of the number characters.
 This will enable us to have a restricted set of HIGH quality glyphs.
 
-Might have to move the init code out of the constructors into an init
-function so that they can return errors.
+Might have to move the init code out of the glyph constructors into an
+init function so that they can return errors.
 
 Currently the glyphList is isn't indexed, it's just a vector of glyphs in
 glyphIndex order. I'm using the freetype function FT_Get_Char_Index() to
@@ -82,11 +84,11 @@ TODO:
 	- Memory Leak in PolyGlyph (glCombine)
 	- check and confirm the glPixelStore stuff. Data Alignment. Tightly
 	  packed at the moment.
-	- namespace
+	- namespace ftgl or gltt?
 	- gl/glu errors
 	- tessellation winding rules
 	- Distributions MACOS 9/X, IRIX, Linux, Windows
-	- Test with non English(?) fonts
+	- Test with non European (Roman?) fonts
 	
 FUTURE:
 	- select face ie italic, bold etc
@@ -113,7 +115,7 @@ BUGS:
 	- Advance/Kerning is screwed up for really small point sizes eg 2 point.
 	  This is because I'm trying to use FT_Vector which is integer based.
 	  I will probably have to make my own struct with floats.
-	- The texture co-ords in the Texture Font may be wrong for none
+	- The texture co-ords in the Texture Font may be wrong for non
 	  scalable fonts.
 	- There is an inconsistancy in the way the global bounding box is
 	  stored in Freetype. It is supposed to be in font units but in some
@@ -123,6 +125,14 @@ BUGS:
 		- Exits with some fonts at large sizes. GLUT Memory Bug?
 		  also with large numbers of glyphs at any size eg helvetica. This
 		  is becoming REALLY annoying!!!
+
+
+	1.0b6
+	- Tidied up the way the freetype FT_Face object is disposed of by
+	  FTFont and FTFace. This was a potential crash.
+	- FTVectorGlyph and FTPolyGlyph now disposed of the freetype glyph
+	  correctly after initialsation. This was a potential crash.
+	-
 
 
 August 29 2001
