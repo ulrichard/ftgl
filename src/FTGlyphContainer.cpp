@@ -40,6 +40,7 @@ FT_Vector& FTGlyphContainer::render( int index, int next, FT_Vector pen)
 	
 	if( 0 < next <=  glyphs.size())
 	{
+		// ft_kerning_unfitted
 		err = FT_Get_Kerning( *face, glyphs[index]->glyphIndex, glyphs[next]->glyphIndex, ft_kerning_default, &kernAdvance);
 	}
 	
