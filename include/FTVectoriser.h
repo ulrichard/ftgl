@@ -21,7 +21,7 @@
  *
  * @see FTOutlineGlyph
  * @see FTPolyGlyph
- * @see ftPoint
+ * @see FTPoint
  *
  */
 class FTGL_EXPORT FTContour
@@ -87,14 +87,23 @@ class FTGL_EXPORT FTContour
 };
 
 
+/**
+ * FTTesselation captures points that are output by OpenGL's gluTesselator.
+ */
 class FTGL_EXPORT FTTesselation
 {
     public:
+        /**
+         * Default constructor
+         */
         FTTesselation()
         {
             pointList.reserve( 128);
         }
 
+        /**
+         *  Destructor
+         */
         ~FTTesselation()
         {
             pointList.clear();
@@ -118,20 +127,33 @@ class FTGL_EXPORT FTTesselation
 };
 
 
+/**
+ * FTMesh is a container of FTTesselation s that make up a polygon glyph
+ */
 class FTGL_EXPORT FTMesh
 {
     public:
+        /**
+         * Default constructor
+         */
         FTMesh();
+
+        /**
+         *  Destructor
+         */
         ~FTMesh();
         
         void AddPoint( const FTGL_DOUBLE x, const FTGL_DOUBLE y, const FTGL_DOUBLE z);
         void Begin( GLenum m);
         void End();
+        void Error( GLenum e) { err = e;}
         
         FTGL_DOUBLE* Point();
         int size() const;
         
-        void Error( GLenum e) { err = e;}
+        /**
+         * Get the GL ERROR returned by the glu tesselator
+         */
         GLenum Error() const { return err;}
 
         typedef FTVector<FTPoint> PointVector;
@@ -147,6 +169,10 @@ class FTGL_EXPORT FTMesh
          *  The list of points in this mesh
          */
         FTTesselation* tempTess;
+        
+        /**
+         * GL ERROR returned by the glu tesselator
+         */
         GLenum err;
 
 };
@@ -244,7 +270,7 @@ class FTGL_EXPORT FTVectoriser
         
     private:
         /**
-         * Process a conic ( second order bezier curve)
+         * Process a conic ( second order) bezier curve.
          *
          * @param index The index of the current point in the point list.
          * @param first The index into the pointlist of the first point in

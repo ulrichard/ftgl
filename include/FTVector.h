@@ -1,5 +1,11 @@
+#ifndef    __FTVector__
+#define    __FTVector__
+
 #include "FTGL.h"
 
+/**
+ * Provides a non-STL alternative to the STL vector
+ */
 template <typename FT_VECTOR_ITEM_TYPE>
 class FTGL_EXPORT FTVector
 {
@@ -188,3 +194,5 @@ class FTGL_EXPORT FTVector
         size_type Size;
         value_type* Items;
 };
+
+#endif  //  __FTVector__

@@ -12,7 +12,7 @@
 /**
  * FTSize class provides an abstraction layer for the Freetype Size.
  *
- * @see "Freetype 2 Documentation - 2.0.4"
+ * @see "Freetype 2 Documentation"
  *
  */
 class FTGL_EXPORT FTSize
