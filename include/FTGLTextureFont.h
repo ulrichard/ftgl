@@ -90,7 +90,7 @@ class  FTGL_EXPORT FTGLTextureFont : public FTFont
          * GL_TEXTURE_MIN_FILTER = GL_LINEAR
          * Note that mipmapping is NOT used
          */
-        inline int CreateTexture();
+        inline GLuint CreateTexture();
         
         /**
          * The maximum texture dimension on this OpenGL implemetation
@@ -110,7 +110,7 @@ class  FTGL_EXPORT FTGLTextureFont : public FTFont
         /**
          *An array of texture ids
          */
-        unsigned long glTextureID[128];
+        GLuint glTextureID[128];
         
         /**
          * The number of textures required to hold the glyphs

@@ -86,8 +86,8 @@ FTGlyph* FTGLTextureFont::MakeGlyph( unsigned int g)
             {
                 // no - make a new texture
                 glTextureID[numTextures] = CreateTexture();
-                yOffset = padding;
                 ++numTextures;
+                yOffset = padding;
             }
         }
         
@@ -132,7 +132,7 @@ void FTGLTextureFont::GetSize()
 }
 
 
-int FTGLTextureFont::CreateTexture()
+GLuint FTGLTextureFont::CreateTexture()
 {   
     // calc the size
     GetSize();
@@ -143,7 +143,7 @@ int FTGLTextureFont::CreateTexture()
     memset( textMem, 0, totalMem);
 
     // Create the blank texture
-    int textID;
+    GLuint textID;
     glGenTextures( 1, (GLuint*)&textID);
 
     glPixelStorei( GL_UNPACK_ALIGNMENT, 1);
