@@ -1,5 +1,10 @@
-FTGL 2.0.8 (FTGL_2_0_8)
+FTGL 2.0.9 (FTGL_2_0_9)
+21 April 2004
+    - Fixed includes for pre 2.1.7 versions of freetype
+    - Changed unix build to create FTGL subdir for includes
+    
 9 April 2004
+    2.0.8 (FTGL_2_0_8)
     - Fixes for deprecated identifiers in 2.1.5
     - Changed the internals to use FTGlyphSlot instead of FTGlyph
     - Added a unit test for FTBitmapGlyph, FTCharToGlyphIndexMap.
