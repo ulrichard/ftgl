@@ -62,8 +62,8 @@ class	FTFont
 		/**
 		 * Sets the char size for the current face.
 		 *
-		 * @params size		the face size in points (1/72 inch)
-		 * @params res		the resolution of the target device.
+		 * @param size		the face size in points (1/72 inch)
+		 * @param res		the resolution of the target device.
 		 * @return			<code>true</code> if size was set correctly
 		 */
 		virtual bool FaceSize( const unsigned int size, const unsigned int res = 72 );
@@ -71,7 +71,7 @@ class	FTFont
 		/**
 		 * Sets the character map for the face.
 		 *
-		 * @params encoding		XXXXXXXXX
+		 * @param encoding		XXXXXXXXX
 		 * @return				<code>true</code> if charmap was valid and
 		 *						set correctly
 		 */
@@ -94,18 +94,18 @@ class	FTFont
 		/**
 		 * Gets the bounding box dimensions for a string.
 		 * 
-		 * @params	XXXXXXX
-		 * @params	XXXXXXX
-		 * @params	XXXXXXX
-		 * @params	XXXXXXX
-		 * @params	XXXXXXX
+		 * @param	XXXXXXX
+		 * @param	XXXXXXX
+		 * @param	XXXXXXX
+		 * @param	XXXXXXX
+		 * @param	XXXXXXX
 		 */
 		virtual void BBox( const char* string, int& llx, int& lly, int& urx, int& ury ) const;
 		
 		/**
 		 * Renders a string of characters
 		 * 
-		 * @params string	'C' style string to be output.	 
+		 * @param string	'C' style string to be output.	 
 		 */
 		virtual void render( const char* string );
 		
@@ -127,7 +127,11 @@ class	FTFont
 		 * Constructs the internal glyph cache.
 		 *
 		 * This a list of glyphs processed for openGL rendering NOT
-		 * freetype glyphs
+		 * Freetype glyphs. This function checks for errors in creating
+		 * Freetype glyph objects but NOT FTGL glyph objects.
+		 *
+		 * @return	<code>true</code> If all glyphs were successfully created.
+		 * 			Clients should check error code on failure.
 		 */
 		virtual bool MakeGlyphList() = 0;
 		
