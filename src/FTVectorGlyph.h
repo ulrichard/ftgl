@@ -15,7 +15,7 @@ class	FTVectorGlyph : public FTGlyph
 		// methods
 		FTVectorGlyph( FT_Glyph glyph, int glyphIndex);
 		virtual ~FTVectorGlyph();
-		virtual float Render( FT_Vector& pen);
+		virtual float Render( const FT_Vector& pen);
 		
 		// attributes
 	

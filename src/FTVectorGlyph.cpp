@@ -12,7 +12,8 @@ FTVectorGlyph::FTVectorGlyph( FT_Glyph glyph, int gi)
 	numPoints(0),
 	numContours(0),
 	contourLength(0),
-	data(0)
+	data(0),
+	glList(0)
 {
 	if( glyph->format == ft_glyph_format_outline)
 	{
@@ -38,7 +39,7 @@ FTVectorGlyph::FTVectorGlyph( FT_Glyph glyph, int gi)
 	
 		delete vectoriser;
 		
-	    if ( ( numContours < 1) || ( numPoints < 1))
+	    if ( ( numContours < 1) || ( numPoints < 3)) // check this
 			return;
 			
  		glList = glGenLists(1);
@@ -64,10 +65,11 @@ FTVectorGlyph::FTVectorGlyph( FT_Glyph glyph, int gi)
 FTVectorGlyph::~FTVectorGlyph()
 {
 	delete [] data;
+	delete [] contourLength;
 }
 
 
-float FTVectorGlyph::Render( FT_Vector& pen)
+float FTVectorGlyph::Render( const FT_Vector& pen)
 {
 	glTranslatef( pen.x, pen.y, 0);
 		glCallList( glList);
