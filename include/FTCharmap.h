@@ -60,21 +60,12 @@ class FTGL_EXPORT FTCharmap
          *      ft_encoding_adobe_custom
          *      ft_encoding_apple_roman
          *
-         * @param encoding      the Freetype encoding symbol. See above.
-         * @return              <code>true</code> if charmap was valid
-         *                      and set correctly
+         * @param encoding  the Freetype encoding symbol. See above.
+         * @return          <code>true</code> if charmap was valid and set
+         *                  correctly. If the requested encoding is
+         *                  unavailable it will be set to ft_encoding_none.
          */
         bool CharMap( FT_Encoding encoding);
-
-        /**
-         * Sets the character map for the face.
-         *
-         * @param platform      
-         * @param encoding      the Freetype encoding symbol. See above.
-         * @return              <code>true</code> if charmap was valid
-         *                      and set correctly
-         */
-        bool CharMap( FT_UShort platform, FT_UShort encoding);
 
         /**
          * Get the glyph index of the input character.
@@ -101,7 +92,7 @@ class FTGL_EXPORT FTCharmap
         /**
          * The current Freetype face.
          */
-        FT_Face ftFace;
+        const FT_Face ftFace;
         
         /**
          * A structure that maps glyph indices to character codes
