@@ -20,6 +20,7 @@ FTGlyph* FTGLPolygonFont::MakeGlyph( unsigned int g)
 	if( ftGlyph)
 	{
 		FTPolyGlyph* tempGlyph = new FTPolyGlyph( *ftGlyph);
+                FT_Done_Glyph( *ftGlyph );
 		return tempGlyph;
 	}
 

@@ -83,6 +83,7 @@ FTGlyph* FTGLTextureFont::MakeGlyph( unsigned int g)
 		xOffset += tempGlyph->BBox().x2 - tempGlyph->BBox().x1 + padding;
 		
 		--remGlyphs;
+                FT_Done_Glyph( *ftGlyph );
 		return tempGlyph;
 	}
 	

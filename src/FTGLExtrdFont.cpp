@@ -21,6 +21,7 @@ FTGlyph* FTGLExtrdFont::MakeGlyph( unsigned int g)
 	if( ftGlyph)
 	{
 		FTExtrdGlyph* tempGlyph = new FTExtrdGlyph( *ftGlyph, depth);
+                FT_Done_Glyph( *ftGlyph );
 		return tempGlyph;
 	}
 

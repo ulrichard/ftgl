@@ -20,6 +20,7 @@ FTGlyph* FTGLOutlineFont::MakeGlyph( unsigned int g)
 	if( ftGlyph)
 	{
 		FTOutlineGlyph* tempGlyph = new FTOutlineGlyph( *ftGlyph);
+                FT_Done_Glyph( *ftGlyph );
 		return tempGlyph;
 	}
 

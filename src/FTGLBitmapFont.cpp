@@ -20,6 +20,8 @@ FTGlyph* FTGLBitmapFont::MakeGlyph( unsigned int g)
 	if( ftGlyph)
 	{
 		FTBitmapGlyph* tempGlyph = new FTBitmapGlyph( *ftGlyph);
+                FT_Done_Glyph( *ftGlyph );
+
 		return tempGlyph;
 	}
 
