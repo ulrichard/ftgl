@@ -66,12 +66,12 @@ class  FTGL_EXPORT FTGLTextureFont : public FTFont
 		 * Get the size of a block of memory required to layout the glyphs
 		 *
 		 * Calculates a width and height based on the glyph sizes and the
-		 * number of glyphs.
+		 * number of glyphs. It over estimates.
 		 */
 		void GetSize();
 
 		/**
-		 * Creates an OpenGL texture object.
+		 * Creates a 'blank' OpenGL texture object.
 		 *
 		 * The format is GL_ALPHA and the params are
 		 * GL_TEXTURE_WRAP_S = GL_CLAMP
