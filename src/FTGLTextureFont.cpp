@@ -93,7 +93,7 @@ bool FTGLTextureFont::MakeGlyphList()
     if( !maxTextSize)
         glGetIntegerv( GL_MAX_TEXTURE_SIZE, (GLint*)&maxTextSize);
 
-    remGlyphs = numGlyphs;
+    remGlyphs = numGlyphs = face.GlyphCount();
 
     return FTFont::MakeGlyphList();
 }

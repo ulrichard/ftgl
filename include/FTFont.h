@@ -221,11 +221,6 @@ class FTGL_EXPORT FTFont
         FTGlyphContainer* glyphList;
         
         /**
-         * The number of glyphs in this font
-         */
-        unsigned int numGlyphs;
-        
-        /**
          * Current pen or cursor position;
          */
         FTPoint pen;

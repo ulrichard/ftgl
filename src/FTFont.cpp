@@ -7,12 +7,8 @@
 FTFont::FTFont()
 :   numFaces(0),
     glyphList(0),
-    numGlyphs(0),
     err(0)
-{
-    pen.x = 0;
-    pen.y = 0;
-}
+{}
 
 
 FTFont::~FTFont()
@@ -25,8 +21,6 @@ bool FTFont::Open( const char* fontname)
 {
     if( face.Open( fontname))
     {
-        FT_Face* ftFace = face.Face();      
-        numGlyphs = (*ftFace)->num_glyphs;
         err = 0;
         return true;
     }
@@ -42,8 +36,6 @@ bool FTFont::Open( const unsigned char *pBufferBytes, size_t bufferSizeInBytes)
 {
     if( face.Open( pBufferBytes, bufferSizeInBytes ))
     {
-        FT_Face* ftFace = face.Face();      
-        numGlyphs = (*ftFace)->num_glyphs;
         err = 0;
         return true;
     }
@@ -84,7 +76,7 @@ bool FTFont::FaceSize( const unsigned int size, const unsigned int res )
         delete glyphList;
     }
     
-    glyphList = new FTGlyphContainer( &face, numGlyphs);
+    glyphList = new FTGlyphContainer( &face);
     
     return MakeGlyphList();
 }
