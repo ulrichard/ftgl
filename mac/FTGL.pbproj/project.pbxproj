@@ -105,15 +105,15 @@
 			buildSettings = {
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				HEADER_SEARCH_PATHS = "/Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/test /Users/henry/Development/PROJECTS/iSpot/includes /usr/local/include/freetype2 /usr/local/include/freetype2/freetype";
 				LIBRARY_STYLE = STATIC;
-				OPTIMIZATION_CFLAGS = "-O1";
+				OPTIMIZATION_CFLAGS = "-O2";
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOL_FLAGS = "";
 				OTHER_REZFLAGS = "";
 				PRODUCT_NAME = libftgl.a;
-				PROFILING_CODE = YES;
 				REZ_EXECUTABLE = YES;
 				SECTORDER_FLAGS = "";
 				WARNING_CFLAGS = "-Wmost -Wno-four-char-constants -Wno-unknown-pragmas";
@@ -827,6 +827,19 @@
 //BA2
 //BA3
 //BA4
+		BA0143B703AFE974000ABFD4 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			name = Fontdefs.h;
+			path = ../test/Fontdefs.h;
+			refType = 2;
+		};
+		BA0143B803AFE974000ABFD4 = {
+			fileRef = BA0143B703AFE974000ABFD4;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
 		BA79CB0003A176E7002F90D7 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
@@ -895,6 +908,7 @@
 		BAF0F08C03AF0F9E004F6ED7 = {
 			buildActionMask = 2147483647;
 			files = (
+				BA0143B803AFE974000ABFD4,
 			);
 			isa = PBXHeadersBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;
@@ -948,7 +962,7 @@
 			buildSettings = {
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				HEADER_SEARCH_PATHS = "Includes ../include";
-				LIBRARY_SEARCH_PATHS = "Libraries /Users/henry/Development/PROJECTS/iSpot/libraries /usr/lib/gcc/darwin/2.95.2 /Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/mac/Libraries";
+				LIBRARY_SEARCH_PATHS = "Libraries /usr/lib/gcc/darwin/2.95.2";
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				OTHER_REZFLAGS = "";
@@ -974,6 +988,7 @@
 		BAF0F09303AF0FBA004F6ED7 = {
 			children = (
 				BAF0F09403AF0FF7004F6ED7,
+				BA0143B703AFE974000ABFD4,
 				BAF0F09E03AF0FF7004F6ED7,
 				BAF0F09903AF0FF7004F6ED7,
 				BAF0F09603AF0FF7004F6ED7,
