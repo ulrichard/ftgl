@@ -41,7 +41,6 @@ TODO:
 	- Use glRasterPos() not glBitMap to set raster pos in pixel fonts.
 	- check and confirm the glPixelStore stuff. Data Alignment. Tightly
 	  packed at the moment.
-	- pen position eg font.render( 50, 100, "Hello World!");
 	- Clear the texture mem
 	- calc smallest texture size
 	- overflow texture
@@ -54,14 +53,18 @@ TODO:
 	    advance the pen.
 	    NEWSFLASH did this to FTVectorGlyph and it made NO difference.
 	  - don't process chars that map to glyph 0
+	- namespace
+	
+FUTURE:
+	- pen position eg font.render( 50, 100, "Hello World!");
 	- Use the Freetype Cache mechanism. See above. FTC_xxx
+	- Alignment. left right, centre.
+	- Bounding box, char and string.
 	- Vertical formats
-	
-	
+
 BUGS:
 	MAC OS:
-		- Exits with some fonts at large sizes. Freetype Memory Bug?
-		
+		- Exits with some fonts at large sizes. Freetype or GLUT Memory Bug?
 
 
 July 22 2001
