@@ -287,8 +287,8 @@ bool FTFont::CheckGlyph( const unsigned int characterCode)
         FTGlyph* tempGlyph = MakeGlyph( glyphIndex);
         if( NULL == tempGlyph)
         {
-            return false;
             err = 0x13;
+            return false;
         }
         glyphList->Add( tempGlyph, characterCode);
     }
