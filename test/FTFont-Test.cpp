@@ -108,7 +108,7 @@ class FTFontTest : public CppUnit::TestCase
         void testOpenFont()
         {
             TestFont badFont( BAD_FONT_FILE);
-            CPPUNIT_ASSERT( badFont.Error() == 0x06);        
+            CPPUNIT_ASSERT( badFont.Error() == 0x06); // invalid argument
         
             TestFont goodFont( GOOD_FONT_FILE);
             CPPUNIT_ASSERT( goodFont.Error() == 0);        
