@@ -2,10 +2,10 @@
 
 static const unsigned int SECOND_ORDER_CURVE = 2;
 static const unsigned int THIRD_ORDER_CURVE = 3;
+static const float BEZIER_STEP_SIZE = 0.2f;
 
 
 FTContour::FTContour( FT_Vector* contour, char* pointTags, unsigned int numberOfPoints)
-:   kBSTEPSIZE( 0.2f)
 {
     for( unsigned int pointIndex = 0; pointIndex < numberOfPoints; ++ pointIndex)
     {
@@ -104,8 +104,7 @@ void FTContour::deCasteljau( const float t, const int n)
             bValues[i][k][1] = (1 - t) * bValues[i - 1][k][1] + t * bValues[i - 1][k + 1][1];
         }
     }
-       
-    //Specify next vertex to be included on curve
+
     AddPoint( FTPoint( bValues[n][0][0], bValues[n][0][1], 0.0f));
 }
 
@@ -121,9 +120,9 @@ void FTContour::evaluateCurve( const int n)
 
     float t; //parameter for curve point calc. [0.0, 1.0]
 
-    for( int m = 0; m <= ( 1 / kBSTEPSIZE); m++)
+    for( int m = 0; m <= ( 1 / BEZIER_STEP_SIZE); m++)
     {
-        t = m * kBSTEPSIZE;
+        t = m * BEZIER_STEP_SIZE;
         deCasteljau( t, n);  //calls to evaluate point on curve at t.
     }
 }

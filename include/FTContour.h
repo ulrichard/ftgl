@@ -6,19 +6,6 @@
 #include "FTGL.h"
 
 
-struct ContourPoint
-{
-    ContourPoint(){}
-    
-    ContourPoint( FTPoint p, char t)
-    :   point(p),
-        tag(t)
-    {}
-    
-    FTPoint point;
-    char tag;
-};
-
 /**
  * FTContour class is a container of points that describe a vector font
  * outline. It is used as a container for the output of the bezier curve
@@ -76,7 +63,7 @@ class FTGL_EXPORT FTContour
          *
          * @param point The point to be added to the contour.
          */
-        void AddPoint( FTPoint point);
+        inline void AddPoint( FTPoint point);
         
         /**
          * De Casteljau (bezier) algorithm contributed by Jed Soane
@@ -85,7 +72,7 @@ class FTGL_EXPORT FTContour
          * @param curveOrder The order of the curve to be evaluated.
          * <code>2</code> equals conic (quadratic) and <code>3</code> equals cubic
          */
-        void deCasteljau( const float t, const int curveOrder);
+        inline void deCasteljau( const float t, const int curveOrder);
 
         /**
          * De Casteljau (bezier) algorithm contributed by Jed Soane
@@ -93,19 +80,13 @@ class FTGL_EXPORT FTContour
          * @param curveOrder The order of the curve to be evaluated.
          * <code>2</code> equals conic (quadratic) and <code>3</code> equals cubic
          */
-        void evaluateCurve( const int curveOrder);
+        inline void evaluateCurve( const int curveOrder);
 
         /**
          */
          // Magic numbers -- #define MAX_DEG 4
         float bValues[4][4][2];  //3D array storing values of de Casteljau algorithm.
         float ctrlPtArray[4][2]; // Magic numbers
-        
-        /**
-         * Parameterisation step size for De Casteljau algorithm
-         */
-        const float kBSTEPSIZE;
-
 };
 
 #endif // __FTContour__
