@@ -3,6 +3,7 @@ FTGL 2.02 (FTGL_2_0_2)
     - Fixed memory leaks
 
 14 March 2003
+    2.01 (FTGL_2_0_1)
     - Minor changes to autoconf to detect glu
     
 11 March 2003
