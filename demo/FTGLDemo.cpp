@@ -22,8 +22,8 @@
 	#define FONT_INFO "/usr/share/fonts/truetype/arial.ttf"
 #endif
 #ifdef __APPLE_CC__
-	#define FONT_FILE "/Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/demo/arial.ttf"
-	#define FONT_INFO "/Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/demo/arial.ttf"
+	#define FONT_FILE "/Users/henry/Development/PROJECTS/FTGL/demo/arial.ttf"
+	#define FONT_INFO "/Users/henry/Development/PROJECTS/FTGL/demo/arial.ttf"
 #endif
 #ifdef WIN32
 	#define FONT_FILE "C:\\WINNT\\Fonts\\arial.ttf"
@@ -43,7 +43,6 @@
 int current_font = FTGL_EXTRUDE;
 
 GLint w_win = 640, h_win = 480;
-float posX, posY, posZ;
 int mode = INTERACTIVE;
 int carat = 0;
 
@@ -55,7 +54,7 @@ static FTGLPixmapFont* infoFont;
 
 void SetCamera(void);
 
-void my_lighting()
+void setUpLighting()
 {
    // Set up lighting.
    float light1_ambient[4]  = { 1.0, 1.0, 1.0, 1.0 };
@@ -99,39 +98,51 @@ void my_lighting()
 }
 
 
-void do_display (void)
+void setUpFonts( const char* fontfile)
 {
-	switch( current_font)
+	fonts[FTGL_BITMAP] = new FTGLBitmapFont;
+	fonts[FTGL_PIXMAP] = new FTGLPixmapFont;
+	fonts[FTGL_OUTLINE] = new FTGLOutlineFont;
+	fonts[FTGL_POLYGON] = new FTGLPolygonFont;
+	fonts[FTGL_EXTRUDE] = new FTGLExtrdFont;
+	fonts[FTGL_TEXTURE] = new FTGLTextureFont;
+
+	for( int x = 0; x < 6; ++x)
 	{
-		case FTGL_BITMAP:
-		case FTGL_PIXMAP:
-		case FTGL_OUTLINE:
-			break;
-		case FTGL_POLYGON:
-			glDisable( GL_BLEND);
-			my_lighting();
-			break;
-		case FTGL_EXTRUDE:
-			glEnable( GL_DEPTH_TEST);
-			glDisable( GL_BLEND);
-			my_lighting();
-			break;
-		case FTGL_TEXTURE:
-			glEnable( GL_TEXTURE_2D);
-			glDisable( GL_DEPTH_TEST);
-			my_lighting();
-			glNormal3f( 0.0, 0.0, 1.0);
-			break;
-
+		if( !fonts[x]->Open( fontfile))
+		{
+			fprintf( stderr, "Failed to open font %s", fontfile);
+			exit(1);
+		}
+		
+		if( !fonts[x]->FaceSize( 144))
+		{
+			fprintf( stderr, "Failed to set size");
+			exit(1);
+		}
+	
+		fonts[x]->Depth(20);
+		
+		fonts[x]->CharMap(ft_encoding_unicode);
 	}
+	
+	infoFont = new FTGLPixmapFont;
+	
+	if( !infoFont->Open( FONT_INFO))
+	{
+		fprintf( stderr, "Failed to open font %s", FONT_INFO);
+		exit(1);
+	}
+	
+	infoFont->FaceSize( 18);
 
-	glColor3f( 1.0, 1.0, 1.0);
-// If you do want to switch the color of bitmaps rendered with glBitmap,
-// you will need to explicitly call glRasterPos3f (or its ilk) to lock
-// in a changed current color.
+	myString[0] = 65;
+	myString[1] = 0;
+}
 
-	fonts[current_font]->render( myString);
 
+void renderFontmetrics()
+{
 	float x1, y1, z1, x2, y2, z2;
 	fonts[current_font]->BBox( myString, x1, y1, z1, x2, y2, z2);
 	
@@ -180,7 +191,6 @@ void do_display (void)
 		glColor3f( 0.0, 0.0, 1.0);
 		glVertex3f( 0.0, 0.0, 0.0);
 		glVertex3f( fonts[current_font]->Advance( myString), 0.0, 0.0);
-
 		glVertex3f( 0.0, fonts[current_font]->Ascender(), 0.0);
 		glVertex3f( 0.0, fonts[current_font]->Descender(), 0.0);
 		
@@ -192,11 +202,16 @@ void do_display (void)
 	glBegin( GL_POINTS);
 		glVertex3f( 0.0, 0.0, 0.0);
 	glEnd();
+}
 
-	// draw the info
-	int save_font = current_font;
-	current_font = FTGL_PIXMAP;
-	SetCamera();
+
+void renderFontInfo()
+{
+    glMatrixMode( GL_PROJECTION);
+    glLoadIdentity();
+    gluOrtho2D(0, w_win, 0, h_win);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
 
 	// draw mode
 	glColor3f( 1.0, 1.0, 1.0);
@@ -213,7 +228,7 @@ void do_display (void)
 	
 	// draw font type
 	glRasterPos2i( 20 , 20);
-	switch( save_font)
+	switch( current_font)
 	{
 		case FTGL_BITMAP:
 			infoFont->render("Bitmap Font");
@@ -237,11 +252,44 @@ void do_display (void)
 	
 	glRasterPos2i( 20 , 20 + infoFont->Ascender() - infoFont->Descender());
 	infoFont->render(FONT_FILE);
-	
-	current_font = save_font;
-	
-	glutSwapBuffers();
 }
+
+void do_display (void)
+{
+	switch( current_font)
+	{
+		case FTGL_BITMAP:
+		case FTGL_PIXMAP:
+		case FTGL_OUTLINE:
+			break;
+		case FTGL_POLYGON:
+			glDisable( GL_BLEND);
+			setUpLighting();
+			break;
+		case FTGL_EXTRUDE:
+			glEnable( GL_DEPTH_TEST);
+			glDisable( GL_BLEND);
+			setUpLighting();
+			break;
+		case FTGL_TEXTURE:
+			glEnable( GL_TEXTURE_2D);
+			glDisable( GL_DEPTH_TEST);
+			setUpLighting();
+			glNormal3f( 0.0, 0.0, 1.0);
+			break;
+
+	}
+
+	glColor3f( 1.0, 1.0, 1.0);
+// If you do want to switch the color of bitmaps rendered with glBitmap,
+// you will need to explicitly call glRasterPos3f (or its ilk) to lock
+// in a changed current color.
+
+	fonts[current_font]->render( myString);
+        renderFontmetrics();
+        renderFontInfo();
+}
+
 
 void display(void)
 {
@@ -249,8 +297,6 @@ void display(void)
 
    	SetCamera();
 	
-	glPushMatrix();
-
 	switch( current_font)
 	{
 		case FTGL_BITMAP:
@@ -266,13 +312,17 @@ void display(void)
 			break;
 	}
 	
+	glPushMatrix();
+
 	do_display();
 
 	glPopMatrix();
-
+	
+    glutSwapBuffers();
 }
 
-void myinit ( const char* fontfile)
+
+void myinit( const char* fontfile)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor( 0.13, 0.17, 0.32, 0.0);
@@ -288,49 +338,10 @@ void myinit ( const char* fontfile)
 	 	
 	SetCamera();
 
-	fonts[FTGL_BITMAP] = new FTGLBitmapFont;
-	fonts[FTGL_PIXMAP] = new FTGLPixmapFont;
-	fonts[FTGL_OUTLINE] = new FTGLOutlineFont;
-	fonts[FTGL_POLYGON] = new FTGLPolygonFont;
-	fonts[FTGL_EXTRUDE] = new FTGLExtrdFont;
-	fonts[FTGL_TEXTURE] = new FTGLTextureFont;
-
-	for( int x = 0; x < 6; ++x)
-	{
-		if( !fonts[x]->Open( fontfile, false))
-		{
-			fprintf( stderr, "Failed to open font %s", fontfile);
-			exit(1);
-		}
-		
-		if( !fonts[x]->FaceSize( 144))
-		{
-			fprintf( stderr, "Failed to set size");
-			exit(1);
-		}
-	
-		fonts[x]->Depth(20);
-		
-		fonts[x]->CharMap(ft_encoding_unicode);
-	}
-	
-	infoFont = new FTGLPixmapFont;
-	
-	if( !infoFont->Open( FONT_INFO, false))
-	{
-		fprintf( stderr, "Failed to open font %s", FONT_INFO);
-		exit(1);
-	}
-	
-	infoFont->FaceSize( 18);
-
-	myString[0] = 65;
-	myString[1] = 0;
-	
-
 	tbInit(GLUT_LEFT_BUTTON);
 	tbAnimate( GL_FALSE);
 
+    setUpFonts( fontfile);
 }
 
 
@@ -366,7 +377,7 @@ void parsekey(unsigned char key, int x, int y)
 			{
 				myString[carat] = key;
 				myString[carat + 1] = 0;
-				carat = carat > 14 ? 15 : ++carat;
+				carat = carat > 14 ? 14 : ++carat;
 			}
 	}
 	
@@ -374,25 +385,6 @@ void parsekey(unsigned char key, int x, int y)
 
 }
 
-
-void parsekey_special(int key, int x, int y)
-{
-	switch (key)
-	{
-		case GLUT_KEY_UP:
-			posY += 10;
-			break;
-		case GLUT_KEY_DOWN:
-			posY -= 10;
-			break;
-		case GLUT_KEY_RIGHT:
-			posX += 10;
-			break;
-		case GLUT_KEY_LEFT:
-			posX -= 10;
-			break;
-	}
-}
 
 void motion(int x, int y)
 {
@@ -462,7 +454,6 @@ int main(int argc, char *argv[])
 	glutKeyboardFunc(parsekey);
 	glutMouseFunc(mouse);
     glutMotionFunc(motion);
-	glutSpecialFunc(parsekey_special);
 	glutReshapeFunc(myReshape);
 	glutIdleFunc(display);
 
