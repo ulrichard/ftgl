@@ -54,7 +54,7 @@ class FTFaceTest : public CppUnit::TestCase
 
     void testGlyphCount()
     {
-        CPPUNIT_ASSERT(testFace->GlyphCount() == 14099);        
+        CPPUNIT_ASSERT( testFace->GlyphCount() == 14099);        
     }
     
 
