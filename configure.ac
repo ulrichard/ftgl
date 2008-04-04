@@ -1,4 +1,7 @@
 AC_INIT(ftgl, 2.0.5, henryj@paradise.net.nz)
+AC_CONFIG_AUX_DIR(.auto)
+AM_INIT_AUTOMAKE([no-define tar-ustar])
+
 AC_CONFIG_SRCDIR([Make.conf.in])
 dnl AC_CONFIG_HEADER([src/config.h])
 
@@ -43,5 +46,14 @@ if test -z "$DOXYGEN" ; then
     DOXYGEN=:
 fi
 
-AC_CONFIG_FILES([Make.conf ftgl.pc])
+AC_CONFIG_FILES([
+  ftgl.pc
+])
+AC_CONFIG_FILES([
+  Makefile
+  src/Makefile
+  docs/Makefile
+  demo/Makefile
+])
 AC_OUTPUT
+
