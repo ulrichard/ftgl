@@ -38,10 +38,8 @@ AC_CHECK_FUNCS([memset])
 
 AC_PROG_INSTALL
 
-AC_CHECK_PROG([DOXYGEN], [doxygen], [doxygen])
-if test -z "$DOXYGEN" ; then
-    DOXYGEN=:
-fi
+AC_PATH_PROG(DOXYGEN, doxygen, no)
+AM_CONDITIONAL(HAVE_DOXYGEN, test "$DOXYGEN" != "no")
 
 AC_CONFIG_FILES([
   ftgl.pc
