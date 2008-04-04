@@ -1,6 +1,6 @@
 %-recursive:
 ifneq ($(SUBDIRS),)
-	for d in $(SUBDIRS) ; do $(MAKE) -C $$d $* ; done
+	for d in $(SUBDIRS) ; do $(MAKE) -C $$d $* || exit $$? ; done
 else
 	@:
 endif
