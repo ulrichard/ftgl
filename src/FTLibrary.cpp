@@ -1,4 +1,6 @@
-#include    "FTLibrary.h"
+#include "config.h"
+
+#include "FTLibrary.h"
 
 
 const FTLibrary&  FTLibrary::Instance()

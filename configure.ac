@@ -1,13 +1,10 @@
 AC_INIT(ftgl, 2.0.5, henryj@paradise.net.nz)
 AC_CONFIG_AUX_DIR(.auto)
+AC_CONFIG_HEADER(config.h)
 AM_INIT_AUTOMAKE([no-define tar-ustar])
-
-AC_CONFIG_SRCDIR([Make.conf.in])
-dnl AC_CONFIG_HEADER([src/config.h])
 
 FTGL_PROG_CXX
 
-AC_DISABLE_SHARED
 AC_PROG_LIBTOOL
 
 # Checks for typedefs, structures, and compiler characteristics.

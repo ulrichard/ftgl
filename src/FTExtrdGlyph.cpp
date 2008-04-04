@@ -1,9 +1,10 @@
+#include "config.h"
+
 #include <iostream>
+#include <math.h>
 
-#include    <math.h>
-
-#include    "FTExtrdGlyph.h"
-#include    "FTVectoriser.h"
+#include "FTExtrdGlyph.h"
+#include "FTVectoriser.h"
 
 
 FTExtrdGlyph::FTExtrdGlyph( FT_GlyphSlot glyph, float depth, bool useDisplayList)

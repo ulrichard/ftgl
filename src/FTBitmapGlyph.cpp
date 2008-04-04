@@ -1,4 +1,6 @@
-#include    <string>
+#include "config.h"
+
+#include <string>
 
 #include "FTBitmapGlyph.h"
 

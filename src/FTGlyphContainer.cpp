@@ -1,7 +1,9 @@
-#include    "FTGlyphContainer.h"
-#include    "FTGlyph.h"
-#include    "FTFace.h"
-#include    "FTCharmap.h"
+#include "config.h"
+
+#include "FTGlyphContainer.h"
+#include "FTGlyph.h"
+#include "FTFace.h"
+#include "FTCharmap.h"
 
 
 FTGlyphContainer::FTGlyphContainer( FTFace* f)

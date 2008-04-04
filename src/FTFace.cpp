@@ -1,3 +1,5 @@
+#include "config.h"
+
 #include "FTFace.h"
 #include "FTLibrary.h"
 

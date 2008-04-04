@@ -1,4 +1,6 @@
-#include    "FTSize.h"
+#include "config.h"
+
+#include "FTSize.h"
 
 
 FTSize::FTSize()

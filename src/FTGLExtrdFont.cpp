@@ -1,5 +1,7 @@
-#include    "FTGLExtrdFont.h"
-#include    "FTExtrdGlyph.h"
+#include "config.h"
+
+#include "FTGLExtrdFont.h"
+#include "FTExtrdGlyph.h"
 
 
 FTGLExtrdFont::FTGLExtrdFont( const char* fontFilePath)

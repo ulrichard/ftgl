@@ -1,7 +1,9 @@
-#include    "FTFace.h"
-#include    "FTFont.h"
-#include    "FTGlyphContainer.h"
-#include    "FTBBox.h"
+#include "config.h"
+
+#include "FTFace.h"
+#include "FTFont.h"
+#include "FTGlyphContainer.h"
+#include "FTBBox.h"
 
 
 FTFont::FTFont( const char* fontFilePath)

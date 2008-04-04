@@ -1,5 +1,7 @@
-#include    "FTGLOutlineFont.h"
-#include    "FTOutlineGlyph.h"
+#include "config.h"
+
+#include "FTGLOutlineFont.h"
+#include "FTOutlineGlyph.h"
 
 
 FTGLOutlineFont::FTGLOutlineFont( const char* fontFilePath)

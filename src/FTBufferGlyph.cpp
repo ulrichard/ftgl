@@ -1,4 +1,6 @@
-#include    "FTBufferGlyph.h"
+#include "config.h"
+
+#include "FTBufferGlyph.h"
 
 FTBufferGlyph::FTBufferGlyph( FT_GlyphSlot glyph, unsigned char* b)
 :   FTGlyph( glyph),

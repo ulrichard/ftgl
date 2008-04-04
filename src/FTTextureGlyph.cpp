@@ -1,4 +1,6 @@
-#include    "FTTextureGlyph.h"
+#include "config.h"
+
+#include "FTTextureGlyph.h"
 
 GLint FTTextureGlyph::activeTextureID = 0;
  

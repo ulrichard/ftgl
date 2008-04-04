@@ -4,8 +4,8 @@
  *  Advanced OpenGL course notes.
  */
 
+#include "config.h"
 
-/* includes */
 #include <math.h>
 #include <assert.h>
 #ifdef __APPLE_CC__

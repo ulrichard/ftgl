@@ -10,8 +10,8 @@ doc-stamp: $(DOXYFILE)
 	touch $@
 
 install-data-local: doc
-	$(INSTALL) -d -m 0755 $(datadir)/doc/$(PACKAGE_NAME)/html
-	$(INSTALL) -m 0644 html/* $(datadir)/doc/$(PACKAGE_NAME)/html/
+	$(INSTALL) -d -m 0755 $(DESTDIR)$(datadir)/doc/$(PACKAGE_NAME)/html
+	$(INSTALL) -m 0644 html/* $(DESTDIR)$(datadir)/doc/$(PACKAGE_NAME)/html/
 
 distclean-local:
 	$(RM) -r $(DOCDIRS)

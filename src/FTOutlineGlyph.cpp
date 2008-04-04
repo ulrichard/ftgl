@@ -1,5 +1,7 @@
-#include    "FTOutlineGlyph.h"
-#include    "FTVectoriser.h"
+#include "config.h"
+
+#include "FTOutlineGlyph.h"
+#include "FTVectoriser.h"
 
 
 FTOutlineGlyph::FTOutlineGlyph( FT_GlyphSlot glyph, bool useDisplayList)

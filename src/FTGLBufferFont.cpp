@@ -1,5 +1,7 @@
-#include    "FTGLBufferFont.h"
-#include    "FTBufferGlyph.h"
+#include "config.h"
+
+#include "FTGLBufferFont.h"
+#include "FTBufferGlyph.h"
 
 
 FTGLBufferFont::FTGLBufferFont( const char* fontname)

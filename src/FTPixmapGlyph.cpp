@@ -1,4 +1,6 @@
-#include    "FTPixmapGlyph.h"
+#include "config.h"
+
+#include "FTPixmapGlyph.h"
 
 FTPixmapGlyph::FTPixmapGlyph( FT_GlyphSlot glyph)
 :   FTGlyph( glyph),

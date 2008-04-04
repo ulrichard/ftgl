@@ -1,4 +1,6 @@
-#include    "FTGlyph.h"
+#include "config.h"
+
+#include "FTGlyph.h"
 
 
 FTGlyph::FTGlyph( FT_GlyphSlot glyph, bool useList)

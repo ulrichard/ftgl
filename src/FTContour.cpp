@@ -1,3 +1,5 @@
+#include "config.h"
+
 #include "FTContour.h"
 
 static const float BEZIER_STEP_SIZE = 0.2f;

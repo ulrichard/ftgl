@@ -24,37 +24,38 @@ libftgl_la_SOURCES = \
 	FTSize.cpp \
 	FTTextureGlyph.cpp \
 	FTVectoriser.cpp \
-	$(NULL)
+	$(ftgl_HEADERS)
 libftgl_la_CPPFLAGS = -I$(top_srcdir)/include
 libftgl_la_CXXFLAGS = $(FT2_CFLAGS) $(GL_CFLAGS)
 libftgl_la_LDFLAGS = $(FT2_LIBS) $(GL_LIBS)
 
-headers = \
-	FTBBox.h \
-	FTBitmapGlyph.h \
-	FTCharToGlyphIndexMap.h \
-	FTCharmap.h \
-	FTContour.h \
-	FTExtrdGlyph.h \
-	FTFace.h \
-	FTFont.h \
-	FTGL.h \
-	FTGLBitmapFont.h \
-	FTGLExtrdFont.h \
-	FTGLOutlineFont.h \
-	FTGLPixmapFont.h \
-	FTGLPolygonFont.h \
-	FTGLTextureFont.h \
-	FTGlyph.h \
-	FTGlyphContainer.h \
-	FTLibrary.h \
-	FTList.h \
-	FTOutlineGlyph.h \
-	FTPixmapGlyph.h \
-	FTPoint.h \
-	FTPolyGlyph.h \
-	FTSize.h \
-	FTTextureGlyph.h \
-	FTVector.h \
-	FTVectoriser.h
+ftgldir = $(includedir)/FTGL
+ftgl_HEADERS = \
+	../include/FTBBox.h \
+	../include/FTBitmapGlyph.h \
+	../include/FTCharToGlyphIndexMap.h \
+	../include/FTCharmap.h \
+	../include/FTContour.h \
+	../include/FTExtrdGlyph.h \
+	../include/FTFace.h \
+	../include/FTFont.h \
+	../include/FTGL.h \
+	../include/FTGLBitmapFont.h \
+	../include/FTGLExtrdFont.h \
+	../include/FTGLOutlineFont.h \
+	../include/FTGLPixmapFont.h \
+	../include/FTGLPolygonFont.h \
+	../include/FTGLTextureFont.h \
+	../include/FTGlyph.h \
+	../include/FTGlyphContainer.h \
+	../include/FTLibrary.h \
+	../include/FTList.h \
+	../include/FTOutlineGlyph.h \
+	../include/FTPixmapGlyph.h \
+	../include/FTPoint.h \
+	../include/FTPolyGlyph.h \
+	../include/FTSize.h \
+	../include/FTTextureGlyph.h \
+	../include/FTVector.h \
+	../include/FTVectoriser.h
 
