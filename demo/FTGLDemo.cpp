@@ -40,7 +40,7 @@
 #define FTGL_EXTRUDE 4
 #define FTGL_TEXTURE 5
 
-char* fontfile = FONT_FILE;
+char const* fontfile = FONT_FILE;
 int current_font = FTGL_EXTRUDE;
 
 GLint w_win = 640, h_win = 480;
