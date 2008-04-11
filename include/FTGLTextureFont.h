@@ -1,6 +1,8 @@
 #ifndef     __FTGLTextureFont__
 #define     __FTGLTextureFont__
 
+#ifdef __cplusplus
+
 #include "FTFont.h"
 #include "FTVector.h"
 #include "FTGL.h"
@@ -145,7 +147,19 @@ class  FTGL_EXPORT FTGLTextureFont : public FTFont
 
 };
 
+#endif //__cplusplus
+
+#ifdef __cplusplus
+extern "C" {
+namespace C {
+#endif
+FTGL_EXPORT FTGLfont *ftglTextureFontMake(const char *fontname);
+#ifdef __cplusplus
+}
+}
+#endif
 
 #endif // __FTGLTextureFont__
+
 
 

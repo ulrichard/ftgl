@@ -16,6 +16,7 @@ libftgl_la_SOURCES = \
 	FTGLTextureFont.cpp \
 	FTGlyph.cpp \
 	FTGlyphContainer.cpp \
+	FTGlue.cpp \
 	FTLibrary.cpp \
 	FTOutlineGlyph.cpp \
 	FTPixmapGlyph.cpp \
@@ -58,4 +59,5 @@ ftgl_HEADERS = \
 	../include/FTTextureGlyph.h \
 	../include/FTVector.h \
 	../include/FTVectoriser.h
+
 

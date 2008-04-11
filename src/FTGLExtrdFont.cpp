@@ -1,4 +1,5 @@
 #include "config.h"
+#include "FTInternals.h"
 
 #include "FTGLExtrdFont.h"
 #include "FTExtrdGlyph.h"
@@ -34,4 +35,17 @@ FTGlyph* FTGLExtrdFont::MakeGlyph( unsigned int glyphIndex)
     return NULL;
 }
 
+#ifdef __cplusplus
+extern "C" {
+namespace C {
+#endif
+extern "C" FTGLfont* ftglExtrdFontMake(const char *fontname)
+{
+    FTGLfont *ftgl = createFTFont(Extrude, fontname);
+    return ftgl;
+}
+#ifdef __cplusplus
+}
+}
+#endif
 

@@ -1,6 +1,8 @@
 #ifndef __FTGLBitmapFont__
 #define __FTGLBitmapFont__
 
+#ifdef __cplusplus
+
 #include "FTFont.h"
 #include "FTGL.h"
 
@@ -62,4 +64,17 @@ class FTGL_EXPORT FTGLBitmapFont : public FTFont
         inline virtual FTGlyph* MakeGlyph( unsigned int g);
                 
 };
+#endif //__cplusplus
+
+#ifdef __cplusplus
+extern "C" {
+namespace C {
+#endif
+FTGL_EXPORT FTGLfont *ftglBitmapFontMake(const char *fontname);
+#ifdef __cplusplus
+}
+}
+#endif
+
 #endif  //  __FTGLBitmapFont__
+

@@ -1,6 +1,7 @@
 #ifndef     __FTGLPixmapFont__
 #define     __FTGLPixmapFont__
 
+#ifdef __cplusplus
 
 #include "FTFont.h"
 #include "FTGL.h"
@@ -63,6 +64,17 @@ class FTGL_EXPORT FTGLPixmapFont : public FTFont
         
 };
 
+#endif //__cplusplus
+
+#ifdef __cplusplus
+extern "C" {
+namespace C {
+#endif
+FTGL_EXPORT FTGLfont *ftglPixmapFontMake(const char *fontname);
+#ifdef __cplusplus
+}
+}
+#endif
 
 #endif  //  __FTGLPixmapFont__
 

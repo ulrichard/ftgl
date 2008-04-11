@@ -1,4 +1,5 @@
 #include "config.h"
+#include "FTInternals.h"
 
 #include "FTGLPixmapFont.h"
 #include "FTPixmapGlyph.h"
@@ -82,4 +83,17 @@ void FTGLPixmapFont::Render( const wchar_t* string)
     glPopAttrib();
 }
 
+#ifdef __cplusplus
+extern "C" {
+namespace C {
+#endif
+extern "C" FTGLfont* ftglPixmapFontMake(const char *fontname)
+{
+    FTGLfont *ftgl = createFTFont(Pixmap, fontname);
+    return ftgl;
+}
+#ifdef __cplusplus
+}
+}
+#endif
 

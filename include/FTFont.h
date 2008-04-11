@@ -2,7 +2,10 @@
 #define    __FTFont__
 
 #include <ft2build.h>
+
 #include FT_FREETYPE_H
+
+#ifdef __cplusplus
 
 #include "FTFace.h"
 #include "FTGL.h"
@@ -271,6 +274,44 @@ class FTGL_EXPORT FTFont
         
 };
 
+#endif //__cplusplus
+
+#ifdef __cplusplus
+extern "C" {
+namespace C {
+#endif
+
+typedef struct FTGLfont FTGLfont;
+
+FTGL_EXPORT int ftglAttachFile (FTGLfont*, const char*);
+FTGL_EXPORT int ftglAttachData (FTGLfont*, const unsigned char *, size_t);
+
+FTGL_EXPORT int          ftglCharMap      (FTGLfont*, FT_Encoding);
+FTGL_EXPORT unsigned int ftglCharMapCount (FTGLfont*);
+FTGL_EXPORT FT_Encoding* CharMapList      (FTGLfont*);
+
+FTGL_EXPORT int          ftglSetFaceSize    (FTGLfont*, unsigned int );
+FTGL_EXPORT int          ftglSetFaceSizeRes (FTGLfont*,
+                                             unsigned int, unsigned int);
+FTGL_EXPORT unsigned int ftglGetFaceSize    (FTGLfont*);
+FTGL_EXPORT void         ftglSetDepth       (FTGLfont*, float);
+
+FTGL_EXPORT void ftglUseDisplayList (FTGLfont*, int);
+
+FTGL_EXPORT float ftglAscender   (FTGLfont*);
+FTGL_EXPORT float ftglDescender  (FTGLfont*);
+FTGL_EXPORT float ftglLineHeight (FTGLfont*);
+FTGL_EXPORT void  ftglBBox       (FTGLfont*, const char *, float[]);
+FTGL_EXPORT float ftglAdvance    (FTGLfont*, const char *);
+FTGL_EXPORT void  ftglRender     (FTGLfont*, const char *);
+
+FTGL_EXPORT FT_Error ftglError(FTGLfont*);
+
+#ifdef __cplusplus
+}
+}
+#endif
 
 #endif  //  __FTFont__
+
 

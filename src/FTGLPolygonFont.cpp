@@ -1,4 +1,5 @@
 #include "config.h"
+#include "FTInternals.h"
 
 #include "FTGLPolygonFont.h"
 #include "FTPolyGlyph.h"
@@ -32,4 +33,17 @@ FTGlyph* FTGLPolygonFont::MakeGlyph( unsigned int g)
     return NULL;
 }
 
+#ifdef __cplusplus
+extern "C" {
+namespace C {
+#endif
+extern "C" FTGLfont* ftglPolygonFontMake(const char *fontname)
+{
+    FTGLfont *ftgl = createFTFont(Polygon, fontname);
+    return ftgl;
+}
+#ifdef __cplusplus
+}
+}
+#endif
 

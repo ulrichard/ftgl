@@ -1,6 +1,7 @@
 #ifndef     __FTGLOutlineFont__
 #define     __FTGLOutlineFont__
 
+#ifdef __cplusplus
 
 #include "FTFont.h"
 #include "FTGL.h"
@@ -61,4 +62,19 @@ class FTGL_EXPORT FTGLOutlineFont : public FTFont
         inline virtual FTGlyph* MakeGlyph( unsigned int g);
         
 };
+
+#endif //__cplusplus
+
+#ifdef __cplusplus
+namespace C {
+extern "C" {
+#endif
+
+FTGL_EXPORT FTGLfont *ftglOutlineFontMake(const char *fontname);
+
+#ifdef __cplusplus
+}
+}
+#endif
+
 #endif // __FTGLOutlineFont__

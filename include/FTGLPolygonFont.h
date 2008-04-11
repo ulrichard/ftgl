@@ -1,6 +1,7 @@
 #ifndef     __FTGLPolygonFont__
 #define     __FTGLPolygonFont__
 
+#ifdef __cplusplus
 
 #include "FTFont.h"
 #include "FTGL.h"
@@ -48,6 +49,17 @@ class FTGL_EXPORT FTGLPolygonFont : public FTFont
         
 };
 
+#endif //__cplusplus
+
+#ifdef __cplusplus
+extern "C" {
+namespace C {
+#endif
+FTGL_EXPORT FTGLfont *ftglPolygonFontMake(const char *fontname);
+#ifdef __cplusplus
+}
+}
+#endif
 
 #endif  //  __FTGLPolygonFont__
 

@@ -1,8 +1,11 @@
 #ifndef __FTGLExtrdFont__
 #define __FTGLExtrdFont__
 
+#ifdef __cplusplus
+
 #include "FTFont.h"
 #include "FTGL.h"
+
 
 class FTGlyph;
 
@@ -58,6 +61,17 @@ class FTGL_EXPORT FTGLExtrdFont : public FTFont
         float depth;
 };
 
+#endif //__cplusplus
+
+#ifdef __cplusplus
+extern "C" {
+namespace C {
+#endif
+FTGL_EXPORT FTGLfont *ftglExtrdFontMake(const char *fontname);
+#ifdef __cplusplus
+}
+}
+#endif
 
 #endif	//	__FTGLExtrdFont__
 

@@ -1,4 +1,5 @@
 #include "config.h"
+#include    "FTInternals.h"
 
 #include "FTGLOutlineFont.h"
 #include "FTOutlineGlyph.h"
@@ -66,3 +67,16 @@ void FTGLOutlineFont::Render( const wchar_t* string)
     glPopAttrib();
 }
 
+#ifdef __cplusplus
+extern "C" {
+namespace C {
+#endif
+extern "C" FTGLfont* ftglOutlineFontMake(const char *fontname)
+{
+    FTGLfont *ftgl = createFTFont(Outline, fontname);
+    return ftgl;
+}
+#ifdef __cplusplus
+}
+}
+#endif
