@@ -40,7 +40,7 @@ Windows port by Andrew Ellerton & Max Rheiner.
 Bug fixes by Robert Osfield, Marcelo E. Magallon, Markku Rontu, Mark A. Fox,
 Patrick Rogers, Kai Huettemann.
 Containers and optimisations by Sebastien Barre.
-Autoconf Marcelo E. Magallon.
+Autoconf Marcelo E. Magallon <mmagallo@debian.org>
 Pixmap font modifications by Robert Bell.
 
 Please contact me if you have any suggestions, feature requests, or problems.
