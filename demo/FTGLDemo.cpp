@@ -408,7 +408,7 @@ void parsekey(unsigned char key, int x, int y)
 			{
 				myString[carat] = key;
 				myString[carat + 1] = 0;
-				carat = carat > 14 ? 14 : ++carat;
+				carat = carat > 14 ? 14 : carat + 1;
 			}
 	}
 	
