@@ -10,10 +10,10 @@ DISTCLEANFILES = ftgl.pc
 
 EXTRA_DIST = \
     bootstrap \
-    COPYING.txt \
+    COPYING.MIT \
+    COPYING.LGPL \
     HISTORY.txt \
     INSTALL.txt \
-    license.txt \
     README.txt \
     $(NULL)
 
