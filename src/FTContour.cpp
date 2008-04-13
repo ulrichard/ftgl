@@ -87,17 +87,18 @@ FTContour::FTContour(FT_Vector* contour, char* tags, unsigned int n)
     {
         if(tags[i] == FT_Curve_Tag_On || n < 2)
         {
-            AddPoint(contour[i]);
+            AddPoint(FTPoint(contour[i]));
             continue;
         }
 
         FTPoint cur(contour[i]);
-        FTPoint prev = (0 == i)
+        FTPoint prev = (pointList.size() == 0 || i == 0)
                        ? FTPoint(contour[n - 1])
                        : pointList[pointList.size() - 1];
-
         FTPoint next = (i == n - 1)
-                       ? pointList[0]
+                       ? (pointList.size() == 0)
+                         ? FTPoint(contour[0])
+                         : pointList[0]
                        : FTPoint(contour[i + 1]);
 
         if(tags[i] == FT_Curve_Tag_Conic)
