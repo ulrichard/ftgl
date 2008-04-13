@@ -28,70 +28,70 @@ class FTFaceTest : public CppUnit::TestCase
         void testOpenFace()
         {
             FTFace face1( BAD_FONT_FILE);
-            CPPUNIT_ASSERT( face1.Error() == 0x06);
+            CPPUNIT_ASSERT_EQUAL( face1.Error(), 0x06);
         
             FTFace face2( GOOD_FONT_FILE);
-            CPPUNIT_ASSERT( face2.Error() == 0);        
+            CPPUNIT_ASSERT_EQUAL( face2.Error(), 0);        
         }
         
         
         void testOpenFaceFromMemory()
         {
             FTFace face1( (unsigned char*)100, 0);
-            CPPUNIT_ASSERT( face1.Error() == 0x02);
+            CPPUNIT_ASSERT_EQUAL( face1.Error(), 0x02);
         
             FTFace face2( HPGCalc_pfb.dataBytes, HPGCalc_pfb.numBytes);
-            CPPUNIT_ASSERT( face2.Error() == 0);        
+            CPPUNIT_ASSERT_EQUAL( face2.Error(), 0);        
         }
         
         
         void testAttachFile()
         {
             CPPUNIT_ASSERT( !testFace->Attach( TYPE1_AFM_FILE));
-            CPPUNIT_ASSERT( testFace->Error() == 0x07); // unimplemented feature
+            CPPUNIT_ASSERT_EQUAL( testFace->Error(), 0x07); // unimplemented feature
         
             FTFace test( TYPE1_FONT_FILE);
-            CPPUNIT_ASSERT( test.Error() == 0);
+            CPPUNIT_ASSERT_EQUAL( test.Error(), 0);
         
             CPPUNIT_ASSERT( test.Attach( TYPE1_AFM_FILE));
-            CPPUNIT_ASSERT( test.Error() == 0);
+            CPPUNIT_ASSERT_EQUAL( test.Error(), 0);
         }
         
         
         void testAttachMemoryData()
         {
             CPPUNIT_ASSERT( !testFace->Attach((unsigned char*)100, 0));
-            CPPUNIT_ASSERT( testFace->Error() == 0x07); // unimplemented feature
+            CPPUNIT_ASSERT_EQUAL( testFace->Error(), 0x07); // unimplemented feature
         
             FTFace test( TYPE1_FONT_FILE);
-            CPPUNIT_ASSERT( test.Error() == 0);
+            CPPUNIT_ASSERT_EQUAL( test.Error(), 0);
         
             CPPUNIT_ASSERT( test.Attach( HPGCalc_afm.dataBytes, HPGCalc_afm.numBytes));
-            CPPUNIT_ASSERT( test.Error() == 0);
+            CPPUNIT_ASSERT_EQUAL( test.Error(), 0);
         }
         
         
         void testGlyphCount()
         {
-            CPPUNIT_ASSERT( testFace->GlyphCount() == 14099);        
+            CPPUNIT_ASSERT_EQUAL( testFace->GlyphCount(), 14099U);
         }
         
         
         void testSetFontSize()
         {
             FTSize size = testFace->Size( FONT_POINT_SIZE, RESOLUTION);
-            CPPUNIT_ASSERT( testFace->Error() == 0);
+            CPPUNIT_ASSERT_EQUAL( testFace->Error(), 0);
         }
         
 
         void testGetCharmapList()
         {
-            CPPUNIT_ASSERT( testFace->CharMapCount() == 2);
+            CPPUNIT_ASSERT_EQUAL( testFace->CharMapCount(), 2U);
             
             FT_Encoding* charmapList = testFace->CharMapList();
             
-            CPPUNIT_ASSERT( charmapList[0] == ft_encoding_unicode);
-            CPPUNIT_ASSERT( charmapList[1] == ft_encoding_adobe_standard);
+            CPPUNIT_ASSERT_EQUAL( charmapList[0], ft_encoding_unicode);
+            CPPUNIT_ASSERT_EQUAL( charmapList[1], ft_encoding_adobe_standard);
         }
         
         
@@ -99,14 +99,14 @@ class FTFaceTest : public CppUnit::TestCase
         {
             FTFace test(ARIAL_FONT_FILE);
             FTPoint kerningVector = test.KernAdvance( 'A', 'A');
-            CPPUNIT_ASSERT( kerningVector.X() == 0);
-            CPPUNIT_ASSERT( kerningVector.Y() == 0);
-            CPPUNIT_ASSERT( kerningVector.Z() == 0);
+            CPPUNIT_ASSERT_EQUAL( kerningVector.X(), 0.);
+            CPPUNIT_ASSERT_EQUAL( kerningVector.Y(), 0.);
+            CPPUNIT_ASSERT_EQUAL( kerningVector.Z(), 0.);
         
             kerningVector = test.KernAdvance( 0x6FB3, 0x9580);
-            CPPUNIT_ASSERT( kerningVector.X() == 0);
-            CPPUNIT_ASSERT( kerningVector.Y() == 0);
-            CPPUNIT_ASSERT( kerningVector.Z() == 0);
+            CPPUNIT_ASSERT_EQUAL( kerningVector.X(), 0.);
+            CPPUNIT_ASSERT_EQUAL( kerningVector.Y(), 0.);
+            CPPUNIT_ASSERT_EQUAL( kerningVector.Z(), 0.);
         }
         
         

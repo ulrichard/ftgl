@@ -39,10 +39,13 @@ class FTGlyphTest : public CppUnit::TestCase
             FTPoint testPoint;
 
             CPPUNIT_ASSERT( testPoint == testGlyph.Advance());
+            CPPUNIT_ASSERT_EQUAL( testPoint.X(), testGlyph.Advance().X());
+            CPPUNIT_ASSERT_EQUAL( testPoint.Y(), testGlyph.Advance().Y());
+            CPPUNIT_ASSERT_EQUAL( testPoint.Z(), testGlyph.Advance().Z());
 
             CPPUNIT_ASSERT_DOUBLES_EQUAL( 0, testGlyph.BBox().upperY, 0.01);
         
-            CPPUNIT_ASSERT( testGlyph.Error() == 0);
+            CPPUNIT_ASSERT_EQUAL( testGlyph.Error(), 0);
         }
         
                 
@@ -51,9 +54,12 @@ class FTGlyphTest : public CppUnit::TestCase
             setUpFreetype( CHARACTER_CODE_A);
             TestGlyph testGlyph(face->glyph);
             
-            FTPoint testPoint(47.0f, 0.0f, 0.0f);
-            
-            CPPUNIT_ASSERT( testPoint == testGlyph.Advance());
+            FTPoint testPoint(47.0, 0.0, 0.0);
+            FTPoint nextPoint = testGlyph.Advance();
+            CPPUNIT_ASSERT( testPoint == nextPoint);
+            CPPUNIT_ASSERT_DOUBLES_EQUAL( testPoint.X(), nextPoint.X(), 0.0001);
+            CPPUNIT_ASSERT_DOUBLES_EQUAL( testPoint.Y(), nextPoint.Y(), 0.0001);
+            CPPUNIT_ASSERT_DOUBLES_EQUAL( testPoint.Z(), nextPoint.Z(), 0.0001);
 
             CPPUNIT_ASSERT_DOUBLES_EQUAL( 51.39, testGlyph.BBox().upperY, 0.01);
         

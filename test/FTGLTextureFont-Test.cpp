@@ -34,8 +34,8 @@ class FTGLTextureFontTest : public CppUnit::TestCase
             buildGLContext();
         
             FTGLTextureFont* textureFont = new FTGLTextureFont( FONT_FILE);            
-            CPPUNIT_ASSERT( textureFont->Error() == 0);            
-            CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);        
+            CPPUNIT_ASSERT_EQUAL( textureFont->Error(), 0);            
+            CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());        
         }
 
         void testResizeBug()
@@ -43,7 +43,7 @@ class FTGLTextureFontTest : public CppUnit::TestCase
             buildGLContext();
         
             FTGLTextureFont* textureFont = new FTGLTextureFont( FONT_FILE);            
-            CPPUNIT_ASSERT( textureFont->Error() == 0);
+            CPPUNIT_ASSERT_EQUAL( textureFont->Error(), 0);
             
             textureFont->FaceSize(18);
             textureFont->Render("first");
@@ -51,7 +51,7 @@ class FTGLTextureFontTest : public CppUnit::TestCase
             textureFont->FaceSize(38);
             textureFont->Render("second");
             
-            CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);        
+            CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());        
         }
 
         void testRender()
@@ -61,14 +61,14 @@ class FTGLTextureFontTest : public CppUnit::TestCase
             FTGLTextureFont* textureFont = new FTGLTextureFont( FONT_FILE);            
 
             textureFont->Render(GOOD_ASCII_TEST_STRING);
-            CPPUNIT_ASSERT( textureFont->Error() == 0x97);   // Invalid pixels per em       
-            CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);        
+            CPPUNIT_ASSERT_EQUAL( textureFont->Error(), 0x97);   // Invalid pixels per em       
+            CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());        
 
             textureFont->FaceSize(18);
             textureFont->Render(GOOD_ASCII_TEST_STRING);
 
-            CPPUNIT_ASSERT( textureFont->Error() == 0);        
-            CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);        
+            CPPUNIT_ASSERT_EQUAL( textureFont->Error(), 0);        
+            CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());        
         }
 
         void testDisplayList()
@@ -85,7 +85,7 @@ class FTGLTextureFontTest : public CppUnit::TestCase
 
             glEndList();
 
-            CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);
+            CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());
         }
         
         void setUp() 

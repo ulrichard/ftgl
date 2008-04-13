@@ -34,9 +34,9 @@ class FTGLOutlineFontTest : public CppUnit::TestCase
             buildGLContext();
         
             FTGLOutlineFont* outlineFont = new FTGLOutlineFont( FONT_FILE);            
-            CPPUNIT_ASSERT( outlineFont->Error() == 0);
+            CPPUNIT_ASSERT_EQUAL( outlineFont->Error(), 0);
         
-            CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);        
+            CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());        
         }
         
         void testRender()
@@ -46,14 +46,14 @@ class FTGLOutlineFontTest : public CppUnit::TestCase
             FTGLOutlineFont* outlineFont = new FTGLOutlineFont( FONT_FILE);            
             outlineFont->Render(GOOD_ASCII_TEST_STRING);
 
-            CPPUNIT_ASSERT( outlineFont->Error() == 0x97);   // Invalid pixels per em
-            CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);        
+            CPPUNIT_ASSERT_EQUAL( outlineFont->Error(), 0x97);   // Invalid pixels per em
+            CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());        
 
             outlineFont->FaceSize(18);
             outlineFont->Render(GOOD_ASCII_TEST_STRING);
 
-            CPPUNIT_ASSERT( outlineFont->Error() == 0);        
-            CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);        
+            CPPUNIT_ASSERT_EQUAL( outlineFont->Error(), 0);        
+            CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());        
         }
 
         void testBadDisplayList()
@@ -70,7 +70,7 @@ class FTGLOutlineFontTest : public CppUnit::TestCase
 
             glEndList();
 
-            CPPUNIT_ASSERT( glGetError() == GL_INVALID_OPERATION);
+            CPPUNIT_ASSERT_EQUAL( (int)glGetError(), GL_INVALID_OPERATION);
         }
         
         void testGoodDisplayList()
@@ -88,7 +88,7 @@ class FTGLOutlineFontTest : public CppUnit::TestCase
 
             glEndList();
 
-            CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);
+            CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());
         }
         
         void setUp() 

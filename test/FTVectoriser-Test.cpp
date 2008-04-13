@@ -286,9 +286,9 @@ class FTVectoriserTest : public CppUnit::TestCase
             
             // If you hit these asserts then you have the wrong library version to run the tests.
             // You can still run the tests but some will fail because the hinter changed in 2.1.4 
-            CPPUNIT_ASSERT( major == 2);
-            CPPUNIT_ASSERT( minor == 1);
-            CPPUNIT_ASSERT( patch >= 4);
+            CPPUNIT_ASSERT_EQUAL(2, major);
+            CPPUNIT_ASSERT_EQUAL(1, minor);
+            CPPUNIT_ASSERT(4 <= patch);
 
             tearDownFreetype();
         }
@@ -297,7 +297,7 @@ class FTVectoriserTest : public CppUnit::TestCase
         void testNullGlyphProcess()
         {
             FTVectoriser vectoriser( NULL);
-            CPPUNIT_ASSERT( vectoriser.ContourCount() == 0);
+            CPPUNIT_ASSERT_EQUAL((size_t)0, vectoriser.ContourCount());
         }
         
         
@@ -306,7 +306,7 @@ class FTVectoriserTest : public CppUnit::TestCase
             setUpFreetype( NULL_CHARACTER_INDEX);
             
             FTVectoriser vectoriser( face->glyph);
-            CPPUNIT_ASSERT( vectoriser.ContourCount() == 0);
+            CPPUNIT_ASSERT_EQUAL((size_t)0, vectoriser.ContourCount());
             
             tearDownFreetype();
         }
@@ -318,8 +318,8 @@ class FTVectoriserTest : public CppUnit::TestCase
             
             FTVectoriser vectoriser( face->glyph);
 
-            CPPUNIT_ASSERT( vectoriser.ContourCount() == 2);
-            CPPUNIT_ASSERT( vectoriser.PointCount() == 8);
+            CPPUNIT_ASSERT_EQUAL((size_t)2, vectoriser.ContourCount());
+            CPPUNIT_ASSERT_EQUAL((size_t)8, vectoriser.PointCount());
             
             tearDownFreetype();
         }
@@ -331,8 +331,8 @@ class FTVectoriserTest : public CppUnit::TestCase
             
             FTVectoriser vectoriser( face->glyph);
 
-            CPPUNIT_ASSERT( vectoriser.ContourCount() == 2);
-            CPPUNIT_ASSERT( vectoriser.PointCount() == 91);
+            CPPUNIT_ASSERT_EQUAL((size_t)2, vectoriser.ContourCount());
+            CPPUNIT_ASSERT_EQUAL((size_t)91, vectoriser.PointCount());
             
             tearDownFreetype();
         }
@@ -398,17 +398,17 @@ class FTVectoriserTest : public CppUnit::TestCase
             int d = 0;
             const FTMesh* mesh = vectoriser.GetMesh();
             unsigned int tesselations = mesh->TesselationCount();
-            CPPUNIT_ASSERT( tesselations == 14);
+            CPPUNIT_ASSERT_EQUAL(14U, tesselations);
             
             for( unsigned int index = 0; index < tesselations; ++index)
             {
                 const FTTesselation* subMesh = mesh->Tesselation( index);
                 
                 unsigned int polyType = subMesh->PolygonType();
-                CPPUNIT_ASSERT( testMeshPolygonTypes[index] == polyType);
+                CPPUNIT_ASSERT_EQUAL( testMeshPolygonTypes[index], polyType);
                 
                 unsigned int numberOfVertices = subMesh->PointCount();
-                CPPUNIT_ASSERT( testMeshPointCount[index] == numberOfVertices);
+                CPPUNIT_ASSERT_EQUAL( testMeshPointCount[index], numberOfVertices);
 
                 for( unsigned int x = 0; x < numberOfVertices; ++x)
                 {

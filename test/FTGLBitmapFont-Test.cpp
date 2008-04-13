@@ -34,9 +34,9 @@ class FTGLBitmapFontTest : public CppUnit::TestCase
             buildGLContext();
         
             FTGLBitmapFont* bitmapFont = new FTGLBitmapFont( FONT_FILE);            
-            CPPUNIT_ASSERT( bitmapFont->Error() == 0);
+            CPPUNIT_ASSERT_EQUAL( bitmapFont->Error(), 0);
         
-            CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);        
+            CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());        
         }
 
         void testRender()
@@ -46,14 +46,14 @@ class FTGLBitmapFontTest : public CppUnit::TestCase
             FTGLBitmapFont* bitmapFont = new FTGLBitmapFont( FONT_FILE);            
             bitmapFont->Render(GOOD_ASCII_TEST_STRING);
 
-            CPPUNIT_ASSERT( bitmapFont->Error() == 0);        
-            CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);        
+            CPPUNIT_ASSERT_EQUAL( bitmapFont->Error(), 0);        
+            CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());        
 
             bitmapFont->FaceSize(18);
             bitmapFont->Render(GOOD_ASCII_TEST_STRING);
 
-            CPPUNIT_ASSERT( bitmapFont->Error() == 0);        
-            CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);        
+            CPPUNIT_ASSERT_EQUAL( bitmapFont->Error(), 0);        
+            CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());        
         }
         
         
@@ -93,7 +93,7 @@ class FTGLBitmapFontTest : public CppUnit::TestCase
 
             glEndList();
 
-            CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);
+            CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());
         }
         
         void setUp() 

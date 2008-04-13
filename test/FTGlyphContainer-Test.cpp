@@ -62,17 +62,17 @@ class FTGlyphContainerTest : public CppUnit::TestCase
         void testSetCharMap()
         {
             CPPUNIT_ASSERT( glyphContainer->CharMap( ft_encoding_unicode));
-            CPPUNIT_ASSERT( glyphContainer->Error() == 0);
+            CPPUNIT_ASSERT_EQUAL( glyphContainer->Error(), 0);
     
             CPPUNIT_ASSERT( !glyphContainer->CharMap( ft_encoding_johab));
-            CPPUNIT_ASSERT( glyphContainer->Error() == 0x06); // invalid argument
+            CPPUNIT_ASSERT_EQUAL( glyphContainer->Error(), 0x06); // invalid argument
         }
 
 
         void testGlyphIndex()
         {
-            CPPUNIT_ASSERT( glyphContainer->FontIndex( CHARACTER_CODE_A) == FONT_INDEX_OF_A);
-            CPPUNIT_ASSERT( glyphContainer->FontIndex( BIG_CHARACTER_CODE) == BIG_FONT_INDEX);
+            CPPUNIT_ASSERT_EQUAL( glyphContainer->FontIndex( CHARACTER_CODE_A), FONT_INDEX_OF_A);
+            CPPUNIT_ASSERT_EQUAL( glyphContainer->FontIndex( BIG_CHARACTER_CODE), BIG_FONT_INDEX);
         }
 
 

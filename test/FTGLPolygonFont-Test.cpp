@@ -34,9 +34,9 @@ class FTGLPolygonFontTest : public CppUnit::TestCase
             buildGLContext();
         
             FTGLPolygonFont* polygonFont = new FTGLPolygonFont( FONT_FILE);            
-            CPPUNIT_ASSERT( polygonFont->Error() == 0);
+            CPPUNIT_ASSERT_EQUAL( polygonFont->Error(), 0);
         
-            CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);        
+            CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());        
         }
 
         void testRender()
@@ -47,14 +47,14 @@ class FTGLPolygonFontTest : public CppUnit::TestCase
 
             polygonFont->Render(GOOD_ASCII_TEST_STRING);
 
-            CPPUNIT_ASSERT( polygonFont->Error() == 0x97);   // Invalid pixels per em       
-            CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);        
+            CPPUNIT_ASSERT_EQUAL( polygonFont->Error(), 0x97);   // Invalid pixels per em       
+            CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());        
 
             polygonFont->FaceSize(18);
             polygonFont->Render(GOOD_ASCII_TEST_STRING);
 
-            CPPUNIT_ASSERT( polygonFont->Error() == 0);        
-            CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);        
+            CPPUNIT_ASSERT_EQUAL( polygonFont->Error(), 0);        
+            CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());        
         }
 
         void testBadDisplayList()
@@ -71,7 +71,7 @@ class FTGLPolygonFontTest : public CppUnit::TestCase
 
             glEndList();
 
-            CPPUNIT_ASSERT( glGetError() == GL_INVALID_OPERATION);
+            CPPUNIT_ASSERT_EQUAL( (int)glGetError(), GL_INVALID_OPERATION);
         }
         
         void testGoodDisplayList()
@@ -89,7 +89,7 @@ class FTGLPolygonFontTest : public CppUnit::TestCase
 
             glEndList();
 
-            CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);
+            CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());
         }
         
         void setUp() 

@@ -34,9 +34,9 @@ class FTGLExtrdFontTest : public CppUnit::TestCase
             buildGLContext();
         
             FTGLExtrdFont* extrudedFont = new FTGLExtrdFont( FONT_FILE);            
-            CPPUNIT_ASSERT( extrudedFont->Error() == 0);
+            CPPUNIT_ASSERT_EQUAL( extrudedFont->Error(), 0);
         
-            CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);        
+            CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());        
         }
 
         void testRender()
@@ -46,14 +46,14 @@ class FTGLExtrdFontTest : public CppUnit::TestCase
             FTGLExtrdFont* extrudedFont = new FTGLExtrdFont( FONT_FILE);            
             extrudedFont->Render(GOOD_ASCII_TEST_STRING);
 
-            CPPUNIT_ASSERT( extrudedFont->Error() == 0x97);   // Invalid pixels per em
-            CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);        
+            CPPUNIT_ASSERT_EQUAL( extrudedFont->Error(), 0x97);   // Invalid pixels per em
+            CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());        
 
             extrudedFont->FaceSize(18);
             extrudedFont->Render(GOOD_ASCII_TEST_STRING);
 
-            CPPUNIT_ASSERT( extrudedFont->Error() == 0);        
-            CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);        
+            CPPUNIT_ASSERT_EQUAL( extrudedFont->Error(), 0);        
+            CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());        
         }
         
         void testBadDisplayList()
@@ -70,7 +70,7 @@ class FTGLExtrdFontTest : public CppUnit::TestCase
 
             glEndList();
 
-            CPPUNIT_ASSERT( glGetError() == GL_INVALID_OPERATION);
+            CPPUNIT_ASSERT_EQUAL( (int)glGetError(), GL_INVALID_OPERATION);
         }
         
         void testGoodDisplayList()
@@ -88,7 +88,7 @@ class FTGLExtrdFontTest : public CppUnit::TestCase
 
             glEndList();
 
-            CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);
+            CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());
         }
         
         void setUp() 
