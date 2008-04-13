@@ -7,6 +7,8 @@
 #include "Fontdefs.h"
 #include "FTBitmapGlyph.h"
 
+extern void buildGLContext();
+
 class FTBitmapGlyphTest : public CppUnit::TestCase
 {
     CPPUNIT_TEST_SUITE( FTBitmapGlyphTest);
@@ -29,6 +31,8 @@ class FTBitmapGlyphTest : public CppUnit::TestCase
         {
             setUpFreetype();
             
+            buildGLContext();
+
             FTBitmapGlyph* bitmapGlyph = new FTBitmapGlyph( face->glyph);            
             CPPUNIT_ASSERT( bitmapGlyph->Error() == 0);
         
@@ -41,6 +45,8 @@ class FTBitmapGlyphTest : public CppUnit::TestCase
         {
             setUpFreetype();
             
+            buildGLContext();
+
             FTBitmapGlyph* bitmapGlyph = new FTBitmapGlyph( face->glyph);            
             CPPUNIT_ASSERT( bitmapGlyph->Error() == 0);
             bitmapGlyph->Render(FTPoint( 0, 0, 0));
