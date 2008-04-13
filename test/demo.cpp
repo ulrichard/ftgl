@@ -13,7 +13,7 @@
 #include "FTGLTextureFont.h"
 #include "FTGLPixmapFont.h"
 
-#include "mmgr.h"
+//#include "mmgr.h"
 
 static FTFont* fonts[5];
 static int width;
