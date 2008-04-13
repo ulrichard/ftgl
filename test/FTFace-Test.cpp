@@ -14,12 +14,9 @@ class FTFaceTest : public CppUnit::TestCase
         CPPUNIT_TEST( testOpenFaceFromMemory);
         CPPUNIT_TEST( testAttachFile);
         CPPUNIT_TEST( testAttachMemoryData);
-        CPPUNIT_TEST( testGetFontTable);
         CPPUNIT_TEST( testGlyphCount);
         CPPUNIT_TEST( testSetFontSize);
-        CPPUNIT_TEST( testUnitPerEMSquare);
-        CPPUNIT_TEST( testSetCharMap);
-        CPPUNIT_TEST( testCharacterIndex);
+        CPPUNIT_TEST( testGetCharmapList);
         CPPUNIT_TEST( testKerning);
     CPPUNIT_TEST_SUITE_END();
 
@@ -31,101 +28,85 @@ class FTFaceTest : public CppUnit::TestCase
         void testOpenFace()
         {
             FTFace face1( BAD_FONT_FILE);
-            CPPUNIT_ASSERT( face1.Error() == 1);        
+            CPPUNIT_ASSERT_EQUAL( face1.Error(), 0x06);
         
             FTFace face2( GOOD_FONT_FILE);
-            CPPUNIT_ASSERT( face2.Error() == 0);        
+            CPPUNIT_ASSERT_EQUAL( face2.Error(), 0);        
         }
         
         
         void testOpenFaceFromMemory()
         {
             FTFace face1( (unsigned char*)100, 0);
-            CPPUNIT_ASSERT( face1.Error() == 85);        
+            CPPUNIT_ASSERT_EQUAL( face1.Error(), 0x02);
         
             FTFace face2( HPGCalc_pfb.dataBytes, HPGCalc_pfb.numBytes);
-            CPPUNIT_ASSERT( face2.Error() == 0);        
+            CPPUNIT_ASSERT_EQUAL( face2.Error(), 0);        
         }
         
         
         void testAttachFile()
         {
             CPPUNIT_ASSERT( !testFace->Attach( TYPE1_AFM_FILE));
-            CPPUNIT_ASSERT( testFace->Error() == 7);
+            CPPUNIT_ASSERT_EQUAL( testFace->Error(), 0x07); // unimplemented feature
         
             FTFace test( TYPE1_FONT_FILE);
-            CPPUNIT_ASSERT( test.Error() == 0);
+            CPPUNIT_ASSERT_EQUAL( test.Error(), 0);
         
             CPPUNIT_ASSERT( test.Attach( TYPE1_AFM_FILE));
-            CPPUNIT_ASSERT( test.Error() == 0);
+            CPPUNIT_ASSERT_EQUAL( test.Error(), 0);
         }
         
         
         void testAttachMemoryData()
         {
             CPPUNIT_ASSERT( !testFace->Attach((unsigned char*)100, 0));
-            CPPUNIT_ASSERT( testFace->Error() == 7);        
+            CPPUNIT_ASSERT_EQUAL( testFace->Error(), 0x07); // unimplemented feature
         
             FTFace test( TYPE1_FONT_FILE);
-            CPPUNIT_ASSERT( test.Error() == 0);
+            CPPUNIT_ASSERT_EQUAL( test.Error(), 0);
         
             CPPUNIT_ASSERT( test.Attach( HPGCalc_afm.dataBytes, HPGCalc_afm.numBytes));
-            CPPUNIT_ASSERT( test.Error() == 0);
-        }
-        
-        
-        void testGetFontTable()
-        {
-            CPPUNIT_ASSERT( !testFace->FontTable( 'xxxx'));
-            CPPUNIT_ASSERT( testFace->FontTable( 'hmtx'));
+            CPPUNIT_ASSERT_EQUAL( test.Error(), 0);
         }
         
         
         void testGlyphCount()
         {
-            CPPUNIT_ASSERT( testFace->GlyphCount() == 14099);        
+            CPPUNIT_ASSERT_EQUAL( testFace->GlyphCount(), 14099U);
         }
         
         
         void testSetFontSize()
         {
             FTSize size = testFace->Size( FONT_POINT_SIZE, RESOLUTION);
-            CPPUNIT_ASSERT( testFace->Error() == 0);
+            CPPUNIT_ASSERT_EQUAL( testFace->Error(), 0);
         }
         
-        void testUnitPerEMSquare()
+
+        void testGetCharmapList()
         {
-            CPPUNIT_ASSERT_DOUBLES_EQUAL( 1000, testFace->UnitsPerEM(), 0.01);
-        }
-        
-        void testSetCharMap()
-        {
-            CPPUNIT_ASSERT( testFace->CharMap( ft_encoding_unicode));
-            CPPUNIT_ASSERT( testFace->Error() == 0);
+            CPPUNIT_ASSERT_EQUAL( testFace->CharMapCount(), 2U);
             
-            CPPUNIT_ASSERT( !testFace->CharMap( ft_encoding_johab));
-            CPPUNIT_ASSERT( testFace->Error() == 6);
-        }
-        
-        
-        void testCharacterIndex()
-        {
-            CPPUNIT_ASSERT( testFace->CharIndex( 'A') == 34);
-            CPPUNIT_ASSERT( testFace->CharIndex( 0x6FB3) == 4838);
+            FT_Encoding* charmapList = testFace->CharMapList();
+            
+            CPPUNIT_ASSERT_EQUAL( charmapList[0], ft_encoding_unicode);
+            CPPUNIT_ASSERT_EQUAL( charmapList[1], ft_encoding_adobe_standard);
         }
         
         
         void testKerning()
         {
-            FTPoint kerningVector = testFace->KernAdvance( 'A', 'W');
-            CPPUNIT_ASSERT( kerningVector.x == 0);
-            CPPUNIT_ASSERT( kerningVector.y == 0);
-            CPPUNIT_ASSERT( kerningVector.z == 0);
+            FTFace test(ARIAL_FONT_FILE);
+            FTPoint kerningVector = test.KernAdvance( 'A', 'A');
+            CPPUNIT_ASSERT_EQUAL( kerningVector.X(), 0.);
+            CPPUNIT_ASSERT_EQUAL( kerningVector.Y(), 0.);
+            CPPUNIT_ASSERT_EQUAL( kerningVector.Z(), 0.);
         
-            kerningVector = testFace->KernAdvance( 0x6FB3, 0x9580);
-            CPPUNIT_ASSERT( kerningVector.x == 0);
-            CPPUNIT_ASSERT( kerningVector.y == 0);
-            CPPUNIT_ASSERT( kerningVector.z == 0);
+            kerningVector = test.KernAdvance( 0x6FB3, 0x9580);
+            CPPUNIT_ASSERT_EQUAL( kerningVector.X(), 0.);
+            CPPUNIT_ASSERT_EQUAL( kerningVector.Y(), 0.);
+            CPPUNIT_ASSERT_EQUAL( kerningVector.Z(), 0.);
         }
         
         

@@ -36,6 +36,7 @@ fi
 
 CPPFLAGS="$GLUT_CFLAGS"
 AC_CHECK_HEADER([GL/glut.h], [HAVE_GLUT=yes], [HAVE_GLUT=no])
+AM_CONDITIONAL(HAVE_GLUT, [test "$HAVE_GLUT" = "yes"])
 
 if test "x$HAVE_GLUT" = xno ; then
     AC_MSG_WARN([GLUT headers not availabe, example program won't be compiled.])

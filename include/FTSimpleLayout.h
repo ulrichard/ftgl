@@ -63,7 +63,7 @@ class FTGL_EXPORT FTSimpleLayout : public FTLayout {
          *                    whitespace.
          */
         void RenderSpace(const char *String,const float ExtraSpace = 0.0)
-            { pen.x = 0; pen.y = 0; RenderSpace(String,0,-1,ExtraSpace); }
+            { pen.X(0); pen.Y(0); RenderSpace(String, 0, -1, ExtraSpace); }
 
         /**
          * Render a string of characters and distribute extra space amongst
@@ -74,8 +74,8 @@ class FTGL_EXPORT FTSimpleLayout : public FTLayout {
          *                    whitespace.
          */
         void RenderSpace(const wchar_t *String,const float ExtraSpace = 0.0)
-            { pen.x = 0; pen.y = 0; RenderSpace(String,0,-1,ExtraSpace); }        
-        
+            { pen.X(0); pen.Y(0); RenderSpace(String, 0, -1, ExtraSpace); }
+
         typedef enum {ALIGN_LEFT,ALIGN_CENTER,ALIGN_RIGHT,ALIGN_JUST} TextAlignment;
         
         /**

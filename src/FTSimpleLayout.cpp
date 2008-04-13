@@ -3,58 +3,55 @@
 #include "FTFont.h"
 #include "FTGlyphContainer.h"
 #include "FTBBox.h"
+
 #include "FTSimpleLayout.h"
 
-FTSimpleLayout::FTSimpleLayout()
-:   currentFont(NULL),
-    lineLength(100.0f),
-    alignment(ALIGN_LEFT),
-    lineSpacing(1.0f)
-{}
 
-void FTSimpleLayout::BBox(const char *String,float& llx, float& lly, float& llz, float& urx, float& ury, float& urz)
-{
-    FTBBox bounds; 
+FTSimpleLayout::FTSimpleLayout() {
+   currentFont = NULL;
+   lineLength = 100.0f;
+   alignment = ALIGN_LEFT;
+   lineSpacing = 1.0f;
+} /* FTSimpleLayout::FTSimpleLayout() */
 
-    WrapText(String,&bounds);
-    llx = bounds.lowerX; lly = bounds.lowerY; llz = bounds.lowerZ;
-    urx = bounds.upperX; ury = bounds.upperY; urz = bounds.upperZ;
+void FTSimpleLayout::BBox(const char *String,float& llx, float& lly, float& llz, float& urx, float& ury, float& urz) {
+   FTBBox bounds; 
+   
+   WrapText(String,&bounds); 
+   llx = bounds.lowerX; lly = bounds.lowerY; llz = bounds.lowerZ;
+   urx = bounds.upperX; ury = bounds.upperY; urz = bounds.upperZ;
 } /* FTSimpleLayout::BBox() */
 
-void FTSimpleLayout::BBox(const wchar_t *String,float& llx, float& lly, float& llz, float& urx, float& ury, float& urz) 
-{
-    FTBBox bounds; 
-
-    WrapText(String,&bounds);
-    llx = bounds.lowerX; lly = bounds.lowerY; llz = bounds.lowerZ;
-    urx = bounds.upperX; ury = bounds.upperY; urz = bounds.upperZ;
+void FTSimpleLayout::BBox(const wchar_t *String,float& llx, float& lly, float& llz, float& urx, float& ury, float& urz) {
+   FTBBox bounds; 
+   
+   WrapText(String,&bounds); 
+   llx = bounds.lowerX; lly = bounds.lowerY; llz = bounds.lowerZ;
+   urx = bounds.upperX; ury = bounds.upperY; urz = bounds.upperZ;
 } /* FTSimpleLayout::BBox() */
 
-void FTSimpleLayout::Render(const char *String) 
-{
-    pen.x = pen.y = 0.0f;
-    WrapText(String,NULL);
+void FTSimpleLayout::Render(const char *String) {
+   pen.X(0.0f); pen.Y(0.0f);
+   WrapText(String,NULL);
 } /* FTSimpleLayout::Render() */
 
-void FTSimpleLayout::Render(const wchar_t* String) 
-{
-    pen.x = pen.y = 0.0f;
-    WrapText(String,NULL);
+void FTSimpleLayout::Render(const wchar_t* String) {
+   pen.X(0.0f); pen.Y(0.0f);
+   WrapText(String,NULL);
 } /* FTSimpleLayout::Render() */
 
-void FTSimpleLayout::WrapText(const char *Buffer,FTBBox *bounds) 
-{
-   int breakIdx = 0;                    // The index of the last break character
-   int lineStart = 0;               // The character index of the line start
-   float nextStart = 0.0f;           // The total width of the line being generated
-   float breakWidth = 0.0f;          // The width of the line up to the last word break
-   float currentWidth = 0.0f;        // The width of all characters on the line being generated
-   float prevWidth;                 // The width of all characters but the current glyph
-   float wordLength = 0.0f;          // The length of the block since the last break character
+void FTSimpleLayout::WrapText(const char *Buffer,FTBBox *bounds) {
+   int breakIdx = 0;          // The index of the last break character
+   int lineStart = 0;         // The character index of the line start
+   float nextStart = 0.0;     // The total width of the line being generated
+   float breakWidth = 0.0;    // The width of the line up to the last word break
+   float currentWidth = 0.0;  // The width of all characters on the line being generated
+   float prevWidth;           // The width of all characters but the current glyph
+   float wordLength = 0.0;    // The length of the block since the last break character
    float glyphWidth,advance;
    FTBBox glyphBounds;
    /* Reset the pen position */
-   pen.y = 0;
+   pen.Y(0);
    
    if (bounds) {
       bounds->Invalidate();
@@ -101,7 +98,7 @@ void FTSimpleLayout::WrapText(const char *Buffer,FTBBox *bounds)
          /* Store the start of the next line */
          lineStart = breakIdx + 1;
          // TODO: Is Height() the right value here?
-         pen.y -= GetCharSize(currentFont).Height()*lineSpacing;
+         pen.Y(pen.Y() - GetCharSize(currentFont).Height()*lineSpacing);
          /* The current width is the width since the last break */
          nextStart = wordLength + advance;
          wordLength += advance;
@@ -134,17 +131,17 @@ void FTSimpleLayout::WrapText(const char *Buffer,FTBBox *bounds)
 } /* FTSimpleLayout::WrapText() */
 
 void FTSimpleLayout::WrapText(const wchar_t* Buffer,FTBBox *bounds) {
-   int breakIdx = 0;                    // The index of the last break character
-   int lineStart = 0;               // The character index of the line start
-   float nextStart = 0.0f;           // The total width of the line being generated
-   float breakWidth = 0.0f;          // The width of the line up to the last word break
-   float currentWidth = 0.0f;        // The width of all characters on the line being generated
-   float prevWidth;                 // The width of all characters but the current glyph
-   float wordLength = 0.0f;          // The length of the block since the last break character
+   int breakIdx = 0;           // The index of the last break character
+   int lineStart = 0;          // The character index of the line start
+   float nextStart = 0.0f;     // The total width of the line being generated
+   float breakWidth = 0.0f;    // The width of the line up to the last word break
+   float currentWidth = 0.0f;  // The width of all characters on the line being generated
+   float prevWidth;            // The width of all characters but the current glyph
+   float wordLength = 0.0f;    // The length of the block since the last break character
    float glyphWidth,advance;
    FTBBox glyphBounds;
    /* Reset the pen position */
-   pen.y = 0;
+   pen.Y(0);
    
    if (bounds) {
       bounds->Invalidate();
@@ -191,7 +188,7 @@ void FTSimpleLayout::WrapText(const wchar_t* Buffer,FTBBox *bounds) {
          /* Store the start of the next line */
          lineStart = breakIdx + 1;
          // TODO: Is Height() the right value here?
-         pen.y -= GetCharSize(currentFont).Height()*lineSpacing;
+         pen.Y(pen.Y() - GetCharSize(currentFont).Height()*lineSpacing);
          /* The current width is the width since the last break */
          nextStart = wordLength + advance;
          wordLength += advance;
@@ -227,16 +224,16 @@ void FTSimpleLayout::OutputWrapped(const char *Buffer,const int StartIdx,const i
    float distributeWidth = 0.0;
    switch (alignment) {
       case ALIGN_LEFT:
-         pen.x = 0; 
+         pen.X(0);
          break;
       case ALIGN_CENTER:
-         pen.x = RemainingWidth/2; 
+         pen.X(RemainingWidth/2);
          break;
       case ALIGN_RIGHT:
-         pen.x = RemainingWidth;
+         pen.X(RemainingWidth);
          break;
       case ALIGN_JUST:
-         pen.x = 0;
+         pen.X(0);
          distributeWidth = RemainingWidth;
          break;
    } /* Allign the text according as specified by Alignment (switch Alignment) */
@@ -250,7 +247,7 @@ void FTSimpleLayout::OutputWrapped(const char *Buffer,const int StartIdx,const i
       // TODO: It's a little silly to convert from a FTBBox to floats and back again, but I don't want to 
       //       implement yet another method for finding the bounding box as a BBox.
       FTBBox temp(llx,lly,llz,urx,ury,urz);
-      temp.Move(FTPoint(pen.x,pen.y,0.0f));
+      temp.Move(FTPoint(pen.X(), pen.Y(), 0.0f));
       
       if (!bounds->IsValid()) {
          *bounds = temp;
@@ -266,16 +263,16 @@ void FTSimpleLayout::OutputWrapped(const wchar_t *Buffer,const int StartIdx,cons
    float distributeWidth = 0.0;
    switch (alignment) {
       case ALIGN_LEFT:
-         pen.x = 0; 
+         pen.X(0); 
          break;
       case ALIGN_CENTER:
-         pen.x = RemainingWidth/2; 
+         pen.X(RemainingWidth/2);
          break;
       case ALIGN_RIGHT:
-         pen.x = RemainingWidth;
+         pen.X(RemainingWidth);
          break;
       case ALIGN_JUST:
-         pen.x = 0;
+         pen.X(0);
          distributeWidth = RemainingWidth;
          break;
    } /* Allign the text according as specified by Alignment (switch Alignment) */
@@ -289,7 +286,7 @@ void FTSimpleLayout::OutputWrapped(const wchar_t *Buffer,const int StartIdx,cons
       // TODO: It's a little silly to convert from a FTBBox to floats and back again, but I don't want to 
       //       implement yet another method for finding the bounding box as a BBox.
       FTBBox temp(llx,lly,llz,urx,ury,urz);
-      temp.Move(FTPoint(pen.x,pen.y,0.0f));
+      temp.Move(FTPoint(pen.X(), pen.Y(), 0.0f));
       
       if (!bounds->IsValid()) {
          *bounds = temp;
@@ -318,7 +315,7 @@ void FTSimpleLayout::RenderSpace(const char *String,const int StartIdx,const int
    
    for (int idx = StartIdx;((EndIdx < 0) && String[idx]) || ((EndIdx >= 0) && (idx <= EndIdx));idx++) {
       if ((idx > StartIdx) && !isspace(String[idx]) && isspace(String[idx - 1])) {
-         pen.x += space;
+         pen.X(pen.X() + space);
       } /* If this is the end of a space block distribute the extra space into it (if isspace()) */
 
       DoRender(currentFont,String[idx],String[idx + 1]);
@@ -342,7 +339,7 @@ void FTSimpleLayout::RenderSpace(const wchar_t *String,const int StartIdx,const 
    
    for (int idx = StartIdx;((EndIdx < 0) && String[idx]) || ((EndIdx >= 0) && (idx <= EndIdx));idx++) {
       if ((idx > StartIdx) && !isspace(String[idx]) && isspace(String[idx - 1])) {
-         pen.x += space;
+         pen.X(pen.X() + space);
       } /* If this is the end of a space block distribute the extra space into it (if isspace()) */
 
       DoRender(currentFont,String[idx],String[idx + 1]);

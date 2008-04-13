@@ -1,10 +1,48 @@
-#include    "FTSize.h"
+/*
+ * FTGL - OpenGL font library
+ *
+ * Copyright (c) 2001-2004 Henry Maddocks <ftgl@opengl.geek.nz>
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining
+ * a copy of this software and associated documentation files (the
+ * "Software"), to deal in the Software without restriction, including
+ * without limitation the rights to use, copy, modify, merge, publish,
+ * distribute, sublicense, and/or sell copies of the Software, and to
+ * permit persons to whom the Software is furnished to do so, subject to
+ * the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+ * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+ * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * Alternatively, you can redistribute and/or modify this software under
+ * the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License,
+ * or (at your option) any later version.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA.
+ */
+
+#include "config.h"
+
+#include "FTSize.h"
 
 
 FTSize::FTSize()
 :   ftFace(0),
     ftSize(0),
     size(0),
+    xResolution(0),
+    yResolution(0),
     err(0)
 {}
 
@@ -13,21 +51,20 @@ FTSize::~FTSize()
 {}
 
 
-bool FTSize::CharSize( FT_Face* face, unsigned int point_size, unsigned int x_resolution, unsigned int y_resolution )
+bool FTSize::CharSize( FT_Face* face, unsigned int pointSize, unsigned int xRes, unsigned int yRes )
 {
-    err = FT_Set_Char_Size( *face, 0L, point_size * 64, x_resolution, y_resolution);
+    if( size != pointSize || xResolution != xRes || yResolution != yRes)
+    {
+        err = FT_Set_Char_Size( *face, 0L, pointSize * 64, xResolution, yResolution);
 
-    if( !err)
-    {
-        ftFace = face;
-        size = point_size;
-        ftSize = (*ftFace)->size;
-    }
-    else
-    {
-        ftFace = 0;
-        size = 0;
-        ftSize = 0;
+        if( !err)
+        {
+            ftFace = face;
+            size = pointSize;
+            xResolution = xRes;
+            yResolution = yRes;
+            ftSize = (*ftFace)->size;
+        }
     }
     
     return !err;
@@ -91,15 +128,5 @@ float FTSize::Width() const
 float FTSize::Underline() const
 {
     return 0.0f;
-}
-
-unsigned int FTSize::XPixelsPerEm() const
-{
-    return ftSize->metrics.x_ppem;
-}
-
-unsigned int FTSize::YPixelsPerEm() const
-{
-    return ftSize->metrics.y_ppem;
 }
 

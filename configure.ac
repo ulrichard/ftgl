@@ -1,10 +1,10 @@
 AC_INIT(ftgl, 2.0.5, henryj@paradise.net.nz)
-AC_CONFIG_SRCDIR([Make.conf.in])
-dnl AC_CONFIG_HEADER([src/config.h])
+AC_CONFIG_AUX_DIR(.auto)
+AC_CONFIG_HEADER(config.h)
+AM_INIT_AUTOMAKE([no-define tar-ustar])
 
 FTGL_PROG_CXX
 
-AC_DISABLE_SHARED
 AC_PROG_LIBTOOL
 
 # Checks for typedefs, structures, and compiler characteristics.
@@ -29,6 +29,10 @@ AC_PATH_XTRA
 FTGL_CHECK_GL
 FTGL_CHECK_GLUT
 
+CPPUNIT="no"
+PKG_CHECK_MODULES(CPPUNIT, cppunit, [CPPUNIT="yes"], [AC_MSG_RESULT(no)])
+AM_CONDITIONAL(HAVE_CPPUNIT, test "$CPPUNIT" != "no")
+
 # Checks for library functions
 dnl This isn't really used at the moment
 
@@ -38,10 +42,18 @@ AC_CHECK_FUNCS([memset])
 
 AC_PROG_INSTALL
 
-AC_CHECK_PROG([DOXYGEN], [doxygen], [doxygen])
-if test -z "$DOXYGEN" ; then
-    DOXYGEN=:
-fi
+AC_PATH_PROG(DOXYGEN, doxygen, no)
+AM_CONDITIONAL(HAVE_DOXYGEN, test "$DOXYGEN" != "no")
 
-AC_CONFIG_FILES([Make.conf ftgl.pc])
+AC_CONFIG_FILES([
+  ftgl.pc
+])
+AC_CONFIG_FILES([
+  Makefile
+  src/Makefile
+  test/Makefile
+  docs/Makefile
+  demo/Makefile
+])
 AC_OUTPUT
+

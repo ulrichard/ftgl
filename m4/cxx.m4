@@ -1,7 +1,7 @@
 dnl FTGL_PROG_CXX()
-dnl Check the build plataform and try to use the native compiler
+dnl Check the build platform and try to use the native compiler
 dnl
-AC_DEFUN(FTGL_PROG_CXX,
+AC_DEFUN([FTGL_PROG_CXX],
 [dnl
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST

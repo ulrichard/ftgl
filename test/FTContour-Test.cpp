@@ -22,10 +22,17 @@ static FT_Vector straightLinePoints[3] =
     { 9, -2}
 };
 
-static char straightLineTags[3] = 
+static char straightLineTags[3] =
 {
     FT_Curve_Tag_On,
     FT_Curve_Tag_On,
+    FT_Curve_Tag_On
+};
+
+static char brokenTags[3] =
+{
+    FT_Curve_Tag_Conic,
+    69,
     FT_Curve_Tag_On
 };
 
@@ -38,9 +45,9 @@ static FT_Vector simpleConicPoints[3] =
 
 static FT_Vector brokenPoints[3] = 
 {
-    { 0,  0},
-    { 0,  0},
-    { 0, -0}
+    { 0, 0},
+    { 0, 0},
+    { 0, 0}
 };
 
 static char simpleConicTags[3] = 
@@ -55,7 +62,7 @@ static FT_Vector doubleConicPoints[4] =
     { 0,  0},
     { 6,  7},
     { 9, -2},
-    { 4, 0}
+    { 4,  0}
 };
 
 static char doubleConicTags[4] = 
@@ -160,10 +167,13 @@ class FTContourTest : public CppUnit::TestCase
             CPPUNIT_ASSERT( contour.PointCount() == 1);
 
             FTContour shortContour( shortLine, simpleConicTags, 2);
-            CPPUNIT_ASSERT_DOUBLES_EQUAL( 6, shortContour.PointCount(), 0.0);
+            CPPUNIT_ASSERT( shortContour.PointCount() == 6);
 
             FTContour reallyShortContour( shortLine, simpleConicTags, 1);
-            CPPUNIT_ASSERT_DOUBLES_EQUAL( 1, reallyShortContour.PointCount(), 0.0);
+            CPPUNIT_ASSERT( reallyShortContour.PointCount() == 1);
+
+            FTContour brokenTagtContour( shortLine, brokenTags, 3);
+            CPPUNIT_ASSERT( brokenTagtContour.PointCount() == 7);
         }
 
 

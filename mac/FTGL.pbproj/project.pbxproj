@@ -7,11 +7,12 @@
 	objects = {
 		6612160001C58FBA000ABFD4 = {
 			children = (
+				BA32C75904638D0D002919E3,
+				BA32C75D04638D56002919E3,
 				F5CB02F60310FDAF0142A175,
 				66BA08F601C46674000ABFD4,
 				66170C4A01C56FD4000ABFD4,
 				F597CC9702C542FF01F03BCF,
-				F597CC9A02C5436801F03BCF,
 				BADB7E1103AF1270004F6ED7,
 			);
 			isa = PBXGroup;
@@ -106,6 +107,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				GCC_VERSION = 3.x;
 				HEADER_SEARCH_PATHS = "/Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/test /Users/henry/Development/PROJECTS/iSpot/includes /usr/local/include/freetype2 /usr/local/include/freetype2/freetype";
 				LIBRARY_STYLE = STATIC;
 				OPTIMIZATION_CFLAGS = "-O0";
@@ -706,6 +708,7 @@
 			buildSettings = {
 				DEBUGGING_SYMBOLS = NO;
 				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_VERSION = 3.x;
 				HEADER_SEARCH_PATHS = "/Users/henry/Development/PROJECTS/iSpot/includes /usr/local/include/freetype2 /usr/local/include/freetype2/freetype";
 				LIBRARY_SEARCH_PATHS = /Users/henry/Development/PROJECTS/iSpot/libraries;
 				OPTIMIZATION_CFLAGS = "-O3";
@@ -791,6 +794,8 @@
 				F500A29902C321EE0167F740,
 				F597CC9802C542FF01F03BCF,
 				F5D92FE00346A6E1010ABFC9,
+				BA32C75B04638D0D002919E3,
+				BA32C75F04638D56002919E3,
 			);
 			isa = PBXFrameworksBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;
@@ -852,6 +857,54 @@
 		};
 		BA0143B803AFE974000ABFD4 = {
 			fileRef = BA0143B703AFE974000ABFD4;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		BA32C75904638D0D002919E3 = {
+			isa = PBXFileReference;
+			name = libz.dylib;
+			path = /usr/lib/libz.1.1.3.dylib;
+			refType = 0;
+		};
+		BA32C75A04638D0D002919E3 = {
+			fileRef = BA32C75904638D0D002919E3;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		BA32C75B04638D0D002919E3 = {
+			fileRef = BA32C75904638D0D002919E3;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		BA32C75C04638D0D002919E3 = {
+			fileRef = BA32C75904638D0D002919E3;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		BA32C75D04638D56002919E3 = {
+			isa = PBXFrameworkReference;
+			name = Carbon.framework;
+			path = /System/Library/Frameworks/Carbon.framework;
+			refType = 0;
+		};
+		BA32C75E04638D56002919E3 = {
+			fileRef = BA32C75D04638D56002919E3;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		BA32C75F04638D56002919E3 = {
+			fileRef = BA32C75D04638D56002919E3;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		BA32C76004638D56002919E3 = {
+			fileRef = BA32C75D04638D56002919E3;
 			isa = PBXBuildFile;
 			settings = {
 			};
@@ -973,6 +1026,32 @@
 			path = ../test/HPGCalc_afm.cpp;
 			refType = 2;
 		};
+		BAD3B1FD06266914004F6ED7 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			name = "FTBitmapGlyph-Test.cpp";
+			path = "/Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/test/FTBitmapGlyph-Test.cpp";
+			refType = 0;
+		};
+		BAD3B1FE06266914004F6ED7 = {
+			fileRef = BAD3B1FD06266914004F6ED7;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		BAD3B1FF06266945004F6ED7 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			name = "FTFTCharToGlyphIndexMap-Test.cpp";
+			path = "/Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/test/FTFTCharToGlyphIndexMap-Test.cpp";
+			refType = 0;
+		};
+		BAD3B20006266945004F6ED7 = {
+			fileRef = BAD3B1FF06266945004F6ED7;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
 		BAB31C68043B8DEA00B0313F = {
 			fileRef = F580402702C549A2013DAE1F;
 			isa = PBXBuildFile;
@@ -993,12 +1072,6 @@
 		};
 		BADB7E0F03AF1246004F6ED7 = {
 			fileRef = F5CB02F60310FDAF0142A175;
-			isa = PBXBuildFile;
-			settings = {
-			};
-		};
-		BADB7E1003AF1249004F6ED7 = {
-			fileRef = F597CC9A02C5436801F03BCF;
 			isa = PBXBuildFile;
 			settings = {
 			};
@@ -1051,6 +1124,8 @@
 				BAF0F0AF03AF0FF7004F6ED7,
 				BA3F38F303B1D4FD004F6ED7,
 				BA3F38F403B1D4FD004F6ED7,
+				BAD3B1FE06266914004F6ED7,
+				BAD3B20006266945004F6ED7,
 			);
 			isa = PBXSourcesBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1060,9 +1135,10 @@
 			files = (
 				BADB7E0E03AF1241004F6ED7,
 				BADB7E0F03AF1246004F6ED7,
-				BADB7E1003AF1249004F6ED7,
 				BADB7E1203AF1270004F6ED7,
 				BADB7E1403AF128E004F6ED7,
+				BA32C75A04638D0D002919E3,
+				BA32C75E04638D56002919E3,
 			);
 			isa = PBXFrameworksBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1083,8 +1159,9 @@
 			);
 			buildSettings = {
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				GCC_VERSION = 3.x;
 				HEADER_SEARCH_PATHS = "Includes ../include";
-				LIBRARY_SEARCH_PATHS = "Libraries /usr/lib/gcc/darwin/2.95.2";
+				LIBRARY_SEARCH_PATHS = Libraries;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				OTHER_REZFLAGS = "";
@@ -1113,7 +1190,9 @@
 				BAA7878D03CCC3B8000ABFD4,
 				BA0143B703AFE974000ABFD4,
 				BAF0F09E03AF0FF7004F6ED7,
+				BAD3B1FD06266914004F6ED7,
 				BAF0F09903AF0FF7004F6ED7,
+				BAD3B1FF06266945004F6ED7,
 				BAF0F09603AF0FF7004F6ED7,
 				BAF0F09B03AF0FF7004F6ED7,
 				BAF0F09503AF0FF7004F6ED7,
@@ -1546,6 +1625,7 @@
 				F597CC9202C5420F01F03BCF,
 			);
 			buildSettings = {
+				GCC_VERSION = 3.x;
 				HEADER_SEARCH_PATHS = /Users/henry/Development/PROJECTS/iSpot/includes;
 				LIBRARY_SEARCH_PATHS = /Users/henry/Development/PROJECTS/iSpot/libraries;
 				OPTIMIZATION_CFLAGS = "-O1";
@@ -1554,7 +1634,6 @@
 				OTHER_REZFLAGS = "";
 				PREBINDING = NO;
 				PRODUCT_NAME = ftglTest;
-				PROFILING_CODE = YES;
 				SECTORDER_FLAGS = "";
 				WARNING_CFLAGS = "-Wmost -Wno-four-char-constants -Wno-unknown-pragmas";
 				WRAPPER_EXTENSION = app;
@@ -1633,8 +1712,9 @@
 				F597CC9402C5423B01F03BCF,
 				F597CC9502C5429801F03BCF,
 				F597CC9902C5430601F03BCF,
-				F597CC9B02C5436801F03BCF,
 				F5CB02F70310FDAF0142A175,
+				BA32C75C04638D0D002919E3,
+				BA32C76004638D56002919E3,
 			);
 			isa = PBXFrameworksBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1682,18 +1762,6 @@
 		};
 		F597CC9902C5430601F03BCF = {
 			fileRef = F597CC9702C542FF01F03BCF;
-			isa = PBXBuildFile;
-			settings = {
-			};
-		};
-		F597CC9A02C5436801F03BCF = {
-			isa = PBXFileReference;
-			name = "libstdc++.a";
-			path = "/usr/lib/gcc/darwin/2.95.2/libstdc++.a";
-			refType = 0;
-		};
-		F597CC9B02C5436801F03BCF = {
-			fileRef = F597CC9A02C5436801F03BCF;
 			isa = PBXBuildFile;
 			settings = {
 			};

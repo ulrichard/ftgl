@@ -1,3 +1,37 @@
+/*
+ * FTGL - OpenGL font library
+ *
+ * Copyright (c) 2001-2004 Henry Maddocks <ftgl@opengl.geek.nz>
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining
+ * a copy of this software and associated documentation files (the
+ * "Software"), to deal in the Software without restriction, including
+ * without limitation the rights to use, copy, modify, merge, publish,
+ * distribute, sublicense, and/or sell copies of the Software, and to
+ * permit persons to whom the Software is furnished to do so, subject to
+ * the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+ * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+ * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * Alternatively, you can redistribute and/or modify this software under
+ * the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License,
+ * or (at your option) any later version.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA.
+ */
+
 #ifndef     __FTGlyphContainer__
 #define     __FTGlyphContainer__
 
@@ -12,6 +46,7 @@
 
 class FTFace;
 class FTGlyph;
+class FTCharmap;
 
 /**
  * FTGlyphContainer holds the post processed FTGlyph objects.
@@ -35,13 +70,30 @@ class FTGL_EXPORT FTGlyphContainer
         ~FTGlyphContainer();
 
         /**
+         * Sets the character map for the face.
+         *
+         * @param encoding      the Freetype encoding symbol. See above.
+         * @return              <code>true</code> if charmap was valid
+         *                      and set correctly
+         */
+        bool CharMap( FT_Encoding encoding);
+
+        /**
+         * Get the font index of the input character.
+         *
+         * @param characterCode The character code of the requested glyph in the
+         *                      current encoding eg apple roman.
+         * @return      The font index for the character.
+         */
+        unsigned int FontIndex( const unsigned int characterCode ) const;
+        
+        /**
          * Adds a glyph to this glyph list.
          *
-         * @param glyph      The FTGlyph to be inserted into the container
-         * @param glyphIndex The glyphs index in the container.
-         * @return           <code>true</code>
+         * @param glyph         The FTGlyph to be inserted into the container
+         * @param characterCode The char code of the glyph NOT the glyph index.
          */
-        bool Add( FTGlyph* glyph, unsigned int glyphIndex);
+        void Add( FTGlyph* glyph, const unsigned int characterCode);
 
         /**
          * Get a glyph from the glyph list
@@ -65,7 +117,7 @@ class FTGL_EXPORT FTGlyphContainer
         * @param nextCharacterCode the next glyph in a string
         * @return                  advance width
         */
-        float Advance( unsigned int characterCode, unsigned int nextCharacterCode);
+        float Advance( const unsigned int characterCode, const unsigned int nextCharacterCode);
         
         /**
          * Renders a character
@@ -74,7 +126,7 @@ class FTGL_EXPORT FTGlyphContainer
          * @param penPosition        the position to Render the glyph
          * @return                   The distance to advance the pen position after Rendering
          */
-        FTPoint Render( unsigned int characterCode, unsigned int nextCharacterCode, FTPoint penPosition);
+        FTPoint Render( const unsigned int characterCode, const unsigned int nextCharacterCode, FTPoint penPosition);
         
         /**
          * Queries the Font for errors.
@@ -85,14 +137,14 @@ class FTGL_EXPORT FTGlyphContainer
 
     private:
         /**
-         * How many glyphs are reserved in this container
-         */
-        unsigned int numberOfGlyphs;
-
-        /**
-         * The current FTGL face
+         * The FTGL face
          */
         FTFace* face;
+
+        /**
+         * The Character Map object associated with the current face
+         */
+        FTCharmap* charMap;
 
         /**
          * A structure to hold the glyphs
@@ -103,7 +155,6 @@ class FTGL_EXPORT FTGlyphContainer
          * Current error code. Zero means no error.
          */
         FT_Error err;
-        
 };
 
 

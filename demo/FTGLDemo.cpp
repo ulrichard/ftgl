@@ -1,12 +1,14 @@
+#include "config.h"
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
 #ifdef __APPLE_CC__
 	#include <GLUT/glut.h>
 #else
 	#include <GL/glut.h>
 #endif
-
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
 
 #include "tb.h"
 
@@ -42,7 +44,7 @@
 #define FTGL_EXTRUDE 4
 #define FTGL_TEXTURE 5
 
-char* fontfile = FONT_FILE;
+char const* fontfile = FONT_FILE;
 int current_font = FTGL_EXTRUDE;
 
 GLint w_win = 640, h_win = 480;
@@ -64,6 +66,13 @@ char myString[4096];
 
 static FTFont* fonts[6];
 static FTGLPixmapFont* infoFont;
+
+static float texture[] = { 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                           1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                           0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
+                           0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0};
+
+static GLuint textureID;
 
 void SetCamera(void);
 
@@ -102,12 +111,10 @@ void setUpLighting()
    glColor4fv(front_diffuse);
 
    glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
-   glEnable(GL_CULL_FACE);
    glColorMaterial(GL_FRONT, GL_DIFFUSE);
    glEnable(GL_COLOR_MATERIAL);
 
    glEnable(GL_LIGHTING);
-   glShadeModel(GL_SMOOTH);
 }
 
 
@@ -149,26 +156,31 @@ void setUpFonts( const char* fontfile)
 	
 	infoFont->FaceSize( 18);
 
-   strcpy(myString,"OpenGL is a powerful software interface for graphics hardware that allows graphics programmers to produce high-quality color images of 3D objects. abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
+        strcpy(myString, "OpenGL is a powerful software interface for "
+               "graphics hardware that allows graphics programmers to produce "
+               "high-quality color images of 3D objects. abcdefghijklmnopqrstu"
+               "vwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
 }
 
 
 void renderFontmetrics()
 {
-	float x1, y1, z1, x2, y2, z2;
-   if (layouts[currentLayout]) {
-      layouts[currentLayout]->BBox(myString, x1, y1, z1, x2, y2, z2);
-   } else {
-      fonts[current_font]->BBox( myString, x1, y1, z1, x2, y2, z2);
-   } /* If there is a layout use it to compute the bbox, otherwise query as a string (if/else layouts[]) */
-  
-	// Draw the bounding box
-	glDisable( GL_LIGHTING);
-	glDisable( GL_TEXTURE_2D);
-			glEnable( GL_LINE_SMOOTH);
-			glEnable(GL_BLEND);
-			glBlendFunc( GL_SRC_ALPHA, GL_ONE); // GL_ONE_MINUS_SRC_ALPHA
-   
+    float x1, y1, z1, x2, y2, z2;
+
+    // If there is a layout use it to compute the bbox, otherwise query as
+    // a string.
+    if(layouts[currentLayout])
+        layouts[currentLayout]->BBox(myString, x1, y1, z1, x2, y2, z2);
+    else
+        fonts[current_font]->BBox(myString, x1, y1, z1, x2, y2, z2);
+
+    // Draw the bounding box
+    glDisable( GL_LIGHTING);
+    glDisable( GL_TEXTURE_2D);
+    glEnable( GL_LINE_SMOOTH);
+    glEnable(GL_BLEND);
+    glBlendFunc( GL_SRC_ALPHA, GL_ONE); // GL_ONE_MINUS_SRC_ALPHA
+
 	glColor3f( 0.0, 1.0, 0.0);
 	// Draw the front face
 	glBegin( GL_LINE_LOOP);
@@ -279,7 +291,7 @@ void renderFontInfo()
 			break;
 	}
 	
-	glRasterPos2f( 20.0f , 20.0f + infoFont->Ascender() - infoFont->Descender());
+	glRasterPos2f( 20.0f , 20.0f + infoFont->LineHeight());
 	infoFont->Render(fontfile);
    
    if (layouts[currentLayout] && (dynamic_cast <FTSimpleLayout *>(layouts[currentLayout]))) { 
@@ -293,6 +305,7 @@ void renderFontInfo()
    } /* If the current layout is a simple layout output the alignemnt mode (if layouts[currentLayout]) */
 }
 
+
 void do_display (void)
 {
 	switch( current_font)
@@ -302,12 +315,16 @@ void do_display (void)
 		case FTGL_OUTLINE:
 			break;
 		case FTGL_POLYGON:
+            glEnable( GL_TEXTURE_2D);
+            glBindTexture(GL_TEXTURE_2D, textureID);
 			glDisable( GL_BLEND);
 			setUpLighting();
 			break;
 		case FTGL_EXTRUDE:
 			glEnable( GL_DEPTH_TEST);
 			glDisable( GL_BLEND);
+            glEnable( GL_TEXTURE_2D);
+            glBindTexture(GL_TEXTURE_2D, textureID);
 			setUpLighting();
 			break;
 		case FTGL_TEXTURE:
@@ -319,22 +336,23 @@ void do_display (void)
 
 	}
 
-	glColor3f( 1.0, 1.0, 1.0);
-// If you do want to switch the color of bitmaps rendered with glBitmap,
-// you will need to explicitly call glRasterPos (or its ilk) to lock
-// in a changed current color.
+    glColor3f( 1.0, 1.0, 1.0);
+    // If you do want to switch the color of bitmaps rendered with glBitmap,
+    // you will need to explicitly call glRasterPos (or its ilk) to lock
+    // in a changed current color.
 
-   if (layouts[currentLayout])
-   {
-      layouts[currentLayout]->Render(myString);
-   }
-   else
-   {
-      fonts[current_font]->Render( myString);
-   } /* If there is an active layout use it to render the font (if/else layouts[currentLayout]) */
-   
-   renderFontmetrics();
-   renderFontInfo();
+    glPushMatrix();
+        if(layouts[currentLayout])
+            layouts[currentLayout]->Render(myString);
+        else
+            fonts[current_font]->Render( myString);
+    glPopMatrix();
+
+    glPushMatrix();
+        renderFontmetrics();
+    glPopMatrix();
+
+    renderFontInfo();
 }
 
 
@@ -380,7 +398,9 @@ void myinit( const char* fontfile)
 	glFrontFace( GL_CCW);
 	
 	glEnable( GL_DEPTH_TEST);
-	
+    glEnable(GL_CULL_FACE);
+    glShadeModel(GL_SMOOTH);
+
 	glEnable( GL_POLYGON_OFFSET_LINE);
 	glPolygonOffset( 1.0, 1.0); // ????
 	 	
@@ -389,11 +409,21 @@ void myinit( const char* fontfile)
 	tbInit(GLUT_LEFT_BUTTON);
 	tbAnimate( GL_FALSE);
 
-   setUpFonts( fontfile);
+    setUpFonts( fontfile);
+
+    // Configure the simple layout
+    simpleLayout.SetLineLength(InitialLineLength);
+    simpleLayout.SetFont(fonts[current_font]);
+
+    glGenTextures(1, &textureID);
+    glBindTexture(GL_TEXTURE_2D, textureID);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 4, 4, 0, GL_RGB, GL_FLOAT, texture);
     
-   /* Configure the simple layout */
-   simpleLayout.SetLineLength(InitialLineLength);
-   simpleLayout.SetFont(fonts[current_font]);
+
 }
 
 
@@ -435,54 +465,61 @@ void parsekey(unsigned char key, int x, int y)
 			{
 				myString[carat] = key;
 				myString[carat + 1] = 0;
-				carat = carat > 2000 ? 2000 : ++carat;
+				carat = carat > 2000 ? 2000 : carat + 1;
 			}
 	}
-
+	
 	glutPostRedisplay();
 
 }
 
+
 void parseSpecialKey(int key, int x, int y)
 {
     FTSimpleLayout *simpleLayout = NULL;
-    if (layouts[currentLayout] && (dynamic_cast <FTSimpleLayout *>(layouts[currentLayout]))) {
+
+    // If the currentLayout is a simple layout store a pointer in simpleLayout
+    if(layouts[currentLayout]
+        && (dynamic_cast <FTSimpleLayout *>(layouts[currentLayout])))
+    {
         simpleLayout = (FTSimpleLayout *)layouts[currentLayout];
-    } /* If the currentLayout is a simple layout store a pointer in simpleLayout (if layouts[currentLayout]) */
+    }
 
     switch (key)
     {
-        case GLUT_KEY_UP:
-            current_font = ( current_font == FTGL_TEXTURE) ? FTGL_BITMAP: ++current_font;
-            break;
-        case GLUT_KEY_DOWN:
-            current_font = ( current_font == FTGL_BITMAP) ? FTGL_TEXTURE : --current_font;
-            break;
-        case GLUT_KEY_PAGE_UP:
-            currentLayout = (currentLayout + 1)%NumLayouts;
-            break;
-        case GLUT_KEY_PAGE_DOWN:
-            currentLayout = (currentLayout + NumLayouts - 1)%NumLayouts;
-            break;
-        case GLUT_KEY_HOME:
-            /* If the current layout is simple decrement its line length */
-            if (simpleLayout) simpleLayout->SetLineLength(simpleLayout->GetLineLength() - 10.0f);
-            break;
-        case GLUT_KEY_END:
-            /* If the current layout is simple increment its line length */
-            if (simpleLayout) simpleLayout->SetLineLength(simpleLayout->GetLineLength() + 10.0f);
-            break;
-        case GLUT_KEY_LEFT:
-            fonts[current_font]->FaceSize(fonts[current_font]->FaceSize() - 1);
-            break;
-        case GLUT_KEY_RIGHT:
-            fonts[current_font]->FaceSize(fonts[current_font]->FaceSize() + 1);
-            break;
+    case GLUT_KEY_UP:
+        current_font = (current_font + 1)%5;
+        break;
+    case GLUT_KEY_DOWN:
+        current_font = (current_font + 4)%5;
+        break;
+    case GLUT_KEY_PAGE_UP:
+        currentLayout = (currentLayout + 1)%NumLayouts;
+        break;
+    case GLUT_KEY_PAGE_DOWN:
+        currentLayout = (currentLayout + NumLayouts - 1)%NumLayouts;
+        break;
+    case GLUT_KEY_HOME:
+        /* If the current layout is simple decrement its line length */
+        if (simpleLayout) simpleLayout->SetLineLength(simpleLayout->GetLineLength() - 10.0f);
+        break;
+    case GLUT_KEY_END:
+        /* If the current layout is simple increment its line length */
+        if (simpleLayout) simpleLayout->SetLineLength(simpleLayout->GetLineLength() + 10.0f);
+        break;
+    case GLUT_KEY_LEFT:
+        fonts[current_font]->FaceSize(fonts[current_font]->FaceSize() - 1);
+        break;      
+    case GLUT_KEY_RIGHT:
+        fonts[current_font]->FaceSize(fonts[current_font]->FaceSize() + 1);
+        break;
     }
 
-    if (simpleLayout) {
+    // If the current layout is a simple layout, update its font.
+    if(simpleLayout)
+    { 
         simpleLayout->SetFont(fonts[current_font]);
-    } /* If the current layout is a simple layout update it's font (if simpleLayout) */
+    }
 
     glutPostRedisplay();
 }

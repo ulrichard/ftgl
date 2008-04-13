@@ -1,3 +1,37 @@
+/*
+ * FTGL - OpenGL font library
+ *
+ * Copyright (c) 2001-2004 Henry Maddocks <ftgl@opengl.geek.nz>
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining
+ * a copy of this software and associated documentation files (the
+ * "Software"), to deal in the Software without restriction, including
+ * without limitation the rights to use, copy, modify, merge, publish,
+ * distribute, sublicense, and/or sell copies of the Software, and to
+ * permit persons to whom the Software is furnished to do so, subject to
+ * the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+ * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+ * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * Alternatively, you can redistribute and/or modify this software under
+ * the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License,
+ * or (at your option) any later version.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA.
+ */
+
 #ifndef     __FTGL__
 #define     __FTGL__
 
@@ -5,6 +39,20 @@
 typedef double   FTGL_DOUBLE;
 typedef float    FTGL_FLOAT;
 
+// Fixes for deprecated identifiers in 2.1.5
+#ifndef FT_OPEN_MEMORY
+    #define FT_OPEN_MEMORY (FT_Open_Flags)1
+#endif
+
+#ifndef FT_RENDER_MODE_MONO
+    #define FT_RENDER_MODE_MONO ft_render_mode_mono
+#endif
+
+#ifndef FT_RENDER_MODE_NORMAL
+    #define FT_RENDER_MODE_NORMAL ft_render_mode_normal
+#endif
+
+  
 #ifdef WIN32
 
     // Under windows avoid including <windows.h> is overrated. 
@@ -23,7 +71,9 @@ typedef float    FTGL_FLOAT;
 
     // Non windows platforms - don't require nonsense as seen above :-)    
     #ifndef __gl_h_
-        #ifdef __APPLE_CC__
+        #ifdef SDL_main
+            #include "SDL_opengl.h"
+        #elif __APPLE_CC__
             #include <OpenGL/gl.h>
             #include <OpenGL/glu.h>
         #else
@@ -68,15 +118,5 @@ typedef float    FTGL_FLOAT;
     // Ensure that the export symbol is defined (and blank)
     #define FTGL_EXPORT
 #endif  
-
-
-// lifted from glext.h, to remove dependancy on glext.h
-#ifndef GL_EXT_texture_object
-    #define GL_TEXTURE_PRIORITY_EXT           0x8066
-    #define GL_TEXTURE_RESIDENT_EXT           0x8067
-    #define GL_TEXTURE_1D_BINDING_EXT         0x8068
-    #define GL_TEXTURE_2D_BINDING_EXT         0x8069
-    #define GL_TEXTURE_3D_BINDING_EXT         0x806A
-#endif
 
 #endif  //  __FTGL__

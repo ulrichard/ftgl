@@ -20,17 +20,17 @@
 
 // YOU'LL PROBABLY WANT TO CHANGE THESE
 #ifdef __linux__
-	char *defaultFonts[] = { "/usr/share/fonts/truetype/arial.ttf" };
-   const int NumDefaultFonts = 1;
+    char const *defaultFonts[] = { "/usr/share/fonts/truetype/arial.ttf" };
+    const int NumDefaultFonts = 1;
 #endif
 #ifdef __APPLE_CC__
 	//#define FONT_FILE "/Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/test/arial.ttf"
-   char *defaultFonts[] = { "/System/Library/Fonts/Helvetica.dfont","/System/Library/Fonts/Geneva.dfont" };
-   const int NumDefaultFonts = 2;
+    char const *defaultFonts[] = { "/System/Library/Fonts/Helvetica.dfont","/System/Library/Fonts/Geneva.dfont" };
+    const int NumDefaultFonts = 2;
 #endif
 #ifdef WIN32
-	char *defaultFonts[] = { "C:\\WINNT\\Fonts\\arial.ttf" };
-   const int NumDefaultFonts = 1;
+    char const *defaultFonts[] = { "C:\\WINNT\\Fonts\\arial.ttf" };
+    const int NumDefaultFonts = 1;
 #endif
 #ifndef FONT_FILE
 	#define FONT_FILE 0
@@ -52,7 +52,7 @@
 #define FTGL_TEXTURE 5
 const int NumStyles = 6;
 
-char **fontfiles;
+char const **fontfiles;
 int current_font = FTGL_EXTRUDE;
 
 GLint w_win = 640, h_win = 480;
@@ -133,7 +133,7 @@ void setUpFonts(int numFontFiles)
    totalFonts = numFontFiles*NumStyles;
    
    /* Allocate an array to hold all fonts */
-   fonts = new (FTFont *)[totalFonts];
+   fonts = new FTFont *[totalFonts];
    
    for (int faceIdx = 0;faceIdx < numFontFiles;faceIdx++)
    {
@@ -579,7 +579,7 @@ int main(int argc, char *argv[])
    
 	if ((argc >= 2) && !IGNORE_ARGV)
    {
-      fontfiles = argv + 1;
+      fontfiles = (char const **)argv + 1;
       numFontFiles = argc - 1;
    }
    else

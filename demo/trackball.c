@@ -34,6 +34,7 @@
  *
  * OpenGL(TM) is a trademark of Silicon Graphics, Inc.
  */
+
 /*
  * Trackball code:
  *
@@ -49,6 +50,8 @@
  * Much mucking with by:
  * Gavin Bell
  */
+#include "config.h"
+
 #include <math.h>
 #include "trackball.h"
 

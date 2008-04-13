@@ -1,16 +1,47 @@
+/*
+ * FTGL - OpenGL font library
+ *
+ * Copyright (c) 2001-2004 Henry Maddocks <ftgl@opengl.geek.nz>
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining
+ * a copy of this software and associated documentation files (the
+ * "Software"), to deal in the Software without restriction, including
+ * without limitation the rights to use, copy, modify, merge, publish,
+ * distribute, sublicense, and/or sell copies of the Software, and to
+ * permit persons to whom the Software is furnished to do so, subject to
+ * the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+ * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+ * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * Alternatively, you can redistribute and/or modify this software under
+ * the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License,
+ * or (at your option) any later version.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA.
+ */
+
 #ifndef     __FTFace__
 #define     __FTFace__
-
-#include "FTGL.h"
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include FT_GLYPH_H
 
+#include "FTGL.h"
 #include "FTPoint.h"
 #include "FTSize.h"
-
-class FTCharmap;
 
 /**
  * FTFace class provides an abstraction layer for the Freetype Face.
@@ -24,9 +55,9 @@ class FTGL_EXPORT FTFace
         /**
          * Opens and reads a face file. Error is set.
          *
-         * @param filename  font file name.
+         * @param fontFilePath  font file path.
          */
-        FTFace( const char* filename);
+        FTFace( const char* fontFilePath);
 
         /**
          * Read face data from an in-memory buffer. Error is set.
@@ -46,11 +77,11 @@ class FTGL_EXPORT FTFace
         /**
          * Attach auxilliary file to font (e.g., font metrics).
          *
-         * @param filename  auxilliary font file name.
+         * @param fontFilePath  auxilliary font file path.
          * @return          <code>true</code> if file has opened
          *                  successfully.
          */
-        bool Attach( const char* filename);
+        bool Attach( const char* fontFilePath);
 
         /**
          * Attach auxilliary data to font (e.g., font metrics) from memory
@@ -63,13 +94,11 @@ class FTGL_EXPORT FTFace
         bool Attach( const unsigned char *pBufferBytes, size_t bufferSizeInBytes);
 
         /**
-         * Disposes of the face
+         * Get the freetype face object..
+         *
+         * @return pointer to an FT_Face.
          */
-        void Close();
-        
-        
-        void* FontTable( unsigned int tableName) const;
-        
+        FT_Face* Face() const { return ftFace;}
         
         /**
          * Sets the char size for the current face.
@@ -83,29 +112,20 @@ class FTGL_EXPORT FTFace
          */
         const FTSize& Size( const unsigned int size, const unsigned int res);
 
-        unsigned int UnitsPerEM() const;
+        /**
+         * Get the number of character maps in this face.
+         *
+         * @return character map count.
+         */
+        unsigned int CharMapCount();
 
         /**
-         * Sets the character map for the face.
+         * Get a list of character maps in this face.
          *
-         * This doesn't guarantee that the size was set correctly. Clients
-         * should check errors.
-         *
-         * @param encoding      the Freetype encoding symbol. See above.
-         * @return              <code>true</code> if charmap was valid
-         *                      and set correctly
+         * @return pointer to the first encoding.
          */
-        bool CharMap( FT_Encoding encoding);
-
-        /**
-         *  Get the glyph index of the input character.
-         *
-         * @param index The character code of the requested glyph in the
-         *              current encoding eg apple roman.
-         * @return      The glyph index for the character.
-         */
-        unsigned int CharIndex( unsigned int index ) const;
-
+        FT_Encoding* CharMapList();
+        
         /**
          * Gets the kerning vector between two glyphs
          */
@@ -114,7 +134,7 @@ class FTGL_EXPORT FTFace
         /**
          * Loads and creates a Freetype glyph.
          */
-        FT_Glyph* Glyph( unsigned int index, FT_Int load_flags);
+        FT_GlyphSlot Glyph( unsigned int index, FT_Int load_flags);
 
         /**
          * Gets the number of glyphs in the current face.
@@ -140,19 +160,16 @@ class FTGL_EXPORT FTFace
         FTSize  charSize;
         
         /**
-         * The Character Map object associated with this face
-         */
-        FTCharmap* charMap;
-
-        /**
-         * Temporary variable to hold a glyph
-         */
-        FT_Glyph ftGlyph;
-
-        /**
          * The number of glyphs in this face
          */
         int numGlyphs;
+        
+        FT_Encoding* fontEncodingList;
+
+        /**
+         * This face has kerning tables
+         */
+         bool hasKerningTable;
 
         /**
          * Current error code. Zero means no error.

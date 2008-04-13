@@ -1,3 +1,37 @@
+/*
+ * FTGL - OpenGL font library
+ *
+ * Copyright (c) 2001-2004 Henry Maddocks <ftgl@opengl.geek.nz>
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining
+ * a copy of this software and associated documentation files (the
+ * "Software"), to deal in the Software without restriction, including
+ * without limitation the rights to use, copy, modify, merge, publish,
+ * distribute, sublicense, and/or sell copies of the Software, and to
+ * permit persons to whom the Software is furnished to do so, subject to
+ * the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+ * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+ * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * Alternatively, you can redistribute and/or modify this software under
+ * the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License,
+ * or (at your option) any later version.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA.
+ */
+
 #ifndef     __FTVectoriser__
 #define     __FTVectoriser__
 
@@ -94,42 +128,42 @@ class FTGL_EXPORT FTMesh
         ~FTMesh();
         
         /**
-         *
+         * Add a point to the mesh
          */
         void AddPoint( const FTGL_DOUBLE x, const FTGL_DOUBLE y, const FTGL_DOUBLE z);
         
         /**
-         *
+         *  Create a combine point for the gluTesselator
          */
-        FTGL_DOUBLE* Combine( const FTGL_DOUBLE x, const FTGL_DOUBLE y, const FTGL_DOUBLE z);
+        const FTGL_DOUBLE* Combine( const FTGL_DOUBLE x, const FTGL_DOUBLE y, const FTGL_DOUBLE z);
         
         /**
-         *
+         * Begin a new polygon
          */
         void Begin( GLenum meshType);
         
         /**
-         *
+         * End a polygon
          */
         void End();
         
         /**
-         *
+         * Record a gluTesselation error
          */
         void Error( GLenum e) { err = e;}
         
         /**
-         *
+         * The number of tesselations in the mesh
          */
         unsigned int TesselationCount() const { return tesselationList.size();}
 
         /**
-         *
+         * Get a tesselation by index
          */
         const FTTesselation* const Tesselation( unsigned int index) const;
         
         /**
-         *
+         * Return the temporary point list. For testing only.
          */
         const PointList& TempPointList() const { return tempPointList;}
 
@@ -161,7 +195,8 @@ class FTGL_EXPORT FTMesh
 
 };
 
-
+const FTGL_DOUBLE FTGL_FRONT_FACING = 1.0;
+const FTGL_DOUBLE FTGL_BACK_FACING = -1.0;
 
 /**
  * FTVectoriser class is a helper class that converts font outlines into
@@ -182,7 +217,7 @@ class FTGL_EXPORT FTVectoriser
          *
          * @param glyph The freetype glyph to be processed
          */
-        FTVectoriser( const FT_Glyph glyph);
+        FTVectoriser( const FT_GlyphSlot glyph);
 
         /**
          *  Destructor
@@ -195,7 +230,7 @@ class FTGL_EXPORT FTVectoriser
          * @param zNormal   The direction of the z axis of the normal
          *                  for this mesh
          */
-        void MakeMesh( FTGL_DOUBLE zNormal = 1.0);
+        void MakeMesh( FTGL_DOUBLE zNormal = FTGL_FRONT_FACING);
         
         /**
          * Get the current mesh.
@@ -267,7 +302,7 @@ class FTGL_EXPORT FTVectoriser
         /**
          * A Freetype outline
          */
-        FT_Outline ftOutline;
+        FT_Outline outline;
 };
 
 
