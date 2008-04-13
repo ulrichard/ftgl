@@ -122,7 +122,12 @@ FTExtrdGlyph::FTExtrdGlyph(FT_GlyphSlot glyph, float depth, bool useDisplayList)
     {
         const FTContour* contour = vectoriser.Contour(c);
         unsigned int n = contour->PointCount();
-        
+
+        if(n < 2)
+        {
+            continue;
+        }
+
         glBegin(GL_QUAD_STRIP);
             for(unsigned int j = 0; j <= n; ++j)
             {
