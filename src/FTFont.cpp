@@ -186,7 +186,8 @@ void FTFont::BBox(const char* string, const int start, const int end,
         }
 
         /* Expand totalBox by each glyph in String (for idx) */
-        for(int i = start + 1; (end < 0 && string[i]) || end >= 0; i++)
+        for(int i = start + 1; (end < 0 && string[i])
+                                 || (end >= 0 && i < end); i++)
         {
             if(CheckGlyph(string[i]))
             {
@@ -227,7 +228,8 @@ void FTFont::BBox(const wchar_t* string, const int start, const int end,
         }
 
         /* Expand totalBox by each glyph in String (for idx) */
-        for(int i = start + 1; (end < 0 && string[i]) || end >= 0; i++)
+        for(int i = start + 1; (end < 0 && string[i])
+                                 || (end >= 0 && i < end); i++)
         {
             if(CheckGlyph(string[i]))
             {

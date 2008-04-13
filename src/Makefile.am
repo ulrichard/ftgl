@@ -22,6 +22,7 @@ libftgl_la_SOURCES = \
 	FTPixmapGlyph.cpp \
 	FTPoint.cpp \
 	FTPolyGlyph.cpp \
+	FTSimpleLayout.cpp \
 	FTSize.cpp \
 	FTTextureGlyph.cpp \
 	FTVectoriser.cpp \
@@ -49,12 +50,14 @@ ftgl_HEADERS = \
 	../include/FTGLTextureFont.h \
 	../include/FTGlyph.h \
 	../include/FTGlyphContainer.h \
+	../include/FTLayout.h \
 	../include/FTLibrary.h \
 	../include/FTList.h \
 	../include/FTOutlineGlyph.h \
 	../include/FTPixmapGlyph.h \
 	../include/FTPoint.h \
 	../include/FTPolyGlyph.h \
+	../include/FTSimpleLayout.h \
 	../include/FTSize.h \
 	../include/FTTextureGlyph.h \
 	../include/FTVector.h \
