@@ -17,8 +17,10 @@ class FTBBoxTest : public CppUnit::TestCase
     CPPUNIT_TEST_SUITE( FTBBoxTest);
         CPPUNIT_TEST( testDefaultConstructor);
         CPPUNIT_TEST( testGlyphConstructor);
+        CPPUNIT_TEST( testBitmapConstructor);
         CPPUNIT_TEST( testMoveBBox);
         CPPUNIT_TEST( testPlusEquals);
+        CPPUNIT_TEST( testSetDepth);
     CPPUNIT_TEST_SUITE_END();
         
     public:
@@ -42,7 +44,16 @@ class FTBBoxTest : public CppUnit::TestCase
         
         void testGlyphConstructor()
         {    
-            setUpFreetype();
+            setUpFreetype( GOOD_FONT_FILE);
+
+//            FTBBox boundingBox2( (FT_GlyphSlot)(0));
+
+//            CPPUNIT_ASSERT( boundingBox2.lowerX == 0.0f);
+//            CPPUNIT_ASSERT( boundingBox2.lowerY == 0.0f);
+//            CPPUNIT_ASSERT( boundingBox2.lowerZ == 0.0f);
+//            CPPUNIT_ASSERT( boundingBox2.upperX == 0.0f);
+//            CPPUNIT_ASSERT( boundingBox2.upperY == 0.0f);
+//            CPPUNIT_ASSERT( boundingBox2.upperZ == 0.0f);
 
             FTBBox boundingBox( face->glyph);
 
@@ -53,8 +64,28 @@ class FTBBoxTest : public CppUnit::TestCase
             CPPUNIT_ASSERT_DOUBLES_EQUAL(  38, boundingBox.upperY, 0.01);
             CPPUNIT_ASSERT_DOUBLES_EQUAL(   0, boundingBox.upperZ, 0.01);
 
+            
             tearDownFreetype();
-        }     
+        }    
+        
+        void testBitmapConstructor()
+        {
+            setUpFreetype( GOOD_FONT_FILE);
+            
+            FT_Load_Char( face, CHARACTER_CODE_G, FT_LOAD_MONOCHROME);
+
+            CPPUNIT_ASSERT( ft_glyph_format_bitmap != face->glyph->format);
+
+            FTBBox boundingBox3( face->glyph);
+
+            CPPUNIT_ASSERT_DOUBLES_EQUAL(   2, boundingBox3.lowerX, 0.01);
+            CPPUNIT_ASSERT_DOUBLES_EQUAL( -15, boundingBox3.lowerY, 0.01);
+            CPPUNIT_ASSERT_DOUBLES_EQUAL(   0, boundingBox3.lowerZ, 0.01);
+            CPPUNIT_ASSERT_DOUBLES_EQUAL(  35, boundingBox3.upperX, 0.01);
+            CPPUNIT_ASSERT_DOUBLES_EQUAL(  38, boundingBox3.upperY, 0.01);
+            CPPUNIT_ASSERT_DOUBLES_EQUAL(   0, boundingBox3.upperZ, 0.01);
+
+        }
 
         void testMoveBBox()
         {
@@ -83,7 +114,7 @@ class FTBBoxTest : public CppUnit::TestCase
         
         void testPlusEquals()
         {
-            setUpFreetype();
+            setUpFreetype( GOOD_FONT_FILE);
 
             FTBBox boundingBox1;
             FTBBox boundingBox2( face->glyph);
@@ -112,6 +143,24 @@ class FTBBoxTest : public CppUnit::TestCase
             tearDownFreetype();
         }
         
+        void testSetDepth()
+        {
+            setUpFreetype( GOOD_FONT_FILE);
+            
+            FTBBox boundingBox( face->glyph);
+            
+            boundingBox.SetDepth( 37.754);
+            
+            CPPUNIT_ASSERT_DOUBLES_EQUAL(   2, boundingBox.lowerX, 0.01);
+            CPPUNIT_ASSERT_DOUBLES_EQUAL( -15, boundingBox.lowerY, 0.01);
+            CPPUNIT_ASSERT_DOUBLES_EQUAL(   0, boundingBox.lowerZ, 0.01);
+            CPPUNIT_ASSERT_DOUBLES_EQUAL(  35, boundingBox.upperX, 0.01);
+            CPPUNIT_ASSERT_DOUBLES_EQUAL(  38, boundingBox.upperY, 0.01);
+            CPPUNIT_ASSERT_DOUBLES_EQUAL(  37.754, boundingBox.upperZ, 0.01);
+
+            tearDownFreetype();
+        }
+        
         void setUp() 
         {}
         
@@ -122,28 +171,22 @@ class FTBBoxTest : public CppUnit::TestCase
     private:
         FT_Library   library;
         FT_Face      face;
-        FT_Glyph     glyph;
 
-        void setUpFreetype()
+        void setUpFreetype(const char *fontName)
         {
             FT_Error error = FT_Init_FreeType( &library);
             CPPUNIT_ASSERT(!error);
-            error = FT_New_Face( library, GOOD_FONT_FILE, 0, &face);
+            error = FT_New_Face( library, fontName, 0, &face);
             CPPUNIT_ASSERT(!error);
-            
-            long glyphIndex = FT_Get_Char_Index( face, CHARACTER_CODE_G);
-            
+
             FT_Set_Char_Size( face, 0L, FONT_POINT_SIZE * 64, RESOLUTION, RESOLUTION);
-            
-            error = FT_Load_Glyph( face, glyphIndex, FT_LOAD_DEFAULT);
-            CPPUNIT_ASSERT(!error);
-            error = FT_Get_Glyph( face->glyph, &glyph);
+
+            error = FT_Load_Char( face, CHARACTER_CODE_G, FT_LOAD_RENDER);
             CPPUNIT_ASSERT(!error);
         }
         
         void tearDownFreetype()
         {
-            FT_Done_Glyph( glyph);
             FT_Done_Face( face);
             FT_Done_FreeType( library);
         }
