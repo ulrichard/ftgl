@@ -168,77 +168,85 @@ float FTFont::LineHeight() const
     return charSize.Height();
 }
 
-void FTFont::BBox( const char* string,
-                   float& llx, float& lly, float& llz, float& urx, float& ury, float& urz)
+void FTFont::BBox(const char* string, const int start, const int end,
+                  float& llx, float& lly, float& llz,
+                  float& urx, float& ury, float& urz)
 {
     FTBBox totalBBox;
 
-    if((NULL != string) && ('\0' != *string))
+    /* Only compute the bounds if string is non-empty. */
+    if(string && ('\0' != string[start]))
     {
-        const unsigned char* c = (unsigned char*)string;
         float advance = 0;
 
-        if(CheckGlyph( *c))
+        if(CheckGlyph(string[start]))
         {
-            totalBBox = glyphList->BBox( *c);
-            advance = glyphList->Advance( *c, *(c + 1));
+            totalBBox = glyphList->BBox(string[start]);
+            advance = glyphList->Advance(string[start], string[start + 1]);
         }
-                
-        while( *++c)
+
+        /* Expand totalBox by each glyph in String (for idx) */
+        for(int i = start + 1; (end < 0 && string[i]) || end >= 0; i++)
         {
-            if(CheckGlyph( *c))
+            if(CheckGlyph(string[i]))
             {
-                FTBBox tempBBox = glyphList->BBox( *c);
-                tempBBox.Move( FTPoint( advance, 0.0f, 0.0f));
+                FTBBox tempBBox = glyphList->BBox(string[i]);
+                tempBBox.Move(FTPoint(advance, 0.0f, 0.0f));
+
                 totalBBox += tempBBox;
-                advance += glyphList->Advance( *c, *(c + 1));
+                advance += glyphList->Advance(string[i], string[i + 1]);
             }
         }
     }
 
-    llx = totalBBox.lowerX;
-    lly = totalBBox.lowerY;
-    llz = totalBBox.lowerZ;
-    urx = totalBBox.upperX;
-    ury = totalBBox.upperY;
-    urz = totalBBox.upperZ;
+    // TODO: The Z values do not follow the proper ordering.  I'm not sure why.
+    llx = totalBBox.lowerX < totalBBox.upperX ? totalBBox.lowerX : totalBBox.upperX;
+    lly = totalBBox.lowerY < totalBBox.upperY ? totalBBox.lowerY : totalBBox.upperY;
+    llz = totalBBox.lowerZ < totalBBox.upperZ ? totalBBox.lowerZ : totalBBox.upperZ;
+    urx = totalBBox.lowerX > totalBBox.upperX ? totalBBox.lowerX : totalBBox.upperX;
+    ury = totalBBox.lowerY > totalBBox.upperY ? totalBBox.lowerY : totalBBox.upperY;
+    urz = totalBBox.lowerZ > totalBBox.upperZ ? totalBBox.lowerZ : totalBBox.upperZ;
 }
 
 
-void FTFont::BBox( const wchar_t* string,
-                   float& llx, float& lly, float& llz, float& urx, float& ury, float& urz)
+void FTFont::BBox(const wchar_t* string, const int start, const int end,
+                  float& llx, float& lly, float& llz,
+                  float& urx, float& ury, float& urz)
 {
     FTBBox totalBBox;
 
-    if((NULL != string) && ('\0' != *string))
+    /* Only compute the bounds if string is non-empty. */
+    if(string && ('\0' != string[start]))
     {
-        const wchar_t* c = string;
         float advance = 0;
 
-        if(CheckGlyph( *c))
+        if(CheckGlyph(string[start]))
         {
-            totalBBox = glyphList->BBox( *c);
-            advance = glyphList->Advance( *c, *(c + 1));
+            totalBBox = glyphList->BBox(string[start]);
+            advance = glyphList->Advance(string[start], string[start + 1]);
         }
-        
-        while( *++c)
+
+        /* Expand totalBox by each glyph in String (for idx) */
+        for(int i = start + 1; (end < 0 && string[i]) || end >= 0; i++)
         {
-            if(CheckGlyph( *c))
+            if(CheckGlyph(string[i]))
             {
-                FTBBox tempBBox = glyphList->BBox( *c);
-                tempBBox.Move( FTPoint( advance, 0.0f, 0.0f));
+                FTBBox tempBBox = glyphList->BBox(string[i]);
+                tempBBox.Move(FTPoint(advance, 0.0f, 0.0f));
+
                 totalBBox += tempBBox;
-                advance += glyphList->Advance( *c, *(c + 1));
+                advance += glyphList->Advance(string[i], string[i + 1]);
             }
         }
     }
 
-    llx = totalBBox.lowerX;
-    lly = totalBBox.lowerY;
-    llz = totalBBox.lowerZ;
-    urx = totalBBox.upperX;
-    ury = totalBBox.upperY;
-    urz = totalBBox.upperZ;
+    // TODO: The Z values do not follow the proper ordering.  I'm not sure why.
+    llx = totalBBox.lowerX < totalBBox.upperX ? totalBBox.lowerX : totalBBox.upperX;
+    lly = totalBBox.lowerY < totalBBox.upperY ? totalBBox.lowerY : totalBBox.upperY;
+    llz = totalBBox.lowerZ < totalBBox.upperZ ? totalBBox.lowerZ : totalBBox.upperZ;
+    urx = totalBBox.lowerX > totalBBox.upperX ? totalBBox.lowerX : totalBBox.upperX;
+    ury = totalBBox.lowerY > totalBBox.upperY ? totalBBox.lowerY : totalBBox.upperY;
+    urz = totalBBox.lowerZ > totalBBox.upperZ ? totalBBox.lowerZ : totalBBox.upperZ;
 }
 
 
@@ -275,6 +283,18 @@ float FTFont::Advance( const char* string)
     }
     
     return width;
+}
+
+
+/* FIXME: DoRender should disappear, see commit [853]. */
+void FTFont::DoRender(const unsigned int chr,
+                      const unsigned int nextChr, FTPoint &origin)
+{
+    if(CheckGlyph(chr))
+    {
+        FTPoint kernAdvance = glyphList->Render(chr, nextChr, origin);
+        origin += kernAdvance;
+    }
 }
 
 
