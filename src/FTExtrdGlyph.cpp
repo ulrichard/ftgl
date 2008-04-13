@@ -137,19 +137,16 @@ FTExtrdGlyph::FTExtrdGlyph(FT_GlyphSlot glyph, float depth, bool useDisplayList)
                     glNormal3dv(static_cast<const FTGL_DOUBLE*>(normal));
                 }
 
+                glTexCoord2f(pt.X() / hscale,
+                             pt.Y() / vscale);
+
                 if(contourFlag & ft_outline_reverse_fill)
                 {
-                    glTexCoord2f(pt.X() / hscale,
-                                 pt.X() / vscale);
-                
                     glVertex3f(pt.X() / 64.0f, pt.Y() / 64.0f, 0.0f);
                     glVertex3f(pt.X() / 64.0f, pt.Y() / 64.0f, -depth);
                 }
                 else
                 {
-                    glTexCoord2f(pt.X() / hscale,
-                                 pt.Y() / vscale);
-                
                     glVertex3f(pt.X() / 64.0f, pt.Y() / 64.0f, -depth);
                     glVertex3f(pt.X() / 64.0f, pt.Y() / 64.0f, 0.0f);
                 }
