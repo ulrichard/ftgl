@@ -70,9 +70,9 @@ FTPolyGlyph::FTPolyGlyph( FT_GlyphSlot glyph, bool useDisplayList)
     for( unsigned int index = 0; index < mesh->TesselationCount(); ++index)
     {
         const FTTesselation* subMesh = mesh->Tesselation( index);
-        unsigned int polyonType = subMesh->PolygonType();
+        unsigned int polygonType = subMesh->PolygonType();
 
-        glBegin( polyonType);
+        glBegin( polygonType);
             for( unsigned int pointIndex = 0; pointIndex < subMesh->PointCount(); ++pointIndex)
             {
                 FTPoint point = subMesh->Point(pointIndex);

@@ -75,9 +75,9 @@ FTExtrdGlyph::FTExtrdGlyph(FT_GlyphSlot glyph, float depth, bool useDisplayList)
     for(unsigned int j = 0; j < mesh->TesselationCount(); ++j)
     {
         const FTTesselation* subMesh = mesh->Tesselation(j);
-        unsigned int polyonType = subMesh->PolygonType();
+        unsigned int polygonType = subMesh->PolygonType();
 
-        glBegin(polyonType);
+        glBegin(polygonType);
             for(unsigned int i = 0; i < subMesh->PointCount(); ++i)
             {
                 FTPoint pt = subMesh->Point(i);
@@ -99,9 +99,9 @@ FTExtrdGlyph::FTExtrdGlyph(FT_GlyphSlot glyph, float depth, bool useDisplayList)
     for(unsigned int j = 0; j < mesh->TesselationCount(); ++j)
     {
         const FTTesselation* subMesh = mesh->Tesselation(j);
-        unsigned int polyonType = subMesh->PolygonType();
+        unsigned int polygonType = subMesh->PolygonType();
 
-        glBegin(polyonType);
+        glBegin(polygonType);
             for(unsigned int i = 0; i < subMesh->PointCount(); ++i)
             {
                 FTPoint pt = subMesh->Point(i);
