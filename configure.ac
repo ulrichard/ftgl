@@ -29,6 +29,10 @@ AC_PATH_XTRA
 FTGL_CHECK_GL
 FTGL_CHECK_GLUT
 
+CPPUNIT="no"
+PKG_CHECK_MODULES(CPPUNIT, cppunit, [CPPUNIT="yes"], [AC_MSG_RESULT(no)])
+AM_CONDITIONAL(HAVE_CPPUNIT, test "$CPPUNIT" != "no")
+
 # Checks for library functions
 dnl This isn't really used at the moment
 
@@ -47,6 +51,7 @@ AC_CONFIG_FILES([
 AC_CONFIG_FILES([
   Makefile
   src/Makefile
+  test/Makefile
   docs/Makefile
   demo/Makefile
 ])
