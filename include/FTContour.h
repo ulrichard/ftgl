@@ -92,31 +92,24 @@ class FTGL_EXPORT FTContour
          * @param point The point to be added to the contour.
          */
         inline void AddPoint( FTPoint point);
-        
-        inline void AddPoint( float x, float y);
-        
+
         /**
          * De Casteljau (bezier) algorithm contributed by Jed Soane
          * Evaluates a quadratic or conic (second degree) curve
          */
-        inline void evaluateQuadraticCurve();
+        inline void evaluateQuadraticCurve(FTPoint, FTPoint, FTPoint);
 
         /**
          * De Casteljau (bezier) algorithm contributed by Jed Soane
          * Evaluates a cubic (third degree) curve
          */
-        inline void evaluateCubicCurve();
+        inline void evaluateCubicCurve(FTPoint, FTPoint, FTPoint, FTPoint);
 
         /**
          *  The list of points in this contour
          */
         typedef FTVector<FTPoint> PointVector;
         PointVector pointList;
-        
-        /**
-         * 2D array storing values of de Casteljau algorithm.
-         */
-        float controlPoints[4][2];
 };
 
 #endif // __FTContour__
