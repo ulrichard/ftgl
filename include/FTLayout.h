@@ -10,10 +10,10 @@
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
@@ -44,13 +44,14 @@
  *
  * Specific layout manager classes are derived from this class. This class
  * is abstract and deriving classes must implement the protected
- * <code>Render</code> methods to render formatted text and 
+ * <code>Render</code> methods to render formatted text and
  * <code>BBox</code> methods to determine the bounding box of output text.
  *
  * @see     FTFont
  */
-class FTGL_EXPORT FTLayout {
-    public:        
+class FTGL_EXPORT FTLayout
+{
+    public:
         /**
          * Get the bounding box for a formatted string.
          *
@@ -62,7 +63,8 @@ class FTGL_EXPORT FTLayout {
          * @param ury       upper right far y coord
          * @param urz       upper right far z coord
          */
-        virtual void BBox(const char* String,float& llx,float& lly,float& llz,float& urx,float& ury,float& urz) = 0;
+        virtual void BBox(const char* string, float& llx, float& lly,
+                          float& llz, float& urx, float& ury, float& urz) = 0;
 
         /**
          * Get the bounding box for a formatted string.
@@ -75,22 +77,24 @@ class FTGL_EXPORT FTLayout {
          * @param ury       upper right far y coord
          * @param urz       upper right far z coord
          */
-        virtual void BBox(const wchar_t* String,float& llx,float& lly,float& llz,float& urx,float& ury,float& urz) = 0;
-            
-        /**
-         * Render a string of characters
-         * 
-         * @param string    'C' style string to be output.   
-         */
-        virtual void Render(const char *String) = 0;
+        virtual void BBox(const wchar_t* string, float& llx, float& lly,
+                          float& llz, float& urx, float& ury, float& urz) = 0;
 
         /**
          * Render a string of characters
-         * 
-         * @param string    wchar_t string to be output.     
+         *
+         * @param string    'C' style string to be output.
          */
-        virtual void Render(const wchar_t *String) = 0;
-   protected:
+        virtual void Render(const char *string) = 0;
+
+        /**
+         * Render a string of characters
+         *
+         * @param string    wchar_t string to be output.
+         */
+        virtual void Render(const wchar_t *string) = 0;
+
+    protected:
         /**
          * Current pen or cursor position;
          */
@@ -98,36 +102,37 @@ class FTGL_EXPORT FTLayout {
 
         /**
          * Expose <code>FTFont::DoRender</code> method to derived classes.
-         * 
-         * @param font 		 The font that contains the glyph.
+         *
+         * @param font      The font that contains the glyph.
          * @param chr       current character
          * @param nextChr   next character
          * @see FTFont::DoRender
          */
-        void DoRender(FTFont *font,const unsigned int chr,const unsigned int nextChr)
-            { font->DoRender(chr,nextChr,pen); }
-        
+        void DoRender(FTFont *font, const unsigned int chr,
+                      const unsigned int nextChr)
+            { font->DoRender(chr, nextChr, pen); }
+
         /**
          * Expose <code>FTFont::CheckGlyph</code> method to derived classes.
          *
          * @param font The font that contains the glyph.
          * @param chr  character index
          */
-        void CheckGlyph(FTFont *font,const unsigned int Chr)
+        void CheckGlyph(FTFont *font, const unsigned int Chr)
             { font->CheckGlyph(Chr); }
-            
+
          /**
           * Expose the FTFont <code>glyphList</code> to our derived classes.
-          * 
+          *
           * @param font The font to perform the query on.
           * @param Char The character corresponding to the glyph to query.
           *
           * @return A pointer to the glyphList of font.
-          */ 
+          */
          FTGlyphContainer *GetGlyphs(FTFont *font)
             { return(font->glyphList); }
-            
-         /** 
+
+         /**
           * Expose the FTFont <code>charSize</code> to our derived classes.
           *
           * @param The font to perform the query on.
@@ -136,6 +141,7 @@ class FTGL_EXPORT FTLayout {
           */
          FTSize &GetCharSize(FTFont *font)
             { return(font->charSize); }
-}; /* class FTLayout */
+};
+
 #endif  /* __FTLayout__ */
 
