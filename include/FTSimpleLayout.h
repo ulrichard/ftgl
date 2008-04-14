@@ -61,7 +61,7 @@ class FTGL_EXPORT FTSimpleLayout : public FTLayout
          * @param urz       upper right far z coord
          */
         virtual void BBox(const char* string, float& llx, float& lly,
-                          float& llz, float& urx, float& ury, float& urz);
+                          float& llz, float& urx, float& ury, float& urz);
 
         /**
          * Get the bounding box for a string.
