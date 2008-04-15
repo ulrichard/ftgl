@@ -187,7 +187,7 @@ class  FTGL_EXPORT FTGLTextureFont : public FTFont
 extern "C" {
 namespace C {
 #endif
-FTGL_EXPORT FTGLfont *ftglTextureFontMake(const char *fontname);
+FTGL_EXPORT FTGLfont *ftglCreateTextureFont(const char *fontname);
 #ifdef __cplusplus
 }
 }

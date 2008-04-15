@@ -102,17 +102,13 @@ void FTGLBitmapFont::Render( const wchar_t* string)
     glPopClientAttrib();
 }
 
-#ifdef __cplusplus
-extern "C" {
-namespace C {
-#endif
-extern "C" FTGLfont* ftglBitmapFontMake(const char *fontname)
+
+namespace C
 {
-    FTGLfont *ftgl = createFTFont(Bitmap, fontname);
-    return ftgl;
+    extern "C" FTGLfont* ftglCreateBitmapFont(const char *fontname)
+    {
+        FTGLfont *ftgl = createFTFont(Bitmap, fontname);
+        return ftgl;
+    }
 }
-#ifdef __cplusplus
-}
-}
-#endif
 

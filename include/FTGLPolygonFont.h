@@ -89,7 +89,7 @@ class FTGL_EXPORT FTGLPolygonFont : public FTFont
 extern "C" {
 namespace C {
 #endif
-FTGL_EXPORT FTGLfont *ftglPolygonFontMake(const char *fontname);
+FTGL_EXPORT FTGLfont *ftglCreatePolygonFont(const char *fontname);
 #ifdef __cplusplus
 }
 }

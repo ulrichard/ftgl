@@ -104,7 +104,7 @@ namespace C {
 extern "C" {
 #endif
 
-FTGL_EXPORT FTGLfont *ftglOutlineFontMake(const char *fontname);
+FTGL_EXPORT FTGLfont *ftglCreateOutlineFont(const char *fontname);
 
 #ifdef __cplusplus
 }

@@ -101,7 +101,7 @@ class FTGL_EXPORT FTGLExtrdFont : public FTFont
 extern "C" {
 namespace C {
 #endif
-FTGL_EXPORT FTGLfont *ftglExtrdFontMake(const char *fontname);
+FTGL_EXPORT FTGLfont *ftglCreateExtrdFont(const char *fontname);
 #ifdef __cplusplus
 }
 }

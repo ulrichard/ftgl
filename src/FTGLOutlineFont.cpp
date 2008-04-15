@@ -102,16 +102,13 @@ void FTGLOutlineFont::Render( const wchar_t* string)
     glPopAttrib();
 }
 
-#ifdef __cplusplus
-extern "C" {
-namespace C {
-#endif
-extern "C" FTGLfont* ftglOutlineFontMake(const char *fontname)
+
+namespace C
 {
-    FTGLfont *ftgl = createFTFont(Outline, fontname);
-    return ftgl;
+    extern "C" FTGLfont* ftglCreateOutlineFont(const char *fontname)
+    {
+        FTGLfont *ftgl = createFTFont(Outline, fontname);
+        return ftgl;
+    }
 }
-#ifdef __cplusplus
-}
-}
-#endif
+

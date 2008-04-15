@@ -37,10 +37,8 @@
 
 #include "FTInternals.h"
 
-#ifdef __cplusplus
-extern "C" {
-namespace C {
-#endif
+namespace C
+{
 
 #define C_FUN(cret, cname, cargs, cxxerr, cxxname, cxxarg) \
     cret cname cargs \
@@ -68,6 +66,9 @@ namespace C {
         fprintf(stderr, "FTGL Warning: Function not implemented yet .. %s for %d\n", #cname, f->type); \
         cxxerr; \
     }
+
+// FTFont::~FTFont();
+C_FUN(void, ftglDestroyFont, (FTGLfont *f), return, ~FTFont, ());
 
 // bool FTFont::Attach(const char* fontFilePath);
 C_FUN(int, ftglAttachFile, (FTGLfont *f, const char* path),
@@ -133,8 +134,5 @@ C_FUN(void, ftglRender, (FTGLfont *f, const char * s), return, Render, (s));
 // FT_Error FTFont::Error() const;
 C_FUN(FT_Error, ftglError, (FTGLfont *f), return -1, Error, ());
 
-#ifdef __cplusplus
-} // extern "C"
 } // namespace C
-#endif
 

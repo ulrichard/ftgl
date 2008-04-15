@@ -70,17 +70,13 @@ FTGlyph* FTGLExtrdFont::MakeGlyph( unsigned int glyphIndex)
     return NULL;
 }
 
-#ifdef __cplusplus
-extern "C" {
-namespace C {
-#endif
-extern "C" FTGLfont* ftglExtrdFontMake(const char *fontname)
+
+namespace C
 {
-    FTGLfont *ftgl = createFTFont(Extrude, fontname);
-    return ftgl;
+    extern "C" FTGLfont* ftglCreateExtrdFont(const char *fontname)
+    {
+        FTGLfont *ftgl = createFTFont(Extrude, fontname);
+        return ftgl;
+    }
 }
-#ifdef __cplusplus
-}
-}
-#endif
 

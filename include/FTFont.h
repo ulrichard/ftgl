@@ -372,6 +372,8 @@ namespace C {
 
 typedef struct FTGLfont FTGLfont;
 
+FTGL_EXPORT void ftglDestroyFont(FTGLfont*);
+
 FTGL_EXPORT int ftglAttachFile (FTGLfont*, const char*);
 FTGL_EXPORT int ftglAttachData (FTGLfont*, const unsigned char *, size_t);
 

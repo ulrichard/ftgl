@@ -68,17 +68,13 @@ FTGlyph* FTGLPolygonFont::MakeGlyph( unsigned int g)
     return NULL;
 }
 
-#ifdef __cplusplus
-extern "C" {
-namespace C {
-#endif
-extern "C" FTGLfont* ftglPolygonFontMake(const char *fontname)
+
+namespace C
 {
-    FTGLfont *ftgl = createFTFont(Polygon, fontname);
-    return ftgl;
+    extern "C" FTGLfont* ftglCreatePolygonFont(const char *fontname)
+    {
+        FTGLfont *ftgl = createFTFont(Polygon, fontname);
+        return ftgl;
+    }
 }
-#ifdef __cplusplus
-}
-}
-#endif
 
