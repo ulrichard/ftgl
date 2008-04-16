@@ -87,14 +87,14 @@ class  FTGL_EXPORT FTGLTextureFont : public FTFont
          * 
          * @param string    'C' style string to be output.   
          */
-        virtual void Render( const char* string);
+        virtual void Render(const char* string);
         
         /**
          * Renders a string of characters
          * 
          * @param string    wchar_t string to be output.     
          */
-        virtual void Render( const wchar_t* string);
+        virtual void Render(const wchar_t* string);
 
         
     private:
@@ -179,6 +179,9 @@ class  FTGL_EXPORT FTGLTextureFont : public FTFont
          */
         int yOffset;
 
+        /* Internal generic Render() implementation */
+        template <typename T>
+        inline void RenderI(const T* string);
 };
 
 #endif //__cplusplus

@@ -302,6 +302,29 @@ class FTGL_EXPORT FTSimpleLayout : public FTLayout
          * a percentage of the font's line height.
          */
         float lineSpacing;
+
+        /* Internal generic BBox() implementation */
+        template <typename T>
+        inline void BBoxI(const T* string, float& llx, float& lly, float& llz,
+                          float& urx, float& ury, float& urz);
+
+        /* Internal generic Render() implementation */
+        template <typename T>
+        inline void RenderI(const T* string);
+
+        /* Internal generic RenderSpace() implementation */
+        template <typename T>
+        inline void RenderSpaceI(const T* string, const int start,
+                                 const int end, const float ExtraSpace = 0.0);
+
+        /* Internal generic WrapText() implementation */
+        template <typename T>
+        void WrapTextI(const T* buf, FTBBox *bounds = NULL);
+
+        /* Internal generic OutputWrapped() implementation */
+        template <typename T>
+        void OutputWrappedI(const T* buf, const int start, const int end,
+                            const float RemainingWidth, FTBBox *bounds);
 };
 
 #endif  /* __FTSimpleLayout__ */

@@ -163,14 +163,17 @@ float FTFont::Descender() const
     return charSize.Descender();
 }
 
+
 float FTFont::LineHeight() const
 {
     return charSize.Height();
 }
 
-void FTFont::BBox(const char* string, const int start, const int end,
-                  float& llx, float& lly, float& llz,
-                  float& urx, float& ury, float& urz)
+
+template <typename T>
+inline void FTFont::BBoxI(const T* string, const int start, const int end,
+                          float& llx, float& lly, float& llz,
+                          float& urx, float& ury, float& urz)
 {
     FTBBox totalBBox;
 
@@ -207,6 +210,14 @@ void FTFont::BBox(const char* string, const int start, const int end,
     urx = totalBBox.lowerX > totalBBox.upperX ? totalBBox.lowerX : totalBBox.upperX;
     ury = totalBBox.lowerY > totalBBox.upperY ? totalBBox.lowerY : totalBBox.upperY;
     urz = totalBBox.lowerZ > totalBBox.upperZ ? totalBBox.lowerZ : totalBBox.upperZ;
+}
+
+
+void FTFont::BBox(const char* string, const int start, const int end,
+                  float& llx, float& lly, float& llz,
+                  float& urx, float& ury, float& urz)
+{
+    return BBoxI(string, start, end, llx, lly, llz, urx, ury, urz);
 }
 
 
@@ -214,54 +225,21 @@ void FTFont::BBox(const wchar_t* string, const int start, const int end,
                   float& llx, float& lly, float& llz,
                   float& urx, float& ury, float& urz)
 {
-    FTBBox totalBBox;
-
-    /* Only compute the bounds if string is non-empty. */
-    if(string && ('\0' != string[start]))
-    {
-        float advance = 0;
-
-        if(CheckGlyph(string[start]))
-        {
-            totalBBox = glyphList->BBox(string[start]);
-            advance = glyphList->Advance(string[start], string[start + 1]);
-        }
-
-        /* Expand totalBox by each glyph in String (for idx) */
-        for(int i = start + 1; (end < 0 && string[i])
-                                 || (end >= 0 && i < end); i++)
-        {
-            if(CheckGlyph(string[i]))
-            {
-                FTBBox tempBBox = glyphList->BBox(string[i]);
-                tempBBox.Move(FTPoint(advance, 0.0f, 0.0f));
-
-                totalBBox += tempBBox;
-                advance += glyphList->Advance(string[i], string[i + 1]);
-            }
-        }
-    }
-
-    // TODO: The Z values do not follow the proper ordering.  I'm not sure why.
-    llx = totalBBox.lowerX < totalBBox.upperX ? totalBBox.lowerX : totalBBox.upperX;
-    lly = totalBBox.lowerY < totalBBox.upperY ? totalBBox.lowerY : totalBBox.upperY;
-    llz = totalBBox.lowerZ < totalBBox.upperZ ? totalBBox.lowerZ : totalBBox.upperZ;
-    urx = totalBBox.lowerX > totalBBox.upperX ? totalBBox.lowerX : totalBBox.upperX;
-    ury = totalBBox.lowerY > totalBBox.upperY ? totalBBox.lowerY : totalBBox.upperY;
-    urz = totalBBox.lowerZ > totalBBox.upperZ ? totalBBox.lowerZ : totalBBox.upperZ;
+    return BBoxI(string, start, end, llx, lly, llz, urx, ury, urz);
 }
 
 
-float FTFont::Advance( const wchar_t* string)
+template <typename T>
+inline float FTFont::AdvanceI(const T* string)
 {
-    const wchar_t* c = string;
+    const T* c = string;
     float width = 0.0f;
 
-    while( *c)
+    while(*c)
     {
-        if(CheckGlyph( *c))
+        if(CheckGlyph(*c))
         {
-            width += glyphList->Advance( *c, *(c + 1));
+            width += glyphList->Advance(*c, *(c + 1));
         }
         ++c;
     }
@@ -270,21 +248,15 @@ float FTFont::Advance( const wchar_t* string)
 }
 
 
-float FTFont::Advance( const char* string)
+float FTFont::Advance(const wchar_t* string)
 {
-    const unsigned char* c = (unsigned char*)string;
-    float width = 0.0f;
+    return AdvanceI(string);
+}
 
-    while( *c)
-    {
-        if(CheckGlyph( *c))
-        {
-            width += glyphList->Advance( *c, *(c + 1));
-        }
-        ++c;
-    }
-    
-    return width;
+
+float FTFont::Advance(const char* string)
+{
+    return AdvanceI((const unsigned char *)string);
 }
 
 
@@ -300,35 +272,32 @@ void FTFont::DoRender(const unsigned int chr,
 }
 
 
-void FTFont::Render( const char* string )
+template <typename T>
+inline void FTFont::RenderI(const T* string)
 {
-    const unsigned char* c = (unsigned char*)string;
+    const T* c = string;
     pen.X(0); pen.Y(0);
 
-    while( *c)
+    while(*c)
     {
-        if(CheckGlyph( *c))
+        if(CheckGlyph(*c))
         {
-            pen = glyphList->Render( *c, *(c + 1), pen);
+            pen = glyphList->Render(*c, *(c + 1), pen);
         }
         ++c;
     }
 }
 
 
-void FTFont::Render( const wchar_t* string )
+void FTFont::Render(const wchar_t* string)
 {
-    const wchar_t* c = string;
-    pen.X(0); pen.Y(0);
+    RenderI(string);
+}
 
-    while( *c)
-    {
-        if(CheckGlyph( *c))
-        {
-            pen = glyphList->Render( *c, *(c + 1), pen);
-        }
-        ++c;
-    }
+
+void FTFont::Render(const char * string)
+{
+    RenderI((const unsigned char *)string);
 }
 
 

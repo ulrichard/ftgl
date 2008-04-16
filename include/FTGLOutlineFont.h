@@ -77,14 +77,14 @@ class FTGL_EXPORT FTGLOutlineFont : public FTFont
          * 
          * @param string    'C' style string to be output.   
          */
-        void Render( const char* string);
+        void Render(const char* string);
         
         /**
          * Renders a string of characters
          * 
          * @param string    wchar_t string to be output.     
          */
-        void Render( const wchar_t* string);
+        void Render(const wchar_t* string);
 
     private:
         /**
@@ -93,8 +93,11 @@ class FTGL_EXPORT FTGLOutlineFont : public FTFont
          * @param g The glyph index NOT the char code.
          * @return  An FTOutlineGlyph or <code>null</code> on failure.
          */
-        inline virtual FTGlyph* MakeGlyph( unsigned int g);
+        inline virtual FTGlyph* MakeGlyph(unsigned int g);
         
+        /* Internal generic Render() implementation */
+        template <typename T>
+        inline void RenderI(const T* string);
 };
 
 #endif //__cplusplus

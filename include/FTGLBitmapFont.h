@@ -77,14 +77,14 @@ class FTGL_EXPORT FTGLBitmapFont : public FTFont
          * 
          * @param string    'C' style string to be output.   
          */
-        void Render( const char* string);
+        void Render(const char* string);
 
         /**
          * Renders a string of characters
          * 
          * @param string    'C' style wide string to be output.  
          */
-        void Render( const wchar_t* string);
+        void Render(const wchar_t* string);
 
         // attributes
         
@@ -97,6 +97,9 @@ class FTGL_EXPORT FTGLBitmapFont : public FTFont
          */
         inline virtual FTGlyph* MakeGlyph( unsigned int g);
                 
+        /* Internal generic Render() implementation */
+        template <typename T>
+        inline void RenderI(const T* string);
 };
 #endif //__cplusplus
 

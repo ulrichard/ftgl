@@ -69,37 +69,34 @@ FTGlyph* FTGLOutlineFont::MakeGlyph( unsigned int g)
 }
 
 
-void FTGLOutlineFont::Render( const char* string)
-{   
-    glPushAttrib( GL_ENABLE_BIT | GL_HINT_BIT | GL_LINE_BIT | GL_COLOR_BUFFER_BIT);
-    
-    glDisable( GL_TEXTURE_2D);
-    
-    glEnable( GL_LINE_SMOOTH);
-    glHint( GL_LINE_SMOOTH_HINT, GL_DONT_CARE);
-    glEnable(GL_BLEND);
-    glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // GL_ONE
+template <typename T>
+inline void FTGLOutlineFont::RenderI(const T* string)
+{
+    glPushAttrib(GL_ENABLE_BIT | GL_HINT_BIT | GL_LINE_BIT
+                  | GL_COLOR_BUFFER_BIT);
 
-    FTFont::Render( string);
+    glDisable(GL_TEXTURE_2D);
+
+    glEnable(GL_LINE_SMOOTH);
+    glHint(GL_LINE_SMOOTH_HINT, GL_DONT_CARE);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // GL_ONE
+
+    FTFont::Render(string);
 
     glPopAttrib();
 }
 
 
-void FTGLOutlineFont::Render( const wchar_t* string)
-{   
-    glPushAttrib( GL_ENABLE_BIT | GL_HINT_BIT | GL_LINE_BIT | GL_COLOR_BUFFER_BIT);
-    
-    glDisable( GL_TEXTURE_2D);
-    
-    glEnable( GL_LINE_SMOOTH);
-    glHint( GL_LINE_SMOOTH_HINT, GL_DONT_CARE);
-    glEnable(GL_BLEND);
-    glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // GL_ONE
+void FTGLOutlineFont::Render(const char* string)
+{
+    RenderI(string);
+}
 
-    FTFont::Render( string);
 
-    glPopAttrib();
+void FTGLOutlineFont::Render(const wchar_t* string)
+{
+    RenderI(string);
 }
 
 

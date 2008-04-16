@@ -189,33 +189,31 @@ bool FTGLTextureFont::FaceSize( const unsigned int size, const unsigned int res)
 }
 
 
-void FTGLTextureFont::Render( const char* string)
+template <typename T>
+inline void FTGLTextureFont::RenderI(const T* string)
 {   
-    glPushAttrib( GL_ENABLE_BIT | GL_COLOR_BUFFER_BIT);
+    glPushAttrib(GL_ENABLE_BIT | GL_COLOR_BUFFER_BIT);
     
     glEnable(GL_BLEND);
-    glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // GL_ONE
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // GL_ONE
 
     FTTextureGlyph::ResetActiveTexture();
     
-    FTFont::Render( string);
+    FTFont::Render(string);
 
     glPopAttrib();
 }
 
 
-void FTGLTextureFont::Render( const wchar_t* string)
-{   
-    glPushAttrib( GL_ENABLE_BIT | GL_COLOR_BUFFER_BIT);
-    
-    glEnable(GL_BLEND);
-    glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // GL_ONE
-    
-    FTTextureGlyph::ResetActiveTexture();
-    
-    FTFont::Render( string);
-    
-    glPopAttrib();
+void FTGLTextureFont::Render(const char* string)
+{
+    RenderI(string);
+}
+
+
+void FTGLTextureFont::Render(const wchar_t* string)
+{
+    RenderI(string);
 }
 
 

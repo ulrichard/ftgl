@@ -52,270 +52,235 @@ FTSimpleLayout::FTSimpleLayout()
 }
 
 
-void FTSimpleLayout::BBox(const char *string, float& llx, float& lly,
-                          float& llz, float& urx, float& ury, float& urz)
+template <typename T>
+inline void FTSimpleLayout::BBoxI(const T* string,
+                                  float& llx, float& lly, float& llz,
+                                  float& urx, float& ury, float& urz)
 {
     FTBBox bounds;
 
     WrapText(string, &bounds);
     llx = bounds.lowerX; lly = bounds.lowerY; llz = bounds.lowerZ;
     urx = bounds.upperX; ury = bounds.upperY; urz = bounds.upperZ;
+}
+
+
+void FTSimpleLayout::BBox(const char *string, float& llx, float& lly,
+                          float& llz, float& urx, float& ury, float& urz)
+{
+    BBoxI(string, llx, lly, llz, urx, ury, urz);
 }
 
 
 void FTSimpleLayout::BBox(const wchar_t *string, float& llx, float& lly,
                           float& llz, float& urx, float& ury, float& urz)
 {
-    FTBBox bounds;
+    BBoxI(string, llx, lly, llz, urx, ury, urz);
+}
 
-    WrapText(string, &bounds);
-    llx = bounds.lowerX; lly = bounds.lowerY; llz = bounds.lowerZ;
-    urx = bounds.upperX; ury = bounds.upperY; urz = bounds.upperZ;
+
+template <typename T>
+inline void FTSimpleLayout::RenderI(const T *string)
+{
+    pen.X(0.0f);
+    pen.Y(0.0f);
+    WrapText(string, NULL);
 }
 
 
 void FTSimpleLayout::Render(const char *string)
 {
-    pen.X(0.0f);
-    pen.Y(0.0f);
-    WrapText(string, NULL);
+    RenderI(string);
 }
 
 
 void FTSimpleLayout::Render(const wchar_t* string)
 {
-    pen.X(0.0f);
-    pen.Y(0.0f);
-    WrapText(string, NULL);
+    RenderI(string);
+}
+
+
+template <typename T>
+inline void FTSimpleLayout::WrapTextI(const T *buf, FTBBox *bounds)
+{
+    int breakIdx = 0;          // index of the last break character
+    int lineStart = 0;         // character index of the line start
+    float nextStart = 0.0;     // total width of the current line
+    float breakWidth = 0.0;    // width of the line up to the last word break
+    float currentWidth = 0.0;  // width of all characters on the current line
+    float prevWidth;           // width of all characters but the current glyph
+    float wordLength = 0.0;    // length of the block since the last break char
+    float glyphWidth, advance;
+    FTBBox glyphBounds;
+
+    // Reset the pen position
+    pen.Y(0);
+
+    // If we have bounds mark them invalid
+    if(bounds)
+    {
+        bounds->Invalidate();
+    }
+
+    // Scan the input for all characters that need output
+    for(int i = 0; buf[i]; i++)
+    {
+        // Find the width of the current glyph
+        CheckGlyph(currentFont, buf[i]);
+        glyphBounds = GetGlyphs(currentFont)->BBox(buf[i]);
+        glyphWidth = glyphBounds.upperX - glyphBounds.lowerX;
+
+        advance = GetGlyphs(currentFont)->Advance(buf[i], buf[i + 1]);
+        prevWidth = currentWidth;
+        // Compute the width of all glyphs up to the end of buf[i]
+        currentWidth = nextStart + glyphWidth;
+        // Compute the position of the next glyph
+        nextStart += advance;
+
+        // See if buf[i] is a space, a break or a regular character
+        if((currentWidth > lineLength) || (buf[i] == '\n'))
+        {
+            // A non whitespace character has exceeded the line length.  Or a
+            // newline character has forced a line break.  Output the last
+            // line and start a new line after the break character.
+            // If we have not yet found a break, break on the last character
+            if(!breakIdx || (buf[i] == '\n'))
+            {
+                // Break on the previous character
+                breakIdx = i - 1;
+                breakWidth = prevWidth;
+                // None of the previous words will be carried to the next line
+                wordLength = 0;
+                // If the current character is a newline discard its advance
+                if(buf[i] == '\n') advance = 0;
+            }
+
+            float remainingWidth = lineLength - breakWidth;
+
+            // Render the current substring
+            // If the break character is a newline do not render it
+            if(buf[breakIdx + 1] == '\n')
+            {
+                breakIdx++;
+                OutputWrapped(buf, lineStart, breakIdx - 1,
+                              remainingWidth, bounds);
+            }
+            else
+            {
+                OutputWrapped(buf, lineStart, breakIdx, remainingWidth, bounds);
+            }
+
+            // Store the start of the next line
+            lineStart = breakIdx + 1;
+            // TODO: Is Height() the right value here?
+            pen.Y(pen.Y() - GetCharSize(currentFont).Height() * lineSpacing);
+            // The current width is the width since the last break
+            nextStart = wordLength + advance;
+            wordLength += advance;
+            currentWidth = wordLength + advance;
+            // Reset the safe break for the next line
+            breakIdx = 0;
+        }
+        else if(isspace(buf[i]))
+        {
+            // This is the last word break position
+            wordLength = 0;
+            breakIdx = i;
+
+            // Check to see if this is the first whitespace character in a run
+            if(!i || !isspace(buf[i - 1]))
+            {
+                // Record the width of the start of the block
+                breakWidth = currentWidth;
+            }
+        }
+        else
+        {
+            wordLength += advance;
+        }
+    }
+
+    float remainingWidth = lineLength - currentWidth;
+    // Render any remaining text on the last line
+    // Disable justification for the last row
+    if(alignment == ALIGN_JUST)
+    {
+        alignment = ALIGN_LEFT;
+        OutputWrapped(buf, lineStart, -1, remainingWidth, bounds);
+        alignment = ALIGN_JUST;
+    }
+    else
+    {
+        OutputWrapped(buf, lineStart, -1, remainingWidth, bounds);
+    }
 }
 
 
 void FTSimpleLayout::WrapText(const char *buf, FTBBox *bounds)
 {
-    int breakIdx = 0;          // index of the last break character
-    int lineStart = 0;         // character index of the line start
-    float nextStart = 0.0;     // total width of the current line
-    float breakWidth = 0.0;    // width of the line up to the last word break
-    float currentWidth = 0.0;  // width of all characters on the current line
-    float prevWidth;           // width of all characters but the current glyph
-    float wordLength = 0.0;    // length of the block since the last break char
-    float glyphWidth, advance;
-    FTBBox glyphBounds;
-
-    // Reset the pen position
-    pen.Y(0);
-
-    // If we have bounds mark them invalid
-    if(bounds)
-    {
-        bounds->Invalidate();
-    }
-
-    // Scan the input for all characters that need output
-    for(int i = 0; buf[i]; i++)
-    {
-        // Find the width of the current glyph
-        CheckGlyph(currentFont, buf[i]);
-        glyphBounds = GetGlyphs(currentFont)->BBox(buf[i]);
-        glyphWidth = glyphBounds.upperX - glyphBounds.lowerX;
-
-        advance = GetGlyphs(currentFont)->Advance(buf[i], buf[i + 1]);
-        prevWidth = currentWidth;
-        // Compute the width of all glyphs up to the end of buf[i]
-        currentWidth = nextStart + glyphWidth;
-        // Compute the position of the next glyph
-        nextStart += advance;
-
-        // See if buf[i] is a space, a break or a regular character
-        if((currentWidth > lineLength) || (buf[i] == '\n'))
-        {
-            // A non whitespace character has exceeded the line length.  Or a
-            // newline character has forced a line break.  Output the last
-            // line and start a new line after the break character.
-            // If we have not yet found a break, break on the last character
-            if(!breakIdx || (buf[i] == '\n'))
-            {
-                // Break on the previous character
-                breakIdx = i - 1;
-                breakWidth = prevWidth;
-                // None of the previous words will be carried to the next line
-                wordLength = 0;
-                // If the current character is a newline discard its advance
-                if(buf[i] == '\n') advance = 0;
-            }
-
-            float remainingWidth = lineLength - breakWidth;
-
-            // Render the current substring
-            // If the break character is a newline do not render it
-            if(buf[breakIdx + 1] == '\n')
-            {
-                breakIdx++;
-                OutputWrapped(buf, lineStart, breakIdx - 1,
-                              remainingWidth, bounds);
-            }
-            else
-            {
-                OutputWrapped(buf, lineStart, breakIdx, remainingWidth, bounds);
-            }
-
-            // Store the start of the next line
-            lineStart = breakIdx + 1;
-            // TODO: Is Height() the right value here?
-            pen.Y(pen.Y() - GetCharSize(currentFont).Height() * lineSpacing);
-            // The current width is the width since the last break
-            nextStart = wordLength + advance;
-            wordLength += advance;
-            currentWidth = wordLength + advance;
-            // Reset the safe break for the next line
-            breakIdx = 0;
-        }
-        else if(isspace(buf[i]))
-        {
-            // This is the last word break position
-            wordLength = 0;
-            breakIdx = i;
-
-            // Check to see if this is the first whitespace character in a run
-            if(!i || !isspace(buf[i - 1]))
-            {
-                // Record the width of the start of the block
-                breakWidth = currentWidth;
-            }
-        }
-        else
-        {
-            wordLength += advance;
-        }
-    }
-
-    float remainingWidth = lineLength - currentWidth;
-    // Render any remaining text on the last line
-    // Disable justification for the last row
-    if(alignment == ALIGN_JUST)
-    {
-        alignment = ALIGN_LEFT;
-        OutputWrapped(buf, lineStart, -1, remainingWidth, bounds);
-        alignment = ALIGN_JUST;
-    }
-    else
-    {
-        OutputWrapped(buf, lineStart, -1, remainingWidth, bounds);
-    }
+    WrapTextI(buf, bounds);
 }
 
 
 void FTSimpleLayout::WrapText(const wchar_t* buf, FTBBox *bounds)
 {
-    int breakIdx = 0;          // index of the last break character
-    int lineStart = 0;         // character index of the line start
-    float nextStart = 0.0;     // total width of the current line
-    float breakWidth = 0.0;    // width of the line up to the last word break
-    float currentWidth = 0.0;  // width of all characters on the current line
-    float prevWidth;           // width of all characters but the current glyph
-    float wordLength = 0.0;    // length of the block since the last break char
-    float glyphWidth, advance;
-    FTBBox glyphBounds;
+    WrapTextI(buf, bounds);
+}
 
-    // Reset the pen position
-    pen.Y(0);
 
-    // If we have bounds mark them invalid
-    if(bounds)
+template <typename T>
+inline void FTSimpleLayout::OutputWrappedI(const T *buf, const int start,
+                                           const int end,
+                                           const float RemainingWidth,
+                                           FTBBox *bounds)
+{
+    float distributeWidth = 0.0;
+    // Align the text according as specified by Alignment
+    switch (alignment)
     {
-        bounds->Invalidate();
+        case ALIGN_LEFT:
+            pen.X(0);
+            break;
+        case ALIGN_CENTER:
+            pen.X(RemainingWidth / 2);
+            break;
+        case ALIGN_RIGHT:
+            pen.X(RemainingWidth);
+            break;
+        case ALIGN_JUST:
+            pen.X(0);
+            distributeWidth = RemainingWidth;
+            break;
     }
 
-    // Scan the input for all characters that need output
-    for(int i = 0; buf[i]; i++)
+    // If we have bounds expand them by the line's bounds, otherwise render
+    // the line.
+    if(bounds)
     {
-        // Find the width of the current glyph
-        CheckGlyph(currentFont, buf[i]);
-        glyphBounds = GetGlyphs(currentFont)->BBox(buf[i]);
-        glyphWidth = glyphBounds.upperX - glyphBounds.lowerX;
+        float llx, lly, llz, urx, ury, urz;
+        currentFont->BBox(buf, start, end, llx, lly, llz, urx, ury, urz);
 
-        advance = GetGlyphs(currentFont)->Advance(buf[i], buf[i + 1]);
-        prevWidth = currentWidth;
-        // Compute the width of all glyphs up to the end of buf[i]
-        currentWidth = nextStart + glyphWidth;
-        // Compute the position of the next glyph
-        nextStart += advance;
+        // Add the extra space to the upper x dimension
+        urx += distributeWidth;
+        // TODO: It's a little silly to convert from a FTBBox to floats and
+        // back again, but I don't want to implement yet another method for
+        // finding the bounding box as a BBox.
+        FTBBox temp(llx, lly, llz, urx, ury, urz);
+        temp.Move(FTPoint(pen.X(), pen.Y(), 0.0f));
 
-        // See if buf[i] is a space, a break or a regular character
-        if((currentWidth > lineLength) || (buf[i] == '\n'))
+        // See if this is the first area to be added to the bounds
+        if(!bounds->IsValid())
         {
-            // A non whitespace character has exceeded the line length.  Or a
-            // newline character has forced a line break.  Output the last
-            // line and start a new line after the break character.
-            // If we have not yet found a break, break on the last character
-            if(!breakIdx || (buf[i] == '\n'))
-            {
-                // Break on the previous character
-                breakIdx = i - 1;
-                breakWidth = prevWidth;
-                // None of the previous words will be carried to the next line
-                wordLength = 0;
-                // If the current character is a newline discard its advance
-                if(buf[i] == '\n') advance = 0;
-            }
-
-            float remainingWidth = lineLength - breakWidth;
-
-            // Render the current substring
-            // If the break character is a newline do not render it
-            if(buf[breakIdx + 1] == '\n')
-            {
-                breakIdx++;
-                OutputWrapped(buf, lineStart, breakIdx - 1,
-                              remainingWidth, bounds);
-            }
-            else
-            {
-                OutputWrapped(buf, lineStart, breakIdx, remainingWidth, bounds);
-            }
-
-            // Store the start of the next line
-            lineStart = breakIdx + 1;
-            // TODO: Is Height() the right value here?
-            pen.Y(pen.Y() - GetCharSize(currentFont).Height() * lineSpacing);
-            // The current width is the width since the last break
-            nextStart = wordLength + advance;
-            wordLength += advance;
-            currentWidth = wordLength + advance;
-            // Reset the safe break for the next line
-            breakIdx = 0;
-        }
-        else if(isspace(buf[i]))
-        {
-            // This is the last word break position
-            wordLength = 0;
-            breakIdx = i;
-
-            // Check to see if this is the first whitespace character in a run
-            if(!i || !isspace(buf[i - 1]))
-            {
-                // Record the width of the start of the block
-                breakWidth = currentWidth;
-            }
+            *bounds = temp;
         }
         else
         {
-            wordLength += advance;
+            *bounds += temp;
         }
-    }
-
-    float remainingWidth = lineLength - currentWidth;
-    // Render any remaining text on the last line
-    // Disable justification for the last row
-    if(alignment == ALIGN_JUST)
-    {
-        alignment = ALIGN_LEFT;
-        OutputWrapped(buf, lineStart, -1, remainingWidth, bounds);
-        alignment = ALIGN_JUST;
     }
     else
     {
-        OutputWrapped(buf, lineStart, -1, remainingWidth, bounds);
+        RenderSpace(buf, start, end, distributeWidth);
     }
 }
 
@@ -324,54 +289,7 @@ void FTSimpleLayout::OutputWrapped(const char *buf, const int start,
                                    const int end, const float RemainingWidth,
                                    FTBBox *bounds)
 {
-    float distributeWidth = 0.0;
-    // Align the text according as specified by Alignment
-    switch (alignment)
-    {
-        case ALIGN_LEFT:
-            pen.X(0);
-            break;
-        case ALIGN_CENTER:
-            pen.X(RemainingWidth / 2);
-            break;
-        case ALIGN_RIGHT:
-            pen.X(RemainingWidth);
-            break;
-        case ALIGN_JUST:
-            pen.X(0);
-            distributeWidth = RemainingWidth;
-            break;
-    }
-
-    // If we have bounds expand them by the line's bounds, otherwise render
-    // the line.
-    if(bounds)
-    {
-        float llx, lly, llz, urx, ury, urz;
-        currentFont->BBox(buf, start, end, llx, lly, llz, urx, ury, urz);
-
-        // Add the extra space to the upper x dimension
-        urx += distributeWidth;
-        // TODO: It's a little silly to convert from a FTBBox to floats and
-        // back again, but I don't want to implement yet another method for
-        // finding the bounding box as a BBox.
-        FTBBox temp(llx, lly, llz, urx, ury, urz);
-        temp.Move(FTPoint(pen.X(), pen.Y(), 0.0f));
-
-        // See if this is the first area to be added to the bounds
-        if(!bounds->IsValid())
-        {
-            *bounds = temp;
-        }
-        else
-        {
-            *bounds += temp;
-        }
-    }
-    else
-    {
-        RenderSpace(buf, start, end, distributeWidth);
-    }
+    OutputWrappedI(buf, start, end, RemainingWidth, bounds);
 }
 
 
@@ -379,53 +297,47 @@ void FTSimpleLayout::OutputWrapped(const wchar_t *buf, const int start,
                                    const int end, const float RemainingWidth,
                                    FTBBox *bounds)
 {
-    float distributeWidth = 0.0;
-    // Align the text according as specified by Alignment
-    switch (alignment)
+    OutputWrappedI(buf, start, end, RemainingWidth, bounds);
+}
+
+
+template <typename T>
+inline void FTSimpleLayout::RenderSpaceI(const T *string, const int start,
+                                         const int end, const float ExtraSpace)
+{
+    float space = 0.0;
+
+    // If there is space to distribute, count the number of spaces
+    if(ExtraSpace > 0.0)
     {
-        case ALIGN_LEFT:
-            pen.X(0);
-            break;
-        case ALIGN_CENTER:
-            pen.X(RemainingWidth / 2);
-            break;
-        case ALIGN_RIGHT:
-            pen.X(RemainingWidth);
-            break;
-        case ALIGN_JUST:
-            pen.X(0);
-            distributeWidth = RemainingWidth;
-            break;
+        int numSpaces = 0;
+
+        // Count the number of space blocks in the input
+        for(int i = start; ((end < 0) && string[i])
+                              || ((end >= 0) && (i <= end)); i++)
+        {
+            // If this is the end of a space block, increment the counter
+            if((i > start) && !isspace(string[i]) && isspace(string[i - 1]))
+            {
+                numSpaces++;
+            }
+        }
+
+        space = ExtraSpace/numSpaces;
     }
 
-    // If we have bounds expand them by the line's bounds, otherwise render
-    // the line.
-    if(bounds)
+    // Output all characters of the string
+    for(int i = start; ((end < 0) && string[i])
+                          || ((end >= 0) && (i <= end)); i++)
     {
-        float llx, lly, llz, urx, ury, urz;
-        currentFont->BBox(buf, start, end, llx, lly, llz, urx, ury, urz);
-
-        // Add the extra space to the upper x dimension
-        urx += distributeWidth;
-        // TODO: It's a little silly to convert from a FTBBox to floats and
-        // back again, but I don't want to implement yet another method for
-        // finding the bounding box as a BBox.
-        FTBBox temp(llx, lly, llz, urx, ury, urz);
-        temp.Move(FTPoint(pen.X(), pen.Y(), 0.0f));
-
-        // See if this is the first area to be added to the bounds
-        if(!bounds->IsValid())
+        // If this is the end of a space block, distribute the extra space
+        // inside it
+        if((i > start) && !isspace(string[i]) && isspace(string[i - 1]))
         {
-            *bounds = temp;
+            pen.X(pen.X() + space);
         }
-        else
-        {
-            *bounds += temp;
-        }
-    }
-    else
-    {
-        RenderSpace(buf, start, end, distributeWidth);
+
+        DoRender(currentFont, string[i], string[i + 1]);
     }
 }
 
@@ -433,79 +345,13 @@ void FTSimpleLayout::OutputWrapped(const wchar_t *buf, const int start,
 void FTSimpleLayout::RenderSpace(const char *string, const int start,
                                  const int end, const float ExtraSpace)
 {
-    float space = 0.0;
-
-    // If there is space to distribute, count the number of spaces
-    if(ExtraSpace > 0.0)
-    {
-        int numSpaces = 0;
-
-        // Count the number of space blocks in the input
-        for(int i = start; ((end < 0) && string[i])
-                              || ((end >= 0) && (i <= end)); i++)
-        {
-            // If this is the end of a space block, increment the counter
-            if((i > start) && !isspace(string[i]) && isspace(string[i - 1]))
-            {
-                numSpaces++;
-            }
-        }
-
-        space = ExtraSpace/numSpaces;
-    }
-
-    // Output all characters of the string
-    for(int i = start; ((end < 0) && string[i])
-                          || ((end >= 0) && (i <= end)); i++)
-    {
-        // If this is the end of a space block, distribute the extra space
-        // inside it
-        if((i > start) && !isspace(string[i]) && isspace(string[i - 1]))
-        {
-            pen.X(pen.X() + space);
-        }
-
-        DoRender(currentFont, string[i], string[i + 1]);
-    }
+    RenderSpaceI(string, start, end, ExtraSpace);
 }
 
 
 void FTSimpleLayout::RenderSpace(const wchar_t *string, const int start,
                                  const int end, const float ExtraSpace)
 {
-    float space = 0.0;
-
-    // If there is space to distribute, count the number of spaces
-    if(ExtraSpace > 0.0)
-    {
-        int numSpaces = 0;
-
-        // Count the number of space blocks in the input
-        for(int i = start; ((end < 0) && string[i])
-                              || ((end >= 0) && (i <= end)); i++)
-        {
-            // If this is the end of a space block, increment the counter
-            if((i > start) && !isspace(string[i]) && isspace(string[i - 1]))
-            {
-                numSpaces++;
-            }
-        }
-
-        space = ExtraSpace/numSpaces;
-    }
-
-    // Output all characters of the string
-    for(int i = start; ((end < 0) && string[i])
-                          || ((end >= 0) && (i <= end)); i++)
-    {
-        // If this is the end of a space block, distribute the extra space
-        // inside it
-        if((i > start) && !isspace(string[i]) && isspace(string[i - 1]))
-        {
-            pen.X(pen.X() + space);
-        }
-
-        DoRender(currentFont, string[i], string[i + 1]);
-    }
+    RenderSpaceI(string, start, end, ExtraSpace);
 }
 

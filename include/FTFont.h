@@ -193,10 +193,10 @@ class FTGL_EXPORT FTFont
         /**
          * Get the bounding box for a string.
          *
-         * @param String    a char buffer
-         * @param StartIdx  The index of the first character of String
+         * @param string    a char buffer
+         * @param start     The index of the first character of string
          *                  to check.
-         * @param EndIdx    The index of the last character of String to
+         * @param end       The index of the last character of string to
          *                  check.  If < 0 then characters will be parsed
          *                  until a '\0' is encountered.
          * @param llx       lower left near x coord
@@ -206,16 +206,17 @@ class FTGL_EXPORT FTFont
          * @param ury       upper right far y coord
          * @param urz       upper right far z coord
          */
-        void BBox(const char *String,const int StartIdx,const int EndIdx,
-                  float& llx, float& lly, float& llz, float& urx, float& ury, float& urz);
+        void BBox(const char *string, const int start, const int end,
+                  float& llx, float& lly, float& llz,
+                  float& urx, float& ury, float& urz);
                   
         /**
          * Get the bounding box for a string.
          *
-         * @param String    a wchar_t buffer
-         * @param StartIdx  The index of the first character of String
+         * @param string    a wchar_t buffer
+         * @param start     The index of the first character of string
          *                  to check.
-         * @param EndIdx    The index of the last character of String
+         * @param end       The index of the last character of string
          *                  to check.    If < 0 then characters will
          *                  be parsed until a '\0' is encountered.
          * @param llx       lower left near x coord
@@ -225,8 +226,9 @@ class FTGL_EXPORT FTFont
          * @param ury       upper right far y coord
          * @param urz       upper right far z coord
          */
-        void BBox(const wchar_t *String,const int StartIdx,const int EndIdx,
-                  float& llx, float& lly, float& llz, float& urx, float& ury, float& urz);
+        void BBox(const wchar_t *string, const int start, const int end,
+                  float& llx, float& lly, float& llz,
+                  float& urx, float& ury, float& urz);
         
         /**
          * Get the bounding box for a string.
@@ -239,8 +241,11 @@ class FTGL_EXPORT FTFont
          * @param ury       upper right far y coord
          * @param urz       upper right far z coord
          */
-        void BBox( const char* string, float& llx, float& lly, float& llz, float& urx, float& ury, float& urz)
-            { BBox(string,0,-1,llx,lly,llz,urx,ury,urz); }
+        void BBox(const char* string, float& llx, float& lly, float& llz,
+                  float& urx, float& ury, float& urz)
+        {
+            BBox(string, 0, -1, llx, lly, llz, urx, ury, urz);
+        }
 
         /**
          * Get the bounding box for a string.
@@ -253,8 +258,11 @@ class FTGL_EXPORT FTFont
          * @param ury       upper right far y coord
          * @param urz       upper right far z coord
          */
-        void BBox( const wchar_t* string, float& llx, float& lly, float& llz, float& urx, float& ury, float& urz)
-            { BBox(string,0,-1,llx,lly,llz,urx,ury,urz); }
+        void BBox(const wchar_t* string, float& llx, float& lly, float& llz,
+                  float& urx, float& ury, float& urz)
+        {
+            BBox(string, 0, -1, llx, lly, llz, urx, ury, urz);
+        }
             
         /**
          * Get the advance width for a string.
@@ -262,7 +270,7 @@ class FTGL_EXPORT FTFont
          * @param string    a wchar_t string
          * @return      advance width
          */
-        float Advance( const wchar_t* string);
+        float Advance(const wchar_t* string);
 
         /**
          * Get the advance width for a string.
@@ -270,21 +278,21 @@ class FTGL_EXPORT FTFont
          * @param string    a char string
          * @return      advance width
          */
-        float Advance( const char* string);
+        float Advance(const char* string);
 
         /**
          * Render a string of characters
          * 
          * @param string    'C' style string to be output.   
          */
-        virtual void Render( const char* string );
+        virtual void Render(const char* string);
 
         /**
          * Render a string of characters
          * 
          * @param string    wchar_t string to be output.     
          */
-        virtual void Render( const wchar_t* string );
+        virtual void Render(const wchar_t* string);
 
         /**
          * Queries the Font for errors.
@@ -292,6 +300,7 @@ class FTGL_EXPORT FTFont
          * @return  The current error code.
          */
         FT_Error Error() const { return err;}
+
     protected:
         /**
          * Construct a glyph of the correct type.
@@ -358,6 +367,20 @@ class FTGL_EXPORT FTFont
          * Current pen or cursor position;
          */
         FTPoint pen;
+
+        /* Internal generic BBox() implementation */
+        template <typename T>
+        inline void BBoxI(const T *string, const int start, const int end,
+                          float& llx, float& lly, float& llz,
+                          float& urx, float& ury, float& urz);
+
+        /* Internal generic BBox() implementation */
+        template <typename T>
+        inline float AdvanceI(const T* string);
+
+        /* Internal generic Render() implementation */
+        template <typename T>
+        inline void RenderI(const T* string);
 
         /* Allow FTLayout classes to access DoRender and CheckGlyph */
         friend class FTLayout;
