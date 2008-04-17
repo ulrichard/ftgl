@@ -267,7 +267,7 @@ void FTFont::DoRender(const unsigned int chr,
     if(CheckGlyph(chr))
     {
         FTPoint kernAdvance = glyphList->Render(chr, nextChr, origin);
-        origin += kernAdvance;
+        origin = kernAdvance;
     }
 }
 
