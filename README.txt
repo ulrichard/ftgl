@@ -31,18 +31,6 @@ USAGE:
 	
 	font.render( "Hello World!");
 
-This library was inspired by gltt, Copyright (C) 1998-1999 Stephane Rehel
-(http://gltt.sourceforge.net)
-Bezier curve code contributed by Jed Soane.
-Demo, Linux port, extrusion code and gltt maintainance by Gerard Lanois.
-Linux port by Matthias Kretz.
-Windows port by Andrew Ellerton & Max Rheiner.
-Bug fixes by Robert Osfield, Marcelo E. Magallon, Markku Rontu, Mark A. Fox,
-Patrick Rogers, Kai Huettemann.
-Containers and optimisations by Sebastien Barre.
-Autoconf Marcelo E. Magallon <mmagallo@debian.org>
-Pixmap font modifications by Robert Bell.
-
 Please contact me if you have any suggestions, feature requests, or problems.
 
 Henry Maddocks
