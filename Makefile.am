@@ -10,6 +10,7 @@ DISTCLEANFILES = ftgl.pc
 
 EXTRA_DIST = \
     bootstrap \
+    BUGS \
     COPYING.MIT \
     COPYING.LGPL \
     HISTORY.txt \
