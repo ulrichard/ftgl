@@ -276,7 +276,7 @@ template <typename T>
 inline void FTFont::RenderI(const T* string)
 {
     const T* c = string;
-    pen.X(0); pen.Y(0);
+    pen = FTPoint(0., 0.);
 
     while(*c)
     {

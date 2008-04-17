@@ -82,8 +82,7 @@ void FTSimpleLayout::BBox(const wchar_t *string, float& llx, float& lly,
 template <typename T>
 inline void FTSimpleLayout::RenderI(const T *string)
 {
-    pen.X(0.0f);
-    pen.Y(0.0f);
+    pen = FTPoint(0.0f, 0.0f);
     WrapText(string, NULL);
 }
 
@@ -173,7 +172,7 @@ inline void FTSimpleLayout::WrapTextI(const T *buf, FTBBox *bounds)
             // Store the start of the next line
             lineStart = breakIdx + 1;
             // TODO: Is Height() the right value here?
-            pen.Y(pen.Y() - GetCharSize(currentFont).Height() * lineSpacing);
+            pen -= FTPoint(0, GetCharSize(currentFont).Height() * lineSpacing);
             // The current width is the width since the last break
             nextStart = wordLength + advance;
             wordLength += advance;
@@ -334,7 +333,7 @@ inline void FTSimpleLayout::RenderSpaceI(const T *string, const int start,
         // inside it
         if((i > start) && !isspace(string[i]) && isspace(string[i - 1]))
         {
-            pen.X(pen.X() + space);
+            pen += FTPoint(space, 0);
         }
 
         DoRender(currentFont, string[i], string[i + 1]);
