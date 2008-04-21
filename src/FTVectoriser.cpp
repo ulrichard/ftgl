@@ -2,6 +2,7 @@
  * FTGL - OpenGL font library
  *
  * Copyright (c) 2001-2004 Henry Maddocks <ftgl@opengl.geek.nz>
+ *               2008 Éric Beets <ericbeets@free.fr>
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -134,7 +135,7 @@ const FTTesselation* const FTMesh::Tesselation( unsigned int index) const
 }
 
 
-FTVectoriser::FTVectoriser( const FT_GlyphSlot glyph)
+FTVectoriser::FTVectoriser(const FT_GlyphSlot glyph, float frontOutset, float backOutset)
 :   contourList(0),
     mesh(0),
     ftContourCount(0),
@@ -148,7 +149,7 @@ FTVectoriser::FTVectoriser( const FT_GlyphSlot glyph)
         contourList = 0;
         contourFlag = outline.flags;
         
-        ProcessContours();
+        ProcessContours(frontOutset, backOutset);
     }
 }
 
@@ -165,7 +166,7 @@ FTVectoriser::~FTVectoriser()
 }
 
 
-void FTVectoriser::ProcessContours()
+void FTVectoriser::ProcessContours(float frontOutset, float backOutset)
 {
     short contourLength = 0;
     short startIndex = 0;
@@ -181,7 +182,7 @@ void FTVectoriser::ProcessContours()
         endIndex = outline.contours[contourIndex];
         contourLength =  ( endIndex - startIndex) + 1;
 
-        FTContour* contour = new FTContour( pointList, tagList, contourLength);
+        FTContour* contour = new FTContour(pointList, tagList, contourLength, frontOutset, backOutset);
         
         contourList[contourIndex] = contour;
         
@@ -208,7 +209,7 @@ const FTContour* const FTVectoriser::Contour( unsigned int index) const
 }
 
 
-void FTVectoriser::MakeMesh( FTGL_DOUBLE zNormal)
+void FTVectoriser::MakeMesh(FTGL_DOUBLE zNormal, int outsetContour)
 {
     if( mesh)
     {
@@ -238,22 +239,26 @@ void FTVectoriser::MakeMesh( FTGL_DOUBLE zNormal)
     gluTessProperty( tobj, GLU_TESS_TOLERANCE, 0);
     gluTessNormal( tobj, 0.0f, 0.0f, zNormal);
     gluTessBeginPolygon( tobj, mesh);
-    
+
         for( size_t c = 0; c < ContourCount(); ++c)
         {
             const FTContour* contour = contourList[c];
 
             gluTessBeginContour( tobj);
-            
                 for( size_t p = 0; p < contour->PointCount(); ++p)
                 {
-                    const FTGL_DOUBLE* d = contour->Point(p);
+                    const FTGL_DOUBLE* d;
+                    switch(outsetContour)
+                    {
+                        case 0: d = contour->Point(p); break;
+                        case 1 : d = contour->FrontPoint(p); break;
+                        case 2 : d = contour->BackPoint(p);  break;
+                    }
                     gluTessVertex( tobj, (GLdouble*)d, (GLdouble*)d);
                 }
 
             gluTessEndContour( tobj);
         }
-        
     gluTessEndPolygon( tobj);
 
     gluDeleteTess( tobj);

@@ -71,6 +71,15 @@ class FTGL_EXPORT FTGLOutlineFont : public FTFont
          * Destructor
          */
         ~FTGLOutlineFont();
+
+        /**
+         * Set the outset distance for the font. Only implemented by
+         * FTGLOutlineFont, FTGLPolygonFont and FTGLExtrdFont
+         *
+         * @param outset  The outset distance.
+         */
+        void Outset(float o) { outset = o; }
+
         
         /**
          * Renders a string of characters
@@ -95,6 +104,11 @@ class FTGL_EXPORT FTGLOutlineFont : public FTFont
          */
         inline virtual FTGlyph* MakeGlyph(unsigned int g);
         
+        /**
+         * The outset distance for the font.
+         */
+        float outset;
+
         /* Internal generic Render() implementation */
         template <typename T>
         inline void RenderI(const T* string);

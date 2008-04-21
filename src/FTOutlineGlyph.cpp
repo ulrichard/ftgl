@@ -2,6 +2,7 @@
  * FTGL - OpenGL font library
  *
  * Copyright (c) 2001-2004 Henry Maddocks <ftgl@opengl.geek.nz>
+ *               2008 Éric Beets <ericbeets@free.fr>
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -38,7 +39,7 @@
 #include "FTVectoriser.h"
 
 
-FTOutlineGlyph::FTOutlineGlyph( FT_GlyphSlot glyph, bool useDisplayList)
+FTOutlineGlyph::FTOutlineGlyph(FT_GlyphSlot glyph, float outset, bool useDisplayList)
 :   FTGlyph( glyph),
     glList(0)
 {
@@ -48,7 +49,7 @@ FTOutlineGlyph::FTOutlineGlyph( FT_GlyphSlot glyph, bool useDisplayList)
         return;
     }
 
-    FTVectoriser vectoriser( glyph);
+    FTVectoriser vectoriser(glyph, outset * 64.0f);
 
     size_t numContours = vectoriser.ContourCount();
     if ( ( numContours < 1) || ( vectoriser.PointCount() < 3))
@@ -67,10 +68,18 @@ FTOutlineGlyph::FTOutlineGlyph( FT_GlyphSlot glyph, bool useDisplayList)
         const FTContour* contour = vectoriser.Contour(c);
         
         glBegin( GL_LINE_LOOP);
-            for( unsigned int pointIndex = 0; pointIndex < contour->PointCount(); ++pointIndex)
+            for(unsigned int i = 0; i < contour->PointCount(); ++i)
             {
-                FTPoint point = contour->Point(pointIndex);
+                FTPoint point = contour->Point(i);
                 glVertex2f( point.X() / 64.0f, point.Y() / 64.0f);
+            }
+        glEnd();
+        /* Outset contour */
+        glBegin(GL_LINE_LOOP);
+            for(unsigned int i = 0; i < contour->FrontPointCount(); ++i)
+            {
+                FTPoint point = contour->FrontPoint(i);
+                glVertex2f(point.X() / 64.0f, point.Y() / 64.0f);
             }
         glEnd();
     }

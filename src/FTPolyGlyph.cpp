@@ -2,6 +2,7 @@
  * FTGL - OpenGL font library
  *
  * Copyright (c) 2001-2004 Henry Maddocks <ftgl@opengl.geek.nz>
+ *               2008 Éric Beets <ericbeets@free.fr>
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -38,7 +39,7 @@
 #include "FTVectoriser.h"
 
 
-FTPolyGlyph::FTPolyGlyph( FT_GlyphSlot glyph, bool useDisplayList)
+FTPolyGlyph::FTPolyGlyph(FT_GlyphSlot glyph, float outset, bool useDisplayList)
 :   FTGlyph( glyph),
     glList(0)
 {
@@ -48,7 +49,7 @@ FTPolyGlyph::FTPolyGlyph( FT_GlyphSlot glyph, bool useDisplayList)
         return;
     }
 
-    FTVectoriser vectoriser( glyph);
+    FTVectoriser vectoriser(glyph, outset * 64.0f);
 
     if(( vectoriser.ContourCount() < 1) || ( vectoriser.PointCount() < 3))
     {
@@ -58,7 +59,7 @@ FTPolyGlyph::FTPolyGlyph( FT_GlyphSlot glyph, bool useDisplayList)
     unsigned int horizontalTextureScale = glyph->face->size->metrics.x_ppem * 64;
     unsigned int verticalTextureScale = glyph->face->size->metrics.y_ppem * 64;        
         
-    vectoriser.MakeMesh( 1.0);
+    vectoriser.MakeMesh(1.0, 1);
     
     if( useDisplayList)
     {

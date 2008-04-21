@@ -48,7 +48,9 @@ FTGLExtrdFont::FTGLExtrdFont( const char* fontFilePath)
 
 FTGLExtrdFont::FTGLExtrdFont( const unsigned char *pBufferBytes, size_t bufferSizeInBytes)
 :   FTFont( pBufferBytes, bufferSizeInBytes),
-    depth( 0.0f)
+    depth(0.0f),
+    front(0.0f),
+    back(0.0f)
 {}
 
 
@@ -62,7 +64,7 @@ FTGlyph* FTGLExtrdFont::MakeGlyph( unsigned int glyphIndex)
 
     if( ftGlyph)
     {
-        FTExtrdGlyph* tempGlyph = new FTExtrdGlyph( ftGlyph, depth, useDisplayLists);
+        FTExtrdGlyph* tempGlyph = new FTExtrdGlyph(ftGlyph, depth, front, back, useDisplayLists);
         return tempGlyph;
     }
 

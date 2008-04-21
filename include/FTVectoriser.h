@@ -216,8 +216,10 @@ class FTGL_EXPORT FTVectoriser
          * Constructor
          *
          * @param glyph The freetype glyph to be processed
+         * @param front front outset distance
+         * @param back back outset distance
          */
-        FTVectoriser( const FT_GlyphSlot glyph);
+        FTVectoriser(const FT_GlyphSlot glyph, float front, float back = 0.0f);
 
         /**
          *  Destructor
@@ -229,8 +231,13 @@ class FTGL_EXPORT FTVectoriser
          *
          * @param zNormal   The direction of the z axis of the normal
          *                  for this mesh
+         * FIXME: change the following for a constant
+         * @param outset Specify the outset contour
+         *  0 : Original
+         *  1 : Front
+         *  2 : Back
          */
-        void MakeMesh( FTGL_DOUBLE zNormal = FTGL_FRONT_FACING);
+        void MakeMesh(FTGL_DOUBLE zNormal = FTGL_FRONT_FACING, int outset = 0);
         
         /**
          * Get the current mesh.
@@ -276,8 +283,11 @@ class FTGL_EXPORT FTVectoriser
     private:
         /**
          * Process the freetype outline data into contours of points
+         *
+         * @param front front outset distance
+         * @param back back outset distance
          */
-        void ProcessContours();
+        void ProcessContours(float front, float back);
 
         /**
          * The list of contours in the glyph

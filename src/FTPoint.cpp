@@ -36,6 +36,7 @@
 
 #include "FTPoint.h"
 
+#include <math.h>
 
 bool operator == ( const FTPoint &a, const FTPoint &b) 
 {
@@ -53,3 +54,24 @@ FTPoint operator*( double multiplier, FTPoint& point)
     return point * multiplier;
 }
         
+FTPoint FTPoint::GetNormal(const FTPoint &a, const FTPoint &b)
+{
+    float vectorX = a.X() - b.X();
+    float vectorY = a.Y() - b.Y();
+
+    float length = sqrt(vectorX * vectorX + vectorY * vectorY);
+
+    if(length > 0.01f)
+    {
+        length = 1 / length;
+    }
+    else
+    {
+        length = 0.0f;
+    }
+
+    return FTPoint(-vectorY * length,
+                    vectorX * length,
+                    0.0f);
+}
+

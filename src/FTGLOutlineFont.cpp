@@ -41,7 +41,8 @@
 
 
 FTGLOutlineFont::FTGLOutlineFont( const char* fontFilePath)
-:   FTFont( fontFilePath)
+:   FTFont(fontFilePath),
+    outset(0.0f)
 {}
 
 
@@ -60,7 +61,7 @@ FTGlyph* FTGLOutlineFont::MakeGlyph( unsigned int g)
 
     if( ftGlyph)
     {
-        FTOutlineGlyph* tempGlyph = new FTOutlineGlyph( ftGlyph, useDisplayLists);
+        FTOutlineGlyph* tempGlyph = new FTOutlineGlyph(ftGlyph, outset, useDisplayLists);
         return tempGlyph;
     }
 

@@ -159,7 +159,24 @@ class FTGL_EXPORT FTFont
          *
          * @param depth  The extrusion distance.
          */
-        virtual void Depth( float depth){}
+        virtual void Depth(float depth) {}
+
+        /**
+         * Set the outset distance for the font. Only implemented by
+         * FTGLOutlineFont, FTGLPolygonFont and FTGLExtrdFont
+         *
+         * @param outset  The outset distance.
+         */
+        virtual void Outset(float outset) {}
+
+        /**
+         * Set the front and back outset distances for the font. Only
+         * implemented by FTGLExtrdFont
+         *
+         * @param front  The front outset distance.
+         * @param back   The back outset distance.
+         */
+        virtual void Outset(float front, float back) {}
 
         /**
          * Enable or disable the use of Display Lists inside FTGL
@@ -409,6 +426,7 @@ FTGL_EXPORT int          ftglSetFaceSizeRes (FTGLfont*,
                                              unsigned int, unsigned int);
 FTGL_EXPORT unsigned int ftglGetFaceSize    (FTGLfont*);
 FTGL_EXPORT void         ftglSetDepth       (FTGLfont*, float);
+FTGL_EXPORT void         ftglSetOutset      (FTGLfont*, float, float);
 
 FTGL_EXPORT void ftglUseDisplayList (FTGLfont*, int);
 

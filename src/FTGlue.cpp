@@ -106,6 +106,10 @@ C_FUN(unsigned int, ftglGetFaceSize, (FTGLfont *f),
 // virtual void FTFont::Depth(float depth);
 C_FUN(void, ftglSetDepth, (FTGLfont *f, float d), return, Depth, (d));
 
+// virtual void Outset(float front, float back);
+C_FUN(void, ftglOutset, (FTGLfont *f, float front, float back),
+      return, FTFont::Outset, (front, back));
+
 // void FTFont::UseDisplayList(bool useList);
 C_FUN(void, ftglUseDisplayList, (FTGLfont *f, int l),
       return, UseDisplayList, (l));

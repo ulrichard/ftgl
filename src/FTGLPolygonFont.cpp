@@ -41,7 +41,8 @@
 
 
 FTGLPolygonFont::FTGLPolygonFont( const char* fontFilePath)
-:   FTFont( fontFilePath)
+:   FTFont(fontFilePath),
+    outset(0.0f)
 {}
 
 
@@ -60,7 +61,7 @@ FTGlyph* FTGLPolygonFont::MakeGlyph( unsigned int g)
 
     if( ftGlyph)
     {
-        FTPolyGlyph* tempGlyph = new FTPolyGlyph( ftGlyph, useDisplayLists);
+        FTPolyGlyph* tempGlyph = new FTPolyGlyph(ftGlyph, outset, useDisplayLists);
         return tempGlyph;
     }
 

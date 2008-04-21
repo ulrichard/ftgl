@@ -33,7 +33,8 @@ class FTOutlineGlyphTest : public CppUnit::TestCase
 
             buildGLContext();
         
-            FTOutlineGlyph* outlineGlyph = new FTOutlineGlyph( face->glyph, true);
+            FTOutlineGlyph* outlineGlyph = new FTOutlineGlyph(face->glyph, 0,
+                                                              true);
             CPPUNIT_ASSERT( outlineGlyph->Error() == 0);
             CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);        
 
@@ -46,7 +47,8 @@ class FTOutlineGlyphTest : public CppUnit::TestCase
             
             buildGLContext();
         
-            FTOutlineGlyph* outlineGlyph = new FTOutlineGlyph( face->glyph, true);
+            FTOutlineGlyph* outlineGlyph = new FTOutlineGlyph(face->glyph, 0,
+                                                              true);
             outlineGlyph->Render(FTPoint( 0, 0, 0));
             CPPUNIT_ASSERT( outlineGlyph->Error() == 0);
             CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);

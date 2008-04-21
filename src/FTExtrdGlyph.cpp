@@ -35,13 +35,12 @@
 #include "config.h"
 
 #include <iostream>
-#include <math.h>
 
 #include "FTExtrdGlyph.h"
 #include "FTVectoriser.h"
 
 
-FTExtrdGlyph::FTExtrdGlyph(FT_GlyphSlot glyph, float depth, bool useDisplayList)
+FTExtrdGlyph::FTExtrdGlyph(FT_GlyphSlot glyph, float depth, float frontOutset, float backOutset, bool useDisplayList)
 :   FTGlyph(glyph),
     glList(0)
 {
@@ -53,7 +52,7 @@ FTExtrdGlyph::FTExtrdGlyph(FT_GlyphSlot glyph, float depth, bool useDisplayList)
         return;
     }
 
-    FTVectoriser vectoriser(glyph);
+    FTVectoriser vectoriser(glyph, frontOutset * 64.0f, backOutset * 64.0f);
     if((vectoriser.ContourCount() < 1) || (vectoriser.PointCount() < 3))
     {
         return;
@@ -65,7 +64,7 @@ FTExtrdGlyph::FTExtrdGlyph(FT_GlyphSlot glyph, float depth, bool useDisplayList)
         glNewList(glList, GL_COMPILE);
     }
 
-    vectoriser.MakeMesh(1.0);
+    vectoriser.MakeMesh(1.0, 1);
     glNormal3d(0.0, 0.0, 1.0);
     
     unsigned int hscale = glyph->face->size->metrics.x_ppem * 64;
@@ -92,7 +91,7 @@ FTExtrdGlyph::FTExtrdGlyph(FT_GlyphSlot glyph, float depth, bool useDisplayList)
         glEnd();
     }
     
-    vectoriser.MakeMesh(-1.0);
+    vectoriser.MakeMesh(-1.0, 2);
     glNormal3d(0.0, 0.0, -1.0);
     
     mesh = vectoriser.GetMesh();
@@ -134,26 +133,27 @@ FTExtrdGlyph::FTExtrdGlyph(FT_GlyphSlot glyph, float depth, bool useDisplayList)
                 unsigned int cur = (j == n) ? 0 : j;
                 unsigned int next = (cur == n - 1) ? 0 : cur + 1;
                 
-                FTPoint pt = contour->Point(cur);
+                FTPoint frontPt = contour->FrontPoint(cur);
+                FTPoint backPt = contour->BackPoint(cur);
 
-                FTPoint normal = GetNormal(pt, contour->Point(next));
+                FTPoint normal = FTPoint::GetNormal(frontPt, contour->FrontPoint(next));
                 if(normal != FTPoint(0.0f, 0.0f, 0.0f))
                 {                   
                     glNormal3dv(static_cast<const FTGL_DOUBLE*>(normal));
                 }
 
-                glTexCoord2f(pt.X() / hscale,
-                             pt.Y() / vscale);
+                glTexCoord2f(frontPt.X() / hscale,
+                             frontPt.Y() / vscale);
 
                 if(contourFlag & ft_outline_reverse_fill)
                 {
-                    glVertex3f(pt.X() / 64.0f, pt.Y() / 64.0f, 0.0f);
-                    glVertex3f(pt.X() / 64.0f, pt.Y() / 64.0f, -depth);
+                    glVertex3f(backPt.X() / 64.0f, backPt.Y() / 64.0f, 0.0f);
+                    glVertex3f(frontPt.X() / 64.0f, frontPt.Y() / 64.0f, -depth);
                 }
                 else
                 {
-                    glVertex3f(pt.X() / 64.0f, pt.Y() / 64.0f, -depth);
-                    glVertex3f(pt.X() / 64.0f, pt.Y() / 64.0f, 0.0f);
+                    glVertex3f(backPt.X() / 64.0f, backPt.Y() / 64.0f, -depth);
+                    glVertex3f(frontPt.X() / 64.0f, frontPt.Y() / 64.0f, 0.0f);
                 }
             }
         glEnd();
@@ -182,27 +182,5 @@ const FTPoint& FTExtrdGlyph::Render(const FTPoint& pen)
     }
     
     return advance;
-}
-
-
-FTPoint FTExtrdGlyph::GetNormal(const FTPoint &a, const FTPoint &b)
-{
-    float vectorX = a.X() - b.X();
-    float vectorY = a.Y() - b.Y();
-                              
-    float length = sqrt(vectorX * vectorX + vectorY * vectorY);
-    
-    if(length > 0.01f)
-    {
-        length = 1 / length;
-    }
-    else
-    {
-        length = 0.0f;
-    }
-    
-    return FTPoint(-vectorY * length,
-                    vectorX * length,
-                    0.0f);
 }
 

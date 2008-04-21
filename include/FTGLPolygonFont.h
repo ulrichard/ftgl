@@ -72,6 +72,14 @@ class FTGL_EXPORT FTGLPolygonFont : public FTFont
          */
         ~FTGLPolygonFont();
         
+        /**
+         * Set the outset distance for the font. Only implemented by
+         * FTGLOutlineFont, FTGLPolygonFont and FTGLExtrdFont
+         *
+         * @param depth  The outset distance.
+         */
+        void Outset(float o) { outset = o; }
+
     private:
         /**
          * Construct a FTPolyGlyph.
@@ -81,6 +89,10 @@ class FTGL_EXPORT FTGLPolygonFont : public FTFont
          */
         inline virtual FTGlyph* MakeGlyph( unsigned int g);
         
+        /**
+         * The outset distance (front and back) for the font.
+         */
+        float outset;
 };
 
 #endif //__cplusplus

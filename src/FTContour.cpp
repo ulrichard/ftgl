@@ -3,6 +3,7 @@
  *
  * Copyright (c) 2001-2004 Henry Maddocks <ftgl@opengl.geek.nz>
  *               2008 Sam Hocevar <sam@zoy.org>
+ *               2008 Éric Beets <ericbeets@free.fr>
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -37,12 +38,15 @@
 
 #include "FTContour.h"
 
+#include <math.h>
+
 static const float BEZIER_STEP_SIZE = 0.2f;
 
 
 void FTContour::AddPoint(FTPoint point)
 {
-    if(pointList.empty() || point != pointList[pointList.size() - 1])
+    if(pointList.empty() || (point != pointList[pointList.size() - 1]
+                              && point != pointList[0]))
     {
         pointList.push_back(point);
     }
@@ -62,7 +66,6 @@ void FTContour::evaluateQuadraticCurve(FTPoint A, FTPoint B, FTPoint C)
     }
 }
 
-
 void FTContour::evaluateCubicCurve(FTPoint A, FTPoint B, FTPoint C, FTPoint D)
 {
     for(unsigned int i = 0; i <= (1.0f / BEZIER_STEP_SIZE); i++)
@@ -80,8 +83,102 @@ void FTContour::evaluateCubicCurve(FTPoint A, FTPoint B, FTPoint C, FTPoint D)
     }
 }
 
+void FTContour::AddFrontPoint(FTPoint point)
+{
+    if(frontPointList.empty() || (point != frontPointList[pointList.size() - 1]
+                                   && point != frontPointList[0]))
+    {
+        frontPointList.push_back(point);
+    }
+}
 
-FTContour::FTContour(FT_Vector* contour, char* tags, unsigned int n)
+void FTContour::AddBackPoint(FTPoint point)
+{
+    if(backPointList.empty() || (point != backPointList[pointList.size() - 1]
+                                  && point != backPointList[0]))
+    {
+        backPointList.push_back(point);
+    }
+}
+
+FTGL_DOUBLE FTContour::NormVector(const FTPoint &v)
+{
+    return sqrt(v.X() * v.X() + v.Y() * v.Y());
+}
+
+void FTContour::RotationMatrix(const FTPoint &a, const FTPoint &b, FTGL_DOUBLE *matRot, FTGL_DOUBLE *invRot)
+{
+    FTPoint abVect(b.X() - a.X(), b.Y() - a.Y(), 0);
+    FTGL_DOUBLE abNorm = NormVector(abVect);
+    invRot[0] = matRot[0] = -abVect.X() / abNorm;
+    invRot[2] = matRot[1] = -abVect.Y() / abNorm;
+    invRot[1] = matRot[2] =  abVect.Y() / abNorm;
+    invRot[3] = matRot[3] = -abVect.X() / abNorm;
+}
+
+void FTContour::MultMatrixVect(FTGL_DOUBLE *mat, FTPoint &v)
+{
+    FTPoint res;
+    res.X(v.X() * mat[0] + v.Y() * mat[1]);
+    res.Y(v.X() * mat[2] + v.Y() * mat[3]);
+    v.X(res.X());
+    v.Y(res.Y());
+}
+
+void FTContour::ComputeBisec(FTPoint &v, double d)
+{
+    int sgn = 1;
+    if((v.Y() / NormVector(v)) < 0)
+        sgn = -1;
+    double tg = sgn * sqrt((NormVector(v) - v.X()) / (NormVector(v) + v.X()));
+    v.X(-d * tg);
+    v.Y(d);
+}
+
+FTPoint FTContour::ComputeOutsetPoint(FTPoint a, FTPoint b, FTPoint c, FTGL_DOUBLE dist)
+{
+    FTGL_DOUBLE mat[4], inv[4];
+    /* Build the rotation matrix from 'ab' vector */
+    RotationMatrix(b, a, mat, inv);
+    /* 'h' is the second vector 'bc' */
+    FTPoint h = c - b;
+    /* Apply the rotation to the second vector 'bc' */
+    MultMatrixVect(mat, h);
+    /* Compute the vector bisecting 'bh' */
+    ComputeBisec(h, dist);
+    /* Apply the inverted rotation matrix to 'bh' */
+    MultMatrixVect(inv, h);
+    /* Translate the vector 'bh' to the second point 'b' to have the point 'h' */
+    return b + h;
+}
+
+void FTContour::outsetContour(float frontOutset, float backOutset)
+{
+    size_t size = PointCount();
+    FTPoint vOutsetF, vOutsetB;
+    for(unsigned int pointIndex = 0; pointIndex < size; ++pointIndex)
+    {
+        int prev = (pointIndex%size + size - 1) % size;
+        int cur = pointIndex%size;
+        int next = (pointIndex%size + 1) % size;
+
+        if(frontOutset != 0.0f)
+        {
+            vOutsetF = ComputeOutsetPoint(Point(prev), Point(cur), Point(next),
+                                          frontOutset);
+            AddFrontPoint(vOutsetF);
+        }
+        if(backOutset != 0.0f)
+        {
+            vOutsetB = ComputeOutsetPoint(Point(prev), Point(cur), Point(next),
+                                          backOutset);
+            AddBackPoint(vOutsetB);
+        }
+    }
+}
+
+FTContour::FTContour(FT_Vector* contour, char* tags, unsigned int n,
+                     float frontOutset, float backOutset)
 {
     for(unsigned int i = 0; i < n; ++ i)
     {
@@ -134,5 +231,8 @@ FTContour::FTContour(FT_Vector* contour, char* tags, unsigned int n)
             continue;
         }
     }
+
+    /* Create (or not) front outset and/or back outset */
+    outsetContour(frontOutset, backOutset);
 }
 

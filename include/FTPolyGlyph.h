@@ -65,7 +65,7 @@ class FTGL_EXPORT FTPolyGlyph : public FTGlyph
          *                       <code>true</code> turns ON display lists.
          *                       <code>false</code> turns OFF display lists.
          */
-        FTPolyGlyph( FT_GlyphSlot glyph, bool useDisplayList);
+        FTPolyGlyph(FT_GlyphSlot glyph, float outset, bool useDisplayList);
 
         /**
          * Destructor
@@ -85,7 +85,6 @@ class FTGL_EXPORT FTPolyGlyph : public FTGlyph
          * OpenGL display list
          */
         GLuint glList;
-    
 };
 
 

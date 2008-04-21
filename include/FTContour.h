@@ -2,6 +2,7 @@
  * FTGL - OpenGL font library
  *
  * Copyright (c) 2001-2004 Henry Maddocks <ftgl@opengl.geek.nz>
+ *               2008 Éric Beets <ericbeets@free.fr>
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -58,8 +59,11 @@ class FTGL_EXPORT FTContour
          * @param contour
          * @param pointTags
          * @param numberOfPoints
+         * @param front front outset
+         * @param back back outset
          */
-        FTContour( FT_Vector* contour, char* pointTags, unsigned int numberOfPoints);
+        FTContour(FT_Vector* contour, char* pointTags, unsigned int numberOfPoints, 
+                   float front = 0.0f, float back = 0.0f);
 
         /**
          * Destructor
@@ -77,12 +81,48 @@ class FTGL_EXPORT FTContour
          */
         const FTPoint& Point( unsigned int index) const { return pointList[index];}
 
+
+        /**
+         * Return a point at index of the front outset contour.
+         *
+         * @param index of the point in the curve.
+         * @return const point reference
+         */
+        const FTPoint& FrontPoint(unsigned int index) const
+        {
+            if(frontPointList.size() == 0)
+                return Point(index);
+            return frontPointList[index];
+        }
+
+
+        /**
+         * Return a point at index of the back outset contour.
+         *
+         * @param index of the point in the curve.
+         * @return const point reference
+         */
+        const FTPoint& BackPoint(unsigned int index) const
+        {
+            if(backPointList.size() == 0)
+                return Point(index);
+             return backPointList[index];
+        }
+
         /**
          * How many points define this contour
          *
          * @return the number of points in this contour
          */
         size_t PointCount() const { return pointList.size();}
+
+        /**
+         * How many points define this outset contour
+         *
+         * @return the number of points in this contour
+         */
+        size_t FrontPointCount() const { return frontPointList.size(); }
+        size_t BackPointCount() const { return backPointList.size(); }
 
     private:
         /**
@@ -92,6 +132,15 @@ class FTGL_EXPORT FTContour
          * @param point The point to be added to the contour.
          */
         inline void AddPoint( FTPoint point);
+
+        /*
+         * Add a point to this outset contour. This function tests for duplicate
+         * points.
+         *
+         * @param point The point to be added to the contour outset.
+         */
+        inline void AddFrontPoint(FTPoint point);
+        inline void AddBackPoint(FTPoint point);
 
         /**
          * De Casteljau (bezier) algorithm contributed by Jed Soane
@@ -106,10 +155,45 @@ class FTGL_EXPORT FTContour
         inline void evaluateCubicCurve(FTPoint, FTPoint, FTPoint, FTPoint);
 
         /**
+         * Create the list point of the outset contour.
+         *
+         * @param frontOutset front outset size
+         * @param backOutset back outset size
+         */
+        inline void outsetContour(float frontOutset, float backtOuset);
+
+        /**
+         * Compute the vector norm
+         */
+        inline FTGL_DOUBLE NormVector(const FTPoint &v);
+
+        /**
+         * Compute a rotation matrix from a vector
+         */
+        inline void RotationMatrix(const FTPoint &a, const FTPoint &b, FTGL_DOUBLE *matRot, FTGL_DOUBLE *invRot);
+
+        /**
+         * Matrix and vector multiplication
+         */
+        inline void MultMatrixVect(FTGL_DOUBLE *mat, FTPoint &v);
+
+        /**
+         * Compute the vector bisecting from a vector 'v' and a distance 'd'
+         */
+        inline void ComputeBisec(FTPoint &v, double d);
+
+        /**
+         * Compute the outset point coordinates
+         */
+        inline FTPoint ComputeOutsetPoint(FTPoint a, FTPoint b, FTPoint c, FTGL_DOUBLE d);
+
+        /**
          *  The list of points in this contour
          */
         typedef FTVector<FTPoint> PointVector;
         PointVector pointList;
+        PointVector frontPointList;
+        PointVector backPointList;
 };
 
 #endif // __FTContour__

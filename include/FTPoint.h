@@ -85,6 +85,17 @@ class FTGL_EXPORT FTPoint
         }
 
         /**
+         * Calculate the normal vector to 2 points. This is 2D and ignores
+         * the z component. The normal will be normalised
+         *
+         * @param a
+         * @param b
+         * @return
+         */
+        static FTPoint GetNormal(const FTPoint &a, const FTPoint &b);
+
+
+        /**
          * Operator += In Place Addition.
          *
          * @param point

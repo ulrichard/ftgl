@@ -78,8 +78,25 @@ class FTGL_EXPORT FTGLExtrdFont : public FTFont
          *
          * @param d  The extrusion distance.
          */
-        void Depth( float d) { depth = d;}
-		
+        void Depth(float d) { depth = d; }
+
+        /**
+         * Set the outset distance for the font. Only implemented by
+         * FTGLOutlineFont, FTGLPolygonFont and FTGLExtrdFont
+         *
+         * @param f  The front outset distance.
+         */
+        void Outset(float f) { front = f; }
+
+        /**
+         * Set the outset distance for the font. Only implemented by
+         * FTGLExtrdFont
+         *
+         * @param f  The front outset distance.
+         * @param b  The back outset distance.
+         */
+        void Outset(float f, float b) { front = f; back = b; }
+
     private:
         /**
          * Construct a FTPolyGlyph.
@@ -90,9 +107,14 @@ class FTGL_EXPORT FTGLExtrdFont : public FTFont
         inline virtual FTGlyph* MakeGlyph( unsigned int glyphIndex);
 		
         /**
-         * The extrusion distance for the font. 
+         * The extrusion distance for the font.
          */
         float depth;
+
+        /**
+         * The outset distance (front and back) for the font.
+         */
+        float front, back;
 };
 
 #endif //__cplusplus
