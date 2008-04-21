@@ -88,13 +88,13 @@ FTOutlineGlyph::~FTOutlineGlyph()
 }
 
 
-const FTPoint& FTOutlineGlyph::Render( const FTPoint& pen)
+const FTPoint& FTOutlineGlyph::Render(const FTPoint& pen)
 {
-    glTranslatef( pen.X(), pen.Y(), 0.0f);
-
-    if( glList)
+    if(glList)
     {
-        glCallList( glList);
+        glTranslatef(pen.X(), pen.Y(), 0.0f);
+        glCallList(glList);
+        glTranslatef(-pen.X(), -pen.Y(), 0.0f);
     }
     
     return advance;

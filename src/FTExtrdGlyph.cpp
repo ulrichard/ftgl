@@ -174,11 +174,11 @@ FTExtrdGlyph::~FTExtrdGlyph()
 
 const FTPoint& FTExtrdGlyph::Render(const FTPoint& pen)
 {
-    glTranslatef(pen.X(), pen.Y(), 0);
-    
     if(glList)
     {
+        glTranslatef(pen.X(), pen.Y(), 0);
         glCallList(glList);    
+        glTranslatef(-pen.X(), -pen.Y(), 0);
     }
     
     return advance;

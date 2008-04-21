@@ -85,17 +85,22 @@ FTBitmapGlyph::~FTBitmapGlyph()
 }
 
 
-const FTPoint& FTBitmapGlyph::Render( const FTPoint& pen)
+const FTPoint& FTBitmapGlyph::Render(const FTPoint& pen)
 {
-    glBitmap( 0, 0, 0.0f, 0.0f, pen.X() + pos.X(), pen.Y() - pos.Y(), (const GLubyte*)0 );
-    
-    if( data)
+    if(data)
     {
-        glPixelStorei( GL_UNPACK_ROW_LENGTH, destPitch * 8);
-        glBitmap( destWidth, destHeight, 0.0f, 0.0, 0.0, 0.0, (const GLubyte*)data);
+        float dx, dy;
+
+        dx = pen.X() + pos.X();
+        dy = pen.Y() - pos.Y();
+
+        glBitmap(0, 0, 0.0f, 0.0f, dx, dy, (const GLubyte*)0);
+        glPixelStorei(GL_UNPACK_ROW_LENGTH, destPitch * 8);
+        glBitmap(destWidth, destHeight, 0.0f, 0.0, 0.0, 0.0,
+                 (const GLubyte*)data);
+        glBitmap(0, 0, 0.0f, 0.0f, -dx, -dy, (const GLubyte*)0);
     }
-    
-    glBitmap( 0, 0, 0.0f, 0.0f, -pos.X(), pos.Y(), (const GLubyte*)0 );
     
     return advance;
 }
+

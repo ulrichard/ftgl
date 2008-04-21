@@ -91,19 +91,24 @@ FTPixmapGlyph::~FTPixmapGlyph()
 }
 
 
-const FTPoint& FTPixmapGlyph::Render( const FTPoint& pen)
+const FTPoint& FTPixmapGlyph::Render(const FTPoint& pen)
 {
-    glBitmap( 0, 0, 0.0f, 0.0f, pen.X() + pos.X(), pen.Y() - pos.Y(), (const GLubyte*)0);
-    
-    if( data)
+    if(data)
     {
-        glPixelStorei( GL_UNPACK_ROW_LENGTH, 0);
-        glPixelStorei( GL_UNPACK_ALIGNMENT, 2);
+        float dx, dy;
 
-        glDrawPixels( destWidth, destHeight, GL_LUMINANCE_ALPHA, GL_UNSIGNED_BYTE, (const GLvoid*)data);
+        dx = pen.X() + pos.X();
+        dy = pen.Y() - pos.Y();
+
+        glBitmap(0, 0, 0.0f, 0.0f, dx, dy, (const GLubyte*)0);
+        glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
+        glPixelStorei(GL_UNPACK_ALIGNMENT, 2);
+
+        glDrawPixels(destWidth, destHeight, GL_LUMINANCE_ALPHA,
+                     GL_UNSIGNED_BYTE, (const GLvoid*)data);
+        glBitmap(0, 0, 0.0f, 0.0f, -dx, -dy, (const GLubyte*)0);
     }
-        
-    glBitmap( 0, 0, 0.0f, 0.0f, -pos.X(), pos.Y(), (const GLubyte*)0);
 
     return advance;
 }
+
