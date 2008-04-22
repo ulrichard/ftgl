@@ -8,9 +8,10 @@ been released to date.  All versions prior to and including version
 versions have changes attributed per contributor.
 
 ----------------------------------------------------------------------
---- 2008-XX-XX  Release 2.1.3                                     ---
+--- 2008-XX-XX  Release 2.1.3                                      ---
 ----------------------------------------------------------------------
 
+    * The library now also exports a pure C interface - Éric Beets
     * Inset/outset contour support for fonts - Éric Beets
     * Fix the FTLayout rendering - Éric Beets
     * Added new FTLayout and FTSimpleLayout support for layout
