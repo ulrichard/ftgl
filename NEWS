@@ -11,9 +11,13 @@ versions have changes attributed per contributor.
 --- 2008-XX-XX  Release 2.1.3                                     ---
 ----------------------------------------------------------------------
 
-    - Fixed the paths in the XCode project. - Henry Maddocks
+    - Inset/outset contour support for fonts - ƒric Beets
+    - Fix the FTLayout rendering - ƒric Beets
+    - Added new FTLayout and FTSimpleLayout support for layout
+      managers - Sam Hovecar
+    - Fixed the paths in the XCode project - Henry Maddocks
     - Changed the behaviour of some objects so that if there is an
-      error their state isn't changed. - Henry Maddocks
+      error their state isn't changed - Henry Maddocks
 
 ----------------------------------------------------------------------
 --- 2004-12-11  Release 2.1.2                                      ---
