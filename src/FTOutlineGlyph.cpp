@@ -11,10 +11,10 @@
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
@@ -40,38 +40,80 @@
 
 
 FTOutlineGlyph::FTOutlineGlyph(FT_GlyphSlot glyph, float outset, bool useDisplayList)
-:   FTGlyph( glyph),
+:   FTGlyph(glyph),
     glList(0)
 {
-    if( ft_glyph_format_outline != glyph->format)
+    if(ft_glyph_format_outline != glyph->format)
     {
         err = 0x14; // Invalid_Outline
         return;
     }
 
-    FTVectoriser vectoriser(glyph, outset * 64.0f);
+    vectoriser = new FTVectoriser(glyph, outset * 64.0f);
 
-    size_t numContours = vectoriser.ContourCount();
-    if ( ( numContours < 1) || ( vectoriser.PointCount() < 3))
+    if((vectoriser->ContourCount() < 1) || (vectoriser->PointCount() < 3))
     {
+        delete vectoriser;
+        vectoriser = NULL;
         return;
     }
 
     if(useDisplayList)
     {
         glList = glGenLists(1);
-        glNewList( glList, GL_COMPILE);
+        glNewList(glList, GL_COMPILE);
+
+        DoRender();
+
+        glEndList();
+
+        delete vectoriser;
+        vectoriser = NULL;
     }
-    
-    for( unsigned int c = 0; c < numContours; ++c)
+}
+
+
+FTOutlineGlyph::~FTOutlineGlyph()
+{
+    if(glList)
     {
-        const FTContour* contour = vectoriser.Contour(c);
-        
-        glBegin( GL_LINE_LOOP);
+        glDeleteLists(glList, 1);
+    }
+    else if(vectoriser)
+    {
+        delete vectoriser;
+    }
+}
+
+
+const FTPoint& FTOutlineGlyph::Render(const FTPoint& pen)
+{
+    glTranslatef(pen.X(), pen.Y(), 0.0f);
+    if(glList)
+    {
+        glCallList(glList);
+    }
+    else if(vectoriser)
+    {
+        DoRender();
+    }
+    glTranslatef(-pen.X(), -pen.Y(), 0.0f);
+
+    return advance;
+}
+
+
+void FTOutlineGlyph::DoRender()
+{
+    for(unsigned int c = 0; c < vectoriser->ContourCount(); ++c)
+    {
+        const FTContour* contour = vectoriser->Contour(c);
+
+        glBegin(GL_LINE_LOOP);
             for(unsigned int i = 0; i < contour->PointCount(); ++i)
             {
                 FTPoint point = contour->Point(i);
-                glVertex2f( point.X() / 64.0f, point.Y() / 64.0f);
+                glVertex2f(point.X() / 64.0f, point.Y() / 64.0f);
             }
         glEnd();
         /* Outset contour */
@@ -83,29 +125,5 @@ FTOutlineGlyph::FTOutlineGlyph(FT_GlyphSlot glyph, float outset, bool useDisplay
             }
         glEnd();
     }
-
-    if(useDisplayList)
-    {
-        glEndList();
-    }
-}
-
-
-FTOutlineGlyph::~FTOutlineGlyph()
-{
-    glDeleteLists( glList, 1);
-}
-
-
-const FTPoint& FTOutlineGlyph::Render(const FTPoint& pen)
-{
-    if(glList)
-    {
-        glTranslatef(pen.X(), pen.Y(), 0.0f);
-        glCallList(glList);
-        glTranslatef(-pen.X(), -pen.Y(), 0.0f);
-    }
-    
-    return advance;
 }
 
