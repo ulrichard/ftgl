@@ -11,10 +11,10 @@ versions have changes attributed per contributor.
 --- 2008-XX-XX  Release 2.1.3                                     ---
 ----------------------------------------------------------------------
 
-    * Inset/outset contour support for fonts - ric Beets
-    * Fix the FTLayout rendering - ric Beets
+    * Inset/outset contour support for fonts - Éric Beets
+    * Fix the FTLayout rendering - Éric Beets
     * Added new FTLayout and FTSimpleLayout support for layout
-      managers - Sam Hovecar
+      managers - Sam Hocevar
     * Fixed the paths in the XCode project - Henry Maddocks
     * Changed the behaviour of some objects so that if there is an
       error their state isn't changed - Henry Maddocks
@@ -34,7 +34,7 @@ versions have changes attributed per contributor.
 ----------------------------------------------------------------------
 
     * Added the xCode project properly this time.
-    
+
 ----------------------------------------------------------------------
 --- 2004-12-05  Release 2.1.0                                      ---
 ----------------------------------------------------------------------
@@ -50,7 +50,7 @@ versions have changes attributed per contributor.
     * Fixed a bug where resizing FTGLTextureFont caused a GL error.
     * Refactored FTPoint quite a bit.
     * More unit tests. Fixed a heap of bugs.
-    
+
 ----------------------------------------------------------------------
 --- 2004-08-16  Release 2.0.11                                     ---
 ----------------------------------------------------------------------
@@ -70,7 +70,7 @@ versions have changes attributed per contributor.
 
     * Fixed includes for pre 2.1.7 versions of freetype
     * Changed unix build to create FTGL subdir for includes
-    
+
 ----------------------------------------------------------------------
 --- 2004-04-09  Release 2.0.8                                      ---
 ----------------------------------------------------------------------
@@ -88,7 +88,7 @@ versions have changes attributed per contributor.
 
     * Minor fix for unix build scripts.
     * Minor fix for unit tests.
-    
+
 ----------------------------------------------------------------------
 --- 2003-08-25  Release 2.06                                       ---
 ----------------------------------------------------------------------
@@ -111,13 +111,13 @@ versions have changes attributed per contributor.
 ----------------------------------------------------------------------
 
     * Fixed resize behavior in FTGLTextureFont.
-    
+
 ----------------------------------------------------------------------
 --- 2003-04-09  Release 2.03                                       ---
 ----------------------------------------------------------------------
 
     * Fix in FTContour to handle broken contours.
-    
+
 ----------------------------------------------------------------------
 --- 2003-04-03  Release 2.02                                       ---
 ----------------------------------------------------------------------
@@ -129,7 +129,7 @@ versions have changes attributed per contributor.
 ----------------------------------------------------------------------
 
     * Minor changes to autoconf to detect glu
-    
+
 ----------------------------------------------------------------------
 --- 2003-03-11  Release 2.0                                        ---
 ----------------------------------------------------------------------
@@ -208,7 +208,7 @@ versions have changes attributed per contributor.
 ----------------------------------------------------------------------
 
     * Forgot to update readme etc for 1.3
-    
+
 ----------------------------------------------------------------------
 --- 2002-01-27  Release 1.3b5                                      ---
 ----------------------------------------------------------------------
@@ -264,11 +264,11 @@ versions have changes attributed per contributor.
 ----------------------------------------------------------------------
 
     * Glyphs can now be loaded on the fly instead of being pre-cached. If
-      FTFont::Open() is called with false, FTGlyphContainer will build a list of 
-      null pointers. Then when ever a glyph needs to be access eg by 
-      FTFont::advance or FTFont::render, it will be built and slotted into the 
+      FTFont::Open() is called with false, FTGlyphContainer will build a list of
+      null pointers. Then when ever a glyph needs to be access eg by
+      FTFont::advance or FTFont::render, it will be built and slotted into the
       glyphlist in the correct position.
-    * Removed glext.h from FTGL.h and replaced it with a test for 
+    * Removed glext.h from FTGL.h and replaced it with a test for
       GL_EXT_texture_object.
     * Added padding to texture size calculations.
     * Fixed a NASTY bug in FTGLTextureFont. Only came to light after changes to
@@ -288,7 +288,7 @@ versions have changes attributed per contributor.
     * Tidied up some implicit type conversions.
     * Fixed FTCharMap to ensure that a valid default charmap is always created
       by the c_stor.
-    
+
 ----------------------------------------------------------------------
 --- 2001-10-26  Release 1.01                                       ---
 ----------------------------------------------------------------------
@@ -360,7 +360,7 @@ versions have changes attributed per contributor.
       FT_LOAD_NO_HINTING for texture fonts. Seems to produce better
       looking glyphs.
     * FTGLTextureFont can now use multiple textures to render glyphs
-      if they  don't fit within one GL_MAX_TEXTURE_SIZE texture. 
+      if they  don't fit within one GL_MAX_TEXTURE_SIZE texture.
     * Changed FTSize to use bbox for global width and height. Needs
       more work (eg float or int?) and need to check inconsistancies
       in freetype.
@@ -395,7 +395,7 @@ versions have changes attributed per contributor.
 ----------------------------------------------------------------------
 
     * Minor tidy ups for first public release.
-    
+
 ----------------------------------------------------------------------
 --- 2001-08-03  First BETA Release 1.0b1                           ---
 ----------------------------------------------------------------------
