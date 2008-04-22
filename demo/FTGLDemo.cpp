@@ -563,7 +563,7 @@ void parseSpecialKey(int key, int x, int y)
         current_font = (current_font + 1) % 6;
         break;
     case GLUT_KEY_DOWN:
-        current_font = (current_font + 4) % 6;
+        current_font = (current_font + 5) % 6;
         break;
     case GLUT_KEY_PAGE_UP:
         currentLayout = (currentLayout + 1) % NumLayouts;

@@ -10,10 +10,10 @@
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
@@ -47,7 +47,7 @@
 /**
  * FTTextureGlyph is a specialisation of FTGlyph for creating texture
  * glyphs.
- * 
+ *
  * @see FTGlyphContainer
  *
  */
@@ -67,7 +67,7 @@ class FTGL_EXPORT FTTextureGlyph : public FTGlyph
          * @param width     The width of the parent texture
          * @param height    The height (number of rows) of the parent texture
          */
-        FTTextureGlyph( FT_GlyphSlot glyph, int id, int xOffset, int yOffset, GLsizei width, GLsizei height);
+        FTTextureGlyph(FT_GlyphSlot glyph, int id, int xOffset, int yOffset, GLsizei width, GLsizei height);
 
         /**
          * Destructor
@@ -81,13 +81,14 @@ class FTGL_EXPORT FTTextureGlyph : public FTGlyph
          * @param renderMode  Render mode to display
          * @return      The advance distance for this glyph.
          */
-        virtual const FTPoint& Render( const FTPoint& pen, int renderMode);
+        virtual const FTPoint& Render(const FTPoint& pen, int renderMode);
 
         /**
-         * Reset the currently active texture to zero to get into a known state before
-         * drawing a string. This is to get round possible threading issues.
+         * Reset the currently active texture to zero to get into a known
+         * state before drawing a string. This is to get round possible
+         * threading issues.
          */
-        static void ResetActiveTexture(){ activeTextureID = 0;}
+        static void ResetActiveTexture() { activeTextureID = 0; }
 
     private:
         /**
@@ -118,12 +119,11 @@ class FTGL_EXPORT FTTextureGlyph : public FTGlyph
         /**
          * The texture index of the currently active texture
          *
-         * We keep track of the currently active texture to try to reduce the number
-         * of texture bind operations.
+         * We keep track of the currently active texture to try to reduce the
+         * number of texture bind operations.
          */
         static GLint activeTextureID;
-
 };
 
-
 #endif  //  __FTTextureGlyph__
+
