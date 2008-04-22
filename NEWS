@@ -1,4 +1,4 @@
-							-*- coding: utf-8 -*-
+						-*- coding: utf-8 -*-
 FTGL
 ====
 
@@ -224,8 +224,8 @@ versions have changes attributed per contributor.
 ----------------------------------------------------------------------
 
     * Added MAC OSX project (Project Builder)
-    * Added a function for extruded glyphs that calculates the winding order of
-      the glyph contour.
+    * Added a function for extruded glyphs that calculates the winding
+      order of the glyph contour.
     * Added FTGL_DEBUG to include memory debugger.
     * Added a couple of typedefs to FTGL.h, mainly to aid debugging
     * Cleaned up the includes.
@@ -263,38 +263,41 @@ versions have changes attributed per contributor.
 --- 2001-11-06  Release 1.2                                        ---
 ----------------------------------------------------------------------
 
-    * Glyphs can now be loaded on the fly instead of being pre-cached. If
-      FTFont::Open() is called with false, FTGlyphContainer will build a list of
-      null pointers. Then when ever a glyph needs to be access eg by
-      FTFont::advance or FTFont::render, it will be built and slotted into the
-      glyphlist in the correct position.
+    * Glyphs can now be loaded on the fly instead of being
+      pre-cached. If FTFont::Open() is called with false,
+      FTGlyphContainer will build a list of null pointers. Then when
+      ever a glyph needs to be access eg by FTFont::advance or
+      FTFont::render, it will be built and slotted into the glyphlist
+      in the correct position.
     * Removed glext.h from FTGL.h and replaced it with a test for
       GL_EXT_texture_object.
     * Added padding to texture size calculations.
-    * Fixed a NASTY bug in FTGLTextureFont. Only came to light after changes to
-      the glyph preprocessing.
+    * Fixed a NASTY bug in FTGLTextureFont. Only came to light after
+      changes to the glyph preprocessing.
 
 ----------------------------------------------------------------------
 --- 2001-10-31  Release 1.1                                        ---
 ----------------------------------------------------------------------
 
     * Renamed the source to .cpp
-    * Removed the static activeTextureID from FTTextureGlyph and replaced it
-      with a call to
+    * Removed the static activeTextureID from FTTextureGlyph and
+      replaced it with a call to
       glGetIntegerv( GL_TEXTURE_2D_BINDING_EXT, &activeTextureID);
     * Added an include for glext.h in FTGL.h
-    * Tidied up the glbegin/glEnd pairs in FTTextureGlyph & FTGLTextureFont
+    * Tidied up the glbegin/glEnd pairs in FTTextureGlyph &
+      FTGLTextureFont
     * Fixed the problem with doc filenames.
     * Tidied up some implicit type conversions.
-    * Fixed FTCharMap to ensure that a valid default charmap is always created
-      by the c_stor.
+    * Fixed FTCharMap to ensure that a valid default charmap is always
+      created by the c_stor.
 
 ----------------------------------------------------------------------
 --- 2001-10-26  Release 1.01                                       ---
 ----------------------------------------------------------------------
 
     * Removed the glEnable( GL_TEXTURE_2D) from FTGLTextureFont
-    * Removed the redundant tempGlyph members in the FTGLXXXXFont classes
+    * Removed the redundant tempGlyph members in the FTGLXXXXFont
+      classes
     * Made a change in FTGL.h to include correct headers for MAC OSX
     * FTGL.h now includes glu.h
     * Minor fixes to get rid of Project Builder warnings (MAC OSX)
