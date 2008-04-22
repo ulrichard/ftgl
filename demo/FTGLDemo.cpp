@@ -560,16 +560,16 @@ void parseSpecialKey(int key, int x, int y)
     switch (key)
     {
     case GLUT_KEY_UP:
-        current_font = (current_font + 1)%5;
+        current_font = (current_font + 1) % 6;
         break;
     case GLUT_KEY_DOWN:
-        current_font = (current_font + 4)%5;
+        current_font = (current_font + 4) % 6;
         break;
     case GLUT_KEY_PAGE_UP:
-        currentLayout = (currentLayout + 1)%NumLayouts;
+        currentLayout = (currentLayout + 1) % NumLayouts;
         break;
     case GLUT_KEY_PAGE_DOWN:
-        currentLayout = (currentLayout + NumLayouts - 1)%NumLayouts;
+        currentLayout = (currentLayout + NumLayouts - 1) % NumLayouts;
         break;
     case GLUT_KEY_HOME:
         /* If the current layout is simple decrement its line length */
