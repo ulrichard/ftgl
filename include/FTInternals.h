@@ -41,6 +41,9 @@
 #include    "FTGLExtrdFont.h"
 #include    "FTGLTextureFont.h"
 
+#include    "FTLayout.h"
+#include    "FTSimpleLayout.h"
+
 #include    <stdlib.h>
 #include    <stdio.h>
 
@@ -94,6 +97,32 @@ static inline FTGLfont *createFTFont(ftglType type, const char *fontname)
             break;
     }
     return ftgl;
+}
+
+typedef enum ftglLayoutType
+{
+    Simple,
+};
+
+struct FTGLlayout
+{
+    FTLayout *ptr;
+    FTGLfont *font;
+    ftglLayoutType type;
+};
+
+static inline FTGLlayout *createFTLayout(ftglLayoutType type)
+{
+    FTGLlayout *layout = (FTGLlayout*)malloc(sizeof(FTGLlayout));
+    layout->font = NULL;
+    layout->type = type;
+    switch(type)
+    {
+        case Simple:
+            layout->ptr = new FTSimpleLayout();
+            break;
+    }
+    return layout;
 }
 
 #ifdef __cplusplus

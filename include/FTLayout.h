@@ -35,6 +35,8 @@
 #ifndef    __FTLayout__
 #define    __FTLayout__
 
+#ifdef __cplusplus
+
 #include "FTGL.h"
 #include "FTPoint.h"
 #include "FTFont.h"
@@ -160,5 +162,22 @@ class FTGL_EXPORT FTLayout
             { return(font->charSize); }
 };
 
+#endif //__cplusplus
+
+#ifdef __cplusplus
+extern "C" {
+namespace C {
+#endif
+
+typedef struct FTGLlayout FTGLlayout;
+
+FTGL_EXPORT void ftglDestroyLayout(FTGLlayout*);
+
+#ifdef __cplusplus
+}
+}
+#endif
+
 #endif  /* __FTLayout__ */
+
 

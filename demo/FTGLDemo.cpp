@@ -345,16 +345,16 @@ void renderFontInfo()
         // Output the alignment mode of the layout
         switch (((FTSimpleLayout *)layouts[currentLayout])->GetAlignment())
         {
-            case FTSimpleLayout::ALIGN_LEFT:
+            case FTGL::ALIGN_LEFT:
                 infoFont->Render("Align Left");
                 break;
-            case FTSimpleLayout::ALIGN_RIGHT:
+            case FTGL::ALIGN_RIGHT:
                 infoFont->Render("Align Right");
                 break;
-            case FTSimpleLayout::ALIGN_CENTER:
+            case FTGL::ALIGN_CENTER:
                 infoFont->Render("Align Center");
                 break;
-            case FTSimpleLayout::ALIGN_JUST:
+            case FTGL::ALIGN_JUSTIFY:
                 infoFont->Render("Align Justified");
                 break;
         }
@@ -512,17 +512,17 @@ void parsekey(unsigned char key, int x, int y)
             // Decrement the layout
             switch (simpleLayout->GetAlignment())
             {
-            case FTSimpleLayout::ALIGN_LEFT:
-                simpleLayout->SetAlignment(FTSimpleLayout::ALIGN_RIGHT);
+            case FTGL::ALIGN_LEFT:
+                simpleLayout->SetAlignment(FTGL::ALIGN_RIGHT);
                 break;
-            case FTSimpleLayout::ALIGN_RIGHT:
-                simpleLayout->SetAlignment(FTSimpleLayout::ALIGN_CENTER);
+            case FTGL::ALIGN_RIGHT:
+                simpleLayout->SetAlignment(FTGL::ALIGN_CENTER);
                 break;
-            case FTSimpleLayout::ALIGN_CENTER:
-                simpleLayout->SetAlignment(FTSimpleLayout::ALIGN_JUST);
+            case FTGL::ALIGN_CENTER:
+                simpleLayout->SetAlignment(FTGL::ALIGN_JUSTIFY);
                 break;
-            case FTSimpleLayout::ALIGN_JUST:
-                simpleLayout->SetAlignment(FTSimpleLayout::ALIGN_LEFT);
+            case FTGL::ALIGN_JUSTIFY:
+                simpleLayout->SetAlignment(FTGL::ALIGN_LEFT);
                 break;
             }
         }

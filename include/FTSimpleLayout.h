@@ -35,6 +35,8 @@
 #ifndef    __FTSimpleLayout__
 #define    __FTSimpleLayout__
 
+#ifdef __cplusplus
+
 #include "FTLayout.h"
 #include "FTBBox.h"
 
@@ -129,9 +131,6 @@ class FTGL_EXPORT FTSimpleLayout : public FTLayout
         void RenderSpace(const wchar_t *string, const float ExtraSpace = 0.0)
             { pen.X(0); pen.Y(0); RenderSpace(string, 0, -1, 0, ExtraSpace); }
 
-        typedef enum
-            { ALIGN_LEFT, ALIGN_CENTER, ALIGN_RIGHT, ALIGN_JUST } TextAlignment;
-
         /**
          * Set he font to use for rendering the text.
          *
@@ -166,12 +165,12 @@ class FTGL_EXPORT FTSimpleLayout : public FTLayout
          *
          * @param Alignment The new alignment mode.
          */
-        void SetAlignment(const TextAlignment Alignment)
+        void SetAlignment(const FTGL::TextAlignment Alignment)
             { alignment = Alignment; }
         /**
          * @return The text alignment mode.
          */
-        TextAlignment GetAlignment() const
+        FTGL::TextAlignment GetAlignment() const
             { return(alignment); }
 
         /**
@@ -317,7 +316,7 @@ class FTGL_EXPORT FTSimpleLayout : public FTLayout
          * The text alignment mode used to distribute
          * space within a line or rendered text.
          */
-        TextAlignment alignment;
+        FTGL::TextAlignment alignment;
 
         /**
          * The height of each line of text expressed as
@@ -348,6 +347,41 @@ class FTGL_EXPORT FTSimpleLayout : public FTLayout
         void OutputWrappedI(const T* buf, const int start, const int end,
                             const float RemainingWidth, FTBBox *bounds, int renderMode);
 };
+
+#endif //__cplusplus
+
+#ifdef __cplusplus
+extern "C" {
+namespace C {
+#endif
+
+FTGL_EXPORT void  ftglLayoutBBox           (FTGLlayout *, const char*, float []);
+
+FTGL_EXPORT void  ftglLayoutRender         (FTGLlayout *, const char*);
+FTGL_EXPORT void  ftglLayoutRenderMode     (FTGLlayout *, int);
+FTGL_EXPORT void  ftglLayoutRenderSpace    (FTGLlayout *, const float);
+
+FTGL_EXPORT void      ftglLayoutSetFont    (FTGLlayout *, FTGLfont*);
+FTGL_EXPORT FTGLfont* ftglLayoutGetFont    (FTGLlayout *);
+
+FTGL_EXPORT void  ftglLayoutSetLineLength  (FTGLlayout *, const float);
+FTGL_EXPORT float ftglLayoutGetLineLength  (FTGLlayout *);
+
+#ifdef __cplusplus
+FTGL_EXPORT void                ftglLayoutSetAlignment   (FTGLlayout *, const FTGL::TextAlignment);
+FTGL_EXPORT FTGL::TextAlignment ftglLayoutGetAlignement  (FTGLlayout *);
+#else
+FTGL_EXPORT void                ftglLayoutSetAlignment   (FTGLlayout *, const TextAlignment);
+FTGL_EXPORT TextAlignment       ftglLayoutGetAlignement  (FTGLlayout *);
+#endif
+
+FTGL_EXPORT void  ftglLayoutSetLineSpacing (FTGLlayout *, const float);
+FTGL_EXPORT float ftglLayoutGetLineSpacing (FTGLlayout *);
+
+#ifdef __cplusplus
+}
+}
+#endif
 
 #endif  /* __FTSimpleLayout__ */
 

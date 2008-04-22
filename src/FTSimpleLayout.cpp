@@ -34,6 +34,8 @@
 
 #include "config.h"
 
+#include "FTInternals.h"
+
 #include <ctype.h>
 
 #include "FTInternals.h"
@@ -49,7 +51,7 @@ FTSimpleLayout::FTSimpleLayout()
 {
     currentFont = NULL;
     lineLength = 100.0f;
-    alignment = ALIGN_LEFT;
+    alignment = FTGL::ALIGN_LEFT;
     lineSpacing = 1.0f;
 }
 
@@ -215,11 +217,11 @@ inline void FTSimpleLayout::WrapTextI(const T *buf, int renderMode, FTBBox *boun
     float remainingWidth = lineLength - currentWidth;
     // Render any remaining text on the last line
     // Disable justification for the last row
-    if(alignment == ALIGN_JUST)
+    if(alignment == FTGL::ALIGN_JUSTIFY)
     {
-        alignment = ALIGN_LEFT;
+        alignment = FTGL::ALIGN_LEFT;
         OutputWrapped(buf, lineStart, -1, remainingWidth, bounds, renderMode);
-        alignment = ALIGN_JUST;
+        alignment = FTGL::ALIGN_JUSTIFY;
     }
     else
     {
@@ -250,16 +252,16 @@ inline void FTSimpleLayout::OutputWrappedI(const T *buf, const int start,
     // Align the text according as specified by Alignment
     switch (alignment)
     {
-        case ALIGN_LEFT:
+        case FTGL::ALIGN_LEFT:
             pen.X(0);
             break;
-        case ALIGN_CENTER:
+        case FTGL::ALIGN_CENTER:
             pen.X(RemainingWidth / 2);
             break;
-        case ALIGN_RIGHT:
+        case FTGL::ALIGN_RIGHT:
             pen.X(RemainingWidth);
             break;
-        case ALIGN_JUST:
+        case FTGL::ALIGN_JUSTIFY:
             pen.X(0);
             distributeWidth = RemainingWidth;
             break;
@@ -365,5 +367,14 @@ void FTSimpleLayout::RenderSpace(const wchar_t *string, const int start,
                                  const int end, int renderMode, const float ExtraSpace)
 {
     RenderSpaceI(string, start, end, renderMode, ExtraSpace);
+}
+
+namespace C
+{
+    extern "C" FTGLlayout* ftglCreateSimpleLayout()
+    {
+        FTGLlayout *layout = createFTLayout(Simple);
+        return layout;
+    }
 }
 

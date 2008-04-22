@@ -39,7 +39,11 @@
 namespace FTGL
 {
     typedef enum{RENDER_FRONT = 0x01, RENDER_BACK = 0x02, RENDER_SIDE = 0x04}ftglRenderMode;
+    typedef enum{ALIGN_LEFT, ALIGN_CENTER, ALIGN_RIGHT, ALIGN_JUSTIFY} TextAlignment;
 }
+#else
+    typedef enum{RENDER_FRONT = 0x01, RENDER_BACK = 0x02, RENDER_SIDE = 0x04}ftglRenderMode;
+    typedef enum{ALIGN_LEFT, ALIGN_CENTER, ALIGN_RIGHT, ALIGN_JUSTIFY} TextAlignment;
 #endif
 
 typedef double   FTGL_DOUBLE;
