@@ -36,6 +36,8 @@
 
 #include <ctype.h>
 
+#include "FTInternals.h"
+
 #include "FTFont.h"
 #include "FTGlyphContainer.h"
 #include "FTBBox.h"
@@ -59,7 +61,7 @@ inline void FTSimpleLayout::BBoxI(const T* string,
 {
     FTBBox bounds;
 
-    WrapText(string, &bounds);
+    WrapText(string, 0, &bounds);
     llx = bounds.lowerX; lly = bounds.lowerY; llz = bounds.lowerZ;
     urx = bounds.upperX; ury = bounds.upperY; urz = bounds.upperZ;
 }
@@ -80,27 +82,38 @@ void FTSimpleLayout::BBox(const wchar_t *string, float& llx, float& lly,
 
 
 template <typename T>
-inline void FTSimpleLayout::RenderI(const T *string)
+inline void FTSimpleLayout::RenderI(const T *string, int renderMode)
 {
     pen = FTPoint(0.0f, 0.0f);
-    WrapText(string, NULL);
+    WrapText(string, renderMode, NULL);
 }
 
 
 void FTSimpleLayout::Render(const char *string)
 {
-    RenderI(string);
+    RenderI(string, FTGL::RENDER_FRONT | FTGL::RENDER_BACK | FTGL::RENDER_SIDE);
 }
 
 
 void FTSimpleLayout::Render(const wchar_t* string)
 {
-    RenderI(string);
+    RenderI(string, FTGL::RENDER_FRONT | FTGL::RENDER_BACK | FTGL::RENDER_SIDE);
+}
+
+void FTSimpleLayout::Render(const char *string, int renderMode)
+{
+    RenderI(string, renderMode);
+}
+
+
+void FTSimpleLayout::Render(const wchar_t* string, int renderMode)
+{
+    RenderI(string, renderMode);
 }
 
 
 template <typename T>
-inline void FTSimpleLayout::WrapTextI(const T *buf, FTBBox *bounds)
+inline void FTSimpleLayout::WrapTextI(const T *buf, int renderMode, FTBBox *bounds)
 {
     int breakIdx = 0;          // index of the last break character
     int lineStart = 0;         // character index of the line start
@@ -162,11 +175,11 @@ inline void FTSimpleLayout::WrapTextI(const T *buf, FTBBox *bounds)
             {
                 breakIdx++;
                 OutputWrapped(buf, lineStart, breakIdx - 1,
-                              remainingWidth, bounds);
+                              remainingWidth, bounds, renderMode);
             }
             else
             {
-                OutputWrapped(buf, lineStart, breakIdx, remainingWidth, bounds);
+                OutputWrapped(buf, lineStart, breakIdx, remainingWidth, bounds, renderMode);
             }
 
             // Store the start of the next line
@@ -205,25 +218,25 @@ inline void FTSimpleLayout::WrapTextI(const T *buf, FTBBox *bounds)
     if(alignment == ALIGN_JUST)
     {
         alignment = ALIGN_LEFT;
-        OutputWrapped(buf, lineStart, -1, remainingWidth, bounds);
+        OutputWrapped(buf, lineStart, -1, remainingWidth, bounds, renderMode);
         alignment = ALIGN_JUST;
     }
     else
     {
-        OutputWrapped(buf, lineStart, -1, remainingWidth, bounds);
+        OutputWrapped(buf, lineStart, -1, remainingWidth, bounds, renderMode);
     }
 }
 
 
-void FTSimpleLayout::WrapText(const char *buf, FTBBox *bounds)
+void FTSimpleLayout::WrapText(const char *buf, int renderMode, FTBBox *bounds)
 {
-    WrapTextI(buf, bounds);
+    WrapTextI(buf, renderMode, bounds);
 }
 
 
-void FTSimpleLayout::WrapText(const wchar_t* buf, FTBBox *bounds)
+void FTSimpleLayout::WrapText(const wchar_t* buf, int renderMode, FTBBox *bounds)
 {
-    WrapTextI(buf, bounds);
+    WrapTextI(buf, renderMode, bounds);
 }
 
 
@@ -231,7 +244,7 @@ template <typename T>
 inline void FTSimpleLayout::OutputWrappedI(const T *buf, const int start,
                                            const int end,
                                            const float RemainingWidth,
-                                           FTBBox *bounds)
+                                           FTBBox *bounds, int renderMode)
 {
     float distributeWidth = 0.0;
     // Align the text according as specified by Alignment
@@ -279,30 +292,30 @@ inline void FTSimpleLayout::OutputWrappedI(const T *buf, const int start,
     }
     else
     {
-        RenderSpace(buf, start, end, distributeWidth);
+        RenderSpace(buf, start, end, renderMode, distributeWidth);
     }
 }
 
 
 void FTSimpleLayout::OutputWrapped(const char *buf, const int start,
                                    const int end, const float RemainingWidth,
-                                   FTBBox *bounds)
+                                   FTBBox *bounds, int renderMode)
 {
-    OutputWrappedI(buf, start, end, RemainingWidth, bounds);
+    OutputWrappedI(buf, start, end, RemainingWidth, bounds, renderMode);
 }
 
 
 void FTSimpleLayout::OutputWrapped(const wchar_t *buf, const int start,
                                    const int end, const float RemainingWidth,
-                                   FTBBox *bounds)
+                                   FTBBox *bounds, int renderMode)
 {
-    OutputWrappedI(buf, start, end, RemainingWidth, bounds);
+    OutputWrappedI(buf, start, end, RemainingWidth, bounds, renderMode);
 }
 
 
 template <typename T>
 inline void FTSimpleLayout::RenderSpaceI(const T *string, const int start,
-                                         const int end, const float ExtraSpace)
+                                         const int end, int renderMode, const float ExtraSpace)
 {
     float space = 0.0;
 
@@ -336,21 +349,21 @@ inline void FTSimpleLayout::RenderSpaceI(const T *string, const int start,
             pen += FTPoint(space, 0);
         }
 
-        DoRender(currentFont, string[i], string[i + 1]);
+        DoRender(currentFont, string[i], string[i + 1], renderMode);
     }
 }
 
 
 void FTSimpleLayout::RenderSpace(const char *string, const int start,
-                                 const int end, const float ExtraSpace)
+                                 const int end, int renderMode, const float ExtraSpace)
 {
-    RenderSpaceI(string, start, end, ExtraSpace);
+    RenderSpaceI(string, start, end, renderMode, ExtraSpace);
 }
 
 
 void FTSimpleLayout::RenderSpace(const wchar_t *string, const int start,
-                                 const int end, const float ExtraSpace)
+                                 const int end, int renderMode, const float ExtraSpace)
 {
-    RenderSpaceI(string, start, end, ExtraSpace);
+    RenderSpaceI(string, start, end, renderMode, ExtraSpace);
 }
 

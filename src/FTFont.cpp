@@ -39,7 +39,6 @@
 #include "FTGlyphContainer.h"
 #include "FTBBox.h"
 
-
 FTFont::FTFont( const char* fontFilePath)
 :   face( fontFilePath),
     useDisplayLists(true),
@@ -262,25 +261,25 @@ float FTFont::Advance(const char* string)
 
 /* FIXME: DoRender should disappear, see commit [853]. */
 void FTFont::DoRender(const unsigned int chr,
-                      const unsigned int nextChr, FTPoint &origin)
+                      const unsigned int nextChr, FTPoint &origin, int renderMode)
 {
     if(CheckGlyph(chr))
     {
-        FTPoint kernAdvance = glyphList->Render(chr, nextChr, origin);
+        FTPoint kernAdvance = glyphList->Render(chr, nextChr, origin, renderMode);
         origin += kernAdvance;
     }
 }
 
 
 template <typename T>
-inline void FTFont::RenderI(const T* string)
+inline void FTFont::RenderI(const T* string, int renderMode)
 {
     const T* c = string;
     pen = FTPoint(0., 0.);
 
     while(*c)
     {
-        DoRender(*c, *(c + 1), pen);
+        DoRender(*c, *(c + 1), pen, renderMode);
         ++c;
     }
 }
@@ -288,13 +287,27 @@ inline void FTFont::RenderI(const T* string)
 
 void FTFont::Render(const wchar_t* string)
 {
-    RenderI(string);
+    RenderI(string, FTGL::RENDER_FRONT | FTGL::RENDER_BACK | FTGL::RENDER_SIDE);
 }
 
 
 void FTFont::Render(const char * string)
 {
-    RenderI((const unsigned char *)string);
+    RenderI((const unsigned char *)string, FTGL::RENDER_FRONT |
+                                           FTGL::RENDER_BACK |
+                                           FTGL::RENDER_SIDE);
+}
+
+
+void FTFont::Render(const char * string, int renderMode)
+{
+    RenderI((const unsigned char *)string, renderMode);
+}
+
+
+void FTFont::Render(const wchar_t* string, int renderMode)
+{
+    RenderI(string, renderMode);
 }
 
 
@@ -310,12 +323,12 @@ bool FTFont::CheckGlyph( const unsigned int characterCode)
             {
                 err = 0x13;
             }
-            
+
             return false;
         }
         glyphList->Add( tempGlyph, characterCode);
     }
-    
+
     return true;
 }
 

@@ -86,7 +86,7 @@ class FTGL_EXPORT FTGlyphContainer
          * @return      The font index for the character.
          */
         unsigned int FontIndex( const unsigned int characterCode ) const;
-        
+
         /**
          * Adds a glyph to this glyph list.
          *
@@ -98,7 +98,7 @@ class FTGL_EXPORT FTGlyphContainer
         /**
          * Get a glyph from the glyph list
          *
-         * @param characterCode The char code of the glyph NOT the glyph index      
+         * @param characterCode The char code of the glyph NOT the glyph index
          * @return              An FTGlyph or <code>null</code> is it hasn't been
          * loaded.
          */
@@ -106,10 +106,10 @@ class FTGL_EXPORT FTGlyphContainer
 
         /**
          * Get the bounding box for a character.
-         * @param characterCode The char code of the glyph NOT the glyph index      
+         * @param characterCode The char code of the glyph NOT the glyph index
          */
         FTBBox BBox( const unsigned int characterCode) const;
-        
+
         /**
         * Returns the kerned advance width for a glyph.
         *
@@ -118,16 +118,18 @@ class FTGL_EXPORT FTGlyphContainer
         * @return                  advance width
         */
         float Advance( const unsigned int characterCode, const unsigned int nextCharacterCode);
-        
+
         /**
          * Renders a character
          * @param characterCode      the glyph to be Rendered
          * @param nextCharacterCode  the next glyph in the string. Used for kerning.
          * @param penPosition        the position to Render the glyph
+         * @param renderMode         Render mode to display
          * @return                   The distance to advance the pen position after Rendering
          */
-        FTPoint Render( const unsigned int characterCode, const unsigned int nextCharacterCode, FTPoint penPosition);
-        
+        FTPoint Render( const unsigned int characterCode, const unsigned int nextCharacterCode,
+                        FTPoint penPosition, int renderMode);
+
         /**
          * Queries the Font for errors.
          *

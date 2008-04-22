@@ -73,9 +73,10 @@ class FTGL_EXPORT FTBitmapGlyph : public FTGlyph
          * Renders this glyph at the current pen position.
          *
          * @param pen   The current pen position.
+         * @param renderMode    Render mode to display
          * @return      The advance distance for this glyph.
          */
-        virtual const FTPoint& Render( const FTPoint& pen);
+        virtual const FTPoint& Render( const FTPoint& pen, int renderMode);
         
     private:
         /**

@@ -19,7 +19,7 @@ class TestGlyph : public FTGlyph
             advance = FTPoint(50.0f, 0.0f, 0.0f);
         }
         
-        virtual const FTPoint& Render( const FTPoint& pen){ return advance;}
+        virtual const FTPoint& Render( const FTPoint& pen, int renderMode){ return advance;}
 };
 
 
@@ -95,7 +95,9 @@ class FTGlyphContainerTest : public CppUnit::TestCase
             
             FTPoint pen;
             
-            float advance = glyphContainer->Render( 'A', 0, pen).X();
+            float advance = glyphContainer->Render( 'A', 0, pen, FTGL::RENDER_FRONT |
+                                                                 FTGL::RENDER_BACK |
+                                                                 FTGL::RENDER_SIDE).X();
             
             CPPUNIT_ASSERT_DOUBLES_EQUAL( 50, advance, 0.01);
         }

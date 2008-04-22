@@ -10,10 +10,10 @@
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
@@ -55,10 +55,10 @@ FTBitmapGlyph::FTBitmapGlyph( FT_GlyphSlot glyph)
     unsigned int srcWidth = bitmap.width;
     unsigned int srcHeight = bitmap.rows;
     unsigned int srcPitch = bitmap.pitch;
-    
+
     destWidth = srcWidth;
     destHeight = srcHeight;
-    destPitch = srcPitch;    
+    destPitch = srcPitch;
 
     if( destWidth && destHeight)
     {
@@ -85,7 +85,7 @@ FTBitmapGlyph::~FTBitmapGlyph()
 }
 
 
-const FTPoint& FTBitmapGlyph::Render(const FTPoint& pen)
+const FTPoint& FTBitmapGlyph::Render(const FTPoint& pen, int renderMode)
 {
     if(data)
     {
@@ -100,7 +100,7 @@ const FTPoint& FTBitmapGlyph::Render(const FTPoint& pen)
                  (const GLubyte*)data);
         glBitmap(0, 0, 0.0f, 0.0f, -dx, -dy, (const GLubyte*)0);
     }
-    
+
     return advance;
 }
 

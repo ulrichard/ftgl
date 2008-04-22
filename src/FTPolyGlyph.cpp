@@ -91,7 +91,7 @@ FTPolyGlyph::~FTPolyGlyph()
 }
 
 
-const FTPoint& FTPolyGlyph::Render(const FTPoint& pen)
+const FTPoint& FTPolyGlyph::Render(const FTPoint& pen, int renderMode)
 {
     glTranslatef(pen.X(), pen.Y(), 0.0f);
     if(glList)

@@ -86,7 +86,7 @@ FTOutlineGlyph::~FTOutlineGlyph()
 }
 
 
-const FTPoint& FTOutlineGlyph::Render(const FTPoint& pen)
+const FTPoint& FTOutlineGlyph::Render(const FTPoint& pen, int renderMode)
 {
     glTranslatef(pen.X(), pen.Y(), 0.0f);
     if(glList)

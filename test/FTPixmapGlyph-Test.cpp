@@ -55,7 +55,7 @@ class FTPixmapGlyphTest : public CppUnit::TestCase
         
             FTPixmapGlyph* pixmapGlyph = new FTPixmapGlyph( face->glyph);            
             CPPUNIT_ASSERT( pixmapGlyph->Error() == 0);
-            pixmapGlyph->Render(FTPoint( 0, 0, 0));
+            pixmapGlyph->Render(FTPoint( 0, 0, 0), FTGL::RENDER_FRONT);
             
             CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);        
 

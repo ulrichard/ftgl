@@ -87,9 +87,25 @@ class FTGL_EXPORT FTSimpleLayout : public FTLayout
         /**
          * Render a string of characters
          *
+         * @param string    'C' style string to be output.
+         * @param renderMode    Render mode to display
+         */
+        virtual void Render(const char* string, int renderMode);
+
+        /**
+         * Render a string of characters
+         *
          * @param string    wchar_t string to be output.
          */
         virtual void Render(const wchar_t* string);
+
+        /**
+         * Render a string of characters
+         *
+         * @param string    wchar_t string to be output.
+         * @param renderMode    Render mode to display
+         */
+        virtual void Render(const wchar_t* string, int renderMode);
 
         /**
          * Render a string of characters and distribute extra space amongst
@@ -100,7 +116,7 @@ class FTGL_EXPORT FTSimpleLayout : public FTLayout
          *                    whitespace.
          */
         void RenderSpace(const char *string, const float ExtraSpace = 0.0)
-            { pen.X(0); pen.Y(0); RenderSpace(string, 0, -1, ExtraSpace); }
+            { pen.X(0); pen.Y(0); RenderSpace(string, 0, -1, 0, ExtraSpace); }
 
         /**
          * Render a string of characters and distribute extra space amongst
@@ -111,7 +127,7 @@ class FTGL_EXPORT FTSimpleLayout : public FTLayout
          *                    whitespace.
          */
         void RenderSpace(const wchar_t *string, const float ExtraSpace = 0.0)
-            { pen.X(0); pen.Y(0); RenderSpace(string, 0, -1, ExtraSpace); }
+            { pen.X(0); pen.Y(0); RenderSpace(string, 0, -1, 0, ExtraSpace); }
 
         typedef enum
             { ALIGN_LEFT, ALIGN_CENTER, ALIGN_RIGHT, ALIGN_JUST } TextAlignment;
@@ -185,11 +201,12 @@ class FTGL_EXPORT FTSimpleLayout : public FTLayout
          * @param string   A buffer of wchar_t characters to output.
          * @param start    The index of the first character in string to output.
          * @param end      The index of the last character in string to output.
+         * @param renderMode Render mode to display
          * @param ExtraSpace The amount of extra space to distribute amongst
          *                   the characters.
          */
         virtual void RenderSpace(const char *string, const int start,
-                                 const int end, const float ExtraSpace = 0.0);
+                                 const int end, int renderMode, const float ExtraSpace = 0.0);
 
         /**
          * Render a string of characters and distribute extra space amongst
@@ -202,11 +219,12 @@ class FTGL_EXPORT FTSimpleLayout : public FTLayout
          * @param string   A buffer of wchar_t characters to output.
          * @param start    The index of the first character in string to output.
          * @param end      The index of the last character in string to output.
+         * @param renderMode Render mode to display
          * @param ExtraSpace The amount of extra space to distribute amongst
          *                   the characters.
          */
         virtual void RenderSpace(const wchar_t *string, const int start,
-                                 const int end, const float ExtraSpace = 0.0);
+                                 const int end, int renderMode, const float ExtraSpace = 0.0);
 
     private:
         /**
@@ -217,12 +235,13 @@ class FTGL_EXPORT FTSimpleLayout : public FTLayout
          * RenderWrapped methods.
          *
          * @param buf         wchar_t style string to output.
+         * @param renderMode  Render mode to display
          * @param bounds      A pointer to a bounds object.  If non null
          *                    the bounds of the text when laid out
          *                    will be stored in bounds.  If null the
          *                    text will be rendered.
          */
-        virtual void WrapText(const char *buf, FTBBox *bounds = NULL);
+        virtual void WrapText(const char *buf, int renderMode, FTBBox *bounds = NULL);
 
         /**
          * Either render a string of characters and wrap lines
@@ -232,12 +251,13 @@ class FTGL_EXPORT FTSimpleLayout : public FTLayout
          * RenderWrapped methods.
          *
          * @param buf         wchar_t style string to output.
+         * @param renderMode  Render mode to display
          * @param bounds      A pointer to a bounds object.  If non null
          *                    the bounds of the text when laid out
          *                    will be stored in bounds.  If null the
          *                    text will be rendered.
          */
-        virtual void WrapText(const wchar_t *buf, FTBBox *bounds = NULL);
+        virtual void WrapText(const wchar_t *buf, int renderMode, FTBBox *bounds = NULL);
 
         /**
          * A helper method used by WrapText to either output the text or
@@ -255,9 +275,10 @@ class FTGL_EXPORT FTSimpleLayout : public FTLayout
          *                   rendered.  If the bounds are invalid (lower > upper)
          *                   they will be initialized.  Otherwise they
          *                   will be expanded.
+         * @param renderMode  Render mode to display
          */
         void OutputWrapped(const char *buf, const int start, const int end,
-                           const float RemainingWidth, FTBBox *bounds);
+                           const float RemainingWidth, FTBBox *bounds, int renderMode);
 
         /**
          * A helper method used by WrapText to either output the text or
@@ -275,9 +296,10 @@ class FTGL_EXPORT FTSimpleLayout : public FTLayout
          *                   rendered.  If the bounds are invalid (lower > upper)
          *                   they will be initialized.  Otherwise they
          *                   will be expanded.
+         * @param renderMode  Render mode to display
          */
         void OutputWrapped(const wchar_t *buf, const int start, const int end,
-                           const float RemainingWidth, FTBBox *bounds);
+                           const float RemainingWidth, FTBBox *bounds, int renderMode);
 
         /**
          * The font to use for rendering the text.  The font is
@@ -310,21 +332,21 @@ class FTGL_EXPORT FTSimpleLayout : public FTLayout
 
         /* Internal generic Render() implementation */
         template <typename T>
-        inline void RenderI(const T* string);
+        inline void RenderI(const T* string, int renderMode);
 
         /* Internal generic RenderSpace() implementation */
         template <typename T>
         inline void RenderSpaceI(const T* string, const int start,
-                                 const int end, const float ExtraSpace = 0.0);
+                                 const int end, int renderMode, const float ExtraSpace = 0.0);
 
         /* Internal generic WrapText() implementation */
         template <typename T>
-        void WrapTextI(const T* buf, FTBBox *bounds = NULL);
+        void WrapTextI(const T* buf, int renderMode, FTBBox *bounds = NULL);
 
         /* Internal generic OutputWrapped() implementation */
         template <typename T>
         void OutputWrappedI(const T* buf, const int start, const int end,
-                            const float RemainingWidth, FTBBox *bounds);
+                            const float RemainingWidth, FTBBox *bounds, int renderMode);
 };
 
 #endif  /* __FTSimpleLayout__ */

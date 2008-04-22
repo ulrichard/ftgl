@@ -48,7 +48,7 @@ class FTPolyGlyphTest : public CppUnit::TestCase
             buildGLContext();
         
             FTPolyGlyph* polyGlyph = new FTPolyGlyph(face->glyph, 0.0f, true);
-            polyGlyph->Render(FTPoint( 0, 0, 0));           
+            polyGlyph->Render(FTPoint( 0, 0, 0), FTGL::RENDER_FRONT);
             CPPUNIT_ASSERT( polyGlyph->Error() == 0);
         
             CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);        

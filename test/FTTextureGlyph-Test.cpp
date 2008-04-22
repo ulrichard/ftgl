@@ -74,7 +74,7 @@ class FTTextureGlyphTest : public CppUnit::TestCase
             glTexImage2D( GL_TEXTURE_2D, 0, GL_ALPHA, 64, 64, 0, GL_ALPHA, GL_UNSIGNED_BYTE, texture);
     
             FTTextureGlyph* textureGlyph = new FTTextureGlyph( face->glyph, textureID, 0, 0, 64, 64);
-            textureGlyph->Render(FTPoint( 0, 0, 0));
+            textureGlyph->Render(FTPoint( 0, 0, 0), FTGL::RENDER_FRONT);
             CPPUNIT_ASSERT( textureGlyph->Error() == 0);
         
             CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);        

@@ -45,7 +45,7 @@ FTExtrdGlyph::FTExtrdGlyph(FT_GlyphSlot glyph, float depth, float frontOutset, f
     glList(0)
 {
     bBox.SetDepth(-depth);
-        
+
     if(ft_glyph_format_outline != glyph->format)
     {
         err = 0x14; // Invalid_Outline
@@ -58,18 +58,19 @@ FTExtrdGlyph::FTExtrdGlyph(FT_GlyphSlot glyph, float depth, float frontOutset, f
         return;
     }
 
+    /* Front face */
     if(useDisplayList)
     {
-        glList = glGenLists(1);
-        glNewList(glList, GL_COMPILE);
+        glList = glGenLists(3);
+        glNewList(glList + 0, GL_COMPILE);
     }
 
     vectoriser.MakeMesh(1.0, 1);
     glNormal3d(0.0, 0.0, 1.0);
-    
+
     unsigned int hscale = glyph->face->size->metrics.x_ppem * 64;
-    unsigned int vscale = glyph->face->size->metrics.y_ppem * 64;        
-    
+    unsigned int vscale = glyph->face->size->metrics.y_ppem * 64;
+
     const FTMesh* mesh = vectoriser.GetMesh();
     for(unsigned int j = 0; j < mesh->TesselationCount(); ++j)
     {
@@ -83,17 +84,27 @@ FTExtrdGlyph::FTExtrdGlyph(FT_GlyphSlot glyph, float depth, float frontOutset, f
 
                 glTexCoord2f(pt.X() / hscale,
                              pt.Y() / vscale);
-                
+
                 glVertex3f(pt.X() / 64.0f,
                            pt.Y() / 64.0f,
                            0.0f);
             }
         glEnd();
     }
-    
+    if(useDisplayList)
+    {
+        glEndList();
+    }
+
+    /* Back face */
+    if(useDisplayList)
+    {
+        glNewList(glList + 1, GL_COMPILE);
+    }
+
     vectoriser.MakeMesh(-1.0, 2);
     glNormal3d(0.0, 0.0, -1.0);
-    
+
     mesh = vectoriser.GetMesh();
     for(unsigned int j = 0; j < mesh->TesselationCount(); ++j)
     {
@@ -107,16 +118,26 @@ FTExtrdGlyph::FTExtrdGlyph(FT_GlyphSlot glyph, float depth, float frontOutset, f
 
                 glTexCoord2f(subMesh->Point(i).X() / hscale,
                              subMesh->Point(i).Y() / vscale);
-                
+
                 glVertex3f(subMesh->Point(i).X() / 64.0f,
                            subMesh->Point(i).Y() / 64.0f,
                            -depth);
             }
         glEnd();
     }
-    
+    if(useDisplayList)
+    {
+        glEndList();
+    }
+
+    /* Side face */
+    if(useDisplayList)
+    {
+        glNewList(glList + 2, GL_COMPILE);
+    }
+
     int contourFlag = vectoriser.ContourFlag();
-    
+
     for(size_t c = 0; c < vectoriser.ContourCount(); ++c)
     {
         const FTContour* contour = vectoriser.Contour(c);
@@ -132,13 +153,13 @@ FTExtrdGlyph::FTExtrdGlyph(FT_GlyphSlot glyph, float depth, float frontOutset, f
             {
                 unsigned int cur = (j == n) ? 0 : j;
                 unsigned int next = (cur == n - 1) ? 0 : cur + 1;
-                
+
                 FTPoint frontPt = contour->FrontPoint(cur);
                 FTPoint backPt = contour->BackPoint(cur);
 
                 FTPoint normal = FTPoint::GetNormal(frontPt, contour->FrontPoint(next));
                 if(normal != FTPoint(0.0f, 0.0f, 0.0f))
-                {                   
+                {
                     glNormal3dv(static_cast<const FTGL_DOUBLE*>(normal));
                 }
 
@@ -158,7 +179,7 @@ FTExtrdGlyph::FTExtrdGlyph(FT_GlyphSlot glyph, float depth, float frontOutset, f
             }
         glEnd();
     }
-        
+
     if(useDisplayList)
     {
         glEndList();
@@ -172,15 +193,20 @@ FTExtrdGlyph::~FTExtrdGlyph()
 }
 
 
-const FTPoint& FTExtrdGlyph::Render(const FTPoint& pen)
+const FTPoint& FTExtrdGlyph::Render(const FTPoint& pen, int renderMode)
 {
     if(glList)
     {
         glTranslatef(pen.X(), pen.Y(), 0);
-        glCallList(glList);    
+        if(renderMode & FTGL::RENDER_FRONT)
+            glCallList(glList + 0);
+       if(renderMode & FTGL::RENDER_BACK)
+            glCallList(glList + 1);
+       if(renderMode & FTGL::RENDER_SIDE)
+            glCallList(glList + 2);
         glTranslatef(-pen.X(), -pen.Y(), 0);
     }
-    
+
     return advance;
 }
 

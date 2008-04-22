@@ -90,9 +90,25 @@ class FTGL_EXPORT FTLayout
         /**
          * Render a string of characters
          *
+         * @param string    'C' style string to be output.
+         * @param renderMode  Render mode to diplay
+         */
+        virtual void Render(const char *string, int renderMode) = 0;
+
+        /**
+         * Render a string of characters
+         *
          * @param string    wchar_t string to be output.
          */
         virtual void Render(const wchar_t *string) = 0;
+
+        /**
+         * Render a string of characters
+         *
+         * @param string    wchar_t string to be output.
+         * @param renderMode  Render mode to diplay
+         */
+        virtual void Render(const wchar_t *string, int renderMode) = 0;
 
     protected:
         /**
@@ -106,11 +122,12 @@ class FTGL_EXPORT FTLayout
          * @param font      The font that contains the glyph.
          * @param chr       current character
          * @param nextChr   next character
+         * @param renderMode  Render mode to diplay
          * @see FTFont::DoRender
          */
         void DoRender(FTFont *font, const unsigned int chr,
-                      const unsigned int nextChr)
-            { font->DoRender(chr, nextChr, pen); }
+                      const unsigned int nextChr, int renderMode)
+            { font->DoRender(chr, nextChr, pen, renderMode); }
 
         /**
          * Expose <code>FTFont::CheckGlyph</code> method to derived classes.

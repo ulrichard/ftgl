@@ -108,7 +108,7 @@ float FTGlyphContainer::Advance( const unsigned int characterCode, const unsigne
 }
 
 
-FTPoint FTGlyphContainer::Render( const unsigned int characterCode, const unsigned int nextCharacterCode, FTPoint penPosition)
+FTPoint FTGlyphContainer::Render( const unsigned int characterCode, const unsigned int nextCharacterCode, FTPoint penPosition, int renderMode)
 {
     FTPoint kernAdvance, advance;
     
@@ -119,7 +119,7 @@ FTPoint FTGlyphContainer::Render( const unsigned int characterCode, const unsign
         
     if( !face->Error())
     {
-        advance = glyphs[charMap->GlyphListIndex( characterCode)]->Render( penPosition);
+        advance = glyphs[charMap->GlyphListIndex( characterCode)]->Render( penPosition, renderMode);
     }
     
     kernAdvance += advance;

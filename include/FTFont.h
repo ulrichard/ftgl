@@ -48,6 +48,7 @@ class FTGlyphContainer;
 class FTGlyph;
 class FTLayout;
 
+
 /**
  * FTFont is the public interface for the FTGL library.
  *
@@ -306,10 +307,26 @@ class FTGL_EXPORT FTFont
 
         /**
          * Render a string of characters
-         * 
-         * @param string    wchar_t string to be output.     
+         *
+         * @param string    'C' style string to be output.
+         * @param renderMode    Render mode to display
+         */
+        virtual void Render(const char* string, int renderMode);
+
+        /**
+         * Render a string of characters
+         *
+         * @param string    wchar_t string to be output.
          */
         virtual void Render(const wchar_t* string);
+
+        /**
+         * Render a string of characters
+         *
+         * @param string    wchar_t string to be output.
+         * @param renderMode    Render mode to display
+         */
+        virtual void Render(const wchar_t *string, int renderMode);
 
         /**
          * Queries the Font for errors.
@@ -351,8 +368,8 @@ class FTGL_EXPORT FTFont
          * Current error code. Zero means no error.
          */
         FT_Error err;
-        
-    private:        
+
+    private:
         /**
          * Render a character.
          * This function does an implicit conversion on its arguments.
@@ -360,12 +377,14 @@ class FTGL_EXPORT FTFont
          * @param chr       current character
          * @param nextChr   next character
          * @param origin       The position of the origin of the character.
-         *                  After rendering the point referenced by origin 
-         *                  will be incremented by the kerning advance of 
+         *                  After rendering the point referenced by origin
+         *                  will be incremented by the kerning advance of
          *                  char and nextChr.
+         * @param renderMode    Render mode to display
          */
         void DoRender(const unsigned int chr,
-                      const unsigned int nextChr, FTPoint &origin);
+                      const unsigned int nextChr, FTPoint &origin,
+                      int renderMode);
 
         /**
          * Check that the glyph at <code>chr</code> exist. If not load it.
@@ -379,7 +398,7 @@ class FTGL_EXPORT FTFont
          * An object that holds a list of glyphs
          */
         FTGlyphContainer* glyphList;
-        
+
         /**
          * Current pen or cursor position;
          */
@@ -397,7 +416,7 @@ class FTGL_EXPORT FTFont
 
         /* Internal generic Render() implementation */
         template <typename T>
-        inline void RenderI(const T* string);
+        inline void RenderI(const T* string, int renderMode);
 
         /* Allow FTLayout classes to access DoRender and CheckGlyph */
         friend class FTLayout;

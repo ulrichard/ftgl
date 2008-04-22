@@ -71,18 +71,18 @@ class FTGL_EXPORT FTGLBitmapFont : public FTFont
          * Destructor
          */
         ~FTGLBitmapFont();
-        
+
         /**
          * Renders a string of characters
-         * 
-         * @param string    'C' style string to be output.   
+         *
+         * @param string    'C' style string to be output.
          */
         void Render(const char* string);
 
         /**
          * Renders a string of characters
          * 
-         * @param string    'C' style wide string to be output.  
+         * @param string    'C' style wide string to be output.
          */
         void Render(const wchar_t* string);
 

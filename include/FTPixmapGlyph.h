@@ -69,10 +69,11 @@ class  FTGL_EXPORT FTPixmapGlyph : public FTGlyph
          * Renders this glyph at the current pen position.
          *
          * @param pen   The current pen position.
+         * @param renderMode Render mode to display
          * @return      The advance distance for this glyph.
          */
-        virtual const FTPoint& Render( const FTPoint& pen);
-        
+        virtual const FTPoint& Render( const FTPoint& pen, int renderMode);
+
         // attributes
 
     private:
@@ -85,17 +86,17 @@ class  FTGL_EXPORT FTPixmapGlyph : public FTGlyph
          * The height of the glyph 'image'
          */
         int destHeight;
-        
+
         /**
          * Vector from the pen position to the topleft corner of the pixmap
          */
         FTPoint pos;
-        
+
         /**
          * Pointer to the 'image' data
          */
         unsigned char* data;
-        
+
 };
 
 

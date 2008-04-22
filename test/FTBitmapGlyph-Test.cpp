@@ -49,7 +49,7 @@ class FTBitmapGlyphTest : public CppUnit::TestCase
 
             FTBitmapGlyph* bitmapGlyph = new FTBitmapGlyph( face->glyph);            
             CPPUNIT_ASSERT( bitmapGlyph->Error() == 0);
-            bitmapGlyph->Render(FTPoint( 0, 0, 0));
+            bitmapGlyph->Render(FTPoint( 0, 0, 0), FTGL::RENDER_FRONT);
             
             CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);
             

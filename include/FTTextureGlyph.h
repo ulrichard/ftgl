@@ -78,16 +78,17 @@ class FTGL_EXPORT FTTextureGlyph : public FTGlyph
          * Renders this glyph at the current pen position.
          *
          * @param pen   The current pen position.
+         * @param renderMode  Render mode to display
          * @return      The advance distance for this glyph.
          */
-        virtual const FTPoint& Render( const FTPoint& pen);
-        
+        virtual const FTPoint& Render( const FTPoint& pen, int renderMode);
+
         /**
          * Reset the currently active texture to zero to get into a known state before
          * drawing a string. This is to get round possible threading issues.
          */
         static void ResetActiveTexture(){ activeTextureID = 0;}
-        
+
     private:
         /**
          * The width of the glyph 'image'
@@ -103,12 +104,12 @@ class FTGL_EXPORT FTTextureGlyph : public FTGlyph
          * Vector from the pen position to the topleft corner of the pixmap
          */
         FTPoint pos;
-        
+
         /**
          * The texture co-ords of this glyph within the texture.
          */
         FTPoint uv[2];
-        
+
         /**
          * The texture index that this glyph is contained in.
          */
@@ -121,7 +122,7 @@ class FTGL_EXPORT FTTextureGlyph : public FTGlyph
          * of texture bind operations.
          */
         static GLint activeTextureID;
-        
+
 };
 
 

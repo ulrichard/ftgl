@@ -32,8 +32,8 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA.
  */
 
-#ifndef		__FTOutlineGlyph__
-#define		__FTOutlineGlyph__
+#ifndef __FTOutlineGlyph__
+#define __FTOutlineGlyph__
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
@@ -75,9 +75,10 @@ class FTGL_EXPORT FTOutlineGlyph : public FTGlyph
          * Renders this glyph at the current pen position.
          *
          * @param pen	The current pen position.
+         * @param renderMode    Render mode to display.
          * @return		The advance distance for this glyph.
          */
-        virtual const FTPoint& Render(const FTPoint& pen);
+        virtual const FTPoint& Render(const FTPoint& pen, int renderMode);
 
     private:		
         /**
@@ -96,5 +97,5 @@ class FTGL_EXPORT FTOutlineGlyph : public FTGlyph
         GLuint glList;
 };
 
-#endif	//	__FTOutlineGlyph__
+#endif  // __FTOutlineGlyph__
 

@@ -35,6 +35,12 @@
 #ifndef     __FTGL__
 #define     __FTGL__
 
+#ifdef __cplusplus
+namespace FTGL
+{
+    typedef enum{RENDER_FRONT = 0x01, RENDER_BACK = 0x02, RENDER_SIDE = 0x04}ftglRenderMode;
+}
+#endif
 
 typedef double   FTGL_DOUBLE;
 typedef float    FTGL_FLOAT;

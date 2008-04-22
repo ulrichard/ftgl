@@ -49,7 +49,7 @@ class FTOutlineGlyphTest : public CppUnit::TestCase
         
             FTOutlineGlyph* outlineGlyph = new FTOutlineGlyph(face->glyph, 0,
                                                               true);
-            outlineGlyph->Render(FTPoint( 0, 0, 0));
+            outlineGlyph->Render(FTPoint( 0, 0, 0), FTGL::RENDER_FRONT);
             CPPUNIT_ASSERT( outlineGlyph->Error() == 0);
             CPPUNIT_ASSERT( glGetError() == GL_NO_ERROR);
             

@@ -91,7 +91,7 @@ FTPixmapGlyph::~FTPixmapGlyph()
 }
 
 
-const FTPoint& FTPixmapGlyph::Render(const FTPoint& pen)
+const FTPoint& FTPixmapGlyph::Render(const FTPoint& pen, int renderMode)
 {
     if(data)
     {
