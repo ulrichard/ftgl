@@ -9,12 +9,16 @@ pkgconfig_DATA = ftgl.pc
 DISTCLEANFILES = ftgl.pc
 
 EXTRA_DIST = \
-    bootstrap \
-    BUGS \
-    COPYING.MIT \
-    COPYING.LGPL \
-    HISTORY.txt \
-    INSTALL.txt \
-    README.txt \
-    $(NULL)
-
+	AUTHORS \
+	BUGS \
+	COPYING.LGPL \
+	COPYING.MIT \
+	HISTORY \
+	INSTALL \
+	README \
+	TODO \
+	bootstrap \
+	cleanup \
+	configure.ac \
+	ftgl.pc.in \
+	$(NULL)
