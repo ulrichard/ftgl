@@ -103,10 +103,10 @@ static FTGLPixmapFont* infoFont;
 
 static float texture[] =
 {
-    1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
-    1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
-    1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
-    1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0
+    0.9, 1.0, 1.0, 1.0, 0.9, 0.9, 0.9, 0.8, 0.7, 0.7, 0.8, 0.9,
+    0.9, 1.0, 1.0, 1.0, 0.9, 0.9, 0.9, 0.8, 0.7, 0.7, 0.8, 0.9,
+    0.9, 0.8, 0.7, 0.7, 0.8, 0.9, 0.9, 1.0, 1.0, 1.0, 0.9, 0.9,
+    0.9, 0.8, 0.7, 0.7, 0.8, 0.9, 0.9, 1.0, 1.0, 1.0, 0.9, 0.9
 };
 
 static GLuint textureID;
@@ -178,7 +178,7 @@ void setUpFonts(const char* fontfile)
             exit(1);
         }
 
-        fonts[x]->Depth(1.);
+        fonts[x]->Depth(2.);
         fonts[x]->Outset(0., 1.);
 
         fonts[x]->CharMap(ft_encoding_unicode);
@@ -391,16 +391,21 @@ void do_display (void)
             break;
     }
 
-    glColor3f(1.0, 1.0, 1.0);
     // If you do want to switch the color of bitmaps rendered with glBitmap,
     // you will need to explicitly call glRasterPos (or its ilk) to lock
     // in a changed current color.
 
     glPushMatrix();
+        glColor3f(1.0, 1.0, 0.5);
         if(layouts[currentLayout])
-            layouts[currentLayout]->Render(myString);
+            layouts[currentLayout]->Render(myString, FTGL::RENDER_FRONT);
         else
-            fonts[current_font]->Render(myString);
+            fonts[current_font]->Render(myString, FTGL::RENDER_FRONT);
+        glColor3f(0.0, 0.0, 0.3);
+        if(layouts[currentLayout])
+            layouts[currentLayout]->Render(myString, FTGL::RENDER_SIDE);
+        else
+            fonts[current_font]->Render(myString, FTGL::RENDER_SIDE);
     glPopMatrix();
 
     glPushMatrix();
