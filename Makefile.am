@@ -13,8 +13,8 @@ EXTRA_DIST = \
 	BUGS \
 	COPYING.LGPL \
 	COPYING.MIT \
-	HISTORY \
 	INSTALL \
+	NEWS \
 	README \
 	TODO \
 	bootstrap \
