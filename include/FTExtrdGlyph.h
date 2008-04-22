@@ -85,6 +85,20 @@ class FTGL_EXPORT FTExtrdGlyph : public FTGlyph
 
     private:
         /**
+         * Private rendering methods.
+         */
+        void RenderFront();
+        void RenderBack();
+        void RenderSide();
+
+        /**
+         * Private rendering variables.
+         */
+        unsigned int hscale, vscale;
+        float depth;
+        FTVectoriser *vectoriser;
+
+        /**
          * OpenGL display list
          */
         GLuint glList;

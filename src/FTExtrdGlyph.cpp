@@ -10,10 +10,10 @@
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
@@ -52,26 +52,90 @@ FTExtrdGlyph::FTExtrdGlyph(FT_GlyphSlot glyph, float depth, float frontOutset, f
         return;
     }
 
-    FTVectoriser vectoriser(glyph, frontOutset * 64.0f, backOutset * 64.0f);
-    if((vectoriser.ContourCount() < 1) || (vectoriser.PointCount() < 3))
+    vectoriser = new FTVectoriser(glyph, frontOutset * 64.0f,
+                                         backOutset * 64.0f);
+    if((vectoriser->ContourCount() < 1) || (vectoriser->PointCount() < 3))
     {
+        delete vectoriser;
+        vectoriser = NULL;
         return;
     }
 
-    /* Front face */
+    this->hscale = glyph->face->size->metrics.x_ppem * 64;
+    this->vscale = glyph->face->size->metrics.y_ppem * 64;
+    this->depth = depth;
+
     if(useDisplayList)
     {
         glList = glGenLists(3);
-        glNewList(glList + 0, GL_COMPILE);
-    }
 
-    vectoriser.MakeMesh(1.0, 1);
+        /* Front face */
+        glNewList(glList + 0, GL_COMPILE);
+        RenderFront();
+        glEndList();
+
+        /* Back face */
+        glNewList(glList + 1, GL_COMPILE);
+        RenderBack();
+        glEndList();
+
+        /* Side face */
+        glNewList(glList + 2, GL_COMPILE);
+        RenderSide();
+        glEndList();
+
+        delete vectoriser;
+        vectoriser = NULL;
+    }
+}
+
+
+FTExtrdGlyph::~FTExtrdGlyph()
+{
+    if(useDisplayList)
+    {
+        glDeleteLists(glList, 1);
+    }
+    else if(vectoriser)
+    {
+        delete vectoriser;
+    }
+}
+
+
+const FTPoint& FTExtrdGlyph::Render(const FTPoint& pen, int renderMode)
+{
+    glTranslatef(pen.X(), pen.Y(), 0);
+    if(glList)
+    {
+        if(renderMode & FTGL::RENDER_FRONT)
+            glCallList(glList + 0);
+        if(renderMode & FTGL::RENDER_BACK)
+            glCallList(glList + 1);
+        if(renderMode & FTGL::RENDER_SIDE)
+            glCallList(glList + 2);
+    }
+    else if(vectoriser)
+    {
+        if(renderMode & FTGL::RENDER_FRONT)
+            RenderFront();
+        if(renderMode & FTGL::RENDER_BACK)
+            RenderBack();
+        if(renderMode & FTGL::RENDER_SIDE)
+            RenderSide();
+    }
+    glTranslatef(-pen.X(), -pen.Y(), 0);
+
+    return advance;
+}
+
+
+void FTExtrdGlyph::RenderFront()
+{
+    vectoriser->MakeMesh(1.0, 1);
     glNormal3d(0.0, 0.0, 1.0);
 
-    unsigned int hscale = glyph->face->size->metrics.x_ppem * 64;
-    unsigned int vscale = glyph->face->size->metrics.y_ppem * 64;
-
-    const FTMesh* mesh = vectoriser.GetMesh();
+    const FTMesh *mesh = vectoriser->GetMesh();
     for(unsigned int j = 0; j < mesh->TesselationCount(); ++j)
     {
         const FTTesselation* subMesh = mesh->Tesselation(j);
@@ -91,21 +155,15 @@ FTExtrdGlyph::FTExtrdGlyph(FT_GlyphSlot glyph, float depth, float frontOutset, f
             }
         glEnd();
     }
-    if(useDisplayList)
-    {
-        glEndList();
-    }
+}
 
-    /* Back face */
-    if(useDisplayList)
-    {
-        glNewList(glList + 1, GL_COMPILE);
-    }
 
-    vectoriser.MakeMesh(-1.0, 2);
+void FTExtrdGlyph::RenderBack()
+{
+    vectoriser->MakeMesh(-1.0, 2);
     glNormal3d(0.0, 0.0, -1.0);
 
-    mesh = vectoriser.GetMesh();
+    const FTMesh *mesh = vectoriser->GetMesh();
     for(unsigned int j = 0; j < mesh->TesselationCount(); ++j)
     {
         const FTTesselation* subMesh = mesh->Tesselation(j);
@@ -125,22 +183,16 @@ FTExtrdGlyph::FTExtrdGlyph(FT_GlyphSlot glyph, float depth, float frontOutset, f
             }
         glEnd();
     }
-    if(useDisplayList)
-    {
-        glEndList();
-    }
+}
 
-    /* Side face */
-    if(useDisplayList)
-    {
-        glNewList(glList + 2, GL_COMPILE);
-    }
 
-    int contourFlag = vectoriser.ContourFlag();
+void FTExtrdGlyph::RenderSide()
+{
+    int contourFlag = vectoriser->ContourFlag();
 
-    for(size_t c = 0; c < vectoriser.ContourCount(); ++c)
+    for(size_t c = 0; c < vectoriser->ContourCount(); ++c)
     {
-        const FTContour* contour = vectoriser.Contour(c);
+        const FTContour* contour = vectoriser->Contour(c);
         unsigned int n = contour->PointCount();
 
         if(n < 2)
@@ -179,34 +231,5 @@ FTExtrdGlyph::FTExtrdGlyph(FT_GlyphSlot glyph, float depth, float frontOutset, f
             }
         glEnd();
     }
-
-    if(useDisplayList)
-    {
-        glEndList();
-    }
-}
-
-
-FTExtrdGlyph::~FTExtrdGlyph()
-{
-    glDeleteLists(glList, 1);
-}
-
-
-const FTPoint& FTExtrdGlyph::Render(const FTPoint& pen, int renderMode)
-{
-    if(glList)
-    {
-        glTranslatef(pen.X(), pen.Y(), 0);
-        if(renderMode & FTGL::RENDER_FRONT)
-            glCallList(glList + 0);
-       if(renderMode & FTGL::RENDER_BACK)
-            glCallList(glList + 1);
-       if(renderMode & FTGL::RENDER_SIDE)
-            glCallList(glList + 2);
-        glTranslatef(-pen.X(), -pen.Y(), 0);
-    }
-
-    return advance;
 }
 
