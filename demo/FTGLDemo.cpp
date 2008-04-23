@@ -92,9 +92,9 @@ FTLayout *layouts[] = { &simpleLayout, NULL };
 int currentLayout = 0;
 const int NumLayouts = 2;
 
-const float InitialLineLength = 300.0f;
+const float InitialLineLength = 600.0f;
 
-const float OX = -100;
+const float OX = -300;
 const float OY = 200;
 
 //wchar_t myString[16] = { 0x6FB3, 0x9580};
@@ -105,10 +105,10 @@ static FTGLPixmapFont* infoFont;
 
 static float texture[] =
 {
-    0.9, 1.0, 1.0, 1.0, 0.9, 0.9, 0.9, 0.8, 0.7, 0.7, 0.8, 0.9,
-    0.9, 1.0, 1.0, 1.0, 0.9, 0.9, 0.9, 0.8, 0.7, 0.7, 0.8, 0.9,
-    0.9, 0.8, 0.7, 0.7, 0.8, 0.9, 0.9, 1.0, 1.0, 1.0, 0.9, 0.9,
-    0.9, 0.8, 0.7, 0.7, 0.8, 0.9, 0.9, 1.0, 1.0, 1.0, 0.9, 0.9
+    1.0, 1.0, 1.0, 0.7, 0.7, 0.7, 1.0, 1.0, 1.0, 0.7, 0.7, 0.7,
+    0.7, 0.7, 0.7, 0.4, 0.4, 0.4, 0.7, 0.7, 0.7, 0.4, 0.4, 0.4,
+    1.0, 1.0, 1.0, 0.7, 0.7, 0.7, 1.0, 1.0, 1.0, 0.7, 0.7, 0.7,
+    0.7, 0.7, 0.7, 0.4, 0.4, 0.4, 0.7, 0.7, 0.7, 0.4, 0.4, 0.4,
 };
 
 static GLuint textureID;
@@ -174,14 +174,14 @@ void setUpFonts(const char* fontfile)
             exit(1);
         }
 
-        if(!fonts[x]->FaceSize(24))
+        if(!fonts[x]->FaceSize(30))
         {
             fprintf(stderr, "Failed to set size");
             exit(1);
         }
 
-        fonts[x]->Depth(2.);
-        fonts[x]->Outset(0., 1.);
+        fonts[x]->Depth(3.);
+        fonts[x]->Outset(0., 2.);
 
         fonts[x]->CharMap(ft_encoding_unicode);
     }
@@ -198,8 +198,8 @@ void setUpFonts(const char* fontfile)
 
     strcpy(myString, "OpenGL is a powerful software interface for graphics "
            "hardware that allows graphics programmers to produce high-quality "
-           "color images of 3D objects. abcdefghijklmnopqrstuvwxyzABCDEFGHIJKL"
-           "MNOPQRSTUVWXYZ0123456789");
+           "color images of 3D objects.\nabc def ghij klm nop qrs tuv wxyz "
+           "ABC DEF GHIJ KLM NOP QRS TUV WXYZ 01 23 45 67 89");
 }
 
 
@@ -479,8 +479,8 @@ void myinit(const char* fontfile)
 
     glGenTextures(1, &textureID);
     glBindTexture(GL_TEXTURE_2D, textureID);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 4, 4, 0, GL_RGB, GL_FLOAT, texture);
