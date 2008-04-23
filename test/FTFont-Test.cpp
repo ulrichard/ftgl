@@ -243,9 +243,9 @@ class FTFontTest : public CppUnit::TestCase
         
         void testCheckGlyphFailure()
         {
-            BadGlyphTestFont* testFont = new BadGlyphTestFont(GOOD_FONT_FILE);
+            BadGlyphTestFont* font = new BadGlyphTestFont(GOOD_FONT_FILE);
 
-            float advance = testFont->Advance( GOOD_ASCII_TEST_STRING);
+            float advance = font->Advance( GOOD_ASCII_TEST_STRING);
             CPPUNIT_ASSERT_DOUBLES_EQUAL( 0.0, advance, 0.01);            
         }
         

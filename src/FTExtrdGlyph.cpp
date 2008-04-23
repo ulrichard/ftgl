@@ -40,7 +40,9 @@
 #include "FTVectoriser.h"
 
 
-FTExtrdGlyph::FTExtrdGlyph(FT_GlyphSlot glyph, float depth, float frontOutset, float backOutset, bool useDisplayList)
+FTExtrdGlyph::FTExtrdGlyph(FT_GlyphSlot glyph, float _depth,
+                           float _frontOutset, float _backOutset,
+                           bool useDisplayList)
 :   FTGlyph(glyph),
     glList(0)
 {
@@ -61,11 +63,11 @@ FTExtrdGlyph::FTExtrdGlyph(FT_GlyphSlot glyph, float depth, float frontOutset, f
         return;
     }
 
-    this->hscale = glyph->face->size->metrics.x_ppem * 64;
-    this->vscale = glyph->face->size->metrics.y_ppem * 64;
-    this->depth = depth;
-    this->frontOutset = frontOutset;
-    this->backOutset = backOutset;
+    hscale = glyph->face->size->metrics.x_ppem * 64;
+    vscale = glyph->face->size->metrics.y_ppem * 64;
+    depth = _depth;
+    frontOutset = _frontOutset;
+    backOutset = _backOutset;
 
     if(useDisplayList)
     {
@@ -94,7 +96,7 @@ FTExtrdGlyph::FTExtrdGlyph(FT_GlyphSlot glyph, float depth, float frontOutset, f
 
 FTExtrdGlyph::~FTExtrdGlyph()
 {
-    if(useDisplayList)
+    if(glList)
     {
         glDeleteLists(glList, 1);
     }

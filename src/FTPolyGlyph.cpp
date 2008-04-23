@@ -39,7 +39,8 @@
 #include "FTVectoriser.h"
 
 
-FTPolyGlyph::FTPolyGlyph(FT_GlyphSlot glyph, float outset, bool useDisplayList)
+FTPolyGlyph::FTPolyGlyph(FT_GlyphSlot glyph, float _outset,
+                         bool useDisplayList)
 :   FTGlyph(glyph),
     glList(0)
 {
@@ -80,7 +81,7 @@ FTPolyGlyph::FTPolyGlyph(FT_GlyphSlot glyph, float outset, bool useDisplayList)
 
 FTPolyGlyph::~FTPolyGlyph()
 {
-    if(useDisplayList)
+    if(glList)
     {
         glDeleteLists(glList, 1);
     }

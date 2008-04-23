@@ -91,7 +91,7 @@
 #define FTGL_TEXTURE 5
 const int NumStyles = 6;
 
-char const **fontfiles;
+char const * const *fontfiles;
 int current_font = FTGL_EXTRUDE;
 
 GLint w_win = 640, h_win = 480;
@@ -515,21 +515,21 @@ void parsekey(unsigned char key, int x, int y)
         if(layouts[currentLayout]
              && (dynamic_cast <FTSimpleLayout *>(layouts[currentLayout])))
         {
-            FTSimpleLayout *simpleLayout = (FTSimpleLayout *)layouts[currentLayout];
+            FTSimpleLayout *l = (FTSimpleLayout *)layouts[currentLayout];
             // Decrement the layout
-            switch (simpleLayout->GetAlignment())
+            switch (l->GetAlignment())
             {
             case FTGL::ALIGN_LEFT:
-                simpleLayout->SetAlignment(FTGL::ALIGN_RIGHT);
+                l->SetAlignment(FTGL::ALIGN_RIGHT);
                 break;
             case FTGL::ALIGN_RIGHT:
-                simpleLayout->SetAlignment(FTGL::ALIGN_CENTER);
+                l->SetAlignment(FTGL::ALIGN_CENTER);
                 break;
             case FTGL::ALIGN_CENTER:
-                simpleLayout->SetAlignment(FTGL::ALIGN_JUSTIFY);
+                l->SetAlignment(FTGL::ALIGN_JUSTIFY);
                 break;
             case FTGL::ALIGN_JUSTIFY:
-                simpleLayout->SetAlignment(FTGL::ALIGN_LEFT);
+                l->SetAlignment(FTGL::ALIGN_LEFT);
                 break;
             }
         }
@@ -555,13 +555,13 @@ void parsekey(unsigned char key, int x, int y)
 
 void parseSpecialKey(int key, int x, int y)
 {
-    FTSimpleLayout *simpleLayout = NULL;
+    FTSimpleLayout *l = NULL;
 
-    // If the currentLayout is a SimpleLayout store a pointer in simpleLayout
+    // If the currentLayout is a SimpleLayout store a pointer in l
     if(layouts[currentLayout]
         && (dynamic_cast <FTSimpleLayout *>(layouts[currentLayout])))
     {
-        simpleLayout = (FTSimpleLayout *)layouts[currentLayout];
+        l = (FTSimpleLayout *)layouts[currentLayout];
     }
 
     switch (key)
@@ -593,19 +593,19 @@ void parseSpecialKey(int key, int x, int y)
     case GLUT_KEY_F1:
     case GLUT_KEY_F10:
         // If the current layout is simple decrement its line length
-        if (simpleLayout) simpleLayout->SetLineLength(simpleLayout->GetLineLength() - 10.0f);
+        if (l) l->SetLineLength(l->GetLineLength() - 10.0f);
         break;
     case GLUT_KEY_F2:
     case GLUT_KEY_F11:
         // If the current layout is simple increment its line length
-        if (simpleLayout) simpleLayout->SetLineLength(simpleLayout->GetLineLength() + 10.0f);
+        if (l) l->SetLineLength(l->GetLineLength() + 10.0f);
         break;
     }
 
     // If the current layout is a SimpleLayout, update its font.
-    if(simpleLayout)
+    if(l)
     {
-        simpleLayout->SetFont(fonts[current_font]);
+        l->SetFont(fonts[current_font]);
     }
 
     glutPostRedisplay();
@@ -668,7 +668,7 @@ int main(int argc, char *argv[])
 
     if((argc >= 2) && !IGNORE_ARGV)
     {
-        fontfiles = (char const **)argv + 1;
+        fontfiles = (char const * const *)argv + 1;
         numFontFiles = argc - 1;
     }
     else

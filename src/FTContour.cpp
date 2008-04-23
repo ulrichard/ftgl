@@ -216,13 +216,11 @@ FTContour::FTContour(FT_Vector* contour, char* tags, unsigned int n)
 
         if(tags[i] == FT_Curve_Tag_Cubic)
         {
-            FTPoint cur2 = next;
+            FTPoint next2 = (i == n - 2)
+                             ? pointList[0]
+                             : FTPoint(contour[i + 2]);
 
-            FTPoint next = (i == n - 2)
-                           ? pointList[0]
-                           : FTPoint(contour[i + 2]);
-
-            evaluateCubicCurve(prev, cur, cur2, next);
+            evaluateCubicCurve(prev, cur, next, next2);
             ++i;
             continue;
         }

@@ -39,7 +39,8 @@
 #include "FTVectoriser.h"
 
 
-FTOutlineGlyph::FTOutlineGlyph(FT_GlyphSlot glyph, float outset, bool useDisplayList)
+FTOutlineGlyph::FTOutlineGlyph(FT_GlyphSlot glyph, float _outset,
+                               bool useDisplayList)
 :   FTGlyph(glyph),
     glList(0)
 {

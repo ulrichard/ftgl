@@ -41,7 +41,7 @@ _tbAnimate(void)
   glutPostRedisplay();
 }
 
-void
+static void
 _tbStartMotion(int x, int y, int time)
 {
   assert(tb_button != -1);
@@ -53,7 +53,7 @@ _tbStartMotion(int x, int y, int time)
   beginy = y;
 }
 
-void
+static void
 _tbStopMotion(unsigned time)
 {
   assert(tb_button != -1);

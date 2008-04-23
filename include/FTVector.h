@@ -160,26 +160,26 @@ class FTGL_EXPORT FTVector
             {
                 return;
             }
-            
+
             reserve(n);
-            iterator begin, end;
-            
-            if( n >= Size)
+            iterator ibegin, iend;
+
+            if(n >= Size)
             {
-                begin = this->end();
-                end = this->begin() + n;
+                ibegin = this->end();
+                iend = this->begin() + n;
             }
             else
             {
-                begin = this->begin() + n;
-                end = this->end();
+                ibegin = this->begin() + n;
+                iend = this->end();
             }
-        
-            while( begin != end)
+
+            while(ibegin != iend)
             {
-                *begin++ = x;
+                *ibegin++ = x;
             }
-        
+
             Size = n;
         }
 
@@ -195,19 +195,19 @@ class FTGL_EXPORT FTVector
                     new_capacity *= 2;
                 }
             }
-            
+
             value_type *new_items = new value_type[new_capacity];
-            
-            iterator begin = this->begin();
-            iterator end = this->end();
+
+            iterator ibegin = this->begin();
+            iterator iend = this->end();
             value_type *ptr = new_items;
-            
-            while( begin != end)
+
+            while(ibegin != iend)
             {
-                *ptr++ = *begin++;
+                *ptr++ = *ibegin++;
             }
-            
-            if( Capacity)
+
+            if(Capacity)
             {
                 delete [] Items;
             }

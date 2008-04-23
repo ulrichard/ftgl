@@ -157,20 +157,20 @@ void setUpLighting()
 }
 
 
-void setUpFonts(const char* fontfile)
+void setUpFonts(const char* file)
 {
-    fonts[FTGL_BITMAP] = new FTGLBitmapFont(fontfile);
-    fonts[FTGL_PIXMAP] = new FTGLPixmapFont(fontfile);
-    fonts[FTGL_OUTLINE] = new FTGLOutlineFont(fontfile);
-    fonts[FTGL_POLYGON] = new FTGLPolygonFont(fontfile);
-    fonts[FTGL_EXTRUDE] = new FTGLExtrdFont(fontfile);
-    fonts[FTGL_TEXTURE] = new FTGLTextureFont(fontfile);
+    fonts[FTGL_BITMAP] = new FTGLBitmapFont(file);
+    fonts[FTGL_PIXMAP] = new FTGLPixmapFont(file);
+    fonts[FTGL_OUTLINE] = new FTGLOutlineFont(file);
+    fonts[FTGL_POLYGON] = new FTGLPolygonFont(file);
+    fonts[FTGL_EXTRUDE] = new FTGLExtrdFont(file);
+    fonts[FTGL_TEXTURE] = new FTGLTextureFont(file);
 
     for(int x = 0; x < 6; ++x)
     {
         if(fonts[x]->Error())
         {
-            fprintf(stderr, "Failed to open font %s", fontfile);
+            fprintf(stderr, "Failed to open font %s", file);
             exit(1);
         }
 
@@ -186,11 +186,11 @@ void setUpFonts(const char* fontfile)
         fonts[x]->CharMap(ft_encoding_unicode);
     }
 
-    infoFont = new FTGLPixmapFont(fontfile);
+    infoFont = new FTGLPixmapFont(file);
 
     if(infoFont->Error())
     {
-        fprintf(stderr, "Failed to open font %s", fontfile);
+        fprintf(stderr, "Failed to open font %s", file);
         exit(1);
     }
 
@@ -450,7 +450,7 @@ void display(void)
 }
 
 
-void myinit(const char* fontfile)
+void myinit(const char* file)
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glClearColor(0.13, 0.17, 0.32, 0.0);
@@ -471,7 +471,7 @@ void myinit(const char* fontfile)
     tbInit(GLUT_LEFT_BUTTON);
     tbAnimate(GL_FALSE);
 
-    setUpFonts(fontfile);
+    setUpFonts(file);
 
     // Configure the SimpleLayout
     simpleLayout.SetLineLength(InitialLineLength);
@@ -510,21 +510,21 @@ void parsekey(unsigned char key, int x, int y)
         if(layouts[currentLayout]
              && (dynamic_cast <FTSimpleLayout *>(layouts[currentLayout])))
         {
-            FTSimpleLayout *simpleLayout = (FTSimpleLayout *)layouts[currentLayout];
+            FTSimpleLayout *l = (FTSimpleLayout *)layouts[currentLayout];
             // Decrement the layout
-            switch (simpleLayout->GetAlignment())
+            switch (l->GetAlignment())
             {
             case FTGL::ALIGN_LEFT:
-                simpleLayout->SetAlignment(FTGL::ALIGN_RIGHT);
+                l->SetAlignment(FTGL::ALIGN_RIGHT);
                 break;
             case FTGL::ALIGN_RIGHT:
-                simpleLayout->SetAlignment(FTGL::ALIGN_CENTER);
+                l->SetAlignment(FTGL::ALIGN_CENTER);
                 break;
             case FTGL::ALIGN_CENTER:
-                simpleLayout->SetAlignment(FTGL::ALIGN_JUSTIFY);
+                l->SetAlignment(FTGL::ALIGN_JUSTIFY);
                 break;
             case FTGL::ALIGN_JUSTIFY:
-                simpleLayout->SetAlignment(FTGL::ALIGN_LEFT);
+                l->SetAlignment(FTGL::ALIGN_LEFT);
                 break;
             }
         }
@@ -550,13 +550,13 @@ void parsekey(unsigned char key, int x, int y)
 
 void parseSpecialKey(int key, int x, int y)
 {
-    FTSimpleLayout *simpleLayout = NULL;
+    FTSimpleLayout *l = NULL;
 
-    // If the currentLayout is a SimpleLayout store a pointer in simpleLayout
+    // If the currentLayout is a SimpleLayout store a pointer in l
     if(layouts[currentLayout]
         && (dynamic_cast <FTSimpleLayout *>(layouts[currentLayout])))
     {
-        simpleLayout = (FTSimpleLayout *)layouts[currentLayout];
+        l = (FTSimpleLayout *)layouts[currentLayout];
     }
 
     switch (key)
@@ -575,11 +575,11 @@ void parseSpecialKey(int key, int x, int y)
         break;
     case GLUT_KEY_HOME:
         /* If the current layout is simple decrement its line length */
-        if (simpleLayout) simpleLayout->SetLineLength(simpleLayout->GetLineLength() - 10.0f);
+        if (l) l->SetLineLength(l->GetLineLength() - 10.0f);
         break;
     case GLUT_KEY_END:
         /* If the current layout is simple increment its line length */
-        if (simpleLayout) simpleLayout->SetLineLength(simpleLayout->GetLineLength() + 10.0f);
+        if (l) l->SetLineLength(l->GetLineLength() + 10.0f);
         break;
     case GLUT_KEY_LEFT:
         fonts[current_font]->FaceSize(fonts[current_font]->FaceSize() - 1);
@@ -590,9 +590,9 @@ void parseSpecialKey(int key, int x, int y)
     }
 
     // If the current layout is a SimpleLayout, update its font.
-    if(simpleLayout)
+    if(l)
     {
-        simpleLayout->SetFont(fonts[current_font]);
+        l->SetFont(fonts[current_font]);
     }
 
     glutPostRedisplay();

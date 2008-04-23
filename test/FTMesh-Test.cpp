@@ -60,8 +60,9 @@ class FTMeshTest : public CppUnit::TestCase
         
         void testAddPoint()
         {
-            FTGL_DOUBLE testPoint[3] = { 1, 2, 3};
-            FTGL_DOUBLE* hole[] = { 0, 0, 0, 0};
+            FTGL_DOUBLE testPoint[3] = { 1, 2, 3 };
+            FTGL_DOUBLE* hole[] = { 0, 0, 0, 0 };
+            void *pHole = (void *)hole;
 
             FTMesh mesh;
             CPPUNIT_ASSERT( mesh.TesselationCount() == 0);
@@ -83,7 +84,7 @@ class FTMeshTest : public CppUnit::TestCase
             ftglVertex( &POINT_DATA[15], &mesh);
             ftglError( 2, &mesh);
             ftglVertex( &POINT_DATA[18], &mesh);
-            ftglCombine( testPoint, NULL, NULL, (void**)hole, &mesh);
+            ftglCombine(testPoint, NULL, NULL, &pHole, &mesh);
             ftglVertex( &POINT_DATA[21], &mesh);
             ftglError( 3, &mesh);
             ftglEnd( &mesh);
@@ -103,24 +104,26 @@ class FTMeshTest : public CppUnit::TestCase
             FTGL_DOUBLE testPoint[3] = { 1, 2, 3};
 
             FTGL_DOUBLE* testOutput[] = { 0, 0, 0, 0};
+            void *pOutput = (void *)testOutput;
             FTGL_DOUBLE* hole[] = { 0, 0, 0, 0};
-            
+            void *pHole = (void *)hole;
+
             FTMesh mesh;
-			unsigned int x;
-        
+            unsigned int x;
+
             ftglBegin( GL_TRIANGLES, &mesh);
-            ftglCombine( testPoint, NULL, NULL, (void**)testOutput, &mesh);
-            
+            ftglCombine(testPoint, NULL, NULL, &pOutput, &mesh);
+
             for( x = 0; x < 200; ++x)
             {
-                ftglCombine( testPoint, NULL, NULL, (void**)hole, &mesh);
+                ftglCombine(testPoint, NULL, NULL, &pHole, &mesh);
             }
 
             CPPUNIT_ASSERT( *testOutput == static_cast<const FTGL_DOUBLE*>(mesh.TempPointList().front()));
             
             for( x = 201; x < 300; ++x)
             {
-                ftglCombine( testPoint, NULL, NULL, (void**)hole, &mesh);            
+                ftglCombine(testPoint, NULL, NULL, &pHole, &mesh);
             }
 
             ftglEnd( &mesh);
