@@ -8,11 +8,15 @@
 
 #include <math.h>
 #include <assert.h>
-#ifdef __APPLE_CC__
-	#include <GLUT/glut.h>
+
+#if defined HAVE_GL_GLUT_H
+#   include <GL/glut.h>
+#elif defined HAVE_GLUT_GLUT_H
+#   include <GLUT/glut.h>
 #else
-	#include <GL/glut.h>
+#   error GLUT headers not present
 #endif
+
 #include "tb.h"
 #include "trackball.h"
 

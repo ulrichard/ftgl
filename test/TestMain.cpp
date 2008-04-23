@@ -1,10 +1,14 @@
+#include "config.h"
+
 #include <cppunit/TextTestRunner.h>
 #include <cppunit/extensions/TestFactoryRegistry.h>
 
-#ifdef __APPLE_CC__
-	#include <GLUT/glut.h>
+#if defined HAVE_GL_GLUT_H
+#   include <GL/glut.h>
+#elif defined HAVE_GLUT_GLUT_H
+#   include <GLUT/glut.h>
 #else
-	#include <GL/glut.h>
+#   error GLUT headers not present
 #endif
 
 int main(int argc, const char* argv[])

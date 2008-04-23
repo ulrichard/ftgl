@@ -19,34 +19,32 @@ AC_LANG_C
 GLUT_SAVE_CPPFLAGS="$CPPFLAGS"
 GLUT_SAVE_LIBS="$LIBS"
 
-if test "x$no_x" != xyes ; then
+if test "$no_x" != "yes"; then
     GLUT_CFLAGS="$X_CFLAGS"
     GLUT_X_LIBS="$X_PRE_LIBS $X_LIBS -lX11 -lXext -lXmu $X_EXTRA_LIBS"
 fi
 
-if test "x$with_glut_inc" != "xnone" ; then
-    if test -d "$with_glut_inc" ; then
+if test "$with_glut_inc" != "none"; then
+    if test -d "$with_glut_inc"; then
         GLUT_CFLAGS="-I$with_glut_inc"
     else
         GLUT_CFLAGS="$with_glut_inc"
     fi
 else
-    GLUT_CFLAGS=
+    GLUT_CFLAGS=""
 fi
 
+# Check for GLUT headers
 CPPFLAGS="$GLUT_CFLAGS"
-AC_CHECK_HEADER([GL/glut.h], [HAVE_GLUT=yes], [HAVE_GLUT=no])
-AM_CONDITIONAL(HAVE_GLUT, [test "$HAVE_GLUT" = "yes"])
-
-if test "x$HAVE_GLUT" = xno ; then
-    AC_MSG_WARN([GLUT headers not availabe, example program won't be compiled.])
-else
+AC_CHECK_HEADERS([GL/glut.h], [ac_cv_have_glut=yes],
+  [AC_CHECK_HEADERS([GLUT/glut.h], [ac_cv_have_glut=yes],
+    [ac_cv_have_glut=no])])
 
 # Check for GLUT libraries
-
+if test "$ac_cv_have_glut" = "yes"; then
     AC_MSG_CHECKING([for GLUT library])
-    if test "x$with_glut_lib" != "x" ; then
-        if test -d "$with_glut_lib" ; then
+    if test "$with_glut_lib" != ""; then
+        if test -d "$with_glut_lib"; then
             LIBS="-L$with_glut_lib -lglut"
         else
             LIBS="$with_glut_lib"
@@ -54,42 +52,43 @@ else
     else
         LIBS="-lglut"
     fi
+
     AC_LINK_IFELSE(
         [AC_LANG_CALL([],[glutInit])],
-        [HAVE_GLUT=yes],
-        [HAVE_GLUT=no])
-
-    if test "x$HAVE_GLUT" = xno ; then
+        [ac_cv_have_glut=yes],
+        [ac_cv_have_glut=no])
+    if test "$ac_cv_have_glut" = "no"; then
         # Try again with the GL libs
         LIBS="-lglut $GL_LIBS"
         AC_LINK_IFELSE(
             [AC_LANG_CALL([],[glutInit])],
-            [HAVE_GLUT=yes],
-            [HAVE_GLUT=no])
+            [ac_cv_have_glut=yes],
+            [ac_cv_have_glut=no])
     fi
 
-    if test "x$HAVE_GLUT" = xno && test "x$GLUT_X_LIBS" != x ; then
+    if test "$ac_cv_have_glut" = "no" && test "$GLUT_X_LIBS" != ""; then
         # Try again with the GL and X11 libs
         LIBS="-lglut $GL_LIBS $GLUT_X_LIBS"
         AC_LINK_IFELSE(
             [AC_LANG_CALL([],[glutInit])],
-            [HAVE_GLUT=yes],
-            [HAVE_GLUT=no])
+            [ac_cv_have_glut=yes],
+            [ac_cv_have_glut=no])
     fi
 
-    if test "x$HAVE_GLUT" = xyes ; then
+    if test "$ac_cv_have_glut" = "yes"; then
         AC_MSG_RESULT([yes])
-        GLUT_LIBS=$LIBS
+        GLUT_LIBS="$LIBS"
     else
         AC_MSG_RESULT([no])
-        AC_MSG_WARN([GLUT libraries not availabe, example program won't be compiled.])
     fi
-
-# End check for GLUT libraries
-
 fi
 
-AC_SUBST(HAVE_GLUT)
+if test "$ac_cv_have_glut" = "no"; then
+    AC_MSG_WARN([GLUT headers not availabe, example program won't be compiled.])
+fi
+
+AM_CONDITIONAL(HAVE_GLUT, [test "$ac_cv_have_glut" = "yes"])
+
 AC_SUBST(GLUT_CFLAGS)
 AC_SUBST(GLUT_LIBS)
 AC_LANG_RESTORE
@@ -99,3 +98,4 @@ LIBS="$GLUT_SAVE_LIBS"
 GLUT_X_CFLAGS=
 GLUT_X_LIBS=
 ])
+

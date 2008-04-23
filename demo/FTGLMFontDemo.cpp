@@ -34,15 +34,17 @@
 
 #include "config.h"
 
-#ifdef __APPLE_CC__
-#   include <GLUT/glut.h>
-#else
-#   include <GL/glut.h>
-#endif
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+
+#if defined HAVE_GL_GLUT_H
+#   include <GL/glut.h>
+#elif defined HAVE_GLUT_GLUT_H
+#   include <GLUT/glut.h>
+#else
+#   error GLUT headers not present
+#endif
 
 #include "tb.h"
 
