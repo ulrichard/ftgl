@@ -112,14 +112,6 @@ void FTOutlineGlyph::DoRender()
         glBegin(GL_LINE_LOOP);
             for(unsigned int i = 0; i < contour->PointCount(); ++i)
             {
-                FTPoint point = contour->Point(i);
-                glVertex2f(point.X() / 64.0f, point.Y() / 64.0f);
-            }
-        glEnd();
-        /* Outset contour */
-        glBegin(GL_LINE_LOOP);
-            for(unsigned int i = 0; i < contour->FrontPointCount(); ++i)
-            {
                 FTPoint point = contour->FrontPoint(i);
                 glVertex2f(point.X() / 64.0f, point.Y() / 64.0f);
             }
