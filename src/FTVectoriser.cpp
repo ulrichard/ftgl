@@ -42,14 +42,12 @@
 #define CALLBACK
 #endif
 
-#ifdef __APPLE_CC__    
-    typedef GLvoid (*GLUTesselatorFunction)(...);
-#elif defined( __mips ) || defined( __linux__ ) || defined( __FreeBSD__ ) || defined( __OpenBSD__ ) || defined( __sun ) || defined (__CYGWIN__)
-    typedef GLvoid (*GLUTesselatorFunction)();
-#elif defined ( WIN32)
-    typedef GLvoid (CALLBACK *GLUTesselatorFunction)( );
+#if defined __APPLE_CC__
+    typedef GLvoid (*GLUTesselatorFunction) (...);
+#elif defined WIN32 && !defined __CYGWIN__
+    typedef GLvoid (CALLBACK *GLUTesselatorFunction) ();
 #else
-    #error "Error - need to define type GLUTesselatorFunction for this platform/compiler"
+    typedef GLvoid (*GLUTesselatorFunction) ();
 #endif
 
 
