@@ -6,6 +6,7 @@ AM_INIT_AUTOMAKE([no-define tar-ustar])
 FTGL_PROG_CXX
 
 AC_PROG_LIBTOOL
+AC_PROG_INSTALL
 
 # Checks for typedefs, structures, and compiler characteristics.
 
@@ -33,15 +34,14 @@ CPPUNIT="no"
 PKG_CHECK_MODULES(CPPUNIT, cppunit, [CPPUNIT="yes"], [AC_MSG_RESULT(no)])
 AM_CONDITIONAL(HAVE_CPPUNIT, test "$CPPUNIT" != "no")
 
-# Checks for library functions
-dnl This isn't really used at the moment
-
+# Checks for library functions -- this isn't really used at the moment
 AC_CHECK_FUNCS([memset])
 
+# Warning flags
+CPPFLAGS="${CPPFLAGS} -Wall -Wpointer-arith -Wcast-align -Wcast-qual -Wshadow -Wsign-compare"
+CFLAGS="${CFLAGS} -Waggregate-return -Wstrict-prototypes -Wmissing-prototypes -Wnested-externs"
+
 # Utility programs
-
-AC_PROG_INSTALL
-
 AC_PATH_PROG(DOXYGEN, doxygen, no)
 AM_CONDITIONAL(HAVE_DOXYGEN, test "$DOXYGEN" != "no")
 
