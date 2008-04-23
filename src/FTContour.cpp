@@ -52,6 +52,15 @@ void FTContour::AddPoint(FTPoint point)
     }
 }
 
+void FTContour::AddOutsetPoint(FTPoint point)
+{
+    if(outsetPointList.empty() || (point != outsetPointList[pointList.size() - 1]
+                              && point != outsetPointList[0]))
+    {
+        outsetPointList.push_back(point);
+    }
+}
+
 
 void FTContour::evaluateQuadraticCurve(FTPoint A, FTPoint B, FTPoint C)
 {
@@ -125,17 +134,16 @@ void FTContour::MultMatrixVect(FTGL_DOUBLE *mat, FTPoint &v)
     v.Y(res.Y());
 }
 
-void FTContour::ComputeBisec(FTPoint &v, double d)
+void FTContour::ComputeBisec(FTPoint &v)
 {
-    int sgn = 1;
+    FTGL_DOUBLE sgn = 64.0;
     if((v.Y() / NormVector(v)) < 0)
-        sgn = -1;
-    double tg = sgn * sqrt((NormVector(v) - v.X()) / (NormVector(v) + v.X()));
-    v.X(-d * tg);
-    v.Y(d);
+        sgn = -64.0;
+    v.X(sgn * sqrt((NormVector(v) - v.X()) / (NormVector(v) + v.X())));
+    v.Y(64.0);
 }
 
-FTPoint FTContour::ComputeOutsetPoint(FTPoint a, FTPoint b, FTPoint c, FTGL_DOUBLE dist)
+FTPoint FTContour::ComputeOutsetPoint(FTPoint a, FTPoint b, FTPoint c)
 {
     FTGL_DOUBLE mat[4], inv[4];
     /* Build the rotation matrix from 'ab' vector */
@@ -145,14 +153,13 @@ FTPoint FTContour::ComputeOutsetPoint(FTPoint a, FTPoint b, FTPoint c, FTGL_DOUB
     /* Apply the rotation to the second vector 'bc' */
     MultMatrixVect(mat, h);
     /* Compute the vector bisecting 'bh' */
-    ComputeBisec(h, dist);
+    ComputeBisec(h);
     /* Apply the inverted rotation matrix to 'bh' */
     MultMatrixVect(inv, h);
-    /* Translate the vector 'bh' to the second point 'b' to have the point 'h' */
-    return b + h;
+    return h;
 }
 
-void FTContour::outsetContour(float frontOutset, float backOutset)
+void FTContour::outsetContour()
 {
     size_t size = PointCount();
     FTPoint vOutsetF, vOutsetB;
@@ -161,24 +168,13 @@ void FTContour::outsetContour(float frontOutset, float backOutset)
         int prev = (pointIndex%size + size - 1) % size;
         int cur = pointIndex%size;
         int next = (pointIndex%size + 1) % size;
-
-        if(frontOutset != 0.0f)
-        {
-            vOutsetF = ComputeOutsetPoint(Point(prev), Point(cur), Point(next),
-                                          frontOutset);
-            AddFrontPoint(vOutsetF);
-        }
-        if(backOutset != 0.0f)
-        {
-            vOutsetB = ComputeOutsetPoint(Point(prev), Point(cur), Point(next),
-                                          backOutset);
-            AddBackPoint(vOutsetB);
-        }
+        /* Build the outset shape with d = 1.0f */
+        vOutsetB = ComputeOutsetPoint(Point(prev), Point(cur), Point(next));
+        AddOutsetPoint(vOutsetB);
     }
 }
 
-FTContour::FTContour(FT_Vector* contour, char* tags, unsigned int n,
-                     float frontOutset, float backOutset)
+FTContour::FTContour(FT_Vector* contour, char* tags, unsigned int n)
 {
     for(unsigned int i = 0; i < n; ++ i)
     {
@@ -233,6 +229,27 @@ FTContour::FTContour(FT_Vector* contour, char* tags, unsigned int n,
     }
 
     /* Create (or not) front outset and/or back outset */
-    outsetContour(frontOutset, backOutset);
+    outsetContour();
+}
+
+void FTContour::buildFrontOutset(float outset)
+{
+    for( size_t i = 0; i < PointCount(); ++i)
+    {
+        FTPoint point = FTPoint(Point(i).X() + Outset(i).X() * outset,
+                                Point(i).Y() + Outset(i).Y() * outset,
+                                0);
+       AddFrontPoint(point);
+    }
+}
+void FTContour::buildBackOutset(float outset)
+{
+    for( size_t i = 0; i < PointCount(); ++i)
+    {
+        FTPoint point = FTPoint(Point(i).X() + Outset(i).X() * outset,
+                                Point(i).Y() + Outset(i).Y() * outset,
+                                0);
+       AddBackPoint(point);
+    }
 }
 

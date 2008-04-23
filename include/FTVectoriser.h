@@ -216,10 +216,8 @@ class FTGL_EXPORT FTVectoriser
          * Constructor
          *
          * @param glyph The freetype glyph to be processed
-         * @param front front outset distance
-         * @param back back outset distance
          */
-        FTVectoriser(const FT_GlyphSlot glyph, float front, float back = 0.0f);
+        FTVectoriser(const FT_GlyphSlot glyph);
 
         /**
          *  Destructor
@@ -227,23 +225,24 @@ class FTGL_EXPORT FTVectoriser
         virtual ~FTVectoriser();
 
         /**
-         * Build an FTMesh from the vector outline data. 
+         * Build an FTMesh from the vector outline data.
          *
          * @param zNormal   The direction of the z axis of the normal
          *                  for this mesh
          * FIXME: change the following for a constant
-         * @param outset Specify the outset contour
+         * @param outsetType Specify the outset type contour
          *  0 : Original
          *  1 : Front
          *  2 : Back
+         * @param outsetSize Specify the outset size contour
          */
-        void MakeMesh(FTGL_DOUBLE zNormal = FTGL_FRONT_FACING, int outset = 0);
-        
+        void MakeMesh(FTGL_DOUBLE zNormal = FTGL_FRONT_FACING, int outsetType = 0, float outsetSize = 0.0f);
+
         /**
          * Get the current mesh.
          */
         const FTMesh* const GetMesh() const { return mesh;}
-        
+
         /**
          * Get the total count of points in this outline
          *
@@ -279,7 +278,7 @@ class FTGL_EXPORT FTVectoriser
          * @return The contour flag
          */
         int ContourFlag() const { return contourFlag;}
-        
+
     private:
         /**
          * Process the freetype outline data into contours of points
@@ -287,7 +286,7 @@ class FTGL_EXPORT FTVectoriser
          * @param front front outset distance
          * @param back back outset distance
          */
-        void ProcessContours(float front, float back);
+        void ProcessContours();
 
         /**
          * The list of contours in the glyph
@@ -298,7 +297,7 @@ class FTGL_EXPORT FTVectoriser
          * A Mesh for tesselations
          */
         FTMesh* mesh;
-        
+
         /**
          * The number of contours reported by Freetype
          */

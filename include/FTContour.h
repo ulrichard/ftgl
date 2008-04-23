@@ -59,11 +59,8 @@ class FTGL_EXPORT FTContour
          * @param contour
          * @param pointTags
          * @param numberOfPoints
-         * @param front front outset
-         * @param back back outset
          */
-        FTContour(FT_Vector* contour, char* pointTags, unsigned int numberOfPoints, 
-                   float front = 0.0f, float back = 0.0f);
+        FTContour(FT_Vector* contour, char* pointTags, unsigned int numberOfPoints);
 
         /**
          * Destructor
@@ -72,15 +69,22 @@ class FTGL_EXPORT FTContour
         {
             pointList.clear();
         }
-        
+
         /**
          * Return a point at index.
          *
          * @param index of the point in the curve.
          * @return const point reference
          */
-        const FTPoint& Point( unsigned int index) const { return pointList[index];}
+        const FTPoint& Point(unsigned int index) const { return pointList[index]; }
 
+        /**
+         * Return a point at index.
+         *
+         * @param index of the point in the outset curve.
+         * @return const point reference
+         */
+        const FTPoint& Outset(unsigned int index) const { return outsetPointList[index]; }
 
         /**
          * Return a point at index of the front outset contour.
@@ -124,6 +128,14 @@ class FTGL_EXPORT FTContour
         size_t FrontPointCount() const { return frontPointList.size(); }
         size_t BackPointCount() const { return backPointList.size(); }
 
+        /**
+         * Create the front/back outset contour
+         *
+         * @param outset The outset distance
+         */
+        void buildFrontOutset(float outset);
+        void buildBackOutset(float outset);
+
     private:
         /**
          * Add a point to this contour. This function tests for duplicate
@@ -131,7 +143,15 @@ class FTGL_EXPORT FTContour
          *
          * @param point The point to be added to the contour.
          */
-        inline void AddPoint( FTPoint point);
+        inline void AddPoint(FTPoint point);
+
+        /**
+         * Add a point to this contour. This function tests for duplicate
+         * points.
+         *
+         * @param point The point to be added to the contour.
+         */
+        inline void AddOutsetPoint(FTPoint point);
 
         /*
          * Add a point to this outset contour. This function tests for duplicate
@@ -156,11 +176,8 @@ class FTGL_EXPORT FTContour
 
         /**
          * Create the list point of the outset contour.
-         *
-         * @param frontOutset front outset size
-         * @param backOutset back outset size
          */
-        inline void outsetContour(float frontOutset, float backtOuset);
+        inline void outsetContour();
 
         /**
          * Compute the vector norm
@@ -180,18 +197,19 @@ class FTGL_EXPORT FTContour
         /**
          * Compute the vector bisecting from a vector 'v' and a distance 'd'
          */
-        inline void ComputeBisec(FTPoint &v, double d);
+        inline void ComputeBisec(FTPoint &v);
 
         /**
          * Compute the outset point coordinates
          */
-        inline FTPoint ComputeOutsetPoint(FTPoint a, FTPoint b, FTPoint c, FTGL_DOUBLE d);
+        inline FTPoint ComputeOutsetPoint(FTPoint a, FTPoint b, FTPoint c);
 
         /**
          *  The list of points in this contour
          */
         typedef FTVector<FTPoint> PointVector;
         PointVector pointList;
+        PointVector outsetPointList;
         PointVector frontPointList;
         PointVector backPointList;
 };

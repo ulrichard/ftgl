@@ -49,7 +49,7 @@ FTPolyGlyph::FTPolyGlyph(FT_GlyphSlot glyph, float outset, bool useDisplayList)
         return;
     }
 
-    vectoriser = new FTVectoriser(glyph, outset * 64.0f);
+    vectoriser = new FTVectoriser(glyph);
 
     if((vectoriser->ContourCount() < 1) || (vectoriser->PointCount() < 3))
     {
@@ -58,10 +58,10 @@ FTPolyGlyph::FTPolyGlyph(FT_GlyphSlot glyph, float outset, bool useDisplayList)
         return;
     }
 
-    vectoriser->MakeMesh(1.0, 1);
 
-    hscale = glyph->face->size->metrics.x_ppem * 64;
-    vscale = glyph->face->size->metrics.y_ppem * 64;
+    this->hscale = glyph->face->size->metrics.x_ppem * 64;
+    this->vscale = glyph->face->size->metrics.y_ppem * 64;
+    this->outset = outset;
 
     if(useDisplayList)
     {
@@ -110,6 +110,8 @@ const FTPoint& FTPolyGlyph::Render(const FTPoint& pen, int renderMode)
 
 void FTPolyGlyph::DoRender()
 {
+    vectoriser->MakeMesh(1.0, 1, outset);
+
     const FTMesh *mesh = vectoriser->GetMesh();
 
     for(unsigned int t = 0; t < mesh->TesselationCount(); ++t)

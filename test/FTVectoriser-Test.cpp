@@ -296,7 +296,7 @@ class FTVectoriserTest : public CppUnit::TestCase
 
         void testNullGlyphProcess()
         {
-            FTVectoriser vectoriser(NULL, 0);
+            FTVectoriser vectoriser(NULL);
             CPPUNIT_ASSERT_EQUAL((size_t)0, vectoriser.ContourCount());
         }
         
@@ -305,7 +305,7 @@ class FTVectoriserTest : public CppUnit::TestCase
         {
             setUpFreetype( NULL_CHARACTER_INDEX);
             
-            FTVectoriser vectoriser(face->glyph, 0);
+            FTVectoriser vectoriser(face->glyph);
             CPPUNIT_ASSERT_EQUAL((size_t)0, vectoriser.ContourCount());
             
             tearDownFreetype();
@@ -316,7 +316,7 @@ class FTVectoriserTest : public CppUnit::TestCase
         {
             setUpFreetype( SIMPLE_CHARACTER_INDEX);
             
-            FTVectoriser vectoriser(face->glyph, 0);
+            FTVectoriser vectoriser(face->glyph);
 
             CPPUNIT_ASSERT_EQUAL((size_t)2, vectoriser.ContourCount());
             CPPUNIT_ASSERT_EQUAL((size_t)8, vectoriser.PointCount());
@@ -329,7 +329,7 @@ class FTVectoriserTest : public CppUnit::TestCase
         {
             setUpFreetype( COMPLEX_CHARACTER_INDEX);
             
-            FTVectoriser vectoriser(face->glyph, 0);
+            FTVectoriser vectoriser(face->glyph);
 
             CPPUNIT_ASSERT_EQUAL((size_t)2, vectoriser.ContourCount());
             CPPUNIT_ASSERT_EQUAL((size_t)91, vectoriser.PointCount());
@@ -342,7 +342,7 @@ class FTVectoriserTest : public CppUnit::TestCase
         {
             setUpFreetype( SIMPLE_CHARACTER_INDEX);
             
-            FTVectoriser vectoriser(face->glyph, 0);
+            FTVectoriser vectoriser(face->glyph);
 
             CPPUNIT_ASSERT( vectoriser.Contour(1));
             CPPUNIT_ASSERT( vectoriser.Contour(99) == NULL);
@@ -355,7 +355,7 @@ class FTVectoriserTest : public CppUnit::TestCase
         {
             setUpFreetype( COMPLEX_CHARACTER_INDEX);
             
-            FTVectoriser vectoriser(face->glyph, 0);
+            FTVectoriser vectoriser(face->glyph);
             
             unsigned int d = 0;
             for( size_t c = 0; c < vectoriser.ContourCount(); ++c)
@@ -378,7 +378,7 @@ class FTVectoriserTest : public CppUnit::TestCase
         {
             setUpFreetype( SIMPLE_CHARACTER_INDEX);
             
-            FTVectoriser vectoriser(face->glyph, 0);
+            FTVectoriser vectoriser(face->glyph);
             CPPUNIT_ASSERT( vectoriser.GetMesh() == NULL);
 
             vectoriser.MakeMesh( FTGL_FRONT_FACING);
@@ -391,7 +391,7 @@ class FTVectoriserTest : public CppUnit::TestCase
         {
             setUpFreetype( COMPLEX_CHARACTER_INDEX);
             
-            FTVectoriser vectoriser(face->glyph, 0);
+            FTVectoriser vectoriser(face->glyph);
 
             vectoriser.MakeMesh( FTGL_FRONT_FACING);
 

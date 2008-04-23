@@ -92,6 +92,11 @@ class FTGL_EXPORT FTOutlineGlyph : public FTGlyph
         FTVectoriser *vectoriser;
 
         /**
+         * Private rendering variables.
+         */
+        float outset;
+
+        /**
          * OpenGL display list
          */
         GLuint glList;

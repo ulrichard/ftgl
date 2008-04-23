@@ -60,7 +60,7 @@ class FTGL_EXPORT FTPolyGlyph : public FTGlyph
          * Constructor. Sets the Error to Invalid_Outline if the glyphs isn't an outline.
          *
          * @param glyph The Freetype glyph to be processed
-         * @param glyph The Freetype glyph to be processed
+         * @param outset  The outset distance
          * @param useDisplayList Enable or disable the use of Display Lists for this glyph
          *                       <code>true</code> turns ON display lists.
          *                       <code>false</code> turns OFF display lists.
@@ -92,6 +92,7 @@ class FTGL_EXPORT FTPolyGlyph : public FTGlyph
          */
         unsigned int hscale, vscale;
         FTVectoriser *vectoriser;
+        float outset;
 
         /**
          * OpenGL display list

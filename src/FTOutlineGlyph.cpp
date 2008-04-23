@@ -49,7 +49,7 @@ FTOutlineGlyph::FTOutlineGlyph(FT_GlyphSlot glyph, float outset, bool useDisplay
         return;
     }
 
-    vectoriser = new FTVectoriser(glyph, outset * 64.0f);
+    vectoriser = new FTVectoriser(glyph);
 
     if((vectoriser->ContourCount() < 1) || (vectoriser->PointCount() < 3))
     {
@@ -57,6 +57,8 @@ FTOutlineGlyph::FTOutlineGlyph(FT_GlyphSlot glyph, float outset, bool useDisplay
         vectoriser = NULL;
         return;
     }
+
+    this->outset = outset;
 
     if(useDisplayList)
     {
@@ -112,7 +114,9 @@ void FTOutlineGlyph::DoRender()
         glBegin(GL_LINE_LOOP);
             for(unsigned int i = 0; i < contour->PointCount(); ++i)
             {
-                FTPoint point = contour->FrontPoint(i);
+                FTPoint point = FTPoint(contour->Point(i).X() + contour->Outset(i).X() * outset,
+                                        contour->Point(i).Y() + contour->Outset(i).Y() * outset,
+                                        0);
                 glVertex2f(point.X() / 64.0f, point.Y() / 64.0f);
             }
         glEnd();

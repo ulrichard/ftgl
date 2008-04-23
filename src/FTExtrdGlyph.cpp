@@ -52,8 +52,8 @@ FTExtrdGlyph::FTExtrdGlyph(FT_GlyphSlot glyph, float depth, float frontOutset, f
         return;
     }
 
-    vectoriser = new FTVectoriser(glyph, frontOutset * 64.0f,
-                                         backOutset * 64.0f);
+    vectoriser = new FTVectoriser(glyph);
+
     if((vectoriser->ContourCount() < 1) || (vectoriser->PointCount() < 3))
     {
         delete vectoriser;
@@ -64,6 +64,8 @@ FTExtrdGlyph::FTExtrdGlyph(FT_GlyphSlot glyph, float depth, float frontOutset, f
     this->hscale = glyph->face->size->metrics.x_ppem * 64;
     this->vscale = glyph->face->size->metrics.y_ppem * 64;
     this->depth = depth;
+    this->frontOutset = frontOutset;
+    this->backOutset = backOutset;
 
     if(useDisplayList)
     {
@@ -132,7 +134,7 @@ const FTPoint& FTExtrdGlyph::Render(const FTPoint& pen, int renderMode)
 
 void FTExtrdGlyph::RenderFront()
 {
-    vectoriser->MakeMesh(1.0, 1);
+    vectoriser->MakeMesh(1.0, 1, frontOutset);
     glNormal3d(0.0, 0.0, 1.0);
 
     const FTMesh *mesh = vectoriser->GetMesh();
@@ -160,7 +162,7 @@ void FTExtrdGlyph::RenderFront()
 
 void FTExtrdGlyph::RenderBack()
 {
-    vectoriser->MakeMesh(-1.0, 2);
+    vectoriser->MakeMesh(-1.0, 2, backOutset);
     glNormal3d(0.0, 0.0, -1.0);
 
     const FTMesh *mesh = vectoriser->GetMesh();

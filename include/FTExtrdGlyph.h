@@ -96,6 +96,7 @@ class FTGL_EXPORT FTExtrdGlyph : public FTGlyph
          */
         unsigned int hscale, vscale;
         float depth;
+        float frontOutset, backOutset;
         FTVectoriser *vectoriser;
 
         /**

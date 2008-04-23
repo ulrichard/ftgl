@@ -69,7 +69,6 @@ void CALLBACK ftglCombine( FTGL_DOUBLE coords[3], void* vertex_data[4], GLfloat 
     const FTGL_DOUBLE* vertex = static_cast<const FTGL_DOUBLE*>(coords);
     *outData = const_cast<FTGL_DOUBLE*>(mesh->Combine( vertex[0], vertex[1], vertex[2]));
 }
-        
 
 void CALLBACK ftglBegin( GLenum type, FTMesh* mesh)
 {
@@ -97,7 +96,7 @@ FTMesh::~FTMesh()
     {
         delete tesselationList[t];
     }
-    
+
     tesselationList.clear();
 }
 
@@ -133,7 +132,7 @@ const FTTesselation* const FTMesh::Tesselation( unsigned int index) const
 }
 
 
-FTVectoriser::FTVectoriser(const FT_GlyphSlot glyph, float frontOutset, float backOutset)
+FTVectoriser::FTVectoriser(const FT_GlyphSlot glyph)
 :   contourList(0),
     mesh(0),
     ftContourCount(0),
@@ -142,12 +141,12 @@ FTVectoriser::FTVectoriser(const FT_GlyphSlot glyph, float frontOutset, float ba
     if( glyph)
     {
         outline = glyph->outline;
-        
+
         ftContourCount = outline.n_contours;
         contourList = 0;
         contourFlag = outline.flags;
-        
-        ProcessContours(frontOutset, backOutset);
+
+        ProcessContours();
     }
 }
 
@@ -164,26 +163,26 @@ FTVectoriser::~FTVectoriser()
 }
 
 
-void FTVectoriser::ProcessContours(float frontOutset, float backOutset)
+void FTVectoriser::ProcessContours()
 {
     short contourLength = 0;
     short startIndex = 0;
     short endIndex = 0;
-    
+
     contourList = new FTContour*[ftContourCount];
-    
+
     for( short contourIndex = 0; contourIndex < ftContourCount; ++contourIndex)
     {
         FT_Vector* pointList = &outline.points[startIndex];
         char* tagList = &outline.tags[startIndex];
-        
+
         endIndex = outline.contours[contourIndex];
         contourLength =  ( endIndex - startIndex) + 1;
 
-        FTContour* contour = new FTContour(pointList, tagList, contourLength, frontOutset, backOutset);
-        
+        FTContour* contour = new FTContour(pointList, tagList, contourLength);
+
         contourList[contourIndex] = contour;
-        
+
         startIndex = endIndex + 1;
     }
 }
@@ -196,7 +195,7 @@ size_t FTVectoriser::PointCount()
     {
         s += contourList[c]->PointCount();
     }
-    
+
     return s;
 }
 
@@ -207,15 +206,15 @@ const FTContour* const FTVectoriser::Contour( unsigned int index) const
 }
 
 
-void FTVectoriser::MakeMesh(FTGL_DOUBLE zNormal, int outsetContour)
+void FTVectoriser::MakeMesh(FTGL_DOUBLE zNormal, int outsetType, float outsetSize)
 {
     if( mesh)
     {
         delete mesh;
     }
-        
+
     mesh = new FTMesh;
-    
+
     GLUtesselator* tobj = gluNewTess();
 
     gluTessCallback( tobj, GLU_TESS_BEGIN_DATA,     (GLUTesselatorFunction)ftglBegin);
@@ -223,7 +222,7 @@ void FTVectoriser::MakeMesh(FTGL_DOUBLE zNormal, int outsetContour)
     gluTessCallback( tobj, GLU_TESS_COMBINE_DATA,   (GLUTesselatorFunction)ftglCombine);
     gluTessCallback( tobj, GLU_TESS_END_DATA,       (GLUTesselatorFunction)ftglEnd);
     gluTessCallback( tobj, GLU_TESS_ERROR_DATA,     (GLUTesselatorFunction)ftglError);
-    
+
     if( contourFlag & ft_outline_even_odd_fill) // ft_outline_reverse_fill
     {
         gluTessProperty( tobj, GLU_TESS_WINDING_RULE, GLU_TESS_WINDING_ODD);
@@ -232,25 +231,32 @@ void FTVectoriser::MakeMesh(FTGL_DOUBLE zNormal, int outsetContour)
     {
         gluTessProperty( tobj, GLU_TESS_WINDING_RULE, GLU_TESS_WINDING_NONZERO);
     }
-    
-    
+
+
     gluTessProperty( tobj, GLU_TESS_TOLERANCE, 0);
     gluTessNormal( tobj, 0.0f, 0.0f, zNormal);
     gluTessBeginPolygon( tobj, mesh);
 
         for( size_t c = 0; c < ContourCount(); ++c)
         {
+            /* Build the */
+            switch(outsetType)
+            {
+                case 1 : contourList[c]->buildFrontOutset(outsetSize); break;
+                case 2 : contourList[c]->buildBackOutset(outsetSize); break;
+            }
             const FTContour* contour = contourList[c];
+
 
             gluTessBeginContour( tobj);
                 for( size_t p = 0; p < contour->PointCount(); ++p)
                 {
                     const FTGL_DOUBLE* d;
-                    switch(outsetContour)
+                    switch(outsetType)
                     {
                         case 0: d = contour->Point(p); break;
-                        case 1 : d = contour->FrontPoint(p); break;
-                        case 2 : d = contour->BackPoint(p);  break;
+                        case 1: d = contour->FrontPoint(p); break;
+                        case 2: d = contour->BackPoint(p); break;
                     }
                     gluTessVertex( tobj, (GLdouble*)d, (GLdouble*)d);
                 }
