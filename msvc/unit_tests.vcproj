@@ -44,7 +44,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="$(MIC_COTS_CPPUNIT_DIR)/include,../../include,../../extras,D:\cots\freetype-2.0.5\include"
+				AdditionalIncludeDirectories="$(MIC_COTS_CPPUNIT_DIR)/include,..\include,..\extras,D:\cots\freetype-2.0.5\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;FTGL_LIBRARY_STATIC"
 				StringPooling="true"
 				RuntimeLibrary="2"
@@ -135,7 +135,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(MIC_COTS_CPPUNIT_DIR)/include,../../include,../../extras,D:\cots\freetype-2.0.5\include"
+				AdditionalIncludeDirectories="$(MIC_COTS_CPPUNIT_DIR)/include,..\include,..\extras,D:\cots\freetype-2.0.5\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;FTGL_LIBRARY_STATIC"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -207,7 +207,7 @@
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 			>
 			<File
-				RelativePath="..\..\test\FTBBox-Test.cpp"
+				RelativePath="..\test\FTBBox-Test.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -229,7 +229,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\test\FTCharmap-Test.cpp"
+				RelativePath="..\test\FTCharmap-Test.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -251,7 +251,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\test\FTContour-Test.cpp"
+				RelativePath="..\test\FTContour-Test.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -273,7 +273,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\test\FTFace-Test.cpp"
+				RelativePath="..\test\FTFace-Test.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -295,7 +295,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\test\FTFont-Test.cpp"
+				RelativePath="..\test\FTFont-Test.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -317,7 +317,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\test\FTGlyphContainer-Test.cpp"
+				RelativePath="..\test\FTGlyphContainer-Test.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -339,7 +339,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\test\FTLibrary-Test.cpp"
+				RelativePath="..\test\FTLibrary-Test.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -361,7 +361,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\test\FTList-Test.cpp"
+				RelativePath="..\test\FTList-Test.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -383,7 +383,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\test\FTMesh-Test.cpp"
+				RelativePath="..\test\FTMesh-Test.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -405,7 +405,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\test\FTPoint-Test.cpp"
+				RelativePath="..\test\FTPoint-Test.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -427,7 +427,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\test\FTSize-Test.cpp"
+				RelativePath="..\test\FTSize-Test.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -449,7 +449,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\test\FTTesselation-Test.cpp"
+				RelativePath="..\test\FTTesselation-Test.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -471,7 +471,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\test\FTVector-Test.cpp"
+				RelativePath="..\test\FTVector-Test.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -493,7 +493,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\test\FTVectoriser-Test.cpp"
+				RelativePath="..\test\FTVectoriser-Test.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -515,7 +515,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\test\HPGCalc_afm.cpp"
+				RelativePath="..\test\HPGCalc_afm.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -537,7 +537,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\test\HPGCalc_pfb.cpp"
+				RelativePath="..\test\HPGCalc_pfb.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -559,7 +559,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\test\TestMain.cpp"
+				RelativePath="..\test\TestMain.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -586,7 +586,7 @@
 			Filter="h;hpp;hxx;hm;inl"
 			>
 			<File
-				RelativePath="..\..\test\Fontdefs.h"
+				RelativePath="..\test\Fontdefs.h"
 				>
 			</File>
 		</Filter>

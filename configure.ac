@@ -54,6 +54,7 @@ AC_CONFIG_FILES([
   test/Makefile
   docs/Makefile
   demo/Makefile
+  msvc/Makefile
 ])
 AC_OUTPUT
 

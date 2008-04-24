@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="D:\cots\freetype-2.0.5\include,..\..\include"
+				AdditionalIncludeDirectories="D:\cots\freetype-2.0.5\include,..\include"
 				PreprocessorDefinitions="_DEBUG;WIN32;_LIB;FTGL_LIBRARY_STATIC"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -117,7 +117,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="D:\cots\freetype-2.0.5\include,..\..\include"
+				AdditionalIncludeDirectories="D:\cots\freetype-2.0.5\include,..\include"
 				PreprocessorDefinitions="NDEBUG;WIN32;_LIB;FTGL_LIBRARY_STATIC"
 				StringPooling="true"
 				RuntimeLibrary="2"
@@ -191,7 +191,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="D:\cots\freetype-2.0.5\include,..\..\include"
+				AdditionalIncludeDirectories="D:\cots\freetype-2.0.5\include,..\include"
 				PreprocessorDefinitions="_DEBUG;WIN32;_LIB;FTGL_LIBRARY_STATIC"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -267,7 +267,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="D:\cots\freetype-2.0.5\include,..\..\include"
+				AdditionalIncludeDirectories="D:\cots\freetype-2.0.5\include,..\include"
 				PreprocessorDefinitions="NDEBUG;WIN32;_LIB;FTGL_LIBRARY_STATIC"
 				StringPooling="true"
 				RuntimeLibrary="0"
@@ -322,7 +322,7 @@
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 			>
 			<File
-				RelativePath="..\..\src\FTBitmapGlyph.cpp"
+				RelativePath="..\src\FTBitmapGlyph.cpp"
 				>
 				<FileConfiguration
 					Name="Debug MT|Win32"
@@ -362,7 +362,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\src\FTCharmap.cpp"
+				RelativePath="..\src\FTCharmap.cpp"
 				>
 				<FileConfiguration
 					Name="Debug MT|Win32"
@@ -402,7 +402,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\src\FTContour.cpp"
+				RelativePath="..\src\FTContour.cpp"
 				>
 				<FileConfiguration
 					Name="Debug MT|Win32"
@@ -442,7 +442,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\src\FTExtrdGlyph.cpp"
+				RelativePath="..\src\FTExtrdGlyph.cpp"
 				>
 				<FileConfiguration
 					Name="Debug MT|Win32"
@@ -482,7 +482,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\src\FTFace.cpp"
+				RelativePath="..\src\FTFace.cpp"
 				>
 				<FileConfiguration
 					Name="Debug MT|Win32"
@@ -522,7 +522,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\src\FTFont.cpp"
+				RelativePath="..\src\FTFont.cpp"
 				>
 				<FileConfiguration
 					Name="Debug MT|Win32"
@@ -562,7 +562,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\src\FTGLBitmapFont.cpp"
+				RelativePath="..\src\FTGLBitmapFont.cpp"
 				>
 				<FileConfiguration
 					Name="Debug MT|Win32"
@@ -602,7 +602,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\src\FTGLExtrdFont.cpp"
+				RelativePath="..\src\FTGLExtrdFont.cpp"
 				>
 				<FileConfiguration
 					Name="Debug MT|Win32"
@@ -642,7 +642,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\src\FTGLOutlineFont.cpp"
+				RelativePath="..\src\FTGLOutlineFont.cpp"
 				>
 				<FileConfiguration
 					Name="Debug MT|Win32"
@@ -682,7 +682,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\src\FTGLPixmapFont.cpp"
+				RelativePath="..\src\FTGLPixmapFont.cpp"
 				>
 				<FileConfiguration
 					Name="Debug MT|Win32"
@@ -722,7 +722,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\src\FTGLPolygonFont.cpp"
+				RelativePath="..\src\FTGLPolygonFont.cpp"
 				>
 				<FileConfiguration
 					Name="Debug MT|Win32"
@@ -762,7 +762,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\src\FTGLTextureFont.cpp"
+				RelativePath="..\src\FTGLTextureFont.cpp"
 				>
 				<FileConfiguration
 					Name="Debug MT|Win32"
@@ -802,7 +802,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\src\FTGlyph.cpp"
+				RelativePath="..\src\FTGlyph.cpp"
 				>
 				<FileConfiguration
 					Name="Debug MT|Win32"
@@ -842,7 +842,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\src\FTGlyphContainer.cpp"
+				RelativePath="..\src\FTGlyphContainer.cpp"
 				>
 				<FileConfiguration
 					Name="Debug MT|Win32"
@@ -882,7 +882,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\src\FTLibrary.cpp"
+				RelativePath="..\src\FTLibrary.cpp"
 				>
 				<FileConfiguration
 					Name="Debug MT|Win32"
@@ -922,7 +922,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\src\FTOutlineGlyph.cpp"
+				RelativePath="..\src\FTOutlineGlyph.cpp"
 				>
 				<FileConfiguration
 					Name="Debug MT|Win32"
@@ -962,7 +962,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\src\FTPixmapGlyph.cpp"
+				RelativePath="..\src\FTPixmapGlyph.cpp"
 				>
 				<FileConfiguration
 					Name="Debug MT|Win32"
@@ -1002,7 +1002,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\src\FTPoint.cpp"
+				RelativePath="..\src\FTPoint.cpp"
 				>
 				<FileConfiguration
 					Name="Debug MT|Win32"
@@ -1042,7 +1042,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\src\FTPolyGlyph.cpp"
+				RelativePath="..\src\FTPolyGlyph.cpp"
 				>
 				<FileConfiguration
 					Name="Debug MT|Win32"
@@ -1082,7 +1082,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\src\FTSize.cpp"
+				RelativePath="..\src\FTSize.cpp"
 				>
 				<FileConfiguration
 					Name="Debug MT|Win32"
@@ -1122,7 +1122,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\src\FTTextureGlyph.cpp"
+				RelativePath="..\src\FTTextureGlyph.cpp"
 				>
 				<FileConfiguration
 					Name="Debug MT|Win32"
@@ -1162,7 +1162,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\src\FTVectoriser.cpp"
+				RelativePath="..\src\FTVectoriser.cpp"
 				>
 				<FileConfiguration
 					Name="Debug MT|Win32"
@@ -1207,111 +1207,111 @@
 			Filter="h;hpp;hxx;hm;inl"
 			>
 			<File
-				RelativePath="..\..\include\FTBBox.h"
+				RelativePath="..\include\FTBBox.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\FTBitmapGlyph.h"
+				RelativePath="..\include\FTBitmapGlyph.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\FTCharmap.h"
+				RelativePath="..\include\FTCharmap.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\FTCharToGlyphIndexMap.h"
+				RelativePath="..\include\FTCharToGlyphIndexMap.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\FTContour.h"
+				RelativePath="..\include\FTContour.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\FTExtrdGlyph.h"
+				RelativePath="..\include\FTExtrdGlyph.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\FTFace.h"
+				RelativePath="..\include\FTFace.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\FTFont.h"
+				RelativePath="..\include\FTFont.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\FTGL.h"
+				RelativePath="..\include\FTGL.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\FTGLBitmapFont.h"
+				RelativePath="..\include\FTGLBitmapFont.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\FTGLExtrdFont.h"
+				RelativePath="..\include\FTGLExtrdFont.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\FTGLOutlineFont.h"
+				RelativePath="..\include\FTGLOutlineFont.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\FTGLPixmapFont.h"
+				RelativePath="..\include\FTGLPixmapFont.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\FTGLPolygonFont.h"
+				RelativePath="..\include\FTGLPolygonFont.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\FTGLTextureFont.h"
+				RelativePath="..\include\FTGLTextureFont.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\FTGlyph.h"
+				RelativePath="..\include\FTGlyph.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\FTGlyphContainer.h"
+				RelativePath="..\include\FTGlyphContainer.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\FTLibrary.h"
+				RelativePath="..\include\FTLibrary.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\FTList.h"
+				RelativePath="..\include\FTList.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\FTOutlineGlyph.h"
+				RelativePath="..\include\FTOutlineGlyph.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\FTPixmapGlyph.h"
+				RelativePath="..\include\FTPixmapGlyph.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\FTPoint.h"
+				RelativePath="..\include\FTPoint.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\FTPolyGlyph.h"
+				RelativePath="..\include\FTPolyGlyph.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\FTSize.h"
+				RelativePath="..\include\FTSize.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\FTTextureGlyph.h"
+				RelativePath="..\include\FTTextureGlyph.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\FTVector.h"
+				RelativePath="..\include\FTVector.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\FTVectoriser.h"
+				RelativePath="..\include\FTVectoriser.h"
 				>
 			</File>
 		</Filter>

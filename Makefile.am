@@ -2,6 +2,7 @@
 ACLOCAL_AMFLAGS = -I m4
 
 SUBDIRS = src test demo docs
+DIST_SUBDIRS = $(SUBDIRS) msvc
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = ftgl.pc
