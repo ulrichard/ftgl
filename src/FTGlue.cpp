@@ -72,7 +72,31 @@ namespace C
     }
 
 // FTFont::~FTFont();
-C_FUN(void, ftglDestroyFont, (FTGLfont *f), return, ~FTFont, ());
+void ftglDestroyFont(FTGLfont *f)
+{
+    if(!f || !f->ptr)
+    {
+        fprintf(stderr, "FTGL warning: NULL pointer in %s\n", __FUNCTION__);
+        return;
+    }
+    switch(f->type)
+    {
+        case Bitmap:
+            delete dynamic_cast<FTGLBitmapFont*>(f->ptr); break;
+        case Extrude:
+            delete dynamic_cast<FTGLExtrdFont*>(f->ptr); break;
+        case Outline:
+            delete dynamic_cast<FTGLOutlineFont*>(f->ptr); break;
+        case Pixmap:
+            delete dynamic_cast<FTGLPixmapFont*>(f->ptr); break;
+        case Polygon:
+            delete dynamic_cast<FTGLPolygonFont*>(f->ptr); break;
+        case Texture:
+            delete dynamic_cast<FTGLTextureFont*>(f->ptr); break;
+    }
+    fprintf(stderr, "FTGL warning: %s not implemented for %d\n",
+                    __FUNCTION__, f->type);
+}
 
 // bool FTFont::Attach(const char* fontFilePath);
 C_FUN(int, ftglAttachFile, (FTGLfont *f, const char* path),
@@ -166,7 +190,22 @@ C_FUN(FT_Error, ftglError, (FTGLfont *f), return -1, Error, ());
     }
 
 // FTLayout::~FTLayout();
-C_FUN(void, ftglDestroyLayout, (FTGLlayout *f), return, ~FTLayout, ());
+void ftglDestroyLayout(FTGLlayout *f)
+{
+    if(!f || !f->ptr)
+    {
+        fprintf(stderr, "FTGL warning: NULL pointer in %s\n", __FUNCTION__);
+        return;
+    }
+    switch(f->type)
+    {
+        case Simple:
+            delete dynamic_cast<FTSimpleLayout*>(f->ptr);
+            break;
+    }
+    fprintf(stderr, "FTGL warning: %s not implemented for %d\n",
+                    __FUNCTION__, f->type);
+}
 
 // virtual void BBox(const char* string, float& llx, float& lly, float& llz, float& urx, float& ury, float& urz)
 C_FUN(void, ftglLayoutBBox, (FTGLlayout *f, const char * s, float c[6]),
@@ -189,7 +228,7 @@ void ftglLayoutSetFont(FTGLlayout *f, FTGLfont *font)
 {
     if(!f || !f->ptr)
     {
-        fprintf(stderr, "FTGL warning: NULL pointer in %s\n", __func__);
+        //XXX fprintf(stderr, "FTGL warning: NULL pointer in %s\n", __func__);
         return;
     }
     switch(f->type)
@@ -199,7 +238,7 @@ void ftglLayoutSetFont(FTGLlayout *f, FTGLfont *font)
             return dynamic_cast<FTSimpleLayout*>(f->ptr)->SetFont(font->ptr);
     }
     fprintf(stderr, "FTGL warning: %s not implemented for %d\n",
-                    __func__, f->type);
+                    __FUNCTION__, f->type);
 }
 
 // FTFont *GetFont()
@@ -207,7 +246,7 @@ FTGLfont *ftglLayoutGetFont(FTGLlayout *f)
 {
     if(!f || !f->ptr)
     {
-        fprintf(stderr, "FTGL warning: NULL pointer in %s\n", __func__);
+        fprintf(stderr, "FTGL warning: NULL pointer in %s\n", __FUNCTION__);
         return NULL;
     }
     return f->font;
