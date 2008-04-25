@@ -34,6 +34,8 @@
 
 #include "config.h"
 
+#include <math.h>
+
 #include "FTTextureGlyph.h"
 
 GLint FTTextureGlyph::activeTextureID = 0;
@@ -93,29 +95,30 @@ FTTextureGlyph::~FTTextureGlyph()
 
 const FTPoint& FTTextureGlyph::Render(const FTPoint& pen, int renderMode)
 {
+    float dx, dy;
+
     if(activeTextureID != glTextureID)
     {
         glBindTexture(GL_TEXTURE_2D, (GLuint)glTextureID);
         activeTextureID = glTextureID;
     }
 
-    glTranslatef(pen.X(),  pen.Y(), 0.0f);
+    dx = floor(pen.X() + pos.X());
+    dy = floor(pen.Y() + pos.Y());
 
     glBegin(GL_QUADS);
         glTexCoord2f(uv[0].X(), uv[0].Y());
-        glVertex2f(pos.X(), pos.Y());
+        glVertex2f(dx, dy);
 
         glTexCoord2f(uv[0].X(), uv[1].Y());
-        glVertex2f(pos.X(), pos.Y() - destHeight);
+        glVertex2f(dx, dy - destHeight);
 
         glTexCoord2f(uv[1].X(), uv[1].Y());
-        glVertex2f(destWidth + pos.X(), pos.Y() - destHeight);
+        glVertex2f(dx + destWidth, dy - destHeight);
 
         glTexCoord2f(uv[1].X(), uv[0].Y());
-        glVertex2f(destWidth + pos.X(), pos.Y());
+        glVertex2f(dx + destWidth, dy);
     glEnd();
-
-    glTranslatef(-pen.X(), -pen.Y(), 0.0f);
 
     return advance;
 }
