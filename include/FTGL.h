@@ -10,10 +10,10 @@
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
@@ -42,8 +42,13 @@ namespace FTGL
     typedef enum{ALIGN_LEFT, ALIGN_CENTER, ALIGN_RIGHT, ALIGN_JUSTIFY} TextAlignment;
 }
 #else
-    typedef enum{RENDER_FRONT = 0x01, RENDER_BACK = 0x02, RENDER_SIDE = 0x04}ftglRenderMode;
-    typedef enum{ALIGN_LEFT, ALIGN_CENTER, ALIGN_RIGHT, ALIGN_JUSTIFY} TextAlignment;
+#   define FTGL_RENDER_FRONT  0x01
+#   define FTGL_RENDER_BACK   0x02
+#   define FTGL_RENDER_SIDE   0x04
+#   define FTGL_ALIGN_LEFT    0
+#   define FTGL_ALIGN_CENTER  1
+#   define FTGL_ALIGN_RIGHT   2
+#   define FTGL_ALIGN_JUSTIFY 3
 #endif
 
 typedef double   FTGL_DOUBLE;

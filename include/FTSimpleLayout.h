@@ -372,7 +372,7 @@ FTGL_EXPORT void                ftglLayoutSetAlignment   (FTGLlayout *, const FT
 FTGL_EXPORT FTGL::TextAlignment ftglLayoutGetAlignement  (FTGLlayout *);
 #else
 FTGL_EXPORT void                ftglLayoutSetAlignment   (FTGLlayout *, const TextAlignment);
-FTGL_EXPORT TextAlignment       ftglLayoutGetAlignement  (FTGLlayout *);
+FTGL_EXPORT int                 ftglLayoutGetAlignement  (FTGLlayout *);
 #endif
 
 FTGL_EXPORT void  ftglLayoutSetLineSpacing (FTGLlayout *, const float);
