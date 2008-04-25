@@ -67,25 +67,41 @@ class FTGL_EXPORT FTGLPixmapFont : public FTFont
          * @param bufferSizeInBytes  the length of the buffer in bytes
          */
         FTGLPixmapFont( const unsigned char *pBufferBytes, size_t bufferSizeInBytes);
-        
+
         /**
          * Destructor
          */
         ~FTGLPixmapFont();
-        
+
         /**
          * Renders a string of characters
          * 
          * @param string    'C' style string to be output.   
          */
         void Render( const char* string);
-        
+
+        /**
+         * Render a string of characters
+         *
+         * @param string    'C' style string to be output.
+         * @param renderMode    Render mode to display
+         */
+        void Render(const char* string, int renderMode) { Render(string); }
+
         /**
          * Renders a string of characters
-         * 
-         * @param string    wchar_t string to be output.     
+         *
+         * @param string    wchar_t string to be output.
          */
         void Render(const wchar_t* string);
+
+        /**
+         * Render a string of characters
+         *
+         * @param string    wchar_t string to be output.
+         * @param renderMode    Render mode to display
+         */
+        void Render(const wchar_t *string, int renderMode) { Render(string); }
 
     private:
         /**
@@ -95,7 +111,7 @@ class FTGL_EXPORT FTGLPixmapFont : public FTFont
          * @return  An FTPixmapGlyph or <code>null</code> on failure.
          */
         inline virtual FTGlyph* MakeGlyph(unsigned int g);
-        
+
         /* Internal generic Render() implementation */
         template <typename T>
         inline void RenderI(const T* string);

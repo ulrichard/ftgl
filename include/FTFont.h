@@ -455,6 +455,7 @@ FTGL_EXPORT float ftglLineHeight (FTGLfont*);
 FTGL_EXPORT void  ftglBBox       (FTGLfont*, const char *, float[]);
 FTGL_EXPORT float ftglAdvance    (FTGLfont*, const char *);
 FTGL_EXPORT void  ftglRender     (FTGLfont*, const char *);
+FTGL_EXPORT void  ftglRenderMode (FTGLfont*, const char *, int);
 
 FTGL_EXPORT FT_Error ftglError (FTGLfont*);
 

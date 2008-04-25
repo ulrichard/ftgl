@@ -84,19 +84,34 @@ class  FTGL_EXPORT FTGLTextureFont : public FTFont
 
         /**
          * Renders a string of characters
-         * 
-         * @param string    'C' style string to be output.   
+         *
+         * @param string    'C' style string to be output.
          */
         virtual void Render(const char* string);
-        
+
+        /**
+         * Render a string of characters
+         *
+         * @param string    'C' style string to be output.
+         * @param renderMode    Render mode to display
+         */
+        void Render(const char* string, int renderMode) { Render(string); }
+
         /**
          * Renders a string of characters
-         * 
-         * @param string    wchar_t string to be output.     
+         *
+         * @param string    wchar_t string to be output.
          */
         virtual void Render(const wchar_t* string);
 
-        
+        /**
+         * Render a string of characters
+         *
+         * @param string    wchar_t string to be output.
+         * @param renderMode    Render mode to display
+         */
+        void Render(const wchar_t *string, int renderMode) { Render(string); }
+
     private:
         /**
          * Construct a FTTextureGlyph.
@@ -105,7 +120,7 @@ class  FTGL_EXPORT FTGLTextureFont : public FTFont
          * @return  An FTTextureGlyph or <code>null</code> on failure.
          */
         inline virtual FTGlyph* MakeGlyph( unsigned int glyphIndex);
-                
+
         /**
          * Get the size of a block of memory required to layout the glyphs
          *

@@ -88,11 +88,27 @@ class FTGL_EXPORT FTGLOutlineFont : public FTFont
         void Render(const char* string);
 
         /**
+         * Render a string of characters
+         *
+         * @param string    'C' style string to be output.
+         * @param renderMode    Render mode to display
+         */
+        void Render(const char* string, int renderMode) { Render(string); }
+
+        /**
          * Renders a string of characters
          *
          * @param string    wchar_t string to be output.
          */
         void Render(const wchar_t* string);
+
+        /**
+         * Render a string of characters
+         *
+         * @param string    wchar_t string to be output.
+         * @param renderMode    Render mode to display
+         */
+        void Render(const wchar_t *string, int renderMode) { Render(string); }
 
     private:
         /**

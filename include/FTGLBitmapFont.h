@@ -80,14 +80,30 @@ class FTGL_EXPORT FTGLBitmapFont : public FTFont
         void Render(const char* string);
 
         /**
+         * Render a string of characters
+         *
+         * @param string    'C' style string to be output.
+         * @param renderMode    Render mode to display
+         */
+        void Render(const char* string, int renderMode) { Render(string); }
+
+        /**
          * Renders a string of characters
-         * 
+         *
          * @param string    'C' style wide string to be output.
          */
         void Render(const wchar_t* string);
 
+        /**
+         * Render a string of characters
+         *
+         * @param string    wchar_t string to be output.
+         * @param renderMode    Render mode to display
+         */
+        void Render(const wchar_t *string, int renderMode) { Render(string); }
+
         // attributes
-        
+
     private:
         /**
          * Construct a FTBitmapGlyph.
@@ -96,7 +112,7 @@ class FTGL_EXPORT FTGLBitmapFont : public FTFont
          * @return  An FTBitmapGlyph or <code>null</code> on failure.
          */
         inline virtual FTGlyph* MakeGlyph( unsigned int g);
-                
+
         /* Internal generic Render() implementation */
         template <typename T>
         inline void RenderI(const T* string);

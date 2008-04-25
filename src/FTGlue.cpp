@@ -163,6 +163,10 @@ C_FUN(float, ftglAdvance, (FTGLfont *f, const char* s),
 // virtual void FTFont::Render(const char* string);
 C_FUN(void, ftglRender, (FTGLfont *f, const char * s), return, Render, (s));
 
+// virtual void Render(const char* string, int renderMode);
+C_FUN(void, ftglRenderMode, (FTGLfont *f, const char *s, int r),
+      return, Render, (s, r));
+
 // FT_Error FTFont::Error() const;
 C_FUN(FT_Error, ftglError, (FTGLfont *f), return -1, Error, ());
 
