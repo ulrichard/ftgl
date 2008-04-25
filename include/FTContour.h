@@ -68,6 +68,9 @@ class FTGL_EXPORT FTContour
         ~FTContour()
         {
             pointList.clear();
+            outsetPointList.clear();
+            frontPointList.clear();
+            backPointList.clear();
         }
 
         /**
@@ -125,6 +128,7 @@ class FTGL_EXPORT FTContour
          *
          * @return the number of points in this contour
          */
+        size_t OutsetPointCount() const { return outsetPointList.size(); }
         size_t FrontPointCount() const { return frontPointList.size(); }
         size_t BackPointCount() const { return backPointList.size(); }
 

@@ -59,7 +59,7 @@ FTOutlineGlyph::FTOutlineGlyph(FT_GlyphSlot glyph, float _outset,
         return;
     }
 
-    this->outset = outset;
+    outset = _outset;
 
     if(useDisplayList)
     {

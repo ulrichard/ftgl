@@ -60,9 +60,9 @@ FTPolyGlyph::FTPolyGlyph(FT_GlyphSlot glyph, float _outset,
     }
 
 
-    this->hscale = glyph->face->size->metrics.x_ppem * 64;
-    this->vscale = glyph->face->size->metrics.y_ppem * 64;
-    this->outset = outset;
+    hscale = glyph->face->size->metrics.x_ppem * 64;
+    vscale = glyph->face->size->metrics.y_ppem * 64;
+    outset = _outset;
 
     if(useDisplayList)
     {

@@ -52,13 +52,22 @@ void FTContour::AddPoint(FTPoint point)
     }
 }
 
+
 void FTContour::AddOutsetPoint(FTPoint point)
 {
-    if(outsetPointList.empty() || (point != outsetPointList[pointList.size() - 1]
-                              && point != outsetPointList[0]))
-    {
-        outsetPointList.push_back(point);
-    }
+    outsetPointList.push_back(point);
+}
+
+
+void FTContour::AddFrontPoint(FTPoint point)
+{
+    frontPointList.push_back(point);
+}
+
+
+void FTContour::AddBackPoint(FTPoint point)
+{
+    backPointList.push_back(point);
 }
 
 
@@ -92,24 +101,6 @@ void FTContour::evaluateCubicCurve(FTPoint A, FTPoint B, FTPoint C, FTPoint D)
     }
 }
 
-void FTContour::AddFrontPoint(FTPoint point)
-{
-    if(frontPointList.empty() || (point != frontPointList[pointList.size() - 1]
-                                   && point != frontPointList[0]))
-    {
-        frontPointList.push_back(point);
-    }
-}
-
-void FTContour::AddBackPoint(FTPoint point)
-{
-    if(backPointList.empty() || (point != backPointList[pointList.size() - 1]
-                                  && point != backPointList[0]))
-    {
-        backPointList.push_back(point);
-    }
-}
-
 FTGL_DOUBLE FTContour::NormVector(const FTPoint &v)
 {
     return sqrt(v.X() * v.X() + v.Y() * v.Y());
@@ -136,9 +127,9 @@ void FTContour::MultMatrixVect(FTGL_DOUBLE *mat, FTPoint &v)
 
 void FTContour::ComputeBisec(FTPoint &v)
 {
-    FTGL_DOUBLE sgn = 64.0;
+    FTGL_DOUBLE sgn = -64.0;
     if((v.Y() / NormVector(v)) < 0)
-        sgn = -64.0;
+        sgn = 64.0;
     v.X(sgn * sqrt((NormVector(v) - v.X()) / (NormVector(v) + v.X())));
     v.Y(64.0);
 }
@@ -162,15 +153,15 @@ FTPoint FTContour::ComputeOutsetPoint(FTPoint a, FTPoint b, FTPoint c)
 void FTContour::outsetContour()
 {
     size_t size = PointCount();
-    FTPoint vOutsetF, vOutsetB;
+    FTPoint vOutset;
     for(unsigned int pointIndex = 0; pointIndex < size; ++pointIndex)
     {
         int prev = (pointIndex%size + size - 1) % size;
         int cur = pointIndex%size;
         int next = (pointIndex%size + 1) % size;
         /* Build the outset shape with d = 1.0f */
-        vOutsetB = ComputeOutsetPoint(Point(prev), Point(cur), Point(next));
-        AddOutsetPoint(vOutsetB);
+        vOutset = ComputeOutsetPoint(Point(prev), Point(cur), Point(next));
+        AddOutsetPoint(vOutset);
     }
 }
 
@@ -219,7 +210,6 @@ FTContour::FTContour(FT_Vector* contour, char* tags, unsigned int n)
             FTPoint next2 = (i == n - 2)
                              ? pointList[0]
                              : FTPoint(contour[i + 2]);
-
             evaluateCubicCurve(prev, cur, next, next2);
             ++i;
             continue;
