@@ -79,7 +79,7 @@ typedef float    FTGL_FLOAT;
 
 #else
 
-    // Non windows platforms - don't require nonsense as seen above :-)    
+    // Non windows platforms - don't require nonsense as seen above :-)
     #ifndef __gl_h_
         #ifdef SDL_main
             #include "SDL_opengl.h"
@@ -88,12 +88,16 @@ typedef float    FTGL_FLOAT;
             #include <OpenGL/glu.h>
         #else
             #include <GL/gl.h>
-            #include <GL/glu.h>
-        #endif                
+            #if defined (__sun__) && !defined (__sparc__)
+                #include <mesa/glu.h>
+            #else
+                #include <GL/glu.h>
+            #endif
+        #endif
 
     #endif
 
-    // Required for compatibility with glext.h style function definitions of 
+    // Required for compatibility with glext.h style function definitions of
     // OpenGL extensions, such as in src/osg/Point.cpp.
     #ifndef APIENTRY
         #define APIENTRY
