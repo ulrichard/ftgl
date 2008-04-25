@@ -46,7 +46,7 @@ FTExtrdGlyph::FTExtrdGlyph(FT_GlyphSlot glyph, float _depth,
 :   FTGlyph(glyph),
     glList(0)
 {
-    bBox.SetDepth(-depth);
+    bBox.SetDepth(-_depth);
 
     if(ft_glyph_format_outline != glyph->format)
     {
