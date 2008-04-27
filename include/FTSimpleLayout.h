@@ -52,6 +52,11 @@ class FTGL_EXPORT FTSimpleLayout : public FTLayout
         FTSimpleLayout();
 
         /**
+         * Destructor
+         */
+        ~FTSimpleLayout() {}
+
+        /**
          * Get the bounding box for a string.
          *
          * @param string    a char string
@@ -358,7 +363,7 @@ namespace C {
 FTGL_EXPORT void  ftglLayoutBBox           (FTGLlayout *, const char*, float []);
 
 FTGL_EXPORT void  ftglLayoutRender         (FTGLlayout *, const char*);
-FTGL_EXPORT void  ftglLayoutRenderMode     (FTGLlayout *, int);
+FTGL_EXPORT void  ftglLayoutRenderMode     (FTGLlayout *, const char*, int);
 FTGL_EXPORT void  ftglLayoutRenderSpace    (FTGLlayout *, const float);
 
 FTGL_EXPORT void      ftglLayoutSetFont    (FTGLlayout *, FTGLfont*);

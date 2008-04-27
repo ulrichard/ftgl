@@ -93,9 +93,13 @@ void ftglDestroyFont(FTGLfont *f)
             delete dynamic_cast<FTGLPolygonFont*>(f->ptr); break;
         case Texture:
             delete dynamic_cast<FTGLTextureFont*>(f->ptr); break;
+        default:
+            fprintf(stderr, "FTGL warning: %s not implemented for %d\n",
+                            __FUNCTION__, f->type);
+            break;
     }
-    fprintf(stderr, "FTGL warning: %s not implemented for %d\n",
-                    __FUNCTION__, f->type);
+
+    f->ptr = NULL;
 }
 
 // bool FTFont::Attach(const char* fontFilePath);
@@ -134,8 +138,8 @@ C_FUN(unsigned int, ftglGetFaceSize, (FTGLfont *f),
 // virtual void FTFont::Depth(float depth);
 C_FUN(void, ftglSetDepth, (FTGLfont *f, float d), return, Depth, (d));
 
-// virtual void Outset(float front, float back);
-C_FUN(void, ftglOutset, (FTGLfont *f, float front, float back),
+// virtual void FTFont::Outset(float front, float back);
+C_FUN(void, ftglSetOutset, (FTGLfont *f, float front, float back),
       return, FTFont::Outset, (front, back));
 
 // void FTFont::UseDisplayList(bool useList);
@@ -204,11 +208,13 @@ void ftglDestroyLayout(FTGLlayout *f)
     switch(f->type)
     {
         case Simple:
-            delete dynamic_cast<FTSimpleLayout*>(f->ptr);
-            break;
+            delete dynamic_cast<FTSimpleLayout*>(f->ptr); break;
+        default:
+            fprintf(stderr, "FTGL warning: %s not implemented for %d\n",
+                            __FUNCTION__, f->type);
     }
-    fprintf(stderr, "FTGL warning: %s not implemented for %d\n",
-                    __FUNCTION__, f->type);
+
+    f->ptr = NULL;
 }
 
 // virtual void BBox(const char* string, float& llx, float& lly, float& llz, float& urx, float& ury, float& urz)
