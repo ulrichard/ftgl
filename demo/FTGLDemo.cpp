@@ -2,6 +2,8 @@
  * FTGLDemo - simple demo for FTGL, the OpenGL font library
  *
  * Copyright (c) 2001-2004 Henry Maddocks <ftgl@opengl.geek.nz>
+ *               2008 Sam Hocevar <sam@zoy.org>
+ *               2008 Éric Beets <ericbeets@free.fr>
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -95,7 +97,7 @@ const int NumLayouts = 2;
 const float InitialLineLength = 600.0f;
 
 const float OX = -300;
-const float OY = 200;
+const float OY = 170;
 
 //wchar_t myString[16] = { 0x6FB3, 0x9580};
 char myString[4096];
@@ -103,53 +105,51 @@ char myString[4096];
 static FTFont* fonts[6];
 static FTGLPixmapFont* infoFont;
 
-static float texture[] =
+static float textures[][48] =
 {
-    1.0, 1.0, 1.0, 0.7, 0.7, 0.7, 1.0, 1.0, 1.0, 0.7, 0.7, 0.7,
-    0.7, 0.7, 0.7, 0.4, 0.4, 0.4, 0.7, 0.7, 0.7, 0.4, 0.4, 0.4,
-    1.0, 1.0, 1.0, 0.7, 0.7, 0.7, 1.0, 1.0, 1.0, 0.7, 0.7, 0.7,
-    0.7, 0.7, 0.7, 0.4, 0.4, 0.4, 0.7, 0.7, 0.7, 0.4, 0.4, 0.4,
+    {
+        1.0, 1.0, 1.0, 0.7, 0.7, 0.7, 1.0, 1.0, 1.0, 0.7, 0.7, 0.7,
+        0.7, 0.7, 0.7, 0.4, 0.4, 0.4, 0.7, 0.7, 0.7, 0.4, 0.4, 0.4,
+        1.0, 1.0, 1.0, 0.7, 0.7, 0.7, 1.0, 1.0, 1.0, 0.7, 0.7, 0.7,
+        0.7, 0.7, 0.7, 0.4, 0.4, 0.4, 0.7, 0.7, 0.7, 0.4, 0.4, 0.4,
+    },
+    {
+        0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1,
+        0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3,
+        0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1,
+        0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3,
+    }
 };
 
-static GLuint textureID;
+static GLuint textureID[2];
 
 void SetCamera(void);
 
 void setUpLighting()
 {
     // Set up lighting.
-    float light1_ambient[4]  = { 1.0, 1.0, 1.0, 1.0 };
+    float light1_ambient[4]  = { 0.5, 0.5, 0.5, 1.0 };
     float light1_diffuse[4]  = { 1.0, 0.9, 0.9, 1.0 };
     float light1_specular[4] = { 1.0, 0.7, 0.7, 1.0 };
-    float light1_position[4] = { -1.0, 1.0, 1.0, 0.0 };
+    float light1_position[4] = { 400.0, 400.0, 100.0, 1.0 };
     glLightfv(GL_LIGHT1, GL_AMBIENT,  light1_ambient);
     glLightfv(GL_LIGHT1, GL_DIFFUSE,  light1_diffuse);
     glLightfv(GL_LIGHT1, GL_SPECULAR, light1_specular);
     glLightfv(GL_LIGHT1, GL_POSITION, light1_position);
     glEnable(GL_LIGHT1);
 
-    float light2_ambient[4]  = { 0.2, 0.2, 0.2, 1.0 };
-    float light2_diffuse[4]  = { 0.9, 0.9, 0.9, 1.0 };
-    float light2_specular[4] = { 0.7, 0.7, 0.7, 1.0 };
-    float light2_position[4] = { 1.0, -1.0, -1.0, 0.0 };
-    glLightfv(GL_LIGHT2, GL_AMBIENT,  light2_ambient);
-    glLightfv(GL_LIGHT2, GL_DIFFUSE,  light2_diffuse);
-    glLightfv(GL_LIGHT2, GL_SPECULAR, light2_specular);
-    glLightfv(GL_LIGHT2, GL_POSITION, light2_position);
-    //glEnable(GL_LIGHT2);
-
-    float front_emission[4] = { 0.3, 0.2, 0.1, 0.0 };
-    float front_ambient[4]  = { 0.2, 0.2, 0.2, 0.0 };
+    float front_emission[4] = { 0.5, 0.4, 0.3, 0.0 };
+    float front_ambient[4]  = { 0.4, 0.4, 0.4, 0.0 };
     float front_diffuse[4]  = { 0.95, 0.95, 0.8, 0.0 };
-    float front_specular[4] = { 0.6, 0.6, 0.6, 0.0 };
+    float front_specular[4] = { 0.8, 0.8, 0.8, 0.0 };
     glMaterialfv(GL_FRONT, GL_EMISSION, front_emission);
     glMaterialfv(GL_FRONT, GL_AMBIENT, front_ambient);
     glMaterialfv(GL_FRONT, GL_DIFFUSE, front_diffuse);
     glMaterialfv(GL_FRONT, GL_SPECULAR, front_specular);
-    glMaterialf(GL_FRONT, GL_SHININESS, 16.0);
+    glMaterialf(GL_FRONT, GL_SHININESS, 25.0);
     glColor4fv(front_diffuse);
-
     glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
+
     glColorMaterial(GL_FRONT, GL_DIFFUSE);
     glEnable(GL_COLOR_MATERIAL);
 
@@ -181,7 +181,7 @@ void setUpFonts(const char* file)
         }
 
         fonts[x]->Depth(3.);
-        fonts[x]->Outset(0., 2.);
+        fonts[x]->Outset(-.5, 1.5);
 
         fonts[x]->CharMap(ft_encoding_unicode);
     }
@@ -216,7 +216,6 @@ void renderFontmetrics()
 
     // Draw the bounding box
     glDisable(GL_LIGHTING);
-    glDisable(GL_TEXTURE_2D);
     glEnable(GL_LINE_SMOOTH);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE); // GL_ONE_MINUS_SRC_ALPHA
@@ -283,10 +282,27 @@ void renderFontmetrics()
     }
 
     // Draw the origin
+    glTranslatef(-OX, -OY,0);
     glColor3f(1.0, 0.0, 0.0);
     glPointSize(5.0);
     glBegin(GL_POINTS);
         glVertex3f(0.0, 0.0, 0.0);
+    glEnd();
+    // Draw the axis
+    glColor3f(1, 0, 0);
+    glBegin(GL_LINES);
+        glVertex3f(0,0,0);
+        glVertex3f(100,0,0);
+    glEnd();
+    glColor3f(0, 1, 0);
+    glBegin(GL_LINES);
+        glVertex3f(0,0,0);
+        glVertex3f(0,100,0);
+    glEnd();
+    glColor3f(0, 0, 1);
+    glBegin(GL_LINES);
+        glVertex3f(0,0,0);
+        glVertex3f(0,0,100);
     glEnd();
 }
 
@@ -371,19 +387,18 @@ void do_display (void)
         case FTGL_BITMAP:
         case FTGL_PIXMAP:
         case FTGL_OUTLINE:
+            glDisable(GL_TEXTURE_2D);
             break;
         case FTGL_POLYGON:
-            glEnable(GL_TEXTURE_2D);
-            glBindTexture(GL_TEXTURE_2D, textureID);
-            glDisable(GL_BLEND);
+            glDisable(GL_TEXTURE_2D);
             setUpLighting();
             break;
         case FTGL_EXTRUDE:
             glEnable(GL_DEPTH_TEST);
             glDisable(GL_BLEND);
             glEnable(GL_TEXTURE_2D);
-            glBindTexture(GL_TEXTURE_2D, textureID);
             setUpLighting();
+            glBindTexture(GL_TEXTURE_2D, textureID[0]);
             break;
         case FTGL_TEXTURE:
             glEnable(GL_TEXTURE_2D);
@@ -392,22 +407,26 @@ void do_display (void)
             glNormal3f(0.0, 0.0, 1.0);
             break;
     }
+    glTranslatef(OX, OY,0);
 
     // If you do want to switch the color of bitmaps rendered with glBitmap,
     // you will need to explicitly call glRasterPos (or its ilk) to lock
     // in a changed current color.
 
     glPushMatrix();
-        glColor3f(1.0, 1.0, 0.5);
+        glColor3f(1.0, 1.0, 1.0);
         if(layouts[currentLayout])
-            layouts[currentLayout]->Render(myString, FTGL::RENDER_FRONT);
+            layouts[currentLayout]->Render(myString, FTGL::RENDER_FRONT | FTGL::RENDER_BACK);
         else
-            fonts[current_font]->Render(myString, FTGL::RENDER_FRONT);
-        glColor3f(0.0, 0.0, 0.3);
-        if(layouts[currentLayout])
-            layouts[currentLayout]->Render(myString, FTGL::RENDER_SIDE);
-        else
-            fonts[current_font]->Render(myString, FTGL::RENDER_SIDE);
+            fonts[current_font]->Render(myString, FTGL::RENDER_FRONT | FTGL::RENDER_BACK);
+        if(current_font == FTGL_EXTRUDE)
+        {
+            glBindTexture(GL_TEXTURE_2D, textureID[1]);
+            if(layouts[currentLayout])
+                layouts[currentLayout]->Render(myString, FTGL::RENDER_SIDE);
+            else
+                fonts[current_font]->Render(myString, FTGL::RENDER_SIDE);
+        }
     glPopMatrix();
 
     glPushMatrix();
@@ -429,13 +448,12 @@ void display(void)
         case FTGL_BITMAP:
         case FTGL_PIXMAP:
             glRasterPos2i((long)(w_win / 2 + OX), (long)(h_win / 2 + OY));
-            glTranslatef(w_win / 2 + OX, h_win / 2 + OY, 0.0);
+            glTranslatef(w_win / 2, h_win / 2, 0.0);
             break;
         case FTGL_OUTLINE:
         case FTGL_POLYGON:
         case FTGL_EXTRUDE:
         case FTGL_TEXTURE:
-         glTranslatef(OX, OY, 0);
             tbMatrix();
             break;
     }
@@ -453,7 +471,7 @@ void display(void)
 void myinit(const char* file)
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glClearColor(0.13, 0.17, 0.32, 0.0);
+    glClearColor(0.5, 0.5, 0.7, 0.0);
     glColor3f(1.0, 1.0, 1.0);
 
     glEnable(GL_CULL_FACE);
@@ -477,13 +495,18 @@ void myinit(const char* file)
     simpleLayout.SetLineLength(InitialLineLength);
     simpleLayout.SetFont(fonts[current_font]);
 
-    glGenTextures(1, &textureID);
-    glBindTexture(GL_TEXTURE_2D, textureID);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 4, 4, 0, GL_RGB, GL_FLOAT, texture);
+    glGenTextures(2, textureID);
+
+    for(int i = 0; i < 2; i++)
+    {
+        glBindTexture(GL_TEXTURE_2D, textureID[i]);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 4, 4, 0, GL_RGB, GL_FLOAT,
+                     textures[i]);
+    }
 }
 
 
@@ -551,6 +574,7 @@ void parsekey(unsigned char key, int x, int y)
 void parseSpecialKey(int key, int x, int y)
 {
     FTSimpleLayout *l = NULL;
+    float s;
 
     // If the currentLayout is a SimpleLayout store a pointer in l
     if(layouts[currentLayout]
@@ -582,7 +606,9 @@ void parseSpecialKey(int key, int x, int y)
         if (l) l->SetLineLength(l->GetLineLength() + 10.0f);
         break;
     case GLUT_KEY_LEFT:
-        fonts[current_font]->FaceSize(fonts[current_font]->FaceSize() - 1);
+        s = fonts[current_font]->FaceSize();
+        if(s >= 2)
+            fonts[current_font]->FaceSize(s - 1);
         break;
     case GLUT_KEY_RIGHT:
         fonts[current_font]->FaceSize(fonts[current_font]->FaceSize() + 1);
