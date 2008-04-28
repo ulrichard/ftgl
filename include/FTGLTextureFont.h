@@ -10,10 +10,10 @@
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
@@ -58,16 +58,17 @@ class  FTGL_EXPORT FTGLTextureFont : public FTFont
          *
          * @param fontFilePath  font file path.
          */
-        FTGLTextureFont( const char* fontFilePath);
-        
+        FTGLTextureFont(const char* fontFilePath);
+
         /**
          * Open and read a font from a buffer in memory. Sets Error flag.
          *
          * @param pBufferBytes  the in-memory buffer
          * @param bufferSizeInBytes  the length of the buffer in bytes
          */
-        FTGLTextureFont( const unsigned char *pBufferBytes, size_t bufferSizeInBytes);
-        
+        FTGLTextureFont(const unsigned char *pBufferBytes,
+                        size_t bufferSizeInBytes);
+
         /**
          * Destructor
          */
@@ -80,7 +81,8 @@ class  FTGL_EXPORT FTGLTextureFont : public FTFont
          * @param res       the resolution of the target device.
          * @return          <code>true</code> if size was set correctly
          */
-        virtual bool FaceSize( const unsigned int size, const unsigned int res = 72);
+        virtual bool FaceSize(const unsigned int size,
+                              const unsigned int res = 72);
 
         /**
          * Renders a string of characters
@@ -119,7 +121,7 @@ class  FTGL_EXPORT FTGLTextureFont : public FTFont
          * @param glyphIndex The glyph index NOT the char code.
          * @return  An FTTextureGlyph or <code>null</code> on failure.
          */
-        inline virtual FTGlyph* MakeGlyph( unsigned int glyphIndex);
+        inline virtual FTGlyph* MakeGlyph(unsigned int glyphIndex);
 
         /**
          * Get the size of a block of memory required to layout the glyphs
@@ -140,27 +142,27 @@ class  FTGL_EXPORT FTGLTextureFont : public FTFont
          * Note that mipmapping is NOT used
          */
         inline GLuint CreateTexture();
-        
+
         /**
          * The maximum texture dimension on this OpenGL implemetation
          */
         GLsizei maximumGLTextureSize;
-        
+
         /**
          * The minimum texture width required to hold the glyphs
          */
         GLsizei textureWidth;
-        
+
         /**
          * The minimum texture height required to hold the glyphs
          */
         GLsizei textureHeight;
-        
+
         /**
          *An array of texture ids
          */
          FTVector<GLuint> textureIDList;
-        
+
         /**
          * The max height for glyphs in the current font
          */
@@ -176,12 +178,12 @@ class  FTGL_EXPORT FTGLTextureFont : public FTFont
          * glyphs don't overlap in the texture
          */
         unsigned int padding;
-        
+
         /**
          *
          */
          unsigned int numGlyphs;
-        
+
         /**
          */
         unsigned int remGlyphs;

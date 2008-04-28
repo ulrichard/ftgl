@@ -10,10 +10,10 @@
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
@@ -58,15 +58,16 @@ class FTGL_EXPORT FTGLPixmapFont : public FTFont
          *
          * @param fontFilePath  font file path.
          */
-        FTGLPixmapFont( const char* fontFilePath);
-        
+        FTGLPixmapFont(const char* fontFilePath);
+
         /**
          * Open and read a font from a buffer in memory. Sets Error flag.
          *
          * @param pBufferBytes  the in-memory buffer
          * @param bufferSizeInBytes  the length of the buffer in bytes
          */
-        FTGLPixmapFont( const unsigned char *pBufferBytes, size_t bufferSizeInBytes);
+        FTGLPixmapFont(const unsigned char *pBufferBytes,
+                       size_t bufferSizeInBytes);
 
         /**
          * Destructor
@@ -75,10 +76,10 @@ class FTGL_EXPORT FTGLPixmapFont : public FTFont
 
         /**
          * Renders a string of characters
-         * 
-         * @param string    'C' style string to be output.   
+         *
+         * @param string    'C' style string to be output.
          */
-        void Render( const char* string);
+        void Render(const char* string);
 
         /**
          * Render a string of characters

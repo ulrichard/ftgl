@@ -18,29 +18,29 @@ class TestGlyph : public FTGlyph
         {
             advance = FTPoint(50.0f, 0.0f, 0.0f);
         }
-        
-        virtual const FTPoint& Render( const FTPoint& pen, int renderMode){ return advance;}
+
+        virtual const FTPoint& Render(const FTPoint& pen, int renderMode){ return advance; }
 };
 
 
 class FTGlyphContainerTest : public CppUnit::TestCase
 {
-    CPPUNIT_TEST_SUITE( FTGlyphContainerTest);
-        CPPUNIT_TEST( testAdd);
-        CPPUNIT_TEST( testSetCharMap);
-        CPPUNIT_TEST( testGlyphIndex);
-        CPPUNIT_TEST( testAdvance);
-        CPPUNIT_TEST( testRender);
+    CPPUNIT_TEST_SUITE(FTGlyphContainerTest);
+        CPPUNIT_TEST(testAdd);
+        CPPUNIT_TEST(testSetCharMap);
+        CPPUNIT_TEST(testGlyphIndex);
+        CPPUNIT_TEST(testAdvance);
+        CPPUNIT_TEST(testRender);
     CPPUNIT_TEST_SUITE_END();
-        
+
     public:
-        FTGlyphContainerTest() : CppUnit::TestCase( "FTGlyphContainer Test")
+        FTGlyphContainerTest() : CppUnit::TestCase("FTGlyphContainer Test")
         {
-            face = new FTFace( GOOD_FONT_FILE);
-            face->Size( 72, 72);
+            face = new FTFace(GOOD_FONT_FILE);
+            face->Size(72, 72);
         }
-        
-        FTGlyphContainerTest( const std::string& name) : CppUnit::TestCase(name)
+
+        FTGlyphContainerTest(const std::string& name) : CppUnit::TestCase(name)
         {
             delete face;
         }
@@ -48,31 +48,31 @@ class FTGlyphContainerTest : public CppUnit::TestCase
         void testAdd()
         {
             TestGlyph* glyph = new TestGlyph();
-            CPPUNIT_ASSERT( glyphContainer->Glyph( CHARACTER_CODE_A) == NULL);
+            CPPUNIT_ASSERT(glyphContainer->Glyph(CHARACTER_CODE_A) == NULL);
 
-            glyphContainer->Add( glyph, CHARACTER_CODE_A);
-            glyphContainer->Add( NULL, 0);
+            glyphContainer->Add(glyph, CHARACTER_CODE_A);
+            glyphContainer->Add(NULL, 0);
 
-            CPPUNIT_ASSERT( glyphContainer->Glyph( 0) == NULL);
-            CPPUNIT_ASSERT( glyphContainer->Glyph( 999) == NULL);
-            CPPUNIT_ASSERT( glyphContainer->Glyph( CHARACTER_CODE_A) == glyph);
+            CPPUNIT_ASSERT(glyphContainer->Glyph(0) == NULL);
+            CPPUNIT_ASSERT(glyphContainer->Glyph(999) == NULL);
+            CPPUNIT_ASSERT(glyphContainer->Glyph(CHARACTER_CODE_A) == glyph);
         }
 
-    
+
         void testSetCharMap()
         {
-            CPPUNIT_ASSERT( glyphContainer->CharMap( ft_encoding_unicode));
-            CPPUNIT_ASSERT_EQUAL( glyphContainer->Error(), 0);
-    
-            CPPUNIT_ASSERT( !glyphContainer->CharMap( ft_encoding_johab));
-            CPPUNIT_ASSERT_EQUAL( glyphContainer->Error(), 0x06); // invalid argument
+            CPPUNIT_ASSERT(glyphContainer->CharMap(ft_encoding_unicode));
+            CPPUNIT_ASSERT_EQUAL(glyphContainer->Error(), 0);
+
+            CPPUNIT_ASSERT(!glyphContainer->CharMap(ft_encoding_johab));
+            CPPUNIT_ASSERT_EQUAL(glyphContainer->Error(), 0x06); // invalid argument
         }
 
 
         void testGlyphIndex()
         {
-            CPPUNIT_ASSERT_EQUAL( glyphContainer->FontIndex( CHARACTER_CODE_A), FONT_INDEX_OF_A);
-            CPPUNIT_ASSERT_EQUAL( glyphContainer->FontIndex( BIG_CHARACTER_CODE), BIG_FONT_INDEX);
+            CPPUNIT_ASSERT_EQUAL(glyphContainer->FontIndex(CHARACTER_CODE_A), FONT_INDEX_OF_A);
+            CPPUNIT_ASSERT_EQUAL(glyphContainer->FontIndex(BIG_CHARACTER_CODE), BIG_FONT_INDEX);
         }
 
 
@@ -80,45 +80,45 @@ class FTGlyphContainerTest : public CppUnit::TestCase
         {
             TestGlyph* glyph = new TestGlyph();
 
-            glyphContainer->Add( glyph, CHARACTER_CODE_A);
-            float advance = glyphContainer->Advance( CHARACTER_CODE_A, 0);
-            
-            CPPUNIT_ASSERT_DOUBLES_EQUAL( 50, advance, 0.01);
+            glyphContainer->Add(glyph, CHARACTER_CODE_A);
+            float advance = glyphContainer->Advance(CHARACTER_CODE_A, 0);
+
+            CPPUNIT_ASSERT_DOUBLES_EQUAL(50, advance, 0.01);
         }
-        
-        
+
+
         void testRender()
         {
             TestGlyph* glyph = new TestGlyph();
-            
-            glyphContainer->Add( glyph, 'A');
-            
+
+            glyphContainer->Add(glyph, 'A');
+
             FTPoint pen;
-            
-            float advance = glyphContainer->Render( 'A', 0, pen, FTGL::RENDER_FRONT |
+
+            float advance = glyphContainer->Render('A', 0, pen, FTGL::RENDER_FRONT |
                                                                  FTGL::RENDER_BACK |
                                                                  FTGL::RENDER_SIDE).X();
-            
-            CPPUNIT_ASSERT_DOUBLES_EQUAL( 50, advance, 0.01);
+
+            CPPUNIT_ASSERT_DOUBLES_EQUAL(50, advance, 0.01);
         }
-        
-        
-        void setUp() 
+
+
+        void setUp()
         {
-            glyphContainer = new FTGlyphContainer( face);
+            glyphContainer = new FTGlyphContainer(face);
         }
-        
-        
-        void tearDown() 
+
+
+        void tearDown()
         {
             delete glyphContainer;
         }
-        
+
     private:
         FTFace*           face;
         FTGlyphContainer* glyphContainer;
 
 };
 
-CPPUNIT_TEST_SUITE_REGISTRATION( FTGlyphContainerTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(FTGlyphContainerTest);
 

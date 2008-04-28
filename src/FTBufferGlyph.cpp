@@ -10,10 +10,10 @@
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
@@ -36,15 +36,15 @@
 
 #include "FTBufferGlyph.h"
 
-FTBufferGlyph::FTBufferGlyph( FT_GlyphSlot glyph, unsigned char* b)
-:   FTGlyph( glyph),
+FTBufferGlyph::FTBufferGlyph(FT_GlyphSlot glyph, unsigned char* b)
+:   FTGlyph(glyph),
     destWidth(0),
     destHeight(0),
     data(0),
     buffer(b)
 {
-    err = FT_Render_Glyph( glyph, FT_RENDER_MODE_NORMAL);
-    if( err || ft_glyph_format_bitmap != glyph->format)
+    err = FT_Render_Glyph(glyph, FT_RENDER_MODE_NORMAL);
+    if(err || ft_glyph_format_bitmap != glyph->format)
     {
         return;
     }
@@ -54,21 +54,21 @@ FTBufferGlyph::FTBufferGlyph( FT_GlyphSlot glyph, unsigned char* b)
     unsigned int srcWidth = bitmap.width;
     unsigned int srcHeight = bitmap.rows;
     unsigned int srcPitch = bitmap.pitch;
-    
+
     destWidth = srcWidth;
     destHeight = srcHeight;
-    destPitch = srcPitch;    
+    destPitch = srcPitch;
 
-    if( destWidth && destHeight)
+    if(destWidth && destHeight)
     {
         data = new unsigned char[destPitch * destHeight];
-        unsigned char* dest = data + (( destHeight - 1) * destPitch);
+        unsigned char* dest = data + ((destHeight - 1) * destPitch);
 
         unsigned char* src = bitmap.buffer;
 
-        for( unsigned int y = 0; y < srcHeight; ++y)
+        for(unsigned int y = 0; y < srcHeight; ++y)
         {
-            memcpy( dest, src, srcPitch);
+            memcpy(dest, src, srcPitch);
             dest -= destPitch;
             src += srcPitch;
         }
@@ -85,9 +85,9 @@ FTBufferGlyph::~FTBufferGlyph()
 }
 
 
-float FTBufferGlyph::Render( const FTPoint& pen)
+float FTBufferGlyph::Render(const FTPoint& pen)
 {
-    if( data && buffer)
+    if(data && buffer)
     {
     }
 

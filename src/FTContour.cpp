@@ -222,7 +222,7 @@ FTContour::FTContour(FT_Vector* contour, char* tags, unsigned int n)
 
 void FTContour::buildFrontOutset(float outset)
 {
-    for( size_t i = 0; i < PointCount(); ++i)
+    for(size_t i = 0; i < PointCount(); ++i)
     {
         FTPoint point = FTPoint(Point(i).X() + Outset(i).X() * outset,
                                 Point(i).Y() + Outset(i).Y() * outset,
@@ -232,7 +232,7 @@ void FTContour::buildFrontOutset(float outset)
 }
 void FTContour::buildBackOutset(float outset)
 {
-    for( size_t i = 0; i < PointCount(); ++i)
+    for(size_t i = 0; i < PointCount(); ++i)
     {
         FTPoint point = FTPoint(Point(i).X() + Outset(i).X() * outset,
                                 Point(i).Y() + Outset(i).Y() * outset,

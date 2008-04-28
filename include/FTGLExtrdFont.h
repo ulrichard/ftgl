@@ -10,10 +10,10 @@
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
@@ -47,8 +47,8 @@ class FTGlyph;
  * FTGLExtrdFont is a specialisation of the FTFont class for handling
  * extruded Polygon fonts
  *
- * @see		FTFont
- * @see		FTGLPolygonFont
+ * @see FTFont
+ * @see FTGLPolygonFont
  */
 class FTGL_EXPORT FTGLExtrdFont : public FTFont
 {
@@ -58,7 +58,7 @@ class FTGL_EXPORT FTGLExtrdFont : public FTFont
          *
          * @param fontFilePath  font file path.
          */
-        FTGLExtrdFont( const char* fontFilePath);
+        FTGLExtrdFont(const char* fontFilePath);
 
         /**
          * Open and read a font from a buffer in memory. Sets Error flag.
@@ -66,15 +66,16 @@ class FTGL_EXPORT FTGLExtrdFont : public FTFont
          * @param pBufferBytes  the in-memory buffer
          * @param bufferSizeInBytes  the length of the buffer in bytes
          */
-        FTGLExtrdFont( const unsigned char *pBufferBytes, size_t bufferSizeInBytes);
+        FTGLExtrdFont(const unsigned char *pBufferBytes,
+                      size_t bufferSizeInBytes);
 
         /**
          * Destructor
          */
         ~FTGLExtrdFont();
-		
+
         /**
-         * Set the extrusion distance for the font. 
+         * Set the extrusion distance for the font.
          *
          * @param d  The extrusion distance.
          */
@@ -102,10 +103,10 @@ class FTGL_EXPORT FTGLExtrdFont : public FTFont
          * Construct a FTPolyGlyph.
          *
          * @param glyphIndex The glyph index NOT the char code.
-         * @return	An FTExtrdGlyph or <code>null</code> on failure.
+         * @return An FTExtrdGlyph or <code>null</code> on failure.
          */
-        inline virtual FTGlyph* MakeGlyph( unsigned int glyphIndex);
-		
+        inline virtual FTGlyph* MakeGlyph(unsigned int glyphIndex);
+
         /**
          * The extrusion distance for the font.
          */
@@ -129,5 +130,5 @@ FTGL_EXPORT FTGLfont *ftglCreateExtrdFont(const char *fontname);
 }
 #endif
 
-#endif	//	__FTGLExtrdFont__
+#endif // __FTGLExtrdFont__
 

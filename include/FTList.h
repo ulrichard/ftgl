@@ -10,10 +10,10 @@
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
@@ -66,8 +66,8 @@ class FTGL_EXPORT FTList
         ~FTList()
         {
             Node* next;
-            
-            for( Node *walk = head; walk; walk = next)
+
+            for(Node *walk = head; walk; walk = next)
             {
                 next = walk->next;
                 delete walk;
@@ -85,23 +85,23 @@ class FTGL_EXPORT FTList
         /**
          * Add an item to the end of the list
          */
-        void push_back( const value_type& item)
+        void push_back(const value_type& item)
         {
-            Node* node = new Node( item);
-            
-            if( head->next == NULL)
+            Node* node = new Node(item);
+
+            if(head->next == NULL)
             {
                 head->next = node;
             }
 
-            if( tail)
+            if(tail)
             {
                 tail->next = node;
             }
             tail = node;
             ++listSize;
         }
-        
+
         /**
          * Get the item at the front of the list
          */
@@ -122,20 +122,20 @@ class FTGL_EXPORT FTList
         struct Node
         {
             Node()
-            :	next(NULL)
+            : next(NULL)
             {}
 
-            Node( const value_type& item)
-            :	next(NULL)
+            Node(const value_type& item)
+            : next(NULL)
             {
                 payload = item;
             }
-            
+
             Node* next;
-            
+
             value_type payload;
         };
-        
+
         size_type listSize;
 
         Node* head;

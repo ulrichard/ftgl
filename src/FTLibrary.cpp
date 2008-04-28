@@ -10,10 +10,10 @@
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
@@ -46,17 +46,17 @@ const FTLibrary&  FTLibrary::Instance()
 
 FTLibrary::~FTLibrary()
 {
-    if( library != 0)
+    if(library != 0)
     {
-        FT_Done_FreeType( *library);
+        FT_Done_FreeType(*library);
 
         delete library;
         library= 0;
     }
 
-//  if( manager != 0)
+//  if(manager != 0)
 //  {
-//      FTC_Manager_Done( manager );
+//      FTC_Manager_Done(manager);
 //
 //      delete manager;
 //      manager= 0;
@@ -74,22 +74,22 @@ FTLibrary::FTLibrary()
 
 bool FTLibrary::Initialise()
 {
-    if( library != 0)
+    if(library != 0)
         return true;
 
     library = new FT_Library;
-    
-    err = FT_Init_FreeType( library);
-    if( err)
+
+    err = FT_Init_FreeType(library);
+    if(err)
     {
         delete library;
         library = 0;
         return false;
     }
-    
+
 //  FTC_Manager* manager;
-//  
-//  if( FTC_Manager_New( lib, 0, 0, 0, my_face_requester, 0, manager )
+//
+//  if(FTC_Manager_New(lib, 0, 0, 0, my_face_requester, 0, manager)
 //  {
 //      delete manager;
 //      manager= 0;

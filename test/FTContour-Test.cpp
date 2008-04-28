@@ -15,7 +15,7 @@ static FT_Vector shortLine[2] =
     { 2, 2},
 };
 
-static FT_Vector straightLinePoints[3] = 
+static FT_Vector straightLinePoints[3] =
 {
     { 0,  0},
     { 6,  7},
@@ -36,28 +36,28 @@ static char brokenTags[3] =
     FT_Curve_Tag_On
 };
 
-static FT_Vector simpleConicPoints[3] = 
+static FT_Vector simpleConicPoints[3] =
 {
     { 0,  0},
     { 6,  7},
     { 9, -2}
 };
 
-static FT_Vector brokenPoints[3] = 
+static FT_Vector brokenPoints[3] =
 {
     { 0, 0},
     { 0, 0},
     { 0, 0}
 };
 
-static char simpleConicTags[3] = 
+static char simpleConicTags[3] =
 {
     FT_Curve_Tag_Conic,
     FT_Curve_Tag_On,
     FT_Curve_Tag_On
 };
 
-static FT_Vector doubleConicPoints[4] = 
+static FT_Vector doubleConicPoints[4] =
 {
     { 0,  0},
     { 6,  7},
@@ -65,7 +65,7 @@ static FT_Vector doubleConicPoints[4] =
     { 4,  0}
 };
 
-static char doubleConicTags[4] = 
+static char doubleConicTags[4] =
 {
     FT_Curve_Tag_On,
     FT_Curve_Tag_On,
@@ -73,7 +73,7 @@ static char doubleConicTags[4] =
     FT_Curve_Tag_Conic
 };
 
-static FT_Vector cubicPoints[4] = 
+static FT_Vector cubicPoints[4] =
 {
     { 0,  0},
     { 6,  7},
@@ -81,7 +81,7 @@ static FT_Vector cubicPoints[4] =
     { 4,  0}
 };
 
-static char cubicTags[4] = 
+static char cubicTags[4] =
 {
     FT_Curve_Tag_On,
     FT_Curve_Tag_On,
@@ -91,29 +91,29 @@ static char cubicTags[4] =
 
 
 // ARIAl 'd'
-static FT_Vector compositePoints[18] = 
+static FT_Vector compositePoints[18] =
 {
-	{ 1856,    0},
-	{ 1856,  279},
-	{ 1625,  -64},
-	{ 1175,  -64},
-	{  884,  -64},
-	{  396,  251},
-	{  128,  815},
-	{  128, 1182},
-	{  128, 1539},
-	{  370, 2121},
-	{  855, 2432},
-	{ 1156, 2432},
-	{ 1375, 2432},
-	{ 1718, 2257},
-	{ 1826, 2118},
-	{ 1826, 3264},
-	{ 2240, 3264},
-	{ 2240,    0},
+    { 1856,    0 },
+    { 1856,  279 },
+    { 1625,  -64 },
+    { 1175,  -64 },
+    {  884,  -64 },
+    {  396,  251 },
+    {  128,  815 },
+    {  128, 1182 },
+    {  128, 1539 },
+    {  370, 2121 },
+    {  855, 2432 },
+    { 1156, 2432 },
+    { 1375, 2432 },
+    { 1718, 2257 },
+    { 1826, 2118 },
+    { 1826, 3264 },
+    { 2240, 3264 },
+    { 2240,    0 },
 };
 
-static char compositeTags[18] = 
+static char compositeTags[18] =
 {
     FT_Curve_Tag_On,
     FT_Curve_Tag_On,
@@ -137,90 +137,90 @@ static char compositeTags[18] =
 
 class FTContourTest : public CppUnit::TestCase
 {
-    CPPUNIT_TEST_SUITE( FTContourTest);
-        CPPUNIT_TEST( testNullCurve);
-        CPPUNIT_TEST( testBrokenCurve);
-        CPPUNIT_TEST( testStraightLine);
-        CPPUNIT_TEST( testConicCurve);
-        CPPUNIT_TEST( testDoubleConicCurve);
-        CPPUNIT_TEST( testCubicCurve);
-        CPPUNIT_TEST( testCompositeCurve);
+    CPPUNIT_TEST_SUITE(FTContourTest);
+        CPPUNIT_TEST(testNullCurve);
+        CPPUNIT_TEST(testBrokenCurve);
+        CPPUNIT_TEST(testStraightLine);
+        CPPUNIT_TEST(testConicCurve);
+        CPPUNIT_TEST(testDoubleConicCurve);
+        CPPUNIT_TEST(testCubicCurve);
+        CPPUNIT_TEST(testCompositeCurve);
     CPPUNIT_TEST_SUITE_END();
-        
+
     public:
-        FTContourTest() : CppUnit::TestCase( "FTContour Test")
+        FTContourTest() : CppUnit::TestCase("FTContour Test")
         {}
-        
-        FTContourTest( const std::string& name) : CppUnit::TestCase(name)
+
+        FTContourTest(const std::string& name) : CppUnit::TestCase(name)
         {}
 
         void testNullCurve()
         {
-            FTContour contour( NULL, NULL, 0);
-            CPPUNIT_ASSERT( contour.PointCount() == 0);
+            FTContour contour(NULL, NULL, 0);
+            CPPUNIT_ASSERT(contour.PointCount() == 0);
         }
 
 
         void testBrokenCurve()
         {
-            FTContour contour( brokenPoints, simpleConicTags, 3);
-            CPPUNIT_ASSERT( contour.PointCount() == 1);
+            FTContour contour(brokenPoints, simpleConicTags, 3);
+            CPPUNIT_ASSERT(contour.PointCount() == 1);
 
-            FTContour shortContour( shortLine, simpleConicTags, 2);
-            CPPUNIT_ASSERT( shortContour.PointCount() == 6);
+            FTContour shortContour(shortLine, simpleConicTags, 2);
+            CPPUNIT_ASSERT(shortContour.PointCount() == 6);
 
-            FTContour reallyShortContour( shortLine, simpleConicTags, 1);
-            CPPUNIT_ASSERT( reallyShortContour.PointCount() == 1);
+            FTContour reallyShortContour(shortLine, simpleConicTags, 1);
+            CPPUNIT_ASSERT(reallyShortContour.PointCount() == 1);
 
-            FTContour brokenTagtContour( shortLine, brokenTags, 3);
-            CPPUNIT_ASSERT( brokenTagtContour.PointCount() == 7);
+            FTContour brokenTagtContour(shortLine, brokenTags, 3);
+            CPPUNIT_ASSERT(brokenTagtContour.PointCount() == 7);
         }
 
 
         void testStraightLine()
         {
-            FTContour contour( straightLinePoints, straightLineTags, 3);
-            CPPUNIT_ASSERT( contour.PointCount() == 3);
+            FTContour contour(straightLinePoints, straightLineTags, 3);
+            CPPUNIT_ASSERT(contour.PointCount() == 3);
         }
 
 
         void testConicCurve()
         {
-            FTContour contour( simpleConicPoints, simpleConicTags, 3);
-            CPPUNIT_ASSERT( contour.PointCount() == 7);
+            FTContour contour(simpleConicPoints, simpleConicTags, 3);
+            CPPUNIT_ASSERT(contour.PointCount() == 7);
         }
 
 
         void testDoubleConicCurve()
         {
-            FTContour contour( doubleConicPoints, doubleConicTags, 4);
-            CPPUNIT_ASSERT( contour.PointCount() == 12);
+            FTContour contour(doubleConicPoints, doubleConicTags, 4);
+            CPPUNIT_ASSERT(contour.PointCount() == 12);
         }
 
 
         void testCubicCurve()
         {
-            FTContour contour( cubicPoints, cubicTags, 4);
-            CPPUNIT_ASSERT( contour.PointCount() == 7);
+            FTContour contour(cubicPoints, cubicTags, 4);
+            CPPUNIT_ASSERT(contour.PointCount() == 7);
         }
 
 
         void testCompositeCurve()
         {
-            FTContour contour( compositePoints, compositeTags, 18);
-            CPPUNIT_ASSERT( contour.PointCount() == 50);
+            FTContour contour(compositePoints, compositeTags, 18);
+            CPPUNIT_ASSERT(contour.PointCount() == 50);
         }
-        
-        
-        void setUp() 
+
+
+        void setUp()
         {}
-        
-        
-        void tearDown() 
+
+
+        void tearDown()
         {}
-        
+
     private:
 };
 
-CPPUNIT_TEST_SUITE_REGISTRATION( FTContourTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(FTContourTest);
 

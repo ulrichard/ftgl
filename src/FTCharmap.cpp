@@ -10,10 +10,10 @@
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
@@ -38,15 +38,15 @@
 #include "FTCharmap.h"
 
 
-FTCharmap::FTCharmap( FTFace* face)
-:   ftFace( *(face->Face())),
+FTCharmap::FTCharmap(FTFace* face)
+:   ftFace(*(face->Face())),
     err(0)
 {
-    if( !ftFace->charmap)
+    if(!ftFace->charmap)
     {
-        err = FT_Set_Charmap( ftFace, ftFace->charmaps[0]);
+        err = FT_Set_Charmap(ftFace, ftFace->charmaps[0]);
     }
-    
+
     ftEncoding = ftFace->charmap->encoding;
 }
 
@@ -57,22 +57,22 @@ FTCharmap::~FTCharmap()
 }
 
 
-bool FTCharmap::CharMap( FT_Encoding encoding)
+bool FTCharmap::CharMap(FT_Encoding encoding)
 {
-    if( ftEncoding == encoding)
+    if(ftEncoding == encoding)
     {
         err = 0;
         return true;
     }
-    
-    err = FT_Select_Charmap( ftFace, encoding );
-    
-    if( !err)
+
+    err = FT_Select_Charmap(ftFace, encoding);
+
+    if(!err)
     {
         ftEncoding = encoding;
         charMap.clear();
     }
-        
+
     return !err;
 }
 
@@ -89,7 +89,8 @@ unsigned int FTCharmap::FontIndex(const unsigned int characterCode)
 }
 
 
-void FTCharmap::InsertIndex( const unsigned int characterCode, const unsigned int containerIndex)
+void FTCharmap::InsertIndex(const unsigned int characterCode,
+                            const unsigned int containerIndex)
 {
-    charMap.insert( characterCode, containerIndex);
+    charMap.insert(characterCode, containerIndex);
 }

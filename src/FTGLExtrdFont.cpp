@@ -10,10 +10,10 @@
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
@@ -40,14 +40,15 @@
 #include "FTExtrdGlyph.h"
 
 
-FTGLExtrdFont::FTGLExtrdFont( const char* fontFilePath)
-:   FTFont( fontFilePath),
-    depth( 0.0f)
+FTGLExtrdFont::FTGLExtrdFont(const char* fontFilePath)
+:   FTFont(fontFilePath),
+    depth(0.0f)
 {}
 
 
-FTGLExtrdFont::FTGLExtrdFont( const unsigned char *pBufferBytes, size_t bufferSizeInBytes)
-:   FTFont( pBufferBytes, bufferSizeInBytes),
+FTGLExtrdFont::FTGLExtrdFont(const unsigned char *pBufferBytes,
+                             size_t bufferSizeInBytes)
+:   FTFont(pBufferBytes, bufferSizeInBytes),
     depth(0.0f),
     front(0.0f),
     back(0.0f)
@@ -58,11 +59,11 @@ FTGLExtrdFont::~FTGLExtrdFont()
 {}
 
 
-FTGlyph* FTGLExtrdFont::MakeGlyph( unsigned int glyphIndex)
+FTGlyph* FTGLExtrdFont::MakeGlyph(unsigned int glyphIndex)
 {
-    FT_GlyphSlot ftGlyph = face.Glyph( glyphIndex, FT_LOAD_NO_HINTING);
+    FT_GlyphSlot ftGlyph = face.Glyph(glyphIndex, FT_LOAD_NO_HINTING);
 
-    if( ftGlyph)
+    if(ftGlyph)
     {
         FTExtrdGlyph* tempGlyph = new FTExtrdGlyph(ftGlyph, depth, front, back, useDisplayLists);
         return tempGlyph;

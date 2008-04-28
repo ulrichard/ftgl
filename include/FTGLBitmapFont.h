@@ -10,10 +10,10 @@
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
@@ -57,7 +57,7 @@ class FTGL_EXPORT FTGLBitmapFont : public FTFont
          *
          * @param fontFilePath  font file path.
          */
-        FTGLBitmapFont( const char* fontFilePath);
+        FTGLBitmapFont(const char* fontFilePath);
 
         /**
          * Open and read a font from a buffer in memory. Sets Error flag.
@@ -65,7 +65,8 @@ class FTGL_EXPORT FTGLBitmapFont : public FTFont
          * @param pBufferBytes  the in-memory buffer
          * @param bufferSizeInBytes  the length of the buffer in bytes
          */
-        FTGLBitmapFont( const unsigned char *pBufferBytes, size_t bufferSizeInBytes);
+        FTGLBitmapFont(const unsigned char *pBufferBytes,
+                       size_t bufferSizeInBytes);
 
         /**
          * Destructor
@@ -111,7 +112,7 @@ class FTGL_EXPORT FTGLBitmapFont : public FTFont
          * @param g The glyph index NOT the char code.
          * @return  An FTBitmapGlyph or <code>null</code> on failure.
          */
-        inline virtual FTGlyph* MakeGlyph( unsigned int g);
+        inline virtual FTGlyph* MakeGlyph(unsigned int g);
 
         /* Internal generic Render() implementation */
         template <typename T>

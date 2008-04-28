@@ -10,10 +10,10 @@
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
@@ -49,8 +49,8 @@
  *
  * It provides the interface between Freetype glyphs and their openGL
  * Renderable counterparts. This is an abstract class and derived classes
- * must implement the <code>Render</code> function. 
- * 
+ * must implement the <code>Render</code> function.
+ *
  * @see FTGlyphContainer
  *
  */
@@ -62,7 +62,7 @@ class FTGL_EXPORT FTBitmapGlyph : public FTGlyph
          *
          * @param glyph The Freetype glyph to be processed
          */
-        FTBitmapGlyph( FT_GlyphSlot glyph);
+        FTBitmapGlyph(FT_GlyphSlot glyph);
 
         /**
          * Destructor
@@ -76,8 +76,8 @@ class FTGL_EXPORT FTBitmapGlyph : public FTGlyph
          * @param renderMode    Render mode to display
          * @return      The advance distance for this glyph.
          */
-        virtual const FTPoint& Render( const FTPoint& pen, int renderMode);
-        
+        virtual const FTPoint& Render(const FTPoint& pen, int renderMode);
+
     private:
         /**
          * The width of the glyph 'image'
@@ -98,12 +98,12 @@ class FTGL_EXPORT FTBitmapGlyph : public FTGlyph
          * Vector from the pen position to the topleft corner of the bitmap
          */
         FTPoint pos;
-        
+
         /**
          * Pointer to the 'image' data
          */
         unsigned char* data;
-        
+
 };
 
 

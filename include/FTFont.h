@@ -10,10 +10,10 @@
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
@@ -75,8 +75,8 @@ class FTGL_EXPORT FTFont
          *
          * @param fontFilePath  font file path.
          */
-        FTFont( const char* fontFilePath);
-        
+        FTFont(const char* fontFilePath);
+
         /**
          * Open and read a font from a buffer in memory. Sets Error flag.
          * The buffer is owned by the client and is NOT copied by FTGL. The
@@ -85,13 +85,13 @@ class FTGL_EXPORT FTFont
          * @param pBufferBytes  the in-memory buffer
          * @param bufferSizeInBytes  the length of the buffer in bytes
          */
-        FTFont( const unsigned char *pBufferBytes, size_t bufferSizeInBytes);
-        
+        FTFont(const unsigned char *pBufferBytes, size_t bufferSizeInBytes);
+
         /**
          * Destructor
          */
         virtual ~FTFont();
-        
+
         /**
          * Attach auxilliary file to font e.g font metrics.
          *
@@ -101,7 +101,7 @@ class FTGL_EXPORT FTFont
          * @return          <code>true</code> if file has been attached
          *                  successfully.
          */
-        bool Attach( const char* fontFilePath);
+        bool Attach(const char* fontFilePath);
 
         /**
          * Attach auxilliary data to font e.g font metrics, from memory
@@ -113,7 +113,8 @@ class FTGL_EXPORT FTFont
          * @return          <code>true</code> if file has been attached
          *                  successfully.
          */
-        bool Attach( const unsigned char *pBufferBytes, size_t bufferSizeInBytes);
+        bool Attach(const unsigned char *pBufferBytes,
+                    size_t bufferSizeInBytes);
 
         /**
          * Set the character map for the face.
@@ -122,7 +123,7 @@ class FTGL_EXPORT FTFont
          * @return              <code>true</code> if charmap was valid and
          *                      set correctly
          */
-        bool CharMap( FT_Encoding encoding );
+        bool CharMap(FT_Encoding encoding);
 
         /**
          * Get the number of character maps in this face.
@@ -137,7 +138,7 @@ class FTGL_EXPORT FTFont
          * @return pointer to the first encoding.
          */
         FT_Encoding* CharMapList();
-        
+
         /**
          * Set the char size for the current face.
          *
@@ -145,15 +146,16 @@ class FTGL_EXPORT FTFont
          * @param res       the resolution of the target device.
          * @return          <code>true</code> if size was set correctly
          */
-        virtual bool FaceSize( const unsigned int size, const unsigned int res = 72);
-        
+        virtual bool FaceSize(const unsigned int size,
+                              const unsigned int res = 72);
+
         /**
          * Get the current face size in points.
          *
          * @return face size
          */
         unsigned int FaceSize() const;
-        
+
         /**
          * Set the extrusion distance for the font. Only implemented by
          * FTGLExtrdFont
@@ -185,29 +187,29 @@ class FTGL_EXPORT FTFont
          * @param  useList <code>true</code> turns ON display lists.
          *                 <code>false</code> turns OFF display lists.
          */
-        void UseDisplayList( bool useList);
-        
+        void UseDisplayList(bool useList);
+
         /**
          * Get the global ascender height for the face.
          *
          * @return  Ascender height
          */
         float Ascender() const;
-        
+
         /**
          * Gets the global descender height for the face.
          *
          * @return  Descender height
          */
         float Descender() const;
-        
+
         /**
          * Gets the line spacing for the font.
          *
          * @return  Line height
          */
         float LineHeight() const;
-        
+
         /**
          * Get the bounding box for a string.
          *
@@ -227,7 +229,7 @@ class FTGL_EXPORT FTFont
         void BBox(const char *string, const int start, const int end,
                   float& llx, float& lly, float& llz,
                   float& urx, float& ury, float& urz);
-                  
+
         /**
          * Get the bounding box for a string.
          *
@@ -247,7 +249,7 @@ class FTGL_EXPORT FTFont
         void BBox(const wchar_t *string, const int start, const int end,
                   float& llx, float& lly, float& llz,
                   float& urx, float& ury, float& urz);
-        
+
         /**
          * Get the bounding box for a string.
          *
@@ -281,7 +283,7 @@ class FTGL_EXPORT FTFont
         {
             BBox(string, 0, -1, llx, lly, llz, urx, ury, urz);
         }
-            
+
         /**
          * Get the advance width for a string.
          *
@@ -300,8 +302,8 @@ class FTGL_EXPORT FTFont
 
         /**
          * Render a string of characters
-         * 
-         * @param string    'C' style string to be output.   
+         *
+         * @param string    'C' style string to be output.
          */
         virtual void Render(const char* string);
 
@@ -333,7 +335,7 @@ class FTGL_EXPORT FTFont
          *
          * @return  The current error code.
          */
-        FT_Error Error() const { return err;}
+        FT_Error Error() const { return err; }
 
     protected:
         /**
@@ -345,13 +347,13 @@ class FTGL_EXPORT FTFont
          * @param g The glyph index NOT the char code.
          * @return  An FT****Glyph or <code>null</code> on failure.
          */
-        virtual FTGlyph* MakeGlyph( unsigned int g) = 0;
-        
+        virtual FTGlyph* MakeGlyph(unsigned int g) = 0;
+
         /**
          * Current face object
          */
         FTFace face;
-        
+
         /**
          * Current size object
          */
@@ -392,7 +394,7 @@ class FTGL_EXPORT FTFont
          * @param chr  character index
          * @return <code>true</code> if the glyph can be created.
          */
-        bool CheckGlyph( const unsigned int chr);
+        bool CheckGlyph(const unsigned int chr);
 
         /**
          * An object that holds a list of glyphs

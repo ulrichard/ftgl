@@ -10,10 +10,10 @@
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
@@ -57,41 +57,42 @@ class FTGL_EXPORT FTGLBufferFont : public FTFont
          *
          * @param fontname  font file name.
          */
-        FTGLBufferFont( const char* fontname);
-        
+        FTGLBufferFont(const char* fontname);
+
         /**
          * Open and read a font from a buffer in memory. Sets Error flag.
          *
          * @param pBufferBytes  the in-memory buffer
          * @param bufferSizeInBytes  the length of the buffer in bytes
          */
-        FTGLBufferFont( const unsigned char *pBufferBytes, size_t bufferSizeInBytes);
-        
-        
-        void SetClientBuffer( unsigned char* b)
+        FTGLBufferFont(const unsigned char *pBufferBytes,
+                       size_t bufferSizeInBytes);
+
+
+        void SetClientBuffer(unsigned char* b)
         {
             buffer = b;
         }
-        
-        
+
+
         /**
          * Destructor
          */
         ~FTGLBufferFont();
-        
+
         /**
          * Renders a string of characters
-         * 
-         * @param string    'C' style string to be output.   
+         *
+         * @param string    'C' style string to be output.
          */
-        void Render( const char* string);
-        
+        void Render(const char* string);
+
         /**
          * Renders a string of characters
-         * 
-         * @param string    wchar_t string to be output.     
+         *
+         * @param string    wchar_t string to be output.
          */
-        void Render( const wchar_t* string);
+        void Render(const wchar_t* string);
 
     private:
         /**
@@ -100,8 +101,8 @@ class FTGL_EXPORT FTGLBufferFont : public FTFont
          * @param g The glyph index NOT the char code.
          * @return  An FTBufferGlyph or <code>null</code> on failure.
          */
-        inline virtual FTGlyph* MakeGlyph( unsigned int g);
-        
+        inline virtual FTGlyph* MakeGlyph(unsigned int g);
+
         unsigned char* buffer;
 };
 

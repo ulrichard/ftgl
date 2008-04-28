@@ -10,10 +10,10 @@
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
@@ -40,13 +40,14 @@
 #include "FTPixmapGlyph.h"
 
 
-FTGLPixmapFont::FTGLPixmapFont( const char* fontFilePath)
-:   FTFont( fontFilePath)
+FTGLPixmapFont::FTGLPixmapFont(const char* fontFilePath)
+:   FTFont(fontFilePath)
 {}
 
 
-FTGLPixmapFont::FTGLPixmapFont( const unsigned char *pBufferBytes, size_t bufferSizeInBytes)
-:   FTFont( pBufferBytes, bufferSizeInBytes)
+FTGLPixmapFont::FTGLPixmapFont(const unsigned char *pBufferBytes,
+                               size_t bufferSizeInBytes)
+:   FTFont(pBufferBytes, bufferSizeInBytes)
 {}
 
 
@@ -54,14 +55,14 @@ FTGLPixmapFont::~FTGLPixmapFont()
 {}
 
 
-FTGlyph* FTGLPixmapFont::MakeGlyph( unsigned int g)
+FTGlyph* FTGLPixmapFont::MakeGlyph(unsigned int g)
 {
     FT_GlyphSlot ftGlyph = face.Glyph(g, FT_LOAD_NO_HINTING
                                           | FT_LOAD_NO_BITMAP);
 
-    if( ftGlyph)
+    if(ftGlyph)
     {
-        FTPixmapGlyph* tempGlyph = new FTPixmapGlyph( ftGlyph);
+        FTPixmapGlyph* tempGlyph = new FTPixmapGlyph(ftGlyph);
         return tempGlyph;
     }
 
@@ -72,7 +73,7 @@ FTGlyph* FTGLPixmapFont::MakeGlyph( unsigned int g)
 
 template <typename T>
 inline void FTGLPixmapFont::RenderI(const T* string)
-{   
+{
     glPushAttrib(GL_ENABLE_BIT | GL_PIXEL_MODE_BIT | GL_COLOR_BUFFER_BIT);
     glPushClientAttrib(GL_CLIENT_PIXEL_STORE_BIT);
 
@@ -103,7 +104,7 @@ void FTGLPixmapFont::Render(const char* string)
 
 
 void FTGLPixmapFont::Render(const wchar_t* string)
-{   
+{
     RenderI(string);
 }
 

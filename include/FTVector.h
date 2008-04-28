@@ -10,10 +10,10 @@
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
@@ -50,84 +50,84 @@ class FTGL_EXPORT FTVector
         typedef value_type* iterator;
         typedef const value_type* const_iterator;
         typedef size_t size_type;
-        
+
         FTVector()
         {
             Capacity = Size = 0;
             Items = 0;
         }
 
-        
+
         virtual ~FTVector()
         {
             clear();
         }
-        
+
         FTVector& operator =(const FTVector& v)
         {
             reserve(v.capacity());
-            
+
             iterator ptr = begin();
             const_iterator vbegin = v.begin();
             const_iterator vend = v.end();
-            
-            while( vbegin != vend)
+
+            while(vbegin != vend)
             {
                 *ptr++ = *vbegin++;
             }
-            
+
             Size = v.size();
             return *this;
         }
-        
+
         size_type size() const
         {
             return Size;
         }
-        
+
         size_type capacity() const
         {
             return Capacity;
         }
-        
+
         iterator begin()
         {
             return Items;
         }
-        
+
         const_iterator begin() const
         {
             return Items;
         }
-        
+
         iterator end()
         {
-            return begin() + size(); 
+            return begin() + size();
         }
-        
+
         const_iterator end() const
         {
-            return begin() + size(); 
-        }
-        
-        bool empty() const 
-        { 
-            return size() == 0; 
+            return begin() + size();
         }
 
-        reference operator [](size_type pos) 
-        { 
-            return( *(begin() + pos)); 
+        bool empty() const
+        {
+            return size() == 0;
         }
 
-        const_reference operator []( size_type pos) const 
-        { 
-            return( *(begin() + pos)); 
+        reference operator [](size_type pos)
+        {
+            return(*(begin() + pos));
         }
-        
+
+        const_reference operator [](size_type pos) const
+        {
+            return *(begin() + pos);
+        }
+
         void clear()
         {
-            if( Capacity)
+            if(Capacity)
             {
                 delete [] Items;
                 Capacity = Size = 0;
@@ -135,9 +135,9 @@ class FTGL_EXPORT FTVector
             }
         }
 
-        void reserve( size_type n)
+        void reserve(size_type n)
         {
-            if( capacity() < n)
+            if(capacity() < n)
             {
                 expand(n);
             }
@@ -145,18 +145,18 @@ class FTGL_EXPORT FTVector
 
         void push_back(const value_type& x)
         {
-            if( size() == capacity())
+            if(size() == capacity())
             {
                 expand();
             }
-           
-           ( *this)[size()] = x;
+
+           (*this)[size()] = x;
             ++Size;
         }
 
         void resize(size_type n, value_type x)
         {
-            if( n == size())
+            if(n == size())
             {
                 return;
             }
@@ -183,14 +183,14 @@ class FTGL_EXPORT FTVector
             Size = n;
         }
 
-        
+
     private:
         void expand(size_type capacity_hint = 0)
         {
-            size_type new_capacity =( capacity() == 0) ? 256 : capacity()* 2;
-            if( capacity_hint)
+            size_type new_capacity = (capacity() == 0) ? 256 : capacity() * 2;
+            if(capacity_hint)
             {
-                while( new_capacity < capacity_hint)
+                while(new_capacity < capacity_hint)
                 {
                     new_capacity *= 2;
                 }
@@ -211,7 +211,7 @@ class FTGL_EXPORT FTVector
             {
                 delete [] Items;
             }
-        
+
             Items = new_items;
             Capacity = new_capacity;
         }

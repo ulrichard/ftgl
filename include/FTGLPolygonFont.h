@@ -10,10 +10,10 @@
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
@@ -57,21 +57,22 @@ class FTGL_EXPORT FTGLPolygonFont : public FTFont
          *
          * @param fontFilePath  font file path.
          */
-        FTGLPolygonFont( const char* fontFilePath);
-        
+        FTGLPolygonFont(const char* fontFilePath);
+
         /**
          * Open and read a font from a buffer in memory. Sets Error flag.
          *
          * @param pBufferBytes  the in-memory buffer
          * @param bufferSizeInBytes  the length of the buffer in bytes
          */
-        FTGLPolygonFont( const unsigned char *pBufferBytes, size_t bufferSizeInBytes);
-        
+        FTGLPolygonFont(const unsigned char *pBufferBytes,
+                        size_t bufferSizeInBytes);
+
         /**
          * Destructor
          */
         ~FTGLPolygonFont();
-        
+
         /**
          * Set the outset distance for the font. Only implemented by
          * FTGLOutlineFont, FTGLPolygonFont and FTGLExtrdFont
@@ -87,8 +88,8 @@ class FTGL_EXPORT FTGLPolygonFont : public FTFont
          * @param g The glyph index NOT the char code.
          * @return  An FTPolyGlyph or <code>null</code> on failure.
          */
-        inline virtual FTGlyph* MakeGlyph( unsigned int g);
-        
+        inline virtual FTGlyph* MakeGlyph(unsigned int g);
+
         /**
          * The outset distance (front and back) for the font.
          */

@@ -35,16 +35,16 @@ static int height;
 
 
 void
-my_init( const char* font_filename )
+my_init(const char* font_filename)
 {
     glClearColor(0.0, 0.0, 0.0, 0.0);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-    fonts[0] = new FTGLOutlineFont( font_filename);
-    fonts[1] = new FTGLPolygonFont( font_filename);
-    fonts[2] = new FTGLTextureFont( font_filename);
-    fonts[3] = new FTGLBitmapFont( font_filename);
-    fonts[4] = new FTGLPixmapFont( font_filename);
+    fonts[0] = new FTGLOutlineFont(font_filename);
+    fonts[1] = new FTGLPolygonFont(font_filename);
+    fonts[2] = new FTGLTextureFont(font_filename);
+    fonts[3] = new FTGLBitmapFont(font_filename);
+    fonts[4] = new FTGLPixmapFont(font_filename);
     for (int i=0; i< 5; i++)
     {
         if (fonts[i]->Error())
@@ -71,14 +71,14 @@ do_ortho()
     int h;
     GLdouble size;
     GLdouble aspect;
-    
+
     w = width;
     h = height;
     aspect = (GLdouble)w / (GLdouble)h;
-    
+
     // Use the whole window.
     glViewport(0, 0, w, h);
-    
+
     // We are going to do some 2-D orthographic drawing.
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -93,11 +93,11 @@ do_ortho()
         glOrtho(-size*aspect, size*aspect, -size, size,
                 -100000.0, 100000.0);
     }
-    
+
     // Make the world and window coordinates coincide so that 1.0 in
     // model space equals one pixel in window space.
     glScaled(aspect, aspect, 1.0);
-    
+
     // Now determine where to draw things.
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
@@ -109,8 +109,8 @@ my_reshape(int w, int h)
 {
     width = w;
     height = h;
-    
-    do_ortho( );
+
+    do_ortho();
 }
 
 void
@@ -247,23 +247,23 @@ my_idle()
     glutPostRedisplay();
 }
 
-int 
-file_exists( const char * fontFilePath )
+int
+file_exists(const char * fontFilePath)
 {
-    FILE * fp = fopen( fontFilePath, "r" );
+    FILE * fp = fopen(fontFilePath, "r");
 
-    if ( fp == NULL )
+    if (fp == NULL)
     {
-        // That fopen failed does _not_ definitely mean the file isn't there 
+        // That fopen failed does _not_ definitely mean the file isn't there
         // but for now this is ok
         return 0;
     }
-    fclose( fp );
+    fclose(fp);
     return 1;
 }
 
 void
-usage( const char * program )
+usage(const char * program)
 {
     std::cerr << "Usage: " << program << " <fontFilePath.ttf>\n" << std::endl;
 }
@@ -279,30 +279,30 @@ main(int argc, char **argv)
 
     glutCreateWindow("FTGL demo");
 
-    if ( argc >= 2 ) 
+    if (argc >= 2)
     {
-        if ( !file_exists( argv[ 1 ] ))
+        if (!file_exists(argv[ 1 ]))
         {
-            usage( argv[ 0 ]);
+            usage(argv[ 0 ]);
             std::cerr << "Couldn't open file '" << argv[ 1 ] << "'" << std::endl;
-            exit( -1 );
+            exit(-1);
         }
         fontFilePath = argv[ 1 ];
     }
-    else 
+    else
     {
         // try a default font
         fontFilePath = DEFAULT_FONT;
 
-        if ( !file_exists( fontFilePath ))
+        if (!file_exists(fontFilePath))
         {
-            usage( argv[ 0 ]);
+            usage(argv[ 0 ]);
             std::cerr << "Couldn't open default file '" << fontFilePath << "'" << std::endl;
-            exit( -1 );
+            exit(-1);
         }
     }
 
-    my_init( fontFilePath );
+    my_init(fontFilePath);
 
     glutDisplayFunc(my_display);
     glutReshapeFunc(my_reshape);
@@ -310,12 +310,12 @@ main(int argc, char **argv)
     glutKeyboardFunc(my_handle_key);
 
     glutMainLoop();
-        
+
     for(int x = 0; x < 5; ++x)
     {
         delete fonts[x];
     }
-        
+
     return 0;
 }
 

@@ -10,10 +10,10 @@
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
@@ -57,7 +57,7 @@ class FTGL_EXPORT FTGLOutlineFont : public FTFont
          *
          * @param fontFilePath  font file path.
          */
-        FTGLOutlineFont( const char* fontFilePath);
+        FTGLOutlineFont(const char* fontFilePath);
 
         /**
          * Open and read a font from a buffer in memory. Sets Error flag.
@@ -65,7 +65,8 @@ class FTGL_EXPORT FTGLOutlineFont : public FTFont
          * @param pBufferBytes  the in-memory buffer
          * @param bufferSizeInBytes  the length of the buffer in bytes
          */
-        FTGLOutlineFont( const unsigned char *pBufferBytes, size_t bufferSizeInBytes);
+        FTGLOutlineFont(const unsigned char *pBufferBytes,
+                        size_t bufferSizeInBytes);
 
         /**
          * Destructor

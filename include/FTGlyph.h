@@ -10,10 +10,10 @@
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
@@ -67,7 +67,7 @@ class FTGL_EXPORT FTGlyph
          *                       <code>true</code> turns ON display lists.
          *                       <code>false</code> turns OFF display lists.
          */
-        FTGlyph( FT_GlyphSlot glyph, bool useDisplayList = true);
+        FTGlyph(FT_GlyphSlot glyph, bool useDisplayList = true);
 
         /**
          * Destructor
@@ -88,21 +88,21 @@ class FTGL_EXPORT FTGlyph
          *
          * @return  advance width.
          */
-        const FTPoint& Advance() const { return advance;}
+        const FTPoint& Advance() const { return advance; }
 
         /**
          * Return the bounding box for this glyph.
          *
          * @return  bounding box.
          */
-        const FTBBox& BBox() const { return bBox;}
+        const FTBBox& BBox() const { return bBox; }
 
         /**
          * Queries for errors.
          *
          * @return  The current error code.
          */
-        FT_Error Error() const { return err;}
+        FT_Error Error() const { return err; }
 
     protected:
         /**

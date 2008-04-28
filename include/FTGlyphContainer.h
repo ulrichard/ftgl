@@ -10,10 +10,10 @@
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
@@ -62,7 +62,7 @@ class FTGL_EXPORT FTGlyphContainer
          *
          * @param face      The Freetype face
          */
-        FTGlyphContainer( FTFace* face);
+        FTGlyphContainer(FTFace* face);
 
         /**
          * Destructor
@@ -76,7 +76,7 @@ class FTGL_EXPORT FTGlyphContainer
          * @return              <code>true</code> if charmap was valid
          *                      and set correctly
          */
-        bool CharMap( FT_Encoding encoding);
+        bool CharMap(FT_Encoding encoding);
 
         /**
          * Get the font index of the input character.
@@ -85,7 +85,7 @@ class FTGL_EXPORT FTGlyphContainer
          *                      current encoding eg apple roman.
          * @return      The font index for the character.
          */
-        unsigned int FontIndex( const unsigned int characterCode ) const;
+        unsigned int FontIndex(const unsigned int characterCode) const;
 
         /**
          * Adds a glyph to this glyph list.
@@ -93,7 +93,7 @@ class FTGL_EXPORT FTGlyphContainer
          * @param glyph         The FTGlyph to be inserted into the container
          * @param characterCode The char code of the glyph NOT the glyph index.
          */
-        void Add( FTGlyph* glyph, const unsigned int characterCode);
+        void Add(FTGlyph* glyph, const unsigned int characterCode);
 
         /**
          * Get a glyph from the glyph list
@@ -102,13 +102,13 @@ class FTGL_EXPORT FTGlyphContainer
          * @return              An FTGlyph or <code>null</code> is it hasn't been
          * loaded.
          */
-        const FTGlyph* const Glyph( const unsigned int characterCode) const;
+        const FTGlyph* const Glyph(const unsigned int characterCode) const;
 
         /**
          * Get the bounding box for a character.
          * @param characterCode The char code of the glyph NOT the glyph index
          */
-        FTBBox BBox( const unsigned int characterCode) const;
+        FTBBox BBox(const unsigned int characterCode) const;
 
         /**
         * Returns the kerned advance width for a glyph.
@@ -117,7 +117,8 @@ class FTGL_EXPORT FTGlyphContainer
         * @param nextCharacterCode the next glyph in a string
         * @return                  advance width
         */
-        float Advance( const unsigned int characterCode, const unsigned int nextCharacterCode);
+        float Advance(const unsigned int characterCode,
+                      const unsigned int nextCharacterCode);
 
         /**
          * Renders a character
@@ -127,7 +128,8 @@ class FTGL_EXPORT FTGlyphContainer
          * @param renderMode         Render mode to display
          * @return                   The distance to advance the pen position after Rendering
          */
-        FTPoint Render( const unsigned int characterCode, const unsigned int nextCharacterCode,
+        FTPoint Render(const unsigned int characterCode,
+                       const unsigned int nextCharacterCode,
                         FTPoint penPosition, int renderMode);
 
         /**
@@ -135,7 +137,7 @@ class FTGL_EXPORT FTGlyphContainer
          *
          * @return  The current error code.
          */
-        FT_Error Error() const { return err;}
+        FT_Error Error() const { return err; }
 
     private:
         /**

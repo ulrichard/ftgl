@@ -10,10 +10,10 @@
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
@@ -61,11 +61,11 @@ class FTGL_EXPORT FTBBox
             upperY(0.0f),
             upperZ(0.0f)
         {}
-        
+
         /**
          * Constructor.
          */
-        FTBBox( float lx, float ly, float lz, float ux, float uy, float uz)
+        FTBBox(float lx, float ly, float lz, float ux, float uy, float uz)
         :   lowerX(lx),
             lowerY(ly),
             lowerZ(lz),
@@ -73,14 +73,14 @@ class FTGL_EXPORT FTBBox
             upperY(uy),
             upperZ(uz)
         {}
-        
+
         /**
          * Constructor. Extracts a bounding box from a freetype glyph. Uses
          * the control box for the glyph. <code>FT_Glyph_Get_CBox()</code>
          *
          * @param glyph A freetype glyph
          */
-        FTBBox( FT_GlyphSlot glyph)
+        FTBBox(FT_GlyphSlot glyph)
         :   lowerX(0.0f),
             lowerY(0.0f),
             lowerZ(0.0f),
@@ -89,33 +89,33 @@ class FTGL_EXPORT FTBBox
             upperZ(0.0f)
         {
             FT_BBox bbox;
-            FT_Outline_Get_CBox( &(glyph->outline), &bbox);
+            FT_Outline_Get_CBox(&(glyph->outline), &bbox);
 
-            lowerX = static_cast<float>( bbox.xMin) / 64.0f;
-            lowerY = static_cast<float>( bbox.yMin) / 64.0f;
+            lowerX = static_cast<float>(bbox.xMin) / 64.0f;
+            lowerY = static_cast<float>(bbox.yMin) / 64.0f;
             lowerZ = 0.0f;
-            upperX = static_cast<float>( bbox.xMax) / 64.0f;
-            upperY = static_cast<float>( bbox.yMax) / 64.0f;
+            upperX = static_cast<float>(bbox.xMax) / 64.0f;
+            upperY = static_cast<float>(bbox.yMax) / 64.0f;
             upperZ = 0.0f;
-            
-        }       
+
+        }
 
         /**
          * Destructor
          */
         ~FTBBox()
         {}
-        
+
         /**
          * Mark the bounds invalid by setting all lower dimensions greater
          * than the upper dimensions.
          */
-        void Invalidate() 
+        void Invalidate()
         {
             lowerX = lowerY = lowerZ = 1.0f;
             upperX = upperY = upperZ = -1.0f;
         }
-        
+
         /**
          * Determines if this bounding box is valid.
          *
@@ -132,7 +132,7 @@ class FTGL_EXPORT FTBBox
          *
          * @param distance The distance to move the bbox in 3D space.
          */
-        FTBBox& Move( FTPoint distance)
+        FTBBox& Move(FTPoint distance)
         {
             lowerX += distance.X();
             lowerY += distance.Y();
@@ -143,32 +143,32 @@ class FTGL_EXPORT FTBBox
             return *this;
         }
 
-        FTBBox& operator += ( const FTBBox& bbox) 
+        FTBBox& operator += (const FTBBox& bbox)
         {
-            lowerX = bbox.lowerX < lowerX? bbox.lowerX: lowerX; 
+            lowerX = bbox.lowerX < lowerX? bbox.lowerX: lowerX;
             lowerY = bbox.lowerY < lowerY? bbox.lowerY: lowerY;
-            lowerZ = bbox.lowerZ < lowerZ? bbox.lowerZ: lowerZ; 
-            upperX = bbox.upperX > upperX? bbox.upperX: upperX; 
-            upperY = bbox.upperY > upperY? bbox.upperY: upperY; 
-            upperZ = bbox.upperZ > upperZ? bbox.upperZ: upperZ; 
-            
+            lowerZ = bbox.lowerZ < lowerZ? bbox.lowerZ: lowerZ;
+            upperX = bbox.upperX > upperX? bbox.upperX: upperX;
+            upperY = bbox.upperY > upperY? bbox.upperY: upperY;
+            upperZ = bbox.upperZ > upperZ? bbox.upperZ: upperZ;
+
             return *this;
         }
-        
-        void SetDepth( float depth)
+
+        void SetDepth(float depth)
         {
             upperZ = lowerZ + depth;
         }
-        
-        
+
+
         /**
          * The bounds of the box
          */
         // Make these ftPoints & private
         float lowerX, lowerY, lowerZ, upperX, upperY, upperZ;
     protected:
-    
-    
+
+
     private:
 
 };

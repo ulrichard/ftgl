@@ -10,10 +10,10 @@
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
@@ -46,7 +46,7 @@
 
 /**
  * FTBufferGlyph is a specialisation of FTGlyph for creating pixmaps.
- * 
+ *
  * @see FTGlyphContainer
  *
  */
@@ -58,7 +58,7 @@ class  FTGL_EXPORT FTBufferGlyph : public FTGlyph
          *
          * @param glyph The Freetype glyph to be processed
          */
-        FTBufferGlyph( FT_GlyphSlot glyph, unsigned char* clientBuffer);
+        FTBufferGlyph(FT_GlyphSlot glyph, unsigned char* clientBuffer);
 
         /**
          * Destructor
@@ -71,8 +71,8 @@ class  FTGL_EXPORT FTBufferGlyph : public FTGlyph
          * @param pen   The current pen position.
          * @return      The advance distance for this glyph.
          */
-        virtual float Render( const FTPoint& pen);
-        
+        virtual float Render(const FTPoint& pen);
+
         // attributes
 
     private:
@@ -90,20 +90,20 @@ class  FTGL_EXPORT FTBufferGlyph : public FTGlyph
          * The pitch of the glyph 'image'
          */
         unsigned int destPitch;
-        
+
         /**
          * Vector from the pen position to the topleft corner of the pixmap
          */
         FTPoint pos;
-        
+
         /**
          * Pointer to the 'image' data
          */
         unsigned char* data;
-        
-        
+
+
         unsigned char* buffer;
-        
+
 };
 
 

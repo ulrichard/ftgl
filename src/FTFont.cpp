@@ -10,10 +10,10 @@
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
@@ -39,27 +39,27 @@
 #include "FTGlyphContainer.h"
 #include "FTBBox.h"
 
-FTFont::FTFont( const char* fontFilePath)
-:   face( fontFilePath),
+FTFont::FTFont(const char* fontFilePath)
+:   face(fontFilePath),
     useDisplayLists(true),
     glyphList(0)
 {
     err = face.Error();
-    if( err == 0)
+    if(err == 0)
     {
-        glyphList = new FTGlyphContainer( &face);
+        glyphList = new FTGlyphContainer(&face);
     }
 }
 
 
-FTFont::FTFont( const unsigned char *pBufferBytes, size_t bufferSizeInBytes)
-:   face( pBufferBytes, bufferSizeInBytes),
+FTFont::FTFont(const unsigned char *pBufferBytes, size_t bufferSizeInBytes)
+:   face(pBufferBytes, bufferSizeInBytes),
     glyphList(0)
 {
     err = face.Error();
-    if( err == 0)
+    if(err == 0)
     {
-        glyphList = new FTGlyphContainer( &face);
+        glyphList = new FTGlyphContainer(&face);
     }
 }
 
@@ -73,9 +73,9 @@ FTFont::~FTFont()
 }
 
 
-bool FTFont::Attach( const char* fontFilePath)
+bool FTFont::Attach(const char* fontFilePath)
 {
-    if( face.Attach( fontFilePath))
+    if(face.Attach(fontFilePath))
     {
         err = 0;
         return true;
@@ -88,9 +88,9 @@ bool FTFont::Attach( const char* fontFilePath)
 }
 
 
-bool FTFont::Attach( const unsigned char *pBufferBytes, size_t bufferSizeInBytes)
+bool FTFont::Attach(const unsigned char *pBufferBytes, size_t bufferSizeInBytes)
 {
-    if( face.Attach( pBufferBytes, bufferSizeInBytes))
+    if(face.Attach(pBufferBytes, bufferSizeInBytes))
     {
         err = 0;
         return true;
@@ -103,22 +103,22 @@ bool FTFont::Attach( const unsigned char *pBufferBytes, size_t bufferSizeInBytes
 }
 
 
-bool FTFont::FaceSize( const unsigned int size, const unsigned int res )
+bool FTFont::FaceSize(const unsigned int size, const unsigned int res)
 {
-    charSize = face.Size( size, res);
+    charSize = face.Size(size, res);
     err = face.Error();
-    
-    if( err != 0)
+
+    if(err != 0)
     {
         return false;
     }
-    
-    if( glyphList != NULL)
+
+    if(glyphList != NULL)
     {
         delete glyphList;
     }
-    
-    glyphList = new FTGlyphContainer( &face);
+
+    glyphList = new FTGlyphContainer(&face);
     return true;
 }
 
@@ -129,9 +129,9 @@ unsigned int FTFont::FaceSize() const
 }
 
 
-bool FTFont::CharMap( FT_Encoding encoding)
+bool FTFont::CharMap(FT_Encoding encoding)
 {
-    bool result = glyphList->CharMap( encoding);
+    bool result = glyphList->CharMap(encoding);
     err = glyphList->Error();
     return result;
 }
@@ -149,7 +149,7 @@ FT_Encoding* FTFont::CharMapList()
 }
 
 
-void FTFont::UseDisplayList( bool useList)
+void FTFont::UseDisplayList(bool useList)
 {
     useDisplayLists = useList;
 }
@@ -245,7 +245,7 @@ inline float FTFont::AdvanceI(const T* string)
         }
         ++c;
     }
-    
+
     return width;
 }
 
@@ -314,22 +314,22 @@ void FTFont::Render(const wchar_t* string, int renderMode)
 }
 
 
-bool FTFont::CheckGlyph( const unsigned int characterCode)
+bool FTFont::CheckGlyph(const unsigned int characterCode)
 {
-    if( NULL == glyphList->Glyph( characterCode))
+    if(NULL == glyphList->Glyph(characterCode))
     {
-        unsigned int glyphIndex = glyphList->FontIndex( characterCode);
-        FTGlyph* tempGlyph = MakeGlyph( glyphIndex);
-        if( NULL == tempGlyph)
+        unsigned int glyphIndex = glyphList->FontIndex(characterCode);
+        FTGlyph* tempGlyph = MakeGlyph(glyphIndex);
+        if(NULL == tempGlyph)
         {
-            if( 0 == err)
+            if(0 == err)
             {
                 err = 0x13;
             }
 
             return false;
         }
-        glyphList->Add( tempGlyph, characterCode);
+        glyphList->Add(tempGlyph, characterCode);
     }
 
     return true;

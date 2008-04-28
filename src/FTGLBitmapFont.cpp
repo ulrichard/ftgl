@@ -10,10 +10,10 @@
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
@@ -40,13 +40,14 @@
 #include "FTBitmapGlyph.h"
 
 
-FTGLBitmapFont::FTGLBitmapFont( const char* fontFilePath)
-:   FTFont( fontFilePath)
+FTGLBitmapFont::FTGLBitmapFont(const char* fontFilePath)
+:   FTFont(fontFilePath)
 {}
 
 
-FTGLBitmapFont::FTGLBitmapFont( const unsigned char *pBufferBytes, size_t bufferSizeInBytes)
-:   FTFont( pBufferBytes, bufferSizeInBytes)
+FTGLBitmapFont::FTGLBitmapFont(const unsigned char *pBufferBytes,
+                               size_t bufferSizeInBytes)
+:   FTFont(pBufferBytes, bufferSizeInBytes)
 {}
 
 
@@ -54,13 +55,13 @@ FTGLBitmapFont::~FTGLBitmapFont()
 {}
 
 
-FTGlyph* FTGLBitmapFont::MakeGlyph( unsigned int g)
+FTGlyph* FTGLBitmapFont::MakeGlyph(unsigned int g)
 {
-    FT_GlyphSlot ftGlyph = face.Glyph( g, FT_LOAD_DEFAULT);
+    FT_GlyphSlot ftGlyph = face.Glyph(g, FT_LOAD_DEFAULT);
 
-    if( ftGlyph)
+    if(ftGlyph)
     {
-        FTBitmapGlyph* tempGlyph = new FTBitmapGlyph( ftGlyph);
+        FTBitmapGlyph* tempGlyph = new FTBitmapGlyph(ftGlyph);
         return tempGlyph;
     }
 
@@ -72,15 +73,15 @@ FTGlyph* FTGLBitmapFont::MakeGlyph( unsigned int g)
 template <typename T>
 inline void FTGLBitmapFont::RenderI(const T *string)
 {
-    glPushClientAttrib( GL_CLIENT_PIXEL_STORE_BIT);
-    glPushAttrib( GL_ENABLE_BIT);
-    
-    glPixelStorei( GL_UNPACK_LSB_FIRST, GL_FALSE);
-    glPixelStorei( GL_UNPACK_ALIGNMENT, 1);
+    glPushClientAttrib(GL_CLIENT_PIXEL_STORE_BIT);
+    glPushAttrib(GL_ENABLE_BIT);
 
-    glDisable( GL_BLEND);
+    glPixelStorei(GL_UNPACK_LSB_FIRST, GL_FALSE);
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
-    FTFont::Render( string);
+    glDisable(GL_BLEND);
+
+    FTFont::Render(string);
 
     glPopAttrib();
     glPopClientAttrib();
@@ -88,13 +89,13 @@ inline void FTGLBitmapFont::RenderI(const T *string)
 
 
 void FTGLBitmapFont::Render(const char* string)
-{   
+{
     RenderI(string);
 }
 
 
 void FTGLBitmapFont::Render(const wchar_t* string)
-{   
+{
     RenderI(string);
 }
 

@@ -10,10 +10,10 @@
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
@@ -51,13 +51,13 @@ FTSize::~FTSize()
 {}
 
 
-bool FTSize::CharSize( FT_Face* face, unsigned int pointSize, unsigned int xRes, unsigned int yRes )
+bool FTSize::CharSize(FT_Face* face, unsigned int pointSize, unsigned int xRes, unsigned int yRes)
 {
-    if( size != pointSize || xResolution != xRes || yResolution != yRes)
+    if(size != pointSize || xResolution != xRes || yResolution != yRes)
     {
-        err = FT_Set_Char_Size( *face, 0L, pointSize * 64, xResolution, yResolution);
+        err = FT_Set_Char_Size(*face, 0L, pointSize * 64, xResolution, yResolution);
 
-        if( !err)
+        if(!err)
         {
             ftFace = face;
             size = pointSize;
@@ -66,7 +66,7 @@ bool FTSize::CharSize( FT_Face* face, unsigned int pointSize, unsigned int xRes,
             ftSize = (*ftFace)->size;
         }
     }
-    
+
     return !err;
 }
 
@@ -79,48 +79,48 @@ unsigned int FTSize::CharSize() const
 
 float FTSize::Ascender() const
 {
-    return ftSize == 0 ? 0.0f : static_cast<float>( ftSize->metrics.ascender) / 64.0f;
+    return ftSize == 0 ? 0.0f : static_cast<float>(ftSize->metrics.ascender) / 64.0f;
 }
 
 
 float FTSize::Descender() const
 {
-    return ftSize == 0 ? 0.0f : static_cast<float>( ftSize->metrics.descender) / 64.0f;
+    return ftSize == 0 ? 0.0f : static_cast<float>(ftSize->metrics.descender) / 64.0f;
 }
 
 
 float FTSize::Height() const
 {
-    if( 0 == ftSize)
+    if(0 == ftSize)
     {
         return 0.0f;
     }
-    
-    if( FT_IS_SCALABLE((*ftFace)))
+
+    if(FT_IS_SCALABLE((*ftFace)))
     {
-        return ( (*ftFace)->bbox.yMax - (*ftFace)->bbox.yMin) * ( (float)ftSize->metrics.y_ppem / (float)(*ftFace)->units_per_EM);
+        return ((*ftFace)->bbox.yMax - (*ftFace)->bbox.yMin) * ((float)ftSize->metrics.y_ppem / (float)(*ftFace)->units_per_EM);
     }
     else
     {
-        return static_cast<float>( ftSize->metrics.height) / 64.0f;
+        return static_cast<float>(ftSize->metrics.height) / 64.0f;
     }
 }
 
 
 float FTSize::Width() const
 {
-    if( 0 == ftSize)
+    if(0 == ftSize)
     {
         return 0.0f;
     }
-    
-    if( FT_IS_SCALABLE((*ftFace)))
+
+    if(FT_IS_SCALABLE((*ftFace)))
     {
-        return ( (*ftFace)->bbox.xMax - (*ftFace)->bbox.xMin) * ( static_cast<float>(ftSize->metrics.x_ppem) / static_cast<float>((*ftFace)->units_per_EM));
+        return ((*ftFace)->bbox.xMax - (*ftFace)->bbox.xMin) * (static_cast<float>(ftSize->metrics.x_ppem) / static_cast<float>((*ftFace)->units_per_EM));
     }
     else
     {
-        return static_cast<float>( ftSize->metrics.max_advance) / 64.0f;
+        return static_cast<float>(ftSize->metrics.max_advance) / 64.0f;
     }
 }
 
