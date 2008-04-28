@@ -18,7 +18,7 @@ EXTRA_DIST = \
 	NEWS \
 	README \
 	TODO \
-	bootstrap \
+	autogen.sh \
 	cleanup \
 	configure.ac \
 	ftgl.pc.in \
