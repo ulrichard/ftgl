@@ -34,37 +34,31 @@
 
 #include "config.h"
 
-#include "FTGlyph.h"
+#include "FTPoint.h"
+#include "FTFont.h"
+#include "FTLayout.h"
 
-
-FTGlyph::FTGlyph(FT_GlyphSlot glyph, bool useList) : err(0)
+void FTLayout::DoRender(FTFont *font, const unsigned int chr,
+              const unsigned int nextChr, int renderMode)
 {
-    if(glyph)
-    {
-        bBox = FTBBox(glyph);
-        advance = FTPoint(glyph->advance.x / 64.0f, glyph->advance.y / 64.0f, 0.0f);
-    }
+    font->DoRender(chr, nextChr, pen, renderMode);
 }
 
 
-FTGlyph::~FTGlyph()
-{}
-
-
-const FTPoint& FTGlyph::Advance() const
+void FTLayout::CheckGlyph(FTFont *font, const unsigned int Chr)
 {
-    return advance;
+    font->CheckGlyph(Chr);
 }
 
 
-const FTBBox& FTGlyph::BBox() const
+FTGlyphContainer * FTLayout::GetGlyphs(FTFont *font)
 {
-    return bBox;
+    return(font->glyphList);
 }
 
 
-FT_Error FTGlyph::Error() const
+FTSize & FTLayout::GetCharSize(FTFont *font)
 {
-    return err;
+    return(font->charSize);
 }
 

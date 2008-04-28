@@ -162,7 +162,7 @@ class FTGL_EXPORT FTFont
          *
          * @param depth  The extrusion distance.
          */
-        virtual void Depth(float depth) {}
+        virtual void Depth(float depth);
 
         /**
          * Set the outset distance for the font. Only implemented by
@@ -170,7 +170,7 @@ class FTGL_EXPORT FTFont
          *
          * @param outset  The outset distance.
          */
-        virtual void Outset(float outset) {}
+        virtual void Outset(float outset);
 
         /**
          * Set the front and back outset distances for the font. Only
@@ -179,7 +179,7 @@ class FTGL_EXPORT FTFont
          * @param front  The front outset distance.
          * @param back   The back outset distance.
          */
-        virtual void Outset(float front, float back) {}
+        virtual void Outset(float front, float back);
 
         /**
          * Enable or disable the use of Display Lists inside FTGL
@@ -262,10 +262,7 @@ class FTGL_EXPORT FTFont
          * @param urz       upper right far z coord
          */
         void BBox(const char* string, float& llx, float& lly, float& llz,
-                  float& urx, float& ury, float& urz)
-        {
-            BBox(string, 0, -1, llx, lly, llz, urx, ury, urz);
-        }
+                  float& urx, float& ury, float& urz);
 
         /**
          * Get the bounding box for a string.
@@ -279,10 +276,7 @@ class FTGL_EXPORT FTFont
          * @param urz       upper right far z coord
          */
         void BBox(const wchar_t* string, float& llx, float& lly, float& llz,
-                  float& urx, float& ury, float& urz)
-        {
-            BBox(string, 0, -1, llx, lly, llz, urx, ury, urz);
-        }
+                  float& urx, float& ury, float& urz);
 
         /**
          * Get the advance width for a string.
@@ -335,7 +329,7 @@ class FTGL_EXPORT FTFont
          *
          * @return  The current error code.
          */
-        FT_Error Error() const { return err; }
+        FT_Error Error() const;
 
     protected:
         /**

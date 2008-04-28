@@ -129,6 +129,24 @@ unsigned int FTFont::FaceSize() const
 }
 
 
+void FTFont::Depth(float depth)
+{
+    ;
+}
+
+
+void FTFont::Outset(float outset)
+{
+    ;
+}
+
+
+void FTFont::Outset(float front, float back)
+{
+    ;
+}
+
+
 bool FTFont::CharMap(FT_Encoding encoding)
 {
     bool result = glyphList->CharMap(encoding);
@@ -231,6 +249,20 @@ void FTFont::BBox(const wchar_t* string, const int start, const int end,
 }
 
 
+void FTFont::BBox(const char* string, float& llx, float& lly, float& llz,
+                  float& urx, float& ury, float& urz)
+{
+    BBox(string, 0, -1, llx, lly, llz, urx, ury, urz);
+}
+
+
+void FTFont::BBox(const wchar_t* string, float& llx, float& lly, float& llz,
+                  float& urx, float& ury, float& urz)
+{
+    BBox(string, 0, -1, llx, lly, llz, urx, ury, urz);
+}
+
+
 template <typename T>
 inline float FTFont::AdvanceI(const T* string)
 {
@@ -311,6 +343,12 @@ void FTFont::Render(const char * string, int renderMode)
 void FTFont::Render(const wchar_t* string, int renderMode)
 {
     RenderI(string, renderMode);
+}
+
+
+FT_Error FTFont::Error() const
+{
+    return err;
 }
 
 

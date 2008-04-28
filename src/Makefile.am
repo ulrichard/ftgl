@@ -17,6 +17,7 @@ libftgl_la_SOURCES = \
 	FTGlyph.cpp \
 	FTGlyphContainer.cpp \
 	FTGlue.cpp \
+	FTLayout.cpp \
 	FTLibrary.cpp \
 	FTOutlineGlyph.cpp \
 	FTPixmapGlyph.cpp \
