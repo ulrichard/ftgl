@@ -30,3 +30,5 @@ EXTRA_DIST = \
     images/metrics.png \
     html.tar.gz \
     $(NULL)
+
+NULL =

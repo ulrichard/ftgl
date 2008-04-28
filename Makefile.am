@@ -23,3 +23,5 @@ EXTRA_DIST = \
 	configure.ac \
 	ftgl.pc.in \
 	$(NULL)
+
+NULL =

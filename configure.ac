@@ -1,7 +1,12 @@
-AC_INIT(ftgl, 2.1.3, henryj@paradise.net.nz)
+dnl Minimum version of autoconf required.  Should coincide with the
+dnl setting in the autogen.sh script.
+AC_PREREQ(2.58)
+
+AC_INIT(FTGL, 2.1.3, [henryj@paradise.net.nz], ftgl)
+AC_CONFIG_SRCDIR(src/FTFont.cpp)
 AC_CONFIG_AUX_DIR(.auto)
-AC_CONFIG_HEADER(config.h)
-AM_INIT_AUTOMAKE([no-define tar-ustar])
+AM_INIT_AUTOMAKE([1.6 no-define dist-zip dist-bzip2])
+AM_CONFIG_HEADER(config.h)
 
 FTGL_PROG_CXX
 
@@ -40,7 +45,8 @@ FTGL_CHECK_GL
 FTGL_CHECK_GLUT
 
 CPPUNIT="no"
-PKG_CHECK_MODULES(CPPUNIT, cppunit, [CPPUNIT="yes"], [AC_MSG_RESULT(no)])
+PKG_CHECK_MODULES(CPPUNIT, cppunit, [CPPUNIT="yes"])
+AC_MSG_RESULT($CPPUNIT)
 AM_CONDITIONAL(HAVE_CPPUNIT, test "$CPPUNIT" != "no")
 
 # Checks for library functions -- this isn't really used at the moment

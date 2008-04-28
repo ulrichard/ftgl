@@ -27,3 +27,4 @@ FTGLMFontDemo_CXXFLAGS = $(FT2_CFLAGS) $(GL_CFLAGS)
 FTGLMFontDemo_LDFLAGS = $(FT2_LIBS) $(GLUT_LIBS)
 FTGLMFontDemo_LDADD = ../src/libftgl.la
 
+NULL =

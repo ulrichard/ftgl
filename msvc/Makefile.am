@@ -10,3 +10,5 @@ EXTRA_DIST = \
     ftgl_demo.vcproj \
     ftgl_demo_2.vcproj \
     $(NULL)
+
+NULL =

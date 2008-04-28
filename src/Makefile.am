@@ -63,6 +63,7 @@ ftgl_HEADERS = \
 	../include/FTSize.h \
 	../include/FTTextureGlyph.h \
 	../include/FTVector.h \
-	../include/FTVectoriser.h
+	../include/FTVectoriser.h \
+	${NULL}
 
-
+NULL =

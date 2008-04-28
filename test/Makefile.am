@@ -48,3 +48,4 @@ DEACTIVATED = \
     FTlayout-Test.cpp \
     $(NULL)
 
+NULL =
