@@ -96,6 +96,14 @@ static inline FTGLfont *createFTFont(ftglType type, const char *fontname)
             ftgl->ptr = new FTGLTextureFont(fontname);
             break;
     }
+
+    if(ftgl->ptr->Error())
+    {
+        delete ftgl->ptr;
+        free(ftgl);
+        return NULL;
+    }
+
     return ftgl;
 }
 
