@@ -38,13 +38,12 @@
 
 #include <ctype.h>
 
-#include "FTInternals.h"
-
 #include "FTFont.h"
 #include "FTGlyphContainer.h"
 #include "FTBBox.h"
 
 #include "FTSimpleLayout.h"
+#include "FTSimpleLayoutImpl.h"
 
 
 //

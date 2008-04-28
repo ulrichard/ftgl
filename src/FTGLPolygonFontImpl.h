@@ -32,57 +32,48 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA.
  */
 
-#ifndef     __FTGLPolygonFont__
-#define     __FTGLPolygonFont__
+#ifndef __FTGLPolygonFontImpl__
+#define __FTGLPolygonFontImpl__
 
-#ifdef __cplusplus
+#include "FTGLPolygonFont.h"
+#include "FTFontImpl.h"
 
-#include "FTFont.h"
-#include "FTGL.h"
+class FTGlyph;
 
-
-/**
- * FTGLPolygonFont is a specialisation of the FTFont class for handling
- * tesselated Polygon Mesh fonts
- *
- * @see     FTFont
- */
-class FTGL_EXPORT FTGLPolygonFont : public FTFont
+class FTGLPolygonFontImpl : public FTFontImpl
 {
+    friend class FTGLPolygonFont;
+
     public:
-        /**
-         * Open and read a font file. Sets Error flag.
-         *
-         * @param fontFilePath  font file path.
-         */
-        FTGLPolygonFont(const char* fontFilePath);
+        FTGLPolygonFontImpl(const char* fontFilePath);
+
+        FTGLPolygonFontImpl(const unsigned char *pBufferBytes,
+                            size_t bufferSizeInBytes);
+
+        ~FTGLPolygonFontImpl();
 
         /**
-         * Open and read a font from a buffer in memory. Sets Error flag.
+         * Set the outset distance for the font. Only implemented by
+         * FTGLOutlineFont, FTGLPolygonFont and FTGLExtrdFont
          *
-         * @param pBufferBytes  the in-memory buffer
-         * @param bufferSizeInBytes  the length of the buffer in bytes
+         * @param depth  The outset distance.
          */
-        FTGLPolygonFont(const unsigned char *pBufferBytes,
-                        size_t bufferSizeInBytes);
+        void Outset(float o) { outset = o; }
+
+    private:
+        /**
+         * Construct a FTPolyGlyph.
+         *
+         * @param g The glyph index NOT the char code.
+         * @return  An FTPolyGlyph or <code>null</code> on failure.
+         */
+        inline virtual FTGlyph* MakeGlyph(unsigned int g);
 
         /**
-         * Destructor
+         * The outset distance (front and back) for the font.
          */
-        ~FTGLPolygonFont();
+        float outset;
 };
 
-#endif //__cplusplus
-
-#ifdef __cplusplus
-extern "C" {
-namespace C {
-#endif
-FTGL_EXPORT FTGLfont *ftglCreatePolygonFont(const char *fontname);
-#ifdef __cplusplus
-}
-}
-#endif
-
-#endif  //  __FTGLPolygonFont__
+#endif  //  __FTGLPolygonFontImpl__
 

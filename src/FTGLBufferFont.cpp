@@ -35,6 +35,7 @@
 #include "config.h"
 
 #include "FTGLBufferFont.h"
+#include "FTGLBufferFontImpl.h"
 #include "FTBufferGlyph.h"
 
 

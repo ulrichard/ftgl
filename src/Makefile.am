@@ -7,23 +7,23 @@ libftgl_la_SOURCES = \
 	FTContour.cpp \
 	FTExtrdGlyph.cpp \
 	FTFace.cpp \
-	FTFont.cpp \
-	FTGLBitmapFont.cpp \
-	FTGLExtrdFont.cpp \
-	FTGLOutlineFont.cpp \
-	FTGLPixmapFont.cpp \
-	FTGLPolygonFont.cpp \
-	FTGLTextureFont.cpp \
+	FTFont.cpp FTFontImpl.h \
+	FTGLBitmapFont.cpp FTGLBitmapFontImpl.h \
+	FTGLExtrdFont.cpp FTGLExtrdFontImpl.h \
+	FTGLOutlineFont.cpp FTGLOutlineFontImpl.h \
+	FTGLPixmapFont.cpp FTGLPixmapFontImpl.h \
+	FTGLPolygonFont.cpp FTGLPolygonFontImpl.h \
+	FTGLTextureFont.cpp FTGLTextureFontImpl.h \
 	FTGlyph.cpp \
 	FTGlyphContainer.cpp \
 	FTGlue.cpp \
-	FTLayout.cpp \
+	FTLayout.cpp FTLayoutImpl.h \
 	FTLibrary.cpp \
 	FTOutlineGlyph.cpp \
 	FTPixmapGlyph.cpp \
 	FTPoint.cpp \
 	FTPolyGlyph.cpp \
-	FTSimpleLayout.cpp \
+	FTSimpleLayout.cpp FTSimpleLayoutImpl.h \
 	FTSize.cpp \
 	FTTextureGlyph.cpp \
 	FTVectoriser.cpp \

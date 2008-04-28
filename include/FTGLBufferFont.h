@@ -35,13 +35,8 @@
 #ifndef     __FTGLBufferFont__
 #define     __FTGLBufferFont__
 
-
 #include "FTFont.h"
 #include "FTGL.h"
-
-
-class FTGlyph;
-class FTFontImpl;
 
 
 /**
@@ -76,46 +71,6 @@ class FTGL_EXPORT FTGLBufferFont : public FTFont
 
         void SetClientBuffer(unsigned char* b);
 };
-
-
-class FTGLBufferFontImpl : public FTFontImpl
-{
-        friend class FTGLBufferFont;
-
-    public:
-        FTGLBufferFontImpl(const char* fontFilePath);
-
-        FTGLBufferFontImpl(const unsigned char *pBufferBytes,
-                           size_t bufferSizeInBytes);
-
-        ~FTGLBufferFontImpl();
-
-        /**
-         * Renders a string of characters
-         *
-         * @param string    'C' style string to be output.
-         */
-        void Render(const char* string);
-
-        /**
-         * Renders a string of characters
-         *
-         * @param string    wchar_t string to be output.
-         */
-        void Render(const wchar_t* string);
-
-    private:
-        /**
-         * Construct a FTBufferGlyph.
-         *
-         * @param g The glyph index NOT the char code.
-         * @return  An FTBufferGlyph or <code>null</code> on failure.
-         */
-        inline virtual FTGlyph* MakeGlyph(unsigned int g);
-
-        unsigned char* buffer;
-};
-
 
 #endif  //  __FTGLBufferFont__
 

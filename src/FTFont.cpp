@@ -37,12 +37,14 @@
 #include "FTFace.h"
 
 #include "FTFont.h"
-#include "FTGLBitmapFont.h"
-#include "FTGLExtrdFont.h"
-#include "FTGLOutlineFont.h"
-#include "FTGLPixmapFont.h"
-#include "FTGLPolygonFont.h"
-#include "FTGLTextureFont.h"
+#include "FTFontImpl.h"
+
+#include "FTGLBitmapFontImpl.h"
+#include "FTGLExtrdFontImpl.h"
+#include "FTGLOutlineFontImpl.h"
+#include "FTGLPixmapFontImpl.h"
+#include "FTGLPolygonFontImpl.h"
+#include "FTGLTextureFontImpl.h"
 
 #include "FTGlyphContainer.h"
 #include "FTBBox.h"

@@ -32,57 +32,43 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA.
  */
 
-#ifndef     __FTGLPolygonFont__
-#define     __FTGLPolygonFont__
+#ifndef __FTGLBitmapFontImpl__
+#define __FTGLBitmapFontImpl__
 
-#ifdef __cplusplus
+#include "FTGLBitmapFont.h"
+#include "FTFontImpl.h"
 
-#include "FTFont.h"
-#include "FTGL.h"
+class FTGlyph;
 
-
-/**
- * FTGLPolygonFont is a specialisation of the FTFont class for handling
- * tesselated Polygon Mesh fonts
- *
- * @see     FTFont
- */
-class FTGL_EXPORT FTGLPolygonFont : public FTFont
+class FTGLBitmapFontImpl : public FTFontImpl
 {
+    friend class FTGLBitmapFont;
+
     public:
-        /**
-         * Open and read a font file. Sets Error flag.
-         *
-         * @param fontFilePath  font file path.
-         */
-        FTGLPolygonFont(const char* fontFilePath);
+        FTGLBitmapFontImpl(const char* fontFilePath);
 
-        /**
-         * Open and read a font from a buffer in memory. Sets Error flag.
-         *
-         * @param pBufferBytes  the in-memory buffer
-         * @param bufferSizeInBytes  the length of the buffer in bytes
-         */
-        FTGLPolygonFont(const unsigned char *pBufferBytes,
-                        size_t bufferSizeInBytes);
+        FTGLBitmapFontImpl(const unsigned char *pBufferBytes,
+                           size_t bufferSizeInBytes);
 
+        ~FTGLBitmapFontImpl();
+
+        void Render(const char* string);
+
+        void Render(const wchar_t* string);
+
+    private:
         /**
-         * Destructor
+         * Construct a FTBitmapGlyph.
+         *
+         * @param g The glyph index NOT the char code.
+         * @return  An FTBitmapGlyph or <code>null</code> on failure.
          */
-        ~FTGLPolygonFont();
+        inline virtual FTGlyph* MakeGlyph(unsigned int g);
+
+        /* Internal generic Render() implementation */
+        template <typename T>
+        inline void RenderI(const T* string);
 };
 
-#endif //__cplusplus
-
-#ifdef __cplusplus
-extern "C" {
-namespace C {
-#endif
-FTGL_EXPORT FTGLfont *ftglCreatePolygonFont(const char *fontname);
-#ifdef __cplusplus
-}
-}
-#endif
-
-#endif  //  __FTGLPolygonFont__
+#endif  //  __FTGLBitmapFontImpl__
 

@@ -37,6 +37,7 @@
 #include "FTInternals.h"
 
 #include "FTGLOutlineFont.h"
+#include "FTGLOutlineFontImpl.h"
 #include "FTOutlineGlyph.h"
 
 

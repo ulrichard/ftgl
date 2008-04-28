@@ -32,44 +32,33 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA.
  */
 
-#ifndef __FTGLBitmapFont__
-#define __FTGLBitmapFont__
+#ifndef __FTGLOutlineFontImpl__
+#define __FTGLOutlineFontImpl__
 
-#ifdef __cplusplus
+#include "FTGLOutlineFont.h"
+#include "FTFontImpl.h"
 
-#include "FTFont.h"
-#include "FTGL.h"
+class FTGlyph;
 
-
-/**
- * FTGLBitmapFont is a specialisation of the FTFont class for handling
- * Bitmap fonts
- *
- * @see     FTFont
- */
-class FTGL_EXPORT FTGLBitmapFont : public FTFont
+class FTGLOutlineFontImpl : public FTFontImpl
 {
+    friend class FTGLOutlineFont;
+
     public:
-        /**
-         * Open and read a font file. Sets Error flag.
-         *
-         * @param fontFilePath  font file path.
-         */
-        FTGLBitmapFont(const char* fontFilePath);
+        FTGLOutlineFontImpl(const char* fontFilePath);
+
+        FTGLOutlineFontImpl(const unsigned char *pBufferBytes,
+                            size_t bufferSizeInBytes);
+
+        ~FTGLOutlineFontImpl();
 
         /**
-         * Open and read a font from a buffer in memory. Sets Error flag.
+         * Set the outset distance for the font. Only implemented by
+         * FTGLOutlineFont, FTGLPolygonFont and FTGLExtrdFont
          *
-         * @param pBufferBytes  the in-memory buffer
-         * @param bufferSizeInBytes  the length of the buffer in bytes
+         * @param outset  The outset distance.
          */
-        FTGLBitmapFont(const unsigned char *pBufferBytes,
-                       size_t bufferSizeInBytes);
-
-        /**
-         * Destructor
-         */
-        ~FTGLBitmapFont();
+        void Outset(float o) { outset = o; }
 
         /**
          * Renders a string of characters
@@ -89,7 +78,7 @@ class FTGL_EXPORT FTGLBitmapFont : public FTFont
         /**
          * Renders a string of characters
          *
-         * @param string    'C' style wide string to be output.
+         * @param string    wchar_t string to be output.
          */
         void Render(const wchar_t* string);
 
@@ -100,19 +89,25 @@ class FTGL_EXPORT FTGLBitmapFont : public FTFont
          * @param renderMode    Render mode to display
          */
         void Render(const wchar_t *string, int renderMode) { Render(string); }
+
+    private:
+        /**
+         * Construct a FTOutlineGlyph.
+         *
+         * @param g The glyph index NOT the char code.
+         * @return  An FTOutlineGlyph or <code>null</code> on failure.
+         */
+        inline virtual FTGlyph* MakeGlyph(unsigned int g);
+
+        /**
+         * The outset distance for the font.
+         */
+        float outset;
+
+        /* Internal generic Render() implementation */
+        template <typename T>
+        inline void RenderI(const T* string);
 };
 
-#endif //__cplusplus
-
-#ifdef __cplusplus
-extern "C" {
-namespace C {
-#endif
-FTGL_EXPORT FTGLfont *ftglCreateBitmapFont(const char *fontname);
-#ifdef __cplusplus
-}
-}
-#endif
-
-#endif  //  __FTGLBitmapFont__
+#endif // __FTGLOutlineFontImpl__
 

@@ -32,57 +32,69 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA.
  */
 
-#ifndef     __FTGLPolygonFont__
-#define     __FTGLPolygonFont__
+#ifndef __FTGLPixmapFontImpl__
+#define __FTGLPixmapFontImpl__
 
-#ifdef __cplusplus
+#include "FTGLPixmapFont.h"
+#include "FTFontImpl.h"
 
-#include "FTFont.h"
-#include "FTGL.h"
+class FTGlyph;
 
-
-/**
- * FTGLPolygonFont is a specialisation of the FTFont class for handling
- * tesselated Polygon Mesh fonts
- *
- * @see     FTFont
- */
-class FTGL_EXPORT FTGLPolygonFont : public FTFont
+class FTGLPixmapFontImpl : public FTFontImpl
 {
+    friend class FTGLPixmapFont;
+
     public:
-        /**
-         * Open and read a font file. Sets Error flag.
-         *
-         * @param fontFilePath  font file path.
-         */
-        FTGLPolygonFont(const char* fontFilePath);
+        FTGLPixmapFontImpl(const char* fontFilePath);
+
+        FTGLPixmapFontImpl(const unsigned char *pBufferBytes,
+                           size_t bufferSizeInBytes);
+
+        ~FTGLPixmapFontImpl();
 
         /**
-         * Open and read a font from a buffer in memory. Sets Error flag.
+         * Renders a string of characters
          *
-         * @param pBufferBytes  the in-memory buffer
-         * @param bufferSizeInBytes  the length of the buffer in bytes
+         * @param string    'C' style string to be output.
          */
-        FTGLPolygonFont(const unsigned char *pBufferBytes,
-                        size_t bufferSizeInBytes);
+        void Render(const char* string);
 
         /**
-         * Destructor
+         * Render a string of characters
+         *
+         * @param string    'C' style string to be output.
+         * @param renderMode    Render mode to display
          */
-        ~FTGLPolygonFont();
+        void Render(const char* string, int renderMode) { Render(string); }
+
+        /**
+         * Renders a string of characters
+         *
+         * @param string    wchar_t string to be output.
+         */
+        void Render(const wchar_t* string);
+
+        /**
+         * Render a string of characters
+         *
+         * @param string    wchar_t string to be output.
+         * @param renderMode    Render mode to display
+         */
+        void Render(const wchar_t *string, int renderMode) { Render(string); }
+
+    private:
+        /**
+         * Construct a FTPixmapGlyph.
+         *
+         * @param g The glyph index NOT the char code.
+         * @return  An FTPixmapGlyph or <code>null</code> on failure.
+         */
+        inline virtual FTGlyph* MakeGlyph(unsigned int g);
+
+        /* Internal generic Render() implementation */
+        template <typename T>
+        inline void RenderI(const T* string);
 };
 
-#endif //__cplusplus
-
-#ifdef __cplusplus
-extern "C" {
-namespace C {
-#endif
-FTGL_EXPORT FTGLfont *ftglCreatePolygonFont(const char *fontname);
-#ifdef __cplusplus
-}
-}
-#endif
-
-#endif  //  __FTGLPolygonFont__
+#endif  //  __FTGLPixmapFontImpl__
 

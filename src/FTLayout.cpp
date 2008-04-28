@@ -36,9 +36,12 @@
 
 #include "FTPoint.h"
 #include "FTFont.h"
+#include "FTFontImpl.h"
 
 #include "FTLayout.h"
-#include "FTSimpleLayout.h"
+#include "FTLayoutImpl.h"
+
+#include "FTSimpleLayoutImpl.h"
 
 
 //

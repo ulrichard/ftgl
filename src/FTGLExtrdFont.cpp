@@ -37,6 +37,7 @@
 #include "FTInternals.h"
 
 #include "FTGLExtrdFont.h"
+#include "FTGLExtrdFontImpl.h"
 #include "FTExtrdGlyph.h"
 
 

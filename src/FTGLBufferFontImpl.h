@@ -32,57 +32,52 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA.
  */
 
-#ifndef     __FTGLPolygonFont__
-#define     __FTGLPolygonFont__
+#ifndef __FTGLBufferFontImpl__
+#define __FTGLBufferFontImpl__
 
-#ifdef __cplusplus
+#include "FTGLBufferFont.h"
+#include "FTFontImpl.h"
 
-#include "FTFont.h"
-#include "FTGL.h"
+class FTGlyph;
+class FTFontImpl;
 
-
-/**
- * FTGLPolygonFont is a specialisation of the FTFont class for handling
- * tesselated Polygon Mesh fonts
- *
- * @see     FTFont
- */
-class FTGL_EXPORT FTGLPolygonFont : public FTFont
+class FTGLBufferFontImpl : public FTFontImpl
 {
+        friend class FTGLBufferFont;
+
     public:
-        /**
-         * Open and read a font file. Sets Error flag.
-         *
-         * @param fontFilePath  font file path.
-         */
-        FTGLPolygonFont(const char* fontFilePath);
+        FTGLBufferFontImpl(const char* fontFilePath);
+
+        FTGLBufferFontImpl(const unsigned char *pBufferBytes,
+                           size_t bufferSizeInBytes);
+
+        ~FTGLBufferFontImpl();
 
         /**
-         * Open and read a font from a buffer in memory. Sets Error flag.
+         * Renders a string of characters
          *
-         * @param pBufferBytes  the in-memory buffer
-         * @param bufferSizeInBytes  the length of the buffer in bytes
+         * @param string    'C' style string to be output.
          */
-        FTGLPolygonFont(const unsigned char *pBufferBytes,
-                        size_t bufferSizeInBytes);
+        void Render(const char* string);
 
         /**
-         * Destructor
+         * Renders a string of characters
+         *
+         * @param string    wchar_t string to be output.
          */
-        ~FTGLPolygonFont();
+        void Render(const wchar_t* string);
+
+    private:
+        /**
+         * Construct a FTBufferGlyph.
+         *
+         * @param g The glyph index NOT the char code.
+         * @return  An FTBufferGlyph or <code>null</code> on failure.
+         */
+        inline virtual FTGlyph* MakeGlyph(unsigned int g);
+
+        unsigned char* buffer;
 };
 
-#endif //__cplusplus
-
-#ifdef __cplusplus
-extern "C" {
-namespace C {
-#endif
-FTGL_EXPORT FTGLfont *ftglCreatePolygonFont(const char *fontname);
-#ifdef __cplusplus
-}
-}
-#endif
-
-#endif  //  __FTGLPolygonFont__
+#endif  //  __FTGLBufferFontImpl__
 

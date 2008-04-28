@@ -37,6 +37,7 @@
 #include "FTInternals.h"
 
 #include "FTGLBitmapFont.h"
+#include "FTGLBitmapFontImpl.h"
 #include "FTBitmapGlyph.h"
 
 

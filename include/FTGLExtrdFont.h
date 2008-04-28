@@ -40,11 +40,6 @@
 #include "FTFont.h"
 #include "FTGL.h"
 
-
-class FTGlyph;
-class FTFontImpl;
-
-
 /**
  * FTGLExtrdFont is a specialisation of the FTFont class for handling
  * extruded Polygon fonts
@@ -75,63 +70,6 @@ class FTGL_EXPORT FTGLExtrdFont : public FTFont
          * Destructor
          */
         ~FTGLExtrdFont();
-};
-
-
-class FTGLExtrdFontImpl : public FTFontImpl
-{
-    friend class FTGLExtrdFont;
-
-    public:
-        FTGLExtrdFontImpl(const char* fontFilePath);
-
-        FTGLExtrdFontImpl(const unsigned char *pBufferBytes,
-                          size_t bufferSizeInBytes);
-
-        ~FTGLExtrdFontImpl();
-
-        /**
-         * Set the extrusion distance for the font.
-         *
-         * @param d  The extrusion distance.
-         */
-        void Depth(float d) { depth = d; }
-
-        /**
-         * Set the outset distance for the font. Only implemented by
-         * FTGLOutlineFont, FTGLPolygonFont and FTGLExtrdFont
-         *
-         * @param f  The front outset distance.
-         */
-        void Outset(float f) { front = f; }
-
-        /**
-         * Set the outset distance for the font. Only implemented by
-         * FTGLExtrdFont
-         *
-         * @param f  The front outset distance.
-         * @param b  The back outset distance.
-         */
-        void Outset(float f, float b) { front = f; back = b; }
-
-    private:
-        /**
-         * Construct a FTPolyGlyph.
-         *
-         * @param glyphIndex The glyph index NOT the char code.
-         * @return An FTExtrdGlyph or <code>null</code> on failure.
-         */
-        inline virtual FTGlyph* MakeGlyph(unsigned int glyphIndex);
-
-        /**
-         * The extrusion distance for the font.
-         */
-        float depth;
-
-        /**
-         * The outset distance (front and back) for the font.
-         */
-        float front, back;
 };
 
 #endif //__cplusplus

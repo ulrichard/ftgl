@@ -37,6 +37,7 @@
 #include "FTInternals.h"
 
 #include "FTGLPolygonFont.h"
+#include "FTGLPolygonFontImpl.h"
 #include "FTPolyGlyph.h"
 
 

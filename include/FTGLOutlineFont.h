@@ -40,10 +40,6 @@
 #include "FTFont.h"
 #include "FTGL.h"
 
-class FTGlyph;
-class FTFontImpl;
-
-
 /**
  * FTGLOutlineFont is a specialisation of the FTFont class for handling
  * Vector Outline fonts
@@ -73,76 +69,6 @@ class FTGL_EXPORT FTGLOutlineFont : public FTFont
          * Destructor
          */
         ~FTGLOutlineFont();
-};
-
-
-class FTGLOutlineFontImpl : public FTFontImpl
-{
-    friend class FTGLOutlineFont;
-
-    public:
-        FTGLOutlineFontImpl(const char* fontFilePath);
-
-        FTGLOutlineFontImpl(const unsigned char *pBufferBytes,
-                            size_t bufferSizeInBytes);
-
-        ~FTGLOutlineFontImpl();
-
-        /**
-         * Set the outset distance for the font. Only implemented by
-         * FTGLOutlineFont, FTGLPolygonFont and FTGLExtrdFont
-         *
-         * @param outset  The outset distance.
-         */
-        void Outset(float o) { outset = o; }
-
-        /**
-         * Renders a string of characters
-         *
-         * @param string    'C' style string to be output.
-         */
-        void Render(const char* string);
-
-        /**
-         * Render a string of characters
-         *
-         * @param string    'C' style string to be output.
-         * @param renderMode    Render mode to display
-         */
-        void Render(const char* string, int renderMode) { Render(string); }
-
-        /**
-         * Renders a string of characters
-         *
-         * @param string    wchar_t string to be output.
-         */
-        void Render(const wchar_t* string);
-
-        /**
-         * Render a string of characters
-         *
-         * @param string    wchar_t string to be output.
-         * @param renderMode    Render mode to display
-         */
-        void Render(const wchar_t *string, int renderMode) { Render(string); }
-
-    private:
-        /**
-         * Construct a FTOutlineGlyph.
-         *
-         * @param g The glyph index NOT the char code.
-         * @return  An FTOutlineGlyph or <code>null</code> on failure.
-         */
-        inline virtual FTGlyph* MakeGlyph(unsigned int g);
-
-        /**
-         * The outset distance for the font.
-         */
-        float outset;
-
-        /* Internal generic Render() implementation */
-        template <typename T>
-        inline void RenderI(const T* string);
 };
 
 #endif //__cplusplus

@@ -32,57 +32,69 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA.
  */
 
-#ifndef     __FTGLPolygonFont__
-#define     __FTGLPolygonFont__
+#ifndef __FTGLExtrdFontImpl__
+#define __FTGLExtrdFontImpl__
 
-#ifdef __cplusplus
+#include "FTGLExtrdFont.h"
+#include "FTFontImpl.h"
 
-#include "FTFont.h"
-#include "FTGL.h"
+class FTGlyph;
 
-
-/**
- * FTGLPolygonFont is a specialisation of the FTFont class for handling
- * tesselated Polygon Mesh fonts
- *
- * @see     FTFont
- */
-class FTGL_EXPORT FTGLPolygonFont : public FTFont
+class FTGLExtrdFontImpl : public FTFontImpl
 {
+    friend class FTGLExtrdFont;
+
     public:
-        /**
-         * Open and read a font file. Sets Error flag.
-         *
-         * @param fontFilePath  font file path.
-         */
-        FTGLPolygonFont(const char* fontFilePath);
+        FTGLExtrdFontImpl(const char* fontFilePath);
+
+        FTGLExtrdFontImpl(const unsigned char *pBufferBytes,
+                          size_t bufferSizeInBytes);
+
+        ~FTGLExtrdFontImpl();
 
         /**
-         * Open and read a font from a buffer in memory. Sets Error flag.
+         * Set the extrusion distance for the font.
          *
-         * @param pBufferBytes  the in-memory buffer
-         * @param bufferSizeInBytes  the length of the buffer in bytes
+         * @param d  The extrusion distance.
          */
-        FTGLPolygonFont(const unsigned char *pBufferBytes,
-                        size_t bufferSizeInBytes);
+        void Depth(float d) { depth = d; }
 
         /**
-         * Destructor
+         * Set the outset distance for the font. Only implemented by
+         * FTGLOutlineFont, FTGLPolygonFont and FTGLExtrdFont
+         *
+         * @param f  The front outset distance.
          */
-        ~FTGLPolygonFont();
+        void Outset(float f) { front = f; }
+
+        /**
+         * Set the outset distance for the font. Only implemented by
+         * FTGLExtrdFont
+         *
+         * @param f  The front outset distance.
+         * @param b  The back outset distance.
+         */
+        void Outset(float f, float b) { front = f; back = b; }
+
+    private:
+        /**
+         * Construct a FTPolyGlyph.
+         *
+         * @param glyphIndex The glyph index NOT the char code.
+         * @return An FTExtrdGlyph or <code>null</code> on failure.
+         */
+        inline virtual FTGlyph* MakeGlyph(unsigned int glyphIndex);
+
+        /**
+         * The extrusion distance for the font.
+         */
+        float depth;
+
+        /**
+         * The outset distance (front and back) for the font.
+         */
+        float front, back;
 };
 
-#endif //__cplusplus
-
-#ifdef __cplusplus
-extern "C" {
-namespace C {
-#endif
-FTGL_EXPORT FTGLfont *ftglCreatePolygonFont(const char *fontname);
-#ifdef __cplusplus
-}
-}
-#endif
-
-#endif  //  __FTGLPolygonFont__
+#endif // __FTGLExtrdFontImpl__
 

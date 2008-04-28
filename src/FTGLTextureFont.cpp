@@ -40,6 +40,7 @@
 #include "FTInternals.h"
 
 #include "FTGLTextureFont.h"
+#include "FTGLTextureFontImpl.h"
 #include "FTTextureGlyph.h"
 
 
