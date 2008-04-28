@@ -66,7 +66,10 @@ FTFont::FTFont( const unsigned char *pBufferBytes, size_t bufferSizeInBytes)
 
 FTFont::~FTFont()
 {
-    delete glyphList;
+    if(glyphList)
+    {
+        delete glyphList;
+    }
 }
 
 
