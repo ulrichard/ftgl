@@ -40,26 +40,63 @@
 #include "FTExtrdGlyph.h"
 
 
-FTGLExtrdFont::FTGLExtrdFont(const char* fontFilePath)
-:   FTFont(fontFilePath),
-    depth(0.0f)
-{}
+//
+//  FTGLExtrdFont
+//
+
+
+FTGLExtrdFont::FTGLExtrdFont(char const *fontFilePath) :
+    FTFont(FTGL::FONT_EXTRUDE, fontFilePath)
+{
+    ;
+}
 
 
 FTGLExtrdFont::FTGLExtrdFont(const unsigned char *pBufferBytes,
-                             size_t bufferSizeInBytes)
-:   FTFont(pBufferBytes, bufferSizeInBytes),
-    depth(0.0f),
-    front(0.0f),
-    back(0.0f)
-{}
+                             size_t bufferSizeInBytes) :
+    FTFont(FTGL::FONT_EXTRUDE, pBufferBytes, bufferSizeInBytes)
+{
+    ;
+}
 
 
 FTGLExtrdFont::~FTGLExtrdFont()
-{}
+{
+    ;
+}
 
 
-FTGlyph* FTGLExtrdFont::MakeGlyph(unsigned int glyphIndex)
+//
+//  FTGLExtrdFontImpl
+//
+
+
+FTGLExtrdFontImpl::FTGLExtrdFontImpl(const char* fontFilePath)
+:   FTFontImpl(fontFilePath),
+    depth(0.0f)
+{
+    ;
+}
+
+
+FTGLExtrdFontImpl::FTGLExtrdFontImpl(const unsigned char *pBufferBytes,
+                                     size_t bufferSizeInBytes)
+:   FTFontImpl(pBufferBytes, bufferSizeInBytes),
+    depth(0.0f),
+    front(0.0f),
+    back(0.0f)
+{
+    ;
+}
+
+
+FTGLExtrdFontImpl::~FTGLExtrdFontImpl()
+{
+    ;
+}
+
+
+FTGlyph* FTGLExtrdFontImpl::MakeGlyph(unsigned int glyphIndex)
 {
     FT_GlyphSlot ftGlyph = face.Glyph(glyphIndex, FT_LOAD_NO_HINTING);
 

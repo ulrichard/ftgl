@@ -40,22 +40,53 @@
 #include "FTBitmapGlyph.h"
 
 
-FTGLBitmapFont::FTGLBitmapFont(const char* fontFilePath)
-:   FTFont(fontFilePath)
-{}
+//
+//  FTGLBitmapFont
+//
 
 
-FTGLBitmapFont::FTGLBitmapFont(const unsigned char *pBufferBytes,
-                               size_t bufferSizeInBytes)
-:   FTFont(pBufferBytes, bufferSizeInBytes)
-{}
+FTGLBitmapFont::FTGLBitmapFont(char const *fontFilePath) :
+    FTFont(FTGL::FONT_BITMAP, fontFilePath)
+{
+    ;
+}
+
+
+FTGLBitmapFont::FTGLBitmapFont(unsigned char const *pBufferBytes,
+                               size_t bufferSizeInBytes) :
+    FTFont(FTGL::FONT_BITMAP, pBufferBytes, bufferSizeInBytes)
+{
+    ;
+}
 
 
 FTGLBitmapFont::~FTGLBitmapFont()
+{
+    ;
+}
+
+
+//
+//  FTGLBitmapFontImpl
+//
+
+
+FTGLBitmapFontImpl::FTGLBitmapFontImpl(char const* fontFilePath)
+:   FTFontImpl(fontFilePath)
 {}
 
 
-FTGlyph* FTGLBitmapFont::MakeGlyph(unsigned int g)
+FTGLBitmapFontImpl::FTGLBitmapFontImpl(unsigned char const *pBufferBytes,
+                                       size_t bufferSizeInBytes)
+:   FTFontImpl(pBufferBytes, bufferSizeInBytes)
+{}
+
+
+FTGLBitmapFontImpl::~FTGLBitmapFontImpl()
+{}
+
+
+FTGlyph* FTGLBitmapFontImpl::MakeGlyph(unsigned int g)
 {
     FT_GlyphSlot ftGlyph = face.Glyph(g, FT_LOAD_DEFAULT);
 
@@ -71,7 +102,7 @@ FTGlyph* FTGLBitmapFont::MakeGlyph(unsigned int g)
 
 
 template <typename T>
-inline void FTGLBitmapFont::RenderI(const T *string)
+inline void FTGLBitmapFontImpl::RenderI(const T *string)
 {
     glPushClientAttrib(GL_CLIENT_PIXEL_STORE_BIT);
     glPushAttrib(GL_ENABLE_BIT);
@@ -81,22 +112,35 @@ inline void FTGLBitmapFont::RenderI(const T *string)
 
     glDisable(GL_BLEND);
 
-    FTFont::Render(string);
+    FTFontImpl::Render(string);
 
     glPopAttrib();
     glPopClientAttrib();
 }
 
 
-void FTGLBitmapFont::Render(const char* string)
+void FTGLBitmapFontImpl::Render(const char* string)
 {
     RenderI(string);
 }
 
 
-void FTGLBitmapFont::Render(const wchar_t* string)
+void FTGLBitmapFontImpl::Render(const wchar_t* string)
 {
     RenderI(string);
+}
+
+
+/* FIXME: is this needed? */
+void FTGLBitmapFont::Render(const char* string)
+{
+    impl->Render(string);
+}
+
+
+void FTGLBitmapFont::Render(const wchar_t* string)
+{
+    impl->Render(string);
 }
 
 

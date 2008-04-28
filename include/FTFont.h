@@ -48,6 +48,7 @@ class FTGlyphContainer;
 class FTGlyph;
 class FTLayout;
 
+class FTFontImpl;
 
 /**
  * FTFont is the public interface for the FTGL library.
@@ -69,13 +70,16 @@ class FTLayout;
  */
 class FTGL_EXPORT FTFont
 {
+        /* Allow FTLayout classes to access DoRender and CheckGlyph */
+        friend class FTLayoutImpl;
+
     public:
         /**
          * Open and read a font file. Sets Error flag.
          *
          * @param fontFilePath  font file path.
          */
-        FTFont(const char* fontFilePath);
+        FTFont(FTGL::FontType type, const char* fontFilePath);
 
         /**
          * Open and read a font from a buffer in memory. Sets Error flag.
@@ -85,7 +89,8 @@ class FTGL_EXPORT FTFont
          * @param pBufferBytes  the in-memory buffer
          * @param bufferSizeInBytes  the length of the buffer in bytes
          */
-        FTFont(const unsigned char *pBufferBytes, size_t bufferSizeInBytes);
+        FTFont(FTGL::FontType type,
+               const unsigned char *pBufferBytes, size_t bufferSizeInBytes);
 
         /**
          * Destructor
@@ -146,8 +151,7 @@ class FTGL_EXPORT FTFont
          * @param res       the resolution of the target device.
          * @return          <code>true</code> if size was set correctly
          */
-        virtual bool FaceSize(const unsigned int size,
-                              const unsigned int res = 72);
+        bool FaceSize(const unsigned int size, const unsigned int res = 72);
 
         /**
          * Get the current face size in points.
@@ -162,7 +166,7 @@ class FTGL_EXPORT FTFont
          *
          * @param depth  The extrusion distance.
          */
-        virtual void Depth(float depth);
+        void Depth(float depth);
 
         /**
          * Set the outset distance for the font. Only implemented by
@@ -170,7 +174,7 @@ class FTGL_EXPORT FTFont
          *
          * @param outset  The outset distance.
          */
-        virtual void Outset(float outset);
+        void Outset(float outset);
 
         /**
          * Set the front and back outset distances for the font. Only
@@ -179,7 +183,7 @@ class FTGL_EXPORT FTFont
          * @param front  The front outset distance.
          * @param back   The back outset distance.
          */
-        virtual void Outset(float front, float back);
+        void Outset(float front, float back);
 
         /**
          * Enable or disable the use of Display Lists inside FTGL
@@ -299,7 +303,7 @@ class FTGL_EXPORT FTFont
          *
          * @param string    'C' style string to be output.
          */
-        virtual void Render(const char* string);
+        void Render(const char* string);
 
         /**
          * Render a string of characters
@@ -307,14 +311,14 @@ class FTGL_EXPORT FTFont
          * @param string    'C' style string to be output.
          * @param renderMode    Render mode to display
          */
-        virtual void Render(const char* string, int renderMode);
+        void Render(const char* string, int renderMode);
 
         /**
          * Render a string of characters
          *
          * @param string    wchar_t string to be output.
          */
-        virtual void Render(const wchar_t* string);
+        void Render(const wchar_t* string);
 
         /**
          * Render a string of characters
@@ -322,7 +326,7 @@ class FTGL_EXPORT FTFont
          * @param string    wchar_t string to be output.
          * @param renderMode    Render mode to display
          */
-        virtual void Render(const wchar_t *string, int renderMode);
+        void Render(const wchar_t *string, int renderMode);
 
         /**
          * Queries the Font for errors.
@@ -332,10 +336,66 @@ class FTGL_EXPORT FTFont
         FT_Error Error() const;
 
     protected:
+        FTFontImpl *impl;
+};
+
+
+class FTFontImpl
+{
+        /* Allow FTLayout classes to access DoRender and CheckGlyph */
+        friend class FTLayoutImpl;
+        friend class FTFont;
+
+    public:
+        FTFontImpl(char const *fontFilePath);
+
+
+        FTFontImpl(const unsigned char *pBufferBytes, size_t bufferSizeInBytes);
+
+        ~FTFontImpl();
+
+        virtual void Render(const char* string);
+
+        virtual void Render(const char* string, int renderMode);
+
+        virtual void Render(const wchar_t* string);
+
+        virtual void Render(const wchar_t *string, int renderMode);
+
+        virtual bool FaceSize(const unsigned int size,
+                              const unsigned int res);
+
+        virtual unsigned int FaceSize() const;
+
+        virtual void Depth(float depth);
+
+        virtual void Outset(float outset);
+
+        virtual void Outset(float front, float back);
+
+        void BBox(const char *string, const int start, const int end,
+                  float& llx, float& lly, float& llz,
+                  float& urx, float& ury, float& urz);
+
+        void BBox(const wchar_t *string, const int start, const int end,
+                  float& llx, float& lly, float& llz,
+                  float& urx, float& ury, float& urz);
+
+        void BBox(const char* string, float& llx, float& lly, float& llz,
+                  float& urx, float& ury, float& urz);
+
+        void BBox(const wchar_t* string, float& llx, float& lly, float& llz,
+                  float& urx, float& ury, float& urz);
+
+        float Advance(const wchar_t* string);
+
+        float Advance(const char* string);
+
+    protected:
         /**
          * Construct a glyph of the correct type.
          *
-         * Clients must overide the function and return their specialised
+         * Clients must override the function and return their specialised
          * FTGlyph.
          *
          * @param g The glyph index NOT the char code.
@@ -413,9 +473,6 @@ class FTGL_EXPORT FTFont
         /* Internal generic Render() implementation */
         template <typename T>
         inline void RenderI(const T* string, int renderMode);
-
-        /* Allow FTLayout classes to access DoRender and CheckGlyph */
-        friend class FTLayout;
 };
 
 #endif //__cplusplus

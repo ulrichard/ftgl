@@ -15,7 +15,6 @@ FTGLTest_SOURCES = \
     FTContour-Test.cpp \
     FTExtrdGlyph-Test.cpp \
     FTFace-Test.cpp \
-    FTFont-Test.cpp \
     FTGLBitmapFont-Test.cpp \
     FTGLExtrdFont-Test.cpp \
     FTGLOutlineFont-Test.cpp \
@@ -45,6 +44,7 @@ FTGLTest_LDFLAGS = $(FT2_LIBS) $(GLUT_LIBS) -lcppunit
 FTGLTest_LDADD = ../src/libftgl.la
 
 DEACTIVATED = \
+    FTFont-Test.cpp \
     FTlayout-Test.cpp \
     $(NULL)
 

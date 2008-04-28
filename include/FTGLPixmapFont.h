@@ -42,6 +42,7 @@
 
 
 class FTGlyph;
+class FTFontImpl;
 
 
 /**
@@ -73,6 +74,20 @@ class FTGL_EXPORT FTGLPixmapFont : public FTFont
          * Destructor
          */
         ~FTGLPixmapFont();
+};
+
+
+class FTGLPixmapFontImpl : public FTFontImpl
+{
+    friend class FTGLPixmapFont;
+
+    public:
+        FTGLPixmapFontImpl(const char* fontFilePath);
+
+        FTGLPixmapFontImpl(const unsigned char *pBufferBytes,
+                           size_t bufferSizeInBytes);
+
+        ~FTGLPixmapFontImpl();
 
         /**
          * Renders a string of characters

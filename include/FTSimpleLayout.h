@@ -41,6 +41,8 @@
 #include "FTBBox.h"
 
 class FTFont;
+class FTSimpleLayoutImpl;
+
 
 class FTGL_EXPORT FTSimpleLayout : public FTLayout
 {
@@ -55,6 +57,89 @@ class FTGL_EXPORT FTSimpleLayout : public FTLayout
          * Destructor
          */
         ~FTSimpleLayout() {}
+
+        /**
+         * Set he font to use for rendering the text.
+         *
+         * @param fontInit A pointer to the new font.  The font is
+         *                 referenced by this but will not be
+         *                 disposed of when this is deleted.
+         */
+        void SetFont(FTFont *fontInit);
+
+        /**
+         * @return The current font.
+         */
+        FTFont *GetFont();
+
+        /**
+         * The maximum line length for formatting text.
+         *
+         * @param LineLength The new line length.
+         */
+        void SetLineLength(const float LineLength);
+
+        /**
+         * @return The current line length.
+         */
+        float GetLineLength() const;
+
+        /**
+         * The text alignment mode used to distribute
+         * space within a line or rendered text.
+         *
+         * @param Alignment The new alignment mode.
+         */
+        void SetAlignment(const FTGL::TextAlignment Alignment);
+
+        /**
+         * @return The text alignment mode.
+         */
+        FTGL::TextAlignment GetAlignment() const;
+
+        /**
+         * Sets the line height.
+         *
+         * @param LineSpacing The height of each line of text expressed as
+         *                    a percentage of the current fonts line height.
+         */
+        void SetLineSpacing(const float LineSpacing);
+
+        /**
+         * @return The line spacing.
+         */
+        float GetLineSpacing() const;
+
+        /**
+         * Render a string of characters and distribute extra space amongst
+         * the whitespace regions of the string.
+         *
+         * @param string      'C' style string to output.
+         * @param ExtraSpace  The amount of extra space to add to each run of
+         *                    whitespace.
+         */
+        void RenderSpace(const char *string, const float ExtraSpace = 0.0);
+
+        /**
+         * Render a string of characters and distribute extra space amongst
+         * the whitespace regions of the string.
+         *
+         * @param string      wchar_t string to output.
+         * @param ExtraSpace  The amount of extra space to add to each run of
+         *                    whitespace.
+         */
+        void RenderSpace(const wchar_t *string, const float ExtraSpace = 0.0);
+};
+
+
+class FTSimpleLayoutImpl : public FTLayoutImpl
+{
+    friend class FTSimpleLayout;
+
+    public:
+        FTSimpleLayoutImpl();
+
+        ~FTSimpleLayoutImpl();
 
         /**
          * Get the bounding box for a string.
@@ -122,8 +207,7 @@ class FTGL_EXPORT FTSimpleLayout : public FTLayout
          * @param ExtraSpace  The amount of extra space to add to each run of
          *                    whitespace.
          */
-        void RenderSpace(const char *string, const float ExtraSpace = 0.0)
-            { pen.X(0); pen.Y(0); RenderSpace(string, 0, -1, 0, ExtraSpace); }
+        void RenderSpace(const char *string, const float ExtraSpace = 0.0);
 
         /**
          * Render a string of characters and distribute extra space amongst
@@ -133,72 +217,14 @@ class FTGL_EXPORT FTSimpleLayout : public FTLayout
          * @param ExtraSpace  The amount of extra space to add to each run of
          *                    whitespace.
          */
-        void RenderSpace(const wchar_t *string, const float ExtraSpace = 0.0)
-            { pen.X(0); pen.Y(0); RenderSpace(string, 0, -1, 0, ExtraSpace); }
-
-        /**
-         * Set he font to use for rendering the text.
-         *
-         * @param fontInit A pointer to the new font.  The font is
-         *                 referenced by this but will not be
-         *                 disposed of when this is deleted.
-         */
-        void SetFont(FTFont *fontInit)
-            { currentFont = fontInit; }
-        /**
-         * @return The current font.
-         */
-        FTFont *GetFont()
-            { return(currentFont); }
-        /**
-         * The maximum line length for formatting text.
-         *
-         * @param LineLength The new line length.
-         */
-        void SetLineLength(const float LineLength)
-            { lineLength = LineLength; }
-
-        /**
-         * @return The current line length.
-         */
-        float GetLineLength() const
-            { return(lineLength); }
-
-        /**
-         * The text alignment mode used to distribute
-         * space within a line or rendered text.
-         *
-         * @param Alignment The new alignment mode.
-         */
-        void SetAlignment(const FTGL::TextAlignment Alignment)
-            { alignment = Alignment; }
-        /**
-         * @return The text alignment mode.
-         */
-        FTGL::TextAlignment GetAlignment() const
-            { return(alignment); }
-
-        /**
-         * Sets the line height.
-         *
-         * @param LineSpacing The height of each line of text expressed as
-         *                    a percentage of the current fonts line height.
-         */
-        void SetLineSpacing(const float LineSpacing)
-            { lineSpacing = LineSpacing; }
-
-        /**
-         * @return The line spacing.
-         */
-        float GetLineSpacing() const
-            { return(lineSpacing); }
+        void RenderSpace(const wchar_t *string, const float ExtraSpace = 0.0);
 
    protected:
         /**
          * Render a string of characters and distribute extra space amongst
          * the whitespace regions of the string.  Note that this method
          * does not reset the pen position before rendering.  This method
-         * provides the impelmentation for other RenderSpace methods and
+         * provides the implementation for other RenderSpace methods and
          * thus should be overloaded when attempting to overload any
          * RenderSpace methods.
          *
@@ -216,7 +242,7 @@ class FTGL_EXPORT FTSimpleLayout : public FTLayout
          * Render a string of characters and distribute extra space amongst
          * the whitespace regions of the string.  Note that this method
          * does not reset the pen position before rendering.  This method
-         * provides the impelmentation for other RenderSpace methods and
+         * provides the implementation for other RenderSpace methods and
          * thus should be overloaded when attempting to overload any
          * RenderSpace methods.
          *
@@ -352,6 +378,7 @@ class FTGL_EXPORT FTSimpleLayout : public FTLayout
         void OutputWrappedI(const T* buf, const int start, const int end,
                             const float RemainingWidth, FTBBox *bounds, int renderMode);
 };
+
 
 #endif //__cplusplus
 

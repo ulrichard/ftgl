@@ -40,22 +40,59 @@
 #include "FTPixmapGlyph.h"
 
 
-FTGLPixmapFont::FTGLPixmapFont(const char* fontFilePath)
-:   FTFont(fontFilePath)
-{}
+//
+//  FTGLPixmapFont
+//
+
+
+FTGLPixmapFont::FTGLPixmapFont(char const *fontFilePath) :
+    FTFont(FTGL::FONT_PIXMAP, fontFilePath)
+{
+    ;
+}
 
 
 FTGLPixmapFont::FTGLPixmapFont(const unsigned char *pBufferBytes,
-                               size_t bufferSizeInBytes)
-:   FTFont(pBufferBytes, bufferSizeInBytes)
-{}
+                               size_t bufferSizeInBytes) :
+    FTFont(FTGL::FONT_PIXMAP, pBufferBytes, bufferSizeInBytes)
+{
+    ;
+}
 
 
 FTGLPixmapFont::~FTGLPixmapFont()
-{}
+{
+    ;
+}
 
 
-FTGlyph* FTGLPixmapFont::MakeGlyph(unsigned int g)
+//
+//  FTGLPixmapFontImpl
+//
+
+
+FTGLPixmapFontImpl::FTGLPixmapFontImpl(const char* fontFilePath)
+:   FTFontImpl(fontFilePath)
+{
+    ;
+}
+
+
+FTGLPixmapFontImpl::FTGLPixmapFontImpl(const unsigned char *pBufferBytes,
+                                       size_t bufferSizeInBytes)
+:   FTFontImpl(pBufferBytes, bufferSizeInBytes)
+{
+    ;
+}
+
+
+FTGLPixmapFontImpl::~FTGLPixmapFontImpl()
+{
+    ;
+}
+
+
+FTGlyph* FTGLPixmapFontImpl::MakeGlyph(unsigned int g)
 {
     FT_GlyphSlot ftGlyph = face.Glyph(g, FT_LOAD_NO_HINTING
                                           | FT_LOAD_NO_BITMAP);
@@ -72,7 +109,7 @@ FTGlyph* FTGLPixmapFont::MakeGlyph(unsigned int g)
 
 
 template <typename T>
-inline void FTGLPixmapFont::RenderI(const T* string)
+inline void FTGLPixmapFontImpl::RenderI(const T* string)
 {
     glPushAttrib(GL_ENABLE_BIT | GL_PIXEL_MODE_BIT | GL_COLOR_BUFFER_BIT);
     glPushClientAttrib(GL_CLIENT_PIXEL_STORE_BIT);
@@ -90,20 +127,20 @@ inline void FTGLPixmapFont::RenderI(const T* string)
     glPixelTransferf(GL_BLUE_SCALE, ftglColour[2]);
     glPixelTransferf(GL_ALPHA_SCALE, ftglColour[3]);
 
-    FTFont::Render(string);
+    FTFontImpl::Render(string);
 
     glPopClientAttrib();
     glPopAttrib();
 }
 
 
-void FTGLPixmapFont::Render(const char* string)
+void FTGLPixmapFontImpl::Render(const char* string)
 {
     RenderI(string);
 }
 
 
-void FTGLPixmapFont::Render(const wchar_t* string)
+void FTGLPixmapFontImpl::Render(const wchar_t* string)
 {
     RenderI(string);
 }

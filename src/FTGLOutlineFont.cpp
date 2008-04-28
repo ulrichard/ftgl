@@ -40,23 +40,54 @@
 #include "FTOutlineGlyph.h"
 
 
-FTGLOutlineFont::FTGLOutlineFont(const char* fontFilePath)
-:   FTFont(fontFilePath),
+//
+//  FTGLOutlineFont
+//
+
+
+FTGLOutlineFont::FTGLOutlineFont(char const *fontFilePath) :
+    FTFont(FTGL::FONT_OUTLINE, fontFilePath)
+{
+    ;
+}
+
+
+FTGLOutlineFont::FTGLOutlineFont(const unsigned char *pBufferBytes,
+                                 size_t bufferSizeInBytes) :
+    FTFont(FTGL::FONT_OUTLINE, pBufferBytes, bufferSizeInBytes)
+{
+    ;
+}
+
+
+FTGLOutlineFont::~FTGLOutlineFont()
+{
+    ;
+}
+
+
+//
+//  FTGLOutlineFontImpl
+//
+
+
+FTGLOutlineFontImpl::FTGLOutlineFontImpl(const char* fontFilePath)
+:   FTFontImpl(fontFilePath),
     outset(0.0f)
 {}
 
 
-FTGLOutlineFont::FTGLOutlineFont(const unsigned char *pBufferBytes,
-                                 size_t bufferSizeInBytes)
-:   FTFont(pBufferBytes, bufferSizeInBytes)
+FTGLOutlineFontImpl::FTGLOutlineFontImpl(const unsigned char *pBufferBytes,
+                                         size_t bufferSizeInBytes)
+:   FTFontImpl(pBufferBytes, bufferSizeInBytes)
 {}
 
 
-FTGLOutlineFont::~FTGLOutlineFont()
+FTGLOutlineFontImpl::~FTGLOutlineFontImpl()
 {}
 
 
-FTGlyph* FTGLOutlineFont::MakeGlyph(unsigned int g)
+FTGlyph* FTGLOutlineFontImpl::MakeGlyph(unsigned int g)
 {
     FT_GlyphSlot ftGlyph = face.Glyph(g, FT_LOAD_NO_HINTING);
 
@@ -72,7 +103,7 @@ FTGlyph* FTGLOutlineFont::MakeGlyph(unsigned int g)
 
 
 template <typename T>
-inline void FTGLOutlineFont::RenderI(const T* string)
+inline void FTGLOutlineFontImpl::RenderI(const T* string)
 {
     glPushAttrib(GL_ENABLE_BIT | GL_HINT_BIT | GL_LINE_BIT
                   | GL_COLOR_BUFFER_BIT);
@@ -84,19 +115,19 @@ inline void FTGLOutlineFont::RenderI(const T* string)
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // GL_ONE
 
-    FTFont::Render(string);
+    FTFontImpl::Render(string);
 
     glPopAttrib();
 }
 
 
-void FTGLOutlineFont::Render(const char* string)
+void FTGLOutlineFontImpl::Render(const char* string)
 {
     RenderI(string);
 }
 
 
-void FTGLOutlineFont::Render(const wchar_t* string)
+void FTGLOutlineFontImpl::Render(const wchar_t* string)
 {
     RenderI(string);
 }

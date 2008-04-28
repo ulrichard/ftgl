@@ -35,12 +35,270 @@
 #include "config.h"
 
 #include "FTFace.h"
+
 #include "FTFont.h"
+#include "FTGLBitmapFont.h"
+#include "FTGLExtrdFont.h"
+#include "FTGLOutlineFont.h"
+#include "FTGLPixmapFont.h"
+#include "FTGLPolygonFont.h"
+#include "FTGLTextureFont.h"
+
 #include "FTGlyphContainer.h"
 #include "FTBBox.h"
 
-FTFont::FTFont(const char* fontFilePath)
-:   face(fontFilePath),
+
+//
+//  FTFont
+//
+
+
+FTFont::FTFont(FTGL::FontType type, const char* fontFilePath)
+{
+    switch(type)
+    {
+        case FTGL::FONT_BITMAP:
+            impl = new FTGLBitmapFontImpl(fontFilePath);
+            break;
+        case FTGL::FONT_EXTRUDE:
+            impl = new FTGLExtrdFontImpl(fontFilePath);
+            break;
+        case FTGL::FONT_OUTLINE:
+            impl = new FTGLOutlineFontImpl(fontFilePath);
+            break;
+        case FTGL::FONT_PIXMAP:
+            impl = new FTGLPixmapFontImpl(fontFilePath);
+            break;
+        case FTGL::FONT_POLYGON:
+            impl = new FTGLPolygonFontImpl(fontFilePath);
+            break;
+        case FTGL::FONT_TEXTURE:
+            impl = new FTGLTextureFontImpl(fontFilePath);
+            break;
+    }
+}
+
+
+FTFont::FTFont(FTGL::FontType type,
+               const unsigned char *pBufferBytes, size_t bufferSizeInBytes)
+{
+    switch(type)
+    {
+        case FTGL::FONT_BITMAP:
+            impl = new FTGLBitmapFontImpl(pBufferBytes, bufferSizeInBytes);
+            break;
+        case FTGL::FONT_EXTRUDE:
+            impl = new FTGLExtrdFontImpl(pBufferBytes, bufferSizeInBytes);
+            break;
+        case FTGL::FONT_OUTLINE:
+            impl = new FTGLOutlineFontImpl(pBufferBytes, bufferSizeInBytes);
+            break;
+        case FTGL::FONT_PIXMAP:
+            impl = new FTGLPixmapFontImpl(pBufferBytes, bufferSizeInBytes);
+            break;
+        case FTGL::FONT_POLYGON:
+            impl = new FTGLPolygonFontImpl(pBufferBytes, bufferSizeInBytes);
+            break;
+        case FTGL::FONT_TEXTURE:
+            impl = new FTGLTextureFontImpl(pBufferBytes, bufferSizeInBytes);
+            break;
+    }
+}
+
+
+FTFont::~FTFont()
+{
+    delete impl;
+}
+
+
+//
+//  FTLayoutImpl
+//
+
+
+bool FTFont::Attach(const char* fontFilePath)
+{
+    if(impl->face.Attach(fontFilePath))
+    {
+        impl->err = 0;
+        return true;
+    }
+    else
+    {
+        impl->err = impl->face.Error();
+        return false;
+    }
+}
+
+
+bool FTFont::Attach(const unsigned char *pBufferBytes, size_t bufferSizeInBytes)
+{
+    if(impl->face.Attach(pBufferBytes, bufferSizeInBytes))
+    {
+        impl->err = 0;
+        return true;
+    }
+    else
+    {
+        impl->err = impl->face.Error();
+        return false;
+    }
+}
+
+
+bool FTFont::FaceSize(const unsigned int size, const unsigned int res)
+{
+    return impl->FaceSize(size, res);
+}
+
+
+unsigned int FTFont::FaceSize() const
+{
+    return impl->FaceSize();
+}
+
+
+void FTFont::Depth(float depth)
+{
+    impl->Depth(depth);
+}
+
+
+void FTFont::Outset(float outset)
+{
+    impl->Outset(outset);
+}
+
+
+void FTFont::Outset(float front, float back)
+{
+    impl->Outset(front, back);
+}
+
+
+bool FTFont::CharMap(FT_Encoding encoding)
+{
+    bool result = impl->glyphList->CharMap(encoding);
+    impl->err = impl->glyphList->Error();
+    return result;
+}
+
+
+unsigned int FTFont::CharMapCount()
+{
+    return impl->face.CharMapCount();
+}
+
+
+FT_Encoding* FTFont::CharMapList()
+{
+    return impl->face.CharMapList();
+}
+
+
+void FTFont::UseDisplayList(bool useList)
+{
+    impl->useDisplayLists = useList;
+}
+
+float FTFont::Ascender() const
+{
+    return impl->charSize.Ascender();
+}
+
+
+float FTFont::Descender() const
+{
+    return impl->charSize.Descender();
+}
+
+
+float FTFont::LineHeight() const
+{
+    return impl->charSize.Height();
+}
+
+
+void FTFont::Render(const wchar_t* string)
+{
+    impl->Render(string);
+}
+
+
+void FTFont::Render(const char * string)
+{
+    impl->Render(string);
+}
+
+
+void FTFont::Render(const char * string, int renderMode)
+{
+    impl->Render(string, renderMode);
+}
+
+
+void FTFont::Render(const wchar_t* string, int renderMode)
+{
+    impl->Render(string, renderMode);
+}
+
+
+float FTFont::Advance(const wchar_t* string)
+{
+    return impl->Advance(string);
+}
+
+
+float FTFont::Advance(const char* string)
+{
+    return impl->Advance(string);
+}
+
+
+void FTFont::BBox(const char* string, const int start, const int end,
+                  float& llx, float& lly, float& llz,
+                  float& urx, float& ury, float& urz)
+{
+    return impl->BBox(string, start, end, llx, lly, llz, urx, ury, urz);
+}
+
+
+void FTFont::BBox(const wchar_t* string, const int start, const int end,
+                  float& llx, float& lly, float& llz,
+                  float& urx, float& ury, float& urz)
+{
+    return impl->BBox(string, start, end, llx, lly, llz, urx, ury, urz);
+}
+
+
+void FTFont::BBox(const char* string, float& llx, float& lly, float& llz,
+                  float& urx, float& ury, float& urz)
+{
+    impl->BBox(string, 0, -1, llx, lly, llz, urx, ury, urz);
+}
+
+
+void FTFont::BBox(const wchar_t* string, float& llx, float& lly, float& llz,
+                  float& urx, float& ury, float& urz)
+{
+    impl->BBox(string, 0, -1, llx, lly, llz, urx, ury, urz);
+}
+
+
+FT_Error FTFont::Error() const
+{
+    return impl->err;
+}
+
+
+//
+//  FTFontImpl
+//
+
+
+FTFontImpl::FTFontImpl(char const *fontFilePath) :
+    face(fontFilePath),
     useDisplayLists(true),
     glyphList(0)
 {
@@ -52,8 +310,10 @@ FTFont::FTFont(const char* fontFilePath)
 }
 
 
-FTFont::FTFont(const unsigned char *pBufferBytes, size_t bufferSizeInBytes)
-:   face(pBufferBytes, bufferSizeInBytes),
+FTFontImpl::FTFontImpl(const unsigned char *pBufferBytes,
+                       size_t bufferSizeInBytes) :
+    face(pBufferBytes, bufferSizeInBytes),
+    useDisplayLists(true),
     glyphList(0)
 {
     err = face.Error();
@@ -64,7 +324,7 @@ FTFont::FTFont(const unsigned char *pBufferBytes, size_t bufferSizeInBytes)
 }
 
 
-FTFont::~FTFont()
+FTFontImpl::~FTFontImpl()
 {
     if(glyphList)
     {
@@ -73,37 +333,58 @@ FTFont::~FTFont()
 }
 
 
-bool FTFont::Attach(const char* fontFilePath)
+/* FIXME: DoRender should disappear, see commit [853]. */
+void FTFontImpl::DoRender(const unsigned int chr, const unsigned int nextChr,
+                          FTPoint &origin, int renderMode)
 {
-    if(face.Attach(fontFilePath))
+    if(CheckGlyph(chr))
     {
-        err = 0;
-        return true;
-    }
-    else
-    {
-        err = face.Error();
-        return false;
+        FTPoint kernAdvance = glyphList->Render(chr, nextChr, origin, renderMode);
+        origin += kernAdvance;
     }
 }
 
 
-bool FTFont::Attach(const unsigned char *pBufferBytes, size_t bufferSizeInBytes)
+template <typename T>
+inline void FTFontImpl::RenderI(const T* string, int renderMode)
 {
-    if(face.Attach(pBufferBytes, bufferSizeInBytes))
+    const T* c = string;
+    pen = FTPoint(0., 0.);
+
+    while(*c)
     {
-        err = 0;
-        return true;
-    }
-    else
-    {
-        err = face.Error();
-        return false;
+        DoRender(*c, *(c + 1), pen, renderMode);
+        ++c;
     }
 }
 
 
-bool FTFont::FaceSize(const unsigned int size, const unsigned int res)
+void FTFontImpl::Render(const wchar_t* string)
+{
+    RenderI(string, FTGL::RENDER_FRONT | FTGL::RENDER_BACK | FTGL::RENDER_SIDE);
+}
+
+
+void FTFontImpl::Render(const char * string)
+{
+    RenderI((const unsigned char *)string,
+            FTGL::RENDER_FRONT | FTGL::RENDER_BACK | FTGL::RENDER_SIDE);
+}
+
+
+void FTFontImpl::Render(const char * string, int renderMode)
+{
+    RenderI((const unsigned char *)string, renderMode);
+}
+
+
+void FTFontImpl::Render(const wchar_t* string, int renderMode)
+{
+    RenderI(string, renderMode);
+}
+
+
+bool FTFontImpl::FaceSize(const unsigned int size, const unsigned int res)
 {
     charSize = face.Size(size, res);
     err = face.Error();
@@ -123,77 +404,34 @@ bool FTFont::FaceSize(const unsigned int size, const unsigned int res)
 }
 
 
-unsigned int FTFont::FaceSize() const
+unsigned int FTFontImpl::FaceSize() const
 {
     return charSize.CharSize();
 }
 
 
-void FTFont::Depth(float depth)
+void FTFontImpl::Depth(float depth)
 {
     ;
 }
 
 
-void FTFont::Outset(float outset)
+void FTFontImpl::Outset(float outset)
 {
     ;
 }
 
 
-void FTFont::Outset(float front, float back)
+void FTFontImpl::Outset(float front, float back)
 {
     ;
-}
-
-
-bool FTFont::CharMap(FT_Encoding encoding)
-{
-    bool result = glyphList->CharMap(encoding);
-    err = glyphList->Error();
-    return result;
-}
-
-
-unsigned int FTFont::CharMapCount()
-{
-    return face.CharMapCount();
-}
-
-
-FT_Encoding* FTFont::CharMapList()
-{
-    return face.CharMapList();
-}
-
-
-void FTFont::UseDisplayList(bool useList)
-{
-    useDisplayLists = useList;
-}
-
-float FTFont::Ascender() const
-{
-    return charSize.Ascender();
-}
-
-
-float FTFont::Descender() const
-{
-    return charSize.Descender();
-}
-
-
-float FTFont::LineHeight() const
-{
-    return charSize.Height();
 }
 
 
 template <typename T>
-inline void FTFont::BBoxI(const T* string, const int start, const int end,
-                          float& llx, float& lly, float& llz,
-                          float& urx, float& ury, float& urz)
+inline void FTFontImpl::BBoxI(const T* string, const int start, const int end,
+                              float& llx, float& lly, float& llz,
+                              float& urx, float& ury, float& urz)
 {
     FTBBox totalBBox;
 
@@ -233,7 +471,7 @@ inline void FTFont::BBoxI(const T* string, const int start, const int end,
 }
 
 
-void FTFont::BBox(const char* string, const int start, const int end,
+void FTFontImpl::BBox(const char* string, const int start, const int end,
                   float& llx, float& lly, float& llz,
                   float& urx, float& ury, float& urz)
 {
@@ -241,7 +479,7 @@ void FTFont::BBox(const char* string, const int start, const int end,
 }
 
 
-void FTFont::BBox(const wchar_t* string, const int start, const int end,
+void FTFontImpl::BBox(const wchar_t* string, const int start, const int end,
                   float& llx, float& lly, float& llz,
                   float& urx, float& ury, float& urz)
 {
@@ -249,14 +487,14 @@ void FTFont::BBox(const wchar_t* string, const int start, const int end,
 }
 
 
-void FTFont::BBox(const char* string, float& llx, float& lly, float& llz,
+void FTFontImpl::BBox(const char* string, float& llx, float& lly, float& llz,
                   float& urx, float& ury, float& urz)
 {
     BBox(string, 0, -1, llx, lly, llz, urx, ury, urz);
 }
 
 
-void FTFont::BBox(const wchar_t* string, float& llx, float& lly, float& llz,
+void FTFontImpl::BBox(const wchar_t* string, float& llx, float& lly, float& llz,
                   float& urx, float& ury, float& urz)
 {
     BBox(string, 0, -1, llx, lly, llz, urx, ury, urz);
@@ -264,7 +502,7 @@ void FTFont::BBox(const wchar_t* string, float& llx, float& lly, float& llz,
 
 
 template <typename T>
-inline float FTFont::AdvanceI(const T* string)
+inline float FTFontImpl::AdvanceI(const T* string)
 {
     const T* c = string;
     float width = 0.0f;
@@ -282,77 +520,19 @@ inline float FTFont::AdvanceI(const T* string)
 }
 
 
-float FTFont::Advance(const wchar_t* string)
+float FTFontImpl::Advance(const wchar_t* string)
 {
     return AdvanceI(string);
 }
 
 
-float FTFont::Advance(const char* string)
+float FTFontImpl::Advance(const char* string)
 {
     return AdvanceI((const unsigned char *)string);
 }
 
 
-/* FIXME: DoRender should disappear, see commit [853]. */
-void FTFont::DoRender(const unsigned int chr,
-                      const unsigned int nextChr, FTPoint &origin, int renderMode)
-{
-    if(CheckGlyph(chr))
-    {
-        FTPoint kernAdvance = glyphList->Render(chr, nextChr, origin, renderMode);
-        origin += kernAdvance;
-    }
-}
-
-
-template <typename T>
-inline void FTFont::RenderI(const T* string, int renderMode)
-{
-    const T* c = string;
-    pen = FTPoint(0., 0.);
-
-    while(*c)
-    {
-        DoRender(*c, *(c + 1), pen, renderMode);
-        ++c;
-    }
-}
-
-
-void FTFont::Render(const wchar_t* string)
-{
-    RenderI(string, FTGL::RENDER_FRONT | FTGL::RENDER_BACK | FTGL::RENDER_SIDE);
-}
-
-
-void FTFont::Render(const char * string)
-{
-    RenderI((const unsigned char *)string, FTGL::RENDER_FRONT |
-                                           FTGL::RENDER_BACK |
-                                           FTGL::RENDER_SIDE);
-}
-
-
-void FTFont::Render(const char * string, int renderMode)
-{
-    RenderI((const unsigned char *)string, renderMode);
-}
-
-
-void FTFont::Render(const wchar_t* string, int renderMode)
-{
-    RenderI(string, renderMode);
-}
-
-
-FT_Error FTFont::Error() const
-{
-    return err;
-}
-
-
-bool FTFont::CheckGlyph(const unsigned int characterCode)
+bool FTFontImpl::CheckGlyph(const unsigned int characterCode)
 {
     if(NULL == glyphList->Glyph(characterCode))
     {

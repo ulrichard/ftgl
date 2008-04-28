@@ -47,7 +47,84 @@
 #include "FTSimpleLayout.h"
 
 
-FTSimpleLayout::FTSimpleLayout()
+//
+//  FTSimpleLayout
+//
+
+
+FTSimpleLayout::FTSimpleLayout() :
+    FTLayout(FTGL::LAYOUT_SIMPLE)
+{
+    ;
+}
+
+
+void FTSimpleLayout::SetFont(FTFont *fontInit)
+{
+    dynamic_cast<FTSimpleLayoutImpl*>(impl)->currentFont = fontInit;
+}
+
+
+FTFont *FTSimpleLayout::GetFont()
+{
+    return dynamic_cast<FTSimpleLayoutImpl*>(impl)->currentFont;
+}
+
+
+void FTSimpleLayout::SetLineLength(const float LineLength)
+{
+    dynamic_cast<FTSimpleLayoutImpl*>(impl)->lineLength = LineLength;
+}
+
+
+float FTSimpleLayout::GetLineLength() const
+{
+    return dynamic_cast<FTSimpleLayoutImpl*>(impl)->lineLength;
+}
+
+
+void FTSimpleLayout::SetAlignment(const FTGL::TextAlignment Alignment)
+{
+    dynamic_cast<FTSimpleLayoutImpl*>(impl)->alignment = Alignment;
+}
+
+
+FTGL::TextAlignment FTSimpleLayout::GetAlignment() const
+{
+    return dynamic_cast<FTSimpleLayoutImpl*>(impl)->alignment;
+}
+
+
+void FTSimpleLayout::SetLineSpacing(const float LineSpacing)
+{
+    dynamic_cast<FTSimpleLayoutImpl*>(impl)->lineSpacing = LineSpacing;
+}
+
+
+float FTSimpleLayout::GetLineSpacing() const
+{
+    return dynamic_cast<FTSimpleLayoutImpl*>(impl)->lineSpacing;
+}
+
+
+void FTSimpleLayout::RenderSpace(const char *string, const float ExtraSpace)
+{
+    dynamic_cast<FTSimpleLayoutImpl*>(impl)->RenderSpace(string, ExtraSpace);
+}
+
+
+void FTSimpleLayout::RenderSpace(const wchar_t *string, const float ExtraSpace)
+{
+    dynamic_cast<FTSimpleLayoutImpl*>(impl)->RenderSpace(string, ExtraSpace);
+}
+
+
+//
+//  FTSimpleLayoutImpl
+//
+
+
+FTSimpleLayoutImpl::FTSimpleLayoutImpl()
 {
     currentFont = NULL;
     lineLength = 100.0f;
@@ -57,9 +134,9 @@ FTSimpleLayout::FTSimpleLayout()
 
 
 template <typename T>
-inline void FTSimpleLayout::BBoxI(const T* string,
-                                  float& llx, float& lly, float& llz,
-                                  float& urx, float& ury, float& urz)
+inline void FTSimpleLayoutImpl::BBoxI(const T* string,
+                                      float& llx, float& lly, float& llz,
+                                      float& urx, float& ury, float& urz)
 {
     FTBBox bounds;
 
@@ -69,53 +146,73 @@ inline void FTSimpleLayout::BBoxI(const T* string,
 }
 
 
-void FTSimpleLayout::BBox(const char *string, float& llx, float& lly,
-                          float& llz, float& urx, float& ury, float& urz)
+void FTSimpleLayoutImpl::BBox(const char *string, float& llx, float& lly,
+                              float& llz, float& urx, float& ury, float& urz)
 {
     BBoxI(string, llx, lly, llz, urx, ury, urz);
 }
 
 
-void FTSimpleLayout::BBox(const wchar_t *string, float& llx, float& lly,
-                          float& llz, float& urx, float& ury, float& urz)
+void FTSimpleLayoutImpl::BBox(const wchar_t *string, float& llx, float& lly,
+                              float& llz, float& urx, float& ury, float& urz)
 {
     BBoxI(string, llx, lly, llz, urx, ury, urz);
 }
 
 
 template <typename T>
-inline void FTSimpleLayout::RenderI(const T *string, int renderMode)
+inline void FTSimpleLayoutImpl::RenderI(const T *string, int renderMode)
 {
     pen = FTPoint(0.0f, 0.0f);
     WrapText(string, renderMode, NULL);
 }
 
 
-void FTSimpleLayout::Render(const char *string)
+void FTSimpleLayoutImpl::Render(const char *string)
 {
     RenderI(string, FTGL::RENDER_FRONT | FTGL::RENDER_BACK | FTGL::RENDER_SIDE);
 }
 
 
-void FTSimpleLayout::Render(const wchar_t* string)
+void FTSimpleLayoutImpl::Render(const wchar_t* string)
 {
     RenderI(string, FTGL::RENDER_FRONT | FTGL::RENDER_BACK | FTGL::RENDER_SIDE);
 }
 
-void FTSimpleLayout::Render(const char *string, int renderMode)
+
+void FTSimpleLayoutImpl::Render(const char *string, int renderMode)
 {
     RenderI(string, renderMode);
 }
 
 
-void FTSimpleLayout::Render(const wchar_t* string, int renderMode)
+void FTSimpleLayoutImpl::Render(const wchar_t* string, int renderMode)
 {
     RenderI(string, renderMode);
+}
+
+
+void FTSimpleLayoutImpl::RenderSpace(const char *string,
+                                     const float ExtraSpace)
+{
+    pen.X(0);
+    pen.Y(0);
+    RenderSpace(string, 0, -1, 0, ExtraSpace);
+}
+
+
+void FTSimpleLayoutImpl::RenderSpace(const wchar_t *string,
+                                     const float ExtraSpace)
+{
+    pen.X(0);
+    pen.Y(0);
+    RenderSpace(string, 0, -1, 0, ExtraSpace);
 }
 
 
 template <typename T>
-inline void FTSimpleLayout::WrapTextI(const T *buf, int renderMode, FTBBox *bounds)
+inline void FTSimpleLayoutImpl::WrapTextI(const T *buf, int renderMode,
+                                          FTBBox *bounds)
 {
     int breakIdx = 0;          // index of the last break character
     int lineStart = 0;         // character index of the line start
@@ -230,23 +327,25 @@ inline void FTSimpleLayout::WrapTextI(const T *buf, int renderMode, FTBBox *boun
 }
 
 
-void FTSimpleLayout::WrapText(const char *buf, int renderMode, FTBBox *bounds)
+void FTSimpleLayoutImpl::WrapText(const char *buf, int renderMode,
+                                  FTBBox *bounds)
 {
     WrapTextI(buf, renderMode, bounds);
 }
 
 
-void FTSimpleLayout::WrapText(const wchar_t* buf, int renderMode, FTBBox *bounds)
+void FTSimpleLayoutImpl::WrapText(const wchar_t* buf, int renderMode,
+                                  FTBBox *bounds)
 {
     WrapTextI(buf, renderMode, bounds);
 }
 
 
 template <typename T>
-inline void FTSimpleLayout::OutputWrappedI(const T *buf, const int start,
-                                           const int end,
-                                           const float RemainingWidth,
-                                           FTBBox *bounds, int renderMode)
+inline void FTSimpleLayoutImpl::OutputWrappedI(const T *buf, const int start,
+                                               const int end,
+                                               const float remaining,
+                                               FTBBox *bounds, int renderMode)
 {
     float distributeWidth = 0.0;
     // Align the text according as specified by Alignment
@@ -256,14 +355,14 @@ inline void FTSimpleLayout::OutputWrappedI(const T *buf, const int start,
             pen.X(0);
             break;
         case FTGL::ALIGN_CENTER:
-            pen.X(RemainingWidth / 2);
+            pen.X(remaining / 2);
             break;
         case FTGL::ALIGN_RIGHT:
-            pen.X(RemainingWidth);
+            pen.X(remaining);
             break;
         case FTGL::ALIGN_JUSTIFY:
             pen.X(0);
-            distributeWidth = RemainingWidth;
+            distributeWidth = remaining;
             break;
     }
 
@@ -299,25 +398,26 @@ inline void FTSimpleLayout::OutputWrappedI(const T *buf, const int start,
 }
 
 
-void FTSimpleLayout::OutputWrapped(const char *buf, const int start,
-                                   const int end, const float RemainingWidth,
-                                   FTBBox *bounds, int renderMode)
+void FTSimpleLayoutImpl::OutputWrapped(const char *buf, const int start,
+                                       const int end, const float remaining,
+                                       FTBBox *bounds, int renderMode)
 {
-    OutputWrappedI(buf, start, end, RemainingWidth, bounds, renderMode);
+    OutputWrappedI(buf, start, end, remaining, bounds, renderMode);
 }
 
 
-void FTSimpleLayout::OutputWrapped(const wchar_t *buf, const int start,
-                                   const int end, const float RemainingWidth,
-                                   FTBBox *bounds, int renderMode)
+void FTSimpleLayoutImpl::OutputWrapped(const wchar_t *buf, const int start,
+                                       const int end, const float remaining,
+                                       FTBBox *bounds, int renderMode)
 {
-    OutputWrappedI(buf, start, end, RemainingWidth, bounds, renderMode);
+    OutputWrappedI(buf, start, end, remaining, bounds, renderMode);
 }
 
 
 template <typename T>
-inline void FTSimpleLayout::RenderSpaceI(const T *string, const int start,
-                                         const int end, int renderMode, const float ExtraSpace)
+inline void FTSimpleLayoutImpl::RenderSpaceI(const T *string, const int start,
+                                             const int end, int renderMode,
+                                             const float ExtraSpace)
 {
     float space = 0.0;
 
@@ -356,15 +456,17 @@ inline void FTSimpleLayout::RenderSpaceI(const T *string, const int start,
 }
 
 
-void FTSimpleLayout::RenderSpace(const char *string, const int start,
-                                 const int end, int renderMode, const float ExtraSpace)
+void FTSimpleLayoutImpl::RenderSpace(const char *string, const int start,
+                                     const int end, int renderMode,
+                                     const float ExtraSpace)
 {
     RenderSpaceI(string, start, end, renderMode, ExtraSpace);
 }
 
 
-void FTSimpleLayout::RenderSpace(const wchar_t *string, const int start,
-                                 const int end, int renderMode, const float ExtraSpace)
+void FTSimpleLayoutImpl::RenderSpace(const wchar_t *string, const int start,
+                                     const int end, int renderMode,
+                                     const float ExtraSpace)
 {
     RenderSpaceI(string, start, end, renderMode, ExtraSpace);
 }

@@ -42,6 +42,8 @@
 
 
 class FTGlyph;
+class FTFontImpl;
+
 
 /**
  * FTGLBitmapFont is a specialisation of the FTFont class for handling
@@ -102,8 +104,24 @@ class FTGL_EXPORT FTGLBitmapFont : public FTFont
          * @param renderMode    Render mode to display
          */
         void Render(const wchar_t *string, int renderMode) { Render(string); }
+};
 
-        // attributes
+
+class FTGLBitmapFontImpl : public FTFontImpl
+{
+    friend class FTGLBitmapFont;
+
+    public:
+        FTGLBitmapFontImpl(const char* fontFilePath);
+
+        FTGLBitmapFontImpl(const unsigned char *pBufferBytes,
+                           size_t bufferSizeInBytes);
+
+        ~FTGLBitmapFontImpl();
+
+        void Render(const char* string);
+
+        void Render(const wchar_t* string);
 
     private:
         /**
@@ -118,6 +136,7 @@ class FTGL_EXPORT FTGLBitmapFont : public FTFont
         template <typename T>
         inline void RenderI(const T* string);
 };
+
 #endif //__cplusplus
 
 #ifdef __cplusplus

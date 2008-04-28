@@ -42,6 +42,7 @@
 #include "FTGL.h"
 
 class FTTextureGlyph;
+class FTFontImpl;
 
 
 /**
@@ -73,9 +74,23 @@ class  FTGL_EXPORT FTGLTextureFont : public FTFont
          * Destructor
          */
         virtual ~FTGLTextureFont();
+};
+
+
+class FTGLTextureFontImpl : public FTFontImpl
+{
+    friend class FTGLTextureFont;
+
+    public:
+        FTGLTextureFontImpl(const char* fontFilePath);
+
+        FTGLTextureFontImpl(const unsigned char *pBufferBytes,
+                            size_t bufferSizeInBytes);
+
+        ~FTGLTextureFontImpl();
 
         /**
-            * Set the char size for the current face.
+         * Set the char size for the current face.
          *
          * @param size      the face size in points (1/72 inch)
          * @param res       the resolution of the target device.

@@ -36,6 +36,7 @@
 
 #include "FTBufferGlyph.h"
 
+
 FTBufferGlyph::FTBufferGlyph(FT_GlyphSlot glyph, unsigned char* b)
 :   FTGlyph(glyph),
     destWidth(0),

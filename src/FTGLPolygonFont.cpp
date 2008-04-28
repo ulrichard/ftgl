@@ -40,23 +40,60 @@
 #include "FTPolyGlyph.h"
 
 
-FTGLPolygonFont::FTGLPolygonFont(const char* fontFilePath)
-:   FTFont(fontFilePath),
-    outset(0.0f)
-{}
+//
+//  FTGLPolygonFont
+//
+
+
+FTGLPolygonFont::FTGLPolygonFont(char const *fontFilePath) :
+    FTFont(FTGL::FONT_POLYGON, fontFilePath)
+{
+    ;
+}
 
 
 FTGLPolygonFont::FTGLPolygonFont(const unsigned char *pBufferBytes,
-                                 size_t bufferSizeInBytes)
-:   FTFont(pBufferBytes, bufferSizeInBytes)
-{}
+                                 size_t bufferSizeInBytes) :
+    FTFont(FTGL::FONT_POLYGON, pBufferBytes, bufferSizeInBytes)
+{
+    ;
+}
 
 
 FTGLPolygonFont::~FTGLPolygonFont()
-{}
+{
+    ;
+}
 
 
-FTGlyph* FTGLPolygonFont::MakeGlyph(unsigned int g)
+//
+//  FTGLPolygonFontImpl
+//
+
+
+FTGLPolygonFontImpl::FTGLPolygonFontImpl(const char* fontFilePath)
+:   FTFontImpl(fontFilePath),
+    outset(0.0f)
+{
+    ;
+}
+
+
+FTGLPolygonFontImpl::FTGLPolygonFontImpl(const unsigned char *pBufferBytes,
+                                         size_t bufferSizeInBytes)
+:   FTFontImpl(pBufferBytes, bufferSizeInBytes)
+{
+    ;
+}
+
+
+FTGLPolygonFontImpl::~FTGLPolygonFontImpl()
+{
+    ;
+}
+
+
+FTGlyph* FTGLPolygonFontImpl::MakeGlyph(unsigned int g)
 {
     FT_GlyphSlot ftGlyph = face.Glyph(g, FT_LOAD_NO_HINTING);
 

@@ -43,7 +43,38 @@
 #include "FTTextureGlyph.h"
 
 
-inline GLuint NextPowerOf2(GLuint in)
+//
+//  FTGLTextureFont
+//
+
+
+FTGLTextureFont::FTGLTextureFont(char const *fontFilePath) :
+    FTFont(FTGL::FONT_TEXTURE, fontFilePath)
+{
+    ;
+}
+
+
+FTGLTextureFont::FTGLTextureFont(const unsigned char *pBufferBytes,
+                                 size_t bufferSizeInBytes) :
+    FTFont(FTGL::FONT_TEXTURE, pBufferBytes, bufferSizeInBytes)
+{
+    ;
+}
+
+
+FTGLTextureFont::~FTGLTextureFont()
+{
+    ;
+}
+
+
+//
+//  FTGLTextureFontImpl
+//
+
+
+static inline GLuint NextPowerOf2(GLuint in)
 {
      in -= 1;
 
@@ -57,8 +88,8 @@ inline GLuint NextPowerOf2(GLuint in)
 }
 
 
-FTGLTextureFont::FTGLTextureFont(const char* fontFilePath)
-:   FTFont(fontFilePath),
+FTGLTextureFontImpl::FTGLTextureFontImpl(const char* fontFilePath)
+:   FTFontImpl(fontFilePath),
     maximumGLTextureSize(0),
     textureWidth(0),
     textureHeight(0),
@@ -72,9 +103,9 @@ FTGLTextureFont::FTGLTextureFont(const char* fontFilePath)
 }
 
 
-FTGLTextureFont::FTGLTextureFont(const unsigned char *pBufferBytes,
-                                 size_t bufferSizeInBytes)
-:   FTFont(pBufferBytes, bufferSizeInBytes),
+FTGLTextureFontImpl::FTGLTextureFontImpl(const unsigned char *pBufferBytes,
+                                         size_t bufferSizeInBytes)
+:   FTFontImpl(pBufferBytes, bufferSizeInBytes),
     maximumGLTextureSize(0),
     textureWidth(0),
     textureHeight(0),
@@ -88,13 +119,13 @@ FTGLTextureFont::FTGLTextureFont(const unsigned char *pBufferBytes,
 }
 
 
-FTGLTextureFont::~FTGLTextureFont()
+FTGLTextureFontImpl::~FTGLTextureFontImpl()
 {
     glDeleteTextures(textureIDList.size(), (const GLuint*)&textureIDList[0]);
 }
 
 
-FTGlyph* FTGLTextureFont::MakeGlyph(unsigned int glyphIndex)
+FTGlyph* FTGLTextureFontImpl::MakeGlyph(unsigned int glyphIndex)
 {
     FT_GlyphSlot ftGlyph = face.Glyph(glyphIndex, FT_LOAD_NO_HINTING
                                                    | FT_LOAD_NO_BITMAP);
@@ -135,7 +166,7 @@ FTGlyph* FTGLTextureFont::MakeGlyph(unsigned int glyphIndex)
 }
 
 
-void FTGLTextureFont::CalculateTextureSize()
+void FTGLTextureFontImpl::CalculateTextureSize()
 {
     if(!maximumGLTextureSize)
     {
@@ -153,7 +184,7 @@ void FTGLTextureFont::CalculateTextureSize()
 }
 
 
-GLuint FTGLTextureFont::CreateTexture()
+GLuint FTGLTextureFontImpl::CreateTexture()
 {
     CalculateTextureSize();
 
@@ -179,7 +210,7 @@ GLuint FTGLTextureFont::CreateTexture()
 }
 
 
-bool FTGLTextureFont::FaceSize(const unsigned int size, const unsigned int res)
+bool FTGLTextureFontImpl::FaceSize(const unsigned int size, const unsigned int res)
 {
     if(!textureIDList.empty())
     {
@@ -188,29 +219,29 @@ bool FTGLTextureFont::FaceSize(const unsigned int size, const unsigned int res)
         remGlyphs = numGlyphs = face.GlyphCount();
     }
 
-    return FTFont::FaceSize(size, res);
+    return FTFontImpl::FaceSize(size, res);
 }
 
 
 template <typename T>
-inline void FTGLTextureFont::RenderI(const T* string)
+inline void FTGLTextureFontImpl::RenderI(const T* string)
 {
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // GL_ONE
 
     FTTextureGlyph::ResetActiveTexture();
 
-    FTFont::Render(string);
+    FTFontImpl::Render(string);
 }
 
 
-void FTGLTextureFont::Render(const char* string)
+void FTGLTextureFontImpl::Render(const char* string)
 {
     RenderI(string);
 }
 
 
-void FTGLTextureFont::Render(const wchar_t* string)
+void FTGLTextureFontImpl::Render(const wchar_t* string)
 {
     RenderI(string);
 }

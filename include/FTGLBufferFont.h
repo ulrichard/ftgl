@@ -41,6 +41,7 @@
 
 
 class FTGlyph;
+class FTFontImpl;
 
 
 /**
@@ -68,17 +69,26 @@ class FTGL_EXPORT FTGLBufferFont : public FTFont
         FTGLBufferFont(const unsigned char *pBufferBytes,
                        size_t bufferSizeInBytes);
 
-
-        void SetClientBuffer(unsigned char* b)
-        {
-            buffer = b;
-        }
-
-
         /**
          * Destructor
          */
         ~FTGLBufferFont();
+
+        void SetClientBuffer(unsigned char* b);
+};
+
+
+class FTGLBufferFontImpl : public FTFontImpl
+{
+        friend class FTGLBufferFont;
+
+    public:
+        FTGLBufferFontImpl(const char* fontFilePath);
+
+        FTGLBufferFontImpl(const unsigned char *pBufferBytes,
+                           size_t bufferSizeInBytes);
+
+        ~FTGLBufferFontImpl();
 
         /**
          * Renders a string of characters

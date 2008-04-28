@@ -41,6 +41,8 @@
 #include "FTPoint.h"
 #include "FTFont.h"
 
+class FTLayoutImpl;
+
 /**
  * FTLayout is the interface for layout managers that render text.
  *
@@ -53,6 +55,33 @@
  */
 class FTGL_EXPORT FTLayout
 {
+    public:
+        FTLayout(FTGL::LayoutType type);
+
+        virtual ~FTLayout();
+
+        void BBox(const char* string, float& llx, float& lly,
+                  float& llz, float& urx, float& ury, float& urz);
+
+        void BBox(const wchar_t* string, float& llx, float& lly,
+                  float& llz, float& urx, float& ury, float& urz);
+
+        void Render(const char *string);
+
+        void Render(const char *string, int renderMode);
+
+        void Render(const wchar_t *string);
+
+        void Render(const wchar_t *string, int renderMode);
+
+    protected:
+        FTLayoutImpl *impl;
+};
+
+class FTLayoutImpl
+{
+        friend class FTLayout;
+
     public:
         /**
          * Get the bounding box for a formatted string.

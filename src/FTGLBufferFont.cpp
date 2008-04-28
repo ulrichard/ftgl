@@ -38,24 +38,67 @@
 #include "FTBufferGlyph.h"
 
 
-FTGLBufferFont::FTGLBufferFont(const char* fontname)
-:   FTFont(fontname),
-    buffer(0)
-{}
+//
+//  FTGLBufferFont
+//
 
 
-FTGLBufferFont::FTGLBufferFont(const unsigned char *pBufferBytes,
-                               size_t bufferSizeInBytes)
-:   FTFont(pBufferBytes, bufferSizeInBytes),
-    buffer(0)
-{}
+FTGLBufferFont::FTGLBufferFont(char const *fontname) :
+    FTFont(FTGL::FONT_BUFFER, fontname)
+{
+    ;
+}
+
+
+FTGLBufferFont::FTGLBufferFont(unsigned char const *pBufferBytes,
+                               size_t bufferSizeInBytes) :
+    FTFont(FTGL::FONT_BUFFER, pBufferBytes, bufferSizeInBytes)
+{
+    ;
+}
 
 
 FTGLBufferFont::~FTGLBufferFont()
-{}
+{
+    ;
+}
 
 
-FTGlyph* FTGLBufferFont::MakeGlyph(unsigned int g)
+void FTGLBufferFont::SetClientBuffer(unsigned char* b)
+{
+    dynamic_cast<FTGLBufferFontImpl *>(impl)->buffer = b;
+}
+
+
+//
+//  FTGLBufferFontImpl
+//
+
+
+FTGLBufferFontImpl::FTGLBufferFontImpl(const char* fontname)
+:   FTFont(fontname),
+    buffer(0)
+{
+    ;
+}
+
+
+FTGLBufferFontImpl::FTGLBufferFontImpl(const unsigned char *pBufferBytes,
+                                       size_t bufferSizeInBytes)
+:   FTFont(pBufferBytes, bufferSizeInBytes),
+    buffer(0)
+{
+    ;
+}
+
+
+FTGLBufferFontImpl::~FTGLBufferFontImpl()
+{
+    ;
+}
+
+
+FTGlyph* FTGLBufferFontImpl::MakeGlyph(unsigned int g)
 {
     FT_GlyphSlot ftGlyph = face.Glyph(g, FT_LOAD_NO_HINTING);
 
@@ -70,7 +113,7 @@ FTGlyph* FTGLBufferFont::MakeGlyph(unsigned int g)
 }
 
 
-void FTGLBufferFont::Render(const char* string)
+void FTGLBufferFontImpl::Render(const char* string)
 {
     if(NULL != buffer)
     {
@@ -79,7 +122,7 @@ void FTGLBufferFont::Render(const char* string)
 }
 
 
-void FTGLBufferFont::Render(const wchar_t* string)
+void FTGLBufferFontImpl::Render(const wchar_t* string)
 {
     if(NULL != buffer)
     {

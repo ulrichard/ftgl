@@ -54,17 +54,17 @@ namespace C
         } \
         switch(f->type) \
         { \
-            case Bitmap: \
+            case FTGL::FONT_BITMAP: \
                 return dynamic_cast<FTGLBitmapFont*>(f->ptr)->cxxname cxxarg; \
-            case Extrude: \
+            case FTGL::FONT_EXTRUDE: \
                 return dynamic_cast<FTGLExtrdFont*>(f->ptr)->cxxname cxxarg; \
-            case Outline: \
+            case FTGL::FONT_OUTLINE: \
                 return dynamic_cast<FTGLOutlineFont*>(f->ptr)->cxxname cxxarg; \
-            case Pixmap: \
+            case FTGL::FONT_PIXMAP: \
                 return dynamic_cast<FTGLPixmapFont*>(f->ptr)->cxxname cxxarg; \
-            case Polygon: \
+            case FTGL::FONT_POLYGON: \
                 return dynamic_cast<FTGLPolygonFont*>(f->ptr)->cxxname cxxarg; \
-            case Texture: \
+            case FTGL::FONT_TEXTURE: \
                 return dynamic_cast<FTGLTextureFont*>(f->ptr)->cxxname cxxarg; \
         } \
         fprintf(stderr, "FTGL warning: %s not implemented for %d\n", #cname, f->type); \
@@ -81,17 +81,17 @@ void ftglDestroyFont(FTGLfont *f)
     }
     switch(f->type)
     {
-        case Bitmap:
+        case FTGL::FONT_BITMAP:
             delete dynamic_cast<FTGLBitmapFont*>(f->ptr); break;
-        case Extrude:
+        case FTGL::FONT_EXTRUDE:
             delete dynamic_cast<FTGLExtrdFont*>(f->ptr); break;
-        case Outline:
+        case FTGL::FONT_OUTLINE:
             delete dynamic_cast<FTGLOutlineFont*>(f->ptr); break;
-        case Pixmap:
+        case FTGL::FONT_PIXMAP:
             delete dynamic_cast<FTGLPixmapFont*>(f->ptr); break;
-        case Polygon:
+        case FTGL::FONT_POLYGON:
             delete dynamic_cast<FTGLPolygonFont*>(f->ptr); break;
-        case Texture:
+        case FTGL::FONT_TEXTURE:
             delete dynamic_cast<FTGLTextureFont*>(f->ptr); break;
         default:
             fprintf(stderr, "FTGL warning: %s not implemented for %d\n",
@@ -190,7 +190,7 @@ C_FUN(FT_Error, ftglError, (FTGLfont *f), return -1, Error, ());
         } \
         switch(f->type) \
         { \
-            case Simple: \
+            case FTGL::LAYOUT_SIMPLE: \
                 return dynamic_cast<FTSimpleLayout*>(f->ptr)->cxxname cxxarg; \
         } \
         fprintf(stderr, "FTGL warning: %s not implemented for %d\n", #cname, f->type); \
@@ -207,7 +207,7 @@ void ftglDestroyLayout(FTGLlayout *f)
     }
     switch(f->type)
     {
-        case Simple:
+        case FTGL::LAYOUT_SIMPLE:
             delete dynamic_cast<FTSimpleLayout*>(f->ptr); break;
         default:
             fprintf(stderr, "FTGL warning: %s not implemented for %d\n",

@@ -42,6 +42,8 @@
 
 
 class FTGlyph;
+class FTFontImpl;
+
 
 /**
  * FTGLExtrdFont is a specialisation of the FTFont class for handling
@@ -73,6 +75,20 @@ class FTGL_EXPORT FTGLExtrdFont : public FTFont
          * Destructor
          */
         ~FTGLExtrdFont();
+};
+
+
+class FTGLExtrdFontImpl : public FTFontImpl
+{
+    friend class FTGLExtrdFont;
+
+    public:
+        FTGLExtrdFontImpl(const char* fontFilePath);
+
+        FTGLExtrdFontImpl(const unsigned char *pBufferBytes,
+                          size_t bufferSizeInBytes);
+
+        ~FTGLExtrdFontImpl();
 
         /**
          * Set the extrusion distance for the font.

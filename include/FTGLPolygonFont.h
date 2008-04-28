@@ -41,6 +41,7 @@
 #include "FTGL.h"
 
 class FTGlyph;
+class FTFontImpl;
 
 
 /**
@@ -72,6 +73,20 @@ class FTGL_EXPORT FTGLPolygonFont : public FTFont
          * Destructor
          */
         ~FTGLPolygonFont();
+};
+
+
+class FTGLPolygonFontImpl : public FTFontImpl
+{
+    friend class FTGLPolygonFont;
+
+    public:
+        FTGLPolygonFontImpl(const char* fontFilePath);
+
+        FTGLPolygonFontImpl(const unsigned char *pBufferBytes,
+                            size_t bufferSizeInBytes);
+
+        ~FTGLPolygonFontImpl();
 
         /**
          * Set the outset distance for the font. Only implemented by

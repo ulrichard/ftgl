@@ -36,29 +36,92 @@
 
 #include "FTPoint.h"
 #include "FTFont.h"
+
 #include "FTLayout.h"
+#include "FTSimpleLayout.h"
 
-void FTLayout::DoRender(FTFont *font, const unsigned int chr,
-              const unsigned int nextChr, int renderMode)
+
+//
+//  FTLayout
+//
+
+
+FTLayout::FTLayout(FTGL::LayoutType type)
 {
-    font->DoRender(chr, nextChr, pen, renderMode);
+    switch(type)
+    {
+        case FTGL::LAYOUT_SIMPLE:
+            impl = new FTSimpleLayoutImpl();
+            break;
+    }
 }
 
 
-void FTLayout::CheckGlyph(FTFont *font, const unsigned int Chr)
+FTLayout::~FTLayout()
 {
-    font->CheckGlyph(Chr);
+    delete impl;
 }
 
 
-FTGlyphContainer * FTLayout::GetGlyphs(FTFont *font)
+void FTLayout::BBox(const char* string, float& llx, float& lly,
+                    float& llz, float& urx, float& ury, float& urz)
 {
-    return(font->glyphList);
+    impl->BBox(string, llx, lly, llz, urx, ury, urz);
+}
+
+void FTLayout::BBox(const wchar_t* string, float& llx, float& lly,
+                    float& llz, float& urx, float& ury, float& urz)
+{
+    impl->BBox(string, llx, lly, llz, urx, ury, urz);
+}
+
+void FTLayout::Render(const char *string)
+{
+    impl->Render(string);
+}
+
+void FTLayout::Render(const char *string, int renderMode)
+{
+    impl->Render(string, renderMode);
+}
+
+void FTLayout::Render(const wchar_t *string)
+{
+    impl->Render(string);
+}
+
+void FTLayout::Render(const wchar_t *string, int renderMode)
+{
+    impl->Render(string, renderMode);
 }
 
 
-FTSize & FTLayout::GetCharSize(FTFont *font)
+//
+//  FTLayoutImpl
+//
+
+
+void FTLayoutImpl::DoRender(FTFont *font, const unsigned int chr,
+                            const unsigned int nextChr, int renderMode)
 {
-    return(font->charSize);
+    font->impl->DoRender(chr, nextChr, pen, renderMode);
+}
+
+
+void FTLayoutImpl::CheckGlyph(FTFont *font, const unsigned int Chr)
+{
+    font->impl->CheckGlyph(Chr);
+}
+
+
+FTGlyphContainer * FTLayoutImpl::GetGlyphs(FTFont *font)
+{
+    return font->impl->glyphList;
+}
+
+
+FTSize & FTLayoutImpl::GetCharSize(FTFont *font)
+{
+    return font->impl->charSize;
 }
 
