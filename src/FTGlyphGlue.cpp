@@ -2,6 +2,7 @@
  * FTGL - OpenGL font library
  *
  * Copyright (c) 2001-2004 Henry Maddocks <ftgl@opengl.geek.nz>
+ *               2008 Éric Beets <ericbeets@free.fr>
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -23,46 +24,15 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef __FTGLPixmapFont__
-#define __FTGLPixmapFont__
+#include "config.h"
 
-#include <ftgl.h>
-
-
-/**
- * FTGLPixmapFont is a specialisation of the FTFont class for handling
- * Pixmap (Grey Scale) fonts
- *
- * @see     FTFont
- */
-class FTGL_EXPORT FTGLPixmapFont : public FTFont
-{
-    public:
-        /**
-         * Open and read a font file. Sets Error flag.
-         *
-         * @param fontFilePath  font file path.
-         */
-        FTGLPixmapFont(const char* fontFilePath);
-
-        /**
-         * Open and read a font from a buffer in memory. Sets Error flag.
-         *
-         * @param pBufferBytes  the in-memory buffer
-         * @param bufferSizeInBytes  the length of the buffer in bytes
-         */
-        FTGLPixmapFont(const unsigned char *pBufferBytes,
-                       size_t bufferSizeInBytes);
-
-        /**
-         * Destructor
-         */
-        ~FTGLPixmapFont();
-};
+#include "FTInternals.h"
 
 FTGL_BEGIN_C_DECLS
-    FTGL_EXPORT FTGLfont *ftglCreatePixmapFont(const char *fontname);
-FTGL_END_C_DECLS
 
-#endif  //  __FTGLPixmapFont__
+//
+//  C wrappers for FTGlyph
+//
+
+FTGL_END_C_DECLS
 

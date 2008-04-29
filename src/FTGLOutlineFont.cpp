@@ -124,13 +124,3 @@ void FTGLOutlineFontImpl::Render(const wchar_t* string)
     RenderI(string);
 }
 
-
-namespace C
-{
-    extern "C" FTGLfont* ftglCreateOutlineFont(const char *fontname)
-    {
-        FTGLfont *ftgl = createFTFont(FTGL::FONT_OUTLINE, fontname);
-        return ftgl;
-    }
-}
-

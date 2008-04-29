@@ -88,53 +88,13 @@
     #endif
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-namespace C {
-#endif
+FTGL_BEGIN_C_DECLS
 
 struct _FTGLfont
 {
     FTFont *ptr;
     FTGL::FontType type;
 };
-
-static inline FTGLfont *createFTFont(FTGL::FontType type, const char *fontname)
-{
-    FTGLfont *ftgl = (FTGLfont*)malloc(sizeof(FTGLfont));
-    ftgl->type = type;
-    switch(type)
-    {
-        case FTGL::FONT_BITMAP:
-            ftgl->ptr = new FTGLBitmapFont(fontname);
-            break;
-        case FTGL::FONT_PIXMAP:
-            ftgl->ptr = new FTGLPixmapFont(fontname);
-            break;
-        case FTGL::FONT_OUTLINE:
-            ftgl->ptr = new FTGLOutlineFont(fontname);
-            break;
-        case FTGL::FONT_POLYGON:
-            ftgl->ptr = new FTGLPolygonFont(fontname);
-            break;
-        case FTGL::FONT_EXTRUDE:
-            ftgl->ptr = new FTGLExtrdFont(fontname);
-            break;
-        case FTGL::FONT_TEXTURE:
-            ftgl->ptr = new FTGLTextureFont(fontname);
-            break;
-    }
-
-    if(ftgl->ptr->Error())
-    {
-        delete ftgl->ptr;
-        free(ftgl);
-        return NULL;
-    }
-
-    return ftgl;
-}
 
 struct _FTGLlayout
 {
@@ -143,24 +103,7 @@ struct _FTGLlayout
     FTGL::LayoutType type;
 };
 
-static inline FTGLlayout *createFTLayout(FTGL::LayoutType type)
-{
-    FTGLlayout *layout = (FTGLlayout*)malloc(sizeof(FTGLlayout));
-    layout->font = NULL;
-    layout->type = type;
-    switch(type)
-    {
-        case FTGL::LAYOUT_SIMPLE:
-            layout->ptr = new FTSimpleLayout();
-            break;
-    }
-    return layout;
-}
-
-#ifdef __cplusplus
-}
-}
-#endif
+FTGL_END_C_DECLS
 
 #endif  //__FTINTERNALS_H__
 

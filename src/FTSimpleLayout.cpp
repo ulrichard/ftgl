@@ -461,12 +461,3 @@ void FTSimpleLayoutImpl::RenderSpace(const wchar_t *string, const int start,
     RenderSpaceI(string, start, end, renderMode, ExtraSpace);
 }
 
-namespace C
-{
-    extern "C" FTGLlayout* ftglCreateSimpleLayout()
-    {
-        FTGLlayout *layout = createFTLayout(FTGL::LAYOUT_SIMPLE);
-        return layout;
-    }
-}
-

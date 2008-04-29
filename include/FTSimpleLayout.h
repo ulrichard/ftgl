@@ -122,17 +122,9 @@ class FTGL_EXPORT FTSimpleLayout : public FTLayout
 
 #endif //__cplusplus
 
-#ifdef __cplusplus
-extern "C" {
-namespace C {
-#endif
-
-FTGL_EXPORT FTGLlayout *ftglCreateSimpleLayout();
-
-#ifdef __cplusplus
-}
-}
-#endif
+FTGL_BEGIN_C_DECLS
+    FTGL_EXPORT FTGLlayout *ftglCreateSimpleLayout();
+FTGL_END_C_DECLS
 
 #endif  /* __FTSimpleLayout__ */
 

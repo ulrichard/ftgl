@@ -70,10 +70,7 @@ class FTGL_EXPORT FTLayout
 
 #endif //__cplusplus
 
-#ifdef __cplusplus
-extern "C" {
-namespace C {
-#endif
+FTGL_BEGIN_C_DECLS
 
 FTGL_EXPORT void ftglDestroyLayout(FTGLlayout*);
 
@@ -100,10 +97,7 @@ FTGL_EXPORT int                 ftglLayoutGetAlignement  (FTGLlayout *);
 FTGL_EXPORT void  ftglLayoutSetLineSpacing (FTGLlayout *, const float);
 FTGL_EXPORT float ftglLayoutGetLineSpacing (FTGLlayout *);
 
-#ifdef __cplusplus
-}
-}
-#endif
+FTGL_END_C_DECLS
 
 #endif  /* __FTLayout__ */
 

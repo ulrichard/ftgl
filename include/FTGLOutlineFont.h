@@ -64,16 +64,8 @@ class FTGL_EXPORT FTGLOutlineFont : public FTFont
 
 #endif //__cplusplus
 
-#ifdef __cplusplus
-namespace C {
-extern "C" {
-#endif
-
-FTGL_EXPORT FTGLfont *ftglCreateOutlineFont(const char *fontname);
-
-#ifdef __cplusplus
-}
-}
-#endif
+FTGL_BEGIN_C_DECLS
+    FTGL_EXPORT FTGLfont *ftglCreateOutlineFont(const char *fontname);
+FTGL_END_C_DECLS
 
 #endif // __FTGLOutlineFont__

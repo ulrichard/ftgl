@@ -122,13 +122,3 @@ void FTGLBitmapFontImpl::Render(const wchar_t* string)
     RenderI(string);
 }
 
-
-namespace C
-{
-    extern "C" FTGLfont* ftglCreateBitmapFont(const char *fontname)
-    {
-        FTGLfont *ftgl = createFTFont(FTGL::FONT_BITMAP, fontname);
-        return ftgl;
-    }
-}
-

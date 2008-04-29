@@ -10,6 +10,7 @@ libftgl_la_SOURCES = \
 	FTExtrdGlyph.cpp FTExtrdGlyph.h \
 	FTFace.cpp FTFace.h \
 	FTFont.cpp FTFontImpl.h \
+	FTFontGlue.cpp \
 	FTGLBitmapFont.cpp FTGLBitmapFontImpl.h \
 	FTGLExtrdFont.cpp FTGLExtrdFontImpl.h \
 	FTGLOutlineFont.cpp FTGLOutlineFontImpl.h \
@@ -18,8 +19,9 @@ libftgl_la_SOURCES = \
 	FTGLTextureFont.cpp FTGLTextureFontImpl.h \
 	FTGlyph.cpp FTGlyph.h \
 	FTGlyphContainer.cpp FTGlyphContainer.h \
-	FTGlue.cpp \
+	FTGlyphGlue.cpp \
 	FTLayout.cpp FTLayoutImpl.h \
+	FTLayoutGlue.cpp \
 	FTLibrary.cpp FTLibrary.h \
 	FTList.h \
 	FTOutlineGlyph.cpp FTOutlineGlyph.h \

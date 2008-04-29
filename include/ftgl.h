@@ -26,24 +26,31 @@
 #ifndef __ftgl__
 #define __ftgl__
 
+/* We need the Freetype headers */
+#include <ft2build.h>
+#include FT_FREETYPE_H
+
+/* Floating point types used by the library */
 typedef double   FTGL_DOUBLE;
 typedef float    FTGL_FLOAT;
 
+/* Macros used to declare C-linkage types and symbols */
 #ifdef __cplusplus
-extern "C" {
-namespace C {
+#   define FTGL_BEGIN_C_DECLS extern "C" { namespace FTGL {
+#   define FTGL_END_C_DECLS } }
+#else
+#   define FTGL_BEGIN_C_DECLS
+#   define FTGL_END_C_DECLS
 #endif
 
-struct _FTGLFont;
-typedef struct _FTGLfont FTGLfont;
+FTGL_BEGIN_C_DECLS
 
-struct _FTGLlayout;
-typedef struct _FTGLlayout FTGLlayout;
+    struct _FTGLFont;
+    typedef struct _FTGLfont FTGLfont;
+    struct _FTGLlayout;
+    typedef struct _FTGLlayout FTGLlayout;
 
-#ifdef __cplusplus
-}
-}
-#endif
+FTGL_END_C_DECLS
 
 #ifdef __cplusplus
 namespace FTGL
@@ -53,7 +60,7 @@ namespace FTGL
         RENDER_FRONT = 0x01,
         RENDER_BACK = 0x02,
         RENDER_SIDE = 0x04,
-    } ftglRenderMode;
+    } RenderMode;
 
     typedef enum
     {

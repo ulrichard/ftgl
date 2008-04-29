@@ -102,13 +102,3 @@ FTGlyph* FTGLExtrdFontImpl::MakeGlyph(unsigned int glyphIndex)
     return NULL;
 }
 
-
-namespace C
-{
-    extern "C" FTGLfont* ftglCreateExtrdFont(const char *fontname)
-    {
-        FTGLfont *ftgl = createFTFont(FTGL::FONT_EXTRUDE, fontname);
-        return ftgl;
-    }
-}
-

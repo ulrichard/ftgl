@@ -23,11 +23,8 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef    __FTFont__
-#define    __FTFont__
-
-#include <ft2build.h>
-#include FT_FREETYPE_H
+#ifndef __FTFont__
+#define __FTFont__
 
 #include <ftgl.h>
 
@@ -45,15 +42,15 @@ class FTFontImpl;
  * appropriate type.
  *
  * It is good practice after using these functions to test the error
- * code returned. <code>FT_Error Error()</code>. Check the freetype file fterrdef.h
- * for error definitions.
+ * code returned. <code>FT_Error Error()</code>. Check the freetype file
+ * fterrdef.h for error definitions.
  *
  * @see     FTFace
  * @see     FTSize
  */
 class FTGL_EXPORT FTFont
 {
-        /* Allow FTLayout classes to access DoRender and CheckGlyph */
+        /* Allow FTLayout classes to access this->impl. */
         friend class FTLayoutImpl;
 
     public:
@@ -321,12 +318,10 @@ class FTGL_EXPORT FTFont
     protected:
         FTFontImpl *impl;
 };
+
 #endif //__cplusplus
 
-#ifdef __cplusplus
-extern "C" {
-namespace C {
-#endif
+FTGL_BEGIN_C_DECLS
 
 FTGL_EXPORT void ftglDestroyFont(FTGLfont*);
 
@@ -356,10 +351,7 @@ FTGL_EXPORT void  ftglRenderMode (FTGLfont*, const char *, int);
 
 FTGL_EXPORT FT_Error ftglError (FTGLfont*);
 
-#ifdef __cplusplus
-}
-}
-#endif
+FTGL_END_C_DECLS
 
 #endif  //  __FTFont__
 

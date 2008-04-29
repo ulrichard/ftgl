@@ -64,15 +64,9 @@ class FTGL_EXPORT FTGLBitmapFont : public FTFont
 
 #endif //__cplusplus
 
-#ifdef __cplusplus
-extern "C" {
-namespace C {
-#endif
-FTGL_EXPORT FTGLfont *ftglCreateBitmapFont(const char *fontname);
-#ifdef __cplusplus
-}
-}
-#endif
+FTGL_BEGIN_C_DECLS
+    FTGL_EXPORT FTGLfont *ftglCreateBitmapFont(const char *fontname);
+FTGL_END_C_DECLS
 
 #endif  //  __FTGLBitmapFont__
 

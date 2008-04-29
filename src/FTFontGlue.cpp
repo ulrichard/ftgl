@@ -28,12 +28,85 @@
 
 #include "FTInternals.h"
 
-namespace C
-{
+FTGL_BEGIN_C_DECLS
 
-//
-//  C wrappers for FTFont
-//
+static inline FTGLfont *createFTFont(FTGL::FontType type, const char *fontname)
+{
+    FTGLfont *ftgl = (FTGLfont*)malloc(sizeof(FTGLfont));
+    ftgl->type = type;
+    switch(type)
+    {
+        case FTGL::FONT_BITMAP:
+            ftgl->ptr = new FTGLBitmapFont(fontname);
+            break;
+        case FTGL::FONT_PIXMAP:
+            ftgl->ptr = new FTGLPixmapFont(fontname);
+            break;
+        case FTGL::FONT_OUTLINE:
+            ftgl->ptr = new FTGLOutlineFont(fontname);
+            break;
+        case FTGL::FONT_POLYGON:
+            ftgl->ptr = new FTGLPolygonFont(fontname);
+            break;
+        case FTGL::FONT_EXTRUDE:
+            ftgl->ptr = new FTGLExtrdFont(fontname);
+            break;
+        case FTGL::FONT_TEXTURE:
+            ftgl->ptr = new FTGLTextureFont(fontname);
+            break;
+    }
+
+    if(ftgl->ptr->Error())
+    {
+        delete ftgl->ptr;
+        free(ftgl);
+        return NULL;
+    }
+
+    return ftgl;
+}
+
+// FTGLBitmapFont::FTGLBitmapFont();
+FTGLfont* ftglCreateBitmapFont(const char *fontname)
+{
+    FTGLfont *ftgl = createFTFont(FTGL::FONT_BITMAP, fontname);
+    return ftgl;
+}
+
+// FTGLExtrdFont::FTGLExtrdFont();
+FTGLfont* ftglCreateExtrdFont(const char *fontname)
+{
+    FTGLfont *ftgl = createFTFont(FTGL::FONT_EXTRUDE, fontname);
+    return ftgl;
+}
+
+// FTGLOutlineFont::FTGLOutlineFont();
+FTGLfont* ftglCreateOutlineFont(const char *fontname)
+{
+    FTGLfont *ftgl = createFTFont(FTGL::FONT_OUTLINE, fontname);
+    return ftgl;
+}
+
+// FTGLPixmapFont::FTGLPixmapFont();
+FTGLfont* ftglCreatePixmapFont(const char *fontname)
+{
+    FTGLfont *ftgl = createFTFont(FTGL::FONT_PIXMAP, fontname);
+    return ftgl;
+}
+
+// FTGLPolygonFont::FTGLPolygonFont();
+FTGLfont* ftglCreatePolygonFont(const char *fontname)
+{
+    FTGLfont *ftgl = createFTFont(FTGL::FONT_POLYGON, fontname);
+    return ftgl;
+}
+
+// FTGLTextureFont::FTGLTextureFont();
+FTGLfont* ftglCreateTextureFont(const char *fontname)
+{
+    FTGLfont *ftgl = createFTFont(FTGL::FONT_TEXTURE, fontname);
+    return ftgl;
+}
 
 #define C_FUN(cret, cname, cargs, cxxerr, cxxname, cxxarg) \
     cret cname cargs \
@@ -165,117 +238,5 @@ C_FUN(void, ftglRenderMode, (FTGLfont *f, const char *s, int r),
 // FT_Error FTFont::Error() const;
 C_FUN(FT_Error, ftglError, (FTGLfont *f), return -1, Error, ());
 
-#undef C_FUN
-
-//
-//  C wrappers for FTLayout
-//
-
-#define C_FUN(cret, cname, cargs, cxxerr, cxxname, cxxarg) \
-    cret cname cargs \
-    { \
-        if(!f || !f->ptr) \
-        { \
-            fprintf(stderr, "FTGL warning: NULL pointer in %s\n", #cname); \
-            cxxerr; \
-        } \
-        switch(f->type) \
-        { \
-            case FTGL::LAYOUT_SIMPLE: \
-                return dynamic_cast<FTSimpleLayout*>(f->ptr)->cxxname cxxarg; \
-        } \
-        fprintf(stderr, "FTGL warning: %s not implemented for %d\n", #cname, f->type); \
-        cxxerr; \
-    }
-
-// FTLayout::~FTLayout();
-void ftglDestroyLayout(FTGLlayout *f)
-{
-    if(!f || !f->ptr)
-    {
-        fprintf(stderr, "FTGL warning: NULL pointer in %s\n", __FUNCTION__);
-        return;
-    }
-    switch(f->type)
-    {
-        case FTGL::LAYOUT_SIMPLE:
-            delete dynamic_cast<FTSimpleLayout*>(f->ptr); break;
-        default:
-            fprintf(stderr, "FTGL warning: %s not implemented for %d\n",
-                            __FUNCTION__, f->type);
-    }
-
-    f->ptr = NULL;
-}
-
-// virtual void BBox(const char* string, float& llx, float& lly, float& llz, float& urx, float& ury, float& urz)
-C_FUN(void, ftglLayoutBBox, (FTGLlayout *f, const char * s, float c[6]),
-      return, BBox, (s, c[0], c[1], c[2], c[3], c[4], c[5]));
-
-// virtual void Render(const char* string);
-C_FUN(void, ftglLayoutRender, (FTGLlayout *f, const char *s),
-      return, Render, (s));
-
-// virtual void Render(const char* string, int renderMode);
-C_FUN(void, ftglLayoutRenderMode, (FTGLlayout *f, const char *s, int r),
-      return, Render, (s, r));
-
-// void RenderSpace(const char *string, const float ExtraSpace = 0.0)
-C_FUN(void, ftglLayoutRenderSpace, (FTGLlayout *f, const char *s, float e),
-      return, RenderSpace, (s, e));
-
-// void SetFont(FTFont *fontInit)
-void ftglLayoutSetFont(FTGLlayout *f, FTGLfont *font)
-{
-    if(!f || !f->ptr)
-    {
-        //XXX fprintf(stderr, "FTGL warning: NULL pointer in %s\n", __func__);
-        return;
-    }
-    switch(f->type)
-    {
-        case FTGL::LAYOUT_SIMPLE:
-            f->font = font;
-            return dynamic_cast<FTSimpleLayout*>(f->ptr)->SetFont(font->ptr);
-    }
-    fprintf(stderr, "FTGL warning: %s not implemented for %d\n",
-                    __FUNCTION__, f->type);
-}
-
-// FTFont *GetFont()
-FTGLfont *ftglLayoutGetFont(FTGLlayout *f)
-{
-    if(!f || !f->ptr)
-    {
-        fprintf(stderr, "FTGL warning: NULL pointer in %s\n", __FUNCTION__);
-        return NULL;
-    }
-    return f->font;
-}
-
-// void SetLineLength(const float LineLength);
-C_FUN(void, ftglLayoutSetLineLength, (FTGLlayout *f, const float length),
-      return, SetLineLength, (length));
-
-// float GetLineLength() const
-C_FUN(float, ftglLayoutGetLineLength, (FTGLlayout *f),
-      return 0.0f, GetLineLength, ());
-
-// void SetAlignment(const TextAlignment Alignment)
-C_FUN(void, ftglLayoutSetAlignment, (FTGLlayout *f, FTGL::TextAlignment a),
-      return, SetAlignment, (a));
-
-// TextAlignment GetAlignment() const
-C_FUN(FTGL::TextAlignment, ftglLayoutGetAlignement, (FTGLlayout *f),
-      return FTGL::ALIGN_LEFT, GetAlignment, ());
-
-// void SetLineSpacing(const float LineSpacing)
-C_FUN(void, ftglLayoutSetLineSpacing, (FTGLlayout *f, const float l),
-      return, SetLineSpacing, (l));
-
-// float GetLineSpacing() const
-C_FUN(float, ftglLayoutGetLineSpacing, (FTGLlayout *f),
-      return 0.0f, GetLineSpacing, ());
-
-} // namespace C
+FTGL_END_C_DECLS
 

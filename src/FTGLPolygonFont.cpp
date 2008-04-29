@@ -99,13 +99,3 @@ FTGlyph* FTGLPolygonFontImpl::MakeGlyph(unsigned int g)
     return NULL;
 }
 
-
-namespace C
-{
-    extern "C" FTGLfont* ftglCreatePolygonFont(const char *fontname)
-    {
-        FTGLfont *ftgl = createFTFont(FTGL::FONT_POLYGON, fontname);
-        return ftgl;
-    }
-}
-

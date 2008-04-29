@@ -106,11 +106,6 @@ FTFont::~FTFont()
 }
 
 
-//
-//  FTLayoutImpl
-//
-
-
 bool FTFont::Attach(const char* fontFilePath)
 {
     if(impl->face.Attach(fontFilePath))
