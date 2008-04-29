@@ -132,19 +132,6 @@ void FTGLBitmapFontImpl::Render(const wchar_t* string)
 }
 
 
-/* FIXME: is this needed? */
-void FTGLBitmapFont::Render(const char* string)
-{
-    impl->Render(string);
-}
-
-
-void FTGLBitmapFont::Render(const wchar_t* string)
-{
-    impl->Render(string);
-}
-
-
 namespace C
 {
     extern "C" FTGLfont* ftglCreateBitmapFont(const char *fontname)
