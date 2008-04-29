@@ -40,13 +40,13 @@ class FTFontImpl
         friend class FTLayoutImpl;
         friend class FTFont;
 
-    public:
+    protected:
         FTFontImpl(char const *fontFilePath);
 
 
         FTFontImpl(const unsigned char *pBufferBytes, size_t bufferSizeInBytes);
 
-        ~FTFontImpl();
+        virtual ~FTFontImpl();
 
         virtual void Render(const char* string);
 
@@ -75,17 +75,10 @@ class FTFontImpl
                   float& llx, float& lly, float& llz,
                   float& urx, float& ury, float& urz);
 
-        void BBox(const char* string, float& llx, float& lly, float& llz,
-                  float& urx, float& ury, float& urz);
-
-        void BBox(const wchar_t* string, float& llx, float& lly, float& llz,
-                  float& urx, float& ury, float& urz);
-
         float Advance(const wchar_t* string);
 
         float Advance(const char* string);
 
-    protected:
         /**
          * Construct a glyph of the correct type.
          *

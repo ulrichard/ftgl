@@ -40,19 +40,17 @@
 //
 
 
-FTLayout::FTLayout(FTGL::LayoutType type)
+FTLayout::FTLayout()
 {
-    switch(type)
-    {
-        case FTGL::LAYOUT_SIMPLE:
-            impl = new FTSimpleLayoutImpl();
-            break;
-    }
+    /* impl is set by the child class */
+    impl = NULL;
 }
 
 
 FTLayout::~FTLayout()
 {
+    /* Only the top class should be allowed to destroy impl, because
+     * we do not know how many levels of inheritance there are. */
     delete impl;
 }
 

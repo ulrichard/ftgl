@@ -45,11 +45,12 @@ class FTLayoutImpl;
  */
 class FTGL_EXPORT FTLayout
 {
-    public:
-        FTLayout(FTGL::LayoutType type);
+    protected:
+        FTLayout();
 
         virtual ~FTLayout();
 
+    public:
         void BBox(const char* string, float& llx, float& lly,
                   float& llz, float& urx, float& ury, float& urz);
 

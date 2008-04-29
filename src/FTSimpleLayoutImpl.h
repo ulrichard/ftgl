@@ -37,10 +37,10 @@ class FTSimpleLayoutImpl : public FTLayoutImpl
 {
     friend class FTSimpleLayout;
 
-    public:
+    protected:
         FTSimpleLayoutImpl();
 
-        ~FTSimpleLayoutImpl();
+        virtual ~FTSimpleLayoutImpl() {};
 
         /**
          * Get the bounding box for a string.

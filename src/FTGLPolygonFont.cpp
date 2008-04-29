@@ -37,18 +37,18 @@
 //
 
 
-FTGLPolygonFont::FTGLPolygonFont(char const *fontFilePath) :
-    FTFont(FTGL::FONT_POLYGON, fontFilePath)
+FTGLPolygonFont::FTGLPolygonFont(char const *fontFilePath)
+: FTFont(fontFilePath)
 {
-    ;
+    impl = new FTGLPolygonFontImpl(fontFilePath);
 }
 
 
 FTGLPolygonFont::FTGLPolygonFont(const unsigned char *pBufferBytes,
-                                 size_t bufferSizeInBytes) :
-    FTFont(FTGL::FONT_POLYGON, pBufferBytes, bufferSizeInBytes)
+                                 size_t bufferSizeInBytes)
+: FTFont(pBufferBytes, bufferSizeInBytes)
 {
-    ;
+    impl = new FTGLPolygonFontImpl(pBufferBytes, bufferSizeInBytes);
 }
 
 
@@ -61,28 +61,6 @@ FTGLPolygonFont::~FTGLPolygonFont()
 //
 //  FTGLPolygonFontImpl
 //
-
-
-FTGLPolygonFontImpl::FTGLPolygonFontImpl(const char* fontFilePath)
-:   FTFontImpl(fontFilePath),
-    outset(0.0f)
-{
-    ;
-}
-
-
-FTGLPolygonFontImpl::FTGLPolygonFontImpl(const unsigned char *pBufferBytes,
-                                         size_t bufferSizeInBytes)
-:   FTFontImpl(pBufferBytes, bufferSizeInBytes)
-{
-    ;
-}
-
-
-FTGLPolygonFontImpl::~FTGLPolygonFontImpl()
-{
-    ;
-}
 
 
 FTGlyph* FTGLPolygonFontImpl::MakeGlyph(unsigned int g)

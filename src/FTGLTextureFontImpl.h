@@ -37,13 +37,13 @@ class FTGLTextureFontImpl : public FTFontImpl
 {
     friend class FTGLTextureFont;
 
-    public:
+    protected:
         FTGLTextureFontImpl(const char* fontFilePath);
 
         FTGLTextureFontImpl(const unsigned char *pBufferBytes,
                             size_t bufferSizeInBytes);
 
-        ~FTGLTextureFontImpl();
+        virtual ~FTGLTextureFontImpl();
 
         /**
          * Set the char size for the current face.
@@ -68,7 +68,7 @@ class FTGLTextureFontImpl : public FTFontImpl
          * @param string    'C' style string to be output.
          * @param renderMode    Render mode to display
          */
-        void Render(const char* string, int renderMode) { Render(string); }
+        virtual void Render(const char* string, int renderMode);
 
         /**
          * Renders a string of characters
@@ -83,7 +83,7 @@ class FTGLTextureFontImpl : public FTFontImpl
          * @param string    wchar_t string to be output.
          * @param renderMode    Render mode to display
          */
-        void Render(const wchar_t *string, int renderMode) { Render(string); }
+        virtual void Render(const wchar_t *string, int renderMode);
 
     private:
         /**

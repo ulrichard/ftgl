@@ -42,10 +42,9 @@
 //
 
 
-FTSimpleLayout::FTSimpleLayout() :
-    FTLayout(FTGL::LAYOUT_SIMPLE)
+FTSimpleLayout::FTSimpleLayout()
 {
-    ;
+    impl = new FTSimpleLayoutImpl();
 }
 
 

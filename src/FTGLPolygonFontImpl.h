@@ -35,13 +35,13 @@ class FTGLPolygonFontImpl : public FTFontImpl
 {
     friend class FTGLPolygonFont;
 
-    public:
-        FTGLPolygonFontImpl(const char* fontFilePath);
+    protected:
+        FTGLPolygonFontImpl(const char* fontFilePath) :
+            FTFontImpl(fontFilePath), outset(0.0f) {};
 
         FTGLPolygonFontImpl(const unsigned char *pBufferBytes,
-                            size_t bufferSizeInBytes);
-
-        ~FTGLPolygonFontImpl();
+                            size_t bufferSizeInBytes) :
+            FTFontImpl(pBufferBytes, bufferSizeInBytes), outset(0.0f) {};
 
         /**
          * Set the outset distance for the font. Only implemented by
@@ -49,7 +49,7 @@ class FTGLPolygonFontImpl : public FTFontImpl
          *
          * @param depth  The outset distance.
          */
-        void Outset(float o) { outset = o; }
+        virtual void Outset(float o) { outset = o; }
 
     private:
         /**
@@ -58,7 +58,7 @@ class FTGLPolygonFontImpl : public FTFontImpl
          * @param g The glyph index NOT the char code.
          * @return  An FTPolyGlyph or <code>null</code> on failure.
          */
-        inline virtual FTGlyph* MakeGlyph(unsigned int g);
+        virtual FTGlyph* MakeGlyph(unsigned int g);
 
         /**
          * The outset distance (front and back) for the font.

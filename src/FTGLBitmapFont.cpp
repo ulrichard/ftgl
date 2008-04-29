@@ -37,18 +37,18 @@
 //
 
 
-FTGLBitmapFont::FTGLBitmapFont(char const *fontFilePath) :
-    FTFont(FTGL::FONT_BITMAP, fontFilePath)
+FTGLBitmapFont::FTGLBitmapFont(char const *fontFilePath)
+: FTFont(fontFilePath)
 {
-    ;
+    impl = new FTGLBitmapFontImpl(fontFilePath);
 }
 
 
 FTGLBitmapFont::FTGLBitmapFont(unsigned char const *pBufferBytes,
-                               size_t bufferSizeInBytes) :
-    FTFont(FTGL::FONT_BITMAP, pBufferBytes, bufferSizeInBytes)
+                               size_t bufferSizeInBytes)
+: FTFont(pBufferBytes, bufferSizeInBytes)
 {
-    ;
+    impl = new FTGLBitmapFontImpl(pBufferBytes, bufferSizeInBytes);
 }
 
 
@@ -61,21 +61,6 @@ FTGLBitmapFont::~FTGLBitmapFont()
 //
 //  FTGLBitmapFontImpl
 //
-
-
-FTGLBitmapFontImpl::FTGLBitmapFontImpl(char const* fontFilePath)
-:   FTFontImpl(fontFilePath)
-{}
-
-
-FTGLBitmapFontImpl::FTGLBitmapFontImpl(unsigned char const *pBufferBytes,
-                                       size_t bufferSizeInBytes)
-:   FTFontImpl(pBufferBytes, bufferSizeInBytes)
-{}
-
-
-FTGLBitmapFontImpl::~FTGLBitmapFontImpl()
-{}
 
 
 FTGlyph* FTGLBitmapFontImpl::MakeGlyph(unsigned int g)

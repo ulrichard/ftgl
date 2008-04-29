@@ -35,28 +35,29 @@ class FTGLExtrdFontImpl : public FTFontImpl
 {
     friend class FTGLExtrdFont;
 
-    public:
-        FTGLExtrdFontImpl(const char* fontFilePath);
+    protected:
+        FTGLExtrdFontImpl(const char* fontFilePath) :
+          FTFontImpl(fontFilePath), depth(0.0f), front(0.0f), back(0.0f) {};
 
         FTGLExtrdFontImpl(const unsigned char *pBufferBytes,
-                          size_t bufferSizeInBytes);
-
-        ~FTGLExtrdFontImpl();
+                          size_t bufferSizeInBytes) :
+          FTFontImpl(pBufferBytes, bufferSizeInBytes),
+          depth(0.0f), front(0.0f), back(0.0f) {};
 
         /**
          * Set the extrusion distance for the font.
          *
          * @param d  The extrusion distance.
          */
-        void Depth(float d) { depth = d; }
+        virtual void Depth(float d) { depth = d; }
 
         /**
          * Set the outset distance for the font. Only implemented by
          * FTGLOutlineFont, FTGLPolygonFont and FTGLExtrdFont
          *
-         * @param f  The front outset distance.
+         * @param o  The outset distance.
          */
-        void Outset(float f) { front = f; }
+        virtual void Outset(float o) { front = back = o; }
 
         /**
          * Set the outset distance for the font. Only implemented by
@@ -65,7 +66,7 @@ class FTGLExtrdFontImpl : public FTFontImpl
          * @param f  The front outset distance.
          * @param b  The back outset distance.
          */
-        void Outset(float f, float b) { front = f; back = b; }
+        virtual void Outset(float f, float b) { front = f; back = b; }
 
     private:
         /**
@@ -74,7 +75,7 @@ class FTGLExtrdFontImpl : public FTFontImpl
          * @param glyphIndex The glyph index NOT the char code.
          * @return An FTExtrdGlyph or <code>null</code> on failure.
          */
-        inline virtual FTGlyph* MakeGlyph(unsigned int glyphIndex);
+        virtual FTGlyph* MakeGlyph(unsigned int glyphIndex);
 
         /**
          * The extrusion distance for the font.

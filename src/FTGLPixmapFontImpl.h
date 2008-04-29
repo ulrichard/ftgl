@@ -35,20 +35,20 @@ class FTGLPixmapFontImpl : public FTFontImpl
 {
     friend class FTGLPixmapFont;
 
-    public:
-        FTGLPixmapFontImpl(const char* fontFilePath);
+    protected:
+        FTGLPixmapFontImpl(const char* fontFilePath) :
+            FTFontImpl(fontFilePath) {};
 
         FTGLPixmapFontImpl(const unsigned char *pBufferBytes,
-                           size_t bufferSizeInBytes);
-
-        ~FTGLPixmapFontImpl();
+                           size_t bufferSizeInBytes) :
+            FTFontImpl(pBufferBytes, bufferSizeInBytes) {};
 
         /**
          * Renders a string of characters
          *
          * @param string    'C' style string to be output.
          */
-        void Render(const char* string);
+        virtual void Render(const char* string);
 
         /**
          * Render a string of characters
@@ -56,14 +56,14 @@ class FTGLPixmapFontImpl : public FTFontImpl
          * @param string    'C' style string to be output.
          * @param renderMode    Render mode to display
          */
-        void Render(const char* string, int renderMode) { Render(string); }
+        virtual void Render(const char* string, int renderMode);
 
         /**
          * Renders a string of characters
          *
          * @param string    wchar_t string to be output.
          */
-        void Render(const wchar_t* string);
+        virtual void Render(const wchar_t* string);
 
         /**
          * Render a string of characters
@@ -71,7 +71,7 @@ class FTGLPixmapFontImpl : public FTFontImpl
          * @param string    wchar_t string to be output.
          * @param renderMode    Render mode to display
          */
-        void Render(const wchar_t *string, int renderMode) { Render(string); }
+        virtual void Render(const wchar_t *string, int renderMode);
 
     private:
         /**

@@ -90,11 +90,26 @@
 
 FTGL_BEGIN_C_DECLS
 
+typedef enum
+{
+    FONT_BITMAP,
+    FONT_PIXMAP,
+    FONT_OUTLINE,
+    FONT_POLYGON,
+    FONT_EXTRUDE,
+    FONT_TEXTURE,
+} FontType;
+
 struct _FTGLfont
 {
     FTFont *ptr;
     FTGL::FontType type;
 };
+
+typedef enum
+{
+    LAYOUT_SIMPLE,
+} LayoutType;
 
 struct _FTGLlayout
 {

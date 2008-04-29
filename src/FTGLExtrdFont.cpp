@@ -37,18 +37,18 @@
 //
 
 
-FTGLExtrdFont::FTGLExtrdFont(char const *fontFilePath) :
-    FTFont(FTGL::FONT_EXTRUDE, fontFilePath)
+FTGLExtrdFont::FTGLExtrdFont(char const *fontFilePath)
+: FTFont(fontFilePath)
 {
-    ;
+    impl = new FTGLExtrdFontImpl(fontFilePath);
 }
 
 
 FTGLExtrdFont::FTGLExtrdFont(const unsigned char *pBufferBytes,
-                             size_t bufferSizeInBytes) :
-    FTFont(FTGL::FONT_EXTRUDE, pBufferBytes, bufferSizeInBytes)
+                             size_t bufferSizeInBytes)
+: FTFont(pBufferBytes, bufferSizeInBytes)
 {
-    ;
+    impl = new FTGLExtrdFontImpl(pBufferBytes, bufferSizeInBytes);
 }
 
 
@@ -61,31 +61,6 @@ FTGLExtrdFont::~FTGLExtrdFont()
 //
 //  FTGLExtrdFontImpl
 //
-
-
-FTGLExtrdFontImpl::FTGLExtrdFontImpl(const char* fontFilePath)
-:   FTFontImpl(fontFilePath),
-    depth(0.0f)
-{
-    ;
-}
-
-
-FTGLExtrdFontImpl::FTGLExtrdFontImpl(const unsigned char *pBufferBytes,
-                                     size_t bufferSizeInBytes)
-:   FTFontImpl(pBufferBytes, bufferSizeInBytes),
-    depth(0.0f),
-    front(0.0f),
-    back(0.0f)
-{
-    ;
-}
-
-
-FTGLExtrdFontImpl::~FTGLExtrdFontImpl()
-{
-    ;
-}
 
 
 FTGlyph* FTGLExtrdFontImpl::MakeGlyph(unsigned int glyphIndex)

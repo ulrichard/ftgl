@@ -40,18 +40,18 @@
 //
 
 
-FTGLTextureFont::FTGLTextureFont(char const *fontFilePath) :
-    FTFont(FTGL::FONT_TEXTURE, fontFilePath)
+FTGLTextureFont::FTGLTextureFont(char const *fontFilePath)
+: FTFont(fontFilePath)
 {
-    ;
+    impl = new FTGLTextureFontImpl(fontFilePath);
 }
 
 
 FTGLTextureFont::FTGLTextureFont(const unsigned char *pBufferBytes,
-                                 size_t bufferSizeInBytes) :
-    FTFont(FTGL::FONT_TEXTURE, pBufferBytes, bufferSizeInBytes)
+                                 size_t bufferSizeInBytes)
+: FTFont(pBufferBytes, bufferSizeInBytes)
 {
-    ;
+    impl = new FTGLTextureFontImpl(pBufferBytes, bufferSizeInBytes);
 }
 
 
@@ -233,7 +233,19 @@ void FTGLTextureFontImpl::Render(const char* string)
 }
 
 
+void FTGLTextureFontImpl::Render(const char* string, int renderMode)
+{
+    RenderI(string);
+}
+
+
 void FTGLTextureFontImpl::Render(const wchar_t* string)
+{
+    RenderI(string);
+}
+
+
+void FTGLTextureFontImpl::Render(const wchar_t* string, int renderMode)
 {
     RenderI(string);
 }

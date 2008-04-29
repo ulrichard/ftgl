@@ -37,18 +37,18 @@
 //
 
 
-FTGLOutlineFont::FTGLOutlineFont(char const *fontFilePath) :
-    FTFont(FTGL::FONT_OUTLINE, fontFilePath)
+FTGLOutlineFont::FTGLOutlineFont(char const *fontFilePath)
+: FTFont(fontFilePath)
 {
-    ;
+    impl = new FTGLOutlineFontImpl(fontFilePath);
 }
 
 
 FTGLOutlineFont::FTGLOutlineFont(const unsigned char *pBufferBytes,
-                                 size_t bufferSizeInBytes) :
-    FTFont(FTGL::FONT_OUTLINE, pBufferBytes, bufferSizeInBytes)
+                                 size_t bufferSizeInBytes)
+: FTFont(pBufferBytes, bufferSizeInBytes)
 {
-    ;
+    impl = new FTGLOutlineFontImpl(pBufferBytes, bufferSizeInBytes);
 }
 
 
@@ -61,22 +61,6 @@ FTGLOutlineFont::~FTGLOutlineFont()
 //
 //  FTGLOutlineFontImpl
 //
-
-
-FTGLOutlineFontImpl::FTGLOutlineFontImpl(const char* fontFilePath)
-:   FTFontImpl(fontFilePath),
-    outset(0.0f)
-{}
-
-
-FTGLOutlineFontImpl::FTGLOutlineFontImpl(const unsigned char *pBufferBytes,
-                                         size_t bufferSizeInBytes)
-:   FTFontImpl(pBufferBytes, bufferSizeInBytes)
-{}
-
-
-FTGLOutlineFontImpl::~FTGLOutlineFontImpl()
-{}
 
 
 FTGlyph* FTGLOutlineFontImpl::MakeGlyph(unsigned int g)
@@ -119,7 +103,19 @@ void FTGLOutlineFontImpl::Render(const char* string)
 }
 
 
+void FTGLOutlineFontImpl::Render(const char* string, int renderMode)
+{
+    RenderI(string);
+}
+
+
 void FTGLOutlineFontImpl::Render(const wchar_t* string)
+{
+    RenderI(string);
+}
+
+
+void FTGLOutlineFontImpl::Render(const wchar_t* string, int renderMode)
 {
     RenderI(string);
 }

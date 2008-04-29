@@ -47,61 +47,24 @@
 //
 
 
-FTFont::FTFont(FTGL::FontType type, const char* fontFilePath)
+FTFont::FTFont(const char* fontFilePath)
 {
-    switch(type)
-    {
-        case FTGL::FONT_BITMAP:
-            impl = new FTGLBitmapFontImpl(fontFilePath);
-            break;
-        case FTGL::FONT_EXTRUDE:
-            impl = new FTGLExtrdFontImpl(fontFilePath);
-            break;
-        case FTGL::FONT_OUTLINE:
-            impl = new FTGLOutlineFontImpl(fontFilePath);
-            break;
-        case FTGL::FONT_PIXMAP:
-            impl = new FTGLPixmapFontImpl(fontFilePath);
-            break;
-        case FTGL::FONT_POLYGON:
-            impl = new FTGLPolygonFontImpl(fontFilePath);
-            break;
-        case FTGL::FONT_TEXTURE:
-            impl = new FTGLTextureFontImpl(fontFilePath);
-            break;
-    }
+    /* impl is set by the child class */
+    impl = NULL;
 }
 
 
-FTFont::FTFont(FTGL::FontType type,
-               const unsigned char *pBufferBytes, size_t bufferSizeInBytes)
+FTFont::FTFont(const unsigned char *pBufferBytes, size_t bufferSizeInBytes)
 {
-    switch(type)
-    {
-        case FTGL::FONT_BITMAP:
-            impl = new FTGLBitmapFontImpl(pBufferBytes, bufferSizeInBytes);
-            break;
-        case FTGL::FONT_EXTRUDE:
-            impl = new FTGLExtrdFontImpl(pBufferBytes, bufferSizeInBytes);
-            break;
-        case FTGL::FONT_OUTLINE:
-            impl = new FTGLOutlineFontImpl(pBufferBytes, bufferSizeInBytes);
-            break;
-        case FTGL::FONT_PIXMAP:
-            impl = new FTGLPixmapFontImpl(pBufferBytes, bufferSizeInBytes);
-            break;
-        case FTGL::FONT_POLYGON:
-            impl = new FTGLPolygonFontImpl(pBufferBytes, bufferSizeInBytes);
-            break;
-        case FTGL::FONT_TEXTURE:
-            impl = new FTGLTextureFontImpl(pBufferBytes, bufferSizeInBytes);
-            break;
-    }
+    /* impl is set by the child class */
+    impl = NULL;
 }
 
 
 FTFont::~FTFont()
 {
+    /* Only the top class should be allowed to destroy impl, because
+     * we do not know how many levels of inheritance there are. */
     delete impl;
 }
 
@@ -473,20 +436,6 @@ void FTFontImpl::BBox(const wchar_t* string, const int start, const int end,
                   float& urx, float& ury, float& urz)
 {
     return BBoxI(string, start, end, llx, lly, llz, urx, ury, urz);
-}
-
-
-void FTFontImpl::BBox(const char* string, float& llx, float& lly, float& llz,
-                  float& urx, float& ury, float& urz)
-{
-    BBox(string, 0, -1, llx, lly, llz, urx, ury, urz);
-}
-
-
-void FTFontImpl::BBox(const wchar_t* string, float& llx, float& lly, float& llz,
-                  float& urx, float& ury, float& urz)
-{
-    BBox(string, 0, -1, llx, lly, llz, urx, ury, urz);
 }
 
 

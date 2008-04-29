@@ -53,13 +53,13 @@ class FTGL_EXPORT FTFont
         /* Allow FTLayout classes to access this->impl. */
         friend class FTLayoutImpl;
 
-    public:
+    protected:
         /**
          * Open and read a font file. Sets Error flag.
          *
          * @param fontFilePath  font file path.
          */
-        FTFont(FTGL::FontType type, const char* fontFilePath);
+        FTFont(const char* fontFilePath);
 
         /**
          * Open and read a font from a buffer in memory. Sets Error flag.
@@ -69,14 +69,14 @@ class FTGL_EXPORT FTFont
          * @param pBufferBytes  the in-memory buffer
          * @param bufferSizeInBytes  the length of the buffer in bytes
          */
-        FTFont(FTGL::FontType type,
-               const unsigned char *pBufferBytes, size_t bufferSizeInBytes);
+        FTFont(const unsigned char *pBufferBytes, size_t bufferSizeInBytes);
 
         /**
          * Destructor
          */
         virtual ~FTFont();
 
+    public:
         /**
          * Attach auxilliary file to font e.g font metrics.
          *

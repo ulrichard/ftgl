@@ -35,17 +35,17 @@ class FTGLBitmapFontImpl : public FTFontImpl
 {
     friend class FTGLBitmapFont;
 
-    public:
-        FTGLBitmapFontImpl(const char* fontFilePath);
+    protected:
+        FTGLBitmapFontImpl(const char* fontFilePath) :
+            FTFontImpl(fontFilePath) {};
 
         FTGLBitmapFontImpl(const unsigned char *pBufferBytes,
-                           size_t bufferSizeInBytes);
+                           size_t bufferSizeInBytes) :
+            FTFontImpl(pBufferBytes, bufferSizeInBytes) {};
 
-        ~FTGLBitmapFontImpl();
+        virtual void Render(const char* string);
 
-        void Render(const char* string);
-
-        void Render(const wchar_t* string);
+        virtual void Render(const wchar_t* string);
 
     private:
         /**

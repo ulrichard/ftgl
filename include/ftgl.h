@@ -69,21 +69,6 @@ namespace FTGL
         ALIGN_RIGHT,
         ALIGN_JUSTIFY,
     } TextAlignment;
-
-    typedef enum
-    {
-        FONT_BITMAP,
-        FONT_PIXMAP,
-        FONT_OUTLINE,
-        FONT_POLYGON,
-        FONT_EXTRUDE,
-        FONT_TEXTURE,
-    } FontType;
-
-    typedef enum
-    {
-        LAYOUT_SIMPLE,
-    } LayoutType;
 }
 #else
 #   define FTGL_RENDER_FRONT  0x01

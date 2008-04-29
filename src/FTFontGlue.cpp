@@ -58,8 +58,7 @@ static inline FTGLfont *createFTFont(FTGL::FontType type, const char *fontname)
 
     if(ftgl->ptr->Error())
     {
-        delete ftgl->ptr;
-        free(ftgl);
+        ftglDestroyFont(ftgl);
         return NULL;
     }
 

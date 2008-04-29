@@ -35,13 +35,13 @@ class FTGLOutlineFontImpl : public FTFontImpl
 {
     friend class FTGLOutlineFont;
 
-    public:
-        FTGLOutlineFontImpl(const char* fontFilePath);
+    protected:
+        FTGLOutlineFontImpl(const char* fontFilePath) :
+            FTFontImpl(fontFilePath), outset(0.0f) {};
 
         FTGLOutlineFontImpl(const unsigned char *pBufferBytes,
-                            size_t bufferSizeInBytes);
-
-        ~FTGLOutlineFontImpl();
+                            size_t bufferSizeInBytes) :
+            FTFontImpl(pBufferBytes, bufferSizeInBytes), outset(0.0f) {};
 
         /**
          * Set the outset distance for the font. Only implemented by
@@ -49,14 +49,14 @@ class FTGLOutlineFontImpl : public FTFontImpl
          *
          * @param outset  The outset distance.
          */
-        void Outset(float o) { outset = o; }
+        virtual void Outset(float o) { outset = o; }
 
         /**
          * Renders a string of characters
          *
          * @param string    'C' style string to be output.
          */
-        void Render(const char* string);
+        virtual void Render(const char* string);
 
         /**
          * Render a string of characters
@@ -64,14 +64,14 @@ class FTGLOutlineFontImpl : public FTFontImpl
          * @param string    'C' style string to be output.
          * @param renderMode    Render mode to display
          */
-        void Render(const char* string, int renderMode) { Render(string); }
+        virtual void Render(const char* string, int renderMode);
 
         /**
          * Renders a string of characters
          *
          * @param string    wchar_t string to be output.
          */
-        void Render(const wchar_t* string);
+        virtual void Render(const wchar_t* string);
 
         /**
          * Render a string of characters
@@ -79,7 +79,7 @@ class FTGLOutlineFontImpl : public FTFontImpl
          * @param string    wchar_t string to be output.
          * @param renderMode    Render mode to display
          */
-        void Render(const wchar_t *string, int renderMode) { Render(string); }
+        virtual void Render(const wchar_t *string, int renderMode);
 
     private:
         /**
