@@ -23,79 +23,30 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef     __FTGlyph__
-#define     __FTGlyph__
-
-#include <ft2build.h>
-#include FT_FREETYPE_H
-#include FT_GLYPH_H
+#ifndef __FTGlyphImpl__
+#define __FTGlyphImpl__
 
 #include "ftgl.h"
 #include "FTBBox.h"
 #include "FTPoint.h"
 
-
-/**
- * FTGlyph is the base class for FTGL glyphs.
- *
- * It provides the interface between Freetype glyphs and their openGL
- * renderable counterparts. This is an abstract class and derived classes
- * must implement the <code>render</code> function.
- *
- * @see FTGlyphContainer
- * @see FTBBox
- * @see FTPoint
- *
- */
-class FTGL_EXPORT FTGlyph
+class FTGlyphImpl
 {
-    public:
-        /**
-         * Constructor
-         *
-         * @param glyph The Freetype glyph to be processed
-         * @param useDisplayList Enable or disable the use of Display Lists for this glyph
-         *                       <code>true</code> turns ON display lists.
-         *                       <code>false</code> turns OFF display lists.
-         */
-        FTGlyph(FT_GlyphSlot glyph, bool useDisplayList = true);
-
-        /**
-         * Destructor
-         */
-        virtual ~FTGlyph();
-
-        /**
-         * Renders this glyph at the current pen position.
-         *
-         * @param pen   The current pen position.
-         * @param renderMode Render mode to display
-         * @return      The advance distance for this glyph.
-         */
-        virtual const FTPoint& Render(const FTPoint& pen, int renderMode) = 0;
-
-        /**
-         * Return the advance width for this glyph.
-         *
-         * @return  advance width.
-         */
-        const FTPoint& Advance() const;
-
-        /**
-         * Return the bounding box for this glyph.
-         *
-         * @return  bounding box.
-         */
-        const FTBBox& BBox() const;
-
-        /**
-         * Queries for errors.
-         *
-         * @return  The current error code.
-         */
-        FT_Error Error() const;
+    friend class FTGlyph;
 
     protected:
+        FTGlyphImpl(FT_GlyphSlot glyph, bool useDisplayList = true);
+
+        virtual ~FTGlyphImpl();
+
+        virtual const FTPoint& Render(const FTPoint& pen, int renderMode) = 0;
+
+        const FTPoint& Advance() const;
+
+        const FTBBox& BBox() const;
+
+        FT_Error Error() const;
+
         /**
          * The advance distance for this glyph
          */
@@ -110,11 +61,7 @@ class FTGL_EXPORT FTGlyph
          * Current error code. Zero means no error.
          */
         FT_Error err;
-
-    private:
-
 };
 
-
-#endif  //  __FTGlyph__
+#endif  //  __FTGlyphImpl__
 

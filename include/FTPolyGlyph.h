@@ -23,90 +23,40 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include "config.h"
+#ifndef __FTPolyGlyph__
+#define __FTPolyGlyph__
 
-#include "ftgl.h"
-#include "FTInternals.h"
-#include "FTGlyphImpl.h"
+#include <ftgl.h>
 
-
-//
-//  FTGlyph
-//
-
-
-FTGlyph::FTGlyph()
+/**
+ * FTPolyGlyph is a specialisation of FTGlyph for creating tessellated
+ * polygon glyphs.
+ *
+ * @see FTGlyphContainer
+ * @see FTVectoriser
+ *
+ */
+class FTGL_EXPORT FTPolyGlyph : public FTGlyph
 {
-    /* impl is set by the child class */
-    impl = NULL;
-}
+    public:
+        /**
+         * Constructor. Sets the Error to Invalid_Outline if the glyphs
+         * isn't an outline.
+         *
+         * @param glyph The Freetype glyph to be processed
+         * @param outset  The outset distance
+         * @param useDisplayList Enable or disable the use of Display Lists
+         *                       for this glyph
+         *                       <code>true</code> turns ON display lists.
+         *                       <code>false</code> turns OFF display lists.
+         */
+        FTPolyGlyph(FT_GlyphSlot glyph, float outset, bool useDisplayList);
 
+        /**
+         * Destructor
+         */
+        virtual ~FTPolyGlyph();
+};
 
-FTGlyph::~FTGlyph()
-{
-    /* Only the top class should be allowed to destroy impl, because
-     * we do not know how many levels of inheritance there are. */
-    delete impl;
-}
-
-
-const FTPoint& FTGlyph::Render(const FTPoint& pen, int renderMode)
-{
-    return impl->Render(pen, renderMode);
-}
-
-
-const FTPoint& FTGlyph::Advance() const
-{
-    return impl->Advance();
-}
-
-
-const FTBBox& FTGlyph::BBox() const
-{
-    return impl->BBox();
-}
-
-
-FT_Error FTGlyph::Error() const
-{
-    return impl->Error();
-}
-
-
-//
-//  FTGlyphImpl
-//
-
-
-FTGlyphImpl::FTGlyphImpl(FT_GlyphSlot glyph, bool useList) : err(0)
-{
-    if(glyph)
-    {
-        bBox = FTBBox(glyph);
-        advance = FTPoint(glyph->advance.x / 64.0f, glyph->advance.y / 64.0f, 0.0f);
-    }
-}
-
-
-FTGlyphImpl::~FTGlyphImpl()
-{}
-
-
-const FTPoint& FTGlyphImpl::Advance() const
-{
-    return advance;
-}
-
-
-const FTBBox& FTGlyphImpl::BBox() const
-{
-    return bBox;
-}
-
-
-FT_Error FTGlyphImpl::Error() const
-{
-    return err;
-}
+#endif  //  __FTPolyGlyph__
 

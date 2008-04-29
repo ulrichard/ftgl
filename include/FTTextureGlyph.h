@@ -23,17 +23,10 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef     __FTTextureGlyph__
-#define     __FTTextureGlyph__
+#ifndef __FTTextureGlyph__
+#define __FTTextureGlyph__
 
-
-#include <ft2build.h>
-#include FT_FREETYPE_H
-#include FT_GLYPH_H
-
-#include "ftgl.h"
-#include "FTGlyph.h"
-
+#include <ftgl.h>
 
 /**
  * FTTextureGlyph is a specialisation of FTGlyph for creating texture
@@ -58,62 +51,13 @@ class FTGL_EXPORT FTTextureGlyph : public FTGlyph
          * @param width     The width of the parent texture
          * @param height    The height (number of rows) of the parent texture
          */
-        FTTextureGlyph(FT_GlyphSlot glyph, int id, int xOffset, int yOffset, GLsizei width, GLsizei height);
+        FTTextureGlyph(FT_GlyphSlot glyph, int id, int xOffset, int yOffset,
+                       int width, int height);
 
         /**
          * Destructor
          */
         virtual ~FTTextureGlyph();
-
-        /**
-         * Renders this glyph at the current pen position.
-         *
-         * @param pen   The current pen position.
-         * @param renderMode  Render mode to display
-         * @return      The advance distance for this glyph.
-         */
-        virtual const FTPoint& Render(const FTPoint& pen, int renderMode);
-
-        /**
-         * Reset the currently active texture to zero to get into a known
-         * state before drawing a string. This is to get round possible
-         * threading issues.
-         */
-        static void ResetActiveTexture() { activeTextureID = 0; }
-
-    private:
-        /**
-         * The width of the glyph 'image'
-         */
-        int destWidth;
-
-        /**
-         * The height of the glyph 'image'
-         */
-        int destHeight;
-
-        /**
-         * Vector from the pen position to the topleft corner of the pixmap
-         */
-        FTPoint pos;
-
-        /**
-         * The texture co-ords of this glyph within the texture.
-         */
-        FTPoint uv[2];
-
-        /**
-         * The texture index that this glyph is contained in.
-         */
-        int glTextureID;
-
-        /**
-         * The texture index of the currently active texture
-         *
-         * We keep track of the currently active texture to try to reduce the
-         * number of texture bind operations.
-         */
-        static GLint activeTextureID;
 };
 
 #endif  //  __FTTextureGlyph__

@@ -23,90 +23,36 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include "config.h"
+#ifndef __FTBitmapGlyph__
+#define __FTBitmapGlyph__
 
-#include "ftgl.h"
-#include "FTInternals.h"
-#include "FTGlyphImpl.h"
+#include <ftgl.h>
 
-
-//
-//  FTGlyph
-//
-
-
-FTGlyph::FTGlyph()
+/**
+ * FTBitmapGlyph is a specialisation of FTGlyph for creating bitmaps.
+ *
+ * It provides the interface between Freetype glyphs and their openGL
+ * Renderable counterparts. This is an abstract class and derived classes
+ * must implement the <code>Render</code> function.
+ *
+ * @see FTGlyphContainer
+ *
+ */
+class FTGL_EXPORT FTBitmapGlyph : public FTGlyph
 {
-    /* impl is set by the child class */
-    impl = NULL;
-}
+    public:
+        /**
+         * Constructor
+         *
+         * @param glyph The Freetype glyph to be processed
+         */
+        FTBitmapGlyph(FT_GlyphSlot glyph);
 
+        /**
+         * Destructor
+         */
+        virtual ~FTBitmapGlyph();
+};
 
-FTGlyph::~FTGlyph()
-{
-    /* Only the top class should be allowed to destroy impl, because
-     * we do not know how many levels of inheritance there are. */
-    delete impl;
-}
-
-
-const FTPoint& FTGlyph::Render(const FTPoint& pen, int renderMode)
-{
-    return impl->Render(pen, renderMode);
-}
-
-
-const FTPoint& FTGlyph::Advance() const
-{
-    return impl->Advance();
-}
-
-
-const FTBBox& FTGlyph::BBox() const
-{
-    return impl->BBox();
-}
-
-
-FT_Error FTGlyph::Error() const
-{
-    return impl->Error();
-}
-
-
-//
-//  FTGlyphImpl
-//
-
-
-FTGlyphImpl::FTGlyphImpl(FT_GlyphSlot glyph, bool useList) : err(0)
-{
-    if(glyph)
-    {
-        bBox = FTBBox(glyph);
-        advance = FTPoint(glyph->advance.x / 64.0f, glyph->advance.y / 64.0f, 0.0f);
-    }
-}
-
-
-FTGlyphImpl::~FTGlyphImpl()
-{}
-
-
-const FTPoint& FTGlyphImpl::Advance() const
-{
-    return advance;
-}
-
-
-const FTBBox& FTGlyphImpl::BBox() const
-{
-    return bBox;
-}
-
-
-FT_Error FTGlyphImpl::Error() const
-{
-    return err;
-}
+#endif  //  __FTBitmapGlyph__
 

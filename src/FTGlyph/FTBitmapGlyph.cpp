@@ -29,10 +29,33 @@
 
 #include "ftgl.h"
 #include "FTInternals.h"
-#include "FTBitmapGlyph.h"
+#include "FTBitmapGlyphImpl.h"
+
+
+//
+//  FTGLBitmapGlyph
+//
+
 
 FTBitmapGlyph::FTBitmapGlyph(FT_GlyphSlot glyph)
-:   FTGlyph(glyph),
+{
+    impl = new FTBitmapGlyphImpl(glyph);
+}
+
+
+FTBitmapGlyph::~FTBitmapGlyph()
+{
+    ;
+}
+
+
+//
+//  FTGLBitmapGlyphImpl
+//
+
+
+FTBitmapGlyphImpl::FTBitmapGlyphImpl(FT_GlyphSlot glyph)
+:   FTGlyphImpl(glyph),
     destWidth(0),
     destHeight(0),
     data(0)
@@ -72,13 +95,13 @@ FTBitmapGlyph::FTBitmapGlyph(FT_GlyphSlot glyph)
 }
 
 
-FTBitmapGlyph::~FTBitmapGlyph()
+FTBitmapGlyphImpl::~FTBitmapGlyphImpl()
 {
     delete [] data;
 }
 
 
-const FTPoint& FTBitmapGlyph::Render(const FTPoint& pen, int renderMode)
+const FTPoint& FTBitmapGlyphImpl::Render(const FTPoint& pen, int renderMode)
 {
     if(data)
     {

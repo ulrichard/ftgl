@@ -27,15 +27,41 @@
 
 #include <iostream>
 
+#include "ftgl.h"
 #include "FTInternals.h"
-#include "FTExtrdGlyph.h"
+#include "FTExtrdGlyphImpl.h"
 #include "FTVectoriser.h"
 
 
-FTExtrdGlyph::FTExtrdGlyph(FT_GlyphSlot glyph, float _depth,
-                           float _frontOutset, float _backOutset,
+//
+//  FTGLExtrdGlyph
+//
+
+
+FTExtrdGlyph::FTExtrdGlyph(FT_GlyphSlot glyph, float depth,
+                           float frontOutset, float backOutset,
                            bool useDisplayList)
-:   FTGlyph(glyph),
+{
+    impl = new FTExtrdGlyphImpl(glyph, depth, frontOutset, backOutset,
+                                useDisplayList);
+}
+
+
+FTExtrdGlyph::~FTExtrdGlyph()
+{
+    ;
+}
+
+
+//
+//  FTGLExtrdGlyphImpl
+//
+
+
+FTExtrdGlyphImpl::FTExtrdGlyphImpl(FT_GlyphSlot glyph, float _depth,
+                                   float _frontOutset, float _backOutset,
+                                   bool useDisplayList)
+:   FTGlyphImpl(glyph),
     glList(0)
 {
     bBox.SetDepth(-_depth);
@@ -86,7 +112,7 @@ FTExtrdGlyph::FTExtrdGlyph(FT_GlyphSlot glyph, float _depth,
 }
 
 
-FTExtrdGlyph::~FTExtrdGlyph()
+FTExtrdGlyphImpl::~FTExtrdGlyphImpl()
 {
     if(glList)
     {
@@ -99,7 +125,7 @@ FTExtrdGlyph::~FTExtrdGlyph()
 }
 
 
-const FTPoint& FTExtrdGlyph::Render(const FTPoint& pen, int renderMode)
+const FTPoint& FTExtrdGlyphImpl::Render(const FTPoint& pen, int renderMode)
 {
     glTranslatef(pen.X(), pen.Y(), 0);
     if(glList)
@@ -126,7 +152,7 @@ const FTPoint& FTExtrdGlyph::Render(const FTPoint& pen, int renderMode)
 }
 
 
-void FTExtrdGlyph::RenderFront()
+void FTExtrdGlyphImpl::RenderFront()
 {
     vectoriser->MakeMesh(1.0, 1, frontOutset);
     glNormal3d(0.0, 0.0, 1.0);
@@ -154,7 +180,7 @@ void FTExtrdGlyph::RenderFront()
 }
 
 
-void FTExtrdGlyph::RenderBack()
+void FTExtrdGlyphImpl::RenderBack()
 {
     vectoriser->MakeMesh(-1.0, 2, backOutset);
     glNormal3d(0.0, 0.0, -1.0);
@@ -182,7 +208,7 @@ void FTExtrdGlyph::RenderBack()
 }
 
 
-void FTExtrdGlyph::RenderSide()
+void FTExtrdGlyphImpl::RenderSide()
 {
     int contourFlag = vectoriser->ContourFlag();
 

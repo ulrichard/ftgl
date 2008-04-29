@@ -23,74 +23,43 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef     __FTPolyGlyph__
-#define     __FTPolyGlyph__
+#ifndef __FTExtrdGlyph__
+#define __FTExtrdGlyph__
 
-
-#include <ft2build.h>
-#include FT_FREETYPE_H
-#include FT_GLYPH_H
-
-#include "ftgl.h"
-#include "FTGlyph.h"
-
-class FTVectoriser;
+#include <ftgl.h>
 
 /**
- * FTPolyGlyph is a specialisation of FTGlyph for creating tessellated
- * polygon glyphs.
+ * FTExtrdGlyph is a specialisation of FTGlyph for creating tessellated
+ * extruded polygon glyphs.
  *
  * @see FTGlyphContainer
  * @see FTVectoriser
  *
  */
-class FTGL_EXPORT FTPolyGlyph : public FTGlyph
+class FTGL_EXPORT FTExtrdGlyph : public FTGlyph
 {
     public:
         /**
-         * Constructor. Sets the Error to Invalid_Outline if the glyphs isn't an outline.
+         * Constructor. Sets the Error to Invalid_Outline if the glyph isn't
+         * an outline.
          *
          * @param glyph The Freetype glyph to be processed
-         * @param outset  The outset distance
-         * @param useDisplayList Enable or disable the use of Display Lists for this glyph
+         * @param depth The distance along the z axis to extrude the glyph
+         * @param frontOutset outset contour size
+         * @param backOutset outset contour size
+         * @param useDisplayList Enable or disable the use of Display Lists
+         *                       for this glyph
          *                       <code>true</code> turns ON display lists.
          *                       <code>false</code> turns OFF display lists.
          */
-        FTPolyGlyph(FT_GlyphSlot glyph, float outset, bool useDisplayList);
+        FTExtrdGlyph(FT_GlyphSlot glyph, float depth, float frontOutset,
+                     float backOutset, bool useDisplayList);
 
         /**
          * Destructor
          */
-        virtual ~FTPolyGlyph();
-
-        /**
-         * Renders this glyph at the current pen position.
-         *
-         * @param pen   The current pen position.
-         * @param renderMode    Render mode to display
-         * @return      The advance distance for this glyph.
-         */
-        virtual const FTPoint& Render(const FTPoint& pen, int renderMode);
-
-    private:
-        /**
-         * Private rendering method.
-         */
-        void DoRender();
-
-        /**
-         * Private rendering variables.
-         */
-        unsigned int hscale, vscale;
-        FTVectoriser *vectoriser;
-        float outset;
-
-        /**
-         * OpenGL display list
-         */
-        GLuint glList;
+        virtual ~FTExtrdGlyph();
 };
 
-
-#endif  //  __FTPolyGlyph__
+#endif  //  __FTExtrdGlyph__
 

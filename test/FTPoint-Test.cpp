@@ -3,6 +3,7 @@
 #include <cppunit/TestCase.h>
 #include <cppunit/TestSuite.h>
 
+#include "ftgl.h"
 #include "FTPoint.h"
 
 

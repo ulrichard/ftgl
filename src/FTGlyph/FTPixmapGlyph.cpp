@@ -27,11 +27,35 @@
 
 #include <math.h>
 
+#include "ftgl.h"
 #include "FTInternals.h"
-#include "FTPixmapGlyph.h"
+#include "FTPixmapGlyphImpl.h"
+
+
+//
+//  FTGLPixmapGlyph
+//
+
 
 FTPixmapGlyph::FTPixmapGlyph(FT_GlyphSlot glyph)
-:   FTGlyph(glyph),
+{
+    impl = new FTPixmapGlyphImpl(glyph);
+}
+
+
+FTPixmapGlyph::~FTPixmapGlyph()
+{
+    ;
+}
+
+
+//
+//  FTGLPixmapGlyphImpl
+//
+
+
+FTPixmapGlyphImpl::FTPixmapGlyphImpl(FT_GlyphSlot glyph)
+:   FTGlyphImpl(glyph),
     destWidth(0),
     destHeight(0),
     data(0)
@@ -79,13 +103,13 @@ FTPixmapGlyph::FTPixmapGlyph(FT_GlyphSlot glyph)
 }
 
 
-FTPixmapGlyph::~FTPixmapGlyph()
+FTPixmapGlyphImpl::~FTPixmapGlyphImpl()
 {
     delete [] data;
 }
 
 
-const FTPoint& FTPixmapGlyph::Render(const FTPoint& pen, int renderMode)
+const FTPoint& FTPixmapGlyphImpl::Render(const FTPoint& pen, int renderMode)
 {
     if(data)
     {

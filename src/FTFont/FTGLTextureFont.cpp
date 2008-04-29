@@ -33,6 +33,7 @@
 #include "FTGLTextureFont.h"
 #include "FTGLTextureFontImpl.h"
 #include "FTTextureGlyph.h"
+#include "FTTextureGlyphImpl.h"
 
 
 //
@@ -219,7 +220,7 @@ inline void FTGLTextureFontImpl::RenderI(const T* string)
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // GL_ONE
 
-    FTTextureGlyph::ResetActiveTexture();
+    FTTextureGlyphImpl::ResetActiveTexture();
 
     FTFontImpl::Render(string);
 }

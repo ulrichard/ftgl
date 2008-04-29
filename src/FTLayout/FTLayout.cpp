@@ -25,14 +25,13 @@
 
 #include "config.h"
 
-#include "FTPoint.h"
+#include "ftgl.h"
+
 #include "FTFont.h"
 #include "FTFontImpl.h"
 
 #include "FTLayout.h"
 #include "FTLayoutImpl.h"
-
-#include "FTSimpleLayoutImpl.h"
 
 
 //

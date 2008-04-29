@@ -23,90 +23,45 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include "config.h"
+#ifndef __FTPixmapGlyphImpl__
+#define __FTPixmapGlyphImpl__
 
-#include "ftgl.h"
-#include "FTInternals.h"
+#include "FTPixmapGlyph.h"
 #include "FTGlyphImpl.h"
 
-
-//
-//  FTGlyph
-//
-
-
-FTGlyph::FTGlyph()
+class FTPixmapGlyphImpl : public FTGlyphImpl
 {
-    /* impl is set by the child class */
-    impl = NULL;
-}
+    friend class FTPixmapGlyph;
 
+    protected:
+        FTPixmapGlyphImpl(FT_GlyphSlot glyph);
 
-FTGlyph::~FTGlyph()
-{
-    /* Only the top class should be allowed to destroy impl, because
-     * we do not know how many levels of inheritance there are. */
-    delete impl;
-}
+        virtual ~FTPixmapGlyphImpl();
 
+        virtual const FTPoint& Render(const FTPoint& pen, int renderMode);
 
-const FTPoint& FTGlyph::Render(const FTPoint& pen, int renderMode)
-{
-    return impl->Render(pen, renderMode);
-}
+    private:
+        /**
+         * The width of the glyph 'image'
+         */
+        int destWidth;
 
+        /**
+         * The height of the glyph 'image'
+         */
+        int destHeight;
 
-const FTPoint& FTGlyph::Advance() const
-{
-    return impl->Advance();
-}
+        /**
+         * Vector from the pen position to the topleft corner of the pixmap
+         */
+        FTPoint pos;
 
+        /**
+         * Pointer to the 'image' data
+         */
+        unsigned char* data;
 
-const FTBBox& FTGlyph::BBox() const
-{
-    return impl->BBox();
-}
+};
 
-
-FT_Error FTGlyph::Error() const
-{
-    return impl->Error();
-}
-
-
-//
-//  FTGlyphImpl
-//
-
-
-FTGlyphImpl::FTGlyphImpl(FT_GlyphSlot glyph, bool useList) : err(0)
-{
-    if(glyph)
-    {
-        bBox = FTBBox(glyph);
-        advance = FTPoint(glyph->advance.x / 64.0f, glyph->advance.y / 64.0f, 0.0f);
-    }
-}
-
-
-FTGlyphImpl::~FTGlyphImpl()
-{}
-
-
-const FTPoint& FTGlyphImpl::Advance() const
-{
-    return advance;
-}
-
-
-const FTBBox& FTGlyphImpl::BBox() const
-{
-    return bBox;
-}
-
-
-FT_Error FTGlyphImpl::Error() const
-{
-    return err;
-}
+#endif  //  __FTPixmapGlyphImpl__
 

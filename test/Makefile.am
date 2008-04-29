@@ -21,8 +21,6 @@ FTGLTest_SOURCES = \
     FTGLPixmapFont-Test.cpp \
     FTGLPolygonFont-Test.cpp \
     FTGLTextureFont-Test.cpp \
-    FTGlyphContainer-Test.cpp \
-    FTGlyph-Test.cpp \
     FTLibrary-Test.cpp \
     FTList-Test.cpp \
     FTMesh-Test.cpp \
@@ -50,6 +48,8 @@ FTGLTest_LDADD = ../src/libftgl.la
 
 DEACTIVATED = \
     FTFont-Test.cpp \
+    FTGlyphContainer-Test.cpp \
+    FTGlyph-Test.cpp \
     FTlayout-Test.cpp \
     $(NULL)
 

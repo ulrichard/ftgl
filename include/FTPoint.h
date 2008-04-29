@@ -23,12 +23,8 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef     __FTPoint__
-#define     __FTPoint__
-
-#include <ft2build.h>
-#include FT_FREETYPE_H
-#include FT_GLYPH_H
+#ifndef __FTPoint__
+#define __FTPoint__
 
 #include "ftgl.h"
 

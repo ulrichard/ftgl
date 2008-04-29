@@ -23,55 +23,24 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef     __FTExtrdGlyph__
-#define     __FTExtrdGlyph__
+#ifndef __FTExtrdGlyphImpl__
+#define __FTExtrdGlyphImpl__
 
-#include <ft2build.h>
-#include FT_FREETYPE_H
-#include FT_GLYPH_H
-
-#include "ftgl.h"
-#include "FTGlyph.h"
+#include "FTExtrdGlyph.h"
+#include "FTGlyphImpl.h"
 
 class FTVectoriser;
 
-/**
- * FTExtrdGlyph is a specialisation of FTGlyph for creating tessellated
- * extruded polygon glyphs.
- *
- * @see FTGlyphContainer
- * @see FTVectoriser
- *
- */
-class FTGL_EXPORT FTExtrdGlyph : public FTGlyph
+class FTExtrdGlyphImpl : public FTGlyphImpl
 {
-    public:
-        /**
-         * Constructor. Sets the Error to Invalid_Outline if the glyph isn't an outline.
-         *
-         * @param glyph The Freetype glyph to be processed
-         * @param depth The distance along the z axis to extrude the glyph
-         * @param frontOutset outset contour size
-         * @param backOutset outset contour size
-         * @param useDisplayList Enable or disable the use of Display Lists for this glyph
-         *                       <code>true</code> turns ON display lists.
-         *                       <code>false</code> turns OFF display lists.
-         */
-        FTExtrdGlyph(FT_GlyphSlot glyph, float depth, float frontOutset,
-                     float backOutset, bool useDisplayList);
+    friend class FTExtrdGlyph;
 
-        /**
-         * Destructor
-         */
-        virtual ~FTExtrdGlyph();
+    protected:
+        FTExtrdGlyphImpl(FT_GlyphSlot glyph, float depth, float frontOutset,
+                         float backOutset, bool useDisplayList);
 
-        /**
-         * Renders this glyph at the current pen position.
-         *
-         * @param pen   The current pen position.
-         * @param renderMode    Render mode to display
-         * @return      The advance distance for this glyph.
-         */
+        virtual ~FTExtrdGlyphImpl();
+
         virtual const FTPoint& Render(const FTPoint& pen, int renderMode);
 
     private:
@@ -96,6 +65,5 @@ class FTGL_EXPORT FTExtrdGlyph : public FTGlyph
         GLuint glList;
 };
 
-
-#endif  //  __FTExtrdGlyph__
+#endif  //  __FTExtrdGlyphImpl__
 

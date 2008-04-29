@@ -23,80 +23,66 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef     __FTBitmapGlyph__
-#define     __FTBitmapGlyph__
+#ifndef __FTTextureGlyphImpl__
+#define __FTTextureGlyphImpl__
 
+#include "FTTextureGlyph.h"
+#include "FTGlyphImpl.h"
 
-#include <ft2build.h>
-#include FT_FREETYPE_H
-#include FT_GLYPH_H
-
-#include "ftgl.h"
-#include "FTGlyph.h"
-
-
-/**
- * FTBitmapGlyph is a specialisation of FTGlyph for creating bitmaps.
- *
- * It provides the interface between Freetype glyphs and their openGL
- * Renderable counterparts. This is an abstract class and derived classes
- * must implement the <code>Render</code> function.
- *
- * @see FTGlyphContainer
- *
- */
-class FTGL_EXPORT FTBitmapGlyph : public FTGlyph
+class FTTextureGlyphImpl : public FTGlyphImpl
 {
-    public:
-        /**
-         * Constructor
-         *
-         * @param glyph The Freetype glyph to be processed
-         */
-        FTBitmapGlyph(FT_GlyphSlot glyph);
+    friend class FTTextureGlyph;
+    friend class FTGLTextureFontImpl;
 
-        /**
-         * Destructor
-         */
-        virtual ~FTBitmapGlyph();
+    protected:
+        FTTextureGlyphImpl(FT_GlyphSlot glyph, int id, int xOffset,
+                           int yOffset, int width, int height);
 
-        /**
-         * Renders this glyph at the current pen position.
-         *
-         * @param pen   The current pen position.
-         * @param renderMode    Render mode to display
-         * @return      The advance distance for this glyph.
-         */
+        virtual ~FTTextureGlyphImpl();
+
         virtual const FTPoint& Render(const FTPoint& pen, int renderMode);
 
     private:
         /**
+         * Reset the currently active texture to zero to get into a known
+         * state before drawing a string. This is to get round possible
+         * threading issues.
+         */
+        static void ResetActiveTexture() { activeTextureID = 0; }
+
+        /**
          * The width of the glyph 'image'
          */
-        unsigned int destWidth;
+        int destWidth;
 
         /**
          * The height of the glyph 'image'
          */
-        unsigned int destHeight;
+        int destHeight;
 
         /**
-         * The pitch of the glyph 'image'
-         */
-        unsigned int destPitch;
-
-        /**
-         * Vector from the pen position to the topleft corner of the bitmap
+         * Vector from the pen position to the topleft corner of the pixmap
          */
         FTPoint pos;
 
         /**
-         * Pointer to the 'image' data
+         * The texture co-ords of this glyph within the texture.
          */
-        unsigned char* data;
+        FTPoint uv[2];
 
+        /**
+         * The texture index that this glyph is contained in.
+         */
+        int glTextureID;
+
+        /**
+         * The texture index of the currently active texture
+         *
+         * We keep track of the currently active texture to try to reduce the
+         * number of texture bind operations.
+         */
+        static GLint activeTextureID;
 };
 
-
-#endif  //  __FTBitmapGlyph__
+#endif  //  __FTTextureGlyphImpl__
 

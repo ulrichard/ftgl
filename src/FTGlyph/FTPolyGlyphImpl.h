@@ -23,90 +23,43 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include "config.h"
+#ifndef __FTPolyGlyphImpl__
+#define __FTPolyGlyphImpl__
 
-#include "ftgl.h"
-#include "FTInternals.h"
+#include "FTPolyGlyph.h"
 #include "FTGlyphImpl.h"
 
+class FTVectoriser;
 
-//
-//  FTGlyph
-//
-
-
-FTGlyph::FTGlyph()
+class FTPolyGlyphImpl : public FTGlyphImpl
 {
-    /* impl is set by the child class */
-    impl = NULL;
-}
+    friend class FTPolyGlyph;
 
+    public:
+        FTPolyGlyphImpl(FT_GlyphSlot glyph, float outset, bool useDisplayList);
 
-FTGlyph::~FTGlyph()
-{
-    /* Only the top class should be allowed to destroy impl, because
-     * we do not know how many levels of inheritance there are. */
-    delete impl;
-}
+        virtual ~FTPolyGlyphImpl();
 
+        virtual const FTPoint& Render(const FTPoint& pen, int renderMode);
 
-const FTPoint& FTGlyph::Render(const FTPoint& pen, int renderMode)
-{
-    return impl->Render(pen, renderMode);
-}
+    private:
+        /**
+         * Private rendering method.
+         */
+        void DoRender();
 
+        /**
+         * Private rendering variables.
+         */
+        unsigned int hscale, vscale;
+        FTVectoriser *vectoriser;
+        float outset;
 
-const FTPoint& FTGlyph::Advance() const
-{
-    return impl->Advance();
-}
+        /**
+         * OpenGL display list
+         */
+        GLuint glList;
+};
 
-
-const FTBBox& FTGlyph::BBox() const
-{
-    return impl->BBox();
-}
-
-
-FT_Error FTGlyph::Error() const
-{
-    return impl->Error();
-}
-
-
-//
-//  FTGlyphImpl
-//
-
-
-FTGlyphImpl::FTGlyphImpl(FT_GlyphSlot glyph, bool useList) : err(0)
-{
-    if(glyph)
-    {
-        bBox = FTBBox(glyph);
-        advance = FTPoint(glyph->advance.x / 64.0f, glyph->advance.y / 64.0f, 0.0f);
-    }
-}
-
-
-FTGlyphImpl::~FTGlyphImpl()
-{}
-
-
-const FTPoint& FTGlyphImpl::Advance() const
-{
-    return advance;
-}
-
-
-const FTBBox& FTGlyphImpl::BBox() const
-{
-    return bBox;
-}
-
-
-FT_Error FTGlyphImpl::Error() const
-{
-    return err;
-}
+#endif  //  __FTPolyGlyphImpl__
 

@@ -25,9 +25,10 @@
 
 #include "config.h"
 
-#include "FTPoint.h"
-
 #include <math.h>
+
+#include "ftgl.h"
+#include "FTPoint.h"
 
 bool operator == (const FTPoint &a, const FTPoint &b)
 {

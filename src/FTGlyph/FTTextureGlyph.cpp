@@ -27,13 +27,39 @@
 
 #include <math.h>
 
+#include "ftgl.h"
 #include "FTInternals.h"
-#include "FTTextureGlyph.h"
+#include "FTTextureGlyphImpl.h"
 
-GLint FTTextureGlyph::activeTextureID = 0;
 
-FTTextureGlyph::FTTextureGlyph(FT_GlyphSlot glyph, int id, int xOffset, int yOffset, GLsizei width, GLsizei height)
-:   FTGlyph(glyph),
+//
+//  FTGLTextureGlyph
+//
+
+
+FTTextureGlyph::FTTextureGlyph(FT_GlyphSlot glyph, int id, int xOffset,
+                               int yOffset, int width, int height)
+{
+    impl = new FTTextureGlyphImpl(glyph, id, xOffset, yOffset, width, height);
+}
+
+
+FTTextureGlyph::~FTTextureGlyph()
+{
+    ;
+}
+
+
+//
+//  FTGLTextureGlyphImpl
+//
+
+
+GLint FTTextureGlyphImpl::activeTextureID = 0;
+
+FTTextureGlyphImpl::FTTextureGlyphImpl(FT_GlyphSlot glyph, int id, int xOffset,
+                                       int yOffset, int width, int height)
+:   FTGlyphImpl(glyph),
     destWidth(0),
     destHeight(0),
     glTextureID(id)
@@ -81,11 +107,11 @@ FTTextureGlyph::FTTextureGlyph(FT_GlyphSlot glyph, int id, int xOffset, int yOff
 }
 
 
-FTTextureGlyph::~FTTextureGlyph()
+FTTextureGlyphImpl::~FTTextureGlyphImpl()
 {}
 
 
-const FTPoint& FTTextureGlyph::Render(const FTPoint& pen, int renderMode)
+const FTPoint& FTTextureGlyphImpl::Render(const FTPoint& pen, int renderMode)
 {
     float dx, dy;
 

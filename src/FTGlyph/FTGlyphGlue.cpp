@@ -26,6 +26,7 @@
 
 #include "config.h"
 
+#include "ftgl.h"
 #include "FTInternals.h"
 
 FTGL_BEGIN_C_DECLS

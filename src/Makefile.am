@@ -2,7 +2,6 @@
 lib_LTLIBRARIES = libftgl.la
 
 libftgl_la_SOURCES = \
-    FTBBox.h \
     FTCharmap.cpp \
     FTCharmap.h \
     FTCharToGlyphIndexMap.h \
@@ -16,7 +15,6 @@ libftgl_la_SOURCES = \
     FTLibrary.h \
     FTList.h \
     FTPoint.cpp \
-    FTPoint.h \
     FTSize.cpp \
     FTSize.h \
     FTVector.h \
@@ -37,6 +35,15 @@ ftgl_HEADERS = $(ftgl_headers)
 
 ftfont_headers = \
     ../include/ftgl.h \
+    ../include/FTBBox.h \
+    ../include/FTPoint.h \
+    ../include/FTGlyph.h \
+    ../include/FTBitmapGlyph.h \
+    ../include/FTExtrdGlyph.h \
+    ../include/FTOutlineGlyph.h \
+    ../include/FTPixmapGlyph.h \
+    ../include/FTPolyGlyph.h \
+    ../include/FTTextureGlyph.h \
     ../include/FTFont.h \
     ../include/FTGLBitmapFont.h \
     ../include/FTGLExtrdFont.h \
@@ -50,20 +57,20 @@ ftfont_headers = \
 
 ftglyph_sources = \
     FTGlyph/FTGlyph.cpp \
-    FTGlyph/FTGlyph.h \
+    FTGlyph/FTGlyphImpl.h \
     FTGlyph/FTGlyphGlue.cpp \
     FTGlyph/FTBitmapGlyph.cpp \
-    FTGlyph/FTBitmapGlyph.h \
+    FTGlyph/FTBitmapGlyphImpl.h \
     FTGlyph/FTExtrdGlyph.cpp \
-    FTGlyph/FTExtrdGlyph.h \
+    FTGlyph/FTExtrdGlyphImpl.h \
     FTGlyph/FTOutlineGlyph.cpp \
-    FTGlyph/FTOutlineGlyph.h \
+    FTGlyph/FTOutlineGlyphImpl.h \
     FTGlyph/FTPixmapGlyph.cpp \
-    FTGlyph/FTPixmapGlyph.h \
+    FTGlyph/FTPixmapGlyphImpl.h \
     FTGlyph/FTPolyGlyph.cpp \
-    FTGlyph/FTPolyGlyph.h \
+    FTGlyph/FTPolyGlyphImpl.h \
     FTGlyph/FTTextureGlyph.cpp \
-    FTGlyph/FTTextureGlyph.h \
+    FTGlyph/FTTextureGlyphImpl.h \
     $(NULL)
 
 ftfont_sources = \

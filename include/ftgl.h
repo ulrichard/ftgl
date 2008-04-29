@@ -29,6 +29,8 @@
 /* We need the Freetype headers */
 #include <ft2build.h>
 #include FT_FREETYPE_H
+#include FT_GLYPH_H
+#include FT_OUTLINE_H
 
 /* Floating point types used by the library */
 typedef double   FTGL_DOUBLE;
@@ -108,6 +110,17 @@ namespace FTGL
     // Ensure that the export symbol is defined (and blank)
     #define FTGL_EXPORT
 #endif
+
+#include <FTPoint.h>
+#include <FTBBox.h>
+
+#include <FTGlyph.h>
+#include <FTBitmapGlyph.h>
+#include <FTExtrdGlyph.h>
+#include <FTOutlineGlyph.h>
+#include <FTPixmapGlyph.h>
+#include <FTPolyGlyph.h>
+#include <FTTextureGlyph.h>
 
 #include <FTFont.h>
 #include <FTGLBitmapFont.h>

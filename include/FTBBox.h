@@ -23,17 +23,11 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef     __FTBBox__
-#define     __FTBBox__
-
-#include <ft2build.h>
-#include FT_FREETYPE_H
-//#include FT_GLYPH_H
-#include FT_OUTLINE_H
+#ifndef __FTBBox__
+#define __FTBBox__
 
 #include "ftgl.h"
 #include "FTPoint.h"
-
 
 /**
  * FTBBox is a convenience class for handling bounding boxes.
@@ -163,7 +157,6 @@ class FTGL_EXPORT FTBBox
     private:
 
 };
-
 
 #endif  //  __FTBBox__
 

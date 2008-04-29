@@ -26,14 +26,38 @@
 
 #include "config.h"
 
+#include "ftgl.h"
 #include "FTInternals.h"
-#include "FTOutlineGlyph.h"
+#include "FTOutlineGlyphImpl.h"
 #include "FTVectoriser.h"
 
 
-FTOutlineGlyph::FTOutlineGlyph(FT_GlyphSlot glyph, float _outset,
+//
+//  FTGLOutlineGlyph
+//
+
+
+FTOutlineGlyph::FTOutlineGlyph(FT_GlyphSlot glyph, float outset,
                                bool useDisplayList)
-:   FTGlyph(glyph),
+{
+    impl = new FTOutlineGlyphImpl(glyph, outset, useDisplayList);
+}
+
+
+FTOutlineGlyph::~FTOutlineGlyph()
+{
+    ;
+}
+
+
+//
+//  FTGLOutlineGlyphImpl
+//
+
+
+FTOutlineGlyphImpl::FTOutlineGlyphImpl(FT_GlyphSlot glyph, float _outset,
+                                       bool useDisplayList)
+:   FTGlyphImpl(glyph),
     glList(0)
 {
     if(ft_glyph_format_outline != glyph->format)
@@ -68,7 +92,7 @@ FTOutlineGlyph::FTOutlineGlyph(FT_GlyphSlot glyph, float _outset,
 }
 
 
-FTOutlineGlyph::~FTOutlineGlyph()
+FTOutlineGlyphImpl::~FTOutlineGlyphImpl()
 {
     if(glList)
     {
@@ -81,7 +105,7 @@ FTOutlineGlyph::~FTOutlineGlyph()
 }
 
 
-const FTPoint& FTOutlineGlyph::Render(const FTPoint& pen, int renderMode)
+const FTPoint& FTOutlineGlyphImpl::Render(const FTPoint& pen, int renderMode)
 {
     glTranslatef(pen.X(), pen.Y(), 0.0f);
     if(glList)
@@ -98,7 +122,7 @@ const FTPoint& FTOutlineGlyph::Render(const FTPoint& pen, int renderMode)
 }
 
 
-void FTOutlineGlyph::DoRender()
+void FTOutlineGlyphImpl::DoRender()
 {
     for(unsigned int c = 0; c < vectoriser->ContourCount(); ++c)
     {
