@@ -38,7 +38,6 @@
 
 
 FTGLBitmapFont::FTGLBitmapFont(char const *fontFilePath)
-: FTFont(fontFilePath)
 {
     impl = new FTGLBitmapFontImpl(fontFilePath);
 }
@@ -46,7 +45,6 @@ FTGLBitmapFont::FTGLBitmapFont(char const *fontFilePath)
 
 FTGLBitmapFont::FTGLBitmapFont(unsigned char const *pBufferBytes,
                                size_t bufferSizeInBytes)
-: FTFont(pBufferBytes, bufferSizeInBytes)
 {
     impl = new FTGLBitmapFontImpl(pBufferBytes, bufferSizeInBytes);
 }

@@ -38,7 +38,6 @@
 
 
 FTGLPolygonFont::FTGLPolygonFont(char const *fontFilePath)
-: FTFont(fontFilePath)
 {
     impl = new FTGLPolygonFontImpl(fontFilePath);
 }
@@ -46,7 +45,6 @@ FTGLPolygonFont::FTGLPolygonFont(char const *fontFilePath)
 
 FTGLPolygonFont::FTGLPolygonFont(const unsigned char *pBufferBytes,
                                  size_t bufferSizeInBytes)
-: FTFont(pBufferBytes, bufferSizeInBytes)
 {
     impl = new FTGLPolygonFontImpl(pBufferBytes, bufferSizeInBytes);
 }

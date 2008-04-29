@@ -38,7 +38,6 @@
 
 
 FTGLOutlineFont::FTGLOutlineFont(char const *fontFilePath)
-: FTFont(fontFilePath)
 {
     impl = new FTGLOutlineFontImpl(fontFilePath);
 }
@@ -46,7 +45,6 @@ FTGLOutlineFont::FTGLOutlineFont(char const *fontFilePath)
 
 FTGLOutlineFont::FTGLOutlineFont(const unsigned char *pBufferBytes,
                                  size_t bufferSizeInBytes)
-: FTFont(pBufferBytes, bufferSizeInBytes)
 {
     impl = new FTGLOutlineFontImpl(pBufferBytes, bufferSizeInBytes);
 }

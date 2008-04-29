@@ -38,7 +38,6 @@
 
 
 FTGLExtrdFont::FTGLExtrdFont(char const *fontFilePath)
-: FTFont(fontFilePath)
 {
     impl = new FTGLExtrdFontImpl(fontFilePath);
 }
@@ -46,7 +45,6 @@ FTGLExtrdFont::FTGLExtrdFont(char const *fontFilePath)
 
 FTGLExtrdFont::FTGLExtrdFont(const unsigned char *pBufferBytes,
                              size_t bufferSizeInBytes)
-: FTFont(pBufferBytes, bufferSizeInBytes)
 {
     impl = new FTGLExtrdFontImpl(pBufferBytes, bufferSizeInBytes);
 }

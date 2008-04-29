@@ -47,14 +47,7 @@
 //
 
 
-FTFont::FTFont(const char* fontFilePath)
-{
-    /* impl is set by the child class */
-    impl = NULL;
-}
-
-
-FTFont::FTFont(const unsigned char *pBufferBytes, size_t bufferSizeInBytes)
+FTFont::FTFont()
 {
     /* impl is set by the child class */
     impl = NULL;

@@ -28,6 +28,8 @@
 
 #include <ftgl.h>
 
+#ifdef __cplusplus
+
 
 /**
  * FTGLPixmapFont is a specialisation of the FTFont class for handling
@@ -47,6 +49,8 @@ class FTGL_EXPORT FTGLPixmapFont : public FTFont
 
         /**
          * Open and read a font from a buffer in memory. Sets Error flag.
+         * The buffer is owned by the client and is NOT copied by FTGL. The
+         * pointer must be valid while using FTGL.
          *
          * @param pBufferBytes  the in-memory buffer
          * @param bufferSizeInBytes  the length of the buffer in bytes
@@ -59,6 +63,8 @@ class FTGL_EXPORT FTGLPixmapFont : public FTFont
          */
         ~FTGLPixmapFont();
 };
+
+#endif // __cplusplus
 
 FTGL_BEGIN_C_DECLS
     FTGL_EXPORT FTGLfont *ftglCreatePixmapFont(const char *fontname);

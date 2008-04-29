@@ -41,7 +41,6 @@
 
 
 FTGLTextureFont::FTGLTextureFont(char const *fontFilePath)
-: FTFont(fontFilePath)
 {
     impl = new FTGLTextureFontImpl(fontFilePath);
 }
@@ -49,7 +48,6 @@ FTGLTextureFont::FTGLTextureFont(char const *fontFilePath)
 
 FTGLTextureFont::FTGLTextureFont(const unsigned char *pBufferBytes,
                                  size_t bufferSizeInBytes)
-: FTFont(pBufferBytes, bufferSizeInBytes)
 {
     impl = new FTGLTextureFontImpl(pBufferBytes, bufferSizeInBytes);
 }
