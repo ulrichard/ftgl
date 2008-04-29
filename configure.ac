@@ -3,7 +3,7 @@ dnl setting in the autogen.sh script.
 AC_PREREQ(2.58)
 
 AC_INIT(FTGL, 2.1.3, [henryj@paradise.net.nz], ftgl)
-AC_CONFIG_SRCDIR(src/FTFont.cpp)
+AC_CONFIG_SRCDIR(src/FTPoint.cpp)
 AC_CONFIG_AUX_DIR(.auto)
 AM_INIT_AUTOMAKE([1.6 no-define dist-zip dist-bzip2])
 AM_CONFIG_HEADER(config.h)
