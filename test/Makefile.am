@@ -1,7 +1,7 @@
 
 if HAVE_CPPUNIT
 if HAVE_GLUT
-noinst_PROGRAMS = FTGLTest
+noinst_PROGRAMS = CTest FTGLTest
 endif
 endif
 
@@ -45,6 +45,19 @@ FTGLTest_CPPFLAGS = \
 FTGLTest_CXXFLAGS = $(FT2_CFLAGS) $(GL_CFLAGS)
 FTGLTest_LDFLAGS = $(FT2_LIBS) $(GLUT_LIBS) -lcppunit
 FTGLTest_LDADD = ../src/libftgl.la
+
+CTest_SOURCES = \
+    CTest.c \
+    $(NULL)
+CTest_CPPFLAGS = \
+    -I$(top_srcdir)/include \
+    -I$(top_srcdir)/src \
+    -I$(top_srcdir)/src/FTGlyph \
+    -I$(top_srcdir)/src/FTFont \
+    -I$(top_srcdir)/src/FTLayout
+CTest_CFLAGS = $(FT2_CFLAGS) $(GL_CFLAGS)
+CTest_LDFLAGS = $(FT2_LIBS) $(GLUT_LIBS)
+CTest_LDADD = ../src/libftgl.la
 
 DEACTIVATED = \
     FTFont-Test.cpp \

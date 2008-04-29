@@ -27,6 +27,7 @@ AC_PROG_INSTALL
 dnl These don't mix with C++
 dnl AC_C_CONST
 dnl AC_C_INLINE
+AM_PROG_CC_C_O
 
 # Checks for header files.
 AC_HEADER_STDC

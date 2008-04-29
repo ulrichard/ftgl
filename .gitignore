@@ -17,6 +17,7 @@ stamp-h1
 *.la
 demo/FTGLDemo
 demo/FTGLMFontDemo
+test/CTest
 test/FTGLTest
 docs/doc-stamp
 docs/html
