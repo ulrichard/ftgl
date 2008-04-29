@@ -21,15 +21,6 @@
  * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- *
- * Alternatively, you can redistribute and/or modify this software under
- * the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation; either version 2.1 of the License,
- * or (at your option) any later version.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this software; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA.
  */
 
 #ifndef     __FTCharmap__
