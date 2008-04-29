@@ -47,6 +47,8 @@ typedef float    FTGL_FLOAT;
 
 FTGL_BEGIN_C_DECLS
 
+    struct _FTGLGlyph;
+    typedef struct _FTGLglyph FTGLglyph;
     struct _FTGLFont;
     typedef struct _FTGLfont FTGLfont;
     struct _FTGLlayout;

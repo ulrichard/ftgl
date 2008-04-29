@@ -28,6 +28,8 @@
 
 #include <ftgl.h>
 
+#ifdef __cplusplus
+
 class FTGlyphImpl;
 
 /**
@@ -84,6 +86,35 @@ class FTGL_EXPORT FTGlyph
     protected:
         FTGlyphImpl *impl;
 };
+
+#endif //__cplusplus
+
+FTGL_BEGIN_C_DECLS
+
+FTGL_EXPORT FTGLglyph *ftglCreateBitmapGlyph(FT_GlyphSlot glyph);
+FTGL_EXPORT FTGLglyph *ftglCreateExtrdGlyph(FT_GlyphSlot glyph, float depth,
+                                float frontOutset, float backOutset,
+                                int useDisplayList);
+FTGL_EXPORT FTGLglyph *ftglCreateOutlineGlyph(FT_GlyphSlot glyph, float outset,
+                                  int useDisplayList);
+FTGL_EXPORT FTGLglyph *ftglCreatePixmapGlyph(FT_GlyphSlot glyph);
+FTGL_EXPORT FTGLglyph *ftglCreatePolyGlyph(FT_GlyphSlot glyph, float outset,
+                               int useDisplayList);
+FTGL_EXPORT FTGLglyph *ftglCreateTextureGlyph(FT_GlyphSlot glyph, int id,
+                                              int xOffset, int yOffset,
+                                              int width, int height);
+
+FTGL_EXPORT void ftglDestroyGlyph(FTGLglyph *g);
+
+FTGL_EXPORT void ftglGlyphRender(FTGLglyph *g, FTGL_DOUBLE penx,
+                                 FTGL_DOUBLE peny, int renderMode,
+                                 FTGL_DOUBLE *advancex, FTGL_DOUBLE *advancey);
+FTGL_EXPORT void ftglGlyphAdvance(FTGLglyph *g, FTGL_DOUBLE *advancex,
+                                  FTGL_DOUBLE *advancey);
+FTGL_EXPORT void ftglGlyphBBox(FTGLglyph *g, float *lx, float *ly, float *lz,
+                               float *ux, float *uy, float *uz);
+
+FTGL_END_C_DECLS
 
 #endif  //  __FTGlyph__
 

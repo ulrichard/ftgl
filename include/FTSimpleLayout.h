@@ -123,7 +123,7 @@ class FTGL_EXPORT FTSimpleLayout : public FTLayout
 #endif //__cplusplus
 
 FTGL_BEGIN_C_DECLS
-    FTGL_EXPORT FTGLlayout *ftglCreateSimpleLayout();
+    FTGL_EXPORT FTGLlayout *ftglCreateSimpleLayout(void);
 FTGL_END_C_DECLS
 
 #endif  /* __FTSimpleLayout__ */

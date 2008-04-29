@@ -28,6 +28,9 @@
 
 #include <ftgl.h>
 
+#ifdef __cplusplus
+
+
 /**
  * FTExtrdGlyph is a specialisation of FTGlyph for creating tessellated
  * extruded polygon glyphs.
@@ -60,6 +63,8 @@ class FTGL_EXPORT FTExtrdGlyph : public FTGlyph
          */
         virtual ~FTExtrdGlyph();
 };
+
+#endif //__cplusplus
 
 #endif  //  __FTExtrdGlyph__
 

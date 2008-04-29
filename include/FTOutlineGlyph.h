@@ -28,6 +28,9 @@
 
 #include <ftgl.h>
 
+#ifdef __cplusplus
+
+
 /**
  * FTOutlineGlyph is a specialisation of FTGlyph for creating outlines.
  *
@@ -56,6 +59,8 @@ class FTGL_EXPORT FTOutlineGlyph : public FTGlyph
          */
         virtual ~FTOutlineGlyph();
 };
+
+#endif //__cplusplus
 
 #endif  // __FTOutlineGlyph__
 

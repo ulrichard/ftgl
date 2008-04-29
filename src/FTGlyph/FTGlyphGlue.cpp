@@ -2,7 +2,7 @@
  * FTGL - OpenGL font library
  *
  * Copyright (c) 2001-2004 Henry Maddocks <ftgl@opengl.geek.nz>
- *               2008 Éric Beets <ericbeets@free.fr>
+ *               2008 Sam Hocevar <sam@zoy.org>
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -31,9 +31,150 @@
 
 FTGL_BEGIN_C_DECLS
 
-//
-//  C wrappers for FTGlyph
-//
+#define C_TOR(cname, cargs, cxxname, cxxarg, cxxtype) \
+    FTGLglyph* cname cargs \
+    { \
+        cxxname *g = new cxxname cxxarg; \
+        if(g->Error()) \
+        { \
+            delete g; \
+            return NULL; \
+        } \
+        FTGLglyph *ftgl = (FTGLglyph *)malloc(sizeof(FTGLglyph)); \
+        ftgl->ptr = g; \
+        ftgl->type = cxxtype; \
+        return ftgl; \
+    }
+
+// FTBitmapGlyph::FTBitmapGlyph();
+C_TOR(ftglCreateBitmapGlyph, (FT_GlyphSlot glyph),
+      FTBitmapGlyph, (glyph), GLYPH_BITMAP);
+
+// FTExtrdGlyph::FTExtrdGlyph();
+C_TOR(ftglCreateExtrdGlyph, (FT_GlyphSlot glyph, float depth, float frontOutset,
+                             float backOutset, int useDisplayList),
+      FTExtrdGlyph, (glyph, depth, frontOutset, backOutset, useDisplayList),
+      GLYPH_EXTRUDE);
+
+// FTOutlineGlyph::FTOutlineGlyph();
+C_TOR(ftglCreateOutlineGlyph, (FT_GlyphSlot glyph, float outset,
+                               int useDisplayList),
+      FTOutlineGlyph, (glyph, outset, useDisplayList), GLYPH_OUTLINE);
+
+// FTPixmapGlyph::FTPixmapGlyph();
+C_TOR(ftglCreatePixmapGlyph, (FT_GlyphSlot glyph),
+      FTPixmapGlyph, (glyph), GLYPH_PIXMAP);
+
+// FTPolyGlyph::FTPolyGlyph();
+C_TOR(ftglCreatePolyGlyph, (FT_GlyphSlot glyph, float outset,
+                            int useDisplayList),
+      FTPolyGlyph, (glyph, outset, useDisplayList), GLYPH_OUTLINE);
+
+// FTTextureGlyph::FTTextureGlyph();
+C_TOR(ftglCreateTextureGlyph, (FT_GlyphSlot glyph, int id, int xOffset,
+                               int yOffset, int width, int height),
+      FTTextureGlyph, (glyph, id, xOffset, yOffset, width, height),
+      GLYPH_TEXTURE);
+
+#define C_FUN(cret, cname, cargs, cxxerr, cxxname, cxxarg) \
+    cret cname cargs \
+    { \
+        if(!g || !g->ptr) \
+        { \
+            fprintf(stderr, "FTGL warning: NULL pointer in %s\n", #cname); \
+            cxxerr; \
+        } \
+        switch(g->type) \
+        { \
+            case FTGL::GLYPH_BITMAP: \
+                return dynamic_cast<FTBitmapGlyph*>(g->ptr)->cxxname cxxarg; \
+            case FTGL::GLYPH_EXTRUDE: \
+                return dynamic_cast<FTExtrdGlyph*>(g->ptr)->cxxname cxxarg; \
+            case FTGL::GLYPH_OUTLINE: \
+                return dynamic_cast<FTOutlineGlyph*>(g->ptr)->cxxname cxxarg; \
+            case FTGL::GLYPH_PIXMAP: \
+                return dynamic_cast<FTPixmapGlyph*>(g->ptr)->cxxname cxxarg; \
+            case FTGL::GLYPH_POLYGON: \
+                return dynamic_cast<FTPolyGlyph*>(g->ptr)->cxxname cxxarg; \
+            case FTGL::GLYPH_TEXTURE: \
+                return dynamic_cast<FTTextureGlyph*>(g->ptr)->cxxname cxxarg; \
+        } \
+        fprintf(stderr, "FTGL warning: %s not implemented for %d\n", #cname, g->type); \
+        cxxerr; \
+    }
+
+// FTGlyph::~FTGlyph();
+void ftglDestroyGlyph(FTGLglyph *g)
+{
+    if(!g || !g->ptr)
+    {
+        fprintf(stderr, "FTGL warning: NULL pointer in %s\n", __FUNCTION__);
+        return;
+    }
+    switch(g->type)
+    {
+        case FTGL::GLYPH_BITMAP:
+            delete dynamic_cast<FTBitmapGlyph*>(g->ptr); break;
+        case FTGL::GLYPH_EXTRUDE:
+            delete dynamic_cast<FTExtrdGlyph*>(g->ptr); break;
+        case FTGL::GLYPH_OUTLINE:
+            delete dynamic_cast<FTOutlineGlyph*>(g->ptr); break;
+        case FTGL::GLYPH_PIXMAP:
+            delete dynamic_cast<FTPixmapGlyph*>(g->ptr); break;
+        case FTGL::GLYPH_POLYGON:
+            delete dynamic_cast<FTPolyGlyph*>(g->ptr); break;
+        case FTGL::GLYPH_TEXTURE:
+            delete dynamic_cast<FTTextureGlyph*>(g->ptr); break;
+        default:
+            fprintf(stderr, "FTGL warning: %s not implemented for %d\n",
+                            __FUNCTION__, g->type);
+            break;
+    }
+
+    g->ptr = NULL;
+}
+
+// const FTPoint& FTGlyph::Render(const FTPoint& pen, int renderMode);
+C_FUN(static const FTPoint&, _ftglGlyphRender, (FTGLglyph *g,
+                                   const FTPoint& pen, int renderMode),
+      return *(new FTPoint()), Render, (pen, renderMode));
+
+void ftglGlyphRender(FTGLglyph *g, FTGL_DOUBLE penx, FTGL_DOUBLE peny,
+                     int renderMode, FTGL_DOUBLE *advancex,
+                     FTGL_DOUBLE *advancey)
+{
+    FTPoint pen(penx, peny);
+    FTPoint ret = _ftglGlyphRender(g, pen, renderMode);
+    *advancex = ret.X();
+    *advancey = ret.Y();
+}
+
+// const FTPoint& FTGlyph::Advance() const;
+C_FUN(static const FTPoint&, _ftglGlyphAdvance, (FTGLglyph *g),
+      return *(new FTPoint()), Advance, ());
+
+void ftglGlyphAdvance(FTGLglyph *g, FTGL_DOUBLE *advancex,
+                      FTGL_DOUBLE *advancey)
+{
+    FTPoint ret = _ftglGlyphAdvance(g);
+    *advancex = ret.X();
+    *advancey = ret.Y();
+}
+
+// const FTBBox& FTGlyph::BBox() const;
+C_FUN(static const FTBBox&, _ftglGlyphBBox, (FTGLglyph *g),
+      return *(new FTBBox()), BBox, ());
+
+void ftglGlyphBBox(FTGLglyph *g, float *lx, float *ly, float *lz,
+                   float *ux, float *uy, float *uz)
+{
+    FTBBox ret = _ftglGlyphBBox(g);
+    *lx = ret.lowerX; *ly = ret.lowerY; *lz = ret.lowerZ;
+    *ux = ret.upperX; *uy = ret.upperY; *uz = ret.upperZ;
+}
+
+// FT_Error FTGlyph::Error() const;
+C_FUN(FT_Error, ftglGlyphError, (FTGLglyph *g), return -1, Error, ());
 
 FTGL_END_C_DECLS
 

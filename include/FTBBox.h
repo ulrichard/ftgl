@@ -26,8 +26,11 @@
 #ifndef __FTBBox__
 #define __FTBBox__
 
-#include "ftgl.h"
-#include "FTPoint.h"
+#include <ftgl.h>
+#include <FTPoint.h>
+
+#ifdef __cplusplus
+
 
 /**
  * FTBBox is a convenience class for handling bounding boxes.
@@ -157,6 +160,8 @@ class FTGL_EXPORT FTBBox
     private:
 
 };
+
+#endif //__cplusplus
 
 #endif  //  __FTBBox__
 

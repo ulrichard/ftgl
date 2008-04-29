@@ -28,6 +28,9 @@
 
 #include <ftgl.h>
 
+#ifdef __cplusplus
+
+
 /**
  * FTBitmapGlyph is a specialisation of FTGlyph for creating bitmaps.
  *
@@ -53,6 +56,8 @@ class FTGL_EXPORT FTBitmapGlyph : public FTGlyph
          */
         virtual ~FTBitmapGlyph();
 };
+
+#endif //__cplusplus
 
 #endif  //  __FTBitmapGlyph__
 

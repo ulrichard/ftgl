@@ -28,6 +28,9 @@
 
 #include <ftgl.h>
 
+#ifdef __cplusplus
+
+
 /**
  * FTPolyGlyph is a specialisation of FTGlyph for creating tessellated
  * polygon glyphs.
@@ -57,6 +60,8 @@ class FTGL_EXPORT FTPolyGlyph : public FTGlyph
          */
         virtual ~FTPolyGlyph();
 };
+
+#endif //__cplusplus
 
 #endif  //  __FTPolyGlyph__
 

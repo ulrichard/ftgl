@@ -91,7 +91,7 @@ FTGL_EXPORT float ftglLayoutGetLineLength  (FTGLlayout *);
 FTGL_EXPORT void                ftglLayoutSetAlignment   (FTGLlayout *, const FTGL::TextAlignment);
 FTGL_EXPORT FTGL::TextAlignment ftglLayoutGetAlignement  (FTGLlayout *);
 #else
-FTGL_EXPORT void                ftglLayoutSetAlignment   (FTGLlayout *, const TextAlignment);
+FTGL_EXPORT void                ftglLayoutSetAlignment   (FTGLlayout *, const int);
 FTGL_EXPORT int                 ftglLayoutGetAlignement  (FTGLlayout *);
 #endif
 

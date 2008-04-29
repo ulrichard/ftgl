@@ -26,7 +26,10 @@
 #ifndef __FTPoint__
 #define __FTPoint__
 
-#include "ftgl.h"
+#include <ftgl.h>
+
+#ifdef __cplusplus
+
 
 /**
  * FTPoint class is a basic 3 dimensional point or vector.
@@ -220,6 +223,8 @@ class FTGL_EXPORT FTPoint
          */
         FTGL_DOUBLE values[3];
 };
+
+#endif //__cplusplus
 
 #endif  //  __FTPoint__
 

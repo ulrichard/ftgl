@@ -28,6 +28,9 @@
 
 #include <ftgl.h>
 
+#ifdef __cplusplus
+
+
 /**
  * FTTextureGlyph is a specialisation of FTGlyph for creating texture
  * glyphs.
@@ -59,6 +62,8 @@ class FTGL_EXPORT FTTextureGlyph : public FTGlyph
          */
         virtual ~FTTextureGlyph();
 };
+
+#endif //__cplusplus
 
 #endif  //  __FTTextureGlyph__
 

@@ -28,6 +28,9 @@
 
 #include <ftgl.h>
 
+#ifdef __cplusplus
+
+
 /**
  * FTPixmapGlyph is a specialisation of FTGlyph for creating pixmaps.
  *
@@ -49,6 +52,8 @@ class  FTGL_EXPORT FTPixmapGlyph : public FTGlyph
          */
         virtual ~FTPixmapGlyph();
 };
+
+#endif //__cplusplus
 
 #endif  //  __FTPixmapGlyph__
 

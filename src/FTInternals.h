@@ -92,6 +92,22 @@ FTGL_BEGIN_C_DECLS
 
 typedef enum
 {
+    GLYPH_BITMAP,
+    GLYPH_PIXMAP,
+    GLYPH_OUTLINE,
+    GLYPH_POLYGON,
+    GLYPH_EXTRUDE,
+    GLYPH_TEXTURE,
+} GlyphType;
+
+struct _FTGLglyph
+{
+    FTGlyph *ptr;
+    FTGL::GlyphType type;
+};
+
+typedef enum
+{
     FONT_BITMAP,
     FONT_PIXMAP,
     FONT_OUTLINE,
