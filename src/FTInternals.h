@@ -33,66 +33,104 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA.
  */
 
-#include    "FTFont.h"
-#include    "FTGLBitmapFont.h"
-#include    "FTGLPixmapFont.h"
-#include    "FTGLOutlineFont.h"
-#include    "FTGLPolygonFont.h"
-#include    "FTGLExtrdFont.h"
-#include    "FTGLTextureFont.h"
-
-#include    "FTLayout.h"
-#include    "FTSimpleLayout.h"
-
-#include    <stdlib.h>
-#include    <stdio.h>
-
 #ifndef __FTINTERNALS_H__
 #define __FTINTERNALS_H__
+
+#include "ftgl.h"
+
+#include <stdlib.h>
+#include <stdio.h>
+
+
+// Fixes for deprecated identifiers in 2.1.5
+#ifndef FT_OPEN_MEMORY
+    #define FT_OPEN_MEMORY (FT_Open_Flags)1
+#endif
+
+#ifndef FT_RENDER_MODE_MONO
+    #define FT_RENDER_MODE_MONO ft_render_mode_mono
+#endif
+
+#ifndef FT_RENDER_MODE_NORMAL
+    #define FT_RENDER_MODE_NORMAL ft_render_mode_normal
+#endif
+
+
+#ifdef WIN32
+
+    // Under windows avoid including <windows.h> is overrated.
+    // Sure, it can be avoided and "name space pollution" can be
+    // avoided, but why? It really doesn't make that much difference
+    // these days.
+    #define  WIN32_LEAN_AND_MEAN
+    #include <windows.h>
+
+    #ifndef __gl_h_
+        #include <GL/gl.h>
+        #include <GL/glu.h>
+    #endif
+
+#else
+
+    // Non windows platforms - don't require nonsense as seen above :-)
+    #ifndef __gl_h_
+        #ifdef SDL_main
+            #include "SDL_opengl.h"
+        #elif __APPLE_CC__
+            #include <OpenGL/gl.h>
+            #include <OpenGL/glu.h>
+        #else
+            #include <GL/gl.h>
+            #if defined (__sun__) && !defined (__sparc__)
+                #include <mesa/glu.h>
+            #else
+                #include <GL/glu.h>
+            #endif
+        #endif
+
+    #endif
+
+    // Required for compatibility with glext.h style function definitions of
+    // OpenGL extensions, such as in src/osg/Point.cpp.
+    #ifndef APIENTRY
+        #define APIENTRY
+    #endif
+#endif
+
 
 #ifdef __cplusplus
 extern "C" {
 namespace C {
 #endif
 
-typedef enum ftglType
-{
-    Bitmap,
-    Pixmap,
-    Outline,
-    Polygon,
-    Extrude,
-    Texture,
-};
-
-struct FTGLfont
+struct _FTGLfont
 {
     FTFont *ptr;
-    ftglType type;
+    FTGL::FontType type;
 };
 
-static inline FTGLfont *createFTFont(ftglType type, const char *fontname)
+static inline FTGLfont *createFTFont(FTGL::FontType type, const char *fontname)
 {
     FTGLfont *ftgl = (FTGLfont*)malloc(sizeof(FTGLfont));
     ftgl->type = type;
     switch(type)
     {
-        case Bitmap:
+        case FTGL::FONT_BITMAP:
             ftgl->ptr = new FTGLBitmapFont(fontname);
             break;
-        case Pixmap:
+        case FTGL::FONT_PIXMAP:
             ftgl->ptr = new FTGLPixmapFont(fontname);
             break;
-        case Outline:
+        case FTGL::FONT_OUTLINE:
             ftgl->ptr = new FTGLOutlineFont(fontname);
             break;
-        case Polygon:
+        case FTGL::FONT_POLYGON:
             ftgl->ptr = new FTGLPolygonFont(fontname);
             break;
-        case Extrude:
+        case FTGL::FONT_EXTRUDE:
             ftgl->ptr = new FTGLExtrdFont(fontname);
             break;
-        case Texture:
+        case FTGL::FONT_TEXTURE:
             ftgl->ptr = new FTGLTextureFont(fontname);
             break;
     }
@@ -107,26 +145,21 @@ static inline FTGLfont *createFTFont(ftglType type, const char *fontname)
     return ftgl;
 }
 
-typedef enum ftglLayoutType
-{
-    Simple,
-};
-
-struct FTGLlayout
+struct _FTGLlayout
 {
     FTLayout *ptr;
     FTGLfont *font;
-    ftglLayoutType type;
+    FTGL::LayoutType type;
 };
 
-static inline FTGLlayout *createFTLayout(ftglLayoutType type)
+static inline FTGLlayout *createFTLayout(FTGL::LayoutType type)
 {
     FTGLlayout *layout = (FTGLlayout*)malloc(sizeof(FTGLlayout));
     layout->font = NULL;
     layout->type = type;
     switch(type)
     {
-        case Simple:
+        case FTGL::LAYOUT_SIMPLE:
             layout->ptr = new FTSimpleLayout();
             break;
     }

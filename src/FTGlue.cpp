@@ -243,7 +243,7 @@ void ftglLayoutSetFont(FTGLlayout *f, FTGLfont *font)
     }
     switch(f->type)
     {
-        case Simple:
+        case FTGL::LAYOUT_SIMPLE:
             f->font = font;
             return dynamic_cast<FTSimpleLayout*>(f->ptr)->SetFont(font->ptr);
     }

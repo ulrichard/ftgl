@@ -32,13 +32,13 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA.
  */
 
-#ifndef     __FTGLOutlineFont__
-#define     __FTGLOutlineFont__
+#ifndef __FTGLOutlineFont__
+#define __FTGLOutlineFont__
+
+#include <ftgl.h>
 
 #ifdef __cplusplus
 
-#include "FTFont.h"
-#include "FTGL.h"
 
 /**
  * FTGLOutlineFont is a specialisation of the FTFont class for handling

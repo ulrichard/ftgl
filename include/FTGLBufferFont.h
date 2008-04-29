@@ -35,8 +35,7 @@
 #ifndef     __FTGLBufferFont__
 #define     __FTGLBufferFont__
 
-#include "FTFont.h"
-#include "FTGL.h"
+#include <ftgl.h>
 
 
 /**

@@ -32,13 +32,12 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA.
  */
 
-#ifndef     __FTGLTextureFont__
-#define     __FTGLTextureFont__
+#ifndef __FTGLTextureFont__
+#define __FTGLTextureFont__
+
+#include <ftgl.h>
 
 #ifdef __cplusplus
-
-#include "FTFont.h"
-#include "FTGL.h"
 
 
 /**

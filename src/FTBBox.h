@@ -40,7 +40,7 @@
 //#include FT_GLYPH_H
 #include FT_OUTLINE_H
 
-#include "FTGL.h"
+#include "ftgl.h"
 #include "FTPoint.h"
 
 

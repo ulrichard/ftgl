@@ -138,7 +138,7 @@ namespace C
 {
     extern "C" FTGLfont* ftglCreateOutlineFont(const char *fontname)
     {
-        FTGLfont *ftgl = createFTFont(Outline, fontname);
+        FTGLfont *ftgl = createFTFont(FTGL::FONT_OUTLINE, fontname);
         return ftgl;
     }
 }

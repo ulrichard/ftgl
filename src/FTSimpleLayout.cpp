@@ -474,7 +474,7 @@ namespace C
 {
     extern "C" FTGLlayout* ftglCreateSimpleLayout()
     {
-        FTGLlayout *layout = createFTLayout(Simple);
+        FTGLlayout *layout = createFTLayout(FTGL::LAYOUT_SIMPLE);
         return layout;
     }
 }

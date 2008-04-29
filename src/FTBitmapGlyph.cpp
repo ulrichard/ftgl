@@ -36,6 +36,8 @@
 
 #include <string>
 
+#include "ftgl.h"
+#include "FTInternals.h"
 #include "FTBitmapGlyph.h"
 
 FTBitmapGlyph::FTBitmapGlyph(FT_GlyphSlot glyph)

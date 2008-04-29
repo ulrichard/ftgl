@@ -38,7 +38,7 @@ FTGLTest_SOURCES = \
     HPGCalc_afm.cpp \
     HPGCalc_pfb.cpp \
     $(NULL)
-FTGLTest_CPPFLAGS = -I$(top_srcdir)/include
+FTGLTest_CPPFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/src
 FTGLTest_CXXFLAGS = $(FT2_CFLAGS) $(GL_CFLAGS)
 FTGLTest_LDFLAGS = $(FT2_LIBS) $(GLUT_LIBS) -lcppunit
 FTGLTest_LDADD = ../src/libftgl.la

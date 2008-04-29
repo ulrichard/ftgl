@@ -5,6 +5,7 @@
 #include <assert.h>
 
 #include "Fontdefs.h"
+#include "FTInternals.h"
 #include "FTGLPixmapFont.h"
 
 extern void buildGLContext();

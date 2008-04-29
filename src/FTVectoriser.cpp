@@ -35,8 +35,8 @@
 
 #include "config.h"
 
+#include "FTInternals.h"
 #include "FTVectoriser.h"
-#include "FTGL.h"
 
 #ifndef CALLBACK
 #define CALLBACK

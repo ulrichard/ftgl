@@ -151,7 +151,7 @@ namespace C
 {
     extern "C" FTGLfont* ftglCreatePixmapFont(const char *fontname)
     {
-        FTGLfont *ftgl = createFTFont(Pixmap, fontname);
+        FTGLfont *ftgl = createFTFont(FTGL::FONT_PIXMAP, fontname);
         return ftgl;
     }
 }

@@ -39,7 +39,7 @@
 #include FT_FREETYPE_H
 #include FT_GLYPH_H
 
-#include "FTGL.h"
+#include "ftgl.h"
 
 /**
  * FTPoint class is a basic 3 dimensional point or vector.

@@ -35,9 +35,9 @@
 #ifndef __FTFontImpl__
 #define __FTFontImpl__
 
+#include "ftgl.h"
 #include "FTFont.h"
 #include "FTFace.h"
-#include "FTGL.h"
 
 class FTGlyphContainer;
 class FTGlyph;

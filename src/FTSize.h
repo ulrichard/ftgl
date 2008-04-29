@@ -39,7 +39,7 @@
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
-#include "FTGL.h"
+#include "ftgl.h"
 
 
 

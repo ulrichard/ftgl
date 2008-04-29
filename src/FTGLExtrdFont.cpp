@@ -116,7 +116,7 @@ namespace C
 {
     extern "C" FTGLfont* ftglCreateExtrdFont(const char *fontname)
     {
-        FTGLfont *ftgl = createFTFont(Extrude, fontname);
+        FTGLfont *ftgl = createFTFont(FTGL::FONT_EXTRUDE, fontname);
         return ftgl;
     }
 }

@@ -36,6 +36,7 @@
 
 #include <math.h>
 
+#include "FTInternals.h"
 #include "FTTextureGlyph.h"
 
 GLint FTTextureGlyph::activeTextureID = 0;

@@ -37,7 +37,7 @@
 
 #include <stdlib.h>
 
-#include "FTGL.h"
+#include "ftgl.h"
 
 /**
  * Provides a non-STL alternative to the STL map<unsigned long, unsigned long>

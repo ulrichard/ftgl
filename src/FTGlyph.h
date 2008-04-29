@@ -32,74 +32,98 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA.
  */
 
-#ifndef     __FTPolyGlyph__
-#define     __FTPolyGlyph__
-
+#ifndef     __FTGlyph__
+#define     __FTGlyph__
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include FT_GLYPH_H
 
-#include "FTGL.h"
-#include "FTGlyph.h"
+#include "ftgl.h"
+#include "FTBBox.h"
+#include "FTPoint.h"
 
-class FTVectoriser;
 
 /**
- * FTPolyGlyph is a specialisation of FTGlyph for creating tessellated
- * polygon glyphs.
+ * FTGlyph is the base class for FTGL glyphs.
+ *
+ * It provides the interface between Freetype glyphs and their openGL
+ * renderable counterparts. This is an abstract class and derived classes
+ * must implement the <code>render</code> function.
  *
  * @see FTGlyphContainer
- * @see FTVectoriser
+ * @see FTBBox
+ * @see FTPoint
  *
  */
-class FTGL_EXPORT FTPolyGlyph : public FTGlyph
+class FTGL_EXPORT FTGlyph
 {
     public:
         /**
-         * Constructor. Sets the Error to Invalid_Outline if the glyphs isn't an outline.
+         * Constructor
          *
          * @param glyph The Freetype glyph to be processed
-         * @param outset  The outset distance
          * @param useDisplayList Enable or disable the use of Display Lists for this glyph
          *                       <code>true</code> turns ON display lists.
          *                       <code>false</code> turns OFF display lists.
          */
-        FTPolyGlyph(FT_GlyphSlot glyph, float outset, bool useDisplayList);
+        FTGlyph(FT_GlyphSlot glyph, bool useDisplayList = true);
 
         /**
          * Destructor
          */
-        virtual ~FTPolyGlyph();
+        virtual ~FTGlyph();
 
         /**
          * Renders this glyph at the current pen position.
          *
          * @param pen   The current pen position.
-         * @param renderMode    Render mode to display
+         * @param renderMode Render mode to display
          * @return      The advance distance for this glyph.
          */
-        virtual const FTPoint& Render(const FTPoint& pen, int renderMode);
+        virtual const FTPoint& Render(const FTPoint& pen, int renderMode) = 0;
+
+        /**
+         * Return the advance width for this glyph.
+         *
+         * @return  advance width.
+         */
+        const FTPoint& Advance() const;
+
+        /**
+         * Return the bounding box for this glyph.
+         *
+         * @return  bounding box.
+         */
+        const FTBBox& BBox() const;
+
+        /**
+         * Queries for errors.
+         *
+         * @return  The current error code.
+         */
+        FT_Error Error() const;
+
+    protected:
+        /**
+         * The advance distance for this glyph
+         */
+        FTPoint advance;
+
+        /**
+         * The bounding box of this glyph.
+         */
+        FTBBox bBox;
+
+        /**
+         * Current error code. Zero means no error.
+         */
+        FT_Error err;
 
     private:
-        /**
-         * Private rendering method.
-         */
-        void DoRender();
 
-        /**
-         * Private rendering variables.
-         */
-        unsigned int hscale, vscale;
-        FTVectoriser *vectoriser;
-        float outset;
-
-        /**
-         * OpenGL display list
-         */
-        GLuint glList;
 };
 
 
-#endif  //  __FTPolyGlyph__
+#endif  //  __FTGlyph__
 

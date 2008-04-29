@@ -36,12 +36,11 @@
 #define    __FTFont__
 
 #include <ft2build.h>
-
 #include FT_FREETYPE_H
 
-#ifdef __cplusplus
+#include <ftgl.h>
 
-#include "FTGL.h"
+#ifdef __cplusplus
 
 class FTFontImpl;
 
@@ -337,8 +336,6 @@ class FTGL_EXPORT FTFont
 extern "C" {
 namespace C {
 #endif
-
-typedef struct FTGLfont FTGLfont;
 
 FTGL_EXPORT void ftglDestroyFont(FTGLfont*);
 

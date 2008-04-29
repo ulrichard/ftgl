@@ -36,6 +36,7 @@
 
 #include <iostream>
 
+#include "FTInternals.h"
 #include "FTExtrdGlyph.h"
 #include "FTVectoriser.h"
 

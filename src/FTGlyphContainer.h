@@ -39,7 +39,7 @@
 #include FT_FREETYPE_H
 #include FT_GLYPH_H
 
-#include "FTGL.h"
+#include "ftgl.h"
 #include "FTBBox.h"
 #include "FTPoint.h"
 #include "FTVector.h"

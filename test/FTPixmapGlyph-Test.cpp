@@ -7,6 +7,7 @@
 #include <assert.h>
 
 #include "Fontdefs.h"
+#include "FTInternals.h"
 #include "FTPixmapGlyph.h"
 
 #define GL_ASSERT() {GLenum sci_err; while ((sci_err = glGetError()) != GL_NO_ERROR) \

@@ -35,6 +35,7 @@
 
 #include "config.h"
 
+#include "FTInternals.h"
 #include "FTOutlineGlyph.h"
 #include "FTVectoriser.h"
 

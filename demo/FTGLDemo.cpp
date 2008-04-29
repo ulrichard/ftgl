@@ -50,13 +50,7 @@
 
 #include "tb.h"
 
-#include "FTGLExtrdFont.h"
-#include "FTGLOutlineFont.h"
-#include "FTGLPolygonFont.h"
-#include "FTGLTextureFont.h"
-#include "FTGLPixmapFont.h"
-#include "FTGLBitmapFont.h"
-#include "FTSimpleLayout.h"
+#include "ftgl.h"
 
 // YOU'LL PROBABLY WANT TO CHANGE THESE
 #ifdef __linux__

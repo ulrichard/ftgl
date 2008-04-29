@@ -39,7 +39,7 @@
 #include FT_FREETYPE_H
 //#include FT_CACHE_H
 
-#include "FTGL.h"
+#include "ftgl.h"
 
 
 /**

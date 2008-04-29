@@ -32,13 +32,12 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA.
  */
 
-#ifndef     __FTGLPolygonFont__
-#define     __FTGLPolygonFont__
+#ifndef __FTGLPolygonFont__
+#define __FTGLPolygonFont__
+
+#include <ftgl.h>
 
 #ifdef __cplusplus
-
-#include "FTFont.h"
-#include "FTGL.h"
 
 
 /**

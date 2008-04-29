@@ -32,25 +32,29 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA.
  */
 
-#ifndef     __FTPixmapGlyph__
-#define     __FTPixmapGlyph__
+#ifndef     __FTBitmapGlyph__
+#define     __FTBitmapGlyph__
 
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include FT_GLYPH_H
 
-#include "FTGL.h"
+#include "ftgl.h"
 #include "FTGlyph.h"
 
 
 /**
- * FTPixmapGlyph is a specialisation of FTGlyph for creating pixmaps.
+ * FTBitmapGlyph is a specialisation of FTGlyph for creating bitmaps.
+ *
+ * It provides the interface between Freetype glyphs and their openGL
+ * Renderable counterparts. This is an abstract class and derived classes
+ * must implement the <code>Render</code> function.
  *
  * @see FTGlyphContainer
  *
  */
-class  FTGL_EXPORT FTPixmapGlyph : public FTGlyph
+class FTGL_EXPORT FTBitmapGlyph : public FTGlyph
 {
     public:
         /**
@@ -58,37 +62,40 @@ class  FTGL_EXPORT FTPixmapGlyph : public FTGlyph
          *
          * @param glyph The Freetype glyph to be processed
          */
-        FTPixmapGlyph(FT_GlyphSlot glyph);
+        FTBitmapGlyph(FT_GlyphSlot glyph);
 
         /**
          * Destructor
          */
-        virtual ~FTPixmapGlyph();
+        virtual ~FTBitmapGlyph();
 
         /**
          * Renders this glyph at the current pen position.
          *
          * @param pen   The current pen position.
-         * @param renderMode Render mode to display
+         * @param renderMode    Render mode to display
          * @return      The advance distance for this glyph.
          */
         virtual const FTPoint& Render(const FTPoint& pen, int renderMode);
-
-        // attributes
 
     private:
         /**
          * The width of the glyph 'image'
          */
-        int destWidth;
+        unsigned int destWidth;
 
         /**
          * The height of the glyph 'image'
          */
-        int destHeight;
+        unsigned int destHeight;
 
         /**
-         * Vector from the pen position to the topleft corner of the pixmap
+         * The pitch of the glyph 'image'
+         */
+        unsigned int destPitch;
+
+        /**
+         * Vector from the pen position to the topleft corner of the bitmap
          */
         FTPoint pos;
 
@@ -100,4 +107,5 @@ class  FTGL_EXPORT FTPixmapGlyph : public FTGlyph
 };
 
 
-#endif  //  __FTPixmapGlyph__
+#endif  //  __FTBitmapGlyph__
+

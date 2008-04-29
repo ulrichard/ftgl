@@ -36,6 +36,7 @@
 
 #include <math.h>
 
+#include "FTInternals.h"
 #include "FTPixmapGlyph.h"
 
 FTPixmapGlyph::FTPixmapGlyph(FT_GlyphSlot glyph)

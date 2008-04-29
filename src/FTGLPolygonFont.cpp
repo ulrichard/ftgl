@@ -113,7 +113,7 @@ namespace C
 {
     extern "C" FTGLfont* ftglCreatePolygonFont(const char *fontname)
     {
-        FTGLfont *ftgl = createFTFont(Polygon, fontname);
+        FTGLfont *ftgl = createFTFont(FTGL::FONT_POLYGON, fontname);
         return ftgl;
     }
 }

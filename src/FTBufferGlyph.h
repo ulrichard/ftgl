@@ -32,29 +32,25 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA.
  */
 
-#ifndef     __FTBitmapGlyph__
-#define     __FTBitmapGlyph__
+#ifndef     __FTBufferGlyph__
+#define     __FTBufferGlyph__
 
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include FT_GLYPH_H
 
-#include "FTGL.h"
+#include "ftgl.h"
 #include "FTGlyph.h"
 
 
 /**
- * FTBitmapGlyph is a specialisation of FTGlyph for creating bitmaps.
- *
- * It provides the interface between Freetype glyphs and their openGL
- * Renderable counterparts. This is an abstract class and derived classes
- * must implement the <code>Render</code> function.
+ * FTBufferGlyph is a specialisation of FTGlyph for creating pixmaps.
  *
  * @see FTGlyphContainer
  *
  */
-class FTGL_EXPORT FTBitmapGlyph : public FTGlyph
+class  FTGL_EXPORT FTBufferGlyph : public FTGlyph
 {
     public:
         /**
@@ -62,32 +58,33 @@ class FTGL_EXPORT FTBitmapGlyph : public FTGlyph
          *
          * @param glyph The Freetype glyph to be processed
          */
-        FTBitmapGlyph(FT_GlyphSlot glyph);
+        FTBufferGlyph(FT_GlyphSlot glyph, unsigned char* clientBuffer);
 
         /**
          * Destructor
          */
-        virtual ~FTBitmapGlyph();
+        virtual ~FTBufferGlyph();
 
         /**
          * Renders this glyph at the current pen position.
          *
          * @param pen   The current pen position.
-         * @param renderMode    Render mode to display
          * @return      The advance distance for this glyph.
          */
-        virtual const FTPoint& Render(const FTPoint& pen, int renderMode);
+        virtual float Render(const FTPoint& pen);
+
+        // attributes
 
     private:
         /**
          * The width of the glyph 'image'
          */
-        unsigned int destWidth;
+        int destWidth;
 
         /**
          * The height of the glyph 'image'
          */
-        unsigned int destHeight;
+        int destHeight;
 
         /**
          * The pitch of the glyph 'image'
@@ -95,7 +92,7 @@ class FTGL_EXPORT FTBitmapGlyph : public FTGlyph
         unsigned int destPitch;
 
         /**
-         * Vector from the pen position to the topleft corner of the bitmap
+         * Vector from the pen position to the topleft corner of the pixmap
          */
         FTPoint pos;
 
@@ -104,8 +101,10 @@ class FTGL_EXPORT FTBitmapGlyph : public FTGlyph
          */
         unsigned char* data;
 
+
+        unsigned char* buffer;
+
 };
 
 
-#endif  //  __FTBitmapGlyph__
-
+#endif  //  __FTBufferGlyph__

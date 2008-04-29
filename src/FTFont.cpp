@@ -34,7 +34,7 @@
 
 #include "config.h"
 
-#include "FTFace.h"
+#include "FTInternals.h"
 
 #include "FTFont.h"
 #include "FTFontImpl.h"
@@ -48,6 +48,7 @@
 
 #include "FTGlyphContainer.h"
 #include "FTBBox.h"
+#include "FTFace.h"
 
 
 //

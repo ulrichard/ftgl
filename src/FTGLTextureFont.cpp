@@ -252,7 +252,7 @@ namespace C
 {
     extern "C" FTGLfont* ftglCreateTextureFont(const char *fontname)
     {
-        FTGLfont *ftgl = createFTFont(Texture, fontname);
+        FTGLfont *ftgl = createFTFont(FTGL::FONT_TEXTURE, fontname);
         return ftgl;
     }
 }

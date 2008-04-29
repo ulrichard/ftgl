@@ -3,6 +3,7 @@
 #include <cppunit/TestCase.h>
 #include <cppunit/TestSuite.h>
 
+#include "FTInternals.h"
 #include "FTVectoriser.h"
 
 

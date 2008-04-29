@@ -35,12 +35,12 @@
 #ifndef     __FTVectoriser__
 #define     __FTVectoriser__
 
+#include "ftgl.h"
 
 #include "FTContour.h"
 #include "FTList.h"
 #include "FTPoint.h"
 #include "FTVector.h"
-#include "FTGL.h"
 
 
 #ifndef CALLBACK

@@ -32,79 +32,74 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA.
  */
 
-#ifndef     __FTBufferGlyph__
-#define     __FTBufferGlyph__
+#ifndef     __FTPolyGlyph__
+#define     __FTPolyGlyph__
 
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include FT_GLYPH_H
 
-#include "FTGL.h"
+#include "ftgl.h"
 #include "FTGlyph.h"
 
+class FTVectoriser;
 
 /**
- * FTBufferGlyph is a specialisation of FTGlyph for creating pixmaps.
+ * FTPolyGlyph is a specialisation of FTGlyph for creating tessellated
+ * polygon glyphs.
  *
  * @see FTGlyphContainer
+ * @see FTVectoriser
  *
  */
-class  FTGL_EXPORT FTBufferGlyph : public FTGlyph
+class FTGL_EXPORT FTPolyGlyph : public FTGlyph
 {
     public:
         /**
-         * Constructor
+         * Constructor. Sets the Error to Invalid_Outline if the glyphs isn't an outline.
          *
          * @param glyph The Freetype glyph to be processed
+         * @param outset  The outset distance
+         * @param useDisplayList Enable or disable the use of Display Lists for this glyph
+         *                       <code>true</code> turns ON display lists.
+         *                       <code>false</code> turns OFF display lists.
          */
-        FTBufferGlyph(FT_GlyphSlot glyph, unsigned char* clientBuffer);
+        FTPolyGlyph(FT_GlyphSlot glyph, float outset, bool useDisplayList);
 
         /**
          * Destructor
          */
-        virtual ~FTBufferGlyph();
+        virtual ~FTPolyGlyph();
 
         /**
          * Renders this glyph at the current pen position.
          *
          * @param pen   The current pen position.
+         * @param renderMode    Render mode to display
          * @return      The advance distance for this glyph.
          */
-        virtual float Render(const FTPoint& pen);
-
-        // attributes
+        virtual const FTPoint& Render(const FTPoint& pen, int renderMode);
 
     private:
         /**
-         * The width of the glyph 'image'
+         * Private rendering method.
          */
-        int destWidth;
+        void DoRender();
 
         /**
-         * The height of the glyph 'image'
+         * Private rendering variables.
          */
-        int destHeight;
+        unsigned int hscale, vscale;
+        FTVectoriser *vectoriser;
+        float outset;
 
         /**
-         * The pitch of the glyph 'image'
+         * OpenGL display list
          */
-        unsigned int destPitch;
-
-        /**
-         * Vector from the pen position to the topleft corner of the pixmap
-         */
-        FTPoint pos;
-
-        /**
-         * Pointer to the 'image' data
-         */
-        unsigned char* data;
-
-
-        unsigned char* buffer;
-
+        GLuint glList;
 };
 
 
-#endif  //  __FTBufferGlyph__
+#endif  //  __FTPolyGlyph__
+

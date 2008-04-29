@@ -35,10 +35,9 @@
 #ifndef __FTGLExtrdFont__
 #define __FTGLExtrdFont__
 
-#ifdef __cplusplus
+#include <ftgl.h>
 
-#include "FTFont.h"
-#include "FTGL.h"
+#ifdef __cplusplus
 
 /**
  * FTGLExtrdFont is a specialisation of the FTFont class for handling

@@ -35,7 +35,7 @@
 #ifndef    __FTVector__
 #define    __FTVector__
 
-#include "FTGL.h"
+#include "ftgl.h"
 
 /**
  * Provides a non-STL alternative to the STL vector

@@ -32,13 +32,11 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA.
  */
 
-#ifndef     __FTGLPixmapFont__
-#define     __FTGLPixmapFont__
+#ifndef __FTGLPixmapFont__
+#define __FTGLPixmapFont__
 
-#ifdef __cplusplus
+#include <ftgl.h>
 
-#include "FTFont.h"
-#include "FTGL.h"
 
 /**
  * FTGLPixmapFont is a specialisation of the FTFont class for handling
@@ -70,8 +68,6 @@ class FTGL_EXPORT FTGLPixmapFont : public FTFont
          */
         ~FTGLPixmapFont();
 };
-
-#endif //__cplusplus
 
 #ifdef __cplusplus
 extern "C" {

@@ -36,9 +36,10 @@
 #ifndef     __FTContour__
 #define     __FTContour__
 
+#include "ftgl.h"
+
 #include "FTPoint.h"
 #include "FTVector.h"
-#include "FTGL.h"
 
 
 /**

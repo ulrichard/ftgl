@@ -32,13 +32,13 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA.
  */
 
-#ifndef    __FTSimpleLayout__
-#define    __FTSimpleLayout__
+#ifndef __FTSimpleLayout__
+#define __FTSimpleLayout__
+
+#include <ftgl.h>
 
 #ifdef __cplusplus
 
-#include "FTLayout.h"
-#include "FTBBox.h"
 
 class FTFont;
 
@@ -136,28 +136,7 @@ extern "C" {
 namespace C {
 #endif
 
-FTGL_EXPORT void  ftglLayoutBBox           (FTGLlayout *, const char*, float []);
-
-FTGL_EXPORT void  ftglLayoutRender         (FTGLlayout *, const char*);
-FTGL_EXPORT void  ftglLayoutRenderMode     (FTGLlayout *, const char*, int);
-FTGL_EXPORT void  ftglLayoutRenderSpace    (FTGLlayout *, const float);
-
-FTGL_EXPORT void      ftglLayoutSetFont    (FTGLlayout *, FTGLfont*);
-FTGL_EXPORT FTGLfont* ftglLayoutGetFont    (FTGLlayout *);
-
-FTGL_EXPORT void  ftglLayoutSetLineLength  (FTGLlayout *, const float);
-FTGL_EXPORT float ftglLayoutGetLineLength  (FTGLlayout *);
-
-#ifdef __cplusplus
-FTGL_EXPORT void                ftglLayoutSetAlignment   (FTGLlayout *, const FTGL::TextAlignment);
-FTGL_EXPORT FTGL::TextAlignment ftglLayoutGetAlignement  (FTGLlayout *);
-#else
-FTGL_EXPORT void                ftglLayoutSetAlignment   (FTGLlayout *, const TextAlignment);
-FTGL_EXPORT int                 ftglLayoutGetAlignement  (FTGLlayout *);
-#endif
-
-FTGL_EXPORT void  ftglLayoutSetLineSpacing (FTGLlayout *, const float);
-FTGL_EXPORT float ftglLayoutGetLineSpacing (FTGLlayout *);
+FTGL_EXPORT FTGLlayout *ftglCreateSimpleLayout();
 
 #ifdef __cplusplus
 }

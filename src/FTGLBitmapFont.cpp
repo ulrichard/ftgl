@@ -149,7 +149,7 @@ namespace C
 {
     extern "C" FTGLfont* ftglCreateBitmapFont(const char *fontname)
     {
-        FTGLfont *ftgl = createFTFont(Bitmap, fontname);
+        FTGLfont *ftgl = createFTFont(FTGL::FONT_BITMAP, fontname);
         return ftgl;
     }
 }

@@ -35,7 +35,7 @@
 #ifndef    __FTList__
 #define    __FTList__
 
-#include "FTGL.h"
+#include "ftgl.h"
 
 /**
 * Provides a non-STL alternative to the STL list

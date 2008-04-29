@@ -37,8 +37,7 @@
 
 #ifdef __cplusplus
 
-#include "FTFont.h"
-#include "FTGL.h"
+#include <ftgl.h>
 
 
 /**

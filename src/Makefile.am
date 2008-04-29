@@ -2,11 +2,13 @@
 lib_LTLIBRARIES = libftgl.la
 
 libftgl_la_SOURCES = \
-	FTBitmapGlyph.cpp \
-	FTCharmap.cpp \
-	FTContour.cpp \
-	FTExtrdGlyph.cpp \
-	FTFace.cpp \
+	FTBBox.h \
+	FTBitmapGlyph.cpp FTBitmapGlyph.h \
+	FTCharmap.cpp FTCharmap.h \
+	FTCharToGlyphIndexMap.h \
+	FTContour.cpp FTContour.h \
+	FTExtrdGlyph.cpp FTExtrdGlyph.h \
+	FTFace.cpp FTFace.h \
 	FTFont.cpp FTFontImpl.h \
 	FTGLBitmapFont.cpp FTGLBitmapFontImpl.h \
 	FTGLExtrdFont.cpp FTGLExtrdFontImpl.h \
@@ -14,19 +16,21 @@ libftgl_la_SOURCES = \
 	FTGLPixmapFont.cpp FTGLPixmapFontImpl.h \
 	FTGLPolygonFont.cpp FTGLPolygonFontImpl.h \
 	FTGLTextureFont.cpp FTGLTextureFontImpl.h \
-	FTGlyph.cpp \
-	FTGlyphContainer.cpp \
+	FTGlyph.cpp FTGlyph.h \
+	FTGlyphContainer.cpp FTGlyphContainer.h \
 	FTGlue.cpp \
 	FTLayout.cpp FTLayoutImpl.h \
-	FTLibrary.cpp \
-	FTOutlineGlyph.cpp \
-	FTPixmapGlyph.cpp \
-	FTPoint.cpp \
-	FTPolyGlyph.cpp \
+	FTLibrary.cpp FTLibrary.h \
+	FTList.h \
+	FTOutlineGlyph.cpp FTOutlineGlyph.h \
+	FTPixmapGlyph.cpp FTPixmapGlyph.h \
+	FTPoint.cpp FTPoint.h \
+	FTPolyGlyph.cpp FTPolyGlyph.h \
 	FTSimpleLayout.cpp FTSimpleLayoutImpl.h \
-	FTSize.cpp \
-	FTTextureGlyph.cpp \
-	FTVectoriser.cpp \
+	FTSize.cpp FTSize.h \
+	FTTextureGlyph.cpp FTTextureGlyph.h \
+	FTVector.h \
+	FTVectoriser.cpp FTVectoriser.h \
 	$(ftgl_HEADERS)
 libftgl_la_CPPFLAGS = -I$(top_srcdir)/include
 libftgl_la_CXXFLAGS = $(FT2_CFLAGS) $(GL_CFLAGS)
@@ -35,35 +39,16 @@ libftgl_la_LDFLAGS = \
 
 ftgldir = $(includedir)/FTGL
 ftgl_HEADERS = \
-	../include/FTBBox.h \
-	../include/FTBitmapGlyph.h \
-	../include/FTCharToGlyphIndexMap.h \
-	../include/FTCharmap.h \
-	../include/FTContour.h \
-	../include/FTExtrdGlyph.h \
-	../include/FTFace.h \
+	../include/ftgl.h \
 	../include/FTFont.h \
-	../include/FTGL.h \
 	../include/FTGLBitmapFont.h \
 	../include/FTGLExtrdFont.h \
 	../include/FTGLOutlineFont.h \
 	../include/FTGLPixmapFont.h \
 	../include/FTGLPolygonFont.h \
 	../include/FTGLTextureFont.h \
-	../include/FTGlyph.h \
-	../include/FTGlyphContainer.h \
 	../include/FTLayout.h \
-	../include/FTLibrary.h \
-	../include/FTList.h \
-	../include/FTOutlineGlyph.h \
-	../include/FTPixmapGlyph.h \
-	../include/FTPoint.h \
-	../include/FTPolyGlyph.h \
 	../include/FTSimpleLayout.h \
-	../include/FTSize.h \
-	../include/FTTextureGlyph.h \
-	../include/FTVector.h \
-	../include/FTVectoriser.h \
 	${NULL}
 
 NULL =

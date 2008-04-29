@@ -32,75 +32,72 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA.
  */
 
-#ifndef __FTOutlineGlyph__
-#define __FTOutlineGlyph__
+#ifndef     __FTPixmapGlyph__
+#define     __FTPixmapGlyph__
+
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include FT_GLYPH_H
 
-#include "FTGL.h"
+#include "ftgl.h"
 #include "FTGlyph.h"
-
-class FTVectoriser;
 
 
 /**
- * FTOutlineGlyph is a specialisation of FTGlyph for creating outlines.
+ * FTPixmapGlyph is a specialisation of FTGlyph for creating pixmaps.
  *
  * @see FTGlyphContainer
- * @see FTVectoriser
  *
  */
-class FTGL_EXPORT FTOutlineGlyph : public FTGlyph
+class  FTGL_EXPORT FTPixmapGlyph : public FTGlyph
 {
     public:
         /**
-         * Constructor. Sets the Error to Invalid_Outline if the glyphs isn't an outline.
+         * Constructor
          *
          * @param glyph The Freetype glyph to be processed
-         * @param outset outset distance
-         * @param useDisplayList Enable or disable the use of Display Lists for this glyph
-         *                       <code>true</code> turns ON display lists.
-         *                       <code>false</code> turns OFF display lists.
          */
-        FTOutlineGlyph(FT_GlyphSlot glyph, float outset, bool useDisplayList);
+        FTPixmapGlyph(FT_GlyphSlot glyph);
 
         /**
          * Destructor
          */
-        virtual ~FTOutlineGlyph();
+        virtual ~FTPixmapGlyph();
 
         /**
          * Renders this glyph at the current pen position.
          *
-         * @param pen The current pen position.
-         * @param renderMode    Render mode to display.
-         * @return  The advance distance for this glyph.
+         * @param pen   The current pen position.
+         * @param renderMode Render mode to display
+         * @return      The advance distance for this glyph.
          */
         virtual const FTPoint& Render(const FTPoint& pen, int renderMode);
 
+        // attributes
+
     private:
         /**
-         * Private rendering method.
+         * The width of the glyph 'image'
          */
-        void DoRender();
+        int destWidth;
 
         /**
-         * Private rendering variables.
+         * The height of the glyph 'image'
          */
-        FTVectoriser *vectoriser;
+        int destHeight;
 
         /**
-         * Private rendering variables.
+         * Vector from the pen position to the topleft corner of the pixmap
          */
-        float outset;
+        FTPoint pos;
 
         /**
-         * OpenGL display list
+         * Pointer to the 'image' data
          */
-        GLuint glList;
+        unsigned char* data;
+
 };
 
-#endif  // __FTOutlineGlyph__
 
+#endif  //  __FTPixmapGlyph__

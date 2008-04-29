@@ -32,98 +32,75 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA.
  */
 
-#ifndef     __FTTextureGlyph__
-#define     __FTTextureGlyph__
-
+#ifndef __FTOutlineGlyph__
+#define __FTOutlineGlyph__
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include FT_GLYPH_H
 
-#include "FTGL.h"
+#include "ftgl.h"
 #include "FTGlyph.h"
+
+class FTVectoriser;
 
 
 /**
- * FTTextureGlyph is a specialisation of FTGlyph for creating texture
- * glyphs.
+ * FTOutlineGlyph is a specialisation of FTGlyph for creating outlines.
  *
  * @see FTGlyphContainer
+ * @see FTVectoriser
  *
  */
-class FTGL_EXPORT FTTextureGlyph : public FTGlyph
+class FTGL_EXPORT FTOutlineGlyph : public FTGlyph
 {
     public:
         /**
-         * Constructor
+         * Constructor. Sets the Error to Invalid_Outline if the glyphs isn't an outline.
          *
-         * @param glyph     The Freetype glyph to be processed
-         * @param id        The id of the texture that this glyph will be
-         *                  drawn in
-         * @param xOffset   The x offset into the parent texture to draw
-         *                  this glyph
-         * @param yOffset   The y offset into the parent texture to draw
-         *                  this glyph
-         * @param width     The width of the parent texture
-         * @param height    The height (number of rows) of the parent texture
+         * @param glyph The Freetype glyph to be processed
+         * @param outset outset distance
+         * @param useDisplayList Enable or disable the use of Display Lists for this glyph
+         *                       <code>true</code> turns ON display lists.
+         *                       <code>false</code> turns OFF display lists.
          */
-        FTTextureGlyph(FT_GlyphSlot glyph, int id, int xOffset, int yOffset, GLsizei width, GLsizei height);
+        FTOutlineGlyph(FT_GlyphSlot glyph, float outset, bool useDisplayList);
 
         /**
          * Destructor
          */
-        virtual ~FTTextureGlyph();
+        virtual ~FTOutlineGlyph();
 
         /**
          * Renders this glyph at the current pen position.
          *
-         * @param pen   The current pen position.
-         * @param renderMode  Render mode to display
-         * @return      The advance distance for this glyph.
+         * @param pen The current pen position.
+         * @param renderMode    Render mode to display.
+         * @return  The advance distance for this glyph.
          */
         virtual const FTPoint& Render(const FTPoint& pen, int renderMode);
 
-        /**
-         * Reset the currently active texture to zero to get into a known
-         * state before drawing a string. This is to get round possible
-         * threading issues.
-         */
-        static void ResetActiveTexture() { activeTextureID = 0; }
-
     private:
         /**
-         * The width of the glyph 'image'
+         * Private rendering method.
          */
-        int destWidth;
+        void DoRender();
 
         /**
-         * The height of the glyph 'image'
+         * Private rendering variables.
          */
-        int destHeight;
+        FTVectoriser *vectoriser;
 
         /**
-         * Vector from the pen position to the topleft corner of the pixmap
+         * Private rendering variables.
          */
-        FTPoint pos;
+        float outset;
 
         /**
-         * The texture co-ords of this glyph within the texture.
+         * OpenGL display list
          */
-        FTPoint uv[2];
-
-        /**
-         * The texture index that this glyph is contained in.
-         */
-        int glTextureID;
-
-        /**
-         * The texture index of the currently active texture
-         *
-         * We keep track of the currently active texture to try to reduce the
-         * number of texture bind operations.
-         */
-        static GLint activeTextureID;
+        GLuint glList;
 };
 
-#endif  //  __FTTextureGlyph__
+#endif  // __FTOutlineGlyph__
 
