@@ -221,8 +221,8 @@ C_FUN(void, ftglLayoutRenderMode, (FTGLlayout *f, const char *s, int r),
       return, Render, (s, r));
 
 // void RenderSpace(const char *string, const float ExtraSpace = 0.0)
-C_FUN(void, ftglLayoutRenderSpace, (FTGLlayout *f, const char *s,
-        const float e), return, RenderSpace, (s, e));
+C_FUN(void, ftglLayoutRenderSpace, (FTGLlayout *f, const char *s, float e),
+      return, RenderSpace, (s, e));
 
 // void SetFont(FTFont *fontInit)
 void ftglLayoutSetFont(FTGLlayout *f, FTGLfont *font)
