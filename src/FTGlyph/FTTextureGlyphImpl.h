@@ -26,7 +26,6 @@
 #ifndef __FTTextureGlyphImpl__
 #define __FTTextureGlyphImpl__
 
-#include "FTTextureGlyph.h"
 #include "FTGlyphImpl.h"
 
 class FTTextureGlyphImpl : public FTGlyphImpl

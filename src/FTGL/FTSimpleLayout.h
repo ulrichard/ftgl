@@ -23,10 +23,13 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#ifndef __ftgl__
+#   warning This header is deprecated. Please use <FTGL/ftgl.h> from now.
+#   include <FTGL/ftgl.h>
+#endif
+
 #ifndef __FTSimpleLayout__
 #define __FTSimpleLayout__
-
-#include <ftgl.h>
 
 #ifdef __cplusplus
 

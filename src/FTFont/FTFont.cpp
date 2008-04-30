@@ -27,7 +27,6 @@
 
 #include "FTInternals.h"
 
-#include "FTFont.h"
 #include "FTFontImpl.h"
 
 #include "FTGLBitmapFontImpl.h"
@@ -38,7 +37,6 @@
 #include "FTGLTextureFontImpl.h"
 
 #include "FTGlyphContainer.h"
-#include "FTBBox.h"
 #include "FTFace.h"
 
 

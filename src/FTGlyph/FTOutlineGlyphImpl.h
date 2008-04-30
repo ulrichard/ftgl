@@ -26,7 +26,6 @@
 #ifndef __FTOutlineGlyphImpl__
 #define __FTOutlineGlyphImpl__
 
-#include "FTOutlineGlyph.h"
 #include "FTGlyphImpl.h"
 
 class FTVectoriser;

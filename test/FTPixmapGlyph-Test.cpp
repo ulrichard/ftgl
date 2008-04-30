@@ -7,8 +7,9 @@
 #include <assert.h>
 
 #include "Fontdefs.h"
+
+#include "FTGL/ftgl.h"
 #include "FTInternals.h"
-#include "FTPixmapGlyph.h"
 
 #define GL_ASSERT() {GLenum sci_err; while ((sci_err = glGetError()) != GL_NO_ERROR) \
         std::cerr << "OpenGL error: " << (char *)gluErrorString(sci_err) << " at " << __FILE__ <<":" << __LINE__ << std::endl; }

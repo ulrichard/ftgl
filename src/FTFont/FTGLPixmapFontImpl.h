@@ -26,7 +26,6 @@
 #ifndef __FTGLPixmapFontImpl__
 #define __FTGLPixmapFontImpl__
 
-#include "FTGLPixmapFont.h"
 #include "FTFontImpl.h"
 
 class FTGlyph;

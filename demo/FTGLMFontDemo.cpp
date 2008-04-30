@@ -37,9 +37,9 @@
 #   error GLUT headers not present
 #endif
 
-#include "tb.h"
+#include <FTGL/ftgl.h>
 
-#include "ftgl.h"
+#include "tb.h"
 
 // YOU'LL PROBABLY WANT TO CHANGE THESE
 #ifdef __linux__

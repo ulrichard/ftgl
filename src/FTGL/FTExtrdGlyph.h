@@ -23,52 +23,51 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef __FTGLBitmapFont__
-#define __FTGLBitmapFont__
+#ifndef __ftgl__
+#   warning This header is deprecated. Please use <FTGL/ftgl.h> from now.
+#   include <FTGL/ftgl.h>
+#endif
 
-#include <ftgl.h>
+#ifndef __FTExtrdGlyph__
+#define __FTExtrdGlyph__
 
 #ifdef __cplusplus
 
 
 /**
- * FTGLBitmapFont is a specialisation of the FTFont class for handling
- * Bitmap fonts
+ * FTExtrdGlyph is a specialisation of FTGlyph for creating tessellated
+ * extruded polygon glyphs.
  *
- * @see     FTFont
+ * @see FTGlyphContainer
+ * @see FTVectoriser
+ *
  */
-class FTGL_EXPORT FTGLBitmapFont : public FTFont
+class FTGL_EXPORT FTExtrdGlyph : public FTGlyph
 {
     public:
         /**
-         * Open and read a font file. Sets Error flag.
+         * Constructor. Sets the Error to Invalid_Outline if the glyph isn't
+         * an outline.
          *
-         * @param fontFilePath  font file path.
+         * @param glyph The Freetype glyph to be processed
+         * @param depth The distance along the z axis to extrude the glyph
+         * @param frontOutset outset contour size
+         * @param backOutset outset contour size
+         * @param useDisplayList Enable or disable the use of Display Lists
+         *                       for this glyph
+         *                       <code>true</code> turns ON display lists.
+         *                       <code>false</code> turns OFF display lists.
          */
-        FTGLBitmapFont(const char* fontFilePath);
-
-        /**
-         * Open and read a font from a buffer in memory. Sets Error flag.
-         * The buffer is owned by the client and is NOT copied by FTGL. The
-         * pointer must be valid while using FTGL.
-         *
-         * @param pBufferBytes  the in-memory buffer
-         * @param bufferSizeInBytes  the length of the buffer in bytes
-         */
-        FTGLBitmapFont(const unsigned char *pBufferBytes,
-                       size_t bufferSizeInBytes);
+        FTExtrdGlyph(FT_GlyphSlot glyph, float depth, float frontOutset,
+                     float backOutset, bool useDisplayList);
 
         /**
          * Destructor
          */
-        ~FTGLBitmapFont();
+        virtual ~FTExtrdGlyph();
 };
 
 #endif //__cplusplus
 
-FTGL_BEGIN_C_DECLS
-    FTGL_EXPORT FTGLfont *ftglCreateBitmapFont(const char *fontname);
-FTGL_END_C_DECLS
-
-#endif  //  __FTGLBitmapFont__
+#endif  //  __FTExtrdGlyph__
 

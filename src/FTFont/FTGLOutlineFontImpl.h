@@ -26,7 +26,6 @@
 #ifndef __FTGLOutlineFontImpl__
 #define __FTGLOutlineFontImpl__
 
-#include "FTGLOutlineFont.h"
 #include "FTFontImpl.h"
 
 class FTGlyph;

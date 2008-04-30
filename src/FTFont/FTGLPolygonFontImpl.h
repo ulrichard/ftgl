@@ -26,7 +26,6 @@
 #ifndef __FTGLPolygonFontImpl__
 #define __FTGLPolygonFontImpl__
 
-#include "FTGLPolygonFont.h"
 #include "FTFontImpl.h"
 
 class FTGlyph;

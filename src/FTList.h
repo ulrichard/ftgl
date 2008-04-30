@@ -26,7 +26,7 @@
 #ifndef    __FTList__
 #define    __FTList__
 
-#include "ftgl.h"
+#include "FTGL/ftgl.h"
 
 /**
 * Provides a non-STL alternative to the STL list

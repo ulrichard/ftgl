@@ -25,7 +25,8 @@
 
 #include "config.h"
 
-#include "ftgl.h"
+#include "FTGL/ftgl.h"
+
 #include "FTInternals.h"
 #include "FTGlyphImpl.h"
 

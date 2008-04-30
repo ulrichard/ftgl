@@ -23,54 +23,48 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef __FTGLTextureFont__
-#define __FTGLTextureFont__
+#ifndef __ftgl__
+#   warning This header is deprecated. Please use <FTGL/ftgl.h> from now.
+#   include <FTGL/ftgl.h>
+#endif
 
-#include <ftgl.h>
+#ifndef __FTPolyGlyph__
+#define __FTPolyGlyph__
 
 #ifdef __cplusplus
 
 
 /**
- * FTGLTextureFont is a specialisation of the FTFont class for handling
- * Texture mapped fonts
+ * FTPolyGlyph is a specialisation of FTGlyph for creating tessellated
+ * polygon glyphs.
  *
- * @see     FTFont
+ * @see FTGlyphContainer
+ * @see FTVectoriser
+ *
  */
-class  FTGL_EXPORT FTGLTextureFont : public FTFont
+class FTGL_EXPORT FTPolyGlyph : public FTGlyph
 {
     public:
         /**
-         * Open and read a font file. Sets Error flag.
+         * Constructor. Sets the Error to Invalid_Outline if the glyphs
+         * isn't an outline.
          *
-         * @param fontFilePath  font file path.
+         * @param glyph The Freetype glyph to be processed
+         * @param outset  The outset distance
+         * @param useDisplayList Enable or disable the use of Display Lists
+         *                       for this glyph
+         *                       <code>true</code> turns ON display lists.
+         *                       <code>false</code> turns OFF display lists.
          */
-        FTGLTextureFont(const char* fontFilePath);
-
-        /**
-         * Open and read a font from a buffer in memory. Sets Error flag.
-         * The buffer is owned by the client and is NOT copied by FTGL. The
-         * pointer must be valid while using FTGL.
-         *
-         * @param pBufferBytes  the in-memory buffer
-         * @param bufferSizeInBytes  the length of the buffer in bytes
-         */
-        FTGLTextureFont(const unsigned char *pBufferBytes,
-                        size_t bufferSizeInBytes);
+        FTPolyGlyph(FT_GlyphSlot glyph, float outset, bool useDisplayList);
 
         /**
          * Destructor
          */
-        virtual ~FTGLTextureFont();
+        virtual ~FTPolyGlyph();
 };
 
 #endif //__cplusplus
 
-FTGL_BEGIN_C_DECLS
-    FTGL_EXPORT FTGLfont *ftglCreateTextureFont(const char *fontname);
-FTGL_END_C_DECLS
-
-#endif // __FTGLTextureFont__
-
-
+#endif  //  __FTPolyGlyph__
 

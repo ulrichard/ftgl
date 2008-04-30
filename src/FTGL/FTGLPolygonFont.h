@@ -23,21 +23,24 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef __FTGLOutlineFont__
-#define __FTGLOutlineFont__
+#ifndef __ftgl__
+#   warning This header is deprecated. Please use <FTGL/ftgl.h> from now.
+#   include <FTGL/ftgl.h>
+#endif
 
-#include <ftgl.h>
+#ifndef __FTGLPolygonFont__
+#define __FTGLPolygonFont__
 
 #ifdef __cplusplus
 
 
 /**
- * FTGLOutlineFont is a specialisation of the FTFont class for handling
- * Vector Outline fonts
+ * FTGLPolygonFont is a specialisation of the FTFont class for handling
+ * tesselated Polygon Mesh fonts
  *
  * @see     FTFont
  */
-class FTGL_EXPORT FTGLOutlineFont : public FTFont
+class FTGL_EXPORT FTGLPolygonFont : public FTFont
 {
     public:
         /**
@@ -45,7 +48,7 @@ class FTGL_EXPORT FTGLOutlineFont : public FTFont
          *
          * @param fontFilePath  font file path.
          */
-        FTGLOutlineFont(const char* fontFilePath);
+        FTGLPolygonFont(const char* fontFilePath);
 
         /**
          * Open and read a font from a buffer in memory. Sets Error flag.
@@ -55,19 +58,20 @@ class FTGL_EXPORT FTGLOutlineFont : public FTFont
          * @param pBufferBytes  the in-memory buffer
          * @param bufferSizeInBytes  the length of the buffer in bytes
          */
-        FTGLOutlineFont(const unsigned char *pBufferBytes,
+        FTGLPolygonFont(const unsigned char *pBufferBytes,
                         size_t bufferSizeInBytes);
 
         /**
          * Destructor
          */
-        ~FTGLOutlineFont();
+        ~FTGLPolygonFont();
 };
 
 #endif //__cplusplus
 
 FTGL_BEGIN_C_DECLS
-    FTGL_EXPORT FTGLfont *ftglCreateOutlineFont(const char *fontname);
+    FTGL_EXPORT FTGLfont *ftglCreatePolygonFont(const char *fontname);
 FTGL_END_C_DECLS
 
-#endif // __FTGLOutlineFont__
+#endif  //  __FTGLPolygonFont__
+

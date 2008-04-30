@@ -27,7 +27,8 @@
 
 #include <math.h>
 
-#include "ftgl.h"
+#include "FTGL/ftgl.h"
+
 #include "FTInternals.h"
 #include "FTTextureGlyphImpl.h"
 

@@ -113,26 +113,26 @@ namespace FTGL
     #define FTGL_EXPORT
 #endif
 
-#include <FTPoint.h>
-#include <FTBBox.h>
+#include <FTGL/FTPoint.h>
+#include <FTGL/FTBBox.h>
 
-#include <FTGlyph.h>
-#include <FTBitmapGlyph.h>
-#include <FTExtrdGlyph.h>
-#include <FTOutlineGlyph.h>
-#include <FTPixmapGlyph.h>
-#include <FTPolyGlyph.h>
-#include <FTTextureGlyph.h>
+#include <FTGL/FTGlyph.h>
+#include <FTGL/FTBitmapGlyph.h>
+#include <FTGL/FTExtrdGlyph.h>
+#include <FTGL/FTOutlineGlyph.h>
+#include <FTGL/FTPixmapGlyph.h>
+#include <FTGL/FTPolyGlyph.h>
+#include <FTGL/FTTextureGlyph.h>
 
-#include <FTFont.h>
-#include <FTGLBitmapFont.h>
-#include <FTGLExtrdFont.h>
-#include <FTGLOutlineFont.h>
-#include <FTGLPixmapFont.h>
-#include <FTGLPolygonFont.h>
-#include <FTGLTextureFont.h>
+#include <FTGL/FTFont.h>
+#include <FTGL/FTGLBitmapFont.h>
+#include <FTGL/FTGLExtrdFont.h>
+#include <FTGL/FTGLOutlineFont.h>
+#include <FTGL/FTGLPixmapFont.h>
+#include <FTGL/FTGLPolygonFont.h>
+#include <FTGL/FTGLTextureFont.h>
 
-#include <FTLayout.h>
-#include <FTSimpleLayout.h>
+#include <FTGL/FTLayout.h>
+#include <FTGL/FTSimpleLayout.h>
 
 #endif  //  __ftgl__

@@ -25,11 +25,10 @@
 
 #include "config.h"
 
-#include "FTInternals.h"
+#include "FTGL/ftgl.h"
 
-#include "FTGLPolygonFont.h"
+#include "FTInternals.h"
 #include "FTGLPolygonFontImpl.h"
-#include "FTPolyGlyph.h"
 
 
 //

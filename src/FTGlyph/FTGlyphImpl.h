@@ -26,9 +26,7 @@
 #ifndef __FTGlyphImpl__
 #define __FTGlyphImpl__
 
-#include "ftgl.h"
-#include "FTBBox.h"
-#include "FTPoint.h"
+#include "FTGL/ftgl.h"
 
 class FTGlyphImpl
 {

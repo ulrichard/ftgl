@@ -25,12 +25,9 @@
 
 #include "config.h"
 
-#include "ftgl.h"
+#include "FTGL/ftgl.h"
 
-#include "FTFont.h"
 #include "FTFontImpl.h"
-
-#include "FTLayout.h"
 #include "FTLayoutImpl.h"
 
 

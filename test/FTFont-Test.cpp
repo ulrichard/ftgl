@@ -4,8 +4,8 @@
 #include "cppunit/TestSuite.h"
 
 #include "Fontdefs.h"
-#include "FTGlyph.h"
-#include "FTFont.h"
+
+#include "FTGL/ftgl.h"
 
 
 class TestGlyph : public FTGlyph

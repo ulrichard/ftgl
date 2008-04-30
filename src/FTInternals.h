@@ -27,7 +27,7 @@
 #ifndef __FTINTERNALS_H__
 #define __FTINTERNALS_H__
 
-#include "ftgl.h"
+#include "FTGL/ftgl.h"
 
 #include <stdlib.h>
 #include <stdio.h>

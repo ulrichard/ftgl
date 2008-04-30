@@ -23,44 +23,56 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef __FTOutlineGlyph__
-#define __FTOutlineGlyph__
+#ifndef __ftgl__
+#   warning This header is deprecated. Please use <FTGL/ftgl.h> from now.
+#   include <FTGL/ftgl.h>
+#endif
 
-#include <ftgl.h>
+#ifndef __FTGLExtrdFont__
+#define __FTGLExtrdFont__
 
 #ifdef __cplusplus
 
 
 /**
- * FTOutlineGlyph is a specialisation of FTGlyph for creating outlines.
+ * FTGLExtrdFont is a specialisation of the FTFont class for handling
+ * extruded Polygon fonts
  *
- * @see FTGlyphContainer
- * @see FTVectoriser
- *
+ * @see FTFont
+ * @see FTGLPolygonFont
  */
-class FTGL_EXPORT FTOutlineGlyph : public FTGlyph
+class FTGL_EXPORT FTGLExtrdFont : public FTFont
 {
     public:
         /**
-         * Constructor. Sets the Error to Invalid_Outline if the glyphs isn't
-         * an outline.
+         * Open and read a font file. Sets Error flag.
          *
-         * @param glyph The Freetype glyph to be processed
-         * @param outset outset distance
-         * @param useDisplayList Enable or disable the use of Display Lists
-         *                       for this glyph
-         *                       <code>true</code> turns ON display lists.
-         *                       <code>false</code> turns OFF display lists.
+         * @param fontFilePath  font file path.
          */
-        FTOutlineGlyph(FT_GlyphSlot glyph, float outset, bool useDisplayList);
+        FTGLExtrdFont(const char* fontFilePath);
+
+        /**
+         * Open and read a font from a buffer in memory. Sets Error flag.
+         * The buffer is owned by the client and is NOT copied by FTGL. The
+         * pointer must be valid while using FTGL.
+         *
+         * @param pBufferBytes  the in-memory buffer
+         * @param bufferSizeInBytes  the length of the buffer in bytes
+         */
+        FTGLExtrdFont(const unsigned char *pBufferBytes,
+                      size_t bufferSizeInBytes);
 
         /**
          * Destructor
          */
-        virtual ~FTOutlineGlyph();
+        ~FTGLExtrdFont();
 };
 
 #endif //__cplusplus
 
-#endif  // __FTOutlineGlyph__
+FTGL_BEGIN_C_DECLS
+    FTGL_EXPORT FTGLfont *ftglCreateExtrdFont(const char *fontname);
+FTGL_END_C_DECLS
+
+#endif // __FTGLExtrdFont__
 

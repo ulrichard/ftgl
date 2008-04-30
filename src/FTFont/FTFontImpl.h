@@ -26,8 +26,8 @@
 #ifndef __FTFontImpl__
 #define __FTFontImpl__
 
-#include "ftgl.h"
-#include "FTFont.h"
+#include "FTGL/ftgl.h"
+
 #include "FTFace.h"
 
 class FTGlyphContainer;

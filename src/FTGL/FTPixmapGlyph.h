@@ -23,25 +23,24 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef __FTBitmapGlyph__
-#define __FTBitmapGlyph__
+#ifndef __ftgl__
+#   warning This header is deprecated. Please use <FTGL/ftgl.h> from now.
+#   include <FTGL/ftgl.h>
+#endif
 
-#include <ftgl.h>
+#ifndef __FTPixmapGlyph__
+#define __FTPixmapGlyph__
 
 #ifdef __cplusplus
 
 
 /**
- * FTBitmapGlyph is a specialisation of FTGlyph for creating bitmaps.
- *
- * It provides the interface between Freetype glyphs and their openGL
- * Renderable counterparts. This is an abstract class and derived classes
- * must implement the <code>Render</code> function.
+ * FTPixmapGlyph is a specialisation of FTGlyph for creating pixmaps.
  *
  * @see FTGlyphContainer
  *
  */
-class FTGL_EXPORT FTBitmapGlyph : public FTGlyph
+class  FTGL_EXPORT FTPixmapGlyph : public FTGlyph
 {
     public:
         /**
@@ -49,15 +48,15 @@ class FTGL_EXPORT FTBitmapGlyph : public FTGlyph
          *
          * @param glyph The Freetype glyph to be processed
          */
-        FTBitmapGlyph(FT_GlyphSlot glyph);
+        FTPixmapGlyph(FT_GlyphSlot glyph);
 
         /**
          * Destructor
          */
-        virtual ~FTBitmapGlyph();
+        virtual ~FTPixmapGlyph();
 };
 
 #endif //__cplusplus
 
-#endif  //  __FTBitmapGlyph__
+#endif  //  __FTPixmapGlyph__
 

@@ -26,7 +26,6 @@
 #ifndef __FTBitmapGlyphImpl__
 #define __FTBitmapGlyphImpl__
 
-#include "FTBitmapGlyph.h"
 #include "FTGlyphImpl.h"
 
 class FTBitmapGlyphImpl : public FTGlyphImpl

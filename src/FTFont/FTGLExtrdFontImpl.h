@@ -26,7 +26,6 @@
 #ifndef __FTGLExtrdFontImpl__
 #define __FTGLExtrdFontImpl__
 
-#include "FTGLExtrdFont.h"
 #include "FTFontImpl.h"
 
 class FTGlyph;

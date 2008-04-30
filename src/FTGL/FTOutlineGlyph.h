@@ -23,48 +23,47 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef __FTExtrdGlyph__
-#define __FTExtrdGlyph__
+#ifndef __ftgl__
+#   warning This header is deprecated. Please use <FTGL/ftgl.h> from now.
+#   include <FTGL/ftgl.h>
+#endif
 
-#include <ftgl.h>
+#ifndef __FTOutlineGlyph__
+#define __FTOutlineGlyph__
 
 #ifdef __cplusplus
 
 
 /**
- * FTExtrdGlyph is a specialisation of FTGlyph for creating tessellated
- * extruded polygon glyphs.
+ * FTOutlineGlyph is a specialisation of FTGlyph for creating outlines.
  *
  * @see FTGlyphContainer
  * @see FTVectoriser
  *
  */
-class FTGL_EXPORT FTExtrdGlyph : public FTGlyph
+class FTGL_EXPORT FTOutlineGlyph : public FTGlyph
 {
     public:
         /**
-         * Constructor. Sets the Error to Invalid_Outline if the glyph isn't
+         * Constructor. Sets the Error to Invalid_Outline if the glyphs isn't
          * an outline.
          *
          * @param glyph The Freetype glyph to be processed
-         * @param depth The distance along the z axis to extrude the glyph
-         * @param frontOutset outset contour size
-         * @param backOutset outset contour size
+         * @param outset outset distance
          * @param useDisplayList Enable or disable the use of Display Lists
          *                       for this glyph
          *                       <code>true</code> turns ON display lists.
          *                       <code>false</code> turns OFF display lists.
          */
-        FTExtrdGlyph(FT_GlyphSlot glyph, float depth, float frontOutset,
-                     float backOutset, bool useDisplayList);
+        FTOutlineGlyph(FT_GlyphSlot glyph, float outset, bool useDisplayList);
 
         /**
          * Destructor
          */
-        virtual ~FTExtrdGlyph();
+        virtual ~FTOutlineGlyph();
 };
 
 #endif //__cplusplus
 
-#endif  //  __FTExtrdGlyph__
+#endif  // __FTOutlineGlyph__
 

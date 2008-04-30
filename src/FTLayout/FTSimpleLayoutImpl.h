@@ -26,10 +26,8 @@
 #ifndef __FTSimpleLayoutImpl__
 #define __FTSimpleLayoutImpl__
 
-#include "FTSimpleLayout.h"
 #include "FTLayoutImpl.h"
 
-#include "FTBBox.h"
 
 class FTFont;
 

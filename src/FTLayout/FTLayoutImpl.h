@@ -26,12 +26,9 @@
 #ifndef __FTLayoutImpl__
 #define __FTLayoutImpl__
 
-#include "FTLayout.h"
-
-#include "FTPoint.h"
-#include "FTFont.h"
 #include "FTSize.h"
 #include "FTGlyphContainer.h"
+
 
 class FTLayoutImpl
 {

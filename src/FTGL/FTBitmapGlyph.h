@@ -23,52 +23,44 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef __FTGLPolygonFont__
-#define __FTGLPolygonFont__
+#ifndef __ftgl__
+#   warning This header is deprecated. Please use <FTGL/ftgl.h> from now.
+#   include <FTGL/ftgl.h>
+#endif
 
-#include <ftgl.h>
+#ifndef __FTBitmapGlyph__
+#define __FTBitmapGlyph__
 
 #ifdef __cplusplus
 
 
 /**
- * FTGLPolygonFont is a specialisation of the FTFont class for handling
- * tesselated Polygon Mesh fonts
+ * FTBitmapGlyph is a specialisation of FTGlyph for creating bitmaps.
  *
- * @see     FTFont
+ * It provides the interface between Freetype glyphs and their openGL
+ * Renderable counterparts. This is an abstract class and derived classes
+ * must implement the <code>Render</code> function.
+ *
+ * @see FTGlyphContainer
+ *
  */
-class FTGL_EXPORT FTGLPolygonFont : public FTFont
+class FTGL_EXPORT FTBitmapGlyph : public FTGlyph
 {
     public:
         /**
-         * Open and read a font file. Sets Error flag.
+         * Constructor
          *
-         * @param fontFilePath  font file path.
+         * @param glyph The Freetype glyph to be processed
          */
-        FTGLPolygonFont(const char* fontFilePath);
-
-        /**
-         * Open and read a font from a buffer in memory. Sets Error flag.
-         * The buffer is owned by the client and is NOT copied by FTGL. The
-         * pointer must be valid while using FTGL.
-         *
-         * @param pBufferBytes  the in-memory buffer
-         * @param bufferSizeInBytes  the length of the buffer in bytes
-         */
-        FTGLPolygonFont(const unsigned char *pBufferBytes,
-                        size_t bufferSizeInBytes);
+        FTBitmapGlyph(FT_GlyphSlot glyph);
 
         /**
          * Destructor
          */
-        ~FTGLPolygonFont();
+        virtual ~FTBitmapGlyph();
 };
 
 #endif //__cplusplus
 
-FTGL_BEGIN_C_DECLS
-    FTGL_EXPORT FTGLfont *ftglCreatePolygonFont(const char *fontname);
-FTGL_END_C_DECLS
-
-#endif  //  __FTGLPolygonFont__
+#endif  //  __FTBitmapGlyph__
 

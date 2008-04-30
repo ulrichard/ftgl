@@ -26,7 +26,8 @@
 
 #include "config.h"
 
-#include "ftgl.h"
+#include "FTGL/ftgl.h"
+
 #include "FTInternals.h"
 #include "FTPolyGlyphImpl.h"
 #include "FTVectoriser.h"

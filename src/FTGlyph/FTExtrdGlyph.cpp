@@ -27,7 +27,8 @@
 
 #include <iostream>
 
-#include "ftgl.h"
+#include "FTGL/ftgl.h"
+
 #include "FTInternals.h"
 #include "FTExtrdGlyphImpl.h"
 #include "FTVectoriser.h"

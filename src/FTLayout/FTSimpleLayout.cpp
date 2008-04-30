@@ -25,15 +25,11 @@
 
 #include "config.h"
 
-#include "FTInternals.h"
-
 #include <ctype.h>
 
-#include "FTFont.h"
-#include "FTGlyphContainer.h"
-#include "FTBBox.h"
+#include "FTInternals.h"
 
-#include "FTSimpleLayout.h"
+#include "FTGlyphContainer.h"
 #include "FTSimpleLayoutImpl.h"
 
 

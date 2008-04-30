@@ -5,7 +5,8 @@
 #include <assert.h>
 
 #include "Fontdefs.h"
-#include "ftgl.h"
+
+#include "FTGL/ftgl.h"
 
 
 class FTBBoxTest : public CppUnit::TestCase

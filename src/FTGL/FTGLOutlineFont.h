@@ -23,21 +23,24 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef __FTGLPixmapFont__
-#define __FTGLPixmapFont__
+#ifndef __ftgl__
+#   warning This header is deprecated. Please use <FTGL/ftgl.h> from now.
+#   include <FTGL/ftgl.h>
+#endif
 
-#include <ftgl.h>
+#ifndef __FTGLOutlineFont__
+#define __FTGLOutlineFont__
 
 #ifdef __cplusplus
 
 
 /**
- * FTGLPixmapFont is a specialisation of the FTFont class for handling
- * Pixmap (Grey Scale) fonts
+ * FTGLOutlineFont is a specialisation of the FTFont class for handling
+ * Vector Outline fonts
  *
  * @see     FTFont
  */
-class FTGL_EXPORT FTGLPixmapFont : public FTFont
+class FTGL_EXPORT FTGLOutlineFont : public FTFont
 {
     public:
         /**
@@ -45,7 +48,7 @@ class FTGL_EXPORT FTGLPixmapFont : public FTFont
          *
          * @param fontFilePath  font file path.
          */
-        FTGLPixmapFont(const char* fontFilePath);
+        FTGLOutlineFont(const char* fontFilePath);
 
         /**
          * Open and read a font from a buffer in memory. Sets Error flag.
@@ -55,20 +58,19 @@ class FTGL_EXPORT FTGLPixmapFont : public FTFont
          * @param pBufferBytes  the in-memory buffer
          * @param bufferSizeInBytes  the length of the buffer in bytes
          */
-        FTGLPixmapFont(const unsigned char *pBufferBytes,
-                       size_t bufferSizeInBytes);
+        FTGLOutlineFont(const unsigned char *pBufferBytes,
+                        size_t bufferSizeInBytes);
 
         /**
          * Destructor
          */
-        ~FTGLPixmapFont();
+        ~FTGLOutlineFont();
 };
 
-#endif // __cplusplus
+#endif //__cplusplus
 
 FTGL_BEGIN_C_DECLS
-    FTGL_EXPORT FTGLfont *ftglCreatePixmapFont(const char *fontname);
+    FTGL_EXPORT FTGLfont *ftglCreateOutlineFont(const char *fontname);
 FTGL_END_C_DECLS
 
-#endif  //  __FTGLPixmapFont__
-
+#endif // __FTGLOutlineFont__

@@ -26,7 +26,6 @@
 #ifndef __FTExtrdGlyphImpl__
 #define __FTExtrdGlyphImpl__
 
-#include "FTExtrdGlyph.h"
 #include "FTGlyphImpl.h"
 
 class FTVectoriser;

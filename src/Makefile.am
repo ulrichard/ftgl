@@ -26,7 +26,7 @@ libftgl_la_SOURCES = \
     $(ftlayout_sources) \
     $(ftgl_headers) \
     $(NULL)
-libftgl_la_CPPFLAGS = -IFTGlyph -IFTFont -IFTLayout -I$(top_srcdir)/include
+libftgl_la_CPPFLAGS = -IFTGlyph -IFTFont -IFTLayout
 libftgl_la_CXXFLAGS = $(FT2_CFLAGS) $(GL_CFLAGS)
 libftgl_la_LDFLAGS = \
         $(FT2_LIBS) $(GL_LIBS) -no-undefined -version-number @LT_VERSION@
@@ -35,25 +35,25 @@ ftgldir = $(includedir)/FTGL
 ftgl_HEADERS = $(ftgl_headers)
 
 ftgl_headers = \
-    ../include/ftgl.h \
-    ../include/FTBBox.h \
-    ../include/FTPoint.h \
-    ../include/FTGlyph.h \
-    ../include/FTBitmapGlyph.h \
-    ../include/FTExtrdGlyph.h \
-    ../include/FTOutlineGlyph.h \
-    ../include/FTPixmapGlyph.h \
-    ../include/FTPolyGlyph.h \
-    ../include/FTTextureGlyph.h \
-    ../include/FTFont.h \
-    ../include/FTGLBitmapFont.h \
-    ../include/FTGLExtrdFont.h \
-    ../include/FTGLOutlineFont.h \
-    ../include/FTGLPixmapFont.h \
-    ../include/FTGLPolygonFont.h \
-    ../include/FTGLTextureFont.h \
-    ../include/FTLayout.h \
-    ../include/FTSimpleLayout.h \
+    FTGL/ftgl.h \
+    FTGL/FTBBox.h \
+    FTGL/FTPoint.h \
+    FTGL/FTGlyph.h \
+    FTGL/FTBitmapGlyph.h \
+    FTGL/FTExtrdGlyph.h \
+    FTGL/FTOutlineGlyph.h \
+    FTGL/FTPixmapGlyph.h \
+    FTGL/FTPolyGlyph.h \
+    FTGL/FTTextureGlyph.h \
+    FTGL/FTFont.h \
+    FTGL/FTGLBitmapFont.h \
+    FTGL/FTGLExtrdFont.h \
+    FTGL/FTGLOutlineFont.h \
+    FTGL/FTGLPixmapFont.h \
+    FTGL/FTGLPolygonFont.h \
+    FTGL/FTGLTextureFont.h \
+    FTGL/FTLayout.h \
+    FTGL/FTSimpleLayout.h \
     ${NULL}
 
 ftglyph_sources = \

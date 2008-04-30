@@ -30,7 +30,7 @@
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
-#include "ftgl.h"
+#include "FTGL/ftgl.h"
 
 
 

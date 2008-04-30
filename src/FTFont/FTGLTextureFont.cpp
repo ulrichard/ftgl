@@ -28,11 +28,10 @@
 #include <cassert>
 #include <string> // For memset
 
-#include "FTInternals.h"
+#include "FTGL/ftgl.h"
 
-#include "FTGLTextureFont.h"
+#include "FTInternals.h"
 #include "FTGLTextureFontImpl.h"
-#include "FTTextureGlyph.h"
 #include "FTTextureGlyphImpl.h"
 
 

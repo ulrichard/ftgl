@@ -1,6 +1,6 @@
 /* Small C bindings test program */
 
-#include <ftgl.h>
+#include <FTGL/ftgl.h>
 
 int main(int argc, char *argv[])
 {

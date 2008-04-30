@@ -31,7 +31,7 @@
 #include FT_FREETYPE_H
 #include FT_GLYPH_H
 
-#include "ftgl.h"
+#include "FTGL/ftgl.h"
 #include "FTCharToGlyphIndexMap.h"
 
 

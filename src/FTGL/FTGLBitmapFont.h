@@ -23,37 +23,55 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef __FTPixmapGlyph__
-#define __FTPixmapGlyph__
+#ifndef __ftgl__
+#   warning This header is deprecated. Please use <FTGL/ftgl.h> from now.
+#   include <FTGL/ftgl.h>
+#endif
 
-#include <ftgl.h>
+#ifndef __FTGLBitmapFont__
+#define __FTGLBitmapFont__
 
 #ifdef __cplusplus
 
 
 /**
- * FTPixmapGlyph is a specialisation of FTGlyph for creating pixmaps.
+ * FTGLBitmapFont is a specialisation of the FTFont class for handling
+ * Bitmap fonts
  *
- * @see FTGlyphContainer
- *
+ * @see     FTFont
  */
-class  FTGL_EXPORT FTPixmapGlyph : public FTGlyph
+class FTGL_EXPORT FTGLBitmapFont : public FTFont
 {
     public:
         /**
-         * Constructor
+         * Open and read a font file. Sets Error flag.
          *
-         * @param glyph The Freetype glyph to be processed
+         * @param fontFilePath  font file path.
          */
-        FTPixmapGlyph(FT_GlyphSlot glyph);
+        FTGLBitmapFont(const char* fontFilePath);
+
+        /**
+         * Open and read a font from a buffer in memory. Sets Error flag.
+         * The buffer is owned by the client and is NOT copied by FTGL. The
+         * pointer must be valid while using FTGL.
+         *
+         * @param pBufferBytes  the in-memory buffer
+         * @param bufferSizeInBytes  the length of the buffer in bytes
+         */
+        FTGLBitmapFont(const unsigned char *pBufferBytes,
+                       size_t bufferSizeInBytes);
 
         /**
          * Destructor
          */
-        virtual ~FTPixmapGlyph();
+        ~FTGLBitmapFont();
 };
 
 #endif //__cplusplus
 
-#endif  //  __FTPixmapGlyph__
+FTGL_BEGIN_C_DECLS
+    FTGL_EXPORT FTGLfont *ftglCreateBitmapFont(const char *fontname);
+FTGL_END_C_DECLS
+
+#endif  //  __FTGLBitmapFont__
 

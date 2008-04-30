@@ -30,8 +30,8 @@
 #include FT_FREETYPE_H
 #include FT_GLYPH_H
 
-#include "ftgl.h"
-#include "FTPoint.h"
+#include "FTGL/ftgl.h"
+
 #include "FTSize.h"
 
 /**

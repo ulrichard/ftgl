@@ -26,7 +26,6 @@
 #ifndef __FTPixmapGlyphImpl__
 #define __FTPixmapGlyphImpl__
 
-#include "FTPixmapGlyph.h"
 #include "FTGlyphImpl.h"
 
 class FTPixmapGlyphImpl : public FTGlyphImpl

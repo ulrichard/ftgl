@@ -25,11 +25,10 @@
 
 #include "config.h"
 
-#include "FTInternals.h"
+#include "FTGL/ftgl.h"
 
-#include "FTGLOutlineFont.h"
+#include "FTInternals.h"
 #include "FTGLOutlineFontImpl.h"
-#include "FTOutlineGlyph.h"
 
 
 //

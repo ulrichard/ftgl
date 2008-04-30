@@ -26,11 +26,10 @@
 #ifndef     __FTVectoriser__
 #define     __FTVectoriser__
 
-#include "ftgl.h"
+#include "FTGL/ftgl.h"
 
 #include "FTContour.h"
 #include "FTList.h"
-#include "FTPoint.h"
 #include "FTVector.h"
 
 

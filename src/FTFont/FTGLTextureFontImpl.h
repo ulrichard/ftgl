@@ -26,7 +26,6 @@
 #ifndef __FTGLTextureFontImpl__
 #define __FTGLTextureFontImpl__
 
-#include "FTGLTextureFont.h"
 #include "FTFontImpl.h"
 
 #include "FTVector.h"

@@ -23,22 +23,24 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef __FTGLExtrdFont__
-#define __FTGLExtrdFont__
+#ifndef __ftgl__
+#   warning This header is deprecated. Please use <FTGL/ftgl.h> from now.
+#   include <FTGL/ftgl.h>
+#endif
 
-#include <ftgl.h>
+#ifndef __FTGLTextureFont__
+#define __FTGLTextureFont__
 
 #ifdef __cplusplus
 
 
 /**
- * FTGLExtrdFont is a specialisation of the FTFont class for handling
- * extruded Polygon fonts
+ * FTGLTextureFont is a specialisation of the FTFont class for handling
+ * Texture mapped fonts
  *
- * @see FTFont
- * @see FTGLPolygonFont
+ * @see     FTFont
  */
-class FTGL_EXPORT FTGLExtrdFont : public FTFont
+class  FTGL_EXPORT FTGLTextureFont : public FTFont
 {
     public:
         /**
@@ -46,7 +48,7 @@ class FTGL_EXPORT FTGLExtrdFont : public FTFont
          *
          * @param fontFilePath  font file path.
          */
-        FTGLExtrdFont(const char* fontFilePath);
+        FTGLTextureFont(const char* fontFilePath);
 
         /**
          * Open and read a font from a buffer in memory. Sets Error flag.
@@ -56,20 +58,22 @@ class FTGL_EXPORT FTGLExtrdFont : public FTFont
          * @param pBufferBytes  the in-memory buffer
          * @param bufferSizeInBytes  the length of the buffer in bytes
          */
-        FTGLExtrdFont(const unsigned char *pBufferBytes,
-                      size_t bufferSizeInBytes);
+        FTGLTextureFont(const unsigned char *pBufferBytes,
+                        size_t bufferSizeInBytes);
 
         /**
          * Destructor
          */
-        ~FTGLExtrdFont();
+        virtual ~FTGLTextureFont();
 };
 
 #endif //__cplusplus
 
 FTGL_BEGIN_C_DECLS
-    FTGL_EXPORT FTGLfont *ftglCreateExtrdFont(const char *fontname);
+    FTGL_EXPORT FTGLfont *ftglCreateTextureFont(const char *fontname);
 FTGL_END_C_DECLS
 
-#endif // __FTGLExtrdFont__
+#endif // __FTGLTextureFont__
+
+
 

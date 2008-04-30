@@ -25,11 +25,10 @@
 
 #include "config.h"
 
-#include "FTInternals.h"
+#include "FTGL/ftgl.h"
 
-#include "FTGLBitmapFont.h"
+#include "FTInternals.h"
 #include "FTGLBitmapFontImpl.h"
-#include "FTBitmapGlyph.h"
 
 
 //
