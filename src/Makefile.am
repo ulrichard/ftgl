@@ -11,6 +11,7 @@ libftgl_la_SOURCES = \
     FTFace.h \
     FTGlyphContainer.cpp \
     FTGlyphContainer.h \
+    FTInternals.h \
     FTLibrary.cpp \
     FTLibrary.h \
     FTList.h \
@@ -33,7 +34,7 @@ libftgl_la_LDFLAGS = \
 ftgldir = $(includedir)/FTGL
 ftgl_HEADERS = $(ftgl_headers)
 
-ftfont_headers = \
+ftgl_headers = \
     ../include/ftgl.h \
     ../include/FTBBox.h \
     ../include/FTPoint.h \
