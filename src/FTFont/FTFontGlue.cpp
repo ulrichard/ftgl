@@ -30,82 +30,44 @@
 
 FTGL_BEGIN_C_DECLS
 
-static inline FTGLfont *createFTFont(FTGL::FontType type, const char *fontname)
-{
-    FTGLfont *ftgl = (FTGLfont*)malloc(sizeof(FTGLfont));
-    ftgl->type = type;
-    switch(type)
-    {
-        case FTGL::FONT_BITMAP:
-            ftgl->ptr = new FTGLBitmapFont(fontname);
-            break;
-        case FTGL::FONT_PIXMAP:
-            ftgl->ptr = new FTGLPixmapFont(fontname);
-            break;
-        case FTGL::FONT_OUTLINE:
-            ftgl->ptr = new FTGLOutlineFont(fontname);
-            break;
-        case FTGL::FONT_POLYGON:
-            ftgl->ptr = new FTGLPolygonFont(fontname);
-            break;
-        case FTGL::FONT_EXTRUDE:
-            ftgl->ptr = new FTGLExtrdFont(fontname);
-            break;
-        case FTGL::FONT_TEXTURE:
-            ftgl->ptr = new FTGLTextureFont(fontname);
-            break;
+#define C_TOR(cname, cargs, cxxname, cxxarg, cxxtype) \
+    FTGLfont* cname cargs \
+    { \
+        cxxname *f = new cxxname cxxarg; \
+        if(f->Error()) \
+        { \
+            delete f; \
+            return NULL; \
+        } \
+        FTGLfont *ftgl = (FTGLfont *)malloc(sizeof(FTGLfont)); \
+        ftgl->ptr = f; \
+        ftgl->type = cxxtype; \
+        return ftgl; \
     }
-
-    if(ftgl->ptr->Error())
-    {
-        ftglDestroyFont(ftgl);
-        return NULL;
-    }
-
-    return ftgl;
-}
 
 // FTGLBitmapFont::FTGLBitmapFont();
-FTGLfont* ftglCreateBitmapFont(const char *fontname)
-{
-    FTGLfont *ftgl = createFTFont(FTGL::FONT_BITMAP, fontname);
-    return ftgl;
-}
+C_TOR(ftglCreateBitmapFont, (const char *fontname),
+      FTGLBitmapFont, (fontname), FONT_BITMAP);
 
 // FTGLExtrdFont::FTGLExtrdFont();
-FTGLfont* ftglCreateExtrdFont(const char *fontname)
-{
-    FTGLfont *ftgl = createFTFont(FTGL::FONT_EXTRUDE, fontname);
-    return ftgl;
-}
+C_TOR(ftglCreateExtrdFont, (const char *fontname),
+      FTGLExtrdFont, (fontname), FONT_EXTRUDE);
 
 // FTGLOutlineFont::FTGLOutlineFont();
-FTGLfont* ftglCreateOutlineFont(const char *fontname)
-{
-    FTGLfont *ftgl = createFTFont(FTGL::FONT_OUTLINE, fontname);
-    return ftgl;
-}
+C_TOR(ftglCreateOutlineFont, (const char *fontname),
+      FTGLOutlineFont, (fontname), FONT_OUTLINE);
 
 // FTGLPixmapFont::FTGLPixmapFont();
-FTGLfont* ftglCreatePixmapFont(const char *fontname)
-{
-    FTGLfont *ftgl = createFTFont(FTGL::FONT_PIXMAP, fontname);
-    return ftgl;
-}
+C_TOR(ftglCreatePixmapFont, (const char *fontname),
+      FTGLPixmapFont, (fontname), FONT_PIXMAP);
 
 // FTGLPolygonFont::FTGLPolygonFont();
-FTGLfont* ftglCreatePolygonFont(const char *fontname)
-{
-    FTGLfont *ftgl = createFTFont(FTGL::FONT_POLYGON, fontname);
-    return ftgl;
-}
+C_TOR(ftglCreatePolygonFont, (const char *fontname),
+      FTGLPolygonFont, (fontname), FONT_POLYGON);
 
 // FTGLTextureFont::FTGLTextureFont();
-FTGLfont* ftglCreateTextureFont(const char *fontname)
-{
-    FTGLfont *ftgl = createFTFont(FTGL::FONT_TEXTURE, fontname);
-    return ftgl;
-}
+C_TOR(ftglCreateTextureFont, (const char *fontname),
+      FTGLTextureFont, (fontname), FONT_TEXTURE);
 
 #define C_FUN(cret, cname, cargs, cxxerr, cxxname, cxxarg) \
     cret cname cargs \

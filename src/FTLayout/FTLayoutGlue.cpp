@@ -30,26 +30,23 @@
 
 FTGL_BEGIN_C_DECLS
 
-static inline FTGLlayout *createFTLayout(FTGL::LayoutType type)
-{
-    FTGLlayout *layout = (FTGLlayout*)malloc(sizeof(FTGLlayout));
-    layout->font = NULL;
-    layout->type = type;
-    switch(type)
-    {
-        case FTGL::LAYOUT_SIMPLE:
-            layout->ptr = new FTSimpleLayout();
-            break;
+#define C_TOR(cname, cargs, cxxname, cxxarg, cxxtype) \
+    FTGLlayout* cname cargs \
+    { \
+        cxxname *l = new cxxname cxxarg; \
+        if(l->Error()) \
+        { \
+            delete l; \
+            return NULL; \
+        } \
+        FTGLlayout *ftgl = (FTGLlayout *)malloc(sizeof(FTGLlayout)); \
+        ftgl->ptr = l; \
+        ftgl->type = cxxtype; \
+        return ftgl; \
     }
-    return layout;
-}
 
 // FTSimpleLayout::FTSimpleLayout();
-FTGLlayout* ftglCreateSimpleLayout()
-{
-    FTGLlayout *layout = createFTLayout(FTGL::LAYOUT_SIMPLE);
-    return layout;
-}
+C_TOR(ftglCreateSimpleLayout, (), FTSimpleLayout, (), LAYOUT_SIMPLE);
 
 #define C_FUN(cret, cname, cargs, cxxerr, cxxname, cxxarg) \
     cret cname cargs \
