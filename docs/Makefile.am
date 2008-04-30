@@ -28,7 +28,6 @@ EXTRA_DIST = \
     FTGL_1_3.gif \
     images/ftgldemo.jpg \
     images/metrics.png \
-    html.tar.gz \
     $(NULL)
 
 NULL =
