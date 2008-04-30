@@ -140,6 +140,11 @@ class FTLayoutImpl
          * @return A reference to the charSize object of font.
          */
         FTSize &GetCharSize(FTFont *font);
+
+        /**
+         * Current error code. Zero means no error.
+         */
+        FT_Error err;
 };
 
 #endif  //  __FTLayoutImpl__

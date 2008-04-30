@@ -65,6 +65,8 @@ class FTGL_EXPORT FTLayout
 
         void Render(const wchar_t *string, int renderMode);
 
+        FT_Error Error() const;
+
     protected:
         FTLayoutImpl *impl;
 };

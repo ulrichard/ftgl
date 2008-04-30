@@ -60,30 +60,41 @@ void FTLayout::BBox(const char* string, float& llx, float& lly,
     impl->BBox(string, llx, lly, llz, urx, ury, urz);
 }
 
+
 void FTLayout::BBox(const wchar_t* string, float& llx, float& lly,
                     float& llz, float& urx, float& ury, float& urz)
 {
     impl->BBox(string, llx, lly, llz, urx, ury, urz);
 }
 
+
 void FTLayout::Render(const char *string)
 {
     impl->Render(string);
 }
+
 
 void FTLayout::Render(const char *string, int renderMode)
 {
     impl->Render(string, renderMode);
 }
 
+
 void FTLayout::Render(const wchar_t *string)
 {
     impl->Render(string);
 }
 
+
 void FTLayout::Render(const wchar_t *string, int renderMode)
 {
     impl->Render(string, renderMode);
+}
+
+
+FT_Error FTLayout::Error() const
+{
+    return impl->err;
 }
 
 
