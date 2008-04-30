@@ -32,7 +32,7 @@
  * Provides a non-STL alternative to the STL vector
  */
 template <typename FT_VECTOR_ITEM_TYPE>
-class FTGL_EXPORT FTVector
+class FTVector
 {
     public:
         typedef FT_VECTOR_ITEM_TYPE value_type;

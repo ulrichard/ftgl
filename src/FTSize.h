@@ -40,7 +40,7 @@
  * @see "Freetype 2 Documentation"
  *
  */
-class FTGL_EXPORT FTSize
+class FTSize
 {
     public:
         /**

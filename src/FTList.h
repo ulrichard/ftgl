@@ -32,7 +32,7 @@
 * Provides a non-STL alternative to the STL list
  */
 template <typename FT_LIST_ITEM_TYPE>
-class FTGL_EXPORT FTList
+class FTList
 {
     public:
         typedef FT_LIST_ITEM_TYPE value_type;

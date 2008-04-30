@@ -41,7 +41,7 @@
  * @see FTPolyGlyph
  * @see FTPoint
  */
-class FTGL_EXPORT FTContour
+class FTContour
 {
     public:
         /**

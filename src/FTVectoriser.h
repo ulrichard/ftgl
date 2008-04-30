@@ -41,7 +41,7 @@
 /**
  * FTTesselation captures points that are output by OpenGL's gluTesselator.
  */
-class FTGL_EXPORT FTTesselation
+class FTTesselation
 {
     public:
         /**
@@ -103,7 +103,7 @@ class FTGL_EXPORT FTTesselation
 /**
  * FTMesh is a container of FTTesselation's that make up a polygon glyph
  */
-class FTGL_EXPORT FTMesh
+class FTMesh
 {
         typedef FTVector<FTTesselation*> TesselationVector;
         typedef FTList<FTPoint> PointList;
@@ -203,7 +203,7 @@ const FTGL_DOUBLE FTGL_BACK_FACING = -1.0;
  * @see FTPoint
  *
  */
-class FTGL_EXPORT FTVectoriser
+class FTVectoriser
 {
     public:
         /**

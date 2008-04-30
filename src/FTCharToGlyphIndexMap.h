@@ -49,7 +49,7 @@
  *     the special value IndexNotFound (= -1) can be used to specify that the
  *     glyph index has not been stored yet.
  */
-class FTGL_EXPORT FTCharToGlyphIndexMap
+class FTCharToGlyphIndexMap
 {
     public:
 

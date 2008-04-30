@@ -43,7 +43,7 @@ class FTCharmap;
  *
  * @see FTGlyph
  */
-class FTGL_EXPORT FTGlyphContainer
+class FTGlyphContainer
 {
         typedef FTVector<FTGlyph*> GlyphVector;
     public:

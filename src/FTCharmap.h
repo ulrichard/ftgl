@@ -50,7 +50,7 @@
 
 class FTFace;
 
-class FTGL_EXPORT FTCharmap
+class FTCharmap
 {
     public:
         /**
