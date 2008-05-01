@@ -23,28 +23,28 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef __FTGLPolygonFontImpl__
-#define __FTGLPolygonFontImpl__
+#ifndef __FTPolygonFontImpl__
+#define __FTPolygonFontImpl__
 
 #include "FTFontImpl.h"
 
 class FTGlyph;
 
-class FTGLPolygonFontImpl : public FTFontImpl
+class FTPolygonFontImpl : public FTFontImpl
 {
-    friend class FTGLPolygonFont;
+    friend class FTPolygonFont;
 
     protected:
-        FTGLPolygonFontImpl(const char* fontFilePath) :
+        FTPolygonFontImpl(const char* fontFilePath) :
             FTFontImpl(fontFilePath), outset(0.0f) {};
 
-        FTGLPolygonFontImpl(const unsigned char *pBufferBytes,
-                            size_t bufferSizeInBytes) :
+        FTPolygonFontImpl(const unsigned char *pBufferBytes,
+                          size_t bufferSizeInBytes) :
             FTFontImpl(pBufferBytes, bufferSizeInBytes), outset(0.0f) {};
 
         /**
          * Set the outset distance for the font. Only implemented by
-         * FTGLOutlineFont, FTGLPolygonFont and FTGLExtrdFont
+         * FTOutlineFont, FTPolygonFont and FTExtrudeFont
          *
          * @param depth  The outset distance.
          */
@@ -52,10 +52,10 @@ class FTGLPolygonFontImpl : public FTFontImpl
 
     private:
         /**
-         * Construct a FTPolyGlyph.
+         * Construct a FTPolygonGlyph.
          *
          * @param g The glyph index NOT the char code.
-         * @return  An FTPolyGlyph or <code>null</code> on failure.
+         * @return  An FTPolygonGlyph or <code>null</code> on failure.
          */
         virtual FTGlyph* MakeGlyph(unsigned int g);
 
@@ -65,5 +65,5 @@ class FTGLPolygonFontImpl : public FTFontImpl
         float outset;
 };
 
-#endif  //  __FTGLPolygonFontImpl__
+#endif  //  __FTPolygonFontImpl__
 

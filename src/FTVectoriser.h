@@ -196,9 +196,9 @@ const FTGL_DOUBLE FTGL_BACK_FACING = -1.0;
  * FTVectoriser class is a helper class that converts font outlines into
  * point data.
  *
- * @see FTExtrdGlyph
+ * @see FTExtrudeGlyph
  * @see FTOutlineGlyph
- * @see FTPolyGlyph
+ * @see FTPolygonGlyph
  * @see FTContour
  * @see FTPoint
  *

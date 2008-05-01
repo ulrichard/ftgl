@@ -29,7 +29,7 @@
 #include "FTGL/ftgl.h"
 
 #include "FTInternals.h"
-#include "FTPolyGlyphImpl.h"
+#include "FTPolygonGlyphImpl.h"
 #include "FTVectoriser.h"
 
 
@@ -38,14 +38,14 @@
 //
 
 
-FTPolyGlyph::FTPolyGlyph(FT_GlyphSlot glyph, float outset,
-                         bool useDisplayList)
+FTPolygonGlyph::FTPolygonGlyph(FT_GlyphSlot glyph, float outset,
+                               bool useDisplayList)
 {
-    impl = new FTPolyGlyphImpl(glyph, outset, useDisplayList);
+    impl = new FTPolygonGlyphImpl(glyph, outset, useDisplayList);
 }
 
 
-FTPolyGlyph::~FTPolyGlyph()
+FTPolygonGlyph::~FTPolygonGlyph()
 {
     ;
 }
@@ -56,8 +56,8 @@ FTPolyGlyph::~FTPolyGlyph()
 //
 
 
-FTPolyGlyphImpl::FTPolyGlyphImpl(FT_GlyphSlot glyph, float _outset,
-                                 bool useDisplayList)
+FTPolygonGlyphImpl::FTPolygonGlyphImpl(FT_GlyphSlot glyph, float _outset,
+                                       bool useDisplayList)
 :   FTGlyphImpl(glyph),
     glList(0)
 {
@@ -96,7 +96,7 @@ FTPolyGlyphImpl::FTPolyGlyphImpl(FT_GlyphSlot glyph, float _outset,
 }
 
 
-FTPolyGlyphImpl::~FTPolyGlyphImpl()
+FTPolygonGlyphImpl::~FTPolygonGlyphImpl()
 {
     if(glList)
     {
@@ -109,7 +109,7 @@ FTPolyGlyphImpl::~FTPolyGlyphImpl()
 }
 
 
-const FTPoint& FTPolyGlyphImpl::Render(const FTPoint& pen, int renderMode)
+const FTPoint& FTPolygonGlyphImpl::Render(const FTPoint& pen, int renderMode)
 {
     glTranslatef(pen.X(), pen.Y(), 0.0f);
     if(glList)
@@ -126,7 +126,7 @@ const FTPoint& FTPolyGlyphImpl::Render(const FTPoint& pen, int renderMode)
 }
 
 
-void FTPolyGlyphImpl::DoRender()
+void FTPolygonGlyphImpl::DoRender()
 {
     vectoriser->MakeMesh(1.0, 1, outset);
 

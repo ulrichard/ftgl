@@ -23,24 +23,32 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef __FTGLPixmapFontImpl__
-#define __FTGLPixmapFontImpl__
+#ifndef __FTOutlineFontImpl__
+#define __FTOutlineFontImpl__
 
 #include "FTFontImpl.h"
 
 class FTGlyph;
 
-class FTGLPixmapFontImpl : public FTFontImpl
+class FTOutlineFontImpl : public FTFontImpl
 {
-    friend class FTGLPixmapFont;
+    friend class FTOutlineFont;
 
     protected:
-        FTGLPixmapFontImpl(const char* fontFilePath) :
-            FTFontImpl(fontFilePath) {};
+        FTOutlineFontImpl(const char* fontFilePath) :
+            FTFontImpl(fontFilePath), outset(0.0f) {};
 
-        FTGLPixmapFontImpl(const unsigned char *pBufferBytes,
-                           size_t bufferSizeInBytes) :
-            FTFontImpl(pBufferBytes, bufferSizeInBytes) {};
+        FTOutlineFontImpl(const unsigned char *pBufferBytes,
+                          size_t bufferSizeInBytes) :
+            FTFontImpl(pBufferBytes, bufferSizeInBytes), outset(0.0f) {};
+
+        /**
+         * Set the outset distance for the font. Only implemented by
+         * FTOutlineFont, FTPolygonFont and FTExtrudeFont
+         *
+         * @param outset  The outset distance.
+         */
+        virtual void Outset(float o) { outset = o; }
 
         /**
          * Renders a string of characters
@@ -74,17 +82,22 @@ class FTGLPixmapFontImpl : public FTFontImpl
 
     private:
         /**
-         * Construct a FTPixmapGlyph.
+         * Construct a FTOutlineGlyph.
          *
          * @param g The glyph index NOT the char code.
-         * @return  An FTPixmapGlyph or <code>null</code> on failure.
+         * @return  An FTOutlineGlyph or <code>null</code> on failure.
          */
         inline virtual FTGlyph* MakeGlyph(unsigned int g);
+
+        /**
+         * The outset distance for the font.
+         */
+        float outset;
 
         /* Internal generic Render() implementation */
         template <typename T>
         inline void RenderI(const T* string);
 };
 
-#endif  //  __FTGLPixmapFontImpl__
+#endif // __FTOutlineFontImpl__
 

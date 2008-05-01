@@ -31,7 +31,7 @@
 class FTTextureGlyphImpl : public FTGlyphImpl
 {
     friend class FTTextureGlyph;
-    friend class FTGLTextureFontImpl;
+    friend class FTTextureFontImpl;
 
     protected:
         FTTextureGlyphImpl(FT_GlyphSlot glyph, int id, int xOffset,

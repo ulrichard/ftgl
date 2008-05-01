@@ -127,7 +127,7 @@ class FTGL_EXPORT FTFont
 
         /**
          * Set the extrusion distance for the font. Only implemented by
-         * FTGLExtrdFont
+         * FTExtrudeFont
          *
          * @param depth  The extrusion distance.
          */
@@ -135,7 +135,7 @@ class FTGL_EXPORT FTFont
 
         /**
          * Set the outset distance for the font. Only implemented by
-         * FTGLOutlineFont, FTGLPolygonFont and FTGLExtrdFont
+         * FTOutlineFont, FTPolygonFont and FTExtrudeFont
          *
          * @param outset  The outset distance.
          */
@@ -143,7 +143,7 @@ class FTGL_EXPORT FTFont
 
         /**
          * Set the front and back outset distances for the font. Only
-         * implemented by FTGLExtrdFont
+         * implemented by FTExtrudeFont
          *
          * @param front  The front outset distance.
          * @param back   The back outset distance.
@@ -187,7 +187,7 @@ class FTGL_EXPORT FTFont
          *                  to check.
          * @param end       The index of the last character of string to
          *                  check.  If < 0 then characters will be parsed
-         *                  until a '\0' is encountered.
+         *                  until a '@\0' is encountered.
          * @param llx       lower left near x coord
          * @param lly       lower left near y coord
          * @param llz       lower left near z coord
@@ -207,7 +207,7 @@ class FTGL_EXPORT FTFont
          *                  to check.
          * @param end       The index of the last character of string
          *                  to check.    If < 0 then characters will
-         *                  be parsed until a '\0' is encountered.
+         *                  be parsed until a '@\0' is encountered.
          * @param llx       lower left near x coord
          * @param lly       lower left near y coord
          * @param llz       lower left near z coord

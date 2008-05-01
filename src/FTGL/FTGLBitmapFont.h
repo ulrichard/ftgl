@@ -28,19 +28,19 @@
 #   include <FTGL/ftgl.h>
 #endif
 
-#ifndef __FTGLBitmapFont__
-#define __FTGLBitmapFont__
+#ifndef __FTBitmapFont__
+#define __FTBitmapFont__
 
 #ifdef __cplusplus
 
 
 /**
- * FTGLBitmapFont is a specialisation of the FTFont class for handling
+ * FTBitmapFont is a specialisation of the FTFont class for handling
  * Bitmap fonts
  *
  * @see     FTFont
  */
-class FTGL_EXPORT FTGLBitmapFont : public FTFont
+class FTGL_EXPORT FTBitmapFont : public FTFont
 {
     public:
         /**
@@ -48,7 +48,7 @@ class FTGL_EXPORT FTGLBitmapFont : public FTFont
          *
          * @param fontFilePath  font file path.
          */
-        FTGLBitmapFont(const char* fontFilePath);
+        FTBitmapFont(const char* fontFilePath);
 
         /**
          * Open and read a font from a buffer in memory. Sets Error flag.
@@ -58,14 +58,16 @@ class FTGL_EXPORT FTGLBitmapFont : public FTFont
          * @param pBufferBytes  the in-memory buffer
          * @param bufferSizeInBytes  the length of the buffer in bytes
          */
-        FTGLBitmapFont(const unsigned char *pBufferBytes,
-                       size_t bufferSizeInBytes);
+        FTBitmapFont(const unsigned char *pBufferBytes,
+                     size_t bufferSizeInBytes);
 
         /**
          * Destructor
          */
-        ~FTGLBitmapFont();
+        ~FTBitmapFont();
 };
+
+#define FTGLBitmapFont FTBitmapFont
 
 #endif //__cplusplus
 
@@ -73,5 +75,5 @@ FTGL_BEGIN_C_DECLS
     FTGL_EXPORT FTGLfont *ftglCreateBitmapFont(const char *fontname);
 FTGL_END_C_DECLS
 
-#endif  //  __FTGLBitmapFont__
+#endif  //  __FTBitmapFont__
 

@@ -23,42 +23,55 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef __FTGLBitmapFontImpl__
-#define __FTGLBitmapFontImpl__
+#include "config.h"
 
-#include "FTFontImpl.h"
+#include "FTGL/ftgl.h"
 
-class FTGlyph;
+#include "FTInternals.h"
+#include "FTPolygonFontImpl.h"
 
-class FTGLBitmapFontImpl : public FTFontImpl
+
+//
+//  FTPolygonFont
+//
+
+
+FTPolygonFont::FTPolygonFont(char const *fontFilePath)
 {
-    friend class FTGLBitmapFont;
+    impl = new FTPolygonFontImpl(fontFilePath);
+}
 
-    protected:
-        FTGLBitmapFontImpl(const char* fontFilePath) :
-            FTFontImpl(fontFilePath) {};
 
-        FTGLBitmapFontImpl(const unsigned char *pBufferBytes,
-                           size_t bufferSizeInBytes) :
-            FTFontImpl(pBufferBytes, bufferSizeInBytes) {};
+FTPolygonFont::FTPolygonFont(const unsigned char *pBufferBytes,
+                             size_t bufferSizeInBytes)
+{
+    impl = new FTPolygonFontImpl(pBufferBytes, bufferSizeInBytes);
+}
 
-        virtual void Render(const char* string);
 
-        virtual void Render(const wchar_t* string);
+FTPolygonFont::~FTPolygonFont()
+{
+    ;
+}
 
-    private:
-        /**
-         * Construct a FTBitmapGlyph.
-         *
-         * @param g The glyph index NOT the char code.
-         * @return  An FTBitmapGlyph or <code>null</code> on failure.
-         */
-        inline virtual FTGlyph* MakeGlyph(unsigned int g);
 
-        /* Internal generic Render() implementation */
-        template <typename T>
-        inline void RenderI(const T* string);
-};
+//
+//  FTPolygonFontImpl
+//
 
-#endif  //  __FTGLBitmapFontImpl__
+
+FTGlyph* FTPolygonFontImpl::MakeGlyph(unsigned int g)
+{
+    FT_GlyphSlot ftGlyph = face.Glyph(g, FT_LOAD_NO_HINTING);
+
+    if(ftGlyph)
+    {
+        FTPolygonGlyph* tempGlyph = new FTPolygonGlyph(ftGlyph, outset,
+                                                       useDisplayLists);
+        return tempGlyph;
+    }
+
+    err = face.Error();
+    return NULL;
+}
 

@@ -23,42 +23,55 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef __FTPolyGlyphImpl__
-#define __FTPolyGlyphImpl__
+#include "config.h"
 
-#include "FTGlyphImpl.h"
+#include "FTGL/ftgl.h"
 
-class FTVectoriser;
+#include "FTInternals.h"
+#include "FTExtrudeFontImpl.h"
 
-class FTPolyGlyphImpl : public FTGlyphImpl
+
+//
+//  FTExtrudeFont
+//
+
+
+FTExtrudeFont::FTExtrudeFont(char const *fontFilePath)
 {
-    friend class FTPolyGlyph;
+    impl = new FTExtrudeFontImpl(fontFilePath);
+}
 
-    public:
-        FTPolyGlyphImpl(FT_GlyphSlot glyph, float outset, bool useDisplayList);
 
-        virtual ~FTPolyGlyphImpl();
+FTExtrudeFont::FTExtrudeFont(const unsigned char *pBufferBytes,
+                             size_t bufferSizeInBytes)
+{
+    impl = new FTExtrudeFontImpl(pBufferBytes, bufferSizeInBytes);
+}
 
-        virtual const FTPoint& Render(const FTPoint& pen, int renderMode);
 
-    private:
-        /**
-         * Private rendering method.
-         */
-        void DoRender();
+FTExtrudeFont::~FTExtrudeFont()
+{
+    ;
+}
 
-        /**
-         * Private rendering variables.
-         */
-        unsigned int hscale, vscale;
-        FTVectoriser *vectoriser;
-        float outset;
 
-        /**
-         * OpenGL display list
-         */
-        GLuint glList;
-};
+//
+//  FTExtrudeFontImpl
+//
 
-#endif  //  __FTPolyGlyphImpl__
+
+FTGlyph* FTExtrudeFontImpl::MakeGlyph(unsigned int glyphIndex)
+{
+    FT_GlyphSlot ftGlyph = face.Glyph(glyphIndex, FT_LOAD_NO_HINTING);
+
+    if(ftGlyph)
+    {
+        FTExtrudeGlyph* tempGlyph = new FTExtrudeGlyph(ftGlyph, depth, front,
+                                                       back, useDisplayLists);
+        return tempGlyph;
+    }
+
+    err = face.Error();
+    return NULL;
+}
 

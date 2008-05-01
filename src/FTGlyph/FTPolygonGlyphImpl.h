@@ -23,54 +23,43 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include "config.h"
+#ifndef __FTPolygonGlyphImpl__
+#define __FTPolygonGlyphImpl__
 
-#include "FTGL/ftgl.h"
+#include "FTGlyphImpl.h"
 
-#include "FTInternals.h"
-#include "FTGLPolygonFontImpl.h"
+class FTVectoriser;
 
-
-//
-//  FTGLPolygonFont
-//
-
-
-FTGLPolygonFont::FTGLPolygonFont(char const *fontFilePath)
+class FTPolygonGlyphImpl : public FTGlyphImpl
 {
-    impl = new FTGLPolygonFontImpl(fontFilePath);
-}
+    friend class FTPolygonGlyph;
 
+    public:
+        FTPolygonGlyphImpl(FT_GlyphSlot glyph, float outset,
+                           bool useDisplayList);
 
-FTGLPolygonFont::FTGLPolygonFont(const unsigned char *pBufferBytes,
-                                 size_t bufferSizeInBytes)
-{
-    impl = new FTGLPolygonFontImpl(pBufferBytes, bufferSizeInBytes);
-}
+        virtual ~FTPolygonGlyphImpl();
 
+        virtual const FTPoint& Render(const FTPoint& pen, int renderMode);
 
-FTGLPolygonFont::~FTGLPolygonFont()
-{
-    ;
-}
+    private:
+        /**
+         * Private rendering method.
+         */
+        void DoRender();
 
+        /**
+         * Private rendering variables.
+         */
+        unsigned int hscale, vscale;
+        FTVectoriser *vectoriser;
+        float outset;
 
-//
-//  FTGLPolygonFontImpl
-//
+        /**
+         * OpenGL display list
+         */
+        GLuint glList;
+};
 
-
-FTGlyph* FTGLPolygonFontImpl::MakeGlyph(unsigned int g)
-{
-    FT_GlyphSlot ftGlyph = face.Glyph(g, FT_LOAD_NO_HINTING);
-
-    if(ftGlyph)
-    {
-        FTPolyGlyph* tempGlyph = new FTPolyGlyph(ftGlyph, outset, useDisplayLists);
-        return tempGlyph;
-    }
-
-    err = face.Error();
-    return NULL;
-}
+#endif  //  __FTPolygonGlyphImpl__
 

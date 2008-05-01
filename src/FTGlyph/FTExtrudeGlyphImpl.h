@@ -23,54 +23,46 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include "config.h"
+#ifndef __FTExtrudeGlyphImpl__
+#define __FTExtrudeGlyphImpl__
 
-#include "FTGL/ftgl.h"
+#include "FTGlyphImpl.h"
 
-#include "FTInternals.h"
-#include "FTGLExtrdFontImpl.h"
+class FTVectoriser;
 
-
-//
-//  FTGLExtrdFont
-//
-
-
-FTGLExtrdFont::FTGLExtrdFont(char const *fontFilePath)
+class FTExtrudeGlyphImpl : public FTGlyphImpl
 {
-    impl = new FTGLExtrdFontImpl(fontFilePath);
-}
+    friend class FTExtrudeGlyph;
 
+    protected:
+        FTExtrudeGlyphImpl(FT_GlyphSlot glyph, float depth, float frontOutset,
+                           float backOutset, bool useDisplayList);
 
-FTGLExtrdFont::FTGLExtrdFont(const unsigned char *pBufferBytes,
-                             size_t bufferSizeInBytes)
-{
-    impl = new FTGLExtrdFontImpl(pBufferBytes, bufferSizeInBytes);
-}
+        virtual ~FTExtrudeGlyphImpl();
 
+        virtual const FTPoint& Render(const FTPoint& pen, int renderMode);
 
-FTGLExtrdFont::~FTGLExtrdFont()
-{
-    ;
-}
+    private:
+        /**
+         * Private rendering methods.
+         */
+        void RenderFront();
+        void RenderBack();
+        void RenderSide();
 
+        /**
+         * Private rendering variables.
+         */
+        unsigned int hscale, vscale;
+        float depth;
+        float frontOutset, backOutset;
+        FTVectoriser *vectoriser;
 
-//
-//  FTGLExtrdFontImpl
-//
+        /**
+         * OpenGL display list
+         */
+        GLuint glList;
+};
 
-
-FTGlyph* FTGLExtrdFontImpl::MakeGlyph(unsigned int glyphIndex)
-{
-    FT_GlyphSlot ftGlyph = face.Glyph(glyphIndex, FT_LOAD_NO_HINTING);
-
-    if(ftGlyph)
-    {
-        FTExtrdGlyph* tempGlyph = new FTExtrdGlyph(ftGlyph, depth, front, back, useDisplayLists);
-        return tempGlyph;
-    }
-
-    err = face.Error();
-    return NULL;
-}
+#endif  //  __FTExtrudeGlyphImpl__
 

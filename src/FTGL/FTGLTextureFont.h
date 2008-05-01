@@ -28,19 +28,19 @@
 #   include <FTGL/ftgl.h>
 #endif
 
-#ifndef __FTGLTextureFont__
-#define __FTGLTextureFont__
+#ifndef __FTTextureFont__
+#define __FTTextureFont__
 
 #ifdef __cplusplus
 
 
 /**
- * FTGLTextureFont is a specialisation of the FTFont class for handling
+ * FTTextureFont is a specialisation of the FTFont class for handling
  * Texture mapped fonts
  *
  * @see     FTFont
  */
-class  FTGL_EXPORT FTGLTextureFont : public FTFont
+class  FTGL_EXPORT FTTextureFont : public FTFont
 {
     public:
         /**
@@ -48,7 +48,7 @@ class  FTGL_EXPORT FTGLTextureFont : public FTFont
          *
          * @param fontFilePath  font file path.
          */
-        FTGLTextureFont(const char* fontFilePath);
+        FTTextureFont(const char* fontFilePath);
 
         /**
          * Open and read a font from a buffer in memory. Sets Error flag.
@@ -58,14 +58,16 @@ class  FTGL_EXPORT FTGLTextureFont : public FTFont
          * @param pBufferBytes  the in-memory buffer
          * @param bufferSizeInBytes  the length of the buffer in bytes
          */
-        FTGLTextureFont(const unsigned char *pBufferBytes,
-                        size_t bufferSizeInBytes);
+        FTTextureFont(const unsigned char *pBufferBytes,
+                      size_t bufferSizeInBytes);
 
         /**
          * Destructor
          */
-        virtual ~FTGLTextureFont();
+        virtual ~FTTextureFont();
 };
+
+#define FTGLTextureFont FTTextureFont
 
 #endif //__cplusplus
 
@@ -73,7 +75,7 @@ FTGL_BEGIN_C_DECLS
     FTGL_EXPORT FTGLfont *ftglCreateTextureFont(const char *fontname);
 FTGL_END_C_DECLS
 
-#endif // __FTGLTextureFont__
+#endif // __FTTextureFont__
 
 
 

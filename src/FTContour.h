@@ -38,7 +38,7 @@
  * evaluator in FTVectoriser.
  *
  * @see FTOutlineGlyph
- * @see FTPolyGlyph
+ * @see FTPolygonGlyph
  * @see FTPoint
  */
 class FTContour

@@ -23,8 +23,8 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef __FTGLTextureFontImpl__
-#define __FTGLTextureFontImpl__
+#ifndef __FTTextureFontImpl__
+#define __FTTextureFontImpl__
 
 #include "FTFontImpl.h"
 
@@ -32,17 +32,17 @@
 
 class FTTextureGlyph;
 
-class FTGLTextureFontImpl : public FTFontImpl
+class FTTextureFontImpl : public FTFontImpl
 {
-    friend class FTGLTextureFont;
+    friend class FTTextureFont;
 
     protected:
-        FTGLTextureFontImpl(const char* fontFilePath);
+        FTTextureFontImpl(const char* fontFilePath);
 
-        FTGLTextureFontImpl(const unsigned char *pBufferBytes,
-                            size_t bufferSizeInBytes);
+        FTTextureFontImpl(const unsigned char *pBufferBytes,
+                          size_t bufferSizeInBytes);
 
-        virtual ~FTGLTextureFontImpl();
+        virtual ~FTTextureFontImpl();
 
         /**
          * Set the char size for the current face.
@@ -171,5 +171,5 @@ class FTGLTextureFontImpl : public FTFontImpl
         inline void RenderI(const T* string);
 };
 
-#endif // __FTGLTextureFontImpl__
+#endif // __FTTextureFontImpl__
 

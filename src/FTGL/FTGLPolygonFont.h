@@ -28,19 +28,19 @@
 #   include <FTGL/ftgl.h>
 #endif
 
-#ifndef __FTGLPolygonFont__
-#define __FTGLPolygonFont__
+#ifndef __FTPolygonFont__
+#define __FTPolygonFont__
 
 #ifdef __cplusplus
 
 
 /**
- * FTGLPolygonFont is a specialisation of the FTFont class for handling
+ * FTPolygonFont is a specialisation of the FTFont class for handling
  * tesselated Polygon Mesh fonts
  *
  * @see     FTFont
  */
-class FTGL_EXPORT FTGLPolygonFont : public FTFont
+class FTGL_EXPORT FTPolygonFont : public FTFont
 {
     public:
         /**
@@ -48,7 +48,7 @@ class FTGL_EXPORT FTGLPolygonFont : public FTFont
          *
          * @param fontFilePath  font file path.
          */
-        FTGLPolygonFont(const char* fontFilePath);
+        FTPolygonFont(const char* fontFilePath);
 
         /**
          * Open and read a font from a buffer in memory. Sets Error flag.
@@ -58,14 +58,16 @@ class FTGL_EXPORT FTGLPolygonFont : public FTFont
          * @param pBufferBytes  the in-memory buffer
          * @param bufferSizeInBytes  the length of the buffer in bytes
          */
-        FTGLPolygonFont(const unsigned char *pBufferBytes,
-                        size_t bufferSizeInBytes);
+        FTPolygonFont(const unsigned char *pBufferBytes,
+                      size_t bufferSizeInBytes);
 
         /**
          * Destructor
          */
-        ~FTGLPolygonFont();
+        ~FTPolygonFont();
 };
+
+#define FTGLPolygonFont FTPolygonFont
 
 #endif //__cplusplus
 
@@ -73,5 +75,5 @@ FTGL_BEGIN_C_DECLS
     FTGL_EXPORT FTGLfont *ftglCreatePolygonFont(const char *fontname);
 FTGL_END_C_DECLS
 
-#endif  //  __FTGLPolygonFont__
+#endif  //  __FTPolygonFont__
 

@@ -28,20 +28,20 @@
 #   include <FTGL/ftgl.h>
 #endif
 
-#ifndef __FTGLExtrdFont__
-#define __FTGLExtrdFont__
+#ifndef __FTExtrudeFont__
+#define __FTExtrudeFont__
 
 #ifdef __cplusplus
 
 
 /**
- * FTGLExtrdFont is a specialisation of the FTFont class for handling
+ * FTExtrudeFont is a specialisation of the FTFont class for handling
  * extruded Polygon fonts
  *
  * @see FTFont
- * @see FTGLPolygonFont
+ * @see FTPolygonFont
  */
-class FTGL_EXPORT FTGLExtrdFont : public FTFont
+class FTGL_EXPORT FTExtrudeFont : public FTFont
 {
     public:
         /**
@@ -49,7 +49,7 @@ class FTGL_EXPORT FTGLExtrdFont : public FTFont
          *
          * @param fontFilePath  font file path.
          */
-        FTGLExtrdFont(const char* fontFilePath);
+        FTExtrudeFont(const char* fontFilePath);
 
         /**
          * Open and read a font from a buffer in memory. Sets Error flag.
@@ -59,20 +59,22 @@ class FTGL_EXPORT FTGLExtrdFont : public FTFont
          * @param pBufferBytes  the in-memory buffer
          * @param bufferSizeInBytes  the length of the buffer in bytes
          */
-        FTGLExtrdFont(const unsigned char *pBufferBytes,
+        FTExtrudeFont(const unsigned char *pBufferBytes,
                       size_t bufferSizeInBytes);
 
         /**
          * Destructor
          */
-        ~FTGLExtrdFont();
+        ~FTExtrudeFont();
 };
+
+#define FTGLExtrdFont FTExtrudeFont
 
 #endif //__cplusplus
 
 FTGL_BEGIN_C_DECLS
-    FTGL_EXPORT FTGLfont *ftglCreateExtrdFont(const char *fontname);
+    FTGL_EXPORT FTGLfont *ftglCreateExtrudeFont(const char *fontname);
 FTGL_END_C_DECLS
 
-#endif // __FTGLExtrdFont__
+#endif // __FTExtrudeFont__
 

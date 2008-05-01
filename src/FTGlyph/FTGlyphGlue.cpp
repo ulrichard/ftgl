@@ -51,10 +51,10 @@ FTGL_BEGIN_C_DECLS
 C_TOR(ftglCreateBitmapGlyph, (FT_GlyphSlot glyph),
       FTBitmapGlyph, (glyph), GLYPH_BITMAP);
 
-// FTExtrdGlyph::FTExtrdGlyph();
-C_TOR(ftglCreateExtrdGlyph, (FT_GlyphSlot glyph, float depth, float frontOutset,
-                             float backOutset, int useDisplayList),
-      FTExtrdGlyph, (glyph, depth, frontOutset, backOutset, useDisplayList),
+// FTExtrudeGlyph::FTExtrudeGlyph();
+C_TOR(ftglCreateExtrudeGlyph, (FT_GlyphSlot glyph, float depth,
+                   float frontOutset, float backOutset, int useDisplayList),
+      FTExtrudeGlyph, (glyph, depth, frontOutset, backOutset, useDisplayList),
       GLYPH_EXTRUDE);
 
 // FTOutlineGlyph::FTOutlineGlyph();
@@ -66,10 +66,10 @@ C_TOR(ftglCreateOutlineGlyph, (FT_GlyphSlot glyph, float outset,
 C_TOR(ftglCreatePixmapGlyph, (FT_GlyphSlot glyph),
       FTPixmapGlyph, (glyph), GLYPH_PIXMAP);
 
-// FTPolyGlyph::FTPolyGlyph();
+// FTPolygonGlyph::FTPolygonGlyph();
 C_TOR(ftglCreatePolyGlyph, (FT_GlyphSlot glyph, float outset,
                             int useDisplayList),
-      FTPolyGlyph, (glyph, outset, useDisplayList), GLYPH_OUTLINE);
+      FTPolygonGlyph, (glyph, outset, useDisplayList), GLYPH_OUTLINE);
 
 // FTTextureGlyph::FTTextureGlyph();
 C_TOR(ftglCreateTextureGlyph, (FT_GlyphSlot glyph, int id, int xOffset,
@@ -90,13 +90,13 @@ C_TOR(ftglCreateTextureGlyph, (FT_GlyphSlot glyph, int id, int xOffset,
             case FTGL::GLYPH_BITMAP: \
                 return dynamic_cast<FTBitmapGlyph*>(g->ptr)->cxxname cxxarg; \
             case FTGL::GLYPH_EXTRUDE: \
-                return dynamic_cast<FTExtrdGlyph*>(g->ptr)->cxxname cxxarg; \
+                return dynamic_cast<FTExtrudeGlyph*>(g->ptr)->cxxname cxxarg; \
             case FTGL::GLYPH_OUTLINE: \
                 return dynamic_cast<FTOutlineGlyph*>(g->ptr)->cxxname cxxarg; \
             case FTGL::GLYPH_PIXMAP: \
                 return dynamic_cast<FTPixmapGlyph*>(g->ptr)->cxxname cxxarg; \
             case FTGL::GLYPH_POLYGON: \
-                return dynamic_cast<FTPolyGlyph*>(g->ptr)->cxxname cxxarg; \
+                return dynamic_cast<FTPolygonGlyph*>(g->ptr)->cxxname cxxarg; \
             case FTGL::GLYPH_TEXTURE: \
                 return dynamic_cast<FTTextureGlyph*>(g->ptr)->cxxname cxxarg; \
         } \
@@ -117,13 +117,13 @@ void ftglDestroyGlyph(FTGLglyph *g)
         case FTGL::GLYPH_BITMAP:
             delete dynamic_cast<FTBitmapGlyph*>(g->ptr); break;
         case FTGL::GLYPH_EXTRUDE:
-            delete dynamic_cast<FTExtrdGlyph*>(g->ptr); break;
+            delete dynamic_cast<FTExtrudeGlyph*>(g->ptr); break;
         case FTGL::GLYPH_OUTLINE:
             delete dynamic_cast<FTOutlineGlyph*>(g->ptr); break;
         case FTGL::GLYPH_PIXMAP:
             delete dynamic_cast<FTPixmapGlyph*>(g->ptr); break;
         case FTGL::GLYPH_POLYGON:
-            delete dynamic_cast<FTPolyGlyph*>(g->ptr); break;
+            delete dynamic_cast<FTPolygonGlyph*>(g->ptr); break;
         case FTGL::GLYPH_TEXTURE:
             delete dynamic_cast<FTTextureGlyph*>(g->ptr); break;
         default:

@@ -29,12 +29,12 @@
 
 #include "FTFontImpl.h"
 
-#include "FTGLBitmapFontImpl.h"
-#include "FTGLExtrdFontImpl.h"
-#include "FTGLOutlineFontImpl.h"
-#include "FTGLPixmapFontImpl.h"
-#include "FTGLPolygonFontImpl.h"
-#include "FTGLTextureFontImpl.h"
+#include "FTBitmapFontImpl.h"
+#include "FTExtrudeFontImpl.h"
+#include "FTOutlineFontImpl.h"
+#include "FTPixmapFontImpl.h"
+#include "FTPolygonFontImpl.h"
+#include "FTTextureFontImpl.h"
 
 #include "FTGlyphContainer.h"
 #include "FTFace.h"

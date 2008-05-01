@@ -30,38 +30,38 @@
 #include "FTGL/ftgl.h"
 
 #include "FTInternals.h"
-#include "FTExtrdGlyphImpl.h"
+#include "FTExtrudeGlyphImpl.h"
 #include "FTVectoriser.h"
 
 
 //
-//  FTGLExtrdGlyph
+//  FTGLExtrudeGlyph
 //
 
 
-FTExtrdGlyph::FTExtrdGlyph(FT_GlyphSlot glyph, float depth,
-                           float frontOutset, float backOutset,
-                           bool useDisplayList)
+FTExtrudeGlyph::FTExtrudeGlyph(FT_GlyphSlot glyph, float depth,
+                               float frontOutset, float backOutset,
+                               bool useDisplayList)
 {
-    impl = new FTExtrdGlyphImpl(glyph, depth, frontOutset, backOutset,
-                                useDisplayList);
+    impl = new FTExtrudeGlyphImpl(glyph, depth, frontOutset, backOutset,
+                                  useDisplayList);
 }
 
 
-FTExtrdGlyph::~FTExtrdGlyph()
+FTExtrudeGlyph::~FTExtrudeGlyph()
 {
     ;
 }
 
 
 //
-//  FTGLExtrdGlyphImpl
+//  FTGLExtrudeGlyphImpl
 //
 
 
-FTExtrdGlyphImpl::FTExtrdGlyphImpl(FT_GlyphSlot glyph, float _depth,
-                                   float _frontOutset, float _backOutset,
-                                   bool useDisplayList)
+FTExtrudeGlyphImpl::FTExtrudeGlyphImpl(FT_GlyphSlot glyph, float _depth,
+                                       float _frontOutset, float _backOutset,
+                                       bool useDisplayList)
 :   FTGlyphImpl(glyph),
     glList(0)
 {
@@ -113,7 +113,7 @@ FTExtrdGlyphImpl::FTExtrdGlyphImpl(FT_GlyphSlot glyph, float _depth,
 }
 
 
-FTExtrdGlyphImpl::~FTExtrdGlyphImpl()
+FTExtrudeGlyphImpl::~FTExtrudeGlyphImpl()
 {
     if(glList)
     {
@@ -126,7 +126,7 @@ FTExtrdGlyphImpl::~FTExtrdGlyphImpl()
 }
 
 
-const FTPoint& FTExtrdGlyphImpl::Render(const FTPoint& pen, int renderMode)
+const FTPoint& FTExtrudeGlyphImpl::Render(const FTPoint& pen, int renderMode)
 {
     glTranslatef(pen.X(), pen.Y(), 0);
     if(glList)
@@ -153,7 +153,7 @@ const FTPoint& FTExtrdGlyphImpl::Render(const FTPoint& pen, int renderMode)
 }
 
 
-void FTExtrdGlyphImpl::RenderFront()
+void FTExtrudeGlyphImpl::RenderFront()
 {
     vectoriser->MakeMesh(1.0, 1, frontOutset);
     glNormal3d(0.0, 0.0, 1.0);
@@ -181,7 +181,7 @@ void FTExtrdGlyphImpl::RenderFront()
 }
 
 
-void FTExtrdGlyphImpl::RenderBack()
+void FTExtrudeGlyphImpl::RenderBack()
 {
     vectoriser->MakeMesh(-1.0, 2, backOutset);
     glNormal3d(0.0, 0.0, -1.0);
@@ -209,7 +209,7 @@ void FTExtrdGlyphImpl::RenderBack()
 }
 
 
-void FTExtrdGlyphImpl::RenderSide()
+void FTExtrudeGlyphImpl::RenderSide()
 {
     int contourFlag = vectoriser->ContourFlag();
 

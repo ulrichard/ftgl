@@ -28,39 +28,39 @@
 #include "FTGL/ftgl.h"
 
 #include "FTInternals.h"
-#include "FTGLOutlineFontImpl.h"
+#include "FTOutlineFontImpl.h"
 
 
 //
-//  FTGLOutlineFont
+//  FTOutlineFont
 //
 
 
-FTGLOutlineFont::FTGLOutlineFont(char const *fontFilePath)
+FTOutlineFont::FTOutlineFont(char const *fontFilePath)
 {
-    impl = new FTGLOutlineFontImpl(fontFilePath);
+    impl = new FTOutlineFontImpl(fontFilePath);
 }
 
 
-FTGLOutlineFont::FTGLOutlineFont(const unsigned char *pBufferBytes,
-                                 size_t bufferSizeInBytes)
+FTOutlineFont::FTOutlineFont(const unsigned char *pBufferBytes,
+                             size_t bufferSizeInBytes)
 {
-    impl = new FTGLOutlineFontImpl(pBufferBytes, bufferSizeInBytes);
+    impl = new FTOutlineFontImpl(pBufferBytes, bufferSizeInBytes);
 }
 
 
-FTGLOutlineFont::~FTGLOutlineFont()
+FTOutlineFont::~FTOutlineFont()
 {
     ;
 }
 
 
 //
-//  FTGLOutlineFontImpl
+//  FTOutlineFontImpl
 //
 
 
-FTGlyph* FTGLOutlineFontImpl::MakeGlyph(unsigned int g)
+FTGlyph* FTOutlineFontImpl::MakeGlyph(unsigned int g)
 {
     FT_GlyphSlot ftGlyph = face.Glyph(g, FT_LOAD_NO_HINTING);
 
@@ -76,7 +76,7 @@ FTGlyph* FTGLOutlineFontImpl::MakeGlyph(unsigned int g)
 
 
 template <typename T>
-inline void FTGLOutlineFontImpl::RenderI(const T* string)
+inline void FTOutlineFontImpl::RenderI(const T* string)
 {
     glPushAttrib(GL_ENABLE_BIT | GL_HINT_BIT | GL_LINE_BIT
                   | GL_COLOR_BUFFER_BIT);
@@ -94,25 +94,25 @@ inline void FTGLOutlineFontImpl::RenderI(const T* string)
 }
 
 
-void FTGLOutlineFontImpl::Render(const char* string)
+void FTOutlineFontImpl::Render(const char* string)
 {
     RenderI(string);
 }
 
 
-void FTGLOutlineFontImpl::Render(const char* string, int renderMode)
+void FTOutlineFontImpl::Render(const char* string, int renderMode)
 {
     RenderI(string);
 }
 
 
-void FTGLOutlineFontImpl::Render(const wchar_t* string)
+void FTOutlineFontImpl::Render(const wchar_t* string)
 {
     RenderI(string);
 }
 
 
-void FTGLOutlineFontImpl::Render(const wchar_t* string, int renderMode)
+void FTOutlineFontImpl::Render(const wchar_t* string, int renderMode)
 {
     RenderI(string);
 }

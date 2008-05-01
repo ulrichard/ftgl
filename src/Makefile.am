@@ -62,14 +62,14 @@ ftglyph_sources = \
     FTGlyph/FTGlyphGlue.cpp \
     FTGlyph/FTBitmapGlyph.cpp \
     FTGlyph/FTBitmapGlyphImpl.h \
-    FTGlyph/FTExtrdGlyph.cpp \
-    FTGlyph/FTExtrdGlyphImpl.h \
+    FTGlyph/FTExtrudeGlyph.cpp \
+    FTGlyph/FTExtrudeGlyphImpl.h \
     FTGlyph/FTOutlineGlyph.cpp \
     FTGlyph/FTOutlineGlyphImpl.h \
     FTGlyph/FTPixmapGlyph.cpp \
     FTGlyph/FTPixmapGlyphImpl.h \
-    FTGlyph/FTPolyGlyph.cpp \
-    FTGlyph/FTPolyGlyphImpl.h \
+    FTGlyph/FTPolygonGlyph.cpp \
+    FTGlyph/FTPolygonGlyphImpl.h \
     FTGlyph/FTTextureGlyph.cpp \
     FTGlyph/FTTextureGlyphImpl.h \
     $(NULL)
@@ -78,18 +78,18 @@ ftfont_sources = \
     FTFont/FTFont.cpp \
     FTFont/FTFontImpl.h \
     FTFont/FTFontGlue.cpp \
-    FTFont/FTGLBitmapFont.cpp \
-    FTFont/FTGLBitmapFontImpl.h \
-    FTFont/FTGLExtrdFont.cpp \
-    FTFont/FTGLExtrdFontImpl.h \
-    FTFont/FTGLOutlineFont.cpp \
-    FTFont/FTGLOutlineFontImpl.h \
-    FTFont/FTGLPixmapFont.cpp \
-    FTFont/FTGLPixmapFontImpl.h \
-    FTFont/FTGLPolygonFont.cpp \
-    FTFont/FTGLPolygonFontImpl.h \
-    FTFont/FTGLTextureFont.cpp \
-    FTFont/FTGLTextureFontImpl.h \
+    FTFont/FTBitmapFont.cpp \
+    FTFont/FTBitmapFontImpl.h \
+    FTFont/FTExtrudeFont.cpp \
+    FTFont/FTExtrudeFontImpl.h \
+    FTFont/FTOutlineFont.cpp \
+    FTFont/FTOutlineFontImpl.h \
+    FTFont/FTPixmapFont.cpp \
+    FTFont/FTPixmapFontImpl.h \
+    FTFont/FTPolygonFont.cpp \
+    FTFont/FTPolygonFontImpl.h \
+    FTFont/FTTextureFont.cpp \
+    FTFont/FTTextureFontImpl.h \
     $(NULL)
 
 ftlayout_sources = \

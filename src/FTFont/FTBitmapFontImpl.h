@@ -23,46 +23,42 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef __FTExtrdGlyphImpl__
-#define __FTExtrdGlyphImpl__
+#ifndef __FTBitmapFontImpl__
+#define __FTBitmapFontImpl__
 
-#include "FTGlyphImpl.h"
+#include "FTFontImpl.h"
 
-class FTVectoriser;
+class FTGlyph;
 
-class FTExtrdGlyphImpl : public FTGlyphImpl
+class FTBitmapFontImpl : public FTFontImpl
 {
-    friend class FTExtrdGlyph;
+    friend class FTBitmapFont;
 
     protected:
-        FTExtrdGlyphImpl(FT_GlyphSlot glyph, float depth, float frontOutset,
-                         float backOutset, bool useDisplayList);
+        FTBitmapFontImpl(const char* fontFilePath) :
+            FTFontImpl(fontFilePath) {};
 
-        virtual ~FTExtrdGlyphImpl();
+        FTBitmapFontImpl(const unsigned char *pBufferBytes,
+                         size_t bufferSizeInBytes) :
+            FTFontImpl(pBufferBytes, bufferSizeInBytes) {};
 
-        virtual const FTPoint& Render(const FTPoint& pen, int renderMode);
+        virtual void Render(const char* string);
+
+        virtual void Render(const wchar_t* string);
 
     private:
         /**
-         * Private rendering methods.
+         * Construct a FTBitmapGlyph.
+         *
+         * @param g The glyph index NOT the char code.
+         * @return  An FTBitmapGlyph or <code>null</code> on failure.
          */
-        void RenderFront();
-        void RenderBack();
-        void RenderSide();
+        inline virtual FTGlyph* MakeGlyph(unsigned int g);
 
-        /**
-         * Private rendering variables.
-         */
-        unsigned int hscale, vscale;
-        float depth;
-        float frontOutset, backOutset;
-        FTVectoriser *vectoriser;
-
-        /**
-         * OpenGL display list
-         */
-        GLuint glList;
+        /* Internal generic Render() implementation */
+        template <typename T>
+        inline void RenderI(const T* string);
 };
 
-#endif  //  __FTExtrdGlyphImpl__
+#endif  //  __FTBitmapFontImpl__
 

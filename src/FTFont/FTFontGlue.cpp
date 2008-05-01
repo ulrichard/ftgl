@@ -45,29 +45,29 @@ FTGL_BEGIN_C_DECLS
         return ftgl; \
     }
 
-// FTGLBitmapFont::FTGLBitmapFont();
+// FTBitmapFont::FTBitmapFont();
 C_TOR(ftglCreateBitmapFont, (const char *fontname),
-      FTGLBitmapFont, (fontname), FONT_BITMAP);
+      FTBitmapFont, (fontname), FONT_BITMAP);
 
-// FTGLExtrdFont::FTGLExtrdFont();
-C_TOR(ftglCreateExtrdFont, (const char *fontname),
-      FTGLExtrdFont, (fontname), FONT_EXTRUDE);
+// FTExtrudeFont::FTExtrudeFont();
+C_TOR(ftglCreateExtrudeFont, (const char *fontname),
+      FTExtrudeFont, (fontname), FONT_EXTRUDE);
 
-// FTGLOutlineFont::FTGLOutlineFont();
+// FTOutlineFont::FTOutlineFont();
 C_TOR(ftglCreateOutlineFont, (const char *fontname),
-      FTGLOutlineFont, (fontname), FONT_OUTLINE);
+      FTOutlineFont, (fontname), FONT_OUTLINE);
 
-// FTGLPixmapFont::FTGLPixmapFont();
+// FTPixmapFont::FTPixmapFont();
 C_TOR(ftglCreatePixmapFont, (const char *fontname),
-      FTGLPixmapFont, (fontname), FONT_PIXMAP);
+      FTPixmapFont, (fontname), FONT_PIXMAP);
 
-// FTGLPolygonFont::FTGLPolygonFont();
+// FTPolygonFont::FTPolygonFont();
 C_TOR(ftglCreatePolygonFont, (const char *fontname),
-      FTGLPolygonFont, (fontname), FONT_POLYGON);
+      FTPolygonFont, (fontname), FONT_POLYGON);
 
-// FTGLTextureFont::FTGLTextureFont();
+// FTTextureFont::FTTextureFont();
 C_TOR(ftglCreateTextureFont, (const char *fontname),
-      FTGLTextureFont, (fontname), FONT_TEXTURE);
+      FTTextureFont, (fontname), FONT_TEXTURE);
 
 #define C_FUN(cret, cname, cargs, cxxerr, cxxname, cxxarg) \
     cret cname cargs \
@@ -80,17 +80,17 @@ C_TOR(ftglCreateTextureFont, (const char *fontname),
         switch(f->type) \
         { \
             case FTGL::FONT_BITMAP: \
-                return dynamic_cast<FTGLBitmapFont*>(f->ptr)->cxxname cxxarg; \
+                return dynamic_cast<FTBitmapFont*>(f->ptr)->cxxname cxxarg; \
             case FTGL::FONT_EXTRUDE: \
-                return dynamic_cast<FTGLExtrdFont*>(f->ptr)->cxxname cxxarg; \
+                return dynamic_cast<FTExtrudeFont*>(f->ptr)->cxxname cxxarg; \
             case FTGL::FONT_OUTLINE: \
-                return dynamic_cast<FTGLOutlineFont*>(f->ptr)->cxxname cxxarg; \
+                return dynamic_cast<FTOutlineFont*>(f->ptr)->cxxname cxxarg; \
             case FTGL::FONT_PIXMAP: \
-                return dynamic_cast<FTGLPixmapFont*>(f->ptr)->cxxname cxxarg; \
+                return dynamic_cast<FTPixmapFont*>(f->ptr)->cxxname cxxarg; \
             case FTGL::FONT_POLYGON: \
-                return dynamic_cast<FTGLPolygonFont*>(f->ptr)->cxxname cxxarg; \
+                return dynamic_cast<FTPolygonFont*>(f->ptr)->cxxname cxxarg; \
             case FTGL::FONT_TEXTURE: \
-                return dynamic_cast<FTGLTextureFont*>(f->ptr)->cxxname cxxarg; \
+                return dynamic_cast<FTTextureFont*>(f->ptr)->cxxname cxxarg; \
         } \
         fprintf(stderr, "FTGL warning: %s not implemented for %d\n", #cname, f->type); \
         cxxerr; \
@@ -107,17 +107,17 @@ void ftglDestroyFont(FTGLfont *f)
     switch(f->type)
     {
         case FTGL::FONT_BITMAP:
-            delete dynamic_cast<FTGLBitmapFont*>(f->ptr); break;
+            delete dynamic_cast<FTBitmapFont*>(f->ptr); break;
         case FTGL::FONT_EXTRUDE:
-            delete dynamic_cast<FTGLExtrdFont*>(f->ptr); break;
+            delete dynamic_cast<FTExtrudeFont*>(f->ptr); break;
         case FTGL::FONT_OUTLINE:
-            delete dynamic_cast<FTGLOutlineFont*>(f->ptr); break;
+            delete dynamic_cast<FTOutlineFont*>(f->ptr); break;
         case FTGL::FONT_PIXMAP:
-            delete dynamic_cast<FTGLPixmapFont*>(f->ptr); break;
+            delete dynamic_cast<FTPixmapFont*>(f->ptr); break;
         case FTGL::FONT_POLYGON:
-            delete dynamic_cast<FTGLPolygonFont*>(f->ptr); break;
+            delete dynamic_cast<FTPolygonFont*>(f->ptr); break;
         case FTGL::FONT_TEXTURE:
-            delete dynamic_cast<FTGLTextureFont*>(f->ptr); break;
+            delete dynamic_cast<FTTextureFont*>(f->ptr); break;
         default:
             fprintf(stderr, "FTGL warning: %s not implemented for %d\n",
                             __FUNCTION__, f->type);

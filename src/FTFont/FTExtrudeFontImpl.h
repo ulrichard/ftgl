@@ -23,22 +23,22 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef __FTGLExtrdFontImpl__
-#define __FTGLExtrdFontImpl__
+#ifndef __FTExtrudeFontImpl__
+#define __FTExtrudeFontImpl__
 
 #include "FTFontImpl.h"
 
 class FTGlyph;
 
-class FTGLExtrdFontImpl : public FTFontImpl
+class FTExtrudeFontImpl : public FTFontImpl
 {
-    friend class FTGLExtrdFont;
+    friend class FTExtrudeFont;
 
     protected:
-        FTGLExtrdFontImpl(const char* fontFilePath) :
+        FTExtrudeFontImpl(const char* fontFilePath) :
           FTFontImpl(fontFilePath), depth(0.0f), front(0.0f), back(0.0f) {};
 
-        FTGLExtrdFontImpl(const unsigned char *pBufferBytes,
+        FTExtrudeFontImpl(const unsigned char *pBufferBytes,
                           size_t bufferSizeInBytes) :
           FTFontImpl(pBufferBytes, bufferSizeInBytes),
           depth(0.0f), front(0.0f), back(0.0f) {};
@@ -52,7 +52,7 @@ class FTGLExtrdFontImpl : public FTFontImpl
 
         /**
          * Set the outset distance for the font. Only implemented by
-         * FTGLOutlineFont, FTGLPolygonFont and FTGLExtrdFont
+         * FTOutlineFont, FTPolygonFont and FTExtrudeFont
          *
          * @param o  The outset distance.
          */
@@ -60,7 +60,7 @@ class FTGLExtrdFontImpl : public FTFontImpl
 
         /**
          * Set the outset distance for the font. Only implemented by
-         * FTGLExtrdFont
+         * FTExtrudeFont
          *
          * @param f  The front outset distance.
          * @param b  The back outset distance.
@@ -69,10 +69,10 @@ class FTGLExtrdFontImpl : public FTFontImpl
 
     private:
         /**
-         * Construct a FTPolyGlyph.
+         * Construct a FTPolygonGlyph.
          *
          * @param glyphIndex The glyph index NOT the char code.
-         * @return An FTExtrdGlyph or <code>null</code> on failure.
+         * @return An FTExtrudeGlyph or <code>null</code> on failure.
          */
         virtual FTGlyph* MakeGlyph(unsigned int glyphIndex);
 
@@ -87,5 +87,5 @@ class FTGLExtrdFontImpl : public FTFontImpl
         float front, back;
 };
 
-#endif // __FTGLExtrdFontImpl__
+#endif // __FTExtrudeFontImpl__
 

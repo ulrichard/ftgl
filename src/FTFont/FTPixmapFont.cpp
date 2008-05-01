@@ -28,45 +28,46 @@
 #include "FTGL/ftgl.h"
 
 #include "FTInternals.h"
-#include "FTGLBitmapFontImpl.h"
+#include "FTPixmapFontImpl.h"
 
 
 //
-//  FTGLBitmapFont
+//  FTPixmapFont
 //
 
 
-FTGLBitmapFont::FTGLBitmapFont(char const *fontFilePath)
+FTPixmapFont::FTPixmapFont(char const *fontFilePath)
 {
-    impl = new FTGLBitmapFontImpl(fontFilePath);
+    impl = new FTPixmapFontImpl(fontFilePath);
 }
 
 
-FTGLBitmapFont::FTGLBitmapFont(unsigned char const *pBufferBytes,
-                               size_t bufferSizeInBytes)
+FTPixmapFont::FTPixmapFont(const unsigned char *pBufferBytes,
+                           size_t bufferSizeInBytes)
 {
-    impl = new FTGLBitmapFontImpl(pBufferBytes, bufferSizeInBytes);
+    impl = new FTPixmapFontImpl(pBufferBytes, bufferSizeInBytes);
 }
 
 
-FTGLBitmapFont::~FTGLBitmapFont()
+FTPixmapFont::~FTPixmapFont()
 {
     ;
 }
 
 
 //
-//  FTGLBitmapFontImpl
+//  FTPixmapFontImpl
 //
 
 
-FTGlyph* FTGLBitmapFontImpl::MakeGlyph(unsigned int g)
+FTGlyph* FTPixmapFontImpl::MakeGlyph(unsigned int g)
 {
-    FT_GlyphSlot ftGlyph = face.Glyph(g, FT_LOAD_DEFAULT);
+    FT_GlyphSlot ftGlyph = face.Glyph(g, FT_LOAD_NO_HINTING
+                                          | FT_LOAD_NO_BITMAP);
 
     if(ftGlyph)
     {
-        FTBitmapGlyph* tempGlyph = new FTBitmapGlyph(ftGlyph);
+        FTPixmapGlyph* tempGlyph = new FTPixmapGlyph(ftGlyph);
         return tempGlyph;
     }
 
@@ -76,30 +77,50 @@ FTGlyph* FTGLBitmapFontImpl::MakeGlyph(unsigned int g)
 
 
 template <typename T>
-inline void FTGLBitmapFontImpl::RenderI(const T *string)
+inline void FTPixmapFontImpl::RenderI(const T* string)
 {
+    glPushAttrib(GL_ENABLE_BIT | GL_PIXEL_MODE_BIT | GL_COLOR_BUFFER_BIT);
     glPushClientAttrib(GL_CLIENT_PIXEL_STORE_BIT);
-    glPushAttrib(GL_ENABLE_BIT);
 
-    glPixelStorei(GL_UNPACK_LSB_FIRST, GL_FALSE);
-    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    glDisable(GL_BLEND);
+    glDisable(GL_TEXTURE_2D);
+
+    GLfloat ftglColour[4];
+    glGetFloatv(GL_CURRENT_RASTER_COLOR, ftglColour);
+
+    glPixelTransferf(GL_RED_SCALE, ftglColour[0]);
+    glPixelTransferf(GL_GREEN_SCALE, ftglColour[1]);
+    glPixelTransferf(GL_BLUE_SCALE, ftglColour[2]);
+    glPixelTransferf(GL_ALPHA_SCALE, ftglColour[3]);
 
     FTFontImpl::Render(string);
 
-    glPopAttrib();
     glPopClientAttrib();
+    glPopAttrib();
 }
 
 
-void FTGLBitmapFontImpl::Render(const char* string)
+void FTPixmapFontImpl::Render(const char* string)
 {
     RenderI(string);
 }
 
 
-void FTGLBitmapFontImpl::Render(const wchar_t* string)
+void FTPixmapFontImpl::Render(const char* string, int renderMode)
+{
+    RenderI(string);
+}
+
+
+void FTPixmapFontImpl::Render(const wchar_t* string)
+{
+    RenderI(string);
+}
+
+
+void FTPixmapFontImpl::Render(const wchar_t* string, int renderMode)
 {
     RenderI(string);
 }

@@ -28,21 +28,21 @@
 #   include <FTGL/ftgl.h>
 #endif
 
-#ifndef __FTPolyGlyph__
-#define __FTPolyGlyph__
+#ifndef __FTPolygonGlyph__
+#define __FTPolygonGlyph__
 
 #ifdef __cplusplus
 
 
 /**
- * FTPolyGlyph is a specialisation of FTGlyph for creating tessellated
+ * FTPolygonGlyph is a specialisation of FTGlyph for creating tessellated
  * polygon glyphs.
  *
  * @see FTGlyphContainer
  * @see FTVectoriser
  *
  */
-class FTGL_EXPORT FTPolyGlyph : public FTGlyph
+class FTGL_EXPORT FTPolygonGlyph : public FTGlyph
 {
     public:
         /**
@@ -56,15 +56,17 @@ class FTGL_EXPORT FTPolyGlyph : public FTGlyph
          *                       <code>true</code> turns ON display lists.
          *                       <code>false</code> turns OFF display lists.
          */
-        FTPolyGlyph(FT_GlyphSlot glyph, float outset, bool useDisplayList);
+        FTPolygonGlyph(FT_GlyphSlot glyph, float outset, bool useDisplayList);
 
         /**
          * Destructor
          */
-        virtual ~FTPolyGlyph();
+        virtual ~FTPolygonGlyph();
 };
+
+#define FTPolyGlyph FTPolygonGlyph
 
 #endif //__cplusplus
 
-#endif  //  __FTPolyGlyph__
+#endif  //  __FTPolygonGlyph__
 

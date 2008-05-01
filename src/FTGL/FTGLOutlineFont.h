@@ -28,19 +28,19 @@
 #   include <FTGL/ftgl.h>
 #endif
 
-#ifndef __FTGLOutlineFont__
-#define __FTGLOutlineFont__
+#ifndef __FTOutlineFont__
+#define __FTOutlineFont__
 
 #ifdef __cplusplus
 
 
 /**
- * FTGLOutlineFont is a specialisation of the FTFont class for handling
+ * FTOutlineFont is a specialisation of the FTFont class for handling
  * Vector Outline fonts
  *
  * @see     FTFont
  */
-class FTGL_EXPORT FTGLOutlineFont : public FTFont
+class FTGL_EXPORT FTOutlineFont : public FTFont
 {
     public:
         /**
@@ -48,7 +48,7 @@ class FTGL_EXPORT FTGLOutlineFont : public FTFont
          *
          * @param fontFilePath  font file path.
          */
-        FTGLOutlineFont(const char* fontFilePath);
+        FTOutlineFont(const char* fontFilePath);
 
         /**
          * Open and read a font from a buffer in memory. Sets Error flag.
@@ -58,14 +58,16 @@ class FTGL_EXPORT FTGLOutlineFont : public FTFont
          * @param pBufferBytes  the in-memory buffer
          * @param bufferSizeInBytes  the length of the buffer in bytes
          */
-        FTGLOutlineFont(const unsigned char *pBufferBytes,
-                        size_t bufferSizeInBytes);
+        FTOutlineFont(const unsigned char *pBufferBytes,
+                      size_t bufferSizeInBytes);
 
         /**
          * Destructor
          */
-        ~FTGLOutlineFont();
+        ~FTOutlineFont();
 };
+
+#define FTGLOutlineFont FTOutlineFont
 
 #endif //__cplusplus
 
@@ -73,4 +75,4 @@ FTGL_BEGIN_C_DECLS
     FTGL_EXPORT FTGLfont *ftglCreateOutlineFont(const char *fontname);
 FTGL_END_C_DECLS
 
-#endif // __FTGLOutlineFont__
+#endif // __FTOutlineFont__

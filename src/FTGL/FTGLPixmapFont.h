@@ -28,19 +28,19 @@
 #   include <FTGL/ftgl.h>
 #endif
 
-#ifndef __FTGLPixmapFont__
-#define __FTGLPixmapFont__
+#ifndef __FTPixmapFont__
+#define __FTPixmapFont__
 
 #ifdef __cplusplus
 
 
 /**
- * FTGLPixmapFont is a specialisation of the FTFont class for handling
+ * FTPixmapFont is a specialisation of the FTFont class for handling
  * Pixmap (Grey Scale) fonts
  *
  * @see     FTFont
  */
-class FTGL_EXPORT FTGLPixmapFont : public FTFont
+class FTGL_EXPORT FTPixmapFont : public FTFont
 {
     public:
         /**
@@ -48,7 +48,7 @@ class FTGL_EXPORT FTGLPixmapFont : public FTFont
          *
          * @param fontFilePath  font file path.
          */
-        FTGLPixmapFont(const char* fontFilePath);
+        FTPixmapFont(const char* fontFilePath);
 
         /**
          * Open and read a font from a buffer in memory. Sets Error flag.
@@ -58,14 +58,16 @@ class FTGL_EXPORT FTGLPixmapFont : public FTFont
          * @param pBufferBytes  the in-memory buffer
          * @param bufferSizeInBytes  the length of the buffer in bytes
          */
-        FTGLPixmapFont(const unsigned char *pBufferBytes,
-                       size_t bufferSizeInBytes);
+        FTPixmapFont(const unsigned char *pBufferBytes,
+                     size_t bufferSizeInBytes);
 
         /**
          * Destructor
          */
-        ~FTGLPixmapFont();
+        ~FTPixmapFont();
 };
+
+#define FTGLPixmapFont FTPixmapFont
 
 #endif // __cplusplus
 
@@ -73,5 +75,5 @@ FTGL_BEGIN_C_DECLS
     FTGL_EXPORT FTGLfont *ftglCreatePixmapFont(const char *fontname);
 FTGL_END_C_DECLS
 
-#endif  //  __FTGLPixmapFont__
+#endif  //  __FTPixmapFont__
 

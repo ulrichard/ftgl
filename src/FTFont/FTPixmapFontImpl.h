@@ -23,32 +23,24 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef __FTGLOutlineFontImpl__
-#define __FTGLOutlineFontImpl__
+#ifndef __FTPixmapFontImpl__
+#define __FTPixmapFontImpl__
 
 #include "FTFontImpl.h"
 
 class FTGlyph;
 
-class FTGLOutlineFontImpl : public FTFontImpl
+class FTPixmapFontImpl : public FTFontImpl
 {
-    friend class FTGLOutlineFont;
+    friend class FTPixmapFont;
 
     protected:
-        FTGLOutlineFontImpl(const char* fontFilePath) :
-            FTFontImpl(fontFilePath), outset(0.0f) {};
+        FTPixmapFontImpl(const char* fontFilePath) :
+            FTFontImpl(fontFilePath) {};
 
-        FTGLOutlineFontImpl(const unsigned char *pBufferBytes,
-                            size_t bufferSizeInBytes) :
-            FTFontImpl(pBufferBytes, bufferSizeInBytes), outset(0.0f) {};
-
-        /**
-         * Set the outset distance for the font. Only implemented by
-         * FTGLOutlineFont, FTGLPolygonFont and FTGLExtrdFont
-         *
-         * @param outset  The outset distance.
-         */
-        virtual void Outset(float o) { outset = o; }
+        FTPixmapFontImpl(const unsigned char *pBufferBytes,
+                         size_t bufferSizeInBytes) :
+            FTFontImpl(pBufferBytes, bufferSizeInBytes) {};
 
         /**
          * Renders a string of characters
@@ -82,22 +74,17 @@ class FTGLOutlineFontImpl : public FTFontImpl
 
     private:
         /**
-         * Construct a FTOutlineGlyph.
+         * Construct a FTPixmapGlyph.
          *
          * @param g The glyph index NOT the char code.
-         * @return  An FTOutlineGlyph or <code>null</code> on failure.
+         * @return  An FTPixmapGlyph or <code>null</code> on failure.
          */
         inline virtual FTGlyph* MakeGlyph(unsigned int g);
-
-        /**
-         * The outset distance for the font.
-         */
-        float outset;
 
         /* Internal generic Render() implementation */
         template <typename T>
         inline void RenderI(const T* string);
 };
 
-#endif // __FTGLOutlineFontImpl__
+#endif  //  __FTPixmapFontImpl__
 

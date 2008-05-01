@@ -28,21 +28,21 @@
 #   include <FTGL/ftgl.h>
 #endif
 
-#ifndef __FTExtrdGlyph__
-#define __FTExtrdGlyph__
+#ifndef __FTExtrudeGlyph__
+#define __FTExtrudeGlyph__
 
 #ifdef __cplusplus
 
 
 /**
- * FTExtrdGlyph is a specialisation of FTGlyph for creating tessellated
+ * FTExtrudeGlyph is a specialisation of FTGlyph for creating tessellated
  * extruded polygon glyphs.
  *
  * @see FTGlyphContainer
  * @see FTVectoriser
  *
  */
-class FTGL_EXPORT FTExtrdGlyph : public FTGlyph
+class FTGL_EXPORT FTExtrudeGlyph : public FTGlyph
 {
     public:
         /**
@@ -58,16 +58,18 @@ class FTGL_EXPORT FTExtrdGlyph : public FTGlyph
          *                       <code>true</code> turns ON display lists.
          *                       <code>false</code> turns OFF display lists.
          */
-        FTExtrdGlyph(FT_GlyphSlot glyph, float depth, float frontOutset,
-                     float backOutset, bool useDisplayList);
+        FTExtrudeGlyph(FT_GlyphSlot glyph, float depth, float frontOutset,
+                       float backOutset, bool useDisplayList);
 
         /**
          * Destructor
          */
-        virtual ~FTExtrdGlyph();
+        virtual ~FTExtrudeGlyph();
 };
+
+#define FTExtrdGlyph FTExtrudeGlyph
 
 #endif //__cplusplus
 
-#endif  //  __FTExtrdGlyph__
+#endif  //  __FTExtrudeGlyph__
 
