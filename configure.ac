@@ -69,6 +69,7 @@ AC_CONFIG_FILES([
   src/Makefile
   test/Makefile
   docs/Makefile
+  docs/doxygen.cfg
   demo/Makefile
   msvc/Makefile
 ])

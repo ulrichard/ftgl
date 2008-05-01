@@ -5,7 +5,7 @@ htmldoc_DATA = html/doxygen.css
 endif
 
 html/doxygen.css: doc-stamp
-doc-stamp: ftgl_dox
+doc-stamp: doxygen.cfg
 	$(DOXYGEN) $^
 	touch $@
 
@@ -23,7 +23,7 @@ install-data-local: html/doxygen.css
 endif
 
 EXTRA_DIST = \
-    ftgl_dox \
+    doxygen.cfg.in \
     FTGL.html \
     FTGL_1_3.gif \
     images/ftgldemo.jpg \
