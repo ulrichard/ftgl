@@ -98,7 +98,7 @@ char myString[4096];
 
 int totalFonts;
 static FTFont** fonts;
-static FTGLPixmapFont* infoFont;
+static FTPixmapFont* infoFont;
 
 void SetCamera(void);
 
@@ -167,12 +167,12 @@ void setUpFonts(int numFontFiles)
     // Instantiate and configure named fonts
     for(int i = 0; i < numFontFiles; i++)
     {
-        fonts[i*NumStyles + FTGL_BITMAP] = new FTGLBitmapFont(fontfiles[i]);
-        fonts[i*NumStyles + FTGL_PIXMAP] = new FTGLPixmapFont(fontfiles[i]);
-        fonts[i*NumStyles + FTGL_OUTLINE] = new FTGLOutlineFont(fontfiles[i]);
-        fonts[i*NumStyles + FTGL_POLYGON] = new FTGLPolygonFont(fontfiles[i]);
-        fonts[i*NumStyles + FTGL_EXTRUDE] = new FTGLExtrdFont(fontfiles[i]);
-        fonts[i*NumStyles + FTGL_TEXTURE] = new FTGLTextureFont(fontfiles[i]);
+        fonts[i*NumStyles + FTGL_BITMAP] = new FTBitmapFont(fontfiles[i]);
+        fonts[i*NumStyles + FTGL_PIXMAP] = new FTPixmapFont(fontfiles[i]);
+        fonts[i*NumStyles + FTGL_OUTLINE] = new FTOutlineFont(fontfiles[i]);
+        fonts[i*NumStyles + FTGL_POLYGON] = new FTPolygonFont(fontfiles[i]);
+        fonts[i*NumStyles + FTGL_EXTRUDE] = new FTExtrudeFont(fontfiles[i]);
+        fonts[i*NumStyles + FTGL_TEXTURE] = new FTTextureFont(fontfiles[i]);
 
         for(int x = 0; x < NumStyles; ++x)
         {
@@ -195,7 +195,7 @@ void setUpFonts(int numFontFiles)
         }
     }
 
-    infoFont = new FTGLPixmapFont(fontfiles[0]);
+    infoFont = new FTPixmapFont(fontfiles[0]);
 
     if(infoFont->Error())
     {

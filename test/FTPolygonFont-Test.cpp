@@ -11,9 +11,9 @@
 
 extern void buildGLContext();
 
-class FTGLOutlineFontTest : public CppUnit::TestCase
+class FTPolygonFontTest : public CppUnit::TestCase
 {
-    CPPUNIT_TEST_SUITE(FTGLOutlineFontTest);
+    CPPUNIT_TEST_SUITE(FTPolygonFontTest);
         CPPUNIT_TEST(testConstructor);
         CPPUNIT_TEST(testRender);
         CPPUNIT_TEST(testBadDisplayList);
@@ -21,13 +21,13 @@ class FTGLOutlineFontTest : public CppUnit::TestCase
     CPPUNIT_TEST_SUITE_END();
 
     public:
-        FTGLOutlineFontTest() : CppUnit::TestCase("FTGLOutlineFont Test")
+        FTPolygonFontTest() : CppUnit::TestCase("FTPolygonFont Test")
         {
         }
 
-        FTGLOutlineFontTest(const std::string& name) : CppUnit::TestCase(name) {}
+        FTPolygonFontTest(const std::string& name) : CppUnit::TestCase(name) {}
 
-        ~FTGLOutlineFontTest()
+        ~FTPolygonFontTest()
         {
         }
 
@@ -35,8 +35,8 @@ class FTGLOutlineFontTest : public CppUnit::TestCase
         {
             buildGLContext();
 
-            FTGLOutlineFont* outlineFont = new FTGLOutlineFont(FONT_FILE);
-            CPPUNIT_ASSERT_EQUAL(outlineFont->Error(), 0);
+            FTPolygonFont* polygonFont = new FTPolygonFont(FONT_FILE);
+            CPPUNIT_ASSERT_EQUAL(polygonFont->Error(), 0);
 
             CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());
         }
@@ -45,16 +45,17 @@ class FTGLOutlineFontTest : public CppUnit::TestCase
         {
             buildGLContext();
 
-            FTGLOutlineFont* outlineFont = new FTGLOutlineFont(FONT_FILE);
-            outlineFont->Render(GOOD_ASCII_TEST_STRING);
+            FTPolygonFont* polygonFont = new FTPolygonFont(FONT_FILE);
 
-            CPPUNIT_ASSERT_EQUAL(outlineFont->Error(), 0x97);   // Invalid pixels per em
+            polygonFont->Render(GOOD_ASCII_TEST_STRING);
+
+            CPPUNIT_ASSERT_EQUAL(polygonFont->Error(), 0x97);   // Invalid pixels per em
             CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());
 
-            outlineFont->FaceSize(18);
-            outlineFont->Render(GOOD_ASCII_TEST_STRING);
+            polygonFont->FaceSize(18);
+            polygonFont->Render(GOOD_ASCII_TEST_STRING);
 
-            CPPUNIT_ASSERT_EQUAL(outlineFont->Error(), 0);
+            CPPUNIT_ASSERT_EQUAL(polygonFont->Error(), 0);
             CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());
         }
 
@@ -62,13 +63,13 @@ class FTGLOutlineFontTest : public CppUnit::TestCase
         {
             buildGLContext();
 
-            FTGLOutlineFont* outlineFont = new FTGLOutlineFont(FONT_FILE);
-            outlineFont->FaceSize(18);
+            FTPolygonFont* polygonFont = new FTPolygonFont(FONT_FILE);
+            polygonFont->FaceSize(18);
 
             int glList = glGenLists(1);
             glNewList(glList, GL_COMPILE);
 
-                outlineFont->Render(GOOD_ASCII_TEST_STRING);
+                polygonFont->Render(GOOD_ASCII_TEST_STRING);
 
             glEndList();
 
@@ -79,14 +80,14 @@ class FTGLOutlineFontTest : public CppUnit::TestCase
         {
             buildGLContext();
 
-            FTGLOutlineFont* outlineFont = new FTGLOutlineFont(FONT_FILE);
-            outlineFont->FaceSize(18);
+            FTPolygonFont* polygonFont = new FTPolygonFont(FONT_FILE);
+            polygonFont->FaceSize(18);
 
-            outlineFont->UseDisplayList(false);
+            polygonFont->UseDisplayList(false);
             int glList = glGenLists(1);
             glNewList(glList, GL_COMPILE);
 
-                outlineFont->Render(GOOD_ASCII_TEST_STRING);
+                polygonFont->Render(GOOD_ASCII_TEST_STRING);
 
             glEndList();
 
@@ -102,5 +103,5 @@ class FTGLOutlineFontTest : public CppUnit::TestCase
     private:
 };
 
-CPPUNIT_TEST_SUITE_REGISTRATION(FTGLOutlineFontTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(FTPolygonFontTest);
 

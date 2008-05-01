@@ -9,11 +9,7 @@
 #   error GLUT headers not present
 #endif
 
-#include "FTGLOutlineFont.h"
-#include "FTGLPolygonFont.h"
-#include "FTGLBitmapFont.h"
-#include "FTGLTextureFont.h"
-#include "FTGLPixmapFont.h"
+#include "FTGL/ftgl.h"
 
 //#include "mmgr.h"
 
@@ -40,11 +36,11 @@ my_init(const char* font_filename)
     glClearColor(0.0, 0.0, 0.0, 0.0);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-    fonts[0] = new FTGLOutlineFont(font_filename);
-    fonts[1] = new FTGLPolygonFont(font_filename);
-    fonts[2] = new FTGLTextureFont(font_filename);
-    fonts[3] = new FTGLBitmapFont(font_filename);
-    fonts[4] = new FTGLPixmapFont(font_filename);
+    fonts[0] = new FTOutlineFont(font_filename);
+    fonts[1] = new FTPolygonFont(font_filename);
+    fonts[2] = new FTTextureFont(font_filename);
+    fonts[3] = new FTBitmapFont(font_filename);
+    fonts[4] = new FTPixmapFont(font_filename);
     for (int i=0; i< 5; i++)
     {
         if (fonts[i]->Error())

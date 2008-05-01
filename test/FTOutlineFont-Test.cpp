@@ -11,9 +11,9 @@
 
 extern void buildGLContext();
 
-class FTGLExtrdFontTest : public CppUnit::TestCase
+class FTOutlineFontTest : public CppUnit::TestCase
 {
-    CPPUNIT_TEST_SUITE(FTGLExtrdFontTest);
+    CPPUNIT_TEST_SUITE(FTOutlineFontTest);
         CPPUNIT_TEST(testConstructor);
         CPPUNIT_TEST(testRender);
         CPPUNIT_TEST(testBadDisplayList);
@@ -21,13 +21,13 @@ class FTGLExtrdFontTest : public CppUnit::TestCase
     CPPUNIT_TEST_SUITE_END();
 
     public:
-        FTGLExtrdFontTest() : CppUnit::TestCase("FTGLExtrdFont Test")
+        FTOutlineFontTest() : CppUnit::TestCase("FTOutlineFont Test")
         {
         }
 
-        FTGLExtrdFontTest(const std::string& name) : CppUnit::TestCase(name) {}
+        FTOutlineFontTest(const std::string& name) : CppUnit::TestCase(name) {}
 
-        ~FTGLExtrdFontTest()
+        ~FTOutlineFontTest()
         {
         }
 
@@ -35,8 +35,8 @@ class FTGLExtrdFontTest : public CppUnit::TestCase
         {
             buildGLContext();
 
-            FTGLExtrdFont* extrudedFont = new FTGLExtrdFont(FONT_FILE);
-            CPPUNIT_ASSERT_EQUAL(extrudedFont->Error(), 0);
+            FTOutlineFont* outlineFont = new FTOutlineFont(FONT_FILE);
+            CPPUNIT_ASSERT_EQUAL(outlineFont->Error(), 0);
 
             CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());
         }
@@ -45,16 +45,16 @@ class FTGLExtrdFontTest : public CppUnit::TestCase
         {
             buildGLContext();
 
-            FTGLExtrdFont* extrudedFont = new FTGLExtrdFont(FONT_FILE);
-            extrudedFont->Render(GOOD_ASCII_TEST_STRING);
+            FTOutlineFont* outlineFont = new FTOutlineFont(FONT_FILE);
+            outlineFont->Render(GOOD_ASCII_TEST_STRING);
 
-            CPPUNIT_ASSERT_EQUAL(extrudedFont->Error(), 0x97);   // Invalid pixels per em
+            CPPUNIT_ASSERT_EQUAL(outlineFont->Error(), 0x97);   // Invalid pixels per em
             CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());
 
-            extrudedFont->FaceSize(18);
-            extrudedFont->Render(GOOD_ASCII_TEST_STRING);
+            outlineFont->FaceSize(18);
+            outlineFont->Render(GOOD_ASCII_TEST_STRING);
 
-            CPPUNIT_ASSERT_EQUAL(extrudedFont->Error(), 0);
+            CPPUNIT_ASSERT_EQUAL(outlineFont->Error(), 0);
             CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());
         }
 
@@ -62,13 +62,13 @@ class FTGLExtrdFontTest : public CppUnit::TestCase
         {
             buildGLContext();
 
-            FTGLExtrdFont* extrudedFont = new FTGLExtrdFont(FONT_FILE);
-            extrudedFont->FaceSize(18);
+            FTOutlineFont* outlineFont = new FTOutlineFont(FONT_FILE);
+            outlineFont->FaceSize(18);
 
             int glList = glGenLists(1);
             glNewList(glList, GL_COMPILE);
 
-                extrudedFont->Render(GOOD_ASCII_TEST_STRING);
+                outlineFont->Render(GOOD_ASCII_TEST_STRING);
 
             glEndList();
 
@@ -79,14 +79,14 @@ class FTGLExtrdFontTest : public CppUnit::TestCase
         {
             buildGLContext();
 
-            FTGLExtrdFont* extrudedFont = new FTGLExtrdFont(FONT_FILE);
-            extrudedFont->FaceSize(18);
+            FTOutlineFont* outlineFont = new FTOutlineFont(FONT_FILE);
+            outlineFont->FaceSize(18);
 
-            extrudedFont->UseDisplayList(false);
+            outlineFont->UseDisplayList(false);
             int glList = glGenLists(1);
             glNewList(glList, GL_COMPILE);
 
-                extrudedFont->Render(GOOD_ASCII_TEST_STRING);
+                outlineFont->Render(GOOD_ASCII_TEST_STRING);
 
             glEndList();
 
@@ -102,5 +102,5 @@ class FTGLExtrdFontTest : public CppUnit::TestCase
     private:
 };
 
-CPPUNIT_TEST_SUITE_REGISTRATION(FTGLExtrdFontTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(FTOutlineFontTest);
 

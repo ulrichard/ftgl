@@ -11,9 +11,9 @@
 
 extern void buildGLContext();
 
-class FTGLPolygonFontTest : public CppUnit::TestCase
+class FTExtrudeFontTest : public CppUnit::TestCase
 {
-    CPPUNIT_TEST_SUITE(FTGLPolygonFontTest);
+    CPPUNIT_TEST_SUITE(FTExtrudeFontTest);
         CPPUNIT_TEST(testConstructor);
         CPPUNIT_TEST(testRender);
         CPPUNIT_TEST(testBadDisplayList);
@@ -21,13 +21,13 @@ class FTGLPolygonFontTest : public CppUnit::TestCase
     CPPUNIT_TEST_SUITE_END();
 
     public:
-        FTGLPolygonFontTest() : CppUnit::TestCase("FTGLPolygonFont Test")
+        FTExtrudeFontTest() : CppUnit::TestCase("FTExtrudeFont Test")
         {
         }
 
-        FTGLPolygonFontTest(const std::string& name) : CppUnit::TestCase(name) {}
+        FTExtrudeFontTest(const std::string& name) : CppUnit::TestCase(name) {}
 
-        ~FTGLPolygonFontTest()
+        ~FTExtrudeFontTest()
         {
         }
 
@@ -35,8 +35,8 @@ class FTGLPolygonFontTest : public CppUnit::TestCase
         {
             buildGLContext();
 
-            FTGLPolygonFont* polygonFont = new FTGLPolygonFont(FONT_FILE);
-            CPPUNIT_ASSERT_EQUAL(polygonFont->Error(), 0);
+            FTExtrudeFont* extrudedFont = new FTExtrudeFont(FONT_FILE);
+            CPPUNIT_ASSERT_EQUAL(extrudedFont->Error(), 0);
 
             CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());
         }
@@ -45,17 +45,16 @@ class FTGLPolygonFontTest : public CppUnit::TestCase
         {
             buildGLContext();
 
-            FTGLPolygonFont* polygonFont = new FTGLPolygonFont(FONT_FILE);
+            FTExtrudeFont* extrudedFont = new FTExtrudeFont(FONT_FILE);
+            extrudedFont->Render(GOOD_ASCII_TEST_STRING);
 
-            polygonFont->Render(GOOD_ASCII_TEST_STRING);
-
-            CPPUNIT_ASSERT_EQUAL(polygonFont->Error(), 0x97);   // Invalid pixels per em
+            CPPUNIT_ASSERT_EQUAL(extrudedFont->Error(), 0x97);   // Invalid pixels per em
             CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());
 
-            polygonFont->FaceSize(18);
-            polygonFont->Render(GOOD_ASCII_TEST_STRING);
+            extrudedFont->FaceSize(18);
+            extrudedFont->Render(GOOD_ASCII_TEST_STRING);
 
-            CPPUNIT_ASSERT_EQUAL(polygonFont->Error(), 0);
+            CPPUNIT_ASSERT_EQUAL(extrudedFont->Error(), 0);
             CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());
         }
 
@@ -63,13 +62,13 @@ class FTGLPolygonFontTest : public CppUnit::TestCase
         {
             buildGLContext();
 
-            FTGLPolygonFont* polygonFont = new FTGLPolygonFont(FONT_FILE);
-            polygonFont->FaceSize(18);
+            FTExtrudeFont* extrudedFont = new FTExtrudeFont(FONT_FILE);
+            extrudedFont->FaceSize(18);
 
             int glList = glGenLists(1);
             glNewList(glList, GL_COMPILE);
 
-                polygonFont->Render(GOOD_ASCII_TEST_STRING);
+                extrudedFont->Render(GOOD_ASCII_TEST_STRING);
 
             glEndList();
 
@@ -80,14 +79,14 @@ class FTGLPolygonFontTest : public CppUnit::TestCase
         {
             buildGLContext();
 
-            FTGLPolygonFont* polygonFont = new FTGLPolygonFont(FONT_FILE);
-            polygonFont->FaceSize(18);
+            FTExtrudeFont* extrudedFont = new FTExtrudeFont(FONT_FILE);
+            extrudedFont->FaceSize(18);
 
-            polygonFont->UseDisplayList(false);
+            extrudedFont->UseDisplayList(false);
             int glList = glGenLists(1);
             glNewList(glList, GL_COMPILE);
 
-                polygonFont->Render(GOOD_ASCII_TEST_STRING);
+                extrudedFont->Render(GOOD_ASCII_TEST_STRING);
 
             glEndList();
 
@@ -103,5 +102,5 @@ class FTGLPolygonFontTest : public CppUnit::TestCase
     private:
 };
 
-CPPUNIT_TEST_SUITE_REGISTRATION(FTGLPolygonFontTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(FTExtrudeFontTest);
 

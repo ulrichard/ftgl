@@ -11,9 +11,9 @@
 
 extern void buildGLContext();
 
-class FTGLBitmapFontTest : public CppUnit::TestCase
+class FTBitmapFontTest : public CppUnit::TestCase
 {
-    CPPUNIT_TEST_SUITE(FTGLBitmapFontTest);
+    CPPUNIT_TEST_SUITE(FTBitmapFontTest);
         CPPUNIT_TEST(testConstructor);
         CPPUNIT_TEST(testRender);
         CPPUNIT_TEST(testPenPosition);
@@ -21,13 +21,13 @@ class FTGLBitmapFontTest : public CppUnit::TestCase
     CPPUNIT_TEST_SUITE_END();
 
     public:
-        FTGLBitmapFontTest() : CppUnit::TestCase("FTGLBitmapFont Test")
+        FTBitmapFontTest() : CppUnit::TestCase("FTBitmapFont Test")
         {
         }
 
-        FTGLBitmapFontTest(const std::string& name) : CppUnit::TestCase(name) {}
+        FTBitmapFontTest(const std::string& name) : CppUnit::TestCase(name) {}
 
-        ~FTGLBitmapFontTest()
+        ~FTBitmapFontTest()
         {
         }
 
@@ -35,7 +35,7 @@ class FTGLBitmapFontTest : public CppUnit::TestCase
         {
             buildGLContext();
 
-            FTGLBitmapFont* bitmapFont = new FTGLBitmapFont(FONT_FILE);
+            FTBitmapFont* bitmapFont = new FTBitmapFont(FONT_FILE);
             CPPUNIT_ASSERT_EQUAL(bitmapFont->Error(), 0);
 
             CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());
@@ -45,7 +45,7 @@ class FTGLBitmapFontTest : public CppUnit::TestCase
         {
             buildGLContext();
 
-            FTGLBitmapFont* bitmapFont = new FTGLBitmapFont(FONT_FILE);
+            FTBitmapFont* bitmapFont = new FTBitmapFont(FONT_FILE);
             bitmapFont->Render(GOOD_ASCII_TEST_STRING);
 
             CPPUNIT_ASSERT_EQUAL(bitmapFont->Error(), 0);
@@ -69,7 +69,7 @@ class FTGLBitmapFontTest : public CppUnit::TestCase
             glGetFloatv(GL_CURRENT_RASTER_POSITION, rasterPosition);
             CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, rasterPosition[0], 0.01);
 
-            FTGLBitmapFont* bitmapFont = new FTGLBitmapFont(FONT_FILE);
+            FTBitmapFont* bitmapFont = new FTBitmapFont(FONT_FILE);
             bitmapFont->FaceSize(18);
 
             bitmapFont->Render(GOOD_ASCII_TEST_STRING);
@@ -85,7 +85,7 @@ class FTGLBitmapFontTest : public CppUnit::TestCase
         {
             buildGLContext();
 
-            FTGLBitmapFont* bitmapFont = new FTGLBitmapFont(FONT_FILE);
+            FTBitmapFont* bitmapFont = new FTBitmapFont(FONT_FILE);
             bitmapFont->FaceSize(18);
 
             int glList = glGenLists(1);
@@ -107,5 +107,5 @@ class FTGLBitmapFontTest : public CppUnit::TestCase
     private:
 };
 
-CPPUNIT_TEST_SUITE_REGISTRATION(FTGLBitmapFontTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(FTBitmapFontTest);
 

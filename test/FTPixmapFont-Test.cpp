@@ -11,22 +11,22 @@
 
 extern void buildGLContext();
 
-class FTGLPixmapFontTest : public CppUnit::TestCase
+class FTPixmapFontTest : public CppUnit::TestCase
 {
-    CPPUNIT_TEST_SUITE(FTGLPixmapFontTest);
+    CPPUNIT_TEST_SUITE(FTPixmapFontTest);
         CPPUNIT_TEST(testConstructor);
         CPPUNIT_TEST(testRender);
         CPPUNIT_TEST(testDisplayList);
     CPPUNIT_TEST_SUITE_END();
 
     public:
-        FTGLPixmapFontTest() : CppUnit::TestCase("FTGLPixmapFont Test")
+        FTPixmapFontTest() : CppUnit::TestCase("FTPixmapFont Test")
         {
         }
 
-        FTGLPixmapFontTest(const std::string& name) : CppUnit::TestCase(name) {}
+        FTPixmapFontTest(const std::string& name) : CppUnit::TestCase(name) {}
 
-        ~FTGLPixmapFontTest()
+        ~FTPixmapFontTest()
         {
         }
 
@@ -34,7 +34,7 @@ class FTGLPixmapFontTest : public CppUnit::TestCase
         {
             buildGLContext();
 
-            FTGLPixmapFont* pixmapFont = new FTGLPixmapFont(FONT_FILE);
+            FTPixmapFont* pixmapFont = new FTPixmapFont(FONT_FILE);
             CPPUNIT_ASSERT_EQUAL(pixmapFont->Error(), 0);
 
             CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());
@@ -44,7 +44,7 @@ class FTGLPixmapFontTest : public CppUnit::TestCase
         {
             buildGLContext();
 
-            FTGLPixmapFont* pixmapFont = new FTGLPixmapFont(FONT_FILE);
+            FTPixmapFont* pixmapFont = new FTPixmapFont(FONT_FILE);
 
             pixmapFont->Render(GOOD_ASCII_TEST_STRING);
             CPPUNIT_ASSERT_EQUAL(pixmapFont->Error(), 0x97);   // Invalid pixels per em
@@ -61,7 +61,7 @@ class FTGLPixmapFontTest : public CppUnit::TestCase
         {
             buildGLContext();
 
-            FTGLPixmapFont* pixmapFont = new FTGLPixmapFont(FONT_FILE);
+            FTPixmapFont* pixmapFont = new FTPixmapFont(FONT_FILE);
             pixmapFont->FaceSize(18);
 
             int glList = glGenLists(1);
@@ -83,5 +83,5 @@ class FTGLPixmapFontTest : public CppUnit::TestCase
     private:
 };
 
-CPPUNIT_TEST_SUITE_REGISTRATION(FTGLPixmapFontTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(FTPixmapFontTest);
 

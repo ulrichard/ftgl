@@ -11,21 +11,21 @@
 
 extern void buildGLContext();
 
-class FTPolyGlyphTest : public CppUnit::TestCase
+class FTPolygonGlyphTest : public CppUnit::TestCase
 {
-    CPPUNIT_TEST_SUITE(FTPolyGlyphTest);
+    CPPUNIT_TEST_SUITE(FTPolygonGlyphTest);
         CPPUNIT_TEST(testConstructor);
         CPPUNIT_TEST(testRender);
     CPPUNIT_TEST_SUITE_END();
 
     public:
-        FTPolyGlyphTest() : CppUnit::TestCase("FTPolyGlyph Test")
+        FTPolygonGlyphTest() : CppUnit::TestCase("FTPolygonGlyph Test")
         {
         }
 
-        FTPolyGlyphTest(const std::string& name) : CppUnit::TestCase(name) {}
+        FTPolygonGlyphTest(const std::string& name) : CppUnit::TestCase(name) {}
 
-        ~FTPolyGlyphTest()
+        ~FTPolygonGlyphTest()
         {
         }
 
@@ -35,7 +35,7 @@ class FTPolyGlyphTest : public CppUnit::TestCase
 
             buildGLContext();
 
-            FTPolyGlyph* polyGlyph = new FTPolyGlyph(face->glyph, 0, true);
+            FTPolygonGlyph* polyGlyph = new FTPolygonGlyph(face->glyph, 0, true);
             CPPUNIT_ASSERT(polyGlyph->Error() == 0);
 
             CPPUNIT_ASSERT(glGetError() == GL_NO_ERROR);
@@ -49,7 +49,7 @@ class FTPolyGlyphTest : public CppUnit::TestCase
 
             buildGLContext();
 
-            FTPolyGlyph* polyGlyph = new FTPolyGlyph(face->glyph, 0.0f, true);
+            FTPolygonGlyph* polyGlyph = new FTPolygonGlyph(face->glyph, 0.0f, true);
             polyGlyph->Render(FTPoint(0, 0, 0), FTGL::RENDER_FRONT);
             CPPUNIT_ASSERT(polyGlyph->Error() == 0);
 
@@ -89,5 +89,5 @@ class FTPolyGlyphTest : public CppUnit::TestCase
 
 };
 
-CPPUNIT_TEST_SUITE_REGISTRATION(FTPolyGlyphTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(FTPolygonGlyphTest);
 

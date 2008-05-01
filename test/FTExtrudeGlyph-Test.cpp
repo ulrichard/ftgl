@@ -11,21 +11,21 @@
 
 extern void buildGLContext();
 
-class FTExtrdGlyphTest : public CppUnit::TestCase
+class FTExtrudeGlyphTest : public CppUnit::TestCase
 {
-    CPPUNIT_TEST_SUITE(FTExtrdGlyphTest);
+    CPPUNIT_TEST_SUITE(FTExtrudeGlyphTest);
         CPPUNIT_TEST(testConstructor);
         CPPUNIT_TEST(testRender);
     CPPUNIT_TEST_SUITE_END();
 
     public:
-        FTExtrdGlyphTest() : CppUnit::TestCase("FTExtrdGlyph Test")
+        FTExtrudeGlyphTest() : CppUnit::TestCase("FTExtrudeGlyph Test")
         {
         }
 
-        FTExtrdGlyphTest(const std::string& name) : CppUnit::TestCase(name) {}
+        FTExtrudeGlyphTest(const std::string& name) : CppUnit::TestCase(name) {}
 
-        ~FTExtrdGlyphTest()
+        ~FTExtrudeGlyphTest()
         {
         }
 
@@ -35,8 +35,8 @@ class FTExtrdGlyphTest : public CppUnit::TestCase
 
             buildGLContext();
 
-            FTExtrdGlyph* extrudedGlyph = new FTExtrdGlyph(face->glyph, 0.0f,
-                                                           0.0f, 0.0f, true);
+            FTExtrudeGlyph* extrudedGlyph = new FTExtrudeGlyph(face->glyph,
+                                                      0.0f, 0.0f, 0.0f, true);
             CPPUNIT_ASSERT(extrudedGlyph->Error() == 0);
 
             CPPUNIT_ASSERT(glGetError() == GL_NO_ERROR);
@@ -50,8 +50,8 @@ class FTExtrdGlyphTest : public CppUnit::TestCase
 
             buildGLContext();
 
-            FTExtrdGlyph* extrudedGlyph = new FTExtrdGlyph(face->glyph, 0.0f,
-                                                           0.0f, 0.0f, true);
+            FTExtrudeGlyph* extrudedGlyph = new FTExtrudeGlyph(face->glyph,
+                                                      0.0f, 0.0f, 0.0f, true);
             CPPUNIT_ASSERT(extrudedGlyph->Error() == 0);
             extrudedGlyph->Render(FTPoint(0, 0, 0), FTGL::RENDER_FRONT |
                                                     FTGL::RENDER_BACK |
@@ -93,5 +93,5 @@ class FTExtrdGlyphTest : public CppUnit::TestCase
 
 };
 
-CPPUNIT_TEST_SUITE_REGISTRATION(FTExtrdGlyphTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(FTExtrudeGlyphTest);
 

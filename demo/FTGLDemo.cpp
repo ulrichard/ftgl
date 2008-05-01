@@ -88,7 +88,7 @@ const float OY = 170;
 char myString[4096];
 
 static FTFont* fonts[6];
-static FTGLPixmapFont* infoFont;
+static FTPixmapFont* infoFont;
 
 static float textures[][48] =
 {
@@ -144,12 +144,12 @@ void setUpLighting()
 
 void setUpFonts(const char* file)
 {
-    fonts[FTGL_BITMAP] = new FTGLBitmapFont(file);
-    fonts[FTGL_PIXMAP] = new FTGLPixmapFont(file);
-    fonts[FTGL_OUTLINE] = new FTGLOutlineFont(file);
-    fonts[FTGL_POLYGON] = new FTGLPolygonFont(file);
-    fonts[FTGL_EXTRUDE] = new FTGLExtrdFont(file);
-    fonts[FTGL_TEXTURE] = new FTGLTextureFont(file);
+    fonts[FTGL_BITMAP] = new FTBitmapFont(file);
+    fonts[FTGL_PIXMAP] = new FTPixmapFont(file);
+    fonts[FTGL_OUTLINE] = new FTOutlineFont(file);
+    fonts[FTGL_POLYGON] = new FTPolygonFont(file);
+    fonts[FTGL_EXTRUDE] = new FTExtrudeFont(file);
+    fonts[FTGL_TEXTURE] = new FTTextureFont(file);
 
     for(int x = 0; x < 6; ++x)
     {
@@ -171,7 +171,7 @@ void setUpFonts(const char* file)
         fonts[x]->CharMap(ft_encoding_unicode);
     }
 
-    infoFont = new FTGLPixmapFont(file);
+    infoFont = new FTPixmapFont(file);
 
     if(infoFont->Error())
     {
