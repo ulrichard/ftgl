@@ -40,7 +40,7 @@ FTCharmap::FTCharmap(FTFace* face)
 
     ftEncoding = ftFace->charmap->encoding;
 
-    for(int i = 0; i < FTCharmap::MAX_PRECOMPUTED; i++)
+    for(unsigned int i = 0; i < FTCharmap::MAX_PRECOMPUTED; i++)
     {
         charIndexCache[i] = FT_Get_Char_Index(ftFace, i);
     }

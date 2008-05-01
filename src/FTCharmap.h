@@ -152,8 +152,8 @@ class FTCharmap
         /**
          * Precomputed font indices.
          */
-        static const int MAX_PRECOMPUTED = 128;
-        unsigned int characterCodeIndices[MAX_PRECOMPUTED];
+        static const unsigned int MAX_PRECOMPUTED = 128;
+        unsigned int charIndexCache[MAX_PRECOMPUTED];
 
         /**
          * Current error code.

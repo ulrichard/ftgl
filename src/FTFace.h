@@ -48,7 +48,7 @@ class FTFace
          *
          * @param fontFilePath  font file path.
          */
-        FTFace(const char* fontFilePath);
+        FTFace(const char* fontFilePath, bool precomputeKerning = true);
 
         /**
          * Read face data from an in-memory buffer. Error is set.
@@ -56,7 +56,8 @@ class FTFace
          * @param pBufferBytes  the in-memory buffer
          * @param bufferSizeInBytes  the length of the buffer in bytes
          */
-        FTFace(const unsigned char *pBufferBytes, size_t bufferSizeInBytes);
+        FTFace(const unsigned char *pBufferBytes, size_t bufferSizeInBytes,
+               bool precomputeKerning = true);
 
         /**
          * Destructor
@@ -161,7 +162,14 @@ class FTFace
         /**
          * This face has kerning tables
          */
-         bool hasKerningTable;
+        bool hasKerningTable;
+
+        /**
+         * If this face has kerning tables, we can cache them.
+         */
+        void BuildKerningCache();
+        static const unsigned int MAX_PRECOMPUTED = 128;
+        float *kerningCache;
 
         /**
          * Current error code. Zero means no error.
