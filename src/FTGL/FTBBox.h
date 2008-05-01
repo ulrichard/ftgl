@@ -44,24 +44,16 @@ class FTGL_EXPORT FTBBox
          * Default constructor. Bounding box is set to zero.
          */
         FTBBox()
-        :   lowerX(0.0f),
-            lowerY(0.0f),
-            lowerZ(0.0f),
-            upperX(0.0f),
-            upperY(0.0f),
-            upperZ(0.0f)
+        :   lower(0.0f, 0.0f, 0.0f),
+            upper(0.0f, 0.0f, 0.0f)
         {}
 
         /**
          * Constructor.
          */
         FTBBox(float lx, float ly, float lz, float ux, float uy, float uz)
-        :   lowerX(lx),
-            lowerY(ly),
-            lowerZ(lz),
-            upperX(ux),
-            upperY(uy),
-            upperZ(uz)
+        :   lower(lx, ly, lz),
+            upper(ux, uy, uz)
         {}
 
         /**
@@ -71,23 +63,18 @@ class FTGL_EXPORT FTBBox
          * @param glyph A freetype glyph
          */
         FTBBox(FT_GlyphSlot glyph)
-        :   lowerX(0.0f),
-            lowerY(0.0f),
-            lowerZ(0.0f),
-            upperX(0.0f),
-            upperY(0.0f),
-            upperZ(0.0f)
+        :   lower(0.0f, 0.0f, 0.0f),
+            upper(0.0f, 0.0f, 0.0f)
         {
             FT_BBox bbox;
             FT_Outline_Get_CBox(&(glyph->outline), &bbox);
 
-            lowerX = static_cast<float>(bbox.xMin) / 64.0f;
-            lowerY = static_cast<float>(bbox.yMin) / 64.0f;
-            lowerZ = 0.0f;
-            upperX = static_cast<float>(bbox.xMax) / 64.0f;
-            upperY = static_cast<float>(bbox.yMax) / 64.0f;
-            upperZ = 0.0f;
-
+            lower.X(static_cast<float>(bbox.xMin) / 64.0f);
+            lower.Y(static_cast<float>(bbox.yMin) / 64.0f);
+            lower.Z(0.0f);
+            upper.X(static_cast<float>(bbox.xMax) / 64.0f);
+            upper.Y(static_cast<float>(bbox.yMax) / 64.0f);
+            upper.Z(0.0f);
         }
 
         /**
@@ -102,8 +89,8 @@ class FTGL_EXPORT FTBBox
          */
         void Invalidate()
         {
-            lowerX = lowerY = lowerZ = 1.0f;
-            upperX = upperY = upperZ = -1.0f;
+            lower = FTPoint(1.0f, 1.0f, 1.0f);
+            upper = FTPoint(-1.0f, -1.0f, -1.0f);
         }
 
         /**
@@ -114,7 +101,9 @@ class FTGL_EXPORT FTBBox
          */
         bool IsValid()
         {
-            return((lowerX <= upperX) && (lowerY <= upperY) && (lowerZ <= upperZ));
+            return lower.X() <= upper.X()
+                && lower.Y() <= upper.Y()
+                && lower.Z() <= upper.Z();
         }
 
         /**
@@ -124,43 +113,45 @@ class FTGL_EXPORT FTBBox
          */
         FTBBox& Move(FTPoint distance)
         {
-            lowerX += distance.X();
-            lowerY += distance.Y();
-            lowerZ += distance.Z();
-            upperX += distance.X();
-            upperY += distance.Y();
-            upperZ += distance.Z();
+            lower += distance;
+            upper += distance;
             return *this;
         }
 
         FTBBox& operator += (const FTBBox& bbox)
         {
-            lowerX = bbox.lowerX < lowerX? bbox.lowerX: lowerX;
-            lowerY = bbox.lowerY < lowerY? bbox.lowerY: lowerY;
-            lowerZ = bbox.lowerZ < lowerZ? bbox.lowerZ: lowerZ;
-            upperX = bbox.upperX > upperX? bbox.upperX: upperX;
-            upperY = bbox.upperY > upperY? bbox.upperY: upperY;
-            upperZ = bbox.upperZ > upperZ? bbox.upperZ: upperZ;
+            if(bbox.lower.X() < lower.X()) lower.X(bbox.lower.X());
+            if(bbox.lower.Y() < lower.Y()) lower.Y(bbox.lower.Y());
+            if(bbox.lower.Z() < lower.Z()) lower.Z(bbox.lower.Z());
+            if(bbox.upper.X() > upper.X()) upper.X(bbox.upper.X());
+            if(bbox.upper.Y() > upper.Y()) upper.Y(bbox.upper.Y());
+            if(bbox.upper.Z() > upper.Z()) upper.Z(bbox.upper.Z());
 
             return *this;
         }
 
         void SetDepth(float depth)
         {
-            upperZ = lowerZ + depth;
+            upper.Z(lower.Z() + depth);
         }
 
 
+        inline FTPoint const Upper() const
+        {
+            return upper;
+        }
+
+
+        inline FTPoint const Lower() const
+        {
+            return lower;
+        }
+
+    private:
         /**
          * The bounds of the box
          */
-        // Make these ftPoints & private
-        float lowerX, lowerY, lowerZ, upperX, upperY, upperZ;
-    protected:
-
-
-    private:
-
+        FTPoint lower, upper;
 };
 
 #endif //__cplusplus

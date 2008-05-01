@@ -405,26 +405,26 @@ inline void FTFontImpl::BBoxI(const T* string, const int start, const int end,
     }
 
     // TODO: The Z values do not follow the proper ordering.  I'm not sure why.
-    llx = totalBBox.lowerX < totalBBox.upperX ? totalBBox.lowerX : totalBBox.upperX;
-    lly = totalBBox.lowerY < totalBBox.upperY ? totalBBox.lowerY : totalBBox.upperY;
-    llz = totalBBox.lowerZ < totalBBox.upperZ ? totalBBox.lowerZ : totalBBox.upperZ;
-    urx = totalBBox.lowerX > totalBBox.upperX ? totalBBox.lowerX : totalBBox.upperX;
-    ury = totalBBox.lowerY > totalBBox.upperY ? totalBBox.lowerY : totalBBox.upperY;
-    urz = totalBBox.lowerZ > totalBBox.upperZ ? totalBBox.lowerZ : totalBBox.upperZ;
+    llx = totalBBox.Lower().X() < totalBBox.Upper().X() ? totalBBox.Lower().X() : totalBBox.Upper().X();
+    lly = totalBBox.Lower().Y() < totalBBox.Upper().Y() ? totalBBox.Lower().Y() : totalBBox.Upper().Y();
+    llz = totalBBox.Lower().Z() < totalBBox.Upper().Z() ? totalBBox.Lower().Z() : totalBBox.Upper().Z();
+    urx = totalBBox.Lower().X() > totalBBox.Upper().X() ? totalBBox.Lower().X() : totalBBox.Upper().X();
+    ury = totalBBox.Lower().Y() > totalBBox.Upper().Y() ? totalBBox.Lower().Y() : totalBBox.Upper().Y();
+    urz = totalBBox.Lower().Z() > totalBBox.Upper().Z() ? totalBBox.Lower().Z() : totalBBox.Upper().Z();
 }
 
 
 void FTFontImpl::BBox(const char* string, const int start, const int end,
-                  float& llx, float& lly, float& llz,
-                  float& urx, float& ury, float& urz)
+                      float& llx, float& lly, float& llz,
+                      float& urx, float& ury, float& urz)
 {
     return BBoxI(string, start, end, llx, lly, llz, urx, ury, urz);
 }
 
 
 void FTFontImpl::BBox(const wchar_t* string, const int start, const int end,
-                  float& llx, float& lly, float& llz,
-                  float& urx, float& ury, float& urz)
+                      float& llx, float& lly, float& llz,
+                      float& urx, float& ury, float& urz)
 {
     return BBoxI(string, start, end, llx, lly, llz, urx, ury, urz);
 }

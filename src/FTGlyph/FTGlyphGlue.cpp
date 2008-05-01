@@ -170,8 +170,9 @@ void ftglGlyphBBox(FTGLglyph *g, float *lx, float *ly, float *lz,
                    float *ux, float *uy, float *uz)
 {
     FTBBox ret = _ftglGlyphBBox(g);
-    *lx = ret.lowerX; *ly = ret.lowerY; *lz = ret.lowerZ;
-    *ux = ret.upperX; *uy = ret.upperY; *uz = ret.upperZ;
+    FTPoint lower = ret.Lower(), upper = ret.Upper();
+    *lx = lower.X(); *ly = lower.Y(); *lz = lower.Z();
+    *ux = upper.X(); *uy = upper.Y(); *uz = upper.Z();
 }
 
 // FT_Error FTGlyph::Error() const;

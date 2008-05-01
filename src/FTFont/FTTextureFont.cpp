@@ -145,7 +145,7 @@ FTGlyph* FTTextureFontImpl::MakeGlyph(unsigned int glyphIndex)
 
         FTTextureGlyph* tempGlyph = new FTTextureGlyph(ftGlyph, textureIDList[textureIDList.size() - 1],
                                                         xOffset, yOffset, textureWidth, textureHeight);
-        xOffset += static_cast<int>(tempGlyph->BBox().upperX - tempGlyph->BBox().lowerX + padding);
+        xOffset += static_cast<int>(tempGlyph->BBox().Upper().X() - tempGlyph->BBox().Lower().X() + padding);
 
         --remGlyphs;
         return tempGlyph;
