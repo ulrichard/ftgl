@@ -16,6 +16,7 @@ Contributors:
    Robert Bell (pixmap font modifications)
    Sam Hocevar <sam@zoy.org> (build system, new maintainer)
    Éric Beets <ericbeets@free.fr> (C bindings)
+   Sean Morrison (bug fixes, new maintainer)
 
 Bug fixes:
 

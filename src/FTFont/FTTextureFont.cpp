@@ -111,7 +111,11 @@ FTTextureFontImpl::FTTextureFontImpl(const unsigned char *pBufferBytes,
 
 FTTextureFontImpl::~FTTextureFontImpl()
 {
-    glDeleteTextures(textureIDList.size(), (const GLuint*)&textureIDList[0]);
+    if(textureIDList.size())
+    {
+        glDeleteTextures(textureIDList.size(),
+                         (const GLuint*)&textureIDList[0]);
+    }
 }
 
 
@@ -160,6 +164,7 @@ void FTTextureFontImpl::CalculateTextureSize()
 {
     if(!maximumGLTextureSize)
     {
+        maximumGLTextureSize = 1024;
         glGetIntegerv(GL_MAX_TEXTURE_SIZE, (GLint*)&maximumGLTextureSize);
         assert(maximumGLTextureSize); // If you hit this then you have an invalid OpenGL context.
     }
