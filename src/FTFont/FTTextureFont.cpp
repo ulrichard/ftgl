@@ -126,8 +126,11 @@ FTGlyph* FTTextureFontImpl::MakeGlyph(unsigned int glyphIndex)
 
     if(ftGlyph)
     {
-        glyphHeight = static_cast<int>(charSize.Height());
-        glyphWidth = static_cast<int>(charSize.Width());
+        glyphHeight = static_cast<int>(charSize.Height() + 0.5);
+        glyphWidth = static_cast<int>(charSize.Width() + 0.5);
+
+        if(glyphHeight < 1) glyphHeight = 1;
+        if(glyphWidth < 1) glyphWidth = 1;
 
         if(textureIDList.empty())
         {
@@ -149,7 +152,7 @@ FTGlyph* FTTextureFontImpl::MakeGlyph(unsigned int glyphIndex)
 
         FTTextureGlyph* tempGlyph = new FTTextureGlyph(ftGlyph, textureIDList[textureIDList.size() - 1],
                                                         xOffset, yOffset, textureWidth, textureHeight);
-        xOffset += static_cast<int>(tempGlyph->BBox().Upper().X() - tempGlyph->BBox().Lower().X() + padding);
+        xOffset += static_cast<int>(tempGlyph->BBox().Upper().X() - tempGlyph->BBox().Lower().X() + padding + 0.5);
 
         --remGlyphs;
         return tempGlyph;
@@ -172,7 +175,7 @@ void FTTextureFontImpl::CalculateTextureSize()
     textureWidth = NextPowerOf2((remGlyphs * glyphWidth) + (padding * 2));
     textureWidth = textureWidth > maximumGLTextureSize ? maximumGLTextureSize : textureWidth;
 
-    int h = static_cast<int>((textureWidth - (padding * 2)) / glyphWidth);
+    int h = static_cast<int>((textureWidth - (padding * 2)) / glyphWidth + 0.5);
 
     textureHeight = NextPowerOf2(((numGlyphs / h) + 1) * glyphHeight);
     textureHeight = textureHeight > maximumGLTextureSize ? maximumGLTextureSize : textureHeight;
