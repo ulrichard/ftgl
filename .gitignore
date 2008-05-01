@@ -18,6 +18,7 @@ stamp-h1
 demo/FTGLDemo
 demo/FTGLMFontDemo
 test/CTest
-test/FTGLTest
+test/CXXTest
 docs/doc-stamp
+docs/doxygen.cfg
 docs/html

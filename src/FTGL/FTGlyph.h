@@ -95,7 +95,7 @@ class FTGL_EXPORT FTGlyph
 FTGL_BEGIN_C_DECLS
 
 FTGL_EXPORT FTGLglyph *ftglCreateBitmapGlyph(FT_GlyphSlot glyph);
-FTGL_EXPORT FTGLglyph *ftglCreateExtrdGlyph(FT_GlyphSlot glyph, float depth,
+FTGL_EXPORT FTGLglyph *ftglCreateExtrudeGlyph(FT_GlyphSlot glyph, float depth,
                                 float frontOutset, float backOutset,
                                 int useDisplayList);
 FTGL_EXPORT FTGLglyph *ftglCreateOutlineGlyph(FT_GlyphSlot glyph, float outset,

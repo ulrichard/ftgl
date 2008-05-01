@@ -35,7 +35,7 @@
 
 
 /**
- * FTPoint class is a basic 3 dimensional point or vector.
+ * FTPoint class is a basic 3-dimensional point or vector.
  */
 class FTGL_EXPORT FTPoint
 {

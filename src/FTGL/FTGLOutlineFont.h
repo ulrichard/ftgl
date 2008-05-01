@@ -71,8 +71,4 @@ class FTGL_EXPORT FTOutlineFont : public FTFont
 
 #endif //__cplusplus
 
-FTGL_BEGIN_C_DECLS
-    FTGL_EXPORT FTGLfont *ftglCreateOutlineFont(const char *fontname);
-FTGL_END_C_DECLS
-
 #endif // __FTOutlineFont__

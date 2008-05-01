@@ -78,13 +78,15 @@ class FTGL_EXPORT FTLayout
 
 FTGL_BEGIN_C_DECLS
 
+FTGL_EXPORT FTGLlayout *ftglCreateSimpleLayout(void);
+
 FTGL_EXPORT void ftglDestroyLayout(FTGLlayout*);
 
-FTGL_EXPORT void  ftglLayoutBBox (FTGLlayout *, const char*, float []);
+FTGL_EXPORT void ftglLayoutBBox (FTGLlayout *, const char*, float []);
 
-FTGL_EXPORT void  ftglLayoutRender      (FTGLlayout *, const char*);
-FTGL_EXPORT void  ftglLayoutRenderMode  (FTGLlayout *, const char *, int);
-FTGL_EXPORT void  ftglLayoutRenderSpace (FTGLlayout *, const char *, float);
+FTGL_EXPORT void ftglLayoutRender      (FTGLlayout *, const char *);
+FTGL_EXPORT void ftglLayoutRenderMode  (FTGLlayout *, const char *, int);
+FTGL_EXPORT void ftglLayoutRenderSpace (FTGLlayout *, const char *, float);
 
 FTGL_EXPORT void      ftglLayoutSetFont (FTGLlayout *, FTGLfont*);
 FTGL_EXPORT FTGLfont* ftglLayoutGetFont (FTGLlayout *);

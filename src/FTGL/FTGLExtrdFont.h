@@ -72,9 +72,5 @@ class FTGL_EXPORT FTExtrudeFont : public FTFont
 
 #endif //__cplusplus
 
-FTGL_BEGIN_C_DECLS
-    FTGL_EXPORT FTGLfont *ftglCreateExtrudeFont(const char *fontname);
-FTGL_END_C_DECLS
-
 #endif // __FTExtrudeFont__
 

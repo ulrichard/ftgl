@@ -36,6 +36,14 @@
 
 class FTFont;
 
+/**
+ * FTSimpleLayout is a specialisation of FTLayout for simple text boxes.
+ *
+ * This class has basic support for text wrapping, left, right and centered
+ * alignment, and text justification.
+ *
+ * @see     FTLayout
+ */
 class FTGL_EXPORT FTSimpleLayout : public FTLayout
 {
     public:
@@ -51,7 +59,7 @@ class FTGL_EXPORT FTSimpleLayout : public FTLayout
         ~FTSimpleLayout() {}
 
         /**
-         * Set he font to use for rendering the text.
+         * Set the font to use for rendering the text.
          *
          * @param fontInit A pointer to the new font.  The font is
          *                 referenced by this but will not be
@@ -124,10 +132,6 @@ class FTGL_EXPORT FTSimpleLayout : public FTLayout
 };
 
 #endif //__cplusplus
-
-FTGL_BEGIN_C_DECLS
-    FTGL_EXPORT FTGLlayout *ftglCreateSimpleLayout(void);
-FTGL_END_C_DECLS
 
 #endif  /* __FTSimpleLayout__ */
 

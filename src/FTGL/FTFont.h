@@ -308,6 +308,13 @@ class FTGL_EXPORT FTFont
 
 FTGL_BEGIN_C_DECLS
 
+FTGL_EXPORT FTGLfont *ftglCreateBitmapFont(const char *fontname);
+FTGL_EXPORT FTGLfont *ftglCreateExtrudeFont(const char *fontname);
+FTGL_EXPORT FTGLfont *ftglCreateOutlineFont(const char *fontname);
+FTGL_EXPORT FTGLfont *ftglCreatePixmapFont(const char *fontname);
+FTGL_EXPORT FTGLfont *ftglCreatePolygonFont(const char *fontname);
+FTGL_EXPORT FTGLfont *ftglCreateTextureFont(const char *fontname);
+
 FTGL_EXPORT void ftglDestroyFont(FTGLfont*);
 
 FTGL_EXPORT int ftglAttachFile (FTGLfont*, const char*);

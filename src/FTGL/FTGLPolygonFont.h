@@ -71,9 +71,5 @@ class FTGL_EXPORT FTPolygonFont : public FTFont
 
 #endif //__cplusplus
 
-FTGL_BEGIN_C_DECLS
-    FTGL_EXPORT FTGLfont *ftglCreatePolygonFont(const char *fontname);
-FTGL_END_C_DECLS
-
 #endif  //  __FTPolygonFont__
 
