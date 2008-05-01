@@ -31,8 +31,7 @@
 #include FT_TRUETYPE_TABLES_H
 
 FTFace::FTFace(const char* fontFilePath, bool precomputeKerning)
-:   ftFace(0),
-    numGlyphs(0),
+:   numGlyphs(0),
     fontEncodingList(0),
     kerningCache(0),
     err(0)
@@ -62,6 +61,8 @@ FTFace::FTFace(const char* fontFilePath, bool precomputeKerning)
 FTFace::FTFace(const unsigned char *pBufferBytes, size_t bufferSizeInBytes,
                bool precomputeKerning)
 :   numGlyphs(0),
+    fontEncodingList(0),
+    kerningCache(0),
     err(0)
 {
     const FT_Long DEFAULT_FACE_INDEX = 0;
