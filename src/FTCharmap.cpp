@@ -39,6 +39,11 @@ FTCharmap::FTCharmap(FTFace* face)
     }
 
     ftEncoding = ftFace->charmap->encoding;
+
+    for(int i = 0; i < FTCharmap::MAX_PRECOMPUTED; i++)
+    {
+        charIndexCache[i] = FT_Get_Char_Index(ftFace, i);
+    }
 }
 
 
@@ -76,6 +81,11 @@ unsigned int FTCharmap::GlyphListIndex(const unsigned int characterCode)
 
 unsigned int FTCharmap::FontIndex(const unsigned int characterCode)
 {
+    if(characterCode < FTCharmap::MAX_PRECOMPUTED)
+    {
+        return charIndexCache[characterCode];
+    }
+
     return FT_Get_Char_Index(ftFace, characterCode);
 }
 
