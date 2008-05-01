@@ -230,16 +230,16 @@ void FTExtrudeGlyphImpl::RenderSide()
                 unsigned int next = (cur == n - 1) ? 0 : cur + 1;
 
                 FTPoint frontPt = contour->FrontPoint(cur);
+                FTPoint nextPt = contour->FrontPoint(next);
                 FTPoint backPt = contour->BackPoint(cur);
 
-                FTPoint normal = FTPoint::GetNormal(frontPt, contour->FrontPoint(next));
+                FTPoint normal = FTPoint(0.f, 0.f, 1.f) ^ (frontPt - nextPt);
                 if(normal != FTPoint(0.0f, 0.0f, 0.0f))
                 {
-                    glNormal3dv(static_cast<const FTGL_DOUBLE*>(normal));
+                    glNormal3dv(static_cast<const FTGL_DOUBLE*>(normal.Normalise()));
                 }
 
-                glTexCoord2f(frontPt.X() / hscale,
-                             frontPt.Y() / vscale);
+                glTexCoord2f(frontPt.X() / hscale, frontPt.Y() / vscale);
 
                 if(contourFlag & ft_outline_reverse_fill)
                 {

@@ -43,7 +43,7 @@ class FTGL_EXPORT FTPoint
         /**
          * Default constructor. Point is set to zero.
          */
-        FTPoint()
+        inline FTPoint()
         {
             values[0] = 0;
             values[1] = 0;
@@ -57,8 +57,8 @@ class FTGL_EXPORT FTPoint
          * @param y Second component
          * @param z Third component
          */
-        FTPoint(const FTGL_DOUBLE x, const FTGL_DOUBLE y,
-                const FTGL_DOUBLE z = 0)
+        inline FTPoint(const FTGL_DOUBLE x, const FTGL_DOUBLE y,
+                       const FTGL_DOUBLE z = 0)
         {
             values[0] = x;
             values[1] = y;
@@ -66,11 +66,11 @@ class FTGL_EXPORT FTPoint
         }
 
         /**
-         * Constructor. This converts an FT_Vector to an FT_Point
+         * Constructor. This converts an FT_Vector to an FTPoint
          *
          * @param ft_vector A freetype vector
          */
-        FTPoint(const FT_Vector& ft_vector)
+        inline FTPoint(const FT_Vector& ft_vector)
         {
             values[0] = ft_vector.x;
             values[1] = ft_vector.y;
@@ -78,14 +78,12 @@ class FTGL_EXPORT FTPoint
         }
 
         /**
-         * Calculate the normal vector to 2 points. This is 2D and ignores
-         * the z component. The normal will be normalised
+         * Normalise a point's coordinates. If the coordinates are zero,
+         * the point is left untouched.
          *
-         * @param a
-         * @param b
-         * @return
+         * @return A vector of norm one.
          */
-        static FTPoint GetNormal(const FTPoint &a, const FTPoint &b);
+        FTPoint Normalise();
 
 
         /**
@@ -94,7 +92,7 @@ class FTGL_EXPORT FTPoint
          * @param point
          * @return this plus point.
          */
-        FTPoint& operator += (const FTPoint& point)
+        inline FTPoint& operator += (const FTPoint& point)
         {
             values[0] += point.values[0];
             values[1] += point.values[1];
@@ -109,7 +107,7 @@ class FTGL_EXPORT FTPoint
          * @param point
          * @return this plus point.
          */
-        FTPoint operator + (const FTPoint& point)
+        inline FTPoint operator + (const FTPoint& point)
         {
             FTPoint temp;
             temp.values[0] = values[0] + point.values[0];
@@ -125,7 +123,7 @@ class FTGL_EXPORT FTPoint
          * @param point
          * @return this minus point.
          */
-        FTPoint& operator -= (const FTPoint& point)
+        inline FTPoint& operator -= (const FTPoint& point)
         {
             values[0] -= point.values[0];
             values[1] -= point.values[1];
@@ -140,7 +138,7 @@ class FTGL_EXPORT FTPoint
          * @param point
          * @return this minus point.
          */
-        FTPoint operator - (const FTPoint& point)
+        inline FTPoint operator - (const FTPoint& point)
         {
             FTPoint temp;
             temp.values[0] = values[0] - point.values[0];
@@ -156,7 +154,7 @@ class FTGL_EXPORT FTPoint
          * @param multiplier
          * @return <code>this</code> multiplied by <code>multiplier</code>.
          */
-        FTPoint operator * (double multiplier)
+        inline FTPoint operator * (double multiplier)
         {
             FTPoint temp;
             temp.values[0] = values[0] * multiplier;
@@ -174,17 +172,40 @@ class FTGL_EXPORT FTPoint
          * @param multiplier
          * @return <code>multiplier</code> multiplied by <code>point</code>.
          */
-        friend FTPoint operator * (double multiplier, FTPoint& point);
+        inline friend FTPoint operator * (double multiplier, FTPoint& point)
+        {
+            return point * multiplier;
+        }
 
 
         /**
-         * Operator == Tests for eqaulity
+         * Operator ^  Vector product
+         *
+         * @param point Second point
+         * @return this vector point.
+         */
+        inline FTPoint operator ^ (const FTPoint& point)
+        {
+            FTPoint temp;
+            temp.values[0] = values[1] * point.values[2]
+                           - values[2] * point.values[1];
+            temp.values[1] = values[2] * point.values[3]
+                           - values[3] * point.values[2];
+            temp.values[2] = values[3] * point.values[0]
+                           - values[0] * point.values[3];
+            return temp;
+        }
+
+
+        /**
+         * Operator == Tests for equality
          *
          * @param a
          * @param b
          * @return true if a & b are equal
          */
         friend bool operator == (const FTPoint &a, const FTPoint &b);
+
 
         /**
          * Operator != Tests for non equality
@@ -199,7 +220,7 @@ class FTGL_EXPORT FTPoint
         /**
          * Cast to FTGL_DOUBLE*
          */
-        operator const FTGL_DOUBLE*() const
+        inline operator const FTGL_DOUBLE*() const
         {
             return values;
         }
@@ -208,17 +229,17 @@ class FTGL_EXPORT FTPoint
         /**
          * Setters
          */
-        void X(FTGL_DOUBLE x) { values[0] = x; };
-        void Y(FTGL_DOUBLE y) { values[1] = y; };
-        void Z(FTGL_DOUBLE z) { values[2] = z; };
+        inline void X(FTGL_DOUBLE x) { values[0] = x; };
+        inline void Y(FTGL_DOUBLE y) { values[1] = y; };
+        inline void Z(FTGL_DOUBLE z) { values[2] = z; };
 
 
         /**
          * Getters
          */
-        FTGL_DOUBLE X() const { return values[0]; };
-        FTGL_DOUBLE Y() const { return values[1]; };
-        FTGL_DOUBLE Z() const { return values[2]; };
+        inline FTGL_DOUBLE X() const { return values[0]; };
+        inline FTGL_DOUBLE Y() const { return values[1]; };
+        inline FTGL_DOUBLE Z() const { return values[2]; };
 
     private:
         /**
