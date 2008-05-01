@@ -51,9 +51,9 @@ class FTGL_EXPORT FTLayout
     protected:
         FTLayout();
 
+    public:
         virtual ~FTLayout();
 
-    public:
         void BBox(const char* string, float& llx, float& lly,
                   float& llz, float& urx, float& ury, float& urz);
 

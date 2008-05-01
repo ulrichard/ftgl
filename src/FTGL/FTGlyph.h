@@ -53,9 +53,10 @@ class FTGL_EXPORT FTGlyph
 
     protected:
         FTGlyph();
-        virtual ~FTGlyph();
 
     public:
+        virtual ~FTGlyph();
+
         /**
          * Renders this glyph at the current pen position.
          *

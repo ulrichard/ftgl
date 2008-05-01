@@ -59,9 +59,9 @@ class FTGL_EXPORT FTFont
     protected:
         FTFont();
 
+    public:
         virtual ~FTFont();
 
-    public:
         /**
          * Attach auxilliary file to font e.g font metrics.
          *
