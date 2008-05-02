@@ -30,6 +30,9 @@
 
 #include "FTInternals.h"
 
+static FTPoint static_ftpoint;
+static FTBBox static_ftbbox;
+
 FTGL_BEGIN_C_DECLS
 
 #define C_TOR(cname, cargs, cxxname, cxxarg, cxxtype) \
@@ -139,7 +142,7 @@ void ftglDestroyGlyph(FTGLglyph *g)
 // const FTPoint& FTGlyph::Render(const FTPoint& pen, int renderMode);
 C_FUN(static const FTPoint&, _ftglGlyphRender, (FTGLglyph *g,
                                    const FTPoint& pen, int renderMode),
-      return *(new FTPoint()), Render, (pen, renderMode));
+      return static_ftpoint, Render, (pen, renderMode));
 
 void ftglGlyphRender(FTGLglyph *g, FTGL_DOUBLE penx, FTGL_DOUBLE peny,
                      int renderMode, FTGL_DOUBLE *advancex,
@@ -153,7 +156,7 @@ void ftglGlyphRender(FTGLglyph *g, FTGL_DOUBLE penx, FTGL_DOUBLE peny,
 
 // const FTPoint& FTGlyph::Advance() const;
 C_FUN(static const FTPoint&, _ftglGlyphAdvance, (FTGLglyph *g),
-      return *(new FTPoint()), Advance, ());
+      return static_ftpoint, Advance, ());
 
 void ftglGlyphAdvance(FTGLglyph *g, FTGL_DOUBLE *advancex,
                       FTGL_DOUBLE *advancey)
@@ -165,7 +168,7 @@ void ftglGlyphAdvance(FTGLglyph *g, FTGL_DOUBLE *advancex,
 
 // const FTBBox& FTGlyph::BBox() const;
 C_FUN(static const FTBBox&, _ftglGlyphBBox, (FTGLglyph *g),
-      return *(new FTBBox()), BBox, ());
+      return static_ftbbox, BBox, ());
 
 void ftglGlyphBBox(FTGLglyph *g, float *lx, float *ly, float *lz,
                    float *ux, float *uy, float *uz)
