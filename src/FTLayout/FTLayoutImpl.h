@@ -34,7 +34,11 @@ class FTLayoutImpl
 {
         friend class FTLayout;
 
-    public:
+    protected:
+        FTLayoutImpl();
+
+        virtual ~FTLayoutImpl();
+
         /**
          * Get the bounding box for a formatted string.
          *

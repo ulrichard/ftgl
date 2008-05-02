@@ -100,6 +100,19 @@ FT_Error FTLayout::Error() const
 //
 
 
+FTLayoutImpl::FTLayoutImpl() :
+    err(0)
+{
+    ;
+}
+
+
+FTLayoutImpl::~FTLayoutImpl()
+{
+    ;
+}
+
+
 void FTLayoutImpl::DoRender(FTFont *font, const unsigned int chr,
                             const unsigned int nextChr, int renderMode)
 {
