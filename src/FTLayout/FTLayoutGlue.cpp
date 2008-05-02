@@ -137,7 +137,7 @@ C_FUN(float, ftglGetLayoutLineLength, (FTGLlayout *f),
 
 // void SetAlignment(const TextAlignment Alignment)
 C_FUN(void, ftglSetLayoutAlignment, (FTGLlayout *f, const int a),
-      return, SetAlignment, (a));
+      return, SetAlignment, ((FTGL::TextAlignment)a));
 
 // TextAlignment GetAlignment() const
 C_FUN(int, ftglGetLayoutAlignement, (FTGLlayout *f),
