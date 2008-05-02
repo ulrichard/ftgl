@@ -38,6 +38,7 @@ class FTPixmapFontTest : public CppUnit::TestCase
             CPPUNIT_ASSERT_EQUAL(pixmapFont->Error(), 0);
 
             CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());
+            delete pixmapFont;
         }
 
         void testRender()
@@ -55,6 +56,7 @@ class FTPixmapFontTest : public CppUnit::TestCase
 
             CPPUNIT_ASSERT_EQUAL(pixmapFont->Error(), 0);
             CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());
+            delete pixmapFont;
         }
 
         void testDisplayList()
@@ -72,6 +74,7 @@ class FTPixmapFontTest : public CppUnit::TestCase
             glEndList();
 
             CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());
+            delete pixmapFont;
         }
 
         void setUp()

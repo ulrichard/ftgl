@@ -39,6 +39,7 @@ class FTExtrudeFontTest : public CppUnit::TestCase
             CPPUNIT_ASSERT_EQUAL(extrudedFont->Error(), 0);
 
             CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());
+            delete extrudedFont;
         }
 
         void testRender()
@@ -56,6 +57,7 @@ class FTExtrudeFontTest : public CppUnit::TestCase
 
             CPPUNIT_ASSERT_EQUAL(extrudedFont->Error(), 0);
             CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());
+            delete extrudedFont;
         }
 
         void testBadDisplayList()
@@ -73,6 +75,7 @@ class FTExtrudeFontTest : public CppUnit::TestCase
             glEndList();
 
             CPPUNIT_ASSERT_EQUAL((int)glGetError(), GL_INVALID_OPERATION);
+            delete extrudedFont;
         }
 
         void testGoodDisplayList()
@@ -91,6 +94,7 @@ class FTExtrudeFontTest : public CppUnit::TestCase
             glEndList();
 
             CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());
+            delete extrudedFont;
         }
 
         void setUp()

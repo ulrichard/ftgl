@@ -38,6 +38,7 @@ class FTTextureFontTest : public CppUnit::TestCase
             FTTextureFont* textureFont = new FTTextureFont(FONT_FILE);
             CPPUNIT_ASSERT_EQUAL(textureFont->Error(), 0);
             CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());
+            delete textureFont;
         }
 
         void testResizeBug()
@@ -54,6 +55,7 @@ class FTTextureFontTest : public CppUnit::TestCase
             textureFont->Render("second");
 
             CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());
+            delete textureFont;
         }
 
         void testRender()
@@ -71,6 +73,7 @@ class FTTextureFontTest : public CppUnit::TestCase
 
             CPPUNIT_ASSERT_EQUAL(textureFont->Error(), 0);
             CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());
+            delete textureFont;
         }
 
         void testDisplayList()
@@ -88,6 +91,7 @@ class FTTextureFontTest : public CppUnit::TestCase
             glEndList();
 
             CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());
+            delete textureFont;
         }
 
         void setUp()

@@ -39,6 +39,7 @@ class FTOutlineFontTest : public CppUnit::TestCase
             CPPUNIT_ASSERT_EQUAL(outlineFont->Error(), 0);
 
             CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());
+            delete outlineFont;
         }
 
         void testRender()
@@ -56,6 +57,7 @@ class FTOutlineFontTest : public CppUnit::TestCase
 
             CPPUNIT_ASSERT_EQUAL(outlineFont->Error(), 0);
             CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());
+            delete outlineFont;
         }
 
         void testBadDisplayList()
@@ -73,6 +75,7 @@ class FTOutlineFontTest : public CppUnit::TestCase
             glEndList();
 
             CPPUNIT_ASSERT_EQUAL((int)glGetError(), GL_INVALID_OPERATION);
+            delete outlineFont;
         }
 
         void testGoodDisplayList()
@@ -91,6 +94,7 @@ class FTOutlineFontTest : public CppUnit::TestCase
             glEndList();
 
             CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());
+            delete outlineFont;
         }
 
         void setUp()

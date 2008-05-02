@@ -39,6 +39,7 @@ class FTBitmapFontTest : public CppUnit::TestCase
             CPPUNIT_ASSERT_EQUAL(bitmapFont->Error(), 0);
 
             CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());
+            delete bitmapFont;
         }
 
         void testRender()
@@ -56,6 +57,7 @@ class FTBitmapFontTest : public CppUnit::TestCase
 
             CPPUNIT_ASSERT_EQUAL(bitmapFont->Error(), 0);
             CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());
+            delete bitmapFont;
         }
 
 
@@ -78,6 +80,7 @@ class FTBitmapFontTest : public CppUnit::TestCase
             glGetFloatv(GL_CURRENT_RASTER_POSITION, rasterPosition);
             CPPUNIT_ASSERT_DOUBLES_EQUAL(122, rasterPosition[0], 0.01);
             CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, rasterPosition[1], 0.01);
+            delete bitmapFont;
         }
 
 
@@ -96,6 +99,7 @@ class FTBitmapFontTest : public CppUnit::TestCase
             glEndList();
 
             CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());
+            delete bitmapFont;
         }
 
         void setUp()

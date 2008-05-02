@@ -39,6 +39,7 @@ class FTPolygonFontTest : public CppUnit::TestCase
             CPPUNIT_ASSERT_EQUAL(polygonFont->Error(), 0);
 
             CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());
+            delete polygonFont;
         }
 
         void testRender()
@@ -57,6 +58,7 @@ class FTPolygonFontTest : public CppUnit::TestCase
 
             CPPUNIT_ASSERT_EQUAL(polygonFont->Error(), 0);
             CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());
+            delete polygonFont;
         }
 
         void testBadDisplayList()
@@ -74,6 +76,7 @@ class FTPolygonFontTest : public CppUnit::TestCase
             glEndList();
 
             CPPUNIT_ASSERT_EQUAL((int)glGetError(), GL_INVALID_OPERATION);
+            delete polygonFont;
         }
 
         void testGoodDisplayList()
@@ -92,6 +95,7 @@ class FTPolygonFontTest : public CppUnit::TestCase
             glEndList();
 
             CPPUNIT_ASSERT_EQUAL(GL_NO_ERROR, (int)glGetError());
+            delete polygonFont;
         }
 
         void setUp()
