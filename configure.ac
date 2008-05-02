@@ -57,9 +57,33 @@ AC_CHECK_FUNCS([memset])
 CPPFLAGS="${CPPFLAGS} -Wall -Wpointer-arith -Wcast-align -Wcast-qual -Wshadow -Wsign-compare"
 CFLAGS="${CFLAGS} -Waggregate-return -Wstrict-prototypes -Wmissing-prototypes -Wnested-externs"
 
-# Utility programs
+# Build HTML documentatin?
 AC_PATH_PROG(DOXYGEN, doxygen, no)
 AM_CONDITIONAL(HAVE_DOXYGEN, test "$DOXYGEN" != "no")
+
+# Build PDF documentation?
+AC_PATH_PROG(LATEX, pdflatex, no)
+AC_PATH_PROG(KPSEWHICH, kpsewhich, no)
+AC_PATH_PROG(DVIPS, dvips, no)
+AC_PATH_PROG(EPSTOPDF, epstopdf, no)
+if test "${DVIPS}" = "no" -o "${KPSEWHICH}" = "no" -o "${EPSTOPDF}" = "no"; then
+  LATEX="no"
+fi
+if test "${LATEX}" != "no"; then
+  AC_MSG_CHECKING(for a4.sty and a4wide.sty)
+  if "${KPSEWHICH}" a4.sty >/dev/null 2>&1; then
+    if "${KPSEWHICH}" a4wide.sty >/dev/null 2>&1; then
+      AC_MSG_RESULT(yes)
+    else
+      LATEX="no"
+      AC_MSG_RESULT(no)
+    fi
+  else
+    LATEX="no"
+    AC_MSG_RESULT(no)
+  fi
+fi
+AM_CONDITIONAL(HAVE_LATEX, test "${LATEX}" != "no")
 
 AC_CONFIG_FILES([
   ftgl.pc

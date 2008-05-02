@@ -19,6 +19,7 @@ demo/FTGLDemo
 demo/FTGLMFontDemo
 test/CTest
 test/CXXTest
-docs/doc-stamp
+docs/stamp-*
 docs/doxygen.cfg
 docs/html
+docs/latex
