@@ -35,10 +35,10 @@ clean-local:
 
 if HAVE_DOXYGEN
 install-data-local: html/doxygen.css
-	$(mkinstalldirs) $(DESTDIR)$(datadir)/doc/$(PACKAGE_NAME)/html
+	$(mkinstalldirs) $(DESTDIR)$(htmldocdir)/
 	$(INSTALL) -m 0644 \
 	  `find html -name '*.html' -o -name '*.gif' -o -name '*.png' -o -name '*.jpg'` \
-	  $(DESTDIR)$(datadir)/doc/$(PACKAGE_NAME)/html/
+	  $(DESTDIR)$(htmldocdir)/
 endif
 
 EXTRA_DIST = \
