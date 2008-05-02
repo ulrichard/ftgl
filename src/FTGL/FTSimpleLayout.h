@@ -133,5 +133,25 @@ class FTGL_EXPORT FTSimpleLayout : public FTLayout
 
 #endif //__cplusplus
 
+FTGL_BEGIN_C_DECLS
+
+FTGL_EXPORT FTGLlayout *ftglCreateSimpleLayout(void);
+
+FTGL_EXPORT void ftglRenderLayoutSpace(FTGLlayout *, const char *, float);
+
+FTGL_EXPORT void ftglSetLayoutFont(FTGLlayout *, FTGLfont*);
+FTGL_EXPORT FTGLfont *ftglGetLayoutFont(FTGLlayout *);
+
+FTGL_EXPORT void ftglSetLayoutLineLength(FTGLlayout *, const float);
+FTGL_EXPORT float ftglGetLayoutLineLength(FTGLlayout *);
+
+FTGL_EXPORT void ftglSetLayoutAlignment(FTGLlayout *, const int);
+FTGL_EXPORT int ftglGetLayoutAlignement(FTGLlayout *);
+
+FTGL_EXPORT void ftglSetLayoutLineSpacing(FTGLlayout *, const float);
+FTGL_EXPORT float ftglGetLayoutLineSpacing(FTGLlayout *);
+
+FTGL_END_C_DECLS
+
 #endif  /* __FTSimpleLayout__ */
 

@@ -78,38 +78,49 @@ class FTGL_EXPORT FTLayout
 
 FTGL_BEGIN_C_DECLS
 
+/**
+ * FTGLlayout is the interface for layout managers that render text.
+ */
 struct _FTGLlayout;
 typedef struct _FTGLlayout FTGLlayout;
 
-FTGL_EXPORT FTGLlayout *ftglCreateSimpleLayout(void);
+/**
+ * Destroy an FTGL layout object.
+ *
+ * @param layout  An FTGLlayout* object.
+ */
+FTGL_EXPORT void ftglDestroyLayout(FTGLlayout* layout);
 
-FTGL_EXPORT void ftglDestroyLayout(FTGLlayout*);
+/**
+ * Get the bounding box for a string.
+ *
+ * @param layout  An FTGLlayout* object.
+ * @param string  A char buffer
+ * @param bounds  An array of 6 float values where the bounding box's lower
+ *                left near and upper right far 3D coordinates will be stored.
+ */
+FTGL_EXPORT void ftglGetLayoutBBox(FTGLlayout *layout, const char* string,
+                                   float bounds[6]);
 
-FTGL_EXPORT void ftglLayoutBBox (FTGLlayout *, const char*, float []);
+/**
+ * Render a string of characters.
+ *
+ * @param layout  An FTGLlayout* object.
+ * @param string  Char string to be output.
+ * @param mode  Render mode to display.
+ */
+FTGL_EXPORT void ftglRenderLayout(FTGLlayout *layout, const char *string,
+                                  int mode);
 
-FTGL_EXPORT void ftglLayoutRender      (FTGLlayout *, const char *);
-FTGL_EXPORT void ftglLayoutRenderMode  (FTGLlayout *, const char *, int);
-FTGL_EXPORT void ftglLayoutRenderSpace (FTGLlayout *, const char *, float);
-
-FTGL_EXPORT void      ftglLayoutSetFont (FTGLlayout *, FTGLfont*);
-FTGL_EXPORT FTGLfont* ftglLayoutGetFont (FTGLlayout *);
-
-FTGL_EXPORT void  ftglLayoutSetLineLength  (FTGLlayout *, const float);
-FTGL_EXPORT float ftglLayoutGetLineLength  (FTGLlayout *);
-
-#ifdef __cplusplus /*FIXME: Éric, this is WRONG */
-FTGL_EXPORT void                ftglLayoutSetAlignment   (FTGLlayout *, const FTGL::TextAlignment);
-FTGL_EXPORT FTGL::TextAlignment ftglLayoutGetAlignement  (FTGLlayout *);
-#else
-FTGL_EXPORT void                ftglLayoutSetAlignment   (FTGLlayout *, const int);
-FTGL_EXPORT int                 ftglLayoutGetAlignement  (FTGLlayout *);
-#endif
-
-FTGL_EXPORT void  ftglLayoutSetLineSpacing (FTGLlayout *, const float);
-FTGL_EXPORT float ftglLayoutGetLineSpacing (FTGLlayout *);
+/**
+ * Query a layout for errors.
+ *
+ * @param layout  An FTGLlayout* object.
+ * @return  The current error code.
+ */
+FTGL_EXPORT FT_Error ftglGetLayoutError(FTGLlayout* layout);
 
 FTGL_END_C_DECLS
 
 #endif  /* __FTLayout__ */
-
 
