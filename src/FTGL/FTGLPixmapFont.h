@@ -71,5 +71,19 @@ class FTGL_EXPORT FTPixmapFont : public FTFont
 
 #endif // __cplusplus
 
+FTGL_BEGIN_C_DECLS
+
+/**
+ * Create a specialised FTGLfont object for handling pixmap (grey scale) fonts.
+ *
+ * @param file  The font file name.
+ * @return  An FTGLfont* object.
+ *
+ * @see  FTGLfont
+ */
+FTGL_EXPORT FTGLfont *ftglCreatePixmapFont(const char *file);
+
+FTGL_END_C_DECLS
+
 #endif  //  __FTPixmapFont__
 

@@ -71,4 +71,19 @@ class FTGL_EXPORT FTOutlineFont : public FTFont
 
 #endif //__cplusplus
 
+FTGL_BEGIN_C_DECLS
+
+/**
+ * Create a specialised FTGLfont object for handling vector outline fonts.
+ *
+ * @param file  The font file name.
+ * @return  An FTGLfont* object.
+ *
+ * @see  FTGLfont
+ */
+FTGL_EXPORT FTGLfont *ftglCreateOutlineFont(const char *file);
+
+FTGL_END_C_DECLS
+
 #endif // __FTOutlineFont__
+

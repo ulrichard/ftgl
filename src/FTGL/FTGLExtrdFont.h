@@ -72,5 +72,20 @@ class FTGL_EXPORT FTExtrudeFont : public FTFont
 
 #endif //__cplusplus
 
+FTGL_BEGIN_C_DECLS
+
+/**
+ * Create a specialised FTGLfont object for handling extruded poygon fonts.
+ *
+ * @param file  The font file name.
+ * @return  An FTGLfont* object.
+ *
+ * @see  FTGLfont
+ * @see  ftglCreatePolygonFont
+ */
+FTGL_EXPORT FTGLfont *ftglCreateExtrudeFont(const char *file);
+
+FTGL_END_C_DECLS
+
 #endif // __FTExtrudeFont__
 

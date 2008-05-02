@@ -40,13 +40,13 @@ int main(int argc, char *argv[])
     ALLOC(ftglCreateTextureFont, f[5], argv[1]);
 
     for(i = 0; i < 6; i++)
-        ftglRender(f[i], "Hello world");
+        ftglRenderFont(f[i], "Hello world", FTGL_RENDER_ALL);
 
     for(i = 0; i < 6; i++)
-        ftglSetFaceSize(f[i], 37);
+        ftglSetFontFaceSize(f[i], 37, 72);
 
     for(i = 0; i < 6; i++)
-        ftglRender(f[i], "Hello world");
+        ftglRenderFont(f[i], "Hello world", FTGL_RENDER_ALL);
 
     for(i = 0; i < 6; i++)
         ftglDestroyFont(f[i]);

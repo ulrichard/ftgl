@@ -74,12 +74,12 @@ class FTGL_EXPORT FTFont
         bool Attach(const char* fontFilePath);
 
         /**
-         * Attach auxilliary data to font e.g font metrics, from memory
+         * Attach auxilliary data to font e.g font metrics, from memory.
          *
          * Note: not all font formats implement this function.
          *
-         * @param pBufferBytes  the in-memory buffer
-         * @param bufferSizeInBytes  the length of the buffer in bytes
+         * @param pBufferBytes  the in-memory buffer.
+         * @param bufferSizeInBytes  the length of the buffer in bytes.
          * @return          <code>true</code> if file has been attached
          *                  successfully.
          */
@@ -91,7 +91,7 @@ class FTGL_EXPORT FTFont
          *
          * @param encoding      Freetype enumerate for char map code.
          * @return              <code>true</code> if charmap was valid and
-         *                      set correctly
+         *                      set correctly.
          */
         bool CharMap(FT_Encoding encoding);
 
@@ -119,7 +119,7 @@ class FTGL_EXPORT FTFont
         bool FaceSize(const unsigned int size, const unsigned int res = 72);
 
         /**
-         * Get the current face size in points.
+         * Get the current face size in points (1/72 inch).
          *
          * @return face size
          */
@@ -308,40 +308,173 @@ class FTGL_EXPORT FTFont
 
 FTGL_BEGIN_C_DECLS
 
-FTGL_EXPORT FTGLfont *ftglCreateBitmapFont(const char *fontname);
-FTGL_EXPORT FTGLfont *ftglCreateExtrudeFont(const char *fontname);
-FTGL_EXPORT FTGLfont *ftglCreateOutlineFont(const char *fontname);
-FTGL_EXPORT FTGLfont *ftglCreatePixmapFont(const char *fontname);
-FTGL_EXPORT FTGLfont *ftglCreatePolygonFont(const char *fontname);
-FTGL_EXPORT FTGLfont *ftglCreateTextureFont(const char *fontname);
+/**
+ * Destroy an FTGL font object.
+ *
+ * @param font  An FTGLfont* object.
+ */
+FTGL_EXPORT void ftglDestroyFont(FTGLfont* font);
 
-FTGL_EXPORT void ftglDestroyFont(FTGLfont*);
+/**
+ * Attach auxilliary file to font e.g. font metrics.
+ *
+ * Note: not all font formats implement this function.
+ *
+ * @param font  An FTGLfont* object.
+ * @param path  Auxilliary font file path.
+ * @return  1 if file has been attached successfully.
+ */
+FTGL_EXPORT int ftglAttachFile(FTGLfont* font, const char* path);
 
-FTGL_EXPORT int ftglAttachFile (FTGLfont*, const char*);
-FTGL_EXPORT int ftglAttachData (FTGLfont*, const unsigned char *, size_t);
+/**
+ * Attach auxilliary data to font, e.g. font metrics, from memory.
+ *
+ * Note: not all font formats implement this function.
+ *
+ * @param font  An FTGLfont* object.
+ * @param data  The in-memory buffer.
+ * @param size  The length of the buffer in bytes.
+ * @return  1 if file has been attached successfully.
+ */
+FTGL_EXPORT int ftglAttachData(FTGLfont* font, const unsigned char * data,
+                               size_t size);
 
-FTGL_EXPORT int          ftglCharMap      (FTGLfont*, FT_Encoding);
-FTGL_EXPORT unsigned int ftglCharMapCount (FTGLfont*);
-FTGL_EXPORT FT_Encoding* CharMapList      (FTGLfont*);
+/**
+ * Set the character map for the face.
+ *
+ * @param font  An FTGLfont* object.
+ * @param encoding  Freetype enumerate for char map code.
+ * @return  1 if charmap was valid and set correctly.
+ */
+FTGL_EXPORT int ftglSetFontCharMap(FTGLfont* font, FT_Encoding encoding);
 
-FTGL_EXPORT int          ftglSetFaceSize    (FTGLfont*, unsigned int);
-FTGL_EXPORT int          ftglSetFaceSizeRes (FTGLfont*,
-                                             unsigned int, unsigned int);
-FTGL_EXPORT unsigned int ftglGetFaceSize    (FTGLfont*);
-FTGL_EXPORT void         ftglSetDepth       (FTGLfont*, float);
-FTGL_EXPORT void         ftglSetOutset      (FTGLfont*, float, float);
+/**
+ * Get the number of character maps in this face.
+ *
+ * @param font  An FTGLfont* object.
+ * @return character map count.
+ */
+FTGL_EXPORT unsigned int ftglGetFontCharMapCount(FTGLfont* font);
 
-FTGL_EXPORT void ftglUseDisplayList (FTGLfont*, int);
+/**
+ * Get a list of character maps in this face.
+ *
+ * @param font  An FTGLfont* object.
+ * @return pointer to the first encoding.
+ */
+FTGL_EXPORT FT_Encoding* ftglGetFontCharMapList(FTGLfont* font);
 
-FTGL_EXPORT float ftglAscender   (FTGLfont*);
-FTGL_EXPORT float ftglDescender  (FTGLfont*);
-FTGL_EXPORT float ftglLineHeight (FTGLfont*);
-FTGL_EXPORT void  ftglBBox       (FTGLfont*, const char *, float[]);
-FTGL_EXPORT float ftglAdvance    (FTGLfont*, const char *);
-FTGL_EXPORT void  ftglRender     (FTGLfont*, const char *);
-FTGL_EXPORT void  ftglRenderMode (FTGLfont*, const char *, int);
+/**
+ * Set the char size for the current face.
+ *
+ * @param font  An FTGLfont* object.
+ * @param size  The face size in points (1/72 inch).
+ * @param res  The resolution of the target device, or 0 to use the default
+ *             value of 72.
+ * @return  1 if size was set correctly.
+ */
+FTGL_EXPORT int ftglSetFontFaceSize(FTGLfont* font, unsigned int size,
+                                    unsigned int res);
 
-FTGL_EXPORT FT_Error ftglError (FTGLfont*);
+/**
+ * Get the current face size in points (1/72 inch).
+ *
+ * @param font  An FTGLfont* object.
+ * @return face size
+ */
+FTGL_EXPORT unsigned int ftglGetFontFaceSize(FTGLfont* font);
+
+/**
+ * Set the extrusion distance for the font. Only implemented by
+ * FTExtrudeFont.
+ *
+ * @param font  An FTGLfont* object.
+ * @param depth  The extrusion distance.
+ */
+FTGL_EXPORT void ftglSetDepth(FTGLfont* font, float depth);
+
+/**
+ * Set the outset distance for the font. Only FTOutlineFont, FTPolygonFont
+ * and FTExtrudeFont implement front outset. Only FTExtrudeFont implements
+ * back outset.
+ *
+ * @param font  An FTGLfont* object.
+ * @param front  The front outset distance.
+ * @param back  The back outset distance.
+ */
+FTGL_EXPORT void ftglSetFontOutset(FTGLfont* font, float front, float back);
+
+/**
+ * Enable or disable the use of Display Lists inside FTGL
+ *
+ * @param font  An FTGLfont* object.
+ * @param useList  1 turns ON display lists.
+ *                 0 turns OFF display lists.
+ */
+FTGL_EXPORT void ftglFontUseDisplayList(FTGLfont* font, int useList);
+
+/**
+ * Get the global ascender height for the face.
+ *
+ * @param font  An FTGLfont* object.
+ * @return  Ascender height
+ */
+FTGL_EXPORT float ftglGetFontAscender(FTGLfont* font);
+
+/**
+ * Gets the global descender height for the face.
+ *
+ * @param font  An FTGLfont* object.
+ * @return  Descender height
+ */
+FTGL_EXPORT float ftglGetFontDescender(FTGLfont* font);
+
+/**
+ * Gets the line spacing for the font.
+ *
+ * @param font  An FTGLfont* object.
+ * @return  Line height
+ */
+FTGL_EXPORT float ftglGetFontLineHeight(FTGLfont* font);
+
+/**
+ * Get the bounding box for a string.
+ *
+ * @param font  An FTGLfont* object.
+ * @param string  A char buffer
+ * @param start  The index of the first character of string to check.
+ * @param end  The index of the last character of string to check.  If < 0
+               then characters will be parsed until a '@\0' is encountered.
+ * @param bounds  An array of 6 float values where the bounding box's lower
+ *                left near and upper right far 3D coordinates will be stored.
+ */
+FTGL_EXPORT void ftglGetFontBBox(FTGLfont* font, const char *string,
+                                 int start, int end, float bounds[6]);
+
+/**
+ * Get the advance width for a string.
+ *
+ * @param font  An FTGLfont* object.
+ * @param string  A char string.
+ * @return  Advance width
+ */
+FTGL_EXPORT float ftglGetFontAdvance(FTGLfont* font, const char *string);
+
+/**
+ * Render a string of characters.
+ *
+ * @param font  An FTGLfont* object.
+ * @param string  Char string to be output.
+ * @param mode  Render mode to display.
+ */
+FTGL_EXPORT void ftglRenderFont(FTGLfont* font, const char *string, int mode);
+
+/**
+ * Queries the Font for errors.
+ *
+ * @return  The current error code.
+ */
+FTGL_EXPORT FT_Error ftglGetFontError(FTGLfont* font);
 
 FTGL_END_C_DECLS
 

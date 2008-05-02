@@ -71,5 +71,20 @@ class FTGL_EXPORT FTPolygonFont : public FTFont
 
 #endif //__cplusplus
 
+FTGL_BEGIN_C_DECLS
+
+/**
+ * Create a specialised FTGLfont object for handling tesselated polygon
+ * mesh fonts.
+ *
+ * @param file  The font file name.
+ * @return  An FTGLfont* object.
+ *
+ * @see  FTGLfont
+ */
+FTGL_EXPORT FTGLfont *ftglCreatePolygonFont(const char *file);
+
+FTGL_END_C_DECLS
+
 #endif  //  __FTPolygonFont__
 
