@@ -188,11 +188,11 @@ class FTGL_EXPORT FTPoint
         {
             FTPoint temp;
             temp.values[0] = values[1] * point.values[2]
-                           - values[2] * point.values[1];
-            temp.values[1] = values[2] * point.values[3]
-                           - values[3] * point.values[2];
-            temp.values[2] = values[3] * point.values[0]
-                           - values[0] * point.values[3];
+                              - values[2] * point.values[1];
+            temp.values[1] = values[2] * point.values[0]
+                              - values[0] * point.values[2];
+            temp.values[2] = values[0] * point.values[1]
+                              - values[1] * point.values[0];
             return temp;
         }
 
