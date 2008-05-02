@@ -133,6 +133,7 @@ void ftglDestroyGlyph(FTGLglyph *g)
     }
 
     g->ptr = NULL;
+    free(g);
 }
 
 // const FTPoint& FTGlyph::Render(const FTPoint& pen, int renderMode);

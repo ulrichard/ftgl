@@ -125,6 +125,7 @@ void ftglDestroyFont(FTGLfont *f)
     }
 
     f->ptr = NULL;
+    free(f);
 }
 
 // bool FTFont::Attach(const char* fontFilePath);

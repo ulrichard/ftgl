@@ -66,23 +66,24 @@ C_TOR(ftglCreateSimpleLayout, (), FTSimpleLayout, (), LAYOUT_SIMPLE);
     }
 
 // FTLayout::~FTLayout();
-void ftglDestroyLayout(FTGLlayout *f)
+void ftglDestroyLayout(FTGLlayout *l)
 {
-    if(!f || !f->ptr)
+    if(!l || !l->ptr)
     {
         fprintf(stderr, "FTGL warning: NULL pointer in %s\n", __FUNCTION__);
         return;
     }
-    switch(f->type)
+    switch(l->type)
     {
         case FTGL::LAYOUT_SIMPLE:
-            delete dynamic_cast<FTSimpleLayout*>(f->ptr); break;
+            delete dynamic_cast<FTSimpleLayout*>(l->ptr); break;
         default:
             fprintf(stderr, "FTGL warning: %s not implemented for %d\n",
-                            __FUNCTION__, f->type);
+                            __FUNCTION__, l->type);
     }
 
-    f->ptr = NULL;
+    l->ptr = NULL;
+    free(l);
 }
 
 // virtual void BBox(const char* string, float& llx, float& lly, float& llz, float& urx, float& ury, float& urz)
