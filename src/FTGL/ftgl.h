@@ -45,17 +45,6 @@ typedef float    FTGL_FLOAT;
 #   define FTGL_END_C_DECLS
 #endif
 
-FTGL_BEGIN_C_DECLS
-
-    struct _FTGLGlyph;
-    typedef struct _FTGLglyph FTGLglyph;
-    struct _FTGLFont;
-    typedef struct _FTGLfont FTGLfont;
-    struct _FTGLlayout;
-    typedef struct _FTGLlayout FTGLlayout;
-
-FTGL_END_C_DECLS
-
 #ifdef __cplusplus
 namespace FTGL
 {

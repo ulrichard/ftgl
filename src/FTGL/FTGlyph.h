@@ -95,28 +95,67 @@ class FTGL_EXPORT FTGlyph
 
 FTGL_BEGIN_C_DECLS
 
-FTGL_EXPORT FTGLglyph *ftglCreateBitmapGlyph(FT_GlyphSlot glyph);
-FTGL_EXPORT FTGLglyph *ftglCreateExtrudeGlyph(FT_GlyphSlot glyph, float depth,
-                                float frontOutset, float backOutset,
-                                int useDisplayList);
-FTGL_EXPORT FTGLglyph *ftglCreateOutlineGlyph(FT_GlyphSlot glyph, float outset,
-                                  int useDisplayList);
-FTGL_EXPORT FTGLglyph *ftglCreatePixmapGlyph(FT_GlyphSlot glyph);
-FTGL_EXPORT FTGLglyph *ftglCreatePolyGlyph(FT_GlyphSlot glyph, float outset,
-                               int useDisplayList);
-FTGL_EXPORT FTGLglyph *ftglCreateTextureGlyph(FT_GlyphSlot glyph, int id,
-                                              int xOffset, int yOffset,
-                                              int width, int height);
+/**
+ * FTGLglyph is the base class for FTGL glyphs.
+ *
+ * It provides the interface between Freetype glyphs and their openGL
+ * renderable counterparts. This is an abstract class and derived classes
+ * must implement the ftglRenderGlyph() function.
+ */
+struct _FTGLGlyph;
+typedef struct _FTGLglyph FTGLglyph;
 
-FTGL_EXPORT void ftglDestroyGlyph(FTGLglyph *g);
+/**
+ * Destroy an FTGL glyph object.
+ *
+ * @param glyph  An FTGLglyph* object.
+ */
+FTGL_EXPORT void ftglDestroyGlyph(FTGLglyph *glyph);
 
-FTGL_EXPORT void ftglGlyphRender(FTGLglyph *g, FTGL_DOUBLE penx,
+/**
+ * Render a glyph at the current pen position and compute the corresponding
+ * advance.
+ *
+ * @param glyph  An FTGLglyph* object.
+ * @param penx  The current pen's X position.
+ * @param peny  The current pen's Y position.
+ * @param renderMode  Render mode to display
+ * @param advancex  A pointer to an FTGL_DOUBLE where to write the advance's X
+ *                  component.
+ * @param advancey  A pointer to an FTGL_DOUBLE where to write the advance's Y
+ *                  component.
+ */
+FTGL_EXPORT void ftglRenderGlyph(FTGLglyph *glyph, FTGL_DOUBLE penx,
                                  FTGL_DOUBLE peny, int renderMode,
                                  FTGL_DOUBLE *advancex, FTGL_DOUBLE *advancey);
-FTGL_EXPORT void ftglGlyphAdvance(FTGLglyph *g, FTGL_DOUBLE *advancex,
-                                  FTGL_DOUBLE *advancey);
-FTGL_EXPORT void ftglGlyphBBox(FTGLglyph *g, float *lx, float *ly, float *lz,
-                               float *ux, float *uy, float *uz);
+/**
+ * Return the advance for a glyph.
+ *
+ * @param glyph  An FTGLglyph* object.
+ * @param advancex  A pointer to an FTGL_DOUBLE where to write the advance's X
+ *                  component.
+ * @param advancey  A pointer to an FTGL_DOUBLE where to write the advance's Y
+ *                  component.
+ */
+FTGL_EXPORT void ftglGetGlyphAdvance(FTGLglyph *glyph, FTGL_DOUBLE *advancex,
+                                     FTGL_DOUBLE *advancey);
+
+/**
+ * Return the bounding box for a glyph.
+ *
+ * @param glyph  An FTGLglyph* object.
+ * @param bounds  An array of 6 float values where the bounding box's lower
+ *                left near and upper right far 3D coordinates will be stored.
+ */
+FTGL_EXPORT void ftglGetGlyphBBox(FTGLglyph *glyph, float bounds[6]);
+
+/**
+ * Query a glyph for errors.
+ *
+ * @param glyph  An FTGLglyph* object.
+ * @return  The current error code.
+ */
+FTGL_EXPORT FT_Error ftglGetGlyphError(FTGLglyph* glyph);
 
 FTGL_END_C_DECLS
 

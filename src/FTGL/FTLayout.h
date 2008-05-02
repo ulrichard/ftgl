@@ -78,6 +78,9 @@ class FTGL_EXPORT FTLayout
 
 FTGL_BEGIN_C_DECLS
 
+struct _FTGLlayout;
+typedef struct _FTGLlayout FTGLlayout;
+
 FTGL_EXPORT FTGLlayout *ftglCreateSimpleLayout(void);
 
 FTGL_EXPORT void ftglDestroyLayout(FTGLlayout*);

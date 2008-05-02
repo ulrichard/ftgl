@@ -58,5 +58,17 @@ class  FTGL_EXPORT FTPixmapGlyph : public FTGlyph
 
 #endif //__cplusplus
 
+FTGL_BEGIN_C_DECLS
+
+/**
+ * Create a specialisation of FTGLglyph for creating pixmaps.
+ *
+ * @param glyph The Freetype glyph to be processed
+ * @return  An FTGLglyph* object.
+ */
+FTGL_EXPORT FTGLglyph *ftglCreatePixmapGlyph(FT_GlyphSlot glyph);
+
+FTGL_END_C_DECLS
+
 #endif  //  __FTPixmapGlyph__
 

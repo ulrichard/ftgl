@@ -68,5 +68,24 @@ class FTGL_EXPORT FTTextureGlyph : public FTGlyph
 
 #endif //__cplusplus
 
+FTGL_BEGIN_C_DECLS
+
+/**
+ * Create a specialisation of FTGLglyph for creating pixmaps.
+ *
+ * @param glyph The Freetype glyph to be processed.
+ * @param id  The id of the texture that this glyph will be drawn in.
+ * @param xOffset  The x offset into the parent texture to draw this glyph.
+ * @param yOffset  The y offset into the parent texture to draw this glyph.
+ * @param width  The width of the parent texture.
+ * @param height  The height (number of rows) of the parent texture.
+ * @return  An FTGLglyph* object.
+ */
+FTGL_EXPORT FTGLglyph *ftglCreateTextureGlyph(FT_GlyphSlot glyph, int id,
+                                              int xOffset, int yOffset,
+                                              int width, int height);
+
+FTGL_END_C_DECLS
+
 #endif  //  __FTTextureGlyph__
 

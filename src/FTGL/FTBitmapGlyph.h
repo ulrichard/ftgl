@@ -37,12 +37,7 @@
 /**
  * FTBitmapGlyph is a specialisation of FTGlyph for creating bitmaps.
  *
- * It provides the interface between Freetype glyphs and their openGL
- * Renderable counterparts. This is an abstract class and derived classes
- * must implement the <code>Render</code> function.
- *
  * @see FTGlyphContainer
- *
  */
 class FTGL_EXPORT FTBitmapGlyph : public FTGlyph
 {
@@ -61,6 +56,18 @@ class FTGL_EXPORT FTBitmapGlyph : public FTGlyph
 };
 
 #endif //__cplusplus
+
+FTGL_BEGIN_C_DECLS
+
+/**
+ * Create a specialisation of FTGLglyph for creating bitmaps.
+ *
+ * @param glyph The Freetype glyph to be processed
+ * @return  An FTGLglyph* object.
+ */
+FTGL_EXPORT FTGLglyph *ftglCreateBitmapGlyph(FT_GlyphSlot glyph);
+
+FTGL_END_C_DECLS
 
 #endif  //  __FTBitmapGlyph__
 

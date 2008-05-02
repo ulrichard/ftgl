@@ -309,6 +309,16 @@ class FTGL_EXPORT FTFont
 FTGL_BEGIN_C_DECLS
 
 /**
+ * FTGLfont is the public interface for the FTGL library.
+ *
+ * It is good practice after using these functions to test the error
+ * code returned. <code>FT_Error Error()</code>. Check the freetype file
+ * fterrdef.h for error definitions.
+ */
+struct _FTGLFont;
+typedef struct _FTGLfont FTGLfont;
+
+/**
  * Destroy an FTGL font object.
  *
  * @param font  An FTGLfont* object.
@@ -391,7 +401,7 @@ FTGL_EXPORT unsigned int ftglGetFontFaceSize(FTGLfont* font);
  * @param font  An FTGLfont* object.
  * @param depth  The extrusion distance.
  */
-FTGL_EXPORT void ftglSetDepth(FTGLfont* font, float depth);
+FTGL_EXPORT void ftglSetFontDepth(FTGLfont* font, float depth);
 
 /**
  * Set the outset distance for the font. Only FTOutlineFont, FTPolygonFont
@@ -405,13 +415,13 @@ FTGL_EXPORT void ftglSetDepth(FTGLfont* font, float depth);
 FTGL_EXPORT void ftglSetFontOutset(FTGLfont* font, float front, float back);
 
 /**
- * Enable or disable the use of Display Lists inside FTGL
+ * Enable or disable the use of Display Lists inside FTGL.
  *
  * @param font  An FTGLfont* object.
  * @param useList  1 turns ON display lists.
  *                 0 turns OFF display lists.
  */
-FTGL_EXPORT void ftglFontUseDisplayList(FTGLfont* font, int useList);
+FTGL_EXPORT void ftglSetFontDisplayList(FTGLfont* font, int useList);
 
 /**
  * Get the global ascender height for the face.
@@ -470,8 +480,9 @@ FTGL_EXPORT float ftglGetFontAdvance(FTGLfont* font, const char *string);
 FTGL_EXPORT void ftglRenderFont(FTGLfont* font, const char *string, int mode);
 
 /**
- * Queries the Font for errors.
+ * Query a font for errors.
  *
+ * @param font  An FTGLfont* object.
  * @return  The current error code.
  */
 FTGL_EXPORT FT_Error ftglGetFontError(FTGLfont* font);

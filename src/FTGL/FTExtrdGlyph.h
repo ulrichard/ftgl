@@ -71,5 +71,27 @@ class FTGL_EXPORT FTExtrudeGlyph : public FTGlyph
 
 #endif //__cplusplus
 
+FTGL_BEGIN_C_DECLS
+
+/**
+ * Create a specialisation of FTGLglyph for creating tessellated
+ * extruded polygon glyphs.
+ *
+ * @param glyph The Freetype glyph to be processed
+ * @param depth The distance along the z axis to extrude the glyph
+ * @param frontOutset outset contour size
+ * @param backOutset outset contour size
+ * @param useDisplayList Enable or disable the use of Display Lists
+ *                       for this glyph
+ *                       <code>true</code> turns ON display lists.
+ *                       <code>false</code> turns OFF display lists.
+ * @return  An FTGLglyph* object.
+ */
+FTGL_EXPORT FTGLglyph *ftglCreateExtrudeGlyph(FT_GlyphSlot glyph, float depth,
+                                float frontOutset, float backOutset,
+                                int useDisplayList);
+
+FTGL_END_C_DECLS
+
 #endif  //  __FTExtrudeGlyph__
 

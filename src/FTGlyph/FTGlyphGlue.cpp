@@ -140,47 +140,46 @@ void ftglDestroyGlyph(FTGLglyph *g)
 }
 
 // const FTPoint& FTGlyph::Render(const FTPoint& pen, int renderMode);
-C_FUN(static const FTPoint&, _ftglGlyphRender, (FTGLglyph *g,
+C_FUN(static const FTPoint&, _ftglRenderGlyph, (FTGLglyph *g,
                                    const FTPoint& pen, int renderMode),
       return static_ftpoint, Render, (pen, renderMode));
 
-void ftglGlyphRender(FTGLglyph *g, FTGL_DOUBLE penx, FTGL_DOUBLE peny,
+void ftglRenderGlyph(FTGLglyph *g, FTGL_DOUBLE penx, FTGL_DOUBLE peny,
                      int renderMode, FTGL_DOUBLE *advancex,
                      FTGL_DOUBLE *advancey)
 {
     FTPoint pen(penx, peny);
-    FTPoint ret = _ftglGlyphRender(g, pen, renderMode);
+    FTPoint ret = _ftglRenderGlyph(g, pen, renderMode);
     *advancex = ret.X();
     *advancey = ret.Y();
 }
 
 // const FTPoint& FTGlyph::Advance() const;
-C_FUN(static const FTPoint&, _ftglGlyphAdvance, (FTGLglyph *g),
+C_FUN(static const FTPoint&, _ftglGetGlyphAdvance, (FTGLglyph *g),
       return static_ftpoint, Advance, ());
 
-void ftglGlyphAdvance(FTGLglyph *g, FTGL_DOUBLE *advancex,
-                      FTGL_DOUBLE *advancey)
+void ftglGetGlyphAdvance(FTGLglyph *g, FTGL_DOUBLE *advancex,
+                         FTGL_DOUBLE *advancey)
 {
-    FTPoint ret = _ftglGlyphAdvance(g);
+    FTPoint ret = _ftglGetGlyphAdvance(g);
     *advancex = ret.X();
     *advancey = ret.Y();
 }
 
 // const FTBBox& FTGlyph::BBox() const;
-C_FUN(static const FTBBox&, _ftglGlyphBBox, (FTGLglyph *g),
+C_FUN(static const FTBBox&, _ftglGetGlyphBBox, (FTGLglyph *g),
       return static_ftbbox, BBox, ());
 
-void ftglGlyphBBox(FTGLglyph *g, float *lx, float *ly, float *lz,
-                   float *ux, float *uy, float *uz)
+void ftglGetGlyphBBox(FTGLglyph *g, float bounds[6])
 {
-    FTBBox ret = _ftglGlyphBBox(g);
+    FTBBox ret = _ftglGetGlyphBBox(g);
     FTPoint lower = ret.Lower(), upper = ret.Upper();
-    *lx = lower.X(); *ly = lower.Y(); *lz = lower.Z();
-    *ux = upper.X(); *uy = upper.Y(); *uz = upper.Z();
+    bounds[0] = lower.X(); bounds[1] = lower.Y(); bounds[2] = lower.Z();
+    bounds[3] = upper.X(); bounds[4] = upper.Y(); bounds[5] = upper.Z();
 }
 
 // FT_Error FTGlyph::Error() const;
-C_FUN(FT_Error, ftglGlyphError, (FTGLglyph *g), return -1, Error, ());
+C_FUN(FT_Error, ftglGetGlyphError, (FTGLglyph *g), return -1, Error, ());
 
 FTGL_END_C_DECLS
 
