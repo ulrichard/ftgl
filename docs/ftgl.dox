@@ -1,6 +1,6 @@
 /** \mainpage FTGL User Guide
 
- \image html ftgldemo.jpg
+ \image html ftgl.png
 
  \section intro Introduction
 
@@ -26,7 +26,9 @@
 
  FTGL supports 6 font output types among 3 groups: raster fonts, vector fonts
  and texture fonts, which are a mixture of both. Each font type has its
- advantages and disadvantages The two raster types are:
+ advantages and disadvantages.
+
+ The two raster types are:
 
  - Bitmapped
  - Antialiased pixmapped

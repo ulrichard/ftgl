@@ -5,7 +5,7 @@ htmldoc_DATA = html/doxygen.css
 endif
 
 IMAGES = \
-    images/ftgldemo.jpg \
+    images/ftgl.png \
     images/metrics.png \
     $(NULL)
 
