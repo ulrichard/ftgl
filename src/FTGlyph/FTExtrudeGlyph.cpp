@@ -117,7 +117,7 @@ FTExtrudeGlyphImpl::~FTExtrudeGlyphImpl()
 {
     if(glList)
     {
-        glDeleteLists(glList, 1);
+        glDeleteLists(glList, 3);
     }
     else if(vectoriser)
     {
