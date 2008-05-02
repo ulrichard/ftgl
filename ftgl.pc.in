@@ -6,6 +6,7 @@ includedir=@includedir@
 Name: @PACKAGE_NAME@
 Description: OpenGL frontend to Freetype 2
 Version: @PACKAGE_VERSION@
-Requires: 
-Libs: @GL_LIBS@ @FT2_LIBS@ -L${libdir} -lftgl
-Cflags: -I${includedir} @GL_CFLAGS@ @FT2_CFLAGS@
+Libs: -L${libdir} -lftgl
+Requires.private: freetype2
+Libs.private: @GL_LIBS@ -lm
+Cflags: -I${includedir} -I${includedir}/FTGL
