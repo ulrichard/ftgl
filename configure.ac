@@ -31,7 +31,6 @@ AM_PROG_CC_C_O
 
 # Checks for header files.
 AC_HEADER_STDC
-AC_CHECK_HEADER([stdlib.h])
 
 # Checks for libraries.
 
@@ -45,10 +44,8 @@ AC_PATH_XTRA
 FTGL_CHECK_GL
 FTGL_CHECK_GLUT
 
-CPPUNIT="no"
-PKG_CHECK_MODULES(CPPUNIT, cppunit, [CPPUNIT="yes"])
-AC_MSG_RESULT($CPPUNIT)
-AM_CONDITIONAL(HAVE_CPPUNIT, test "$CPPUNIT" != "no")
+AC_PATH_PROG(CPPUNIT, cppunit, no)
+AM_CONDITIONAL(HAVE_CPPUNIT, test "x$CPPUNIT" != "xno")
 
 # Checks for library functions -- this isn't really used at the moment
 AC_CHECK_FUNCS([memset])
@@ -59,7 +56,7 @@ CFLAGS="${CFLAGS} -Waggregate-return -Wstrict-prototypes -Wmissing-prototypes -W
 
 # Build HTML documentatin?
 AC_PATH_PROG(DOXYGEN, doxygen, no)
-AM_CONDITIONAL(HAVE_DOXYGEN, test "$DOXYGEN" != "no")
+AM_CONDITIONAL(HAVE_DOXYGEN, test "x$DOXYGEN" != "xno")
 
 # Build PDF documentation?
 AC_PATH_PROG(LATEX, pdflatex, no)
