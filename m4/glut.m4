@@ -75,6 +75,15 @@ if test "$ac_cv_have_glut" = "yes"; then
             [ac_cv_have_glut=no])
     fi
 
+    if test "$ac_cv_have_glut" = "no"; then
+	# Try again with GLUT framework
+	LIBS="-framework GLUT"
+        AC_LINK_IFELSE(
+            [AC_LANG_CALL([],[glutInit])],
+            [ac_cv_have_glut=yes],
+            [ac_cv_have_glut=no])
+    fi
+
     if test "$ac_cv_have_glut" = "yes"; then
         AC_MSG_RESULT([yes])
         GLUT_LIBS="$LIBS"
@@ -84,7 +93,7 @@ if test "$ac_cv_have_glut" = "yes"; then
 fi
 
 if test "$ac_cv_have_glut" = "no"; then
-    AC_MSG_WARN([GLUT headers not availabe, example program won't be compiled.])
+    AC_MSG_WARN([GLUT headers not available, example program won't be compiled.])
 fi
 
 AM_CONDITIONAL(HAVE_GLUT, [test "$ac_cv_have_glut" = "yes"])

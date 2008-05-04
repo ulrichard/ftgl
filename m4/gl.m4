@@ -34,7 +34,22 @@ else
 fi
 
 CPPFLAGS="$GL_CFLAGS"
-AC_CHECK_HEADER([GL/gl.h], [], [AC_MSG_ERROR([GL/gl.h is needed, please specify its location with --with-gl-inc.  If this still fails, please contact mmagallo@debian.org, include the string FTGL somewhere in the subject line and provide a copy of the config.log file that was left behind.])])
+AC_CHECK_HEADER([GL/gl.h], [AC_DEFINE([HAVE_GL_GL_H], 1, [Define to 1 if you have the <GL/gl.h header])], [
+	AC_CHECK_HEADER([OpenGL/gl.h], [AC_DEFINE([HAVE_OPENGL_GL_H], 1, [Define to 1 if you have the <OpenGL/gl.h header])], [
+		AC_MSG_ERROR([GL/gl.h or OpenGL/gl.h is needed, please specify its location with --with-gl-inc.  If this still fails, please contact henryj@paradise.net.nz, include the string FTGL somewhere in the subject line and provide a copy of the config.log file that was left behind.])
+	])
+])
+
+dnl check whether the OpenGL framework is available
+AC_MSG_CHECKING([for OpenGL framework (Darwin-specific)])
+FRAMEWORK_OPENGL=""
+PRELDFLAGS="$LDFLAGS"
+LDFLAGS="$LDFLAGS -Xlinker -framework -Xlinker OpenGL"
+# -Xlinker is used because libtool is busted prior to 1.6 wrt frameworks
+AC_TRY_LINK([#include <OpenGL/gl.h>], [glBegin(GL_POINTS)],
+    [FRAMEWORK_OPENGL="-Xlinker -framework -Xlinker OpenGL" ; ac_cv_search_glBegin="-Xlinker -framework -Xlinker OpenGL" ; AC_MSG_RESULT(yes)], [AC_MSG_RESULT(no)])
+with_gl_lib="$FRAMEWORK_OPENGL"
+AC_SUBST(FRAMEWORK_OPENGL)
 
 AC_MSG_CHECKING([for GL library])
 if test "x$with_gl_lib" != "x" ; then
@@ -58,12 +73,23 @@ if test "x$HAVE_GL" = xyes ; then
     GL_LIBS=$LIBS
 else
     AC_MSG_RESULT([no])
-    AC_MSG_ERROR([GL library could not be found, please specify its location with --with-gl-lib.  If this still fails, please contact mmagallo@debian.org, include the string FTGL somewhere in the subject line and provide a copy of the config.log file that was left behind.])
+    AC_MSG_ERROR([GL library could not be found, please specify its location with --with-gl-lib.  If this still fails, please contact henryj@paradise.net.nz, include the string FTGL somewhere in the subject line and provide a copy of the config.log file that was left behind.])
 fi
 
-AC_CHECK_HEADER([GL/glu.h])
+AC_CHECK_HEADER([GL/glu.h], [AC_DEFINE([HAVE_GL_GLU_H], 1, [Define to 1 if you have the <GL/glu.h header])], [
+	AC_CHECK_HEADER([OpenGL/glu.h], [AC_DEFINE([HAVE_OPENGL_GLU_H], 1, [Define to 1 if you have the <OpenGL/glu.h header])], [
+		AC_MSG_ERROR([GL/glu.h or OpenGL/glu.h is needed, please specify its location with --with-gl-inc.  If this still fails, please contact henryj@paradise.net.nz, include the string FTGL somewhere in the subject line and provide a copy of the config.log file that was left behind.])
+	])
+])
 AC_MSG_CHECKING([for GLU version >= 1.2])
-AC_TRY_COMPILE([#include <GL/glu.h>], [
+AC_TRY_COMPILE([
+#ifdef HAVE_GL_GLU_H
+#  include <GL/glu.h>
+#endif
+#ifdef HAVE_OPENGL_GLU_H
+#  include <OpenGL/glu.h>
+#endif
+], [
 #if !defined(GLU_VERSION_1_2)
 #error GLU too old
 #endif
@@ -87,7 +113,7 @@ if test "x$HAVE_GLU" = xyes ; then
     GL_LIBS="$LIBS"
 else
     AC_MSG_RESULT([no])
-    AC_MSG_ERROR([GLU library could not be found, please specify its location with --with-gl-lib.  If this still fails, please contact mmagallo@debian.org, include the string FTGL somewhere in the subject line and provide a copy of the config.log file that was left behind.])
+    AC_MSG_ERROR([GLU library could not be found, please specify its location with --with-gl-lib.  If this still fails, please contact henryj@paradise.net.nz, include the string FTGL somewhere in the subject line and provide a copy of the config.log file that was left behind.])
 fi
 
 AC_SUBST(GL_CFLAGS)
