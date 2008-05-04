@@ -29,7 +29,9 @@ libftgl_la_SOURCES = \
 libftgl_la_CPPFLAGS = -IFTGlyph -IFTFont -IFTLayout
 libftgl_la_CXXFLAGS = $(FT2_CFLAGS) $(GL_CFLAGS)
 libftgl_la_LDFLAGS = \
-        $(FT2_LIBS) $(GL_LIBS) -no-undefined -version-number @LT_VERSION@
+        -no-undefined -version-number $(LT_VERSION)
+libftgl_la_LIBADD = \
+	$(FT2_LIBS) $(GL_LIBS)
 
 ftgldir = $(includedir)/FTGL
 ftgl_HEADERS = $(ftgl_headers)
