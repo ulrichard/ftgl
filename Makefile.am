@@ -19,7 +19,6 @@ EXTRA_DIST = \
 	README \
 	TODO \
 	autogen.sh \
-	cleanup \
 	configure.ac \
 	ftgl.pc.in \
 	$(NULL)
