@@ -92,12 +92,12 @@ AC_CONFIG_FILES([
 ])
 AC_CONFIG_FILES([
   Makefile
-  src/Makefile
-  test/Makefile
+  demo/Makefile
   docs/Makefile
   docs/doxygen.cfg
-  demo/Makefile
   msvc/Makefile
+  src/Makefile
+  test/Makefile
 ])
 AC_OUTPUT
 
