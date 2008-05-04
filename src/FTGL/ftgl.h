@@ -53,7 +53,7 @@ namespace FTGL
         RENDER_FRONT = 0x01,
         RENDER_BACK = 0x02,
         RENDER_SIDE = 0x04,
-        RENDER_ALL = 0xffff,
+        RENDER_ALL = 0xffff
     } RenderMode;
 
     typedef enum
@@ -61,7 +61,7 @@ namespace FTGL
         ALIGN_LEFT,
         ALIGN_CENTER,
         ALIGN_RIGHT,
-        ALIGN_JUSTIFY,
+        ALIGN_JUSTIFY
     } TextAlignment;
 }
 #else
