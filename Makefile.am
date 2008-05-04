@@ -23,4 +23,14 @@ EXTRA_DIST = \
 	ftgl.pc.in \
 	$(NULL)
 
+# Print out an informative summary.
+all-local:
+	@$(ECHO) "Done."
+	@$(ECHO)
+	@if test "x$(MAKECMDGOALS)" = "xall-am" -o "x$(.TARGETS)" = "xall-am" -o "x$(MAKECMDGOALS)" = "x" -o "x$(.TARGETS)" = "x" ; then \
+	  $(ECHO) "---" ;\
+	  $(ECHO) "Run 'make install' to begin installation into $(prefix)" ;\
+	fi
+	@$(ECHO)
+
 NULL =
