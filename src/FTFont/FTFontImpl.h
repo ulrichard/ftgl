@@ -43,10 +43,28 @@ class FTFontImpl
     protected:
         FTFontImpl(char const *fontFilePath);
 
-
         FTFontImpl(const unsigned char *pBufferBytes, size_t bufferSizeInBytes);
 
         virtual ~FTFontImpl();
+
+        virtual bool Attach(const char* fontFilePath);
+
+        virtual bool Attach(const unsigned char *pBufferBytes,
+                            size_t bufferSizeInBytes);
+
+        virtual bool CharMap(FT_Encoding encoding);
+
+        virtual unsigned int CharMapCount();
+
+        virtual FT_Encoding* CharMapList();
+
+        virtual void UseDisplayList(bool useList);
+
+        virtual float Ascender() const;
+
+        virtual float Descender() const;
+
+        virtual float LineHeight() const;
 
         virtual void Render(const char* string);
 

@@ -62,31 +62,13 @@ FTFont::~FTFont()
 
 bool FTFont::Attach(const char* fontFilePath)
 {
-    if(impl->face.Attach(fontFilePath))
-    {
-        impl->err = 0;
-        return true;
-    }
-    else
-    {
-        impl->err = impl->face.Error();
-        return false;
-    }
+    return impl->Attach(fontFilePath);
 }
 
 
 bool FTFont::Attach(const unsigned char *pBufferBytes, size_t bufferSizeInBytes)
 {
-    if(impl->face.Attach(pBufferBytes, bufferSizeInBytes))
-    {
-        impl->err = 0;
-        return true;
-    }
-    else
-    {
-        impl->err = impl->face.Error();
-        return false;
-    }
+    return impl->Attach(pBufferBytes, bufferSizeInBytes);
 }
 
 
@@ -104,86 +86,85 @@ unsigned int FTFont::FaceSize() const
 
 void FTFont::Depth(float depth)
 {
-    impl->Depth(depth);
+    return impl->Depth(depth);
 }
 
 
 void FTFont::Outset(float outset)
 {
-    impl->Outset(outset);
+    return impl->Outset(outset);
 }
 
 
 void FTFont::Outset(float front, float back)
 {
-    impl->Outset(front, back);
+    return impl->Outset(front, back);
 }
 
 
 bool FTFont::CharMap(FT_Encoding encoding)
 {
-    bool result = impl->glyphList->CharMap(encoding);
-    impl->err = impl->glyphList->Error();
-    return result;
+    return impl->CharMap(encoding);
 }
 
 
 unsigned int FTFont::CharMapCount()
 {
-    return impl->face.CharMapCount();
+    return impl->CharMapCount();
 }
 
 
 FT_Encoding* FTFont::CharMapList()
 {
-    return impl->face.CharMapList();
+    return impl->CharMapList();
 }
 
 
 void FTFont::UseDisplayList(bool useList)
 {
-    impl->useDisplayLists = useList;
+    return impl->UseDisplayList(useList);
 }
+
 
 float FTFont::Ascender() const
 {
-    return impl->charSize.Ascender();
+    return impl->Ascender();
 }
 
 
 float FTFont::Descender() const
 {
-    return impl->charSize.Descender();
+    return impl->Descender();
 }
 
 
 float FTFont::LineHeight() const
 {
-    return impl->charSize.Height();
+    return impl->LineHeight();
 }
 
 
 void FTFont::Render(const wchar_t* string)
 {
-    impl->Render(string);
+    return impl->Render(string);
 }
 
 
 void FTFont::Render(const char * string)
 {
-    impl->Render(string);
+    return impl->Render(string);
 }
 
 
 void FTFont::Render(const char * string, int renderMode)
 {
-    impl->Render(string, renderMode);
+    return impl->Render(string, renderMode);
 }
 
 
 void FTFont::Render(const wchar_t* string, int renderMode)
 {
-    impl->Render(string, renderMode);
+    return impl->Render(string, renderMode);
 }
 
 
@@ -218,14 +199,14 @@ void FTFont::BBox(const wchar_t* string, const int start, const int end,
 void FTFont::BBox(const char* string, float& llx, float& lly, float& llz,
                   float& urx, float& ury, float& urz)
 {
-    impl->BBox(string, 0, -1, llx, lly, llz, urx, ury, urz);
+    return impl->BBox(string, 0, -1, llx, lly, llz, urx, ury, urz);
 }
 
 
 void FTFont::BBox(const wchar_t* string, float& llx, float& lly, float& llz,
                   float& urx, float& ury, float& urz)
 {
-    impl->BBox(string, 0, -1, llx, lly, llz, urx, ury, urz);
+    return impl->BBox(string, 0, -1, llx, lly, llz, urx, ury, urz);
 }
 
 
@@ -327,6 +308,33 @@ void FTFontImpl::Render(const wchar_t* string, int renderMode)
 }
 
 
+bool FTFontImpl::Attach(const char* fontFilePath)
+{
+    if(!face.Attach(fontFilePath))
+    {
+        err = face.Error();
+        return false;
+    }
+
+    err = 0;
+    return true;
+}
+
+
+bool FTFontImpl::Attach(const unsigned char *pBufferBytes,
+                        size_t bufferSizeInBytes)
+{
+    if(!face.Attach(pBufferBytes, bufferSizeInBytes))
+    {
+        err = face.Error();
+        return false;
+    }
+
+    err = 0;
+    return true;
+}
+
+
 bool FTFontImpl::FaceSize(const unsigned int size, const unsigned int res)
 {
     charSize = face.Size(size, res);
@@ -368,6 +376,50 @@ void FTFontImpl::Outset(float outset)
 void FTFontImpl::Outset(float front, float back)
 {
     ;
+}
+
+
+bool FTFontImpl::CharMap(FT_Encoding encoding)
+{
+    bool result = glyphList->CharMap(encoding);
+    err = glyphList->Error();
+    return result;
+}
+
+
+unsigned int FTFontImpl::CharMapCount()
+{
+    return face.CharMapCount();
+}
+
+
+FT_Encoding* FTFontImpl::CharMapList()
+{
+    return face.CharMapList();
+}
+
+
+void FTFontImpl::UseDisplayList(bool useList)
+{
+    useDisplayLists = useList;
+}
+
+
+float FTFontImpl::Ascender() const
+{
+    return charSize.Ascender();
+}
+
+
+float FTFontImpl::Descender() const
+{
+    return charSize.Descender();
+}
+
+
+float FTFontImpl::LineHeight() const
+{
+    return charSize.Height();
 }
 
 
