@@ -96,3 +96,56 @@ AC_CONFIG_FILES([
 ])
 AC_OUTPUT
 
+dnl
+dnl Expand the variables for summary reporting
+dnl
+prefix=`eval "echo $prefix"`
+prefix=`eval "echo $prefix"`
+bindir=`eval "echo $bindir"`
+bindir=`eval "echo $bindir"`
+sysconfdir=`eval "echo $sysconfdir"`
+sysconfdir=`eval "echo $sysconfdir"`
+mandir=`eval "echo $mandir"`
+mandir=`eval "echo $mandir"`
+datadir=`eval "echo $datadir"`
+datadir=`eval "echo $datadir"`
+
+AC_MSG_RESULT([Done.])
+AC_MSG_RESULT([])
+AC_MSG_RESULT([FTGL configured with the following settings:])
+AC_MSG_RESULT([])
+AC_MSG_RESULT([             Prefix: ${prefix}])
+AC_MSG_RESULT([           Binaries: ${bindir}])
+AC_MSG_RESULT([Configuration files: ${sysconfdir}])
+AC_MSG_RESULT([         Data files: ${datadir}])
+AC_MSG_RESULT([])
+AC_MSG_RESULT([CC       = ${CC}])
+AC_MSG_RESULT([CXX      = ${CXX}])
+if test "x$CFLAGS" != "x" ; then
+AC_MSG_RESULT([CFLAGS   = ${CFLAGS}])
+fi
+if test "x$CXXFLAGS" != "x" ; then
+AC_MSG_RESULT([CXXFLAGS = ${CXXFLAGS}])
+fi
+if test "x$CPPFLAGS" != "x" ; then
+AC_MSG_RESULT([CPPFLAGS = ${CPPFLAGS}])
+fi
+if test "x$LDFLAGS" != "x" ; then
+AC_MSG_RESULT([LDFLAGS  = ${LDFLAGS}])
+fi
+if test "x$LIBS" != "x" ; then
+AC_MSG_RESULT([LIBS     = ${LIBS}])
+fi
+AC_MSG_RESULT([])
+AC_MSG_RESULT([---])
+AC_MSG_RESULT([$0 complete, type 'make' to begin building])
+AC_MSG_RESULT([])
+
+# Local Variables:
+# tab-width: 8
+# mode: autoconf
+# sh-indentation: 2
+# sh-basic-offset: 2
+# indent-tabs-mode: t
+# End:
+# ex: shiftwidth=2 tabstop=8
