@@ -50,6 +50,11 @@ AM_CONDITIONAL(HAVE_CPPUNIT, test "x$CPPUNIT" != "xno")
 # Checks for library functions -- this isn't really used at the moment
 AC_CHECK_FUNCS([memset])
 
+dnl search the include directory (required for non-srcdir builds).
+dnl should come after the system services checks otherwise headers
+dnl may conflict.
+CPPFLAGS="$CPPFLAGS -I\${top_srcdir}/src"
+
 # Warning flags
 CPPFLAGS="${CPPFLAGS} -Wall -Wpointer-arith -Wcast-align -Wcast-qual -Wshadow -Wsign-compare"
 CFLAGS="${CFLAGS} -Waggregate-return -Wstrict-prototypes -Wmissing-prototypes -Wnested-externs"
