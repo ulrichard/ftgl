@@ -57,6 +57,7 @@ class FTGL_EXPORT FTFont
 {
         /* Allow FTLayout classes to access this->impl. */
         friend class FTLayoutImpl;
+        friend class FTFontImpl;
 
     protected:
         FTFont();
@@ -303,6 +304,17 @@ class FTGL_EXPORT FTFont
         FT_Error Error() const;
 
     protected:
+        /**
+         * Construct a glyph of the correct type.
+         *
+         * Clients must override the function and return their specialised
+         * FTGlyph.
+         *
+         * @param slot  A FreeType glyph slot.
+         * @return  An FT****Glyph or <code>null</code> on failure.
+         */
+        virtual FTGlyph* MakeGlyph(FT_GlyphSlot slot) = 0;
+
         FTFontImpl *impl;
 };
 

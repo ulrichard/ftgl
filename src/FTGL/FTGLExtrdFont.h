@@ -68,6 +68,18 @@ class FTGL_EXPORT FTExtrudeFont : public FTFont
          * Destructor
          */
         ~FTExtrudeFont();
+
+    protected:
+        /**
+         * Construct a glyph of the correct type.
+         *
+         * Clients must override the function and return their specialised
+         * FTGlyph.
+         *
+         * @param slot  A FreeType glyph slot.
+         * @return  An FT****Glyph or <code>null</code> on failure.
+         */
+        virtual FTGlyph* MakeGlyph(FT_GlyphSlot slot);
 };
 
 #define FTGLExtrdFont FTExtrudeFont

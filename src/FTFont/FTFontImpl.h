@@ -41,9 +41,10 @@ class FTFontImpl
         friend class FTFont;
 
     protected:
-        FTFontImpl(char const *fontFilePath);
+        FTFontImpl(FTFont *ftFont, char const *fontFilePath);
 
-        FTFontImpl(const unsigned char *pBufferBytes, size_t bufferSizeInBytes);
+        FTFontImpl(FTFont *ftFont, const unsigned char *pBufferBytes,
+                   size_t bufferSizeInBytes);
 
         virtual ~FTFontImpl();
 
@@ -98,17 +99,6 @@ class FTFontImpl
         float Advance(const char* string);
 
         /**
-         * Construct a glyph of the correct type.
-         *
-         * Clients must override the function and return their specialised
-         * FTGlyph.
-         *
-         * @param g The glyph index NOT the char code.
-         * @return  An FT****Glyph or <code>null</code> on failure.
-         */
-        virtual FTGlyph* MakeGlyph(unsigned int g) = 0;
-
-        /**
          * Current face object
          */
         FTFace face;
@@ -131,6 +121,11 @@ class FTFontImpl
         FT_Error err;
 
     private:
+        /**
+         * A link back to the object of which we are the implementation.
+         */
+        FTFont *base;
+
         /**
          * Render a character.
          * This function does an implicit conversion on its arguments.

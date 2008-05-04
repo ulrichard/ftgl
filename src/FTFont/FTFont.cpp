@@ -221,7 +221,8 @@ FT_Error FTFont::Error() const
 //
 
 
-FTFontImpl::FTFontImpl(char const *fontFilePath) :
+FTFontImpl::FTFontImpl(FTFont *ftFont, char const *fontFilePath) :
+    base(ftFont),
     face(fontFilePath),
     useDisplayLists(true),
     glyphList(0)
@@ -234,8 +235,9 @@ FTFontImpl::FTFontImpl(char const *fontFilePath) :
 }
 
 
-FTFontImpl::FTFontImpl(const unsigned char *pBufferBytes,
+FTFontImpl::FTFontImpl(FTFont *ftFont, const unsigned char *pBufferBytes,
                        size_t bufferSizeInBytes) :
+    base(ftFont),
     face(pBufferBytes, bufferSizeInBytes),
     useDisplayLists(true),
     glyphList(0)
@@ -518,21 +520,40 @@ float FTFontImpl::Advance(const wchar_t* string)
 
 bool FTFontImpl::CheckGlyph(const unsigned int characterCode)
 {
-    if(NULL == glyphList->Glyph(characterCode))
+    if(glyphList->Glyph(characterCode))
     {
-        unsigned int glyphIndex = glyphList->FontIndex(characterCode);
-        FTGlyph* tempGlyph = MakeGlyph(glyphIndex);
-        if(NULL == tempGlyph)
-        {
-            if(0 == err)
-            {
-                err = 0x13;
-            }
-
-            return false;
-        }
-        glyphList->Add(tempGlyph, characterCode);
+        return true;
     }
+
+    /*
+     * FIXME: load options are not the same for all subclasses:
+     *  FTBitmapGlyph: FT_LOAD_DEFAULT
+     *  FTExtrudeGlyph: FT_LOAD_NO_HINTING
+     *  FTOutlineGlyph: FT_LOAD_NO_HINTING
+     *  FTPixmapGlyph: FT_LOAD_NO_HINTING | FT_LOAD_NO_BITMAP
+     *  FTPolygonGlyph: FT_LOAD_NO_HINTING
+     *  FTTextureGlyph: FT_LOAD_NO_HINTING | FT_LOAD_NO_BITMAP
+     */
+    unsigned int glyphIndex = glyphList->FontIndex(characterCode);
+    FT_GlyphSlot ftGlyph = face.Glyph(glyphIndex, FT_LOAD_NO_HINTING);
+
+    if(!ftGlyph)
+    {
+        err = face.Error();
+        return false;
+    }
+
+    FTGlyph* tempGlyph = base->MakeGlyph(ftGlyph);
+    if(NULL == tempGlyph)
+    {
+        if(0 == err)
+        {
+            err = 0x13;
+        }
+
+        return false;
+    }
+    glyphList->Add(tempGlyph, characterCode);
 
     return true;
 }
