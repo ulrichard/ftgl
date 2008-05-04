@@ -27,8 +27,8 @@
 
 #include "FTGL/ftgl.h"
 
-#include "FTFontImpl.h"
-#include "FTLayoutImpl.h"
+#include "../FTFont/FTFontImpl.h"
+#include "./FTLayoutImpl.h"
 
 
 //

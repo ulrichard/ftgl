@@ -31,8 +31,9 @@
 #include "FTGL/ftgl.h"
 
 #include "FTInternals.h"
-#include "FTTextureFontImpl.h"
-#include "FTTextureGlyphImpl.h"
+
+#include "../FTGlyph/FTTextureGlyphImpl.h"
+#include "./FTTextureFontImpl.h"
 
 
 //
