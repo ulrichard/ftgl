@@ -31,6 +31,7 @@ AM_PROG_CC_C_O
 
 # Checks for header files.
 AC_HEADER_STDC
+AC_CHECK_HEADER([stdlib.h])
 
 # Checks for libraries.
 
@@ -44,7 +45,8 @@ AC_PATH_XTRA
 FTGL_CHECK_GL
 FTGL_CHECK_GLUT
 
-AC_PATH_PROG(CPPUNIT, cppunit, no)
+PKG_CHECK_MODULES(CPPUNIT, cppunit, [CPPUNIT="yes"], [CPPUNIT="no"])
+AC_MSG_RESULT($CPPUNIT)
 AM_CONDITIONAL(HAVE_CPPUNIT, test "x$CPPUNIT" != "xno")
 
 # Checks for library functions -- this isn't really used at the moment
@@ -68,10 +70,10 @@ AC_PATH_PROG(LATEX, pdflatex, no)
 AC_PATH_PROG(KPSEWHICH, kpsewhich, no)
 AC_PATH_PROG(DVIPS, dvips, no)
 AC_PATH_PROG(EPSTOPDF, epstopdf, no)
-if test "${DVIPS}" = "no" -o "${KPSEWHICH}" = "no" -o "${EPSTOPDF}" = "no"; then
+if test "x${DVIPS}" = "xno" -o "${KPSEWHICH}" = "no" -o "${EPSTOPDF}" = "no"; then
   LATEX="no"
 fi
-if test "${LATEX}" != "no"; then
+if test "x${LATEX}" != "xno"; then
   AC_MSG_CHECKING(for a4.sty and a4wide.sty)
   if "${KPSEWHICH}" a4.sty >/dev/null 2>&1; then
     if "${KPSEWHICH}" a4wide.sty >/dev/null 2>&1; then
@@ -85,7 +87,7 @@ if test "${LATEX}" != "no"; then
     AC_MSG_RESULT(no)
   fi
 fi
-AM_CONDITIONAL(HAVE_LATEX, test "${LATEX}" != "no")
+AM_CONDITIONAL(HAVE_LATEX, test "x${LATEX}" != "xno")
 
 AC_CONFIG_FILES([
   ftgl.pc
