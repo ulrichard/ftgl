@@ -13,6 +13,7 @@ versions have changes attributed per contributor.
 
     * Fixed several memory corruption and crash bugs - Sam Hocevar
     * Fixed several memory leaks - Sam Hocevar
+    * Kerning and glyph performance enhancements - Sean Morrison
     * The library now also exports a pure C interface - Éric Beets
     * Inset/outset contour support for fonts - Éric Beets
     * Fix the FTLayout rendering - Éric Beets
