@@ -77,7 +77,7 @@ if test "$ac_cv_have_glut" = "yes"; then
 
     if test "$ac_cv_have_glut" = "no"; then
 	# Try again with GLUT framework
-	LIBS="-framework GLUT"
+	LIBS="-Xlinker -framework -Xlinker OpenGL -Xlinker -framework -Xlinker GLUT"
         AC_LINK_IFELSE(
             [AC_LANG_CALL([],[glutInit])],
             [ac_cv_have_glut=yes],
