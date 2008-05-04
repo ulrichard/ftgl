@@ -302,16 +302,16 @@ inline void FTFontImpl::RenderI(const T* string, int renderMode)
 }
 
 
-void FTFontImpl::Render(const wchar_t* string)
-{
-    RenderI(string, FTGL::RENDER_FRONT | FTGL::RENDER_BACK | FTGL::RENDER_SIDE);
-}
-
-
 void FTFontImpl::Render(const char * string)
 {
     RenderI((const unsigned char *)string,
             FTGL::RENDER_FRONT | FTGL::RENDER_BACK | FTGL::RENDER_SIDE);
+}
+
+
+void FTFontImpl::Render(const wchar_t* string)
+{
+    RenderI(string, FTGL::RENDER_FRONT | FTGL::RENDER_BACK | FTGL::RENDER_SIDE);
 }
 
 
@@ -418,7 +418,9 @@ void FTFontImpl::BBox(const char* string, const int start, const int end,
                       float& llx, float& lly, float& llz,
                       float& urx, float& ury, float& urz)
 {
-    return BBoxI(string, start, end, llx, lly, llz, urx, ury, urz);
+    /* The chars need to be unsigned because they are cast to int later */
+    return BBoxI((const unsigned char *)string, start, end,
+                 llx, lly, llz, urx, ury, urz);
 }
 
 
@@ -449,15 +451,16 @@ inline float FTFontImpl::AdvanceI(const T* string)
 }
 
 
-float FTFontImpl::Advance(const wchar_t* string)
+float FTFontImpl::Advance(const char* string)
 {
-    return AdvanceI(string);
+    /* The chars need to be unsigned because they are cast to int later */
+    return AdvanceI((const unsigned char *)string);
 }
 
 
-float FTFontImpl::Advance(const char* string)
+float FTFontImpl::Advance(const wchar_t* string)
 {
-    return AdvanceI((const unsigned char *)string);
+    return AdvanceI(string);
 }
 
 
