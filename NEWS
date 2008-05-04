@@ -11,6 +11,8 @@ versions have changes attributed per contributor.
 --- 2008-XX-XX  Release 2.1.3                                      ---
 ----------------------------------------------------------------------
 
+    * Fixed several memory corruption and crash bugs - Sam Hocevar
+    * Fixed several memory leaks - Sam Hocevar
     * The library now also exports a pure C interface - Éric Beets
     * Inset/outset contour support for fonts - Éric Beets
     * Fix the FTLayout rendering - Éric Beets
