@@ -43,13 +43,14 @@ AC_CHECK_HEADER([GL/gl.h], [AC_DEFINE([HAVE_GL_GL_H], 1, [Define to 1 if you hav
 dnl check whether the OpenGL framework is available
 AC_MSG_CHECKING([for OpenGL framework (Darwin-specific)])
 FRAMEWORK_OPENGL=""
-PRELDFLAGS="$LDFLAGS"
-LDFLAGS="$LDFLAGS -Xlinker -framework -Xlinker OpenGL"
+PRELIBS="$LIBS"
+LIBS="$LIBS -Xlinker -framework -Xlinker OpenGL"
 # -Xlinker is used because libtool is busted prior to 1.6 wrt frameworks
 AC_TRY_LINK([#include <OpenGL/gl.h>], [glBegin(GL_POINTS)],
     [FRAMEWORK_OPENGL="-Xlinker -framework -Xlinker OpenGL" ; ac_cv_search_glBegin="-Xlinker -framework -Xlinker OpenGL" ; AC_MSG_RESULT(yes)], [AC_MSG_RESULT(no)])
 with_gl_lib="$FRAMEWORK_OPENGL"
 AC_SUBST(FRAMEWORK_OPENGL)
+LIBS="$PRELIBS"
 
 AC_MSG_CHECKING([for GL library])
 if test "x$with_gl_lib" != "x" ; then
