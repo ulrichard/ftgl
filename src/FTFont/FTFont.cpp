@@ -224,7 +224,7 @@ FT_Error FTFont::Error() const
 FTFontImpl::FTFontImpl(FTFont *ftFont, char const *fontFilePath) :
     face(fontFilePath),
     useDisplayLists(true),
-    base(ftFont),
+    intf(ftFont),
     glyphList(0)
 {
     err = face.Error();
@@ -239,7 +239,7 @@ FTFontImpl::FTFontImpl(FTFont *ftFont, const unsigned char *pBufferBytes,
                        size_t bufferSizeInBytes) :
     face(pBufferBytes, bufferSizeInBytes),
     useDisplayLists(true),
-    base(ftFont),
+    intf(ftFont),
     glyphList(0)
 {
     err = face.Error();
@@ -535,16 +535,15 @@ bool FTFontImpl::CheckGlyph(const unsigned int characterCode)
      *  FTTextureGlyph: FT_LOAD_NO_HINTING | FT_LOAD_NO_BITMAP
      */
     unsigned int glyphIndex = glyphList->FontIndex(characterCode);
-    FT_GlyphSlot ftGlyph = face.Glyph(glyphIndex, FT_LOAD_NO_HINTING);
-
-    if(!ftGlyph)
+    FT_GlyphSlot ftSlot = face.Glyph(glyphIndex, FT_LOAD_NO_HINTING);
+    if(!ftSlot)
     {
         err = face.Error();
         return false;
     }
 
-    FTGlyph* tempGlyph = base->MakeGlyph(ftGlyph);
-    if(NULL == tempGlyph)
+    FTGlyph* tempGlyph = intf->MakeGlyph(ftSlot);
+    if(!tempGlyph)
     {
         if(0 == err)
         {
@@ -553,6 +552,7 @@ bool FTFontImpl::CheckGlyph(const unsigned int characterCode)
 
         return false;
     }
+
     glyphList->Add(tempGlyph, characterCode);
 
     return true;

@@ -122,9 +122,9 @@ class FTFontImpl
 
     private:
         /**
-         * A link back to the object of which we are the implementation.
+         * A link back to the interface of which we are the implementation.
          */
-        FTFont *base;
+        FTFont *intf;
 
         /**
          * Render a character.
