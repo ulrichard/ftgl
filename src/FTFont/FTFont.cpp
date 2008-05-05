@@ -222,9 +222,9 @@ FT_Error FTFont::Error() const
 
 
 FTFontImpl::FTFontImpl(FTFont *ftFont, char const *fontFilePath) :
-    base(ftFont),
     face(fontFilePath),
     useDisplayLists(true),
+    base(ftFont),
     glyphList(0)
 {
     err = face.Error();
@@ -237,9 +237,9 @@ FTFontImpl::FTFontImpl(FTFont *ftFont, char const *fontFilePath) :
 
 FTFontImpl::FTFontImpl(FTFont *ftFont, const unsigned char *pBufferBytes,
                        size_t bufferSizeInBytes) :
-    base(ftFont),
     face(pBufferBytes, bufferSizeInBytes),
     useDisplayLists(true),
+    base(ftFont),
     glyphList(0)
 {
     err = face.Error();
