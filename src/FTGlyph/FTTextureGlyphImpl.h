@@ -39,7 +39,7 @@ class FTTextureGlyphImpl : public FTGlyphImpl
 
         virtual ~FTTextureGlyphImpl();
 
-        virtual const FTPoint& Render(const FTPoint& pen, int renderMode);
+        virtual const FTPoint& RenderImpl(const FTPoint& pen, int renderMode);
 
     private:
         /**

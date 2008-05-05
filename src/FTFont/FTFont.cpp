@@ -45,17 +45,26 @@
 //
 
 
-FTFont::FTFont()
+FTFont::FTFont(char const *fontFilePath)
 {
-    /* impl is set by the child class */
-    impl = NULL;
+    impl = new FTFontImpl(this, fontFilePath);
+}
+
+
+FTFont::FTFont(const unsigned char *pBufferBytes, size_t bufferSizeInBytes)
+{
+    impl = new FTFontImpl(this, pBufferBytes, bufferSizeInBytes);
+}
+
+
+FTFont::FTFont(FTFontImpl *pImpl)
+{
+    impl = pImpl;
 }
 
 
 FTFont::~FTFont()
 {
-    /* Only the top class should be allowed to destroy impl, because
-     * we do not know how many levels of inheritance there are. */
     delete impl;
 }
 
@@ -339,17 +348,18 @@ bool FTFontImpl::Attach(const unsigned char *pBufferBytes,
 
 bool FTFontImpl::FaceSize(const unsigned int size, const unsigned int res)
 {
+    if(glyphList != NULL)
+    {
+        delete glyphList;
+        glyphList = NULL;
+    }
+
     charSize = face.Size(size, res);
     err = face.Error();
 
     if(err != 0)
     {
         return false;
-    }
-
-    if(glyphList != NULL)
-    {
-        delete glyphList;
     }
 
     glyphList = new FTGlyphContainer(&face);

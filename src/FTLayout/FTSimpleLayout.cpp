@@ -38,9 +38,52 @@
 //
 
 
-FTSimpleLayout::FTSimpleLayout()
+FTSimpleLayout::FTSimpleLayout() :
+    FTLayout(new FTSimpleLayoutImpl())
+{}
+
+
+FTSimpleLayout::~FTSimpleLayout()
+{}
+
+
+void FTSimpleLayout::BBox(const char *string, float& llx, float& lly,
+                              float& llz, float& urx, float& ury, float& urz)
 {
-    impl = new FTSimpleLayoutImpl();
+    dynamic_cast<FTSimpleLayoutImpl*>(impl)->BBox(string, llx, lly, llz,
+                                                  urx, ury, urz);
+}
+
+
+void FTSimpleLayout::BBox(const wchar_t *string, float& llx, float& lly,
+                              float& llz, float& urx, float& ury, float& urz)
+{
+    dynamic_cast<FTSimpleLayoutImpl*>(impl)->BBox(string, llx, lly, llz,
+                                                  urx, ury, urz);
+}
+
+
+void FTSimpleLayout::Render(const char *string)
+{
+    dynamic_cast<FTSimpleLayoutImpl*>(impl)->Render(string);
+}
+
+
+void FTSimpleLayout::Render(const wchar_t* string)
+{
+    dynamic_cast<FTSimpleLayoutImpl*>(impl)->Render(string);
+}
+
+
+void FTSimpleLayout::Render(const char *string, int renderMode)
+{
+    dynamic_cast<FTSimpleLayoutImpl*>(impl)->Render(string, renderMode);
+}
+
+
+void FTSimpleLayout::Render(const wchar_t* string, int renderMode)
+{
+    dynamic_cast<FTSimpleLayoutImpl*>(impl)->Render(string, renderMode);
 }
 
 

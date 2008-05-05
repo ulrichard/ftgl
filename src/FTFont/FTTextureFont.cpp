@@ -41,23 +41,19 @@
 //
 
 
-FTTextureFont::FTTextureFont(char const *fontFilePath)
-{
-    impl = new FTTextureFontImpl(this, fontFilePath);
-}
+FTTextureFont::FTTextureFont(char const *fontFilePath) :
+    FTFont(new FTTextureFontImpl(this, fontFilePath))
+{}
 
 
 FTTextureFont::FTTextureFont(const unsigned char *pBufferBytes,
-                             size_t bufferSizeInBytes)
-{
-    impl = new FTTextureFontImpl(this, pBufferBytes, bufferSizeInBytes);
-}
+                             size_t bufferSizeInBytes) :
+    FTFont(new FTTextureFontImpl(this, pBufferBytes, bufferSizeInBytes))
+{}
 
 
 FTTextureFont::~FTTextureFont()
-{
-    ;
-}
+{}
 
 
 FTGlyph* FTTextureFont::MakeGlyph(FT_GlyphSlot ftGlyph)

@@ -39,15 +39,19 @@
 
 
 FTTextureGlyph::FTTextureGlyph(FT_GlyphSlot glyph, int id, int xOffset,
-                               int yOffset, int width, int height)
-{
-    impl = new FTTextureGlyphImpl(glyph, id, xOffset, yOffset, width, height);
-}
+                               int yOffset, int width, int height) :
+    FTGlyph(new FTTextureGlyphImpl(glyph, id, xOffset, yOffset, width, height))
+{}
 
 
 FTTextureGlyph::~FTTextureGlyph()
+{}
+
+
+const FTPoint& FTTextureGlyph::Render(const FTPoint& pen, int renderMode)
 {
-    ;
+    FTTextureGlyphImpl *myimpl = dynamic_cast<FTTextureGlyphImpl *>(impl);
+    return myimpl->RenderImpl(pen, renderMode);
 }
 
 
@@ -116,7 +120,8 @@ FTTextureGlyphImpl::~FTTextureGlyphImpl()
 {}
 
 
-const FTPoint& FTTextureGlyphImpl::Render(const FTPoint& pen, int renderMode)
+const FTPoint& FTTextureGlyphImpl::RenderImpl(const FTPoint& pen,
+                                              int renderMode)
 {
     float dx, dy;
 

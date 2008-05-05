@@ -36,23 +36,19 @@
 //
 
 
-FTOutlineFont::FTOutlineFont(char const *fontFilePath)
-{
-    impl = new FTOutlineFontImpl(this, fontFilePath);
-}
+FTOutlineFont::FTOutlineFont(char const *fontFilePath) :
+    FTFont(new FTOutlineFontImpl(this, fontFilePath))
+{}
 
 
 FTOutlineFont::FTOutlineFont(const unsigned char *pBufferBytes,
-                             size_t bufferSizeInBytes)
-{
-    impl = new FTOutlineFontImpl(this, pBufferBytes, bufferSizeInBytes);
-}
+                             size_t bufferSizeInBytes) :
+    FTFont(new FTOutlineFontImpl(this, pBufferBytes, bufferSizeInBytes))
+{}
 
 
 FTOutlineFont::~FTOutlineFont()
-{
-    ;
-}
+{}
 
 
 FTGlyph* FTOutlineFont::MakeGlyph(FT_GlyphSlot ftGlyph)

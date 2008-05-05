@@ -53,26 +53,93 @@ class FTGL_EXPORT FTLayout
     protected:
         FTLayout();
 
+    private:
+        /**
+         * Internal FTGL FTLayout constructor. For private use only.
+         *
+         * @param pImpl  Internal implementation object. Will be destroyed
+         *               upon FTLayout deletion.
+         */
+        FTLayout(FTLayoutImpl *pImpl);
+
+        /* Allow our internal subclasses to access the private constructor */
+        friend class FTSimpleLayout;
+
     public:
+        /**
+         * Destructor
+         */
         virtual ~FTLayout();
 
-        void BBox(const char* string, float& llx, float& lly,
-                  float& llz, float& urx, float& ury, float& urz);
+        /**
+         * Get the bounding box for a formatted string.
+         *
+         * @param string    a char string
+         * @param llx       lower left near x coord
+         * @param lly       lower left near y coord
+         * @param llz       lower left near z coord
+         * @param urx       upper right far x coord
+         * @param ury       upper right far y coord
+         * @param urz       upper right far z coord
+         */
+        virtual void BBox(const char* string, float& llx, float& lly,
+                          float& llz, float& urx, float& ury, float& urz) = 0;
 
-        void BBox(const wchar_t* string, float& llx, float& lly,
-                  float& llz, float& urx, float& ury, float& urz);
+        /**
+         * Get the bounding box for a formatted string.
+         *
+         * @param string    a wchar_t string
+         * @param llx       lower left near x coord
+         * @param lly       lower left near y coord
+         * @param llz       lower left near z coord
+         * @param urx       upper right far x coord
+         * @param ury       upper right far y coord
+         * @param urz       upper right far z coord
+         */
+        virtual void BBox(const wchar_t* string, float& llx, float& lly,
+                          float& llz, float& urx, float& ury, float& urz) = 0;
 
-        void Render(const char *string);
+        /**
+         * Render a string of characters
+         *
+         * @param string    'C' style string to be output.
+         */
+        virtual void Render(const char *string) = 0;
 
-        void Render(const char *string, int renderMode);
+        /**
+         * Render a string of characters
+         *
+         * @param string    'C' style string to be output.
+         * @param renderMode  Render mode to diplay
+         */
+        virtual void Render(const char *string, int renderMode) = 0;
 
-        void Render(const wchar_t *string);
+        /**
+         * Render a string of characters
+         *
+         * @param string    wchar_t string to be output.
+         */
+        virtual void Render(const wchar_t *string) = 0;
 
-        void Render(const wchar_t *string, int renderMode);
+        /**
+         * Render a string of characters
+         *
+         * @param string    wchar_t string to be output.
+         * @param renderMode  Render mode to diplay
+         */
+        virtual void Render(const wchar_t *string, int renderMode) = 0;
 
+        /**
+         * Queries the Layout for errors.
+         *
+         * @return  The current error code.
+         */
         FT_Error Error() const;
 
-    protected:
+    private:
+        /**
+         * Internal FTGL FTLayout implementation object. For private use only.
+         */
         FTLayoutImpl *impl;
 };
 

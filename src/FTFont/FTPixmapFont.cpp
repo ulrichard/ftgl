@@ -36,23 +36,19 @@
 //
 
 
-FTPixmapFont::FTPixmapFont(char const *fontFilePath)
-{
-    impl = new FTPixmapFontImpl(this, fontFilePath);
-}
+FTPixmapFont::FTPixmapFont(char const *fontFilePath) :
+    FTFont(new FTPixmapFontImpl(this, fontFilePath))
+{}
 
 
 FTPixmapFont::FTPixmapFont(const unsigned char *pBufferBytes,
-                           size_t bufferSizeInBytes)
-{
-    impl = new FTPixmapFontImpl(this, pBufferBytes, bufferSizeInBytes);
-}
+                           size_t bufferSizeInBytes) :
+    FTFont(new FTPixmapFontImpl(this, pBufferBytes, bufferSizeInBytes))
+{}
 
 
 FTPixmapFont::~FTPixmapFont()
-{
-    ;
-}
+{}
 
 
 FTGlyph* FTPixmapFont::MakeGlyph(FT_GlyphSlot ftGlyph)

@@ -41,16 +41,20 @@
 
 FTExtrudeGlyph::FTExtrudeGlyph(FT_GlyphSlot glyph, float depth,
                                float frontOutset, float backOutset,
-                               bool useDisplayList)
-{
-    impl = new FTExtrudeGlyphImpl(glyph, depth, frontOutset, backOutset,
-                                  useDisplayList);
-}
+                               bool useDisplayList) :
+    FTGlyph(new FTExtrudeGlyphImpl(glyph, depth, frontOutset, backOutset,
+                                   useDisplayList))
+{}
 
 
 FTExtrudeGlyph::~FTExtrudeGlyph()
+{}
+
+
+const FTPoint& FTExtrudeGlyph::Render(const FTPoint& pen, int renderMode)
 {
-    ;
+    FTExtrudeGlyphImpl *myimpl = dynamic_cast<FTExtrudeGlyphImpl *>(impl);
+    return myimpl->RenderImpl(pen, renderMode);
 }
 
 
@@ -126,7 +130,8 @@ FTExtrudeGlyphImpl::~FTExtrudeGlyphImpl()
 }
 
 
-const FTPoint& FTExtrudeGlyphImpl::Render(const FTPoint& pen, int renderMode)
+const FTPoint& FTExtrudeGlyphImpl::RenderImpl(const FTPoint& pen,
+                                              int renderMode)
 {
     glTranslatef(pen.X(), pen.Y(), 0);
     if(glList)

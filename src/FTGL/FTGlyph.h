@@ -42,31 +42,52 @@ class FTGlyphImpl;
  *
  * It provides the interface between Freetype glyphs and their openGL
  * renderable counterparts. This is an abstract class and derived classes
- * must implement the <code>render</code> function.
+ * must implement the <code>Render</code> function.
  *
- * @see FTGlyphContainer
  * @see FTBBox
  * @see FTPoint
- *
  */
 class FTGL_EXPORT FTGlyph
 {
-    friend class FTGlyphContainer;
-
     protected:
-        FTGlyph();
+        /**
+         * Create a glyph.
+         *
+         * @param glyph  The Freetype glyph to be processed
+         */
+        FTGlyph(FT_GlyphSlot glyph);
+
+    private:
+        /**
+         * Internal FTGL FTGlyph constructor. For private use only.
+         *
+         * @param pImpl  Internal implementation object. Will be destroyed
+         *               upon FTGlyph deletion.
+         */
+        FTGlyph(FTGlyphImpl *pImpl);
+
+        /* Allow our internal subclasses to access the private constructor */
+        friend class FTBitmapGlyph;
+        friend class FTExtrudeGlyph;
+        friend class FTOutlineGlyph;
+        friend class FTPixmapGlyph;
+        friend class FTPolygonGlyph;
+        friend class FTTextureGlyph;
 
     public:
+        /**
+          * Destructor
+          */
         virtual ~FTGlyph();
 
         /**
          * Renders this glyph at the current pen position.
          *
-         * @param pen   The current pen position.
-         * @param renderMode Render mode to display
-         * @return      The advance distance for this glyph.
+         * @param pen  The current pen position.
+         * @param renderMode  Render mode to display
+         * @return  The advance distance for this glyph.
          */
-        const FTPoint& Render(const FTPoint& pen, int renderMode);
+        virtual const FTPoint& Render(const FTPoint& pen, int renderMode) = 0;
 
         /**
          * Return the advance width for this glyph.
@@ -89,7 +110,10 @@ class FTGL_EXPORT FTGlyph
          */
         FT_Error Error() const;
 
-    protected:
+    private:
+        /**
+         * Internal FTGL FTGlyph implementation object. For private use only.
+         */
         FTGlyphImpl *impl;
 };
 

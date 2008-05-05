@@ -55,12 +55,40 @@ class FTFontImpl;
  */
 class FTGL_EXPORT FTFont
 {
-        /* Allow FTLayout classes to access this->impl. */
-        friend class FTLayoutImpl;
-        friend class FTFontImpl;
-
     protected:
-        FTFont();
+        /**
+         * Open and read a font file. Sets Error flag.
+         *
+         * @param fontFilePath  font file path.
+         */
+        FTFont(char const *fontFilePath);
+
+        /**
+         * Open and read a font from a buffer in memory. Sets Error flag.
+         * The buffer is owned by the client and is NOT copied by FTGL. The
+         * pointer must be valid while using FTGL.
+         *
+         * @param pBufferBytes  the in-memory buffer
+         * @param bufferSizeInBytes  the length of the buffer in bytes
+         */
+        FTFont(const unsigned char *pBufferBytes, size_t bufferSizeInBytes);
+
+    private:
+        /* Allow our internal subclasses to access the private constructor */
+        friend class FTBitmapFont;
+        friend class FTExtrudeFont;
+        friend class FTOutlineFont;
+        friend class FTPixmapFont;
+        friend class FTPolygonFont;
+        friend class FTTextureFont;
+
+        /**
+         * Internal FTGL FTFont constructor. For private use only.
+         *
+         * @param pImpl  Internal implementation object. Will be destroyed
+         *               upon FTFont deletion.
+         */
+        FTFont(FTFontImpl *pImpl);
 
     public:
         virtual ~FTFont();
@@ -304,6 +332,9 @@ class FTGL_EXPORT FTFont
         FT_Error Error() const;
 
     protected:
+        /* Allow impl to access MakeGlyph */
+        friend class FTFontImpl;
+
         /**
          * Construct a glyph of the correct type.
          *
@@ -315,6 +346,13 @@ class FTGL_EXPORT FTFont
          */
         virtual FTGlyph* MakeGlyph(FT_GlyphSlot slot) = 0;
 
+    private:
+        /* Allow FTLayout classes to access this->impl. */
+        friend class FTLayoutImpl;
+
+        /**
+         * Internal FTGL FTFont implementation object. For private use only.
+         */
         FTFontImpl *impl;
 };
 
