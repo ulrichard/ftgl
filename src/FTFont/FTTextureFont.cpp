@@ -68,7 +68,7 @@ FTGlyph* FTTextureFont::MakeGlyph(FT_GlyphSlot ftGlyph)
         return NULL;
     }
 
-    return myimpl->MakeGlyph(ftGlyph);
+    return myimpl->MakeGlyphImpl(ftGlyph);
 }
 
 
@@ -133,7 +133,7 @@ FTTextureFontImpl::~FTTextureFontImpl()
 }
 
 
-FTGlyph* FTTextureFontImpl::MakeGlyph(FT_GlyphSlot ftGlyph)
+FTGlyph* FTTextureFontImpl::MakeGlyphImpl(FT_GlyphSlot ftGlyph)
 {
     glyphHeight = static_cast<int>(charSize.Height() + 0.5);
     glyphWidth = static_cast<int>(charSize.Width() + 0.5);

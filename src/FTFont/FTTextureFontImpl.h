@@ -88,7 +88,7 @@ class FTTextureFontImpl : public FTFontImpl
         /**
          * Create an FTTextureGlyph object for the base class.
          */
-        FTGlyph* MakeGlyph(FT_GlyphSlot ftGlyph);
+        FTGlyph* MakeGlyphImpl(FT_GlyphSlot ftGlyph);
 
         /**
          * Get the size of a block of memory required to layout the glyphs
