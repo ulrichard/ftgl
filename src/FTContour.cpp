@@ -93,53 +93,32 @@ void FTContour::evaluateCubicCurve(FTPoint A, FTPoint B, FTPoint C, FTPoint D)
     }
 }
 
-FTGL_DOUBLE FTContour::NormVector(const FTPoint &v)
-{
-    return sqrt(v.X() * v.X() + v.Y() * v.Y());
-}
 
-void FTContour::RotationMatrix(const FTPoint &a, const FTPoint &b, FTGL_DOUBLE *matRot, FTGL_DOUBLE *invRot)
+// This function is a bit tricky. Given a path ABC, it returns the
+// coordinates of the outset point facing B on the left at a distance
+// of 64.0. Ask Sam for details, even ASCII art cannot possibly explain
+// this properly.
+FTPoint FTContour::ComputeOutsetPoint(FTPoint A, FTPoint B, FTPoint C)
 {
-    FTPoint abVect(b.X() - a.X(), b.Y() - a.Y(), 0);
-    FTGL_DOUBLE abNorm = NormVector(abVect);
-    invRot[0] = matRot[0] = -abVect.X() / abNorm;
-    invRot[2] = matRot[1] = -abVect.Y() / abNorm;
-    invRot[1] = matRot[2] =  abVect.Y() / abNorm;
-    invRot[3] = matRot[3] = -abVect.X() / abNorm;
-}
+    /* Build the rotation matrix from 'ba' vector */
+    FTPoint ba = (A - B).Normalise();
+    FTPoint bc = C - B;
 
-void FTContour::MultMatrixVect(FTGL_DOUBLE *mat, FTPoint &v)
-{
-    FTPoint res;
-    res.X(v.X() * mat[0] + v.Y() * mat[1]);
-    res.Y(v.X() * mat[2] + v.Y() * mat[3]);
-    v.X(res.X());
-    v.Y(res.Y());
-}
+    /* Rotate bc to the left */
+    FTPoint tmp(bc.X() * -ba.X() + bc.Y() * -ba.Y(),
+                bc.X() * ba.Y() + bc.Y() * -ba.X());
 
-void FTContour::ComputeBisec(FTPoint &v)
-{
+    /* Compute the vector bisecting 'abc' */
     FTGL_DOUBLE sgn = -64.0;
-    if((v.Y() / NormVector(v)) < 0)
+    FTGL_DOUBLE norm = sqrt(tmp.X() * tmp.X() + tmp.Y() * tmp.Y());
+    if((tmp.Y() / norm) < 0)
         sgn = 64.0;
-    v.X(sgn * sqrt((NormVector(v) - v.X()) / (NormVector(v) + v.X())));
-    v.Y(64.0);
-}
+    tmp.X(sgn * sqrt((norm - tmp.X()) / (norm + tmp.X())));
+    tmp.Y(64.0);
 
-FTPoint FTContour::ComputeOutsetPoint(FTPoint a, FTPoint b, FTPoint c)
-{
-    FTGL_DOUBLE mat[4], inv[4];
-    /* Build the rotation matrix from 'ab' vector */
-    RotationMatrix(b, a, mat, inv);
-    /* 'h' is the second vector 'bc' */
-    FTPoint h = c - b;
-    /* Apply the rotation to the second vector 'bc' */
-    MultMatrixVect(mat, h);
-    /* Compute the vector bisecting 'bh' */
-    ComputeBisec(h);
-    /* Apply the inverted rotation matrix to 'bh' */
-    MultMatrixVect(inv, h);
-    return h;
+    /* Rotate the new bc to the right */
+    return FTPoint(tmp.X() * -ba.X() + tmp.Y() * ba.Y(),
+                   tmp.X() * -ba.Y() + tmp.Y() * -ba.X());
 }
 
 void FTContour::outsetContour()
