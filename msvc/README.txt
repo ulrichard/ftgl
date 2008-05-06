@@ -1,7 +1,8 @@
 FTGL Version 2.0
 
 FTGL on windows can be built a ether a dynamic link library (DLL) with export lib (lib)
-or a static library (lib).
+or a static library (lib). All files will be built in the build directory that will be created in this
+directory.
 
 FTGL requires the Freetype2 library (version 2.3.5 r).
 You will need to define the environment variable
