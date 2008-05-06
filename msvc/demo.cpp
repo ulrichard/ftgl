@@ -14,15 +14,7 @@
 
 
 
-#include "FTGLOutlineFont.h"
-
-#include "FTGLPolygonFont.h"
-
-#include "FTGLBitmapFont.h"
-
-#include "FTGLTextureFont.h"
-
-#include "FTGLPixmapFont.h"
+#include <FTGL/ftgl.h>
 
 
 

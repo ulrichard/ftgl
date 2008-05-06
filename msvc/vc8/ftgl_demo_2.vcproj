@@ -4,6 +4,7 @@
 	Version="8.00"
 	Name="ftgl_demo_2"
 	ProjectGUID="{86573B15-D546-4A91-8055-1215F671C474}"
+	RootNamespace="ftgl_demo_2"
 	>
 	<Platforms>
 		<Platform
@@ -44,7 +45,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="../;../../src;../../demo"
+				AdditionalIncludeDirectories="../;../../src;../../demo;&quot;$(FREETYPE)/include&quot;"
 				PreprocessorDefinitions="NDEBUG;WIN32;_CONSOLE;FTGL_LIBRARY_STATIC"
 				StringPooling="true"
 				RuntimeLibrary="2"
@@ -135,7 +136,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../;../../src;../../demo"
+				AdditionalIncludeDirectories="../;../../src;../../demo;&quot;$(FREETYPE)/include&quot;"
 				PreprocessorDefinitions="_DEBUG;WIN32;_CONSOLE;FTGL_LIBRARY_STATIC"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"

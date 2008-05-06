@@ -4,6 +4,7 @@
 	Version="8.00"
 	Name="ftgl_demo"
 	ProjectGUID="{2D3BEF21-ACA4-4D78-AFD0-C84EB081BF21}"
+	RootNamespace="ftgl_demo"
 	>
 	<Platforms>
 		<Platform
@@ -43,7 +44,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="D:\cots\freetype-2.0.5\include,..\include"
+				AdditionalIncludeDirectories="&quot;$(FREETYPE)/include&quot;,..\include"
 				PreprocessorDefinitions="_DEBUG;WIN32;_CONSOLE;FTGL_LIBRARY_STATIC"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -137,7 +138,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="D:\cots\freetype-2.0.5\include,..\include"
+				AdditionalIncludeDirectories="&quot;$(FREETYPE)/include&quot;,..\include"
 				PreprocessorDefinitions="NDEBUG;WIN32;_CONSOLE;FTGL_LIBRARY_STATIC"
 				StringPooling="true"
 				RuntimeLibrary="2"
