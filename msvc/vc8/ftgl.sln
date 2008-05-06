@@ -1,15 +1,15 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 9.00
 # Visual Studio 2005
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ftgl_demo", "ftgl_demo\ftgl_demo.vcproj", "{2D3BEF21-ACA4-4D78-AFD0-C84EB081BF21}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ftgl_demo", "ftgl_demo.vcproj", "{2D3BEF21-ACA4-4D78-AFD0-C84EB081BF21}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ftgl_demo_2", "ftgl_demo\ftgl_demo_2.vcproj", "{86573B15-D546-4A91-8055-1215F671C474}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ftgl_demo_2", "ftgl_demo_2.vcproj", "{86573B15-D546-4A91-8055-1215F671C474}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ftgl_dll", "ftgl_dll\ftgl_dll.vcproj", "{F7946C68-319D-441A-A732-BC2A200A9112}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ftgl_dll", "ftgl_dll.vcproj", "{F7946C68-319D-441A-A732-BC2A200A9112}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ftgl_static_lib", "ftgl_static_lib\ftgl_static_lib.vcproj", "{BC9825BE-3C17-4BC0-B09D-2B50D798F12C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ftgl_static_lib", "ftgl_static_lib.vcproj", "{BC9825BE-3C17-4BC0-B09D-2B50D798F12C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "unit_tests", "unit_tests\unit_tests.vcproj", "{326EBC55-D79E-420A-9606-3600176CBC22}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "unit_tests", "unit_tests.vcproj", "{326EBC55-D79E-420A-9606-3600176CBC22}"
 	ProjectSection(ProjectDependencies) = postProject
 		{BC9825BE-3C17-4BC0-B09D-2B50D798F12C} = {BC9825BE-3C17-4BC0-B09D-2B50D798F12C}
 	EndProjectSection
