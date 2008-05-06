@@ -133,7 +133,7 @@ FTExtrudeGlyphImpl::~FTExtrudeGlyphImpl()
 const FTPoint& FTExtrudeGlyphImpl::RenderImpl(const FTPoint& pen,
                                               int renderMode)
 {
-    glTranslatef(pen.X(), pen.Y(), 0);
+    glTranslatef(pen.Xf(), pen.Yf(), 0);
     if(glList)
     {
         if(renderMode & FTGL::RENDER_FRONT)
@@ -152,7 +152,7 @@ const FTPoint& FTExtrudeGlyphImpl::RenderImpl(const FTPoint& pen,
         if(renderMode & FTGL::RENDER_SIDE)
             RenderSide();
     }
-    glTranslatef(-pen.X(), -pen.Y(), 0);
+    glTranslatef(-pen.Xf(), -pen.Yf(), 0);
 
     return advance;
 }
@@ -174,11 +174,11 @@ void FTExtrudeGlyphImpl::RenderFront()
             {
                 FTPoint pt = subMesh->Point(i);
 
-                glTexCoord2f(pt.X() / hscale,
-                             pt.Y() / vscale);
+                glTexCoord2f(pt.Xf() / hscale,
+                             pt.Yf() / vscale);
 
-                glVertex3f(pt.X() / 64.0f,
-                           pt.Y() / 64.0f,
+                glVertex3f(pt.Xf() / 64.0f,
+                           pt.Yf() / 64.0f,
                            0.0f);
             }
         glEnd();
@@ -202,11 +202,11 @@ void FTExtrudeGlyphImpl::RenderBack()
             {
                 FTPoint pt = subMesh->Point(i);
 
-                glTexCoord2f(subMesh->Point(i).X() / hscale,
-                             subMesh->Point(i).Y() / vscale);
+                glTexCoord2f(subMesh->Point(i).Xf() / hscale,
+                             subMesh->Point(i).Yf() / vscale);
 
-                glVertex3f(subMesh->Point(i).X() / 64.0f,
-                           subMesh->Point(i).Y() / 64.0f,
+                glVertex3f(subMesh->Point(i).Xf() / 64.0f,
+                           subMesh->Point(i).Yf() / 64.0f,
                            -depth);
             }
         glEnd();
@@ -221,7 +221,7 @@ void FTExtrudeGlyphImpl::RenderSide()
     for(size_t c = 0; c < vectoriser->ContourCount(); ++c)
     {
         const FTContour* contour = vectoriser->Contour(c);
-        unsigned int n = contour->PointCount();
+        size_t n = contour->PointCount();
 
         if(n < 2)
         {
@@ -229,10 +229,10 @@ void FTExtrudeGlyphImpl::RenderSide()
         }
 
         glBegin(GL_QUAD_STRIP);
-            for(unsigned int j = 0; j <= n; ++j)
+            for(size_t j = 0; j <= n; ++j)
             {
-                unsigned int cur = (j == n) ? 0 : j;
-                unsigned int next = (cur == n - 1) ? 0 : cur + 1;
+                size_t cur = (j == n) ? 0 : j;
+                size_t next = (cur == n - 1) ? 0 : cur + 1;
 
                 FTPoint frontPt = contour->FrontPoint(cur);
                 FTPoint nextPt = contour->FrontPoint(next);
@@ -244,17 +244,17 @@ void FTExtrudeGlyphImpl::RenderSide()
                     glNormal3dv(static_cast<const FTGL_DOUBLE*>(normal.Normalise()));
                 }
 
-                glTexCoord2f(frontPt.X() / hscale, frontPt.Y() / vscale);
+                glTexCoord2f(frontPt.Xf() / hscale, frontPt.Yf() / vscale);
 
                 if(contourFlag & ft_outline_reverse_fill)
                 {
-                    glVertex3f(backPt.X() / 64.0f, backPt.Y() / 64.0f, 0.0f);
-                    glVertex3f(frontPt.X() / 64.0f, frontPt.Y() / 64.0f, -depth);
+                    glVertex3f(backPt.Xf() / 64.0f, backPt.Yf() / 64.0f, 0.0f);
+                    glVertex3f(frontPt.Xf() / 64.0f, frontPt.Yf() / 64.0f, -depth);
                 }
                 else
                 {
-                    glVertex3f(backPt.X() / 64.0f, backPt.Y() / 64.0f, -depth);
-                    glVertex3f(frontPt.X() / 64.0f, frontPt.Y() / 64.0f, 0.0f);
+                    glVertex3f(backPt.Xf() / 64.0f, backPt.Yf() / 64.0f, -depth);
+                    glVertex3f(frontPt.Xf() / 64.0f, frontPt.Yf() / 64.0f, 0.0f);
                 }
             }
         glEnd();

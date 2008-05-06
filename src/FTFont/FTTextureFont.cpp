@@ -123,7 +123,7 @@ FTTextureFontImpl::~FTTextureFontImpl()
 {
     if(textureIDList.size())
     {
-        glDeleteTextures(textureIDList.size(),
+        glDeleteTextures((GLsizei)textureIDList.size(),
                          (const GLuint*)&textureIDList[0]);
     }
 }
@@ -214,7 +214,7 @@ bool FTTextureFontImpl::FaceSize(const unsigned int size, const unsigned int res
 {
     if(!textureIDList.empty())
     {
-        glDeleteTextures(textureIDList.size(), (const GLuint*)&textureIDList[0]);
+        glDeleteTextures((GLsizei)textureIDList.size(), (const GLuint*)&textureIDList[0]);
         textureIDList.clear();
         remGlyphs = numGlyphs = face.GlyphCount();
     }
