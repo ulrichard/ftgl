@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8,00"
+	Version="8.00"
 	Name="ftgl_dll"
 	ProjectGUID="{F7946C68-319D-441A-A732-BC2A200A9112}"
 	>
@@ -14,11 +14,11 @@
 	</ToolFiles>
 	<Configurations>
 		<Configuration
-			Name="Release MT|Win32"
-			OutputDirectory="..\Build"
-			IntermediateDirectory=".\Release_MT"
+			Name="Release|Win32"
+			OutputDirectory="../Build"
+			IntermediateDirectory="./Release"
 			ConfigurationType="2"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults/UpgradeFromVC60.vsprops"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
 			CharacterSet="2"
@@ -41,22 +41,22 @@
 				MkTypLibCompatible="true"
 				SuppressStartupBanner="true"
 				TargetEnvironment="1"
-				TypeLibraryName="..\Build\ftgl_dll.tlb"
+				TypeLibraryName="../Build/ftgl_dll.tlb"
 				HeaderFileName=""
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="D:\cots\freetype-2.0.5\include,..\include"
+				AdditionalIncludeDirectories="$(FREETYPE)/include,../../src,../"
 				PreprocessorDefinitions="NDEBUG;WIN32;_WINDOWS;_USRDLL;FTGL_LIBRARY"
 				StringPooling="true"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
-				PrecompiledHeaderFile=".\Release_MT/ftgl_dll.pch"
-				AssemblerListingLocation=".\Release_MT/"
-				ObjectFile=".\Release_MT/"
-				ProgramDataBaseFileName=".\Release_MT/"
+				PrecompiledHeaderFile="./Release/ftgl_dll.pch"
+				AssemblerListingLocation="./Release/"
+				ObjectFile="./Release_ST/"
+				ProgramDataBaseFileName="./Release/"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
 			/>
@@ -73,13 +73,13 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="odbc32.lib odbccp32.lib opengl32.lib glu32.lib freetype204MT.lib"
-				OutputFile="..\Build\ftgl_dynamic_MTD.dll"
+				AdditionalDependencies="odbc32.lib odbccp32.lib opengl32.lib glu32.lib freetype235.lib"
+				OutputFile="../Build/ftgl.dll"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="D:\cots\freetype-2.0.5\objs"
-				ProgramDatabaseFile="..\Build\ftgl_dynamic_MTD.pdb"
-				ImportLibrary="..\Build\ftgl_dynamic_MTD.lib"
+				AdditionalLibraryDirectories="$(FREETYPE)/objs"
+				ProgramDatabaseFile="../Build/ftgl.pdb"
+				ImportLibrary="../Build/ftgl.lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -94,200 +94,7 @@
 			<Tool
 				Name="VCBscMakeTool"
 				SuppressStartupBanner="true"
-				OutputFile="..\Build\ftgl_dll.bsc"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
-			Name="Debug MT|Win32"
-			OutputDirectory="..\Build"
-			IntermediateDirectory=".\Debug_MT"
-			ConfigurationType="2"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
-			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="false"
-			CharacterSet="2"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-				PreprocessorDefinitions="_DEBUG"
-				MkTypLibCompatible="true"
-				SuppressStartupBanner="true"
-				TargetEnvironment="1"
-				TypeLibraryName="..\Build\ftgl_dll.tlb"
-				HeaderFileName=""
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				Optimization="0"
-				AdditionalIncludeDirectories="D:\cots\freetype-2.0.5\include,..\include"
-				PreprocessorDefinitions="_DEBUG;WIN32;_WINDOWS;_USRDLL;FTGL_LIBRARY"
-				MinimalRebuild="true"
-				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
-				PrecompiledHeaderFile=".\Debug_MT/ftgl_dll.pch"
-				AssemblerListingLocation=".\Debug_MT/"
-				ObjectFile=".\Debug_MT/"
-				ProgramDataBaseFileName=".\Debug_MT/"
-				WarningLevel="3"
-				SuppressStartupBanner="true"
-				DebugInformationFormat="4"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="_DEBUG"
-				Culture="1033"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalDependencies="odbc32.lib odbccp32.lib opengl32.lib glu32.lib freetype204MT_D.lib"
-				OutputFile="..\Build\ftgl_dynamic_MTD_d.dll"
-				LinkIncremental="2"
-				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="D:\cots\freetype-2.0.5\objs"
-				GenerateDebugInformation="true"
-				ProgramDatabaseFile="Debug_ST/ftgl_dynamic_MT_d.pdb"
-				ImportLibrary="..\Build\ftgl_dynamic_MTD_d.lib"
-				TargetMachine="1"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-				SuppressStartupBanner="true"
-				OutputFile="..\Build\ftgl_dll.bsc"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
-			Name="Release|Win32"
-			OutputDirectory="..\Build"
-			IntermediateDirectory=".\Release_ST"
-			ConfigurationType="2"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
-			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="false"
-			CharacterSet="2"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-				PreprocessorDefinitions="NDEBUG"
-				MkTypLibCompatible="true"
-				SuppressStartupBanner="true"
-				TargetEnvironment="1"
-				TypeLibraryName="..\Build\ftgl_dll.tlb"
-				HeaderFileName=""
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				Optimization="2"
-				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="D:\cots\freetype-2.0.5\include,..\include"
-				PreprocessorDefinitions="NDEBUG;WIN32;_WINDOWS;_USRDLL;FTGL_LIBRARY"
-				StringPooling="true"
-				RuntimeLibrary="0"
-				EnableFunctionLevelLinking="true"
-				PrecompiledHeaderFile=".\Release_ST/ftgl_dll.pch"
-				AssemblerListingLocation=".\Release_ST/"
-				ObjectFile=".\Release_ST/"
-				ProgramDataBaseFileName=".\Release_ST/"
-				WarningLevel="3"
-				SuppressStartupBanner="true"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="NDEBUG"
-				Culture="1033"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalDependencies="odbc32.lib odbccp32.lib opengl32.lib glu32.lib freetype204.lib"
-				OutputFile="..\Build\ftgl_dynamic_MT.dll"
-				LinkIncremental="1"
-				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="D:\cots\freetype-2.0.5\objs"
-				ProgramDatabaseFile="..\Build\ftgl_dynamic_MT.pdb"
-				ImportLibrary="..\Build\ftgl_dynamic_MT.lib"
-				TargetMachine="1"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-				SuppressStartupBanner="true"
-				OutputFile="..\Build\ftgl_dll.bsc"
+				OutputFile="../Build/ftgl.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -304,10 +111,10 @@
 		</Configuration>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="..\Build"
-			IntermediateDirectory=".\Debug_ST"
+			OutputDirectory="../Build"
+			IntermediateDirectory="./Debug"
 			ConfigurationType="2"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults/UpgradeFromVC60.vsprops"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
 			CharacterSet="2"
@@ -330,21 +137,21 @@
 				MkTypLibCompatible="true"
 				SuppressStartupBanner="true"
 				TargetEnvironment="1"
-				TypeLibraryName="..\Build\ftgl_dll.tlb"
+				TypeLibraryName="../Build/ftgl.tlb"
 				HeaderFileName=""
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="D:\cots\freetype-2.0.5\include,..\include"
+				AdditionalIncludeDirectories="&quot;$(FREETYPE)/include&quot;;../../src;../"
 				PreprocessorDefinitions="_DEBUG;WIN32;_WINDOWS;_USRDLL;FTGL_LIBRARY"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="1"
-				PrecompiledHeaderFile=".\Debug_ST/ftgl_dll.pch"
-				AssemblerListingLocation=".\Debug_ST/"
-				ObjectFile=".\Debug_ST/"
-				ProgramDataBaseFileName=".\Debug_ST/"
+				RuntimeLibrary="3"
+				PrecompiledHeaderFile="./Debug/ftgl_D.pch"
+				AssemblerListingLocation="./Debug/"
+				ObjectFile="./Debug/"
+				ProgramDataBaseFileName="./Debug/"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="4"
@@ -362,14 +169,14 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="odbc32.lib odbccp32.lib opengl32.lib glu32.lib freetype204_D.lib"
-				OutputFile="..\Build\ftgl_dynamic_MT_d.dll"
+				AdditionalDependencies="odbc32.lib odbccp32.lib opengl32.lib glu32.lib freetype235_D.lib"
+				OutputFile="../Build/ftgl_D.dll"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="D:\cots\freetype-2.0.5\objs"
+				AdditionalLibraryDirectories="$(FREETYPE)/objs"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="Debug_ST/ftgl_dynamic_ST_d.pdb"
-				ImportLibrary="..\Build\ftgl_dynamic_MT_d.lib"
+				ProgramDatabaseFile="Debug/ftgl_D.pdb"
+				ImportLibrary="../Build/ftgl_D.lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -384,7 +191,7 @@
 			<Tool
 				Name="VCBscMakeTool"
 				SuppressStartupBanner="true"
-				OutputFile="..\Build\ftgl_dll.bsc"
+				OutputFile="../Build/ftgl_D.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -408,1023 +215,326 @@
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 			>
 			<File
-				RelativePath="..\src\FTBitmapGlyph.cpp"
-				>
-				<FileConfiguration
-					Name="Release MT|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug MT|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\FTCharmap.cpp"
-				>
-				<FileConfiguration
-					Name="Release MT|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug MT|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\FTContour.cpp"
-				>
-				<FileConfiguration
-					Name="Release MT|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug MT|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\FTExtrdGlyph.cpp"
-				>
-				<FileConfiguration
-					Name="Release MT|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug MT|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\FTFace.cpp"
-				>
-				<FileConfiguration
-					Name="Release MT|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug MT|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\FTFont.cpp"
-				>
-				<FileConfiguration
-					Name="Release MT|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug MT|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\FTGLBitmapFont.cpp"
-				>
-				<FileConfiguration
-					Name="Release MT|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug MT|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\FTGLExtrdFont.cpp"
-				>
-				<FileConfiguration
-					Name="Release MT|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug MT|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\FTGLOutlineFont.cpp"
-				>
-				<FileConfiguration
-					Name="Release MT|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug MT|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\FTGLPixmapFont.cpp"
-				>
-				<FileConfiguration
-					Name="Release MT|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug MT|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\FTGLPolygonFont.cpp"
-				>
-				<FileConfiguration
-					Name="Release MT|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug MT|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\FTGLTextureFont.cpp"
-				>
-				<FileConfiguration
-					Name="Release MT|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug MT|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\FTGlue.cpp"
+				RelativePath="..\..\src\FTCharmap.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\FTGlyph.cpp"
-				>
-				<FileConfiguration
-					Name="Release MT|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug MT|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\FTGlyphContainer.cpp"
-				>
-				<FileConfiguration
-					Name="Release MT|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug MT|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\FTLibrary.cpp"
-				>
-				<FileConfiguration
-					Name="Release MT|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug MT|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\FTOutlineGlyph.cpp"
-				>
-				<FileConfiguration
-					Name="Release MT|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug MT|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\FTPixmapGlyph.cpp"
-				>
-				<FileConfiguration
-					Name="Release MT|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug MT|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\FTPoint.cpp"
-				>
-				<FileConfiguration
-					Name="Release MT|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug MT|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\FTPolyGlyph.cpp"
-				>
-				<FileConfiguration
-					Name="Release MT|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug MT|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\FTSimpleLayout.cpp"
+				RelativePath="..\..\src\FTContour.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\FTSize.cpp"
+				RelativePath="..\..\src\FTFace.cpp"
 				>
-				<FileConfiguration
-					Name="Release MT|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug MT|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\FTTextureGlyph.cpp"
+				RelativePath="..\..\src\FTGlyphContainer.cpp"
 				>
-				<FileConfiguration
-					Name="Release MT|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug MT|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\FTVectoriser.cpp"
+				RelativePath="..\..\src\FTLibrary.cpp"
 				>
-				<FileConfiguration
-					Name="Release MT|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug MT|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
 			</File>
+			<File
+				RelativePath="..\..\src\FTPoint.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\FTSize.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\FTVectoriser.cpp"
+				>
+			</File>
+			<Filter
+				Name="FTGlyph"
+				>
+				<File
+					RelativePath="..\..\src\FTGlyph\FTBitmapGlyph.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTGlyph\FTExtrudeGlyph.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTGlyph\FTGlyph.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTGlyph\FTGlyphGlue.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTGlyph\FTOutlineGlyph.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTGlyph\FTPixmapGlyph.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTGlyph\FTPolygonGlyph.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTGlyph\FTTextureGlyph.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="FTFont"
+				>
+				<File
+					RelativePath="..\..\src\FTFont\FTBitmapFont.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTFont\FTExtrudeFont.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTFont\FTFont.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTFont\FTFontGlue.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTFont\FTOutlineFont.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTFont\FTPixmapFont.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTFont\FTPolygonFont.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTFont\FTTextureFont.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="FTLayout"
+				>
+				<File
+					RelativePath="..\..\src\FTLayout\FTLayout.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTLayout\FTLayoutGlue.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTLayout\FTSimpleLayout.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl"
 			>
 			<File
-				RelativePath="..\include\FTBBox.h"
+				RelativePath="..\..\src\FTCharmap.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\FTBitmapGlyph.h"
+				RelativePath="..\..\src\FTContour.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\FTCharmap.h"
+				RelativePath="..\..\src\FTFace.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\FTCharToGlyphIndexMap.h"
+				RelativePath="..\..\src\FTGlyphContainer.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\FTContour.h"
+				RelativePath="..\..\src\FTInternals.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\FTExtrdGlyph.h"
+				RelativePath="..\..\src\FTLibrary.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\FTFace.h"
+				RelativePath="..\..\src\FTList.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\FTFont.h"
+				RelativePath="..\..\src\FTSize.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\FTGL.h"
+				RelativePath="..\..\src\FTVector.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\FTGLBitmapFont.h"
+				RelativePath="..\..\src\FTVectoriser.h"
 				>
 			</File>
-			<File
-				RelativePath="..\include\FTGLExtrdFont.h"
+			<Filter
+				Name="FTGlyph"
 				>
-			</File>
-			<File
-				RelativePath="..\include\FTGLOutlineFont.h"
+				<File
+					RelativePath="..\..\src\FTGlyph\FTBitmapGlyphImpl.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTGlyph\FTExtrudeGlyphImpl.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTGlyph\FTGlyphImpl.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTGlyph\FTOutlineGlyphImpl.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTGlyph\FTPixmapGlyphImpl.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTGlyph\FTPolygonGlyphImpl.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTGlyph\FTTextureGlyphImpl.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="FTFont"
 				>
-			</File>
-			<File
-				RelativePath="..\include\FTGLPixmapFont.h"
+				<File
+					RelativePath="..\..\src\FTFont\FTBitmapFontImpl.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTFont\FTExtrudeFontImpl.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTFont\FTFontImpl.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTFont\FTOutlineFontImpl.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTFont\FTPixmapFontImpl.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTFont\FTPolygonFontImpl.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTFont\FTTextureFontImpl.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="FTGL"
 				>
-			</File>
-			<File
-				RelativePath="..\include\FTGLPolygonFont.h"
+				<File
+					RelativePath="..\..\src\FTGL\FTBBox.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTGL\FTBitmapGlyph.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTGL\FTExtrdGlyph.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTGL\FTFont.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTGL\ftgl.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTGL\FTGLBitmapFont.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTGL\FTGLExtrdFont.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTGL\FTGLOutlineFont.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTGL\FTGLPixmapFont.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTGL\FTGLPolygonFont.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTGL\FTGLTextureFont.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTGL\FTGlyph.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTGL\FTLayout.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTGL\FTOutlineGlyph.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTGL\FTPixmapGlyph.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTGL\FTPoint.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTGL\FTPolyGlyph.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTGL\FTSimpleLayout.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTGL\FTTextureGlyph.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="FTLayout"
 				>
-			</File>
-			<File
-				RelativePath="..\include\FTGLTextureFont.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\FTGlyph.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\FTGlyphContainer.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\FTInternals.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\FTLayout.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\FTLibrary.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\FTList.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\FTOutlineGlyph.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\FTPixmapGlyph.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\FTPoint.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\FTPolyGlyph.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\FTSimpleLayout.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\FTSize.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\FTTextureGlyph.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\FTVector.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\FTVectoriser.h"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Resource Files"
-			Filter="ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
-			>
+				<File
+					RelativePath="..\..\src\FTLayout\FTLayoutImpl.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTLayout\FTSimpleLayoutImpl.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 	</Files>
 	<Globals>

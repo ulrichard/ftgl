@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8,00"
+	Version="8.00"
 	Name="unit_tests"
 	ProjectGUID="{326EBC55-D79E-420A-9606-3600176CBC22}"
 	>
@@ -15,10 +15,10 @@
 	<Configurations>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory=".\Release"
-			IntermediateDirectory=".\Release"
+			OutputDirectory="./Release"
+			IntermediateDirectory="./Release"
 			ConfigurationType="1"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults/UpgradeFromVC60.vsprops"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
 			CharacterSet="2"
@@ -37,22 +37,22 @@
 			/>
 			<Tool
 				Name="VCMIDLTool"
-				TypeLibraryName=".\Release/unit_tests.tlb"
+				TypeLibraryName="./Release/unit_tests.tlb"
 				HeaderFileName=""
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="$(MIC_COTS_CPPUNIT_DIR)/include,..\include,..\extras,D:\cots\freetype-2.0.5\include"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;FTGL_LIBRARY_STATIC"
+				AdditionalIncludeDirectories="../../test/;../../src/;&quot;$(FREETYPE)/include&quot;;../"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				StringPooling="true"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
-				PrecompiledHeaderFile=".\Release/unit_tests.pch"
-				AssemblerListingLocation=".\Release/"
-				ObjectFile=".\Release/"
-				ProgramDataBaseFileName=".\Release/"
+				PrecompiledHeaderFile="./Release/unit_tests.pch"
+				AssemblerListingLocation="./Release/"
+				ObjectFile="./Release/"
+				ProgramDataBaseFileName="./Release/"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
 			/>
@@ -70,11 +70,11 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="freetype204MT.lib ftgl_static_MT.lib cppunit.lib odbc32.lib odbccp32.lib opengl32.lib glu32.lib"
-				OutputFile=".\Release/unit_tests.exe"
+				OutputFile="./Release/unit_tests.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="..\Build,D:\cots\freetype-2.0.5\objs,D:\cots\cppunit-1.9.8\lib"
-				ProgramDatabaseFile=".\Release/unit_tests.pdb"
+				AdditionalLibraryDirectories="../Build,D:/cots/freetype-2.0.5/objs,D:/cots/cppunit-1.9.8/lib"
+				ProgramDatabaseFile="./Release/unit_tests.pdb"
 				SubSystem="1"
 				TargetMachine="1"
 			/>
@@ -90,7 +90,7 @@
 			<Tool
 				Name="VCBscMakeTool"
 				SuppressStartupBanner="true"
-				OutputFile=".\Release/unit_tests.bsc"
+				OutputFile="./Release/unit_tests.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -107,10 +107,10 @@
 		</Configuration>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory=".\Debug"
-			IntermediateDirectory=".\Debug"
+			OutputDirectory="./Debug"
+			IntermediateDirectory="./Debug"
 			ConfigurationType="1"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults/UpgradeFromVC60.vsprops"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
 			CharacterSet="2"
@@ -129,21 +129,21 @@
 			/>
 			<Tool
 				Name="VCMIDLTool"
-				TypeLibraryName=".\Debug/unit_tests.tlb"
+				TypeLibraryName="./Debug/unit_tests.tlb"
 				HeaderFileName=""
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(MIC_COTS_CPPUNIT_DIR)/include,..\include,..\extras,D:\cots\freetype-2.0.5\include"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;FTGL_LIBRARY_STATIC"
+				AdditionalIncludeDirectories="../../test/;../../src/;&quot;$(FREETYPE)/include&quot;;../"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				PrecompiledHeaderFile=".\Debug/unit_tests.pch"
-				AssemblerListingLocation=".\Debug/"
-				ObjectFile=".\Debug/"
-				ProgramDataBaseFileName=".\Debug/"
+				PrecompiledHeaderFile="./Debug/unit_tests.pch"
+				AssemblerListingLocation="./Debug/"
+				ObjectFile="./Debug/"
+				ProgramDataBaseFileName="./Debug/"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="4"
@@ -162,12 +162,12 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="freetype204MT_D.lib ftgl_static_MTD_d.lib cppunitd.lib odbc32.lib odbccp32.lib opengl32.lib glu32.lib"
-				OutputFile=".\Debug/unit_tests.exe"
+				OutputFile="./Debug/unit_tests.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="..\Build,D:\cots\freetype-2.0.5\objs,D:\cots\cppunit-1.9.8\lib"
+				AdditionalLibraryDirectories="../Build,D:/cots/freetype-2.0.5/objs,D:/cots/cppunit-1.9.8/lib"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile=".\Debug/unit_tests.pdb"
+				ProgramDatabaseFile="./Debug/unit_tests.pdb"
 				SubSystem="1"
 				TargetMachine="1"
 			/>
@@ -183,7 +183,7 @@
 			<Tool
 				Name="VCBscMakeTool"
 				SuppressStartupBanner="true"
-				OutputFile=".\Debug/unit_tests.bsc"
+				OutputFile="./Debug/unit_tests.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -207,378 +207,144 @@
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 			>
 			<File
-				RelativePath="..\test\FTBBox-Test.cpp"
+				RelativePath="..\..\test\CTest.c"
 				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\test\FTCharmap-Test.cpp"
+				RelativePath="..\..\test\CXXTest.cpp"
 				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\test\FTContour-Test.cpp"
+				RelativePath="..\..\test\demo.cpp"
 				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\test\FTFace-Test.cpp"
+				RelativePath="..\..\test\FTBBox-Test.cpp"
 				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\test\FTFont-Test.cpp"
+				RelativePath="..\..\test\FTBitmapFont-Test.cpp"
 				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\test\FTGlyphContainer-Test.cpp"
+				RelativePath="..\..\test\FTBitmapGlyph-Test.cpp"
 				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\test\FTLibrary-Test.cpp"
+				RelativePath="..\..\test\FTCharmap-Test.cpp"
 				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\test\FTList-Test.cpp"
+				RelativePath="..\..\test\FTCharToGlyphIndexMap-Test.cpp"
 				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\test\FTMesh-Test.cpp"
+				RelativePath="..\..\test\FTContour-Test.cpp"
 				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\test\FTPoint-Test.cpp"
+				RelativePath="..\..\test\FTExtrudeFont-Test.cpp"
 				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\test\FTSize-Test.cpp"
+				RelativePath="..\..\test\FTExtrudeGlyph-Test.cpp"
 				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\test\FTTesselation-Test.cpp"
+				RelativePath="..\..\test\FTFace-Test.cpp"
 				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\test\FTVector-Test.cpp"
+				RelativePath="..\..\test\FTFont-Test.cpp"
 				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\test\FTVectoriser-Test.cpp"
+				RelativePath="..\..\test\FTGlyph-Test.cpp"
 				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\test\HPGCalc_afm.cpp"
+				RelativePath="..\..\test\FTGlyphContainer-Test.cpp"
 				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\test\HPGCalc_pfb.cpp"
+				RelativePath="..\..\test\FTlayout-Test.cpp"
 				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\test\TestMain.cpp"
+				RelativePath="..\..\test\FTLibrary-Test.cpp"
 				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\test\FTList-Test.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\FTMesh-Test.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\FTOutlineFont-Test.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\FTOutlineGlyph-Test.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\FTPixmapFont-Test.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\FTPixmapGlyph-Test.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\FTPoint-Test.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\FTPolygonFont-Test.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\FTPolygonGlyph-Test.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\FTSize-Test.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\FTTesselation-Test.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\FTTextureFont-Test.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\FTTextureGlyph-Test.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\FTVector-Test.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\FTVectoriser-Test.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\HPGCalc_afm.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\HPGCalc_pfb.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\mmgr.cpp"
+				>
 			</File>
 		</Filter>
 		<Filter
@@ -586,7 +352,15 @@
 			Filter="h;hpp;hxx;hm;inl"
 			>
 			<File
-				RelativePath="..\test\Fontdefs.h"
+				RelativePath="..\..\test\Fontdefs.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\mmgr.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\nommgr.h"
 				>
 			</File>
 		</Filter>
