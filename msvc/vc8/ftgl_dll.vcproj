@@ -175,7 +175,7 @@
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="$(FREETYPE)/objs"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="Debug/ftgl_D.pdb"
+				ProgramDatabaseFile="../Build/ftgl_D.pdb"
 				ImportLibrary="../Build/ftgl_D.lib"
 				TargetMachine="1"
 			/>
