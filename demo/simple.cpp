@@ -27,6 +27,8 @@
 
 #include <math.h>
 
+#include <stdlib.h> // exit()
+
 #if defined HAVE_GL_GLUT_H
 #   include <GL/glut.h>
 #elif defined HAVE_GLUT_GLUT_H
