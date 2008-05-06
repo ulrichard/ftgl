@@ -31,7 +31,7 @@
 
 #include <math.h>
 
-static const float BEZIER_STEP_SIZE = 0.2f;
+static const unsigned int BEZIER_STEPS = 5;
 
 
 void FTContour::AddPoint(FTPoint point)
@@ -64,9 +64,9 @@ void FTContour::AddBackPoint(FTPoint point)
 
 void FTContour::evaluateQuadraticCurve(FTPoint A, FTPoint B, FTPoint C)
 {
-    for(unsigned int i = 0; i <= (1.0f / BEZIER_STEP_SIZE); i++)
+    for(unsigned int i = 1; i < BEZIER_STEPS; i++)
     {
-        float t = static_cast<float>(i) * BEZIER_STEP_SIZE;
+        float t = static_cast<float>(i) / BEZIER_STEPS;
 
         FTPoint U = (1.0f - t) * A + t * B;
         FTPoint V = (1.0f - t) * B + t * C;
@@ -75,11 +75,12 @@ void FTContour::evaluateQuadraticCurve(FTPoint A, FTPoint B, FTPoint C)
     }
 }
 
+
 void FTContour::evaluateCubicCurve(FTPoint A, FTPoint B, FTPoint C, FTPoint D)
 {
-    for(unsigned int i = 0; i <= (1.0f / BEZIER_STEP_SIZE); i++)
+    for(unsigned int i = 0; i < BEZIER_STEPS; i++)
     {
-        float t = static_cast<float>(i) * BEZIER_STEP_SIZE;
+        float t = static_cast<float>(i) / BEZIER_STEPS;
 
         FTPoint U = (1.0f - t) * A + t * B;
         FTPoint V = (1.0f - t) * B + t * C;
@@ -156,60 +157,55 @@ void FTContour::outsetContour()
     }
 }
 
+
 FTContour::FTContour(FT_Vector* contour, char* tags, unsigned int n)
 {
-    for(unsigned int i = 0; i < n; ++ i)
+    // See http://freetype.sourceforge.net/freetype2/docs/glyphs/glyphs-6.html
+    // for a full description of FreeType tags.
+    for(unsigned int i = 0; i < n; i++)
     {
-        if(tags[i] == FT_Curve_Tag_On || n < 2)
-        {
-            AddPoint(FTPoint(contour[i]));
-            continue;
-        }
-
         FTPoint cur(contour[i]);
-        FTPoint prev = (pointList.size() == 0 || i == 0)
-                       ? FTPoint(contour[n - 1])
-                       : pointList[pointList.size() - 1];
-        FTPoint next = (i == n - 1)
-                       ? (pointList.size() == 0)
-                         ? FTPoint(contour[0])
-                         : pointList[0]
-                       : FTPoint(contour[i + 1]);
 
-        if(tags[i] == FT_Curve_Tag_Conic)
+        // Only process point tags we know.
+        if(n < 2 || FT_CURVE_TAG(tags[i]) == FT_Curve_Tag_On)
         {
-            while(tags[(i == n - 1) ? 0 : i + 1] == FT_Curve_Tag_Conic)
+            AddPoint(cur);
+        }
+        else if(FT_CURVE_TAG(tags[i]) == FT_Curve_Tag_Conic)
+        {
+            // Previous point is either the real previous point (an "on"
+            // point), or the midpoint between the current one and the
+            // previous "conic off" point.
+            FTPoint prev(contour[(i - 1 + n) % n]);
+            if(FT_CURVE_TAG(tags[(i - 1 + n) % n]) == FT_Curve_Tag_Conic)
             {
-                next = (cur + next) * 0.5f;
+                prev = (cur + prev) * 0.5;
+                AddPoint(prev);
+            }
 
-                evaluateQuadraticCurve(prev, cur, next);
-                ++i;
-
-                prev = next;
-                cur = FTPoint(contour[i]);
-                next = (i == n - 1)
-                       ? pointList[0]
-                       : FTPoint(contour[i + 1]);
+            // Next point is either the real next point or the midpoint.
+            FTPoint next(contour[(i + 1) % n]);
+            if(FT_CURVE_TAG(tags[(i + 1) % n]) == FT_Curve_Tag_Conic)
+            {
+                next = (cur + next) * 0.5;
             }
 
             evaluateQuadraticCurve(prev, cur, next);
-            continue;
         }
-
-        if(tags[i] == FT_Curve_Tag_Cubic)
+        else if(FT_CURVE_TAG(tags[i]) == FT_Curve_Tag_Cubic
+                 && FT_CURVE_TAG(tags[(i + 1) % n]) == FT_Curve_Tag_Cubic)
         {
-            FTPoint next2 = (i == n - 2)
-                             ? pointList[0]
-                             : FTPoint(contour[i + 2]);
-            evaluateCubicCurve(prev, cur, next, next2);
-            ++i;
-            continue;
+            evaluateCubicCurve(FTPoint(contour[(i - 1 + n) % n]),
+                               cur,
+                               FTPoint(contour[(i + 1) % n]),
+                               FTPoint(contour[(i + 2) % n]));
         }
     }
 
     /* Create (or not) front outset and/or back outset */
     outsetContour();
 }
+
 
 void FTContour::buildFrontOutset(float outset)
 {
