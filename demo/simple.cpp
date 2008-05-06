@@ -106,8 +106,8 @@ static void RenderScene(void)
     glPushMatrix();
         glTranslatef(-0.9, -0.2, -10.0);
         float ambient[4]  = { (t1 + 2.0) / 3,
-                                     (t2 + 2.0) / 3,
-                                     (t3 + 2.0) / 3, 0.3 };
+                              (t2 + 2.0) / 3,
+                              (t3 + 2.0) / 3, 0.3 };
         float diffuse[4]  = { 1.0, 0.9, 0.9, 1.0 };
         float specular[4] = { 1.0, 0.7, 0.7, 1.0 };
         float position[4] = { 100.0, 100.0, 0.0, 1.0 };
@@ -137,13 +137,13 @@ static void RenderScene(void)
 //
 //  GLUT key processing function: <esc> quits, <tab> cycles across fonts.
 //
-void ProcessKeys(unsigned char key, int x, int y)
+static void ProcessKeys(unsigned char key, int x, int y)
 {
     switch(key)
     {
     case 27:
         delete font[0]; delete font[1]; delete font[2];
-        exit(0);
+        exit(EXIT_SUCCESS);
         break;
     case '\t':
         fontindex = (fontindex + 1) % 3;
