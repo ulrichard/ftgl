@@ -37,11 +37,63 @@
 
 #include <FTGL/ftgl.h>
 
-static FTFont *font;
+static FTFont *font[3];
+static int fontindex = 0;
 
+//
+//  FTHaloGlyph is a derivation of FTOutlineGlyph that displays several
+//  outlines at varying offsets and with varying outset values.
+//
+class FTHaloGlyph : public FTOutlineGlyph
+{
+    public:
+        FTHaloGlyph(FT_GlyphSlot glyph) : FTOutlineGlyph(glyph, 0, true)
+        {
+            for(int i = 0; i < 5; i++)
+            {
+                subglyph[i] = new FTOutlineGlyph(glyph, i, true);
+            }
+        }
+
+    private:
+        const FTPoint& Render(const FTPoint& pen, int renderMode)
+        {
+            glPushMatrix();
+            for(int i = 0; i < 5; i++)
+            {
+                glTranslatef(0.0, 0.0, -2.0);
+                subglyph[i]->Render(pen, renderMode);
+            }
+            glPopMatrix();
+            return FTOutlineGlyph::Render(pen, renderMode);
+        }
+
+        FTOutlineGlyph *subglyph[5];
+};
+
+//
+//  FTHaloFont is a simple FTOutlineFont derivation that builds FTHaloGlyph
+//  objects.
+//
+class FTHaloFont : public FTOutlineFont
+{
+    public:
+        FTHaloFont(char const *fontFilePath) : FTOutlineFont(fontFilePath) {}
+
+    private:
+        virtual FTGlyph* MakeGlyph(FT_GlyphSlot slot)
+        {
+            return new FTHaloGlyph(slot);
+        }
+};
+
+//
+//  Main OpenGL loop: set up lights, apply a few rotation effects, and
+//  render text using the current FTGL object.
+//
 static void RenderScene(void)
 {
-    float n = (float)glutGet(GLUT_ELAPSED_TIME) / 10.;
+    float n = (float)glutGet(GLUT_ELAPSED_TIME) / 20.;
     float t1 = sin(n / 80);
     float t2 = sin(n / 50 + 1);
     float t3 = sin(n / 30 + 2);
@@ -55,40 +107,53 @@ static void RenderScene(void)
         glTranslatef(-0.9, -0.2, -10.0);
         float ambient[4]  = { (t1 + 2.0) / 3,
                                      (t2 + 2.0) / 3,
-                                     (t3 + 2.0) / 3, 1.0 };
+                                     (t3 + 2.0) / 3, 0.3 };
         float diffuse[4]  = { 1.0, 0.9, 0.9, 1.0 };
         float specular[4] = { 1.0, 0.7, 0.7, 1.0 };
-        float position[4] = { 200.0, 200.0, 0.0, 1.0 };
+        float position[4] = { 100.0, 100.0, 0.0, 1.0 };
         glLightfv(GL_LIGHT1, GL_AMBIENT,  ambient);
         glLightfv(GL_LIGHT1, GL_DIFFUSE,  diffuse);
         glLightfv(GL_LIGHT1, GL_SPECULAR, specular);
         glLightfv(GL_LIGHT1, GL_POSITION, position);
         glEnable(GL_LIGHT1);
-        glColorMaterial(GL_FRONT, GL_DIFFUSE);
     glPopMatrix();
 
     glPushMatrix();
+        float front_ambient[4]  = { 0.7, 0.7, 0.7, 0.0 };
+        glMaterialfv(GL_FRONT, GL_AMBIENT, front_ambient);
+        glColorMaterial(GL_FRONT, GL_DIFFUSE);
         glTranslatef(0.0, 0.0, 20.0);
         glRotatef(n / 1.11, 0.0, 1.0, 0.0);
         glRotatef(n / 2.23, 1.0, 0.0, 0.0);
         glRotatef(n / 3.17, 0.0, 0.0, 1.0);
         glTranslatef(-260.0, -0.2, 0.0);
         glColor3f(0.0, 0.0, 0.0);
-        font->Render("Hello FTGL!");
+        font[fontindex]->Render("Hello FTGL!");
     glPopMatrix();
 
     glutSwapBuffers();
 }
 
+//
+//  GLUT key processing function: <esc> quits, <tab> cycles across fonts.
+//
 void ProcessKeys(unsigned char key, int x, int y)
 {
-    if(key == 27)
+    switch(key)
     {
-        delete font;
+    case 27:
+        delete font[0]; delete font[1]; delete font[2];
         exit(0);
+        break;
+    case '\t':
+        fontindex = (fontindex + 1) % 3;
+        break;
     }
 }
 
+//
+//  Main program entry point: set up GLUT window, load fonts, run GLUT loop.
+//
 int main(int argc, char **argv)
 {
     if(argc < 2)
@@ -108,25 +173,34 @@ int main(int argc, char **argv)
     glutIdleFunc(RenderScene);
     glutKeyboardFunc(ProcessKeys);
 
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluPerspective(90, 640.0f / 480.0f, 1, 1000);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    gluLookAt(0.0, 0.0, 640.0f / 2.0f, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+
     // Initialise FTGL stuff
-    font = new FTExtrudeFont(argv[1]);
-    if(font->Error())
+    font[0] = new FTExtrudeFont(argv[1]);
+    font[1] = new FTPolygonFont(argv[1]);
+    font[2] = new FTHaloFont(argv[1]);
+
+    if(font[0]->Error() || font[1]->Error() || font[2]->Error())
     {
         fprintf(stderr, "%s: could not load font `%s'\n", argv[0], argv[1]);
         return EXIT_FAILURE;
     }
 
-    font->FaceSize(80);
-    font->Depth(10);
-    font->Outset(0, 3);
-    font->CharMap(ft_encoding_unicode);
+    font[0]->FaceSize(80);
+    font[0]->Depth(10);
+    font[0]->Outset(0, 3);
+    font[0]->CharMap(ft_encoding_unicode);
 
-    glMatrixMode (GL_PROJECTION);
-    glLoadIdentity ();
-    gluPerspective(90, 640.0f / 480.0f, 1, 1000);
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-    gluLookAt(0.0, 0.0, 640.0f / 2.0f, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+    font[1]->FaceSize(80);
+    font[1]->CharMap(ft_encoding_unicode);
+
+    font[2]->FaceSize(80);
+    font[2]->CharMap(ft_encoding_unicode);
 
     // Run GLUT loop
     glutMainLoop();
