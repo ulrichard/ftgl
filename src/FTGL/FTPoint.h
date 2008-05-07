@@ -109,7 +109,7 @@ class FTGL_EXPORT FTPoint
          * @param point
          * @return this plus point.
          */
-        inline FTPoint operator + (const FTPoint& point)
+        inline FTPoint operator + (const FTPoint& point) const
         {
             FTPoint temp;
             temp.values[0] = values[0] + point.values[0];
@@ -140,7 +140,7 @@ class FTGL_EXPORT FTPoint
          * @param point
          * @return this minus point.
          */
-        inline FTPoint operator - (const FTPoint& point)
+        inline FTPoint operator - (const FTPoint& point) const
         {
             FTPoint temp;
             temp.values[0] = values[0] - point.values[0];

@@ -59,6 +59,14 @@ class FTGL_EXPORT FTBBox
         {}
 
         /**
+         * Constructor.
+         */
+        FTBBox(FTPoint l, FTPoint u)
+        :   lower(l),
+            upper(u)
+        {}
+
+        /**
          * Constructor. Extracts a bounding box from a freetype glyph. Uses
          * the control box for the glyph. <code>FT_Glyph_Get_CBox()</code>
          *
