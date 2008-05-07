@@ -90,14 +90,6 @@ class FTFontImpl
 
         FTBBox BBox(const wchar_t *s, const int start, const int end);
 
-        void BBox(const char *string, const int start, const int end,
-                  float& llx, float& lly, float& llz,
-                  float& urx, float& ury, float& urz);
-
-        void BBox(const wchar_t *string, const int start, const int end,
-                  float& llx, float& lly, float& llz,
-                  float& urx, float& ury, float& urz);
-
         float Advance(const wchar_t* string);
 
         float Advance(const char* string);
@@ -166,9 +158,7 @@ class FTFontImpl
 
         /* Internal generic BBox() implementation */
         template <typename T>
-        inline void BBoxI(const T *string, const int start, const int end,
-                          float& llx, float& lly, float& llz,
-                          float& urx, float& ury, float& urz);
+        inline FTBBox BBoxI(const T *string, const int start, const int end);
 
         /* Internal generic BBox() implementation */
         template <typename T>

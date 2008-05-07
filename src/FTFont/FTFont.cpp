@@ -206,7 +206,9 @@ void FTFont::BBox(const char* string, const int start, const int end,
                   float& llx, float& lly, float& llz,
                   float& urx, float& ury, float& urz)
 {
-    return impl->BBox(string, start, end, llx, lly, llz, urx, ury, urz);
+    FTBBox tmp = impl->BBox(string, start, end);
+    llx = tmp.Lower().X(); lly = tmp.Lower().Y(); llz = tmp.Lower().Z();
+    urx = tmp.Upper().X(); ury = tmp.Upper().Y(); urz = tmp.Upper().Z();
 }
 
 
@@ -214,21 +216,27 @@ void FTFont::BBox(const wchar_t* string, const int start, const int end,
                   float& llx, float& lly, float& llz,
                   float& urx, float& ury, float& urz)
 {
-    return impl->BBox(string, start, end, llx, lly, llz, urx, ury, urz);
+    FTBBox tmp = impl->BBox(string, start, end);
+    llx = tmp.Lower().X(); lly = tmp.Lower().Y(); llz = tmp.Lower().Z();
+    urx = tmp.Upper().X(); ury = tmp.Upper().Y(); urz = tmp.Upper().Z();
 }
 
 
 void FTFont::BBox(const char* string, float& llx, float& lly, float& llz,
                   float& urx, float& ury, float& urz)
 {
-    return impl->BBox(string, 0, -1, llx, lly, llz, urx, ury, urz);
+    FTBBox tmp = impl->BBox(string, 0, -1);
+    llx = tmp.Lower().X(); lly = tmp.Lower().Y(); llz = tmp.Lower().Z();
+    urx = tmp.Upper().X(); ury = tmp.Upper().Y(); urz = tmp.Upper().Z();
 }
 
 
 void FTFont::BBox(const wchar_t* string, float& llx, float& lly, float& llz,
                   float& urx, float& ury, float& urz)
 {
-    return impl->BBox(string, 0, -1, llx, lly, llz, urx, ury, urz);
+    FTBBox tmp = impl->BBox(string, 0, -1);
+    llx = tmp.Lower().X(); lly = tmp.Lower().Y(); llz = tmp.Lower().Z();
+    urx = tmp.Upper().X(); ury = tmp.Upper().Y(); urz = tmp.Upper().Z();
 }
 
 
@@ -449,9 +457,7 @@ float FTFontImpl::LineHeight() const
 
 
 template <typename T>
-inline void FTFontImpl::BBoxI(const T* string, const int start, const int end,
-                              float& llx, float& lly, float& llz,
-                              float& urx, float& ury, float& urz)
+inline FTBBox FTFontImpl::BBoxI(const T* string, const int start, const int end)
 {
     FTBBox totalBBox;
 
@@ -481,50 +487,22 @@ inline void FTFontImpl::BBoxI(const T* string, const int start, const int end,
         }
     }
 
-    // TODO: The Z values do not follow the proper ordering.  I'm not sure why.
-    llx = totalBBox.Lower().Xf() < totalBBox.Upper().Xf() ? totalBBox.Lower().Xf() : totalBBox.Upper().Xf();
-    lly = totalBBox.Lower().Yf() < totalBBox.Upper().Yf() ? totalBBox.Lower().Yf() : totalBBox.Upper().Yf();
-    llz = totalBBox.Lower().Zf() < totalBBox.Upper().Zf() ? totalBBox.Lower().Zf() : totalBBox.Upper().Zf();
-    urx = totalBBox.Lower().Xf() > totalBBox.Upper().Xf() ? totalBBox.Lower().Xf() : totalBBox.Upper().Xf();
-    ury = totalBBox.Lower().Yf() > totalBBox.Upper().Yf() ? totalBBox.Lower().Yf() : totalBBox.Upper().Yf();
-    urz = totalBBox.Lower().Zf() > totalBBox.Upper().Zf() ? totalBBox.Lower().Zf() : totalBBox.Upper().Zf();
+    // TODO: The Z values used to not follow the proper ordering.  Investigate
+    // and confirm/infirm that the bug is still there.
+    return totalBBox;
 }
 
 
 FTBBox FTFontImpl::BBox(const char *string, const int start, const int end)
 {
-    float llx, lly, llz, urx, ury, urz;
-    BBoxI((const unsigned char *)string, start, end,
-          llx, lly, llz, urx, ury, urz);
-    FTBBox tmp(llx, lly, llz, urx, ury, urz);
-    return tmp;
+    /* The chars need to be unsigned because they are cast to int later */
+    return BBoxI((const unsigned char *)string, start, end);
 }
 
 
 FTBBox FTFontImpl::BBox(const wchar_t *string, const int start, const int end)
 {
-    float llx, lly, llz, urx, ury, urz;
-    BBoxI(string, start, end, llx, lly, llz, urx, ury, urz);
-    FTBBox tmp(llx, lly, llz, urx, ury, urz);
-    return tmp;
-}
-
-
-void FTFontImpl::BBox(const char* string, const int start, const int end,
-                      float& llx, float& lly, float& llz,
-                      float& urx, float& ury, float& urz)
-{
-    /* The chars need to be unsigned because they are cast to int later */
-    return BBoxI((const unsigned char *)string, start, end,
-                 llx, lly, llz, urx, ury, urz);
-}
-
-
-void FTFontImpl::BBox(const wchar_t* string, const int start, const int end,
-                      float& llx, float& lly, float& llz,
-                      float& urx, float& ury, float& urz)
-{
-    return BBoxI(string, start, end, llx, lly, llz, urx, ury, urz);
+    return BBoxI(string, start, end);
 }
 
 
