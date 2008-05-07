@@ -119,12 +119,13 @@ class FTGL_EXPORT FTBBox
         /**
          * Move the Bounding Box by a vector.
          *
-         * @param distance The distance to move the bbox in 3D space.
+         * @param distance The vector to move the bbox in 3D space.
          */
-        FTBBox& Move(FTPoint distance)
+        FTBBox& operator += (const FTPoint vector)
         {
-            lower += distance;
-            upper += distance;
+            lower += vector;
+            upper += vector;
+
             return *this;
         }
 

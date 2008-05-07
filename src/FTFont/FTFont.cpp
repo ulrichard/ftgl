@@ -452,7 +452,7 @@ inline FTBBox FTFontImpl::BBoxI(const T* string, const int start, const int end)
             if(CheckGlyph(string[i]))
             {
                 FTBBox tempBBox = glyphList->BBox(string[i]);
-                tempBBox.Move(FTPoint(advance, 0.0f, 0.0f));
+                tempBBox += FTPoint(advance, 0.0f, 0.0f);
 
                 totalBBox |= tempBBox;
                 advance += glyphList->Advance(string[i], string[i + 1]);
