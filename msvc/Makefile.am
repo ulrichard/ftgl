@@ -2,7 +2,6 @@
 EXTRA_DIST = \
     README.txt \
     config.h \
-    demo.cpp \
     $(vc71_files) \
     $(vc8_files) \
     $(NULL)
@@ -13,14 +12,14 @@ vc71_files = \
     $(NULL)
 
 vc8_files = \
-    vc8/README_WIN32.txt \
     vc8/ftgl_static.vcproj \
-    vc8/ftgl_demo.vcproj \
     vc8/unit_tests.vcproj \
     vc8/ftgl.sln \
-    vc8/ftgl_demo_2.vcproj \
     vc8/ftgl_demo.sln \
     vc8/ftgl_dll.vcproj \
+    vc8/FTGLDemo.vcproj \
+    vc8/SimpleDemo.vcproj \
+    vc8/trackball.vcproj \
     $(NULL)
 
 NULL =
