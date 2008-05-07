@@ -86,6 +86,10 @@ class FTFontImpl
 
         virtual void Outset(float front, float back);
 
+        FTBBox BBox(const char *s, const int start, const int end);
+
+        FTBBox BBox(const wchar_t *s, const int start, const int end);
+
         void BBox(const char *string, const int start, const int end,
                   float& llx, float& lly, float& llz,
                   float& urx, float& ury, float& urz);

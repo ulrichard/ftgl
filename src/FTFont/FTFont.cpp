@@ -189,6 +189,19 @@ float FTFont::Advance(const char* string)
 }
 
 
+FTBBox FTFont::BBox(const char *string, const int start, const int end)
+{
+    return impl->BBox(string, start, end);
+}
+
+
+FTBBox FTFont::BBox(const wchar_t *string,
+                    const int start, const int end)
+{
+    return impl->BBox(string, start, end);
+}
+
+
 void FTFont::BBox(const char* string, const int start, const int end,
                   float& llx, float& lly, float& llz,
                   float& urx, float& ury, float& urz)
@@ -475,6 +488,25 @@ inline void FTFontImpl::BBoxI(const T* string, const int start, const int end,
     urx = totalBBox.Lower().Xf() > totalBBox.Upper().Xf() ? totalBBox.Lower().Xf() : totalBBox.Upper().Xf();
     ury = totalBBox.Lower().Yf() > totalBBox.Upper().Yf() ? totalBBox.Lower().Yf() : totalBBox.Upper().Yf();
     urz = totalBBox.Lower().Zf() > totalBBox.Upper().Zf() ? totalBBox.Lower().Zf() : totalBBox.Upper().Zf();
+}
+
+
+FTBBox FTFontImpl::BBox(const char *string, const int start, const int end)
+{
+    float llx, lly, llz, urx, ury, urz;
+    BBoxI((const unsigned char *)string, start, end,
+          llx, lly, llz, urx, ury, urz);
+    FTBBox tmp(llx, lly, llz, urx, ury, urz);
+    return tmp;
+}
+
+
+FTBBox FTFontImpl::BBox(const wchar_t *string, const int start, const int end)
+{
+    float llx, lly, llz, urx, ury, urz;
+    BBoxI(string, start, end, llx, lly, llz, urx, ury, urz);
+    FTBBox tmp(llx, lly, llz, urx, ury, urz);
+    return tmp;
 }
 
 

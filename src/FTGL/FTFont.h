@@ -210,6 +210,10 @@ class FTGL_EXPORT FTFont
          */
         float LineHeight() const;
 
+        FTBBox BBox(const char *s, const int start, const int end);
+
+        FTBBox BBox(const wchar_t *s, const int start, const int end);
+
         /**
          * Get the bounding box for a string.
          *
