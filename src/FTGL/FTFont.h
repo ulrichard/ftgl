@@ -210,77 +210,47 @@ class FTGL_EXPORT FTFont
          */
         float LineHeight() const;
 
+        /**
+         * Get the bounding box for a string.
+         *
+         * @param string  A char buffer.
+         * @return  The corresponding bounding box.
+         */
+        FTBBox BBox(const char *s);
+
+        /**
+         * Get the bounding box for a string.
+         *
+         * @param string  A wchar_t buffer.
+         * @return  The corresponding bounding box.
+         */
+        FTBBox BBox(const wchar_t *s);
+
+        /**
+         * Get the bounding box for a string.
+         *
+         * @param string  A char buffer.
+         * @param start  The index of the first character of string
+         *               to check.
+         * @param end  The index of the last character of string to
+         *             check.  If < 0 then characters will be parsed
+         *             until a '@\0' is encountered.
+         * @return  The corresponding bounding box.
+         */
         FTBBox BBox(const char *s, const int start, const int end);
 
+        /**
+         * Get the bounding box for a string.
+         *
+         * @param string  A wchar_t buffer.
+         * @param start  The index of the first character of string
+         *               to check.
+         * @param end  The index of the last character of string to
+         *             check.  If < 0 then characters will be parsed
+         *             until a '@\0' is encountered.
+         * @return  The corresponding bounding box.
+         */
         FTBBox BBox(const wchar_t *s, const int start, const int end);
-
-        /**
-         * Get the bounding box for a string.
-         *
-         * @param string    a char buffer
-         * @param start     The index of the first character of string
-         *                  to check.
-         * @param end       The index of the last character of string to
-         *                  check.  If < 0 then characters will be parsed
-         *                  until a '@\0' is encountered.
-         * @param llx       lower left near x coord
-         * @param lly       lower left near y coord
-         * @param llz       lower left near z coord
-         * @param urx       upper right far x coord
-         * @param ury       upper right far y coord
-         * @param urz       upper right far z coord
-         */
-        void BBox(const char *string, const int start, const int end,
-                  float& llx, float& lly, float& llz,
-                  float& urx, float& ury, float& urz);
-
-        /**
-         * Get the bounding box for a string.
-         *
-         * @param string    a wchar_t buffer
-         * @param start     The index of the first character of string
-         *                  to check.
-         * @param end       The index of the last character of string
-         *                  to check.    If < 0 then characters will
-         *                  be parsed until a '@\0' is encountered.
-         * @param llx       lower left near x coord
-         * @param lly       lower left near y coord
-         * @param llz       lower left near z coord
-         * @param urx       upper right far x coord
-         * @param ury       upper right far y coord
-         * @param urz       upper right far z coord
-         */
-        void BBox(const wchar_t *string, const int start, const int end,
-                  float& llx, float& lly, float& llz,
-                  float& urx, float& ury, float& urz);
-
-        /**
-         * Get the bounding box for a string.
-         *
-         * @param string    a char string
-         * @param llx       lower left near x coord
-         * @param lly       lower left near y coord
-         * @param llz       lower left near z coord
-         * @param urx       upper right far x coord
-         * @param ury       upper right far y coord
-         * @param urz       upper right far z coord
-         */
-        void BBox(const char* string, float& llx, float& lly, float& llz,
-                  float& urx, float& ury, float& urz);
-
-        /**
-         * Get the bounding box for a string.
-         *
-         * @param string    a wchar_t string
-         * @param llx       lower left near x coord
-         * @param lly       lower left near y coord
-         * @param llz       lower left near z coord
-         * @param urx       upper right far x coord
-         * @param ury       upper right far y coord
-         * @param urz       upper right far z coord
-         */
-        void BBox(const wchar_t* string, float& llx, float& lly, float& llz,
-                  float& urx, float& ury, float& urz);
 
         /**
          * Get the advance width for a string.

@@ -28,6 +28,8 @@
 
 #include "FTInternals.h"
 
+static const FTBBox static_ftbbox;
+
 FTGL_BEGIN_C_DECLS
 
 #define C_TOR(cname, cargs, cxxname, cxxarg, cxxtype) \
@@ -87,8 +89,16 @@ void ftglDestroyLayout(FTGLlayout *l)
 }
 
 // virtual void BBox(const char* string, float& llx, float& lly, float& llz, float& urx, float& ury, float& urz)
-C_FUN(void, ftgGetlLayoutBBox, (FTGLlayout *f, const char * s, float c[6]),
-      return, BBox, (s, c[0], c[1], c[2], c[3], c[4], c[5]));
+C_FUN(static FTBBox, _ftgGetlLayoutBBox, (FTGLlayout *f, const char *s),
+      return static_ftbbox, BBox, (s));
+
+void ftgGetlLayoutBBox(FTGLlayout *f, const char * s, float c[6])
+{
+    FTBBox ret = _ftgGetlLayoutBBox(f, s);
+    FTPoint lower = ret.Lower(), upper = ret.Upper();
+    c[0] = lower.Xf(); c[1] = lower.Yf(); c[2] = lower.Zf();
+    c[3] = upper.Xf(); c[4] = upper.Yf(); c[5] = upper.Zf();
+}
 
 // virtual void Render(const char* string, int renderMode);
 C_FUN(void, ftglRenderLayout, (FTGLlayout *f, const char *s, int r),

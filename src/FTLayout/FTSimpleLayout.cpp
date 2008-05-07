@@ -47,43 +47,39 @@ FTSimpleLayout::~FTSimpleLayout()
 {}
 
 
-void FTSimpleLayout::BBox(const char *string, float& llx, float& lly,
-                              float& llz, float& urx, float& ury, float& urz)
+FTBBox FTSimpleLayout::BBox(const char *string)
 {
-    dynamic_cast<FTSimpleLayoutImpl*>(impl)->BBox(string, llx, lly, llz,
-                                                  urx, ury, urz);
+    return dynamic_cast<FTSimpleLayoutImpl*>(impl)->BBox(string);
 }
 
 
-void FTSimpleLayout::BBox(const wchar_t *string, float& llx, float& lly,
-                              float& llz, float& urx, float& ury, float& urz)
+FTBBox FTSimpleLayout::BBox(const wchar_t *string)
 {
-    dynamic_cast<FTSimpleLayoutImpl*>(impl)->BBox(string, llx, lly, llz,
-                                                  urx, ury, urz);
+    return dynamic_cast<FTSimpleLayoutImpl*>(impl)->BBox(string);
 }
 
 
 void FTSimpleLayout::Render(const char *string)
 {
-    dynamic_cast<FTSimpleLayoutImpl*>(impl)->Render(string);
+    return dynamic_cast<FTSimpleLayoutImpl*>(impl)->Render(string);
 }
 
 
 void FTSimpleLayout::Render(const wchar_t* string)
 {
-    dynamic_cast<FTSimpleLayoutImpl*>(impl)->Render(string);
+    return dynamic_cast<FTSimpleLayoutImpl*>(impl)->Render(string);
 }
 
 
 void FTSimpleLayout::Render(const char *string, int renderMode)
 {
-    dynamic_cast<FTSimpleLayoutImpl*>(impl)->Render(string, renderMode);
+    return dynamic_cast<FTSimpleLayoutImpl*>(impl)->Render(string, renderMode);
 }
 
 
 void FTSimpleLayout::Render(const wchar_t* string, int renderMode)
 {
-    dynamic_cast<FTSimpleLayoutImpl*>(impl)->Render(string, renderMode);
+    return dynamic_cast<FTSimpleLayoutImpl*>(impl)->Render(string, renderMode);
 }
 
 
@@ -137,13 +133,15 @@ float FTSimpleLayout::GetLineSpacing() const
 
 void FTSimpleLayout::RenderSpace(const char *string, const float ExtraSpace)
 {
-    dynamic_cast<FTSimpleLayoutImpl*>(impl)->RenderSpace(string, ExtraSpace);
+    return dynamic_cast<FTSimpleLayoutImpl*>(impl)->RenderSpace(string,
+                                                                ExtraSpace);
 }
 
 
 void FTSimpleLayout::RenderSpace(const wchar_t *string, const float ExtraSpace)
 {
-    dynamic_cast<FTSimpleLayoutImpl*>(impl)->RenderSpace(string, ExtraSpace);
+    return dynamic_cast<FTSimpleLayoutImpl*>(impl)->RenderSpace(string,
+                                                                ExtraSpace);
 }
 
 
@@ -162,29 +160,25 @@ FTSimpleLayoutImpl::FTSimpleLayoutImpl()
 
 
 template <typename T>
-inline void FTSimpleLayoutImpl::BBoxI(const T* string,
-                                      float& llx, float& lly, float& llz,
-                                      float& urx, float& ury, float& urz)
+inline FTBBox FTSimpleLayoutImpl::BBoxI(const T* string)
 {
-    FTBBox bounds;
+    FTBBox tmp;
 
-    WrapText(string, 0, &bounds);
-    llx = bounds.Lower().Xf(); lly = bounds.Lower().Yf(); llz = bounds.Lower().Zf();
-    urx = bounds.Upper().Xf(); ury = bounds.Upper().Yf(); urz = bounds.Upper().Zf();
+    WrapText(string, 0, &tmp);
+
+    return tmp;
 }
 
 
-void FTSimpleLayoutImpl::BBox(const char *string, float& llx, float& lly,
-                              float& llz, float& urx, float& ury, float& urz)
+FTBBox FTSimpleLayoutImpl::BBox(const char *string)
 {
-    BBoxI(string, llx, lly, llz, urx, ury, urz);
+    return BBoxI(string);
 }
 
 
-void FTSimpleLayoutImpl::BBox(const wchar_t *string, float& llx, float& lly,
-                              float& llz, float& urx, float& ury, float& urz)
+FTBBox FTSimpleLayoutImpl::BBox(const wchar_t *string)
 {
-    BBoxI(string, llx, lly, llz, urx, ury, urz);
+    return BBoxI(string);
 }
 
 
@@ -398,25 +392,20 @@ inline void FTSimpleLayoutImpl::OutputWrappedI(const T *buf, const int start,
     // the line.
     if(bounds)
     {
-        float llx, lly, llz, urx, ury, urz;
-        currentFont->BBox(buf, start, end, llx, lly, llz, urx, ury, urz);
+        FTBBox temp = currentFont->BBox(buf, start, end);
 
         // Add the extra space to the upper x dimension
-        urx += distributeWidth;
-        // TODO: It's a little silly to convert from a FTBBox to floats and
-        // back again, but I don't want to implement yet another method for
-        // finding the bounding box as a BBox.
-        FTBBox temp(llx, lly, llz, urx, ury, urz);
-        temp.Move(FTPoint(pen.X(), pen.Y(), 0.0f));
+        temp = FTBBox(temp.Lower() + pen,
+                      temp.Upper() + pen + FTPoint(distributeWidth, 0));
 
         // See if this is the first area to be added to the bounds
-        if(!bounds->IsValid())
+        if(bounds->IsValid())
         {
-            *bounds = temp;
+            *bounds += temp;
         }
         else
         {
-            *bounds += temp;
+            *bounds = temp;
         }
     }
     else

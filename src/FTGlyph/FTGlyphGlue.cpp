@@ -30,8 +30,8 @@
 
 #include "FTInternals.h"
 
-static FTPoint static_ftpoint;
-static FTBBox static_ftbbox;
+static const FTPoint static_ftpoint;
+static const FTBBox static_ftbbox;
 
 FTGL_BEGIN_C_DECLS
 

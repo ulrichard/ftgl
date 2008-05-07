@@ -214,13 +214,18 @@ void setUpFonts(int numFontFiles)
 
 void renderFontmetrics()
 {
+    FTBBox bbox;
     float x1, y1, z1, x2, y2, z2;
+
     // If there is a layout, use it to compute the bbox, otherwise query as
     // a string.
     if(layouts[currentLayout])
-        layouts[currentLayout]->BBox(myString, x1, y1, z1, x2, y2, z2);
+        bbox = layouts[currentLayout]->BBox(myString);
     else
-        fonts[current_font]->BBox(myString, x1, y1, z1, x2, y2, z2);
+        bbox = fonts[current_font]->BBox(myString);
+
+    x1 = bbox.Lower().Xf(); y1 = bbox.Lower().Yf(); z1 = bbox.Lower().Zf();
+    x2 = bbox.Upper().Xf(); y2 = bbox.Upper().Yf(); z2 = bbox.Upper().Zf();
 
     // Draw the bounding box
     glDisable(GL_LIGHTING);

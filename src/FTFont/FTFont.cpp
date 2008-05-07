@@ -189,54 +189,27 @@ float FTFont::Advance(const char* string)
 }
 
 
+FTBBox FTFont::BBox(const char *string)
+{
+    return impl->BBox(string, 0, -1);
+}
+
+
+FTBBox FTFont::BBox(const wchar_t *string)
+{
+    return impl->BBox(string, 0, -1);
+}
+
+
 FTBBox FTFont::BBox(const char *string, const int start, const int end)
 {
     return impl->BBox(string, start, end);
 }
 
 
-FTBBox FTFont::BBox(const wchar_t *string,
-                    const int start, const int end)
+FTBBox FTFont::BBox(const wchar_t *string, const int start, const int end)
 {
     return impl->BBox(string, start, end);
-}
-
-
-void FTFont::BBox(const char* string, const int start, const int end,
-                  float& llx, float& lly, float& llz,
-                  float& urx, float& ury, float& urz)
-{
-    FTBBox tmp = impl->BBox(string, start, end);
-    llx = tmp.Lower().X(); lly = tmp.Lower().Y(); llz = tmp.Lower().Z();
-    urx = tmp.Upper().X(); ury = tmp.Upper().Y(); urz = tmp.Upper().Z();
-}
-
-
-void FTFont::BBox(const wchar_t* string, const int start, const int end,
-                  float& llx, float& lly, float& llz,
-                  float& urx, float& ury, float& urz)
-{
-    FTBBox tmp = impl->BBox(string, start, end);
-    llx = tmp.Lower().X(); lly = tmp.Lower().Y(); llz = tmp.Lower().Z();
-    urx = tmp.Upper().X(); ury = tmp.Upper().Y(); urz = tmp.Upper().Z();
-}
-
-
-void FTFont::BBox(const char* string, float& llx, float& lly, float& llz,
-                  float& urx, float& ury, float& urz)
-{
-    FTBBox tmp = impl->BBox(string, 0, -1);
-    llx = tmp.Lower().X(); lly = tmp.Lower().Y(); llz = tmp.Lower().Z();
-    urx = tmp.Upper().X(); ury = tmp.Upper().Y(); urz = tmp.Upper().Z();
-}
-
-
-void FTFont::BBox(const wchar_t* string, float& llx, float& lly, float& llz,
-                  float& urx, float& ury, float& urz)
-{
-    FTBBox tmp = impl->BBox(string, 0, -1);
-    llx = tmp.Lower().X(); lly = tmp.Lower().Y(); llz = tmp.Lower().Z();
-    urx = tmp.Upper().X(); ury = tmp.Upper().Y(); urz = tmp.Upper().Z();
 }
 
 
@@ -487,8 +460,6 @@ inline FTBBox FTFontImpl::BBoxI(const T* string, const int start, const int end)
         }
     }
 
-    // TODO: The Z values used to not follow the proper ordering.  Investigate
-    // and confirm/infirm that the bug is still there.
     return totalBBox;
 }
 

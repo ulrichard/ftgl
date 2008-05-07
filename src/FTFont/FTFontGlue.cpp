@@ -28,6 +28,8 @@
 
 #include "FTInternals.h"
 
+static const FTBBox static_ftbbox;
+
 FTGL_BEGIN_C_DECLS
 
 #define C_TOR(cname, cargs, cxxname, cxxarg, cxxtype) \
@@ -181,9 +183,18 @@ C_FUN(float, ftglGetFontLineHeight, (FTGLfont *f), return 0.f, LineHeight, ());
 
 // void FTFont::BBox(const char* string, float& llx, float& lly, float& llz,
 //                   float& urx, float& ury, float& urz);
-C_FUN(void, ftglGetFontBBox, (FTGLfont *f, const char* s, int start, int end,
-                              float c[6]),
-      return, BBox, (s, start, end, c[0], c[1], c[2], c[3], c[4], c[5]));
+C_FUN(static FTBBox, _ftglGetFontBBox, (FTGLfont *f, char const *s,
+                                        int start, int end),
+      return static_ftbbox, BBox, (s, start, end));
+
+void ftglGetFontBBox(FTGLfont *f, const char* s, int start, int end,
+                     float c[6])
+{
+    FTBBox ret = _ftglGetFontBBox(f, s, start, end);
+    FTPoint lower = ret.Lower(), upper = ret.Upper();
+    c[0] = lower.Xf(); c[1] = lower.Yf(); c[2] = lower.Zf();
+    c[3] = upper.Xf(); c[4] = upper.Yf(); c[5] = upper.Zf();
+}
 
 // float FTFont::Advance(const char* string);
 C_FUN(float, ftglGetFontAdvance, (FTGLfont *f, const char* s),

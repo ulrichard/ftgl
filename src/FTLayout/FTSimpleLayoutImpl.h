@@ -43,30 +43,18 @@ class FTSimpleLayoutImpl : public FTLayoutImpl
         /**
          * Get the bounding box for a string.
          *
-         * @param string    a char string
-         * @param llx       lower left near x coord
-         * @param lly       lower left near y coord
-         * @param llz       lower left near z coord
-         * @param urx       upper right far x coord
-         * @param ury       upper right far y coord
-         * @param urz       upper right far z coord
+         * @param string  A char string.
+         * @return  The corresponding bounding box.
          */
-        virtual void BBox(const char* string, float& llx, float& lly,
-                          float& llz, float& urx, float& ury, float& urz);
+        virtual FTBBox BBox(const char* string);
 
         /**
          * Get the bounding box for a string.
          *
-         * @param string    a wchar_t string
-         * @param llx       lower left near x coord
-         * @param lly       lower left near y coord
-         * @param llz       lower left near z coord
-         * @param urx       upper right far x coord
-         * @param ury       upper right far y coord
-         * @param urz       upper right far z coord
+         * @param string  A wchar_t string.
+         * @return  The corresponding bounding box.
          */
-        virtual void BBox(const wchar_t* string, float& llx, float& lly,
-                          float& llz, float& urx, float& ury, float& urz);
+        virtual FTBBox BBox(const wchar_t* string);
 
         /**
          * Render a string of characters
@@ -256,8 +244,7 @@ class FTSimpleLayoutImpl : public FTLayoutImpl
 
         /* Internal generic BBox() implementation */
         template <typename T>
-        inline void BBoxI(const T* string, float& llx, float& lly, float& llz,
-                          float& urx, float& ury, float& urz);
+        inline FTBBox BBoxI(const T* string);
 
         /* Internal generic Render() implementation */
         template <typename T>

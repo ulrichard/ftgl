@@ -47,6 +47,7 @@ class FTLayoutImpl;
  * <code>BBox</code> methods to determine the bounding box of output text.
  *
  * @see     FTFont
+ * @see     FTBBox
  */
 class FTGL_EXPORT FTLayout
 {
@@ -74,30 +75,18 @@ class FTGL_EXPORT FTLayout
         /**
          * Get the bounding box for a formatted string.
          *
-         * @param string    a char string
-         * @param llx       lower left near x coord
-         * @param lly       lower left near y coord
-         * @param llz       lower left near z coord
-         * @param urx       upper right far x coord
-         * @param ury       upper right far y coord
-         * @param urz       upper right far z coord
+         * @param string  A char string.
+         * @return  The corresponding bounding box.
          */
-        virtual void BBox(const char* string, float& llx, float& lly,
-                          float& llz, float& urx, float& ury, float& urz) = 0;
+        virtual FTBBox BBox(const char* string) = 0;
 
         /**
          * Get the bounding box for a formatted string.
          *
-         * @param string    a wchar_t string
-         * @param llx       lower left near x coord
-         * @param lly       lower left near y coord
-         * @param llz       lower left near z coord
-         * @param urx       upper right far x coord
-         * @param ury       upper right far y coord
-         * @param urz       upper right far z coord
+         * @param string  A wchar_t string.
+         * @return  The corresponding bounding box.
          */
-        virtual void BBox(const wchar_t* string, float& llx, float& lly,
-                          float& llz, float& urx, float& ury, float& urz) = 0;
+        virtual FTBBox BBox(const wchar_t* string) = 0;
 
         /**
          * Render a string of characters
