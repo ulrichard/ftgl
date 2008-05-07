@@ -216,7 +216,7 @@ class FTGL_EXPORT FTFont
          * @param string  A char buffer.
          * @return  The corresponding bounding box.
          */
-        FTBBox BBox(const char *s);
+        FTBBox BBox(const char *string);
 
         /**
          * Get the bounding box for a string.
@@ -224,7 +224,7 @@ class FTGL_EXPORT FTFont
          * @param string  A wchar_t buffer.
          * @return  The corresponding bounding box.
          */
-        FTBBox BBox(const wchar_t *s);
+        FTBBox BBox(const wchar_t *string);
 
         /**
          * Get the bounding box for a string.
@@ -237,7 +237,7 @@ class FTGL_EXPORT FTFont
          *             until a '@\0' is encountered.
          * @return  The corresponding bounding box.
          */
-        FTBBox BBox(const char *s, const int start, const int end);
+        FTBBox BBox(const char *string, const int start, const int end);
 
         /**
          * Get the bounding box for a string.
@@ -250,7 +250,7 @@ class FTGL_EXPORT FTFont
          *             until a '@\0' is encountered.
          * @return  The corresponding bounding box.
          */
-        FTBBox BBox(const wchar_t *s, const int start, const int end);
+        FTBBox BBox(const wchar_t *string, const int start, const int end);
 
         /**
          * Get the advance width for a string.

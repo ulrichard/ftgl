@@ -119,7 +119,7 @@ class FTGL_EXPORT FTBBox
         /**
          * Move the Bounding Box by a vector.
          *
-         * @param distance The vector to move the bbox in 3D space.
+         * @param vector  The vector to move the bbox in 3D space.
          */
         FTBBox& operator += (const FTPoint vector)
         {
@@ -129,6 +129,12 @@ class FTGL_EXPORT FTBBox
             return *this;
         }
 
+        /**
+         * Combine two bounding boxes. The result is the smallest bounding
+         * box containing the two original boxes.
+         *
+         * @param bbox  The bounding box to merge with the second one.
+         */
         FTBBox& operator |= (const FTBBox& bbox)
         {
             if(bbox.lower.X() < lower.X()) lower.X(bbox.lower.X());
