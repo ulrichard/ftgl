@@ -25,8 +25,7 @@
 
 #include "config.h"
 
-#include <math.h>
-
+#include <math.h> // sin(), cos()
 #include <stdlib.h> // exit()
 
 #if defined HAVE_GL_GLUT_H
@@ -43,13 +42,14 @@ static FTFont *font[3];
 static int fontindex = 0;
 
 //
-//  FTHaloGlyph is a derivation of FTOutlineGlyph that displays several
-//  outlines at varying offsets and with varying outset values.
+//  FTHaloGlyph is a derivation of FTPolygonGlyph that also displays a
+//  halo of FTOutlineGlyph objects at varying positions and with varying
+//  outset values.
 //
-class FTHaloGlyph : public FTOutlineGlyph
+class FTHaloGlyph : public FTPolygonGlyph
 {
     public:
-        FTHaloGlyph(FT_GlyphSlot glyph) : FTOutlineGlyph(glyph, 0, true)
+        FTHaloGlyph(FT_GlyphSlot glyph) : FTPolygonGlyph(glyph, 0, true)
         {
             for(int i = 0; i < 5; i++)
             {
@@ -67,20 +67,21 @@ class FTHaloGlyph : public FTOutlineGlyph
                 subglyph[i]->Render(pen, renderMode);
             }
             glPopMatrix();
-            return FTOutlineGlyph::Render(pen, renderMode);
+
+            return FTPolygonGlyph::Render(pen, renderMode);
         }
 
-        FTOutlineGlyph *subglyph[5];
+        FTGlyph *subglyph[5];
 };
 
 //
-//  FTHaloFont is a simple FTOutlineFont derivation that builds FTHaloGlyph
+//  FTHaloFont is a simple FTFont derivation that builds FTHaloGlyph
 //  objects.
 //
-class FTHaloFont : public FTOutlineFont
+class FTHaloFont : public FTFont
 {
     public:
-        FTHaloFont(char const *fontFilePath) : FTOutlineFont(fontFilePath) {}
+        FTHaloFont(char const *fontFilePath) : FTFont(fontFilePath) {}
 
     private:
         virtual FTGlyph* MakeGlyph(FT_GlyphSlot slot)

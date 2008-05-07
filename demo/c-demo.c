@@ -25,7 +25,8 @@
 
 #include "config.h"
 
-#include <math.h>
+#include <math.h> /* sin(), cos() */
+#include <stdlib.h> /* exit() */
 
 #if defined HAVE_GL_GLUT_H
 #   include <GL/glut.h>
@@ -45,7 +46,7 @@ static FTGLfont *font;
  */
 static void RenderScene(void)
 {
-    float n = (float)glutGet(GLUT_ELAPSED_TIME) / 10.;
+    float n = (float)glutGet(GLUT_ELAPSED_TIME) / 20.;
     float t1 = sin(n / 80);
     float t2 = sin(n / 50 + 1);
     float t3 = sin(n / 30 + 2);
@@ -91,10 +92,12 @@ static void RenderScene(void)
  */
 static void ProcessKeys(unsigned char key, int x, int y)
 {
-    if(key == 27)
+    switch(key)
     {
+    case 27:
         ftglDestroyFont(font);
-        exit(0);
+        exit(EXIT_SUCCESS);
+        break;
     }
 }
 
@@ -120,8 +123,8 @@ int main(int argc, char **argv)
     glutIdleFunc(RenderScene);
     glutKeyboardFunc(ProcessKeys);
 
-    glMatrixMode (GL_PROJECTION);
-    glLoadIdentity ();
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
     gluPerspective(90, 640.0f / 480.0f, 1, 1000);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
