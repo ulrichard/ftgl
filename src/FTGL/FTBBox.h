@@ -142,7 +142,10 @@ class FTGL_EXPORT FTBBox
 
         void SetDepth(float depth)
         {
-            upper.Z(lower.Z() + depth);
+            if(depth > 0)
+                upper.Z(lower.Z() + depth);
+            else
+                lower.Z(upper.Z() + depth);
         }
 
 
