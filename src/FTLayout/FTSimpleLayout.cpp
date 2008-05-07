@@ -401,7 +401,7 @@ inline void FTSimpleLayoutImpl::OutputWrappedI(const T *buf, const int start,
         // See if this is the first area to be added to the bounds
         if(bounds->IsValid())
         {
-            *bounds += temp;
+            *bounds |= temp;
         }
         else
         {

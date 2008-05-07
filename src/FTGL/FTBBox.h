@@ -128,7 +128,7 @@ class FTGL_EXPORT FTBBox
             return *this;
         }
 
-        FTBBox& operator += (const FTBBox& bbox)
+        FTBBox& operator |= (const FTBBox& bbox)
         {
             if(bbox.lower.X() < lower.X()) lower.X(bbox.lower.X());
             if(bbox.lower.Y() < lower.Y()) lower.Y(bbox.lower.Y());
