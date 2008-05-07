@@ -134,7 +134,7 @@ const FTSize& FTFace::Size(const unsigned int size, const unsigned int res)
 }
 
 
-unsigned int FTFace::CharMapCount()
+unsigned int FTFace::CharMapCount() const
 {
     return (*ftFace)->num_charmaps;
 }

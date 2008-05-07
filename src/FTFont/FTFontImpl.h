@@ -55,7 +55,7 @@ class FTFontImpl
 
         virtual bool CharMap(FT_Encoding encoding);
 
-        virtual unsigned int CharMapCount();
+        virtual unsigned int CharMapCount() const;
 
         virtual FT_Encoding* CharMapList();
 

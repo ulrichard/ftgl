@@ -117,7 +117,7 @@ bool FTFont::CharMap(FT_Encoding encoding)
 }
 
 
-unsigned int FTFont::CharMapCount()
+unsigned int FTFont::CharMapCount() const
 {
     return impl->CharMapCount();
 }
@@ -393,7 +393,7 @@ bool FTFontImpl::CharMap(FT_Encoding encoding)
 }
 
 
-unsigned int FTFontImpl::CharMapCount()
+unsigned int FTFontImpl::CharMapCount() const
 {
     return face.CharMapCount();
 }

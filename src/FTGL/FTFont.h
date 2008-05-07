@@ -131,7 +131,7 @@ class FTGL_EXPORT FTFont
          *
          * @return character map count.
          */
-        unsigned int CharMapCount();
+        unsigned int CharMapCount() const;
 
         /**
          * Get a list of character maps in this face.
