@@ -109,11 +109,9 @@ FTPoint FTContour::ComputeOutsetPoint(FTPoint A, FTPoint B, FTPoint C)
                 bc.X() * ba.Y() + bc.Y() * -ba.X());
 
     /* Compute the vector bisecting 'abc' */
-    FTGL_DOUBLE sgn = -64.0;
     FTGL_DOUBLE norm = sqrt(tmp.X() * tmp.X() + tmp.Y() * tmp.Y());
-    if((tmp.Y() / norm) < 0)
-        sgn = 64.0;
-    tmp.X(sgn * sqrt((norm - tmp.X()) / (norm + tmp.X())));
+    FTGL_DOUBLE dist = 64.0 * sqrt((norm - tmp.X()) / (norm + tmp.X()));
+    tmp.X(tmp.Y() < 0.0 ? dist : -dist);
     tmp.Y(64.0);
 
     /* Rotate the new bc to the right */
