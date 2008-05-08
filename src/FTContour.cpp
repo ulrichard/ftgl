@@ -119,6 +119,7 @@ FTPoint FTContour::ComputeOutsetPoint(FTPoint A, FTPoint B, FTPoint C)
                    tmp.X() * -ba.Y() + tmp.Y() * -ba.X());
 }
 
+
 void FTContour::outsetContour()
 {
     size_t size = PointCount();
@@ -137,11 +138,26 @@ void FTContour::outsetContour()
 
 FTContour::FTContour(FT_Vector* contour, char* tags, unsigned int n)
 {
+    FTPoint prev, cur(contour[(n - 1) % n]), next(contour[0]);
+    FTPoint a, b = next - cur;
+    double olddir, dir = atan2((next - cur).Y(), (next - cur).X());
+    double angle = 0.0;
+
     // See http://freetype.sourceforge.net/freetype2/docs/glyphs/glyphs-6.html
     // for a full description of FreeType tags.
     for(unsigned int i = 0; i < n; i++)
     {
-        FTPoint cur(contour[i]);
+        prev = cur;
+        cur = next;
+        next = FTPoint(contour[(i + 1) % n]);
+        olddir = dir;
+        dir = atan2((next - cur).Y(), (next - cur).Y());
+
+        // Compute our path's new direction.
+        double t = dir - olddir;
+        if(t < -M_PI) t += 2 * M_PI;
+        if(t > M_PI) t -= 2 * M_PI;
+        angle += t;
 
         // Only process point tags we know.
         if(n < 2 || FT_CURVE_TAG(tags[i]) == FT_Curve_Tag_On)
@@ -150,36 +166,38 @@ FTContour::FTContour(FT_Vector* contour, char* tags, unsigned int n)
         }
         else if(FT_CURVE_TAG(tags[i]) == FT_Curve_Tag_Conic)
         {
+            FTPoint prev2 = prev, next2 = next;
+
             // Previous point is either the real previous point (an "on"
             // point), or the midpoint between the current one and the
             // previous "conic off" point.
-            FTPoint prev(contour[(i - 1 + n) % n]);
             if(FT_CURVE_TAG(tags[(i - 1 + n) % n]) == FT_Curve_Tag_Conic)
             {
-                prev = (cur + prev) * 0.5;
-                AddPoint(prev);
+                prev2 = (cur + prev) * 0.5;
+                AddPoint(prev2);
             }
 
             // Next point is either the real next point or the midpoint.
-            FTPoint next(contour[(i + 1) % n]);
             if(FT_CURVE_TAG(tags[(i + 1) % n]) == FT_Curve_Tag_Conic)
             {
-                next = (cur + next) * 0.5;
+                next2 = (cur + next) * 0.5;
             }
 
-            evaluateQuadraticCurve(prev, cur, next);
+            evaluateQuadraticCurve(prev2, cur, next2);
         }
         else if(FT_CURVE_TAG(tags[i]) == FT_Curve_Tag_Cubic
                  && FT_CURVE_TAG(tags[(i + 1) % n]) == FT_Curve_Tag_Cubic)
         {
-            evaluateCubicCurve(FTPoint(contour[(i - 1 + n) % n]),
-                               cur,
-                               FTPoint(contour[(i + 1) % n]),
+            evaluateCubicCurve(prev, cur, next,
                                FTPoint(contour[(i + 2) % n]));
         }
     }
 
-    /* Create (or not) front outset and/or back outset */
+    // If final angle is positive (+2PI), it's an anti-clockwise contour,
+    // otherwise (-2PI) it's clockwise.
+    clockwise = (angle < 0.0);
+
+    // Create (or not) front outset and/or back outset.
     outsetContour();
 }
 
@@ -191,7 +209,7 @@ void FTContour::buildFrontOutset(float outset)
         FTPoint point = FTPoint(Point(i).X() + Outset(i).X() * outset,
                                 Point(i).Y() + Outset(i).Y() * outset,
                                 0);
-       AddFrontPoint(point);
+        AddFrontPoint(point);
     }
 }
 void FTContour::buildBackOutset(float outset)
@@ -201,7 +219,7 @@ void FTContour::buildBackOutset(float outset)
         FTPoint point = FTPoint(Point(i).X() + Outset(i).X() * outset,
                                 Point(i).Y() + Outset(i).Y() * outset,
                                 0);
-       AddBackPoint(point);
+        AddBackPoint(point);
     }
 }
 

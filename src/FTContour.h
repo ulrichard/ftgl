@@ -207,6 +207,12 @@ class FTContour
         PointVector outsetPointList;
         PointVector frontPointList;
         PointVector backPointList;
+
+        /**
+         *  Is this contour clockwise or anti-clockwise?
+         */
+        bool clockwise;
 };
 
 #endif // __FTContour__
+
