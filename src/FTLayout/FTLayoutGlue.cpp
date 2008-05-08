@@ -53,17 +53,17 @@ C_TOR(ftglCreateSimpleLayout, (), FTSimpleLayout, (), LAYOUT_SIMPLE);
 #define C_FUN(cret, cname, cargs, cxxerr, cxxname, cxxarg) \
     cret cname cargs \
     { \
-        if(!f || !f->ptr) \
+        if(!l || !l->ptr) \
         { \
             fprintf(stderr, "FTGL warning: NULL pointer in %s\n", #cname); \
             cxxerr; \
         } \
-        switch(f->type) \
+        switch(l->type) \
         { \
             case FTGL::LAYOUT_SIMPLE: \
-                return dynamic_cast<FTSimpleLayout*>(f->ptr)->cxxname cxxarg; \
+                return dynamic_cast<FTSimpleLayout*>(l->ptr)->cxxname cxxarg; \
         } \
-        fprintf(stderr, "FTGL warning: %s not implemented for %d\n", #cname, f->type); \
+        fprintf(stderr, "FTGL warning: %s not implemented for %d\n", #cname, l->type); \
         cxxerr; \
     }
 
@@ -89,80 +89,80 @@ void ftglDestroyLayout(FTGLlayout *l)
 }
 
 // virtual void BBox(const char* string, float& llx, float& lly, float& llz, float& urx, float& ury, float& urz)
-C_FUN(static FTBBox, _ftgGetlLayoutBBox, (FTGLlayout *f, const char *s),
+C_FUN(static FTBBox, _ftgGetlLayoutBBox, (FTGLlayout *l, const char *s),
       return static_ftbbox, BBox, (s));
 
-void ftgGetlLayoutBBox(FTGLlayout *f, const char * s, float c[6])
+void ftgGetlLayoutBBox(FTGLlayout *l, const char * s, float c[6])
 {
-    FTBBox ret = _ftgGetlLayoutBBox(f, s);
+    FTBBox ret = _ftgGetlLayoutBBox(l, s);
     FTPoint lower = ret.Lower(), upper = ret.Upper();
     c[0] = lower.Xf(); c[1] = lower.Yf(); c[2] = lower.Zf();
     c[3] = upper.Xf(); c[4] = upper.Yf(); c[5] = upper.Zf();
 }
 
 // virtual void Render(const char* string, int renderMode);
-C_FUN(void, ftglRenderLayout, (FTGLlayout *f, const char *s, int r),
+C_FUN(void, ftglRenderLayout, (FTGLlayout *l, const char *s, int r),
       return, Render, (s, r));
 
 // void RenderSpace(const char *string, const float ExtraSpace = 0.0)
-C_FUN(void, ftglRenderLayoutSpace, (FTGLlayout *f, const char *s, float e),
+C_FUN(void, ftglRenderLayoutSpace, (FTGLlayout *l, const char *s, float e),
       return, RenderSpace, (s, e));
 
 // void SetFont(FTFont *fontInit)
-void ftglSetLayoutFont(FTGLlayout *f, FTGLfont *font)
+void ftglSetLayoutFont(FTGLlayout *l, FTGLfont *font)
 {
-    if(!f || !f->ptr)
+    if(!l || !l->ptr)
     {
         //XXX fprintf(stderr, "FTGL warning: NULL pointer in %s\n", __func__);
         return;
     }
-    switch(f->type)
+    switch(l->type)
     {
         case FTGL::LAYOUT_SIMPLE:
-            f->font = font;
-            return dynamic_cast<FTSimpleLayout*>(f->ptr)->SetFont(font->ptr);
+            l->font = font;
+            return dynamic_cast<FTSimpleLayout*>(l->ptr)->SetFont(font->ptr);
     }
     fprintf(stderr, "FTGL warning: %s not implemented for %d\n",
-                    __FUNCTION__, f->type);
+                    __FUNCTION__, l->type);
 }
 
 // FTFont *GetFont()
-FTGLfont *ftglGetLayoutFont(FTGLlayout *f)
+FTGLfont *ftglGetLayoutFont(FTGLlayout *l)
 {
-    if(!f || !f->ptr)
+    if(!l || !l->ptr)
     {
         fprintf(stderr, "FTGL warning: NULL pointer in %s\n", __FUNCTION__);
         return NULL;
     }
-    return f->font;
+    return l->font;
 }
 
 // void SetLineLength(const float LineLength);
-C_FUN(void, ftglSetLayoutLineLength, (FTGLlayout *f, const float length),
+C_FUN(void, ftglSetLayoutLineLength, (FTGLlayout *l, const float length),
       return, SetLineLength, (length));
 
 // float GetLineLength() const
-C_FUN(float, ftglGetLayoutLineLength, (FTGLlayout *f),
+C_FUN(float, ftglGetLayoutLineLength, (FTGLlayout *l),
       return 0.0f, GetLineLength, ());
 
 // void SetAlignment(const TextAlignment Alignment)
-C_FUN(void, ftglSetLayoutAlignment, (FTGLlayout *f, const int a),
+C_FUN(void, ftglSetLayoutAlignment, (FTGLlayout *l, const int a),
       return, SetAlignment, ((FTGL::TextAlignment)a));
 
 // TextAlignment GetAlignment() const
-C_FUN(int, ftglGetLayoutAlignement, (FTGLlayout *f),
+C_FUN(int, ftglGetLayoutAlignement, (FTGLlayout *l),
       return FTGL::ALIGN_LEFT, GetAlignment, ());
 
 // void SetLineSpacing(const float LineSpacing)
-C_FUN(void, ftglSetLayoutLineSpacing, (FTGLlayout *f, const float l),
-      return, SetLineSpacing, (l));
+C_FUN(void, ftglSetLayoutLineSpacing, (FTGLlayout *l, const float f),
+      return, SetLineSpacing, (f));
 
 // float GetLineSpacing() const
-C_FUN(float, ftglGetLayoutLineSpacing, (FTGLlayout *f),
+C_FUN(float, ftglGetLayoutLineSpacing, (FTGLlayout *l),
       return 0.0f, GetLineSpacing, ());
 
 // FT_Error FTLayout::Error() const;
-C_FUN(FT_Error, ftglGetLayoutError, (FTGLlayout *f), return -1, Error, ());
+C_FUN(FT_Error, ftglGetLayoutError, (FTGLlayout *l), return -1, Error, ());
 
 FTGL_END_C_DECLS
 
