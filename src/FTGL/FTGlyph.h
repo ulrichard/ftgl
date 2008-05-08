@@ -132,6 +132,21 @@ struct _FTGLGlyph;
 typedef struct _FTGLglyph FTGLglyph;
 
 /**
+ * Create a custom FTGL glyph object.
+ * FIXME: maybe get rid of "base" and have advanceCallback etc. functions
+ *
+ * @param base  The base FTGLglyph* to subclass.
+ * @param data  A pointer to private data that will be passed to callbacks.
+ * @param renderCallback  A rendering callback function.
+ * @param destroyCallback  A callback function to be called upon destruction.
+ * @return  An FTGLglyph* object.
+ */
+FTGL_EXPORT FTGLglyph *ftglCreateCustomGlyph(FTGLglyph *base, void *data,
+    void (*renderCallback) (FTGLglyph *, void *, FTGL_DOUBLE, FTGL_DOUBLE,
+                             int, FTGL_DOUBLE *, FTGL_DOUBLE *),
+    void (*destroyCallback) (FTGLglyph *, void *));
+
+/**
  * Destroy an FTGL glyph object.
  *
  * @param glyph  An FTGLglyph* object.

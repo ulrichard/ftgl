@@ -348,6 +348,18 @@ struct _FTGLFont;
 typedef struct _FTGLfont FTGLfont;
 
 /**
+ * Create a custom FTGL font object.
+ *
+ * @param fontFilePath  The font file name.
+ * @param data  A pointer to private data that will be passed to callbacks.
+ * @param makeglyphCallback  A glyph-making callback function.
+ * @return  An FTGLfont* object.
+ */
+FTGL_EXPORT FTGLfont *ftglCreateCustomFont(char const *fontFilePath,
+                                           void *data,
+                   FTGLglyph * (*makeglyphCallback) (FT_GlyphSlot, void *));
+
+/**
  * Destroy an FTGL font object.
  *
  * @param font  An FTGLfont* object.

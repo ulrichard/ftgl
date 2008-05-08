@@ -145,7 +145,9 @@ static void ProcessKeys(unsigned char key, int x, int y)
     switch(key)
     {
     case 27:
-        delete font[0]; delete font[1]; delete font[2];
+        delete font[0];
+        delete font[1];
+        delete font[2];
         exit(EXIT_SUCCESS);
         break;
     case '\t':
@@ -170,7 +172,7 @@ int main(int argc, char **argv)
     glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
     glutInitWindowPosition(100, 100);
     glutInitWindowSize(640, 480);
-    glutCreateWindow("FTGL simple demo");
+    glutCreateWindow("simple FTGL C++ demo");
 
     glutDisplayFunc(RenderScene);
     glutIdleFunc(RenderScene);

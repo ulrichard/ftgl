@@ -71,6 +71,40 @@ C_TOR(ftglCreatePolygonFont, (const char *fontname),
 C_TOR(ftglCreateTextureFont, (const char *fontname),
       FTTextureFont, (fontname), FONT_TEXTURE);
 
+// FTCustomFont::FTCustomFont();
+class FTCustomFont : public FTFont
+{
+public:
+    FTCustomFont(char const *fontFilePath, void *p,
+                 FTGLglyph * (*makeglyph) (FT_GlyphSlot, void *))
+     : FTFont(fontFilePath),
+       data(p),
+       makeglyphCallback(makeglyph)
+    {}
+
+    ~FTCustomFont()
+    {}
+
+    FTGlyph* MakeGlyph(FT_GlyphSlot slot)
+    {
+        FTGLglyph *g = makeglyphCallback(slot, data);
+        FTGlyph *glyph = g->ptr;
+        // XXX: we no longer need g, and no one will free it for us. Not
+        // very elegant, and we need to make sure no one else will try to
+        // use it.
+        free(g);
+        return glyph;
+    }
+
+private:
+    void *data;
+    FTGLglyph *(*makeglyphCallback) (FT_GlyphSlot, void *);
+};
+
+C_TOR(ftglCreateCustomFont, (char const *fontFilePath, void *data,
+                   FTGLglyph * (*makeglyphCallback) (FT_GlyphSlot, void *)),
+      FTCustomFont, (fontFilePath, data, makeglyphCallback), FONT_CUSTOM);
+
 #define C_FUN(cret, cname, cargs, cxxerr, cxxname, cxxarg) \
     cret cname cargs \
     { \
@@ -81,6 +115,8 @@ C_TOR(ftglCreateTextureFont, (const char *fontname),
         } \
         switch(f->type) \
         { \
+            case FTGL::FONT_CUSTOM: \
+                return dynamic_cast<FTCustomFont*>(f->ptr)->cxxname cxxarg; \
             case FTGL::FONT_BITMAP: \
                 return dynamic_cast<FTBitmapFont*>(f->ptr)->cxxname cxxarg; \
             case FTGL::FONT_EXTRUDE: \
@@ -108,6 +144,8 @@ void ftglDestroyFont(FTGLfont *f)
     }
     switch(f->type)
     {
+        case FTGL::FONT_CUSTOM:
+            delete dynamic_cast<FTCustomFont*>(f->ptr); break;
         case FTGL::FONT_BITMAP:
             delete dynamic_cast<FTBitmapFont*>(f->ptr); break;
         case FTGL::FONT_EXTRUDE:

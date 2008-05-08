@@ -89,8 +89,8 @@ FTGL_BEGIN_C_DECLS
  *                       <code>false</code> turns OFF display lists.
  * @return  An FTGLglyph* object.
  */
-FTGL_EXPORT FTGLglyph *ftglCreatePolyGlyph(FT_GlyphSlot glyph, float outset,
-                               int useDisplayList);
+FTGL_EXPORT FTGLglyph *ftglCreatePolygonGlyph(FT_GlyphSlot glyph, float outset,
+                                              int useDisplayList);
 
 FTGL_END_C_DECLS
 
