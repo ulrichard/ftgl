@@ -120,16 +120,31 @@ FTPoint FTContour::ComputeOutsetPoint(FTPoint A, FTPoint B, FTPoint C)
 }
 
 
-void FTContour::outsetContour()
+void FTContour::SetParity(int parity)
 {
     size_t size = PointCount();
     FTPoint vOutset;
-    for(unsigned int pointIndex = 0; pointIndex < size; ++pointIndex)
+
+    if(((parity & 1) && clockwise) || !(parity & 1) && !clockwise)
     {
-        int prev = (pointIndex%size + size - 1) % size;
-        int cur = pointIndex%size;
-        int next = (pointIndex%size + 1) % size;
-        /* Build the outset shape with d = 1.0f */
+        // Contour orientation is wrong! We must reverse all points.
+        // FIXME: could it be worth writing FTVector::reverse() for this?
+        for(size_t i = 0; i < size / 2; i++)
+        {
+            FTPoint tmp = pointList[i];
+            pointList[i] = pointList[size - 1 - i];
+            pointList[size - 1 -i] = tmp;
+        }
+
+        clockwise = !clockwise;
+    }
+
+    for(size_t i = 0; i < size; i++)
+    {
+        int prev = (i + size - 1) % size;
+        int cur = i;
+        int next = (i + size + 1) % size;
+
         vOutset = ComputeOutsetPoint(Point(prev), Point(cur), Point(next));
         AddOutsetPoint(vOutset);
     }
@@ -151,7 +166,7 @@ FTContour::FTContour(FT_Vector* contour, char* tags, unsigned int n)
         cur = next;
         next = FTPoint(contour[(i + 1) % n]);
         olddir = dir;
-        dir = atan2((next - cur).Y(), (next - cur).Y());
+        dir = atan2((next - cur).Y(), (next - cur).X());
 
         // Compute our path's new direction.
         double t = dir - olddir;
@@ -196,9 +211,6 @@ FTContour::FTContour(FT_Vector* contour, char* tags, unsigned int n)
     // If final angle is positive (+2PI), it's an anti-clockwise contour,
     // otherwise (-2PI) it's clockwise.
     clockwise = (angle < 0.0);
-
-    // Create (or not) front outset and/or back outset.
-    outsetContour();
 }
 
 

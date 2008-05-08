@@ -124,10 +124,14 @@ class FTContour
         size_t BackPointCount() const { return backPointList.size(); }
 
         /**
-         * Create the front/back outset contour
+         * Make sure the glyph has the proper parity and create the front/back
+         * outset contour.
          *
-         * @param outset The outset distance
+         * @param parity  The contour's parity within the glyph.
          */
+        void SetParity(int parity);
+
+        // FIXME: this should probably go away.
         void buildFrontOutset(float outset);
         void buildBackOutset(float outset);
 
@@ -168,11 +172,6 @@ class FTContour
          * Evaluates a cubic (third degree) curve
          */
         inline void evaluateCubicCurve(FTPoint, FTPoint, FTPoint, FTPoint);
-
-        /**
-         * Create the list point of the outset contour.
-         */
-        inline void outsetContour();
 
         /**
          * Compute the vector norm
