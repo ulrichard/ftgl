@@ -123,7 +123,7 @@ class FTGL_EXPORT FTLayout
          *
          * @return  The current error code.
          */
-        FT_Error Error() const;
+        virtual FT_Error Error() const;
 
     private:
         /**

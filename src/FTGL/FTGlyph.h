@@ -94,21 +94,21 @@ class FTGL_EXPORT FTGlyph
          *
          * @return  advance width.
          */
-        const FTPoint& Advance() const;
+        virtual const FTPoint& Advance() const;
 
         /**
          * Return the bounding box for this glyph.
          *
          * @return  bounding box.
          */
-        const FTBBox& BBox() const;
+        virtual const FTBBox& BBox() const;
 
         /**
          * Queries for errors.
          *
          * @return  The current error code.
          */
-        FT_Error Error() const;
+        virtual FT_Error Error() const;
 
     private:
         /**

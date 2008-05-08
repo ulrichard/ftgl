@@ -102,7 +102,7 @@ class FTGL_EXPORT FTFont
          * @return          <code>true</code> if file has been attached
          *                  successfully.
          */
-        bool Attach(const char* fontFilePath);
+        virtual bool Attach(const char* fontFilePath);
 
         /**
          * Attach auxilliary data to font e.g font metrics, from memory.
@@ -114,8 +114,8 @@ class FTGL_EXPORT FTFont
          * @return          <code>true</code> if file has been attached
          *                  successfully.
          */
-        bool Attach(const unsigned char *pBufferBytes,
-                    size_t bufferSizeInBytes);
+        virtual bool Attach(const unsigned char *pBufferBytes,
+                            size_t bufferSizeInBytes);
 
         /**
          * Set the character map for the face.
@@ -124,21 +124,21 @@ class FTGL_EXPORT FTFont
          * @return              <code>true</code> if charmap was valid and
          *                      set correctly.
          */
-        bool CharMap(FT_Encoding encoding);
+        virtual bool CharMap(FT_Encoding encoding);
 
         /**
          * Get the number of character maps in this face.
          *
          * @return character map count.
          */
-        unsigned int CharMapCount() const;
+        virtual unsigned int CharMapCount() const;
 
         /**
          * Get a list of character maps in this face.
          *
          * @return pointer to the first encoding.
          */
-        FT_Encoding* CharMapList();
+        virtual FT_Encoding* CharMapList();
 
         /**
          * Set the char size for the current face.
@@ -147,14 +147,15 @@ class FTGL_EXPORT FTFont
          * @param res       the resolution of the target device.
          * @return          <code>true</code> if size was set correctly
          */
-        bool FaceSize(const unsigned int size, const unsigned int res = 72);
+        virtual bool FaceSize(const unsigned int size,
+                              const unsigned int res = 72);
 
         /**
          * Get the current face size in points (1/72 inch).
          *
          * @return face size
          */
-        unsigned int FaceSize() const;
+        virtual unsigned int FaceSize() const;
 
         /**
          * Set the extrusion distance for the font. Only implemented by
@@ -162,7 +163,7 @@ class FTGL_EXPORT FTFont
          *
          * @param depth  The extrusion distance.
          */
-        void Depth(float depth);
+        virtual void Depth(float depth);
 
         /**
          * Set the outset distance for the font. Only implemented by
@@ -170,7 +171,7 @@ class FTGL_EXPORT FTFont
          *
          * @param outset  The outset distance.
          */
-        void Outset(float outset);
+        virtual void Outset(float outset);
 
         /**
          * Set the front and back outset distances for the font. Only
@@ -179,7 +180,7 @@ class FTGL_EXPORT FTFont
          * @param front  The front outset distance.
          * @param back   The back outset distance.
          */
-        void Outset(float front, float back);
+        virtual void Outset(float front, float back);
 
         /**
          * Enable or disable the use of Display Lists inside FTGL
@@ -187,28 +188,28 @@ class FTGL_EXPORT FTFont
          * @param  useList <code>true</code> turns ON display lists.
          *                 <code>false</code> turns OFF display lists.
          */
-        void UseDisplayList(bool useList);
+        virtual void UseDisplayList(bool useList);
 
         /**
          * Get the global ascender height for the face.
          *
          * @return  Ascender height
          */
-        float Ascender() const;
+        virtual float Ascender() const;
 
         /**
          * Gets the global descender height for the face.
          *
          * @return  Descender height
          */
-        float Descender() const;
+        virtual float Descender() const;
 
         /**
          * Gets the line spacing for the font.
          *
          * @return  Line height
          */
-        float LineHeight() const;
+        virtual float LineHeight() const;
 
         /**
          * Get the bounding box for a string.
@@ -216,7 +217,7 @@ class FTGL_EXPORT FTFont
          * @param string  A char buffer.
          * @return  The corresponding bounding box.
          */
-        FTBBox BBox(const char *string);
+        virtual FTBBox BBox(const char *string);
 
         /**
          * Get the bounding box for a string.
@@ -224,7 +225,7 @@ class FTGL_EXPORT FTFont
          * @param string  A wchar_t buffer.
          * @return  The corresponding bounding box.
          */
-        FTBBox BBox(const wchar_t *string);
+        virtual FTBBox BBox(const wchar_t *string);
 
         /**
          * Get the bounding box for a string.
@@ -237,7 +238,8 @@ class FTGL_EXPORT FTFont
          *             until a '@\0' is encountered.
          * @return  The corresponding bounding box.
          */
-        FTBBox BBox(const char *string, const int start, const int end);
+        virtual FTBBox BBox(const char *string,
+                            const int start, const int end);
 
         /**
          * Get the bounding box for a string.
@@ -250,7 +252,8 @@ class FTGL_EXPORT FTFont
          *             until a '@\0' is encountered.
          * @return  The corresponding bounding box.
          */
-        FTBBox BBox(const wchar_t *string, const int start, const int end);
+        virtual FTBBox BBox(const wchar_t *string,
+                            const int start, const int end);
 
         /**
          * Get the advance width for a string.
@@ -258,7 +261,7 @@ class FTGL_EXPORT FTFont
          * @param string    a wchar_t string
          * @return      advance width
          */
-        float Advance(const wchar_t* string);
+        virtual float Advance(const wchar_t* string);
 
         /**
          * Get the advance width for a string.
@@ -266,14 +269,14 @@ class FTGL_EXPORT FTFont
          * @param string    a char string
          * @return      advance width
          */
-        float Advance(const char* string);
+        virtual float Advance(const char* string);
 
         /**
          * Render a string of characters
          *
          * @param string    'C' style string to be output.
          */
-        void Render(const char* string);
+        virtual void Render(const char* string);
 
         /**
          * Render a string of characters
@@ -281,14 +284,14 @@ class FTGL_EXPORT FTFont
          * @param string    'C' style string to be output.
          * @param renderMode    Render mode to display
          */
-        void Render(const char* string, int renderMode);
+        virtual void Render(const char* string, int renderMode);
 
         /**
          * Render a string of characters
          *
          * @param string    wchar_t string to be output.
          */
-        void Render(const wchar_t* string);
+        virtual void Render(const wchar_t* string);
 
         /**
          * Render a string of characters
@@ -296,14 +299,14 @@ class FTGL_EXPORT FTFont
          * @param string    wchar_t string to be output.
          * @param renderMode    Render mode to display
          */
-        void Render(const wchar_t *string, int renderMode);
+        virtual void Render(const wchar_t *string, int renderMode);
 
         /**
          * Queries the Font for errors.
          *
          * @return  The current error code.
          */
-        FT_Error Error() const;
+        virtual FT_Error Error() const;
 
     protected:
         /* Allow impl to access MakeGlyph */
