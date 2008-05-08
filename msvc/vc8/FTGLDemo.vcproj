@@ -41,7 +41,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="..;..\..\src;&quot;$(FREETYPE)\include&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;FTGL_LIBRARY_STATIC"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;FTGL_LIBRARY_STATIC;_CRT_SECURE_NO_DEPRECATE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
