@@ -219,8 +219,8 @@ void FTVectoriser::ProcessContours()
                     continue;
                 }
 
-                float K = (p2.Y() - leftmost.Y()) / (p1.Y() - leftmost.Y());
-                float K2 = (p2.X() - p1.X()) / (K - 1.);
+                double K = (p2.Y() - leftmost.Y()) / (p1.Y() - leftmost.Y());
+                double K2 = (p2.X() - p1.X()) / (K - 1.);
 
                 if(leftmost.X() > p1.X() - K2)
                 {
