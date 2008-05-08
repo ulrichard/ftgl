@@ -29,5 +29,5 @@ TODO
 * Move the init code out of the glyph constructors into an init
   function so that they can return errors.
 
-* Fix the disabled unit tests (see test/Makefile.am).
+* Get rid of frontPointList and backPointList!
 
