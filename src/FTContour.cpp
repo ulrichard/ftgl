@@ -139,11 +139,12 @@ void FTContour::SetParity(int parity)
         clockwise = !clockwise;
     }
 
+	size_t prev, cur, next;
     for(size_t i = 0; i < size; i++)
     {
-        int prev = (i + size - 1) % size;
-        int cur = i;
-        int next = (i + size + 1) % size;
+        prev = (i + size - 1) % size;
+        cur = i;
+        next = (i + size + 1) % size;
 
         vOutset = ComputeOutsetPoint(Point(prev), Point(cur), Point(next));
         AddOutsetPoint(vOutset);
