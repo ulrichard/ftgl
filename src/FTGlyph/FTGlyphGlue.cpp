@@ -193,9 +193,11 @@ void ftglDestroyGlyph(FTGLglyph *g)
 }
 
 // const FTPoint& FTGlyph::Render(const FTPoint& pen, int renderMode);
+extern "C++" {
 C_FUN(static const FTPoint&, _ftglRenderGlyph, (FTGLglyph *g,
                                    const FTPoint& pen, int renderMode),
       return static_ftpoint, Render, (pen, renderMode));
+}
 
 void ftglRenderGlyph(FTGLglyph *g, FTGL_DOUBLE penx, FTGL_DOUBLE peny,
                      int renderMode, FTGL_DOUBLE *advancex,
@@ -208,8 +210,10 @@ void ftglRenderGlyph(FTGLglyph *g, FTGL_DOUBLE penx, FTGL_DOUBLE peny,
 }
 
 // const FTPoint& FTGlyph::Advance() const;
+extern "C++" {
 C_FUN(static const FTPoint&, _ftglGetGlyphAdvance, (FTGLglyph *g),
       return static_ftpoint, Advance, ());
+}
 
 void ftglGetGlyphAdvance(FTGLglyph *g, FTGL_DOUBLE *advancex,
                          FTGL_DOUBLE *advancey)
@@ -220,8 +224,10 @@ void ftglGetGlyphAdvance(FTGLglyph *g, FTGL_DOUBLE *advancex,
 }
 
 // const FTBBox& FTGlyph::BBox() const;
+extern "C++" {
 C_FUN(static const FTBBox&, _ftglGetGlyphBBox, (FTGLglyph *g),
       return static_ftbbox, BBox, ());
+}
 
 void ftglGetGlyphBBox(FTGLglyph *g, float bounds[6])
 {

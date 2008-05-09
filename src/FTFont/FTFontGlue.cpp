@@ -221,9 +221,11 @@ C_FUN(float, ftglGetFontLineHeight, (FTGLfont *f), return 0.f, LineHeight, ());
 
 // void FTFont::BBox(const char* string, float& llx, float& lly, float& llz,
 //                   float& urx, float& ury, float& urz);
+extern "C++" {
 C_FUN(static FTBBox, _ftglGetFontBBox, (FTGLfont *f, char const *s,
                                         int start, int end),
       return static_ftbbox, BBox, (s, start, end));
+}
 
 void ftglGetFontBBox(FTGLfont *f, const char* s, int start, int end,
                      float c[6])
