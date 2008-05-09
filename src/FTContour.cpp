@@ -139,9 +139,10 @@ void FTContour::SetParity(int parity)
         clockwise = !clockwise;
     }
 
-	size_t prev, cur, next;
     for(size_t i = 0; i < size; i++)
     {
+        size_t prev, cur, next;
+
         prev = (i + size - 1) % size;
         cur = i;
         next = (i + size + 1) % size;
@@ -225,6 +226,8 @@ void FTContour::buildFrontOutset(float outset)
         AddFrontPoint(point);
     }
 }
+
+
 void FTContour::buildBackOutset(float outset)
 {
     for(size_t i = 0; i < PointCount(); ++i)
