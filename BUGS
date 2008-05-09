@@ -9,3 +9,15 @@ BUGS
 * The texture co-ords in the Texture Font may be wrong for non
   scalable fonts.
 
+* /usr/share/fonts/truetype/ttf-larabie-deco/let_seat.ttf has issues
+  with the outset position (glyph "u").
+  /usr/share/fonts/truetype/ttf-larabie-straight/teenlite.ttf has the
+  same problem but it depends the glyph size.
+
+* /usr/share/fonts/truetype/ttf-larabie-straight/primer.ttf has filling
+  issues.
+
+* The content of textured quads are properly antialiased but their edges
+  remain blocky because there is no possible interpolation. Maybe adding
+  a 1-pixel border would help.
+
