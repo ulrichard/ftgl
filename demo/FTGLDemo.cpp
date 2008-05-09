@@ -1,4 +1,4 @@
-/*
+/*						-*- coding: utf-8 -*-
  * FTGLDemo - simple demo for FTGL, the OpenGL font library
  *
  * Copyright (c) 2001-2004 Henry Maddocks <ftgl@opengl.geek.nz>
@@ -48,7 +48,7 @@
 #   define FONT_FILE "/usr/share/fonts/truetype/arial.ttf"
 #endif
 #ifdef __APPLE_CC__
-#   define FONT_FILE "/Users/henry/Development/PROJECTS/FTGL/test/font_pack/arial.ttf"
+#   define FONT_FILE "/usr/X11R6/lib/X11/fonts/TTF/Vera.ttf"
 #endif
 #ifdef WIN32
 #   define FONT_FILE "C:\\WINNT\\Fonts\\arial.ttf"
