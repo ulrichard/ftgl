@@ -1,22 +1,23 @@
 /** \mainpage FTGL User Guide
 
- \image html ftgl.png
+ \image html logo.png
+ \image latex logo.eps "" width=0.3\textwidth
 
  \section intro Introduction
 
  OpenGL doesn't provide direct font support, so the application must use any
  of OpenGL's other features for font rendering, such as drawing bitmaps or
  pixmaps, creating texture maps containing an entire character set, drawing
- character outlines, or creating 3D geometry for each character.
+ character outlines, or creating a 3D geometry for each character.
 
- http://www.opengl.org/resources/faq/technical/fonts.htm
+ More information can be found on the OpenGL website:
+ - http://www.opengl.org/resources/faq/technical/fonts.htm
+ - http://www.opengl.org/resources/features/fontsurvey/
 
- http://www.opengl.org/resources/features/fontsurvey/
+ Most of these systems require a pre-processing stage to take the native fonts
+ and convert them into a proprietry format.
 
- One thing all of these systems have in common is they require a pre-processing
- stage to take the native fonts and convert them into a proprietry format.
-
- FTGL was born out of the need to treat fonts in OpenGL applications just like
+ %FTGL was born out of the need to treat fonts in OpenGL applications just like
  any other application. For example when using Adobe Photoshop or Microsoft
  Word you don't need an intermediate pre-processing step to use high quality
  scalable fonts.
@@ -24,28 +25,41 @@
 
  \section type Choosing a font type
 
- FTGL supports 6 font output types among 3 groups: raster fonts, vector fonts
- and texture fonts, which are a mixture of both. Each font type has its
+ %FTGL supports 6 font output types among 3 groups: raster fonts, vector
+ fonts, and texture fonts which are a mixture of both. Each font type has its
  advantages and disadvantages.
 
- The two raster types are:
+ \subsection raster Raster fonts
 
- - Bitmapped
- - Antialiased pixmapped
+ Raster fonts are made of pixels painted directly on the viewport's
+ framebuffer. They cannot be directly rotated or scaled.
 
- The vector types are:
+ - Bitmap fonts use 1-bit (2-colour) rasterised glyphs.
+ - Pixmap fonts use 8-bit (256 levels) rasterised glyphs.
 
- - Outline
- - Polygonal
- - Extruded polygon
+ \image html rasterfont.png
+ \image latex rasterfont.eps "" width=0.7\textwidth
 
- The last, hybrid type is:
+ \subsection vector Vector fonts
 
- - Texture mapped
+ Vector fonts are 3D objects that are rendered at the current matrix location.
+ All position, scale, texture and material effects apply to vector fonts.
 
- This is probably the most versatile type. It is fast, antialised and can be
- transformed just like any openGL primitive.
+ - Polygon fonts use planar triangle meshes and can be texture-mapped.
+ - Outline fonts use OpenGL lines.
+ - Extruded fonts are extruded polygon fonts, with the front, back and side
+   meshes renderable separately to apply different effects and materials.
 
+ \image html vectorfont.png
+ \image latex vectorfont.eps "" width=0.7\textwidth
+
+ \subsection texture Texture fonts
+
+ Texture fonts are probably the most versatile type. They are fast,
+ antialiased, and can be transformed just like any OpenGL primitive.
+
+ \image html texturefont.png
+ \image latex texturefont.eps "" width=0.7\textwidth
 
  \section creating Creating a font
 
@@ -81,6 +95,7 @@ font.Advance("0123456789");
  \subsection metrics Font metrics
 
  \image html metrics.png
+ \image latex metrics.eps "" width=0.5\textwidth
 
  If you ask a font to render at 0.0, 0.0 the bottom left most pixel or polygon
  may not be aligned to 0.0, 0.0. With FTFont::Ascender(), FTFont::Descender()
@@ -99,8 +114,8 @@ font.Advance("0123456789");
  character codes if it finds one. Otherwise, it tries to find support for
  Latin-1, then ASCII."
 
- It then gives up. In this case FTGL will set the charmap to the first it finds
- in the fonts charmap list. You can expilcitly set the char encoding with
+ It then gives up. In this case %FTGL will set the charmap to the first it
+ finds in the fonts charmap list. You can expilcitly set the char encoding with
  FTFont::CharMap().
 
  Valid encodings as of FreeType 2.0.4 are:
@@ -133,9 +148,9 @@ font.CharMap(ft_encoding_apple_roman);
 
  \subsection faq1 When I try to compile FTGL it complains about a missing file from the include: #include <ft2build.h>
 
- FTGL relies on FreeType 2 for opening and decoding font files. This include
+ %FTGL relies on FreeType 2 for opening and decoding font files. This include
  is the main include for FreeType. You will need to download Freetype 2 and
- install it. Then make sure that the FTGL project that you are using points to
+ install it. Then make sure that the %FTGL project that you are using points to
  your FreeType installation.
 
  \subsection faq2 Is it possible to map a font to a "unit" size? My application relies on the fonts being a certain "physical" height (in OpenGL coordinate space) rather than a point size in display space. Any thoughts/suggestions?
@@ -176,7 +191,7 @@ gluPerspective(90, window_height / 2 , small_number, large_number);
  probelm, I can fix this.
 
  Early on I did a lot of head scratching over the OpenGL unit to font size
- thing because when I was first integrating FTGL into my engine the fonts
+ thing because when I was first integrating %FTGL into my engine the fonts
  weren't the size I was expecting. I was tempted to build in some scaling but I
  decided doing nothing was the best approach because you can't please everyone.
  Plus it's 'correct' as it is.

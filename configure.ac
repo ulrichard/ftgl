@@ -69,8 +69,10 @@ AM_CONDITIONAL(HAVE_DOXYGEN, test "x$DOXYGEN" != "xno")
 AC_PATH_PROG(LATEX, pdflatex, no)
 AC_PATH_PROG(KPSEWHICH, kpsewhich, no)
 AC_PATH_PROG(DVIPS, dvips, no)
+AC_PATH_PROG(CONVERT, convert, no)
 AC_PATH_PROG(EPSTOPDF, epstopdf, no)
-if test "x${DVIPS}" = "xno" -o "${KPSEWHICH}" = "no" -o "${EPSTOPDF}" = "no"; then
+if test "${DVIPS}" = "no" -o "${KPSEWHICH}" = "no" -o "${EPSTOPDF}" = "no" \
+     -o "${CONVERT}" = "no"; then
   LATEX="no"
 fi
 if test "x${LATEX}" != "xno"; then

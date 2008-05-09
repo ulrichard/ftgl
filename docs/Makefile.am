@@ -8,15 +8,23 @@ pdfdoc_DATA = latex/ftgl.pdf
 endif
 endif
 
-IMAGES = \
-    images/ftgl.png \
+PNGS = \
+    images/logo.png \
     images/metrics.png \
+    images/rasterfont.png \
+    images/vectorfont.png \
+    images/texturefont.png \
     $(NULL)
 
+stamp-eps: $(PNGS)
+if HAVE_LATEX
+	for i in $^; do convert $$i $$(echo $$i | sed 's/png$$/eps/'); done
+endif
+	touch $@
+
 html/doxygen.css: stamp-doxygen
-stamp-doxygen: doxygen.cfg
+stamp-doxygen: doxygen.cfg stamp-eps
 	$(DOXYGEN) $^
-	cp $(IMAGES) html/
 	touch $@
 
 latex/ftgl.pdf: stamp-latex
@@ -31,7 +39,8 @@ stamp-latex: stamp-doxygen
 clean: clean-local
 clean-local:
 	$(RM) -rf html latex
-	$(RM) stamp-doxygen stamp-latex
+	$(RM) -f images/*.eps
+	$(RM) -f stamp-doxygen stamp-latex stamp-eps
 
 if HAVE_DOXYGEN
 install-data-local: html/doxygen.css
@@ -45,7 +54,7 @@ EXTRA_DIST = \
     doxygen.cfg.in \
     ftgl.dox \
     FTGL_1_3.gif \
-    $(IMAGES) \
+    $(PNGS) \
     images/metrics.svg \
     $(NULL)
 
