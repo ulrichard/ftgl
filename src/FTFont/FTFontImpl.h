@@ -67,11 +67,7 @@ class FTFontImpl
 
         virtual float LineHeight() const;
 
-        virtual void Render(const char* string);
-
         virtual void Render(const char* string, int renderMode);
-
-        virtual void Render(const wchar_t* string);
 
         virtual void Render(const wchar_t *string, int renderMode);
 

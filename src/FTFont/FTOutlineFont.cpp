@@ -70,7 +70,7 @@ FTGlyph* FTOutlineFont::MakeGlyph(FT_GlyphSlot ftGlyph)
 
 
 template <typename T>
-inline void FTOutlineFontImpl::RenderI(const T* string)
+inline void FTOutlineFontImpl::RenderI(const T* string, int renderMode)
 {
     glPushAttrib(GL_ENABLE_BIT | GL_HINT_BIT | GL_LINE_BIT
                   | GL_COLOR_BUFFER_BIT);
@@ -82,32 +82,20 @@ inline void FTOutlineFontImpl::RenderI(const T* string)
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // GL_ONE
 
-    FTFontImpl::Render(string);
+    FTFontImpl::Render(string, renderMode);
 
     glPopAttrib();
 }
 
 
-void FTOutlineFontImpl::Render(const char* string)
-{
-    RenderI(string);
-}
-
-
 void FTOutlineFontImpl::Render(const char* string, int renderMode)
 {
-    RenderI(string);
-}
-
-
-void FTOutlineFontImpl::Render(const wchar_t* string)
-{
-    RenderI(string);
+    RenderI(string, renderMode);
 }
 
 
 void FTOutlineFontImpl::Render(const wchar_t* string, int renderMode)
 {
-    RenderI(string);
+    RenderI(string, renderMode);
 }
 

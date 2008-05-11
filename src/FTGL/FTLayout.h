@@ -92,31 +92,19 @@ class FTGL_EXPORT FTLayout
          * Render a string of characters
          *
          * @param string    'C' style string to be output.
+         * @param renderMode  Render mode to display (optional)
          */
-        virtual void Render(const char *string) = 0;
-
-        /**
-         * Render a string of characters
-         *
-         * @param string    'C' style string to be output.
-         * @param renderMode  Render mode to diplay
-         */
-        virtual void Render(const char *string, int renderMode) = 0;
+        virtual void Render(const char *string,
+                            int renderMode = FTGL::RENDER_ALL) = 0;
 
         /**
          * Render a string of characters
          *
          * @param string    wchar_t string to be output.
+         * @param renderMode  Render mode to display (optional)
          */
-        virtual void Render(const wchar_t *string) = 0;
-
-        /**
-         * Render a string of characters
-         *
-         * @param string    wchar_t string to be output.
-         * @param renderMode  Render mode to diplay
-         */
-        virtual void Render(const wchar_t *string, int renderMode) = 0;
+        virtual void Render(const wchar_t *string,
+                            int renderMode = FTGL::RENDER_ALL) = 0;
 
         /**
          * Queries the Layout for errors.

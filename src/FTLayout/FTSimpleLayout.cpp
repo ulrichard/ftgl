@@ -59,18 +59,6 @@ FTBBox FTSimpleLayout::BBox(const wchar_t *string)
 }
 
 
-void FTSimpleLayout::Render(const char *string)
-{
-    return dynamic_cast<FTSimpleLayoutImpl*>(impl)->Render(string);
-}
-
-
-void FTSimpleLayout::Render(const wchar_t* string)
-{
-    return dynamic_cast<FTSimpleLayoutImpl*>(impl)->Render(string);
-}
-
-
 void FTSimpleLayout::Render(const char *string, int renderMode)
 {
     return dynamic_cast<FTSimpleLayoutImpl*>(impl)->Render(string, renderMode);
@@ -187,18 +175,6 @@ inline void FTSimpleLayoutImpl::RenderI(const T *string, int renderMode)
 {
     pen = FTPoint(0.0f, 0.0f);
     WrapText(string, renderMode, NULL);
-}
-
-
-void FTSimpleLayoutImpl::Render(const char *string)
-{
-    RenderI(string, FTGL::RENDER_FRONT | FTGL::RENDER_BACK | FTGL::RENDER_SIDE);
-}
-
-
-void FTSimpleLayoutImpl::Render(const wchar_t* string)
-{
-    RenderI(string, FTGL::RENDER_FRONT | FTGL::RENDER_BACK | FTGL::RENDER_SIDE);
 }
 
 

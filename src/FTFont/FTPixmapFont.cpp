@@ -63,7 +63,7 @@ FTGlyph* FTPixmapFont::MakeGlyph(FT_GlyphSlot ftGlyph)
 
 
 template <typename T>
-inline void FTPixmapFontImpl::RenderI(const T* string)
+inline void FTPixmapFontImpl::RenderI(const T* string, int renderMode)
 {
     glPushAttrib(GL_ENABLE_BIT | GL_PIXEL_MODE_BIT | GL_COLOR_BUFFER_BIT);
     glPushClientAttrib(GL_CLIENT_PIXEL_STORE_BIT);
@@ -81,33 +81,21 @@ inline void FTPixmapFontImpl::RenderI(const T* string)
     glPixelTransferf(GL_BLUE_SCALE, ftglColour[2]);
     glPixelTransferf(GL_ALPHA_SCALE, ftglColour[3]);
 
-    FTFontImpl::Render(string);
+    FTFontImpl::Render(string, renderMode);
 
     glPopClientAttrib();
     glPopAttrib();
 }
 
 
-void FTPixmapFontImpl::Render(const char* string)
-{
-    RenderI(string);
-}
-
-
 void FTPixmapFontImpl::Render(const char* string, int renderMode)
 {
-    RenderI(string);
-}
-
-
-void FTPixmapFontImpl::Render(const wchar_t* string)
-{
-    RenderI(string);
+    RenderI(string, renderMode);
 }
 
 
 void FTPixmapFontImpl::Render(const wchar_t* string, int renderMode)
 {
-    RenderI(string);
+    RenderI(string, renderMode);
 }
 

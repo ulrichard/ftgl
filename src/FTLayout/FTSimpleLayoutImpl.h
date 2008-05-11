@@ -60,23 +60,9 @@ class FTSimpleLayoutImpl : public FTLayoutImpl
          * Render a string of characters
          *
          * @param string    'C' style string to be output.
-         */
-        virtual void Render(const char* string);
-
-        /**
-         * Render a string of characters
-         *
-         * @param string    'C' style string to be output.
          * @param renderMode    Render mode to display
          */
         virtual void Render(const char* string, int renderMode);
-
-        /**
-         * Render a string of characters
-         *
-         * @param string    wchar_t string to be output.
-         */
-        virtual void Render(const wchar_t* string);
 
         /**
          * Render a string of characters

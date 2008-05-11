@@ -55,26 +55,12 @@ class FTTextureFontImpl : public FTFontImpl
                               const unsigned int res = 72);
 
         /**
-         * Renders a string of characters
-         *
-         * @param string    'C' style string to be output.
-         */
-        virtual void Render(const char* string);
-
-        /**
          * Render a string of characters
          *
          * @param string    'C' style string to be output.
          * @param renderMode    Render mode to display
          */
         virtual void Render(const char* string, int renderMode);
-
-        /**
-         * Renders a string of characters
-         *
-         * @param string    wchar_t string to be output.
-         */
-        virtual void Render(const wchar_t* string);
 
         /**
          * Render a string of characters
@@ -165,7 +151,7 @@ class FTTextureFontImpl : public FTFontImpl
 
         /* Internal generic Render() implementation */
         template <typename T>
-        inline void RenderI(const T* string);
+        inline void RenderI(const T* string, int renderMode);
 };
 
 #endif // __FTTextureFontImpl__

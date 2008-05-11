@@ -153,18 +153,6 @@ float FTFont::LineHeight() const
 }
 
 
-void FTFont::Render(const wchar_t* string)
-{
-    return impl->Render(string);
-}
-
-
-void FTFont::Render(const char * string)
-{
-    return impl->Render(string);
-}
-
-
 void FTFont::Render(const char * string, int renderMode)
 {
     return impl->Render(string, renderMode);
@@ -285,19 +273,6 @@ inline void FTFontImpl::RenderI(const T* string, int renderMode)
         DoRender(*c, *(c + 1), pen, renderMode);
         ++c;
     }
-}
-
-
-void FTFontImpl::Render(const char * string)
-{
-    RenderI((const unsigned char *)string,
-            FTGL::RENDER_FRONT | FTGL::RENDER_BACK | FTGL::RENDER_SIDE);
-}
-
-
-void FTFontImpl::Render(const wchar_t* string)
-{
-    RenderI(string, FTGL::RENDER_FRONT | FTGL::RENDER_BACK | FTGL::RENDER_SIDE);
 }
 
 
