@@ -113,7 +113,7 @@ FTOutlineGlyphImpl::~FTOutlineGlyphImpl()
 const FTPoint& FTOutlineGlyphImpl::RenderImpl(const FTPoint& pen,
                                               int renderMode)
 {
-    glTranslatef(pen.Xf(), pen.Yf(), 0.0f);
+    glTranslatef(pen.Xf(), pen.Yf(), pen.Zf());
     if(glList)
     {
         glCallList(glList);
@@ -122,7 +122,7 @@ const FTPoint& FTOutlineGlyphImpl::RenderImpl(const FTPoint& pen,
     {
         DoRender();
     }
-    glTranslatef(-pen.Xf(), -pen.Yf(), 0.0f);
+    glTranslatef(-pen.Xf(), -pen.Yf(), -pen.Zf());
 
     return advance;
 }

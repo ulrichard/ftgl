@@ -133,7 +133,7 @@ FTExtrudeGlyphImpl::~FTExtrudeGlyphImpl()
 const FTPoint& FTExtrudeGlyphImpl::RenderImpl(const FTPoint& pen,
                                               int renderMode)
 {
-    glTranslatef(pen.Xf(), pen.Yf(), 0);
+    glTranslatef(pen.Xf(), pen.Yf(), pen.Zf());
     if(glList)
     {
         if(renderMode & FTGL::RENDER_FRONT)
@@ -152,7 +152,7 @@ const FTPoint& FTExtrudeGlyphImpl::RenderImpl(const FTPoint& pen,
         if(renderMode & FTGL::RENDER_SIDE)
             RenderSide();
     }
-    glTranslatef(-pen.Xf(), -pen.Yf(), 0);
+    glTranslatef(-pen.Xf(), -pen.Yf(), -pen.Zf());
 
     return advance;
 }
