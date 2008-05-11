@@ -235,11 +235,10 @@ inline void FTSimpleLayoutImpl::WrapTextI(const T *buf, int renderMode,
     for(int i = 0; buf[i]; i++)
     {
         // Find the width of the current glyph
-        CheckGlyph(currentFont, buf[i]);
-        glyphBounds = GetGlyphs(currentFont)->BBox(buf[i]);
+        glyphBounds = currentFont->BBox(buf + i, 1);
         glyphWidth = glyphBounds.Upper().Xf() - glyphBounds.Lower().Xf();
 
-        advance = GetGlyphs(currentFont)->Advance(buf[i], buf[i + 1]).Xf();
+        advance = currentFont->Advance(buf + i, 1).Xf();
         prevWidth = currentWidth;
         // Compute the width of all glyphs up to the end of buf[i]
         currentWidth = nextStart + glyphWidth;
@@ -282,7 +281,7 @@ inline void FTSimpleLayoutImpl::WrapTextI(const T *buf, int renderMode,
             // Store the start of the next line
             lineStart = breakIdx + 1;
             // TODO: Is Height() the right value here?
-            pen -= FTPoint(0, GetCharSize(currentFont).Height() * lineSpacing);
+            pen -= FTPoint(0, currentFont->LineHeight() * lineSpacing);
             // The current width is the width since the last break
             nextStart = wordLength + advance;
             wordLength += advance;
@@ -444,7 +443,7 @@ inline void FTSimpleLayoutImpl::RenderSpaceI(const T *string, const int start,
             pen += FTPoint(space, 0);
         }
 
-        DoRender(currentFont, string[i], string[i + 1], renderMode);
+        pen = currentFont->Render(string + i, 1, pen, FTPoint(), renderMode);
     }
 }
 

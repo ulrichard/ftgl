@@ -46,45 +46,6 @@ class FTLayoutImpl
         FTPoint pen;
 
         /**
-         * Expose <code>FTFont::DoRender</code> method to derived classes.
-         *
-         * @param font      The font that contains the glyph.
-         * @param chr       current character
-         * @param nextChr   next character
-         * @param renderMode  Render mode to diplay
-         * @see FTFont::DoRender
-         */
-        void DoRender(FTFont *font, const unsigned int chr,
-                      const unsigned int nextChr, int renderMode);
-
-        /**
-         * Expose <code>FTFont::CheckGlyph</code> method to derived classes.
-         *
-         * @param font The font that contains the glyph.
-         * @param chr  character index
-         */
-        void CheckGlyph(FTFont *font, const unsigned int Chr);
-
-        /**
-         * Expose the FTFont <code>glyphList</code> to our derived classes.
-         *
-         * @param font The font to perform the query on.
-         * @param Char The character corresponding to the glyph to query.
-         *
-         * @return A pointer to the glyphList of font.
-         */
-        FTGlyphContainer *GetGlyphs(FTFont *font);
-
-        /**
-         * Expose the FTFont <code>charSize</code> to our derived classes.
-         *
-         * @param The font to perform the query on.
-         *
-         * @return A reference to the charSize object of font.
-         */
-        FTSize &GetCharSize(FTFont *font);
-
-        /**
          * Current error code. Zero means no error.
          */
         FT_Error err;

@@ -32,12 +32,9 @@
 
 class FTGlyphContainer;
 class FTGlyph;
-class FTLayout;
 
 class FTFontImpl
 {
-        /* Allow FTLayout classes to access CheckGlyph */
-        friend class FTLayoutImpl;
         friend class FTFont;
 
     protected:

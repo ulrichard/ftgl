@@ -372,9 +372,6 @@ class FTGL_EXPORT FTFont
         virtual FTGlyph* MakeGlyph(FT_GlyphSlot slot) = 0;
 
     private:
-        /* Allow FTLayout classes to access this->impl. */
-        friend class FTLayoutImpl;
-
         /**
          * Internal FTGL FTFont implementation object. For private use only.
          */

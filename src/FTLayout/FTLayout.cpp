@@ -77,33 +77,3 @@ FTLayoutImpl::~FTLayoutImpl()
     ;
 }
 
-
-void FTLayoutImpl::DoRender(FTFont *font, const unsigned int chr,
-                            const unsigned int nextChr, int renderMode)
-{
-    wchar_t string[3];
-    string[0] = chr;
-    string[1] = nextChr;
-    string[2] = '\0';
-
-    pen = font->Render(string, 1, pen, FTPoint(), renderMode);
-}
-
-
-void FTLayoutImpl::CheckGlyph(FTFont *font, const unsigned int Chr)
-{
-    font->impl->CheckGlyph(Chr);
-}
-
-
-FTGlyphContainer * FTLayoutImpl::GetGlyphs(FTFont *font)
-{
-    return font->impl->glyphList;
-}
-
-
-FTSize & FTLayoutImpl::GetCharSize(FTFont *font)
-{
-    return font->impl->charSize;
-}
-
