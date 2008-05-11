@@ -228,6 +228,25 @@ class FTGL_EXPORT FTFont
                             FTPoint spacing = FTPoint(0, 0, 0));
 
         /**
+         * Get the bounding box for a string (deprecated).
+         *
+         * @param string  A char buffer.
+         * @param llx  Lower left near x coordinate.
+         * @param lly  Lower left near y coordinate.
+         * @param llz  Lower left near z coordinate.
+         * @param urx  Upper right far x coordinate.
+         * @param ury  Upper right far y coordinate.
+         * @param urz  Upper right far z coordinate.
+         */
+        void BBox(const char* string, float& llx, float& lly, float& llz,
+                  float& urx, float& ury, float& urz)
+        {
+            FTBBox b = BBox(string);
+            llx = b.Lower().Xf(); lly = b.Lower().Yf(); llz = b.Lower().Zf();
+            urx = b.Upper().Xf(); ury = b.Upper().Yf(); urz = b.Upper().Zf();
+        }
+
+        /**
          * Get the bounding box for a string.
          *
          * @param string  A wchar_t buffer.
@@ -239,9 +258,28 @@ class FTGL_EXPORT FTFont
          *                 has been checked (optional).
          * @return  The corresponding bounding box.
          */
-        virtual FTBBox BBox(const wchar_t *string, const int end = -1,
+        virtual FTBBox BBox(const wchar_t *string, const int len = -1,
                             FTPoint position = FTPoint(0, 0, 0),
                             FTPoint spacing = FTPoint(0, 0, 0));
+
+        /**
+         * Get the bounding box for a string (deprecated).
+         *
+         * @param string  A wchar_t buffer.
+         * @param llx  Lower left near x coordinate.
+         * @param lly  Lower left near y coordinate.
+         * @param llz  Lower left near z coordinate.
+         * @param urx  Upper right far x coordinate.
+         * @param ury  Upper right far y coordinate.
+         * @param urz  Upper right far z coordinate.
+         */
+        void BBox(const wchar_t* string, float& llx, float& lly, float& llz,
+                  float& urx, float& ury, float& urz)
+        {
+            FTBBox b = BBox(string);
+            llx = b.Lower().Xf(); lly = b.Lower().Yf(); llz = b.Lower().Zf();
+            urx = b.Upper().Xf(); ury = b.Upper().Yf(); urz = b.Upper().Zf();
+        }
 
         /**
          * Get the advance for a string.
@@ -255,7 +293,7 @@ class FTGL_EXPORT FTFont
          *                 has been checked (optional).
          * @return  The new pen position after the last character.
          */
-        virtual FTPoint Advance(const char* string, const int end = -1,
+        virtual FTPoint Advance(const char* string, const int len = -1,
                                 FTPoint position = FTPoint(0, 0, 0),
                                 FTPoint spacing = FTPoint(0, 0, 0));
 
@@ -271,7 +309,7 @@ class FTGL_EXPORT FTFont
          *                 has been checked (optional).
          * @return  The new pen position after the last character.
          */
-        virtual FTPoint Advance(const wchar_t* string, const int end = -1,
+        virtual FTPoint Advance(const wchar_t* string, const int len = -1,
                                 FTPoint position = FTPoint(0, 0, 0),
                                 FTPoint spacing = FTPoint(0, 0, 0));
 
@@ -288,7 +326,7 @@ class FTGL_EXPORT FTFont
          * @param renderMode  Render mode to use for display (optional).
          * @return  The new pen position after the last character was output.
          */
-        virtual FTPoint Render(const char* string, const int end = -1,
+        virtual FTPoint Render(const char* string, const int len = -1,
                                FTPoint position = FTPoint(0, 0, 0),
                                FTPoint spacing = FTPoint(0, 0, 0),
                                int renderMode = FTGL::RENDER_ALL);
@@ -306,7 +344,7 @@ class FTGL_EXPORT FTFont
          * @param renderMode  Render mode to use for display (optional).
          * @return  The new pen position after the last character was output.
          */
-        virtual FTPoint Render(const wchar_t *string, const int end = -1,
+        virtual FTPoint Render(const wchar_t *string, const int len = -1,
                                FTPoint position = FTPoint(0, 0),
                                FTPoint spacing = FTPoint(0, 0),
                                int renderMode = FTGL::RENDER_ALL);
