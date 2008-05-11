@@ -36,7 +36,7 @@ class FTLayout;
 
 class FTFontImpl
 {
-        /* Allow FTLayout classes to access DoRender and CheckGlyph */
+        /* Allow FTLayout classes to access CheckGlyph */
         friend class FTLayoutImpl;
         friend class FTFont;
 
@@ -121,22 +121,6 @@ class FTFontImpl
          * A link back to the interface of which we are the implementation.
          */
         FTFont *intf;
-
-        /**
-         * Render a character.
-         * This function does an implicit conversion on its arguments.
-         *
-         * @param chr       current character
-         * @param nextChr   next character
-         * @param origin       The position of the origin of the character.
-         *                  After rendering the point referenced by origin
-         *                  will be incremented by the kerning advance of
-         *                  char and nextChr.
-         * @param renderMode    Render mode to display
-         */
-        void DoRender(const unsigned int chr,
-                      const unsigned int nextChr, FTPoint &origin,
-                      int renderMode);
 
         /**
          * Check that the glyph at <code>chr</code> exist. If not load it.

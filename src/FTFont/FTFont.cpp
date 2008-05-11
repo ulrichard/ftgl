@@ -414,16 +414,15 @@ template <typename T>
 inline FTPoint FTFontImpl::AdvanceI(const T* string, const int len,
                                     FTPoint position, FTPoint spacing)
 {
-    const T* c = string;
-
-    while(*c)
+    for(int i = 0; (len < 0 && string[i]) || (len >= 0 && i < len); i++)
     {
-        if(CheckGlyph(*c))
+        if(CheckGlyph(string[i]))
         {
-            position += glyphList->Advance(*c, *(c + 1));
+            position += glyphList->Advance((unsigned int)string[i],
+                                           (unsigned int)string[i + 1]);
         }
-        ++c;
-        if(*c)
+
+        if(string[i + 1])
         {
             position += spacing;
         }
@@ -449,30 +448,21 @@ FTPoint FTFontImpl::Advance(const wchar_t* string, const int len,
 }
 
 
-/* FIXME: DoRender should disappear, see commit [853]. */
-void FTFontImpl::DoRender(const unsigned int chr, const unsigned int nextChr,
-                          FTPoint &origin, int renderMode)
-{
-    if(CheckGlyph(chr))
-    {
-        FTPoint kernAdvance = glyphList->Render(chr, nextChr, origin, renderMode);
-        origin += kernAdvance;
-    }
-}
-
-
 template <typename T>
 inline FTPoint FTFontImpl::RenderI(const T* string, const int len,
                                    FTPoint position, FTPoint spacing,
                                    int renderMode)
 {
-    const T* c = string;
-
-    while(*c)
+    for(int i = 0; (len < 0 && string[i]) || (len >= 0 && i < len); i++)
     {
-        DoRender(*c, *(c + 1), position, renderMode);
-        ++c;
-        if(*c)
+        if(CheckGlyph(string[i]))
+        {
+            position += glyphList->Render((unsigned int)string[i],
+                                          (unsigned int)string[i + 1],
+                                          position, renderMode);
+        }
+
+        if(string[i + 1])
         {
             position += spacing;
         }

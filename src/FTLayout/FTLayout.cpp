@@ -81,7 +81,12 @@ FTLayoutImpl::~FTLayoutImpl()
 void FTLayoutImpl::DoRender(FTFont *font, const unsigned int chr,
                             const unsigned int nextChr, int renderMode)
 {
-    font->impl->DoRender(chr, nextChr, pen, renderMode);
+    wchar_t string[3];
+    string[0] = chr;
+    string[1] = nextChr;
+    string[2] = '\0';
+
+    pen = font->Render(string, 1, pen, FTPoint(), renderMode);
 }
 
 
