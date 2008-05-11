@@ -106,10 +106,6 @@ void ftgGetlLayoutBBox(FTGLlayout *l, const char * s, float c[6])
 C_FUN(void, ftglRenderLayout, (FTGLlayout *l, const char *s, int r),
       return, Render, (s, r));
 
-// void FTSimpleLayout::RenderSpace(const char *string, const float ExtraSpace = 0.0)
-C_FUN(void, ftglRenderLayoutSpace, (FTGLlayout *l, const char *s, float e),
-      return, RenderSpace, (s, e));
-
 // void SetFont(FTFont *fontInit)
 void ftglSetLayoutFont(FTGLlayout *l, FTGLfont *font)
 {

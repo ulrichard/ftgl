@@ -165,32 +165,6 @@ class FTGL_EXPORT FTSimpleLayout : public FTLayout
          * @return The line spacing.
          */
         float GetLineSpacing() const;
-
-        /**
-         * Render a string of characters and distribute extra space amongst
-         * the whitespace regions of the string.
-         *
-         * @param string      'C' style string to output.
-         * @param ExtraSpace  The amount of extra space to add to each run of
-         *                    whitespace.
-         */
-        void RenderSpace(const char *string, const int len = -1,
-                         FTPoint position = FTPoint(),
-                         int renderMode = FTGL::RENDER_ALL,
-                         const float ExtraSpace = 0.0);
-
-        /**
-         * Render a string of characters and distribute extra space amongst
-         * the whitespace regions of the string.
-         *
-         * @param string      wchar_t string to output.
-         * @param ExtraSpace  The amount of extra space to add to each run of
-         *                    whitespace.
-         */
-        void RenderSpace(const wchar_t *string, const int len = -1,
-                         FTPoint position = FTPoint(),
-                         int renderMode = FTGL::RENDER_ALL,
-                         const float ExtraSpace = 0.0);
 };
 
 #endif //__cplusplus
@@ -198,8 +172,6 @@ class FTGL_EXPORT FTSimpleLayout : public FTLayout
 FTGL_BEGIN_C_DECLS
 
 FTGL_EXPORT FTGLlayout *ftglCreateSimpleLayout(void);
-
-FTGL_EXPORT void ftglRenderLayoutSpace(FTGLlayout *, const char *, float);
 
 FTGL_EXPORT void ftglSetLayoutFont(FTGLlayout *, FTGLfont*);
 FTGL_EXPORT FTGLfont *ftglGetLayoutFont(FTGLlayout *);

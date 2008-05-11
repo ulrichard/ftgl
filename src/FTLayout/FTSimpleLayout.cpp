@@ -123,24 +123,6 @@ float FTSimpleLayout::GetLineSpacing() const
 }
 
 
-void FTSimpleLayout::RenderSpace(const char *string, const int len,
-                                 FTPoint position, int renderMode,
-                                 const float extraSpace)
-{
-    FTSimpleLayoutImpl *pImpl = dynamic_cast<FTSimpleLayoutImpl*>(impl);
-    return pImpl->RenderSpace(string, len, position, renderMode, extraSpace);
-}
-
-
-void FTSimpleLayout::RenderSpace(const wchar_t *string, const int len,
-                                 FTPoint position, int renderMode,
-                                 const float extraSpace)
-{
-    FTSimpleLayoutImpl *pImpl = dynamic_cast<FTSimpleLayoutImpl*>(impl);
-    return pImpl->RenderSpace(string, len, position, renderMode, extraSpace);
-}
-
-
 //
 //  FTSimpleLayoutImpl
 //
