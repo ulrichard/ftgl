@@ -22,6 +22,13 @@
  Word you don't need an intermediate pre-processing step to use high quality
  scalable fonts.
 
+ \section starting Starting to use FTGL
+
+ Only one header is required to use %FTGL:
+
+\code
+#include <FTGL/ftgl.h>
+\endcode
 
  \section type Choosing a font type
 
@@ -61,34 +68,47 @@
  \image html texturefont.png
  \image latex texturefont.eps "" width=0.7\textwidth
 
- \section creating Creating a font
+ \section creating Create font objects
+
+ Creating a font and displaying some text is really straightforward, be it
+ in C or in C++.
+
+ \subsection c in C
 
  \code
-FTGLPixmapFont font;
+/* Create a pixmap font from a TrueType file. */
+FTGLfont *font = ftglCreatePixmapFont("/home/user/Arial.ttf");
 
-font.Open("Fonts:Arial");
+/* If something went wrong, bail out. */
+if(!font)
+    return -1;
+
+/* Set the font size and render a small text. */
+ftglSetFontFaceSize(font, 72, 72);
+ftglRenderFont(font, "Hello World!", FTGL_RENDER_ALL);
+
+/* Destroy the font object. */
+ftglDestroyFont(font);
+ \endcode
+
+ \subsection cxx in C++
+
+ \code
+// Create a pixmap font from a TrueType file.
+FTGLPixmapFont font("/home/user/Arial.ttf");
+
+// If something went wrong, bail out.
+if(font.Error())
+    return -1;
+
+// Set the font size and render a small text.
 font.FaceSize(72);
-
 font.Render("Hello World!");
  \endcode
 
- A side effect of this is you can specify a sub set of glyphs to be pre-loaded.
- This will let you use larger higher quality glyphs without consuming huge
- amounts of ram as you would if you loaded the entire font. For example if your
- application only needs numbers, eg for scores, you can use the following code
- to preload them.
-
- \code
-// Open the font with pre-cache set to false
-font.Open("Fonts:Arial", false);
-
-// Set the size
-font.FaceSize(72);
-
-// Cause the font to preload the number chars without rendering them.
-font.Advance("0123456789");
- \endcode
-
+ The first 128 glyphs of the font (generally corresponding to the ASCII set)
+ are preloaded. This means that usual text is rendered fast enough, but no
+ memory is wasted loading glyphs that will not be used.
 
  \section commands More font commands
 
@@ -121,8 +141,9 @@ font.Advance("0123456789");
  Valid encodings as of FreeType 2.0.4 are:
 
  - ft_encoding_none
- - ft_encoding_symbol
  - ft_encoding_unicode
+ - ft_encoding_symbol
+ - ft_encoding_latin_1
  - ft_encoding_latin_2
  - ft_encoding_sjis
  - ft_encoding_gb2312
@@ -142,6 +163,35 @@ font.CharMap(ft_encoding_apple_roman);
 
  This will return an error if the requested encoding can't be found in the
  font.
+
+ If your application uses Latin-1 characters, you can preload this character
+ set using the following code:
+
+ \code
+// Create a pixmap font from a TrueType file.
+FTGLPixmapFont font("/home/user/Arial.ttf");
+
+// If something went wrong, bail out.
+if(font.Error())
+    return -1;
+
+// Set the face size and the character map. If something went wrong, bail out.
+font.FaceSize(72);
+if(!font.CharMap(ft_encoding_latin_1))
+    return -1;
+
+// Create a string containing all characters between 128 and 255
+// and preload the Latin-1 chars without rendering them.
+char buf[129];
+for(int i = 128; i < 256; i++)
+{
+    buf[i] = (char)(unsigned char)i;
+}
+buf[128] = '\0';
+
+font.Advance(buf);
+}
+ \endcode
 
 
  \section faq FAQ
