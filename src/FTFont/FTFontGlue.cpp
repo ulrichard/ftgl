@@ -28,6 +28,7 @@
 
 #include "FTInternals.h"
 
+static const FTPoint static_ftpoint;
 static const FTBBox static_ftbbox;
 
 FTGL_BEGIN_C_DECLS
@@ -222,27 +223,40 @@ C_FUN(float, ftglGetFontLineHeight, (FTGLfont *f), return 0.f, LineHeight, ());
 // void FTFont::BBox(const char* string, float& llx, float& lly, float& llz,
 //                   float& urx, float& ury, float& urz);
 extern "C++" {
-C_FUN(static FTBBox, _ftglGetFontBBox, (FTGLfont *f, char const *s,
-                                        int start, int end),
-      return static_ftbbox, BBox, (s, start, end));
+C_FUN(static FTBBox, _ftglGetFontBBox, (FTGLfont *f, char const *s, int len),
+      return static_ftbbox, BBox, (s, len));
 }
 
-void ftglGetFontBBox(FTGLfont *f, const char* s, int start, int end,
-                     float c[6])
+void ftglGetFontBBox(FTGLfont *f, const char* s, int len, float c[6])
 {
-    FTBBox ret = _ftglGetFontBBox(f, s, start, end);
+    FTBBox ret = _ftglGetFontBBox(f, s, len);
     FTPoint lower = ret.Lower(), upper = ret.Upper();
     c[0] = lower.Xf(); c[1] = lower.Yf(); c[2] = lower.Zf();
     c[3] = upper.Xf(); c[4] = upper.Yf(); c[5] = upper.Zf();
 }
 
 // float FTFont::Advance(const char* string);
-C_FUN(float, ftglGetFontAdvance, (FTGLfont *f, const char* s),
-      return 0.f, Advance, (s));
+extern "C++" {
+C_FUN(static FTPoint, _ftglGetFontAdvance, (FTGLfont *f, char const *s),
+      return static_ftpoint, Advance, (s));
+}
+
+float ftglGetFontAdvance(FTGLfont *f, const char* s)
+{
+    return _ftglGetFontAdvance(f, s).X();
+}
 
 // virtual void Render(const char* string, int renderMode);
-C_FUN(void, ftglRenderFont, (FTGLfont *f, const char *s, int r),
-      return, Render, (s, r));
+extern "C++" {
+C_FUN(static FTPoint, _ftglRenderFont, (FTGLfont *f, char const *s, int len,
+                                        FTPoint pos, FTPoint spacing, int mode),
+      return static_ftpoint, Render, (s, len, pos, spacing, mode));
+}
+
+void ftglRenderFont(FTGLfont *f, const char *s, int mode)
+{
+    _ftglRenderFont(f, s, -1, FTPoint(), FTPoint(), mode);
+}
 
 // FT_Error FTFont::Error() const;
 C_FUN(FT_Error, ftglGetFontError, (FTGLfont *f), return -1, Error, ());

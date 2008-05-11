@@ -88,14 +88,13 @@ FTBBox FTGlyphContainer::BBox(const unsigned int charCode) const
 }
 
 
-float FTGlyphContainer::Advance(const unsigned int charCode,
-                                const unsigned int nextCharCode)
+FTPoint FTGlyphContainer::Advance(const unsigned int charCode,
+                                  const unsigned int nextCharCode)
 {
     unsigned int left = charMap->FontIndex(charCode);
     unsigned int right = charMap->FontIndex(nextCharCode);
 
-    return face->KernAdvance(left, right).Xf()
-                   + Glyph(charCode)->Advance().Xf();
+    return face->KernAdvance(left, right) + Glyph(charCode)->Advance();
 }
 
 

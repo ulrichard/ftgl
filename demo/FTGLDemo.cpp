@@ -249,7 +249,7 @@ void renderFontmetrics()
         glBegin(GL_LINES);
             glColor3f(0.0, 0.0, 1.0);
             glVertex3f(0.0, 0.0, 0.0);
-            glVertex3f(fonts[current_font]->Advance(myString), 0.0, 0.0);
+            glVertex3f(fonts[current_font]->Advance(myString).Xf(), 0.0, 0.0);
             glVertex3f(0.0, fonts[current_font]->Ascender(), 0.0);
             glVertex3f(0.0, fonts[current_font]->Descender(), 0.0);
         glEnd();
@@ -404,17 +404,22 @@ void do_display (void)
 
     glPushMatrix();
         glColor3f(1.0, 1.0, 1.0);
+        int renderMode = FTGL::RENDER_FRONT | FTGL::RENDER_BACK;
         if(layouts[currentLayout])
-            layouts[currentLayout]->Render(myString, FTGL::RENDER_FRONT | FTGL::RENDER_BACK);
+            layouts[currentLayout]->Render(myString, renderMode);
         else
-            fonts[current_font]->Render(myString, FTGL::RENDER_FRONT | FTGL::RENDER_BACK);
+            fonts[current_font]->Render(myString, -1,
+                                        FTPoint(), FTPoint(), renderMode);
+
         if(current_font == FTGL_EXTRUDE)
         {
             glBindTexture(GL_TEXTURE_2D, textureID[1]);
+            renderMode = FTGL::RENDER_SIDE;
             if(layouts[currentLayout])
-                layouts[currentLayout]->Render(myString, FTGL::RENDER_SIDE);
+                layouts[currentLayout]->Render(myString, renderMode);
             else
-                fonts[current_font]->Render(myString, FTGL::RENDER_SIDE);
+                fonts[current_font]->Render(myString, -1,
+                                            FTPoint(), FTPoint(), renderMode);
         }
     glPopMatrix();
 

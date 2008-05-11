@@ -153,51 +153,45 @@ float FTFont::LineHeight() const
 }
 
 
-void FTFont::Render(const char * string, int renderMode)
+FTPoint FTFont::Render(const char * string, const int len,
+                       FTPoint position, FTPoint spacing, int renderMode)
 {
-    return impl->Render(string, renderMode);
+    return impl->Render(string, len, position, spacing, renderMode);
 }
 
 
-void FTFont::Render(const wchar_t* string, int renderMode)
+FTPoint FTFont::Render(const wchar_t * string, const int len,
+                       FTPoint position, FTPoint spacing, int renderMode)
 {
-    return impl->Render(string, renderMode);
+    return impl->Render(string, len, position, spacing, renderMode);
 }
 
 
-float FTFont::Advance(const wchar_t* string)
+FTPoint FTFont::Advance(const char * string, const int len,
+                        FTPoint position, FTPoint spacing)
 {
-    return impl->Advance(string);
+    return impl->Advance(string, len, position, spacing);
 }
 
 
-float FTFont::Advance(const char* string)
+FTPoint FTFont::Advance(const wchar_t * string, const int len,
+                        FTPoint position, FTPoint spacing)
 {
-    return impl->Advance(string);
+    return impl->Advance(string, len, position, spacing);
 }
 
 
-FTBBox FTFont::BBox(const char *string)
+FTBBox FTFont::BBox(const char *string, const int len,
+                    FTPoint position, FTPoint spacing)
 {
-    return impl->BBox(string, 0, -1);
+    return impl->BBox(string, len, position, spacing);
 }
 
 
-FTBBox FTFont::BBox(const wchar_t *string)
+FTBBox FTFont::BBox(const wchar_t *string, const int len,
+                    FTPoint position, FTPoint spacing)
 {
-    return impl->BBox(string, 0, -1);
-}
-
-
-FTBBox FTFont::BBox(const char *string, const int start, const int end)
-{
-    return impl->BBox(string, start, end);
-}
-
-
-FTBBox FTFont::BBox(const wchar_t *string, const int start, const int end)
-{
-    return impl->BBox(string, start, end);
+    return impl->BBox(string, len, position, spacing);
 }
 
 
@@ -247,44 +241,6 @@ FTFontImpl::~FTFontImpl()
     {
         delete glyphList;
     }
-}
-
-
-/* FIXME: DoRender should disappear, see commit [853]. */
-void FTFontImpl::DoRender(const unsigned int chr, const unsigned int nextChr,
-                          FTPoint &origin, int renderMode)
-{
-    if(CheckGlyph(chr))
-    {
-        FTPoint kernAdvance = glyphList->Render(chr, nextChr, origin, renderMode);
-        origin += kernAdvance;
-    }
-}
-
-
-template <typename T>
-inline void FTFontImpl::RenderI(const T* string, int renderMode)
-{
-    const T* c = string;
-    pen = FTPoint(0., 0.);
-
-    while(*c)
-    {
-        DoRender(*c, *(c + 1), pen, renderMode);
-        ++c;
-    }
-}
-
-
-void FTFontImpl::Render(const char * string, int renderMode)
-{
-    RenderI((const unsigned char *)string, renderMode);
-}
-
-
-void FTFontImpl::Render(const wchar_t* string, int renderMode)
-{
-    RenderI(string, renderMode);
 }
 
 
@@ -405,32 +361,32 @@ float FTFontImpl::LineHeight() const
 
 
 template <typename T>
-inline FTBBox FTFontImpl::BBoxI(const T* string, const int start, const int end)
+inline FTBBox FTFontImpl::BBoxI(const T* string, const int len,
+                                FTPoint position, FTPoint spacing)
 {
     FTBBox totalBBox;
 
     /* Only compute the bounds if string is non-empty. */
-    if(string && ('\0' != string[start]))
+    if(string && ('\0' != string[0]))
     {
-        float advance = 0;
-
-        if(CheckGlyph(string[start]))
+        if(CheckGlyph(string[0]))
         {
-            totalBBox = glyphList->BBox(string[start]);
-            advance = glyphList->Advance(string[start], string[start + 1]);
+            totalBBox = glyphList->BBox(string[0]);
+            position += glyphList->Advance(string[0], string[1]);
         }
 
-        /* Expand totalBox by each glyph in String (for idx) */
-        for(int i = start + 1; (end < 0 && string[i])
-                                 || (end >= 0 && i < end); i++)
+        /* Expand totalBox by each glyph in string */
+        for(int i = 1; (len < 0 && string[i]) || (len >= 0 && i < len); i++)
         {
             if(CheckGlyph(string[i]))
             {
-                FTBBox tempBBox = glyphList->BBox(string[i]);
-                tempBBox += FTPoint(advance, 0.0f, 0.0f);
+                position += spacing;
 
+                FTBBox tempBBox = glyphList->BBox(string[i]);
+                tempBBox += position;
                 totalBBox |= tempBBox;
-                advance += glyphList->Advance(string[i], string[i + 1]);
+
+                position += glyphList->Advance(string[i], string[i + 1]);
             }
         }
     }
@@ -439,48 +395,105 @@ inline FTBBox FTFontImpl::BBoxI(const T* string, const int start, const int end)
 }
 
 
-FTBBox FTFontImpl::BBox(const char *string, const int start, const int end)
+FTBBox FTFontImpl::BBox(const char *string, const int len,
+                        FTPoint position, FTPoint spacing)
 {
     /* The chars need to be unsigned because they are cast to int later */
-    return BBoxI((const unsigned char *)string, start, end);
+    return BBoxI((const unsigned char *)string, len, position, spacing);
 }
 
 
-FTBBox FTFontImpl::BBox(const wchar_t *string, const int start, const int end)
+FTBBox FTFontImpl::BBox(const wchar_t *string, const int len,
+                        FTPoint position, FTPoint spacing)
 {
-    return BBoxI(string, start, end);
+    return BBoxI(string, len, position, spacing);
 }
 
 
 template <typename T>
-inline float FTFontImpl::AdvanceI(const T* string)
+inline FTPoint FTFontImpl::AdvanceI(const T* string, const int len,
+                                    FTPoint position, FTPoint spacing)
 {
     const T* c = string;
-    float width = 0.0f;
 
     while(*c)
     {
         if(CheckGlyph(*c))
         {
-            width += glyphList->Advance(*c, *(c + 1));
+            position += glyphList->Advance(*c, *(c + 1));
         }
         ++c;
+        if(*c)
+        {
+            position += spacing;
+        }
     }
 
-    return width;
+    return position;
 }
 
 
-float FTFontImpl::Advance(const char* string)
+FTPoint FTFontImpl::Advance(const char* string, const int len,
+                            FTPoint position, FTPoint spacing)
 {
     /* The chars need to be unsigned because they are cast to int later */
-    return AdvanceI((const unsigned char *)string);
+    return AdvanceI((const unsigned char *)string,
+                    len, position, spacing);
 }
 
 
-float FTFontImpl::Advance(const wchar_t* string)
+FTPoint FTFontImpl::Advance(const wchar_t* string, const int len,
+                            FTPoint position, FTPoint spacing)
 {
-    return AdvanceI(string);
+    return AdvanceI(string, len, position, spacing);
+}
+
+
+/* FIXME: DoRender should disappear, see commit [853]. */
+void FTFontImpl::DoRender(const unsigned int chr, const unsigned int nextChr,
+                          FTPoint &origin, int renderMode)
+{
+    if(CheckGlyph(chr))
+    {
+        FTPoint kernAdvance = glyphList->Render(chr, nextChr, origin, renderMode);
+        origin += kernAdvance;
+    }
+}
+
+
+template <typename T>
+inline FTPoint FTFontImpl::RenderI(const T* string, const int len,
+                                   FTPoint position, FTPoint spacing,
+                                   int renderMode)
+{
+    const T* c = string;
+
+    while(*c)
+    {
+        DoRender(*c, *(c + 1), position, renderMode);
+        ++c;
+        if(*c)
+        {
+            position += spacing;
+        }
+    }
+
+    return position;
+}
+
+
+FTPoint FTFontImpl::Render(const char * string, const int len,
+                           FTPoint position, FTPoint spacing, int renderMode)
+{
+    return RenderI((const unsigned char *)string,
+                   len, position, spacing, renderMode);
+}
+
+
+FTPoint FTFontImpl::Render(const wchar_t * string, const int len,
+                           FTPoint position, FTPoint spacing, int renderMode)
+{
+    return RenderI(string, len, position, spacing, renderMode);
 }
 
 

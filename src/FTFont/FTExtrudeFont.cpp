@@ -44,7 +44,6 @@ FTExtrudeFont::FTExtrudeFont(char const *fontFilePath) :
 FTExtrudeFont::FTExtrudeFont(const unsigned char *pBufferBytes,
                              size_t bufferSizeInBytes) :
     FTFont(new FTExtrudeFontImpl(this, pBufferBytes, bufferSizeInBytes))
-
 {}
 
 

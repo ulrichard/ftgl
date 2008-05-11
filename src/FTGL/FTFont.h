@@ -215,79 +215,101 @@ class FTGL_EXPORT FTFont
          * Get the bounding box for a string.
          *
          * @param string  A char buffer.
+         * @param len  The length of the string. If < 0 then all characters
+         *             will be checked until a null character is encountered
+         *             (optional).
+         * @param position  The pen position of the first character (optional).
+         * @param spacing  A displacement vector to add after each character
+         *                 has been checked (optional).
          * @return  The corresponding bounding box.
          */
-        virtual FTBBox BBox(const char *string);
+        virtual FTBBox BBox(const char *string, const int len = -1,
+                            FTPoint position = FTPoint(0, 0, 0),
+                            FTPoint spacing = FTPoint(0, 0, 0));
 
         /**
          * Get the bounding box for a string.
          *
          * @param string  A wchar_t buffer.
+         * @param len  The length of the string. If < 0 then all characters
+         *             will be checked until a null character is encountered
+         *             (optional).
+         * @param position  The pen position of the first character (optional).
+         * @param spacing  A displacement vector to add after each character
+         *                 has been checked (optional).
          * @return  The corresponding bounding box.
          */
-        virtual FTBBox BBox(const wchar_t *string);
+        virtual FTBBox BBox(const wchar_t *string, const int end = -1,
+                            FTPoint position = FTPoint(0, 0, 0),
+                            FTPoint spacing = FTPoint(0, 0, 0));
 
         /**
-         * Get the bounding box for a string.
+         * Get the advance for a string.
          *
-         * @param string  A char buffer.
-         * @param start  The index of the first character of string
-         *               to check.
-         * @param end  The index of the last character of string to
-         *             check.  If < 0 then characters will be parsed
-         *             until a '@\0' is encountered.
-         * @return  The corresponding bounding box.
+         * @param string  'C' style string to be checked.
+         * @param len  The length of the string. If < 0 then all characters
+         *             will be checked until a null character is encountered
+         *             (optional).
+         * @param position  The pen position of the first character (optional).
+         * @param spacing  A displacement vector to add after each character
+         *                 has been checked (optional).
+         * @return  The new pen position after the last character.
          */
-        virtual FTBBox BBox(const char *string,
-                            const int start, const int end);
+        virtual FTPoint Advance(const char* string, const int end = -1,
+                                FTPoint position = FTPoint(0, 0, 0),
+                                FTPoint spacing = FTPoint(0, 0, 0));
 
         /**
-         * Get the bounding box for a string.
+         * Get the advance for a string.
          *
-         * @param string  A wchar_t buffer.
-         * @param start  The index of the first character of string
-         *               to check.
-         * @param end  The index of the last character of string to
-         *             check.  If < 0 then characters will be parsed
-         *             until a '@\0' is encountered.
-         * @return  The corresponding bounding box.
+         * @param string  A wchar_t string
+         * @param len  The length of the string. If < 0 then all characters
+         *             will be checked until a null character is encountered
+         *             (optional).
+         * @param position  The pen position of the first character (optional).
+         * @param spacing  A displacement vector to add after each character
+         *                 has been checked (optional).
+         * @return  The new pen position after the last character.
          */
-        virtual FTBBox BBox(const wchar_t *string,
-                            const int start, const int end);
+        virtual FTPoint Advance(const wchar_t* string, const int end = -1,
+                                FTPoint position = FTPoint(0, 0, 0),
+                                FTPoint spacing = FTPoint(0, 0, 0));
 
         /**
-         * Get the advance width for a string.
+         * Render a string of characters.
          *
-         * @param string    a wchar_t string
-         * @return      advance width
+         * @param string  'C' style string to be output.
+         * @param len  The length of the string. If < 0 then all characters
+         *             will be displayed until a null character is encountered
+         *             (optional).
+         * @param position  The pen position of the first character (optional).
+         * @param spacing  A displacement vector to add after each character
+         *                 has been displayed (optional).
+         * @param renderMode  Render mode to use for display (optional).
+         * @return  The new pen position after the last character was output.
          */
-        virtual float Advance(const wchar_t* string);
-
-        /**
-         * Get the advance width for a string.
-         *
-         * @param string    a char string
-         * @return      advance width
-         */
-        virtual float Advance(const char* string);
-
-        /**
-         * Render a string of characters
-         *
-         * @param string    'C' style string to be output.
-         * @param renderMode    Render mode to display (optional)
-         */
-        virtual void Render(const char* string,
-                            int renderMode = FTGL::RENDER_ALL);
+        virtual FTPoint Render(const char* string, const int end = -1,
+                               FTPoint position = FTPoint(0, 0, 0),
+                               FTPoint spacing = FTPoint(0, 0, 0),
+                               int renderMode = FTGL::RENDER_ALL);
 
         /**
          * Render a string of characters
          *
          * @param string    wchar_t string to be output.
-         * @param renderMode    Render mode to display (optional)
+         * @param len  The length of the string. If < 0 then all characters
+         *             will be displayed until a null character is encountered
+         *             (optional).
+         * @param position  The pen position of the first character (optional).
+         * @param spacing  A displacement vector to add after each character
+         *                 has been displayed (optional).
+         * @param renderMode  Render mode to use for display (optional).
+         * @return  The new pen position after the last character was output.
          */
-        virtual void Render(const wchar_t *string,
-                            int renderMode = FTGL::RENDER_ALL);
+        virtual FTPoint Render(const wchar_t *string, const int end = -1,
+                               FTPoint position = FTPoint(0, 0),
+                               FTPoint spacing = FTPoint(0, 0),
+                               int renderMode = FTGL::RENDER_ALL);
 
         /**
          * Queries the Font for errors.
@@ -481,14 +503,13 @@ FTGL_EXPORT float ftglGetFontLineHeight(FTGLfont* font);
  *
  * @param font  An FTGLfont* object.
  * @param string  A char buffer
- * @param start  The index of the first character of string to check.
- * @param end  The index of the last character of string to check.  If < 0
-               then characters will be parsed until a '@\0' is encountered.
+ * @param len  The length of the string. If < 0 then all characters will be
+ *             checked until a null character is encountered (optional).
  * @param bounds  An array of 6 float values where the bounding box's lower
  *                left near and upper right far 3D coordinates will be stored.
  */
 FTGL_EXPORT void ftglGetFontBBox(FTGLfont* font, const char *string,
-                                 int start, int end, float bounds[6]);
+                                 int len, float bounds[6]);
 
 /**
  * Get the advance width for a string.

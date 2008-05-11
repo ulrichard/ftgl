@@ -63,7 +63,9 @@ FTGlyph* FTPixmapFont::MakeGlyph(FT_GlyphSlot ftGlyph)
 
 
 template <typename T>
-inline void FTPixmapFontImpl::RenderI(const T* string, int renderMode)
+inline FTPoint FTPixmapFontImpl::RenderI(const T* string, const int len,
+                                         FTPoint position, FTPoint spacing,
+                                         int renderMode)
 {
     glPushAttrib(GL_ENABLE_BIT | GL_PIXEL_MODE_BIT | GL_COLOR_BUFFER_BIT);
     glPushClientAttrib(GL_CLIENT_PIXEL_STORE_BIT);
@@ -81,21 +83,28 @@ inline void FTPixmapFontImpl::RenderI(const T* string, int renderMode)
     glPixelTransferf(GL_BLUE_SCALE, ftglColour[2]);
     glPixelTransferf(GL_ALPHA_SCALE, ftglColour[3]);
 
-    FTFontImpl::Render(string, renderMode);
+    FTPoint tmp = FTFontImpl::Render(string, len,
+                                     position, spacing, renderMode);
 
     glPopClientAttrib();
     glPopAttrib();
+
+    return tmp;
 }
 
 
-void FTPixmapFontImpl::Render(const char* string, int renderMode)
+FTPoint FTPixmapFontImpl::Render(const char * string, const int len,
+                                 FTPoint position, FTPoint spacing,
+                                 int renderMode)
 {
-    RenderI(string, renderMode);
+    return RenderI(string, len, position, spacing, renderMode);
 }
 
 
-void FTPixmapFontImpl::Render(const wchar_t* string, int renderMode)
+FTPoint FTPixmapFontImpl::Render(const wchar_t * string, const int len,
+                                 FTPoint position, FTPoint spacing,
+                                 int renderMode)
 {
-    RenderI(string, renderMode);
+    return RenderI(string, len, position, spacing, renderMode);
 }
 

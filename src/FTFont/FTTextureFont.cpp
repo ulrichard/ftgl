@@ -224,25 +224,31 @@ bool FTTextureFontImpl::FaceSize(const unsigned int size, const unsigned int res
 
 
 template <typename T>
-inline void FTTextureFontImpl::RenderI(const T* string, int renderMode)
+inline FTPoint FTTextureFontImpl::RenderI(const T* string, const int len,
+                                          FTPoint position, FTPoint spacing,
+                                          int renderMode)
 {
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // GL_ONE
 
     FTTextureGlyphImpl::ResetActiveTexture();
 
-    FTFontImpl::Render(string, renderMode);
+    return FTFontImpl::Render(string, len, position, spacing, renderMode);
 }
 
 
-void FTTextureFontImpl::Render(const char* string, int renderMode)
+FTPoint FTTextureFontImpl::Render(const char * string, const int len,
+                                  FTPoint position, FTPoint spacing,
+                                  int renderMode)
 {
-    RenderI(string, renderMode);
+    return RenderI(string, len, position, spacing, renderMode);
 }
 
 
-void FTTextureFontImpl::Render(const wchar_t* string, int renderMode)
+FTPoint FTTextureFontImpl::Render(const wchar_t * string, const int len,
+                                  FTPoint position, FTPoint spacing,
+                                  int renderMode)
 {
-    RenderI(string, renderMode);
+    return RenderI(string, len, position, spacing, renderMode);
 }
 

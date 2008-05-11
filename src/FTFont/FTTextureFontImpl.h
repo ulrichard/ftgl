@@ -54,21 +54,13 @@ class FTTextureFontImpl : public FTFontImpl
         virtual bool FaceSize(const unsigned int size,
                               const unsigned int res = 72);
 
-        /**
-         * Render a string of characters
-         *
-         * @param string    'C' style string to be output.
-         * @param renderMode    Render mode to display
-         */
-        virtual void Render(const char* string, int renderMode);
+        virtual FTPoint Render(const char *s, const int len,
+                               FTPoint position, FTPoint spacing,
+                               int renderMode);
 
-        /**
-         * Render a string of characters
-         *
-         * @param string    wchar_t string to be output.
-         * @param renderMode    Render mode to display
-         */
-        virtual void Render(const wchar_t *string, int renderMode);
+        virtual FTPoint Render(const wchar_t *s, const int len,
+                               FTPoint position, FTPoint spacing,
+                               int renderMode);
 
     private:
         /**
@@ -114,7 +106,7 @@ class FTTextureFontImpl : public FTFontImpl
         /**
          *An array of texture ids
          */
-         FTVector<GLuint> textureIDList;
+        FTVector<GLuint> textureIDList;
 
         /**
          * The max height for glyphs in the current font
@@ -135,7 +127,7 @@ class FTTextureFontImpl : public FTFontImpl
         /**
          *
          */
-         unsigned int numGlyphs;
+        unsigned int numGlyphs;
 
         /**
          */
@@ -151,7 +143,8 @@ class FTTextureFontImpl : public FTFontImpl
 
         /* Internal generic Render() implementation */
         template <typename T>
-        inline void RenderI(const T* string, int renderMode);
+        inline FTPoint RenderI(const T *s, const int len,
+                               FTPoint position, FTPoint spacing, int mode);
 };
 
 #endif // __FTTextureFontImpl__

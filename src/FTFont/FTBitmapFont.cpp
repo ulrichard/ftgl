@@ -63,7 +63,9 @@ FTGlyph* FTBitmapFont::MakeGlyph(FT_GlyphSlot ftGlyph)
 
 
 template <typename T>
-inline void FTBitmapFontImpl::RenderI(const T *string, int renderMode)
+inline FTPoint FTBitmapFontImpl::RenderI(const T* string, const int len,
+                                         FTPoint position, FTPoint spacing,
+                                         int renderMode)
 {
     glPushClientAttrib(GL_CLIENT_PIXEL_STORE_BIT);
     glPushAttrib(GL_ENABLE_BIT);
@@ -73,21 +75,28 @@ inline void FTBitmapFontImpl::RenderI(const T *string, int renderMode)
 
     glDisable(GL_BLEND);
 
-    FTFontImpl::Render(string, renderMode);
+    FTPoint tmp = FTFontImpl::Render(string, len,
+                                     position, spacing, renderMode);
 
     glPopAttrib();
     glPopClientAttrib();
+
+    return tmp;
 }
 
 
-void FTBitmapFontImpl::Render(const char* string, int renderMode)
+FTPoint FTBitmapFontImpl::Render(const char * string, const int len,
+                                 FTPoint position, FTPoint spacing,
+                                 int renderMode)
 {
-    RenderI(string, renderMode);
+    return RenderI(string, len, position, spacing, renderMode);
 }
 
 
-void FTBitmapFontImpl::Render(const wchar_t* string, int renderMode)
+FTPoint FTBitmapFontImpl::Render(const wchar_t * string, const int len,
+                                 FTPoint position, FTPoint spacing,
+                                 int renderMode)
 {
-    RenderI(string, renderMode);
+    return RenderI(string, len, position, spacing, renderMode);
 }
 

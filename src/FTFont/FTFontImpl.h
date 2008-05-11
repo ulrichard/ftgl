@@ -67,10 +67,6 @@ class FTFontImpl
 
         virtual float LineHeight() const;
 
-        virtual void Render(const char* string, int renderMode);
-
-        virtual void Render(const wchar_t *string, int renderMode);
-
         virtual bool FaceSize(const unsigned int size,
                               const unsigned int res);
 
@@ -82,13 +78,21 @@ class FTFontImpl
 
         virtual void Outset(float front, float back);
 
-        FTBBox BBox(const char *s, const int start, const int end);
+        virtual FTBBox BBox(const char *s, const int len, FTPoint, FTPoint);
 
-        FTBBox BBox(const wchar_t *s, const int start, const int end);
+        virtual FTBBox BBox(const wchar_t *s, const int len, FTPoint, FTPoint);
 
-        float Advance(const wchar_t* string);
+        virtual FTPoint Advance(const char *s, const int len,
+                                FTPoint, FTPoint);
 
-        float Advance(const char* string);
+        virtual FTPoint Advance(const wchar_t *s, const int len,
+                                FTPoint, FTPoint);
+
+        virtual FTPoint Render(const char *s, const int len,
+                               FTPoint, FTPoint, int);
+
+        virtual FTPoint Render(const wchar_t *s, const int len,
+                               FTPoint, FTPoint, int);
 
         /**
          * Current face object
@@ -154,15 +158,18 @@ class FTFontImpl
 
         /* Internal generic BBox() implementation */
         template <typename T>
-        inline FTBBox BBoxI(const T *string, const int start, const int end);
+        inline FTBBox BBoxI(const T *s, const int len,
+                            FTPoint position, FTPoint spacing);
 
-        /* Internal generic BBox() implementation */
+        /* Internal generic Advance() implementation */
         template <typename T>
-        inline float AdvanceI(const T* string);
+        inline FTPoint AdvanceI(const T *s, const int len,
+                                FTPoint position, FTPoint spacing);
 
         /* Internal generic Render() implementation */
         template <typename T>
-        inline void RenderI(const T* string, int renderMode);
+        inline FTPoint RenderI(const T *s, const int len,
+                               FTPoint position, FTPoint spacing, int mode);
 };
 
 #endif  //  __FTFontImpl__

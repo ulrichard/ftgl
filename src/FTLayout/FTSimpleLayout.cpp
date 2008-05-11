@@ -239,7 +239,7 @@ inline void FTSimpleLayoutImpl::WrapTextI(const T *buf, int renderMode,
         glyphBounds = GetGlyphs(currentFont)->BBox(buf[i]);
         glyphWidth = glyphBounds.Upper().Xf() - glyphBounds.Lower().Xf();
 
-        advance = GetGlyphs(currentFont)->Advance(buf[i], buf[i + 1]);
+        advance = GetGlyphs(currentFont)->Advance(buf[i], buf[i + 1]).Xf();
         prevWidth = currentWidth;
         // Compute the width of all glyphs up to the end of buf[i]
         currentWidth = nextStart + glyphWidth;
@@ -368,7 +368,7 @@ inline void FTSimpleLayoutImpl::OutputWrappedI(const T *buf, const int start,
     // the line.
     if(bounds)
     {
-        FTBBox temp = currentFont->BBox(buf, start, end);
+        FTBBox temp = currentFont->BBox(buf + start, end - start);
 
         // Add the extra space to the upper x dimension
         temp = FTBBox(temp.Lower() + pen,

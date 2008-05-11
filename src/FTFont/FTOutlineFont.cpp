@@ -70,7 +70,9 @@ FTGlyph* FTOutlineFont::MakeGlyph(FT_GlyphSlot ftGlyph)
 
 
 template <typename T>
-inline void FTOutlineFontImpl::RenderI(const T* string, int renderMode)
+inline FTPoint FTOutlineFontImpl::RenderI(const T* string, const int len,
+                                          FTPoint position, FTPoint spacing,
+                                          int renderMode)
 {
     glPushAttrib(GL_ENABLE_BIT | GL_HINT_BIT | GL_LINE_BIT
                   | GL_COLOR_BUFFER_BIT);
@@ -82,20 +84,27 @@ inline void FTOutlineFontImpl::RenderI(const T* string, int renderMode)
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // GL_ONE
 
-    FTFontImpl::Render(string, renderMode);
+    FTPoint tmp = FTFontImpl::Render(string, len,
+                                     position, spacing, renderMode);
 
     glPopAttrib();
+
+    return tmp;
 }
 
 
-void FTOutlineFontImpl::Render(const char* string, int renderMode)
+FTPoint FTOutlineFontImpl::Render(const char * string, const int len,
+                                  FTPoint position, FTPoint spacing,
+                                  int renderMode)
 {
-    RenderI(string, renderMode);
+    return RenderI(string, len, position, spacing, renderMode);
 }
 
 
-void FTOutlineFontImpl::Render(const wchar_t* string, int renderMode)
+FTPoint FTOutlineFontImpl::Render(const wchar_t * string, const int len,
+                                  FTPoint position, FTPoint spacing,
+                                  int renderMode)
 {
-    RenderI(string, renderMode);
+    return RenderI(string, len, position, spacing, renderMode);
 }
 
