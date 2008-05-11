@@ -406,7 +406,8 @@ void do_display (void)
         glColor3f(1.0, 1.0, 1.0);
         int renderMode = FTGL::RENDER_FRONT | FTGL::RENDER_BACK;
         if(layouts[currentLayout])
-            layouts[currentLayout]->Render(myString, renderMode);
+            layouts[currentLayout]->Render(myString, -1,
+                                           FTPoint(), renderMode);
         else
             fonts[current_font]->Render(myString, -1,
                                         FTPoint(), FTPoint(), renderMode);
@@ -416,7 +417,8 @@ void do_display (void)
             glBindTexture(GL_TEXTURE_2D, textureID[1]);
             renderMode = FTGL::RENDER_SIDE;
             if(layouts[currentLayout])
-                layouts[currentLayout]->Render(myString, renderMode);
+                layouts[currentLayout]->Render(myString, -1,
+                                               FTPoint(), renderMode);
             else
                 fonts[current_font]->Render(myString, -1,
                                             FTPoint(), FTPoint(), renderMode);

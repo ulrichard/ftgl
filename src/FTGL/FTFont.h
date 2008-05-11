@@ -224,8 +224,8 @@ class FTGL_EXPORT FTFont
          * @return  The corresponding bounding box.
          */
         virtual FTBBox BBox(const char *string, const int len = -1,
-                            FTPoint position = FTPoint(0, 0, 0),
-                            FTPoint spacing = FTPoint(0, 0, 0));
+                            FTPoint position = FTPoint(),
+                            FTPoint spacing = FTPoint());
 
         /**
          * Get the bounding box for a string (deprecated).
@@ -259,8 +259,8 @@ class FTGL_EXPORT FTFont
          * @return  The corresponding bounding box.
          */
         virtual FTBBox BBox(const wchar_t *string, const int len = -1,
-                            FTPoint position = FTPoint(0, 0, 0),
-                            FTPoint spacing = FTPoint(0, 0, 0));
+                            FTPoint position = FTPoint(),
+                            FTPoint spacing = FTPoint());
 
         /**
          * Get the bounding box for a string (deprecated).
@@ -294,8 +294,8 @@ class FTGL_EXPORT FTFont
          * @return  The new pen position after the last character.
          */
         virtual FTPoint Advance(const char* string, const int len = -1,
-                                FTPoint position = FTPoint(0, 0, 0),
-                                FTPoint spacing = FTPoint(0, 0, 0));
+                                FTPoint position = FTPoint(),
+                                FTPoint spacing = FTPoint());
 
         /**
          * Get the advance for a string.
@@ -310,8 +310,8 @@ class FTGL_EXPORT FTFont
          * @return  The new pen position after the last character.
          */
         virtual FTPoint Advance(const wchar_t* string, const int len = -1,
-                                FTPoint position = FTPoint(0, 0, 0),
-                                FTPoint spacing = FTPoint(0, 0, 0));
+                                FTPoint position = FTPoint(),
+                                FTPoint spacing = FTPoint());
 
         /**
          * Render a string of characters.
@@ -327,8 +327,8 @@ class FTGL_EXPORT FTFont
          * @return  The new pen position after the last character was output.
          */
         virtual FTPoint Render(const char* string, const int len = -1,
-                               FTPoint position = FTPoint(0, 0, 0),
-                               FTPoint spacing = FTPoint(0, 0, 0),
+                               FTPoint position = FTPoint(),
+                               FTPoint spacing = FTPoint(),
                                int renderMode = FTGL::RENDER_ALL);
 
         /**
@@ -345,8 +345,8 @@ class FTGL_EXPORT FTFont
          * @return  The new pen position after the last character was output.
          */
         virtual FTPoint Render(const wchar_t *string, const int len = -1,
-                               FTPoint position = FTPoint(0, 0),
-                               FTPoint spacing = FTPoint(0, 0),
+                               FTPoint position = FTPoint(),
+                               FTPoint spacing = FTPoint(),
                                int renderMode = FTGL::RENDER_ALL);
 
         /**

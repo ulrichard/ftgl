@@ -76,34 +76,54 @@ class FTGL_EXPORT FTLayout
          * Get the bounding box for a formatted string.
          *
          * @param string  A char string.
+         * @param len  The length of the string. If < 0 then all characters
+         *             will be checked until a null character is encountered
+         *             (optional).
+         * @param position  The pen position of the first character (optional).
          * @return  The corresponding bounding box.
          */
-        virtual FTBBox BBox(const char* string) = 0;
+        virtual FTBBox BBox(const char* string, const int len = -1,
+                            FTPoint position = FTPoint()) = 0;
 
         /**
          * Get the bounding box for a formatted string.
          *
          * @param string  A wchar_t string.
+         * @param len  The length of the string. If < 0 then all characters
+         *             will be checked until a null character is encountered
+         *             (optional).
+         * @param position  The pen position of the first character (optional).
          * @return  The corresponding bounding box.
          */
-        virtual FTBBox BBox(const wchar_t* string) = 0;
+        virtual FTBBox BBox(const wchar_t* string, const int len = -1,
+                            FTPoint position = FTPoint()) = 0;
 
         /**
-         * Render a string of characters
+         * Render a string of characters.
          *
          * @param string    'C' style string to be output.
+         * @param len  The length of the string. If < 0 then all characters
+         *             will be displayed until a null character is encountered
+         *             (optional).
+         * @param position  The pen position of the first character (optional).
          * @param renderMode  Render mode to display (optional)
          */
-        virtual void Render(const char *string,
+        virtual void Render(const char *string, const int len = -1,
+                            FTPoint position = FTPoint(),
                             int renderMode = FTGL::RENDER_ALL) = 0;
 
         /**
-         * Render a string of characters
+         * Render a string of characters.
          *
          * @param string    wchar_t string to be output.
+         * @param len  The length of the string. If < 0 then all characters
+         *             will be displayed until a null character is encountered
+         *             (optional).
+         * @param position  The pen position of the first character (optional).
          * @param renderMode  Render mode to display (optional)
          */
-        virtual void Render(const wchar_t *string,
+        virtual void Render(const wchar_t *string, const int len = -1,
+                            FTPoint position = FTPoint(),
                             int renderMode = FTGL::RENDER_ALL) = 0;
 
         /**

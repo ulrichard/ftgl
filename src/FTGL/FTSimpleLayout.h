@@ -63,35 +63,55 @@ class FTGL_EXPORT FTSimpleLayout : public FTLayout
         /**
          * Get the bounding box for a formatted string.
          *
-         * @param string  A char string
+         * @param string  A char string.
+         * @param len  The length of the string. If < 0 then all characters
+         *             will be checked until a null character is encountered
+         *             (optional).
+         * @param position  The pen position of the first character (optional).
          * @return  The corresponding bounding box.
          */
-        virtual FTBBox BBox(const char* string);
+        virtual FTBBox BBox(const char* string, const int len = -1,
+                            FTPoint position = FTPoint());
 
         /**
          * Get the bounding box for a formatted string.
          *
-         * @param string  A wchar_t string
+         * @param string  A wchar_t string.
+         * @param len  The length of the string. If < 0 then all characters
+         *             will be checked until a null character is encountered
+         *             (optional).
+         * @param position  The pen position of the first character (optional).
          * @return  The corresponding bounding box.
          */
-        virtual FTBBox BBox(const wchar_t* string);
+        virtual FTBBox BBox(const wchar_t* string, const int len = -1,
+                            FTPoint position = FTPoint());
 
         /**
-         * Render a string of characters
+         * Render a string of characters.
          *
          * @param string    'C' style string to be output.
+         * @param len  The length of the string. If < 0 then all characters
+         *             will be displayed until a null character is encountered
+         *             (optional).
+         * @param position  The pen position of the first character (optional).
          * @param renderMode  Render mode to display (optional)
          */
-        virtual void Render(const char *string,
+        virtual void Render(const char *string, const int len = -1,
+                            FTPoint position = FTPoint(),
                             int renderMode = FTGL::RENDER_ALL);
 
         /**
-         * Render a string of characters
+         * Render a string of characters.
          *
          * @param string    wchar_t string to be output.
+         * @param len  The length of the string. If < 0 then all characters
+         *             will be displayed until a null character is encountered
+         *             (optional).
+         * @param position  The pen position of the first character (optional).
          * @param renderMode  Render mode to display (optional)
          */
-        virtual void Render(const wchar_t *string,
+        virtual void Render(const wchar_t *string, const int len = -1,
+                            FTPoint position = FTPoint(),
                             int renderMode = FTGL::RENDER_ALL);
 
         /**
@@ -154,7 +174,10 @@ class FTGL_EXPORT FTSimpleLayout : public FTLayout
          * @param ExtraSpace  The amount of extra space to add to each run of
          *                    whitespace.
          */
-        void RenderSpace(const char *string, const float ExtraSpace = 0.0);
+        void RenderSpace(const char *string, const int len = -1,
+                         FTPoint position = FTPoint(),
+                         int renderMode = FTGL::RENDER_ALL,
+                         const float ExtraSpace = 0.0);
 
         /**
          * Render a string of characters and distribute extra space amongst
@@ -164,7 +187,10 @@ class FTGL_EXPORT FTSimpleLayout : public FTLayout
          * @param ExtraSpace  The amount of extra space to add to each run of
          *                    whitespace.
          */
-        void RenderSpace(const wchar_t *string, const float ExtraSpace = 0.0);
+        void RenderSpace(const wchar_t *string, const int len = -1,
+                         FTPoint position = FTPoint(),
+                         int renderMode = FTGL::RENDER_ALL,
+                         const float ExtraSpace = 0.0);
 };
 
 #endif //__cplusplus
