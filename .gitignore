@@ -4,6 +4,7 @@
 Makefile.in
 Makefile
 aclocal.m4
+autom4te.cache
 config.h
 config.h.in
 config.log
@@ -23,5 +24,6 @@ test/CTest
 test/CXXTest
 docs/stamp-*
 docs/doxygen.cfg
+docs/images/*.eps
 docs/html
 docs/latex
