@@ -139,25 +139,7 @@ C_TOR(ftglCreateCustomGlyph, (FTGLglyph *base, void *data,
             fprintf(stderr, "FTGL warning: NULL pointer in %s\n", #cname); \
             cxxerr; \
         } \
-        switch(g->type) \
-        { \
-            case FTGL::GLYPH_CUSTOM: \
-                return dynamic_cast<FTCustomGlyph*>(g->ptr)->cxxname cxxarg; \
-            case FTGL::GLYPH_BITMAP: \
-                return dynamic_cast<FTBitmapGlyph*>(g->ptr)->cxxname cxxarg; \
-            case FTGL::GLYPH_EXTRUDE: \
-                return dynamic_cast<FTExtrudeGlyph*>(g->ptr)->cxxname cxxarg; \
-            case FTGL::GLYPH_OUTLINE: \
-                return dynamic_cast<FTOutlineGlyph*>(g->ptr)->cxxname cxxarg; \
-            case FTGL::GLYPH_PIXMAP: \
-                return dynamic_cast<FTPixmapGlyph*>(g->ptr)->cxxname cxxarg; \
-            case FTGL::GLYPH_POLYGON: \
-                return dynamic_cast<FTPolygonGlyph*>(g->ptr)->cxxname cxxarg; \
-            case FTGL::GLYPH_TEXTURE: \
-                return dynamic_cast<FTTextureGlyph*>(g->ptr)->cxxname cxxarg; \
-        } \
-        fprintf(stderr, "FTGL warning: %s not implemented for %d\n", #cname, g->type); \
-        cxxerr; \
+        return g->ptr->cxxname cxxarg; \
     }
 
 // FTGlyph::~FTGlyph();
@@ -168,27 +150,7 @@ void ftglDestroyGlyph(FTGLglyph *g)
         fprintf(stderr, "FTGL warning: NULL pointer in %s\n", __FUNCTION__);
         return;
     }
-    switch(g->type)
-    {
-        case FTGL::GLYPH_CUSTOM:
-            delete dynamic_cast<FTCustomGlyph*>(g->ptr); break;
-        case FTGL::GLYPH_EXTRUDE:
-            delete dynamic_cast<FTExtrudeGlyph*>(g->ptr); break;
-        case FTGL::GLYPH_OUTLINE:
-            delete dynamic_cast<FTOutlineGlyph*>(g->ptr); break;
-        case FTGL::GLYPH_PIXMAP:
-            delete dynamic_cast<FTPixmapGlyph*>(g->ptr); break;
-        case FTGL::GLYPH_POLYGON:
-            delete dynamic_cast<FTPolygonGlyph*>(g->ptr); break;
-        case FTGL::GLYPH_TEXTURE:
-            delete dynamic_cast<FTTextureGlyph*>(g->ptr); break;
-        default:
-            fprintf(stderr, "FTGL warning: %s not implemented for %d\n",
-                            __FUNCTION__, g->type);
-            break;
-    }
-
-    g->ptr = NULL;
+    delete g->ptr;
     free(g);
 }
 

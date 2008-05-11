@@ -114,25 +114,7 @@ C_TOR(ftglCreateCustomFont, (char const *fontFilePath, void *data,
             fprintf(stderr, "FTGL warning: NULL pointer in %s\n", #cname); \
             cxxerr; \
         } \
-        switch(f->type) \
-        { \
-            case FTGL::FONT_CUSTOM: \
-                return dynamic_cast<FTCustomFont*>(f->ptr)->cxxname cxxarg; \
-            case FTGL::FONT_BITMAP: \
-                return dynamic_cast<FTBitmapFont*>(f->ptr)->cxxname cxxarg; \
-            case FTGL::FONT_EXTRUDE: \
-                return dynamic_cast<FTExtrudeFont*>(f->ptr)->cxxname cxxarg; \
-            case FTGL::FONT_OUTLINE: \
-                return dynamic_cast<FTOutlineFont*>(f->ptr)->cxxname cxxarg; \
-            case FTGL::FONT_PIXMAP: \
-                return dynamic_cast<FTPixmapFont*>(f->ptr)->cxxname cxxarg; \
-            case FTGL::FONT_POLYGON: \
-                return dynamic_cast<FTPolygonFont*>(f->ptr)->cxxname cxxarg; \
-            case FTGL::FONT_TEXTURE: \
-                return dynamic_cast<FTTextureFont*>(f->ptr)->cxxname cxxarg; \
-        } \
-        fprintf(stderr, "FTGL warning: %s not implemented for %d\n", #cname, f->type); \
-        cxxerr; \
+        return f->ptr->cxxname cxxarg; \
     }
 
 // FTFont::~FTFont();
@@ -143,29 +125,7 @@ void ftglDestroyFont(FTGLfont *f)
         fprintf(stderr, "FTGL warning: NULL pointer in %s\n", __FUNCTION__);
         return;
     }
-    switch(f->type)
-    {
-        case FTGL::FONT_CUSTOM:
-            delete dynamic_cast<FTCustomFont*>(f->ptr); break;
-        case FTGL::FONT_BITMAP:
-            delete dynamic_cast<FTBitmapFont*>(f->ptr); break;
-        case FTGL::FONT_EXTRUDE:
-            delete dynamic_cast<FTExtrudeFont*>(f->ptr); break;
-        case FTGL::FONT_OUTLINE:
-            delete dynamic_cast<FTOutlineFont*>(f->ptr); break;
-        case FTGL::FONT_PIXMAP:
-            delete dynamic_cast<FTPixmapFont*>(f->ptr); break;
-        case FTGL::FONT_POLYGON:
-            delete dynamic_cast<FTPolygonFont*>(f->ptr); break;
-        case FTGL::FONT_TEXTURE:
-            delete dynamic_cast<FTTextureFont*>(f->ptr); break;
-        default:
-            fprintf(stderr, "FTGL warning: %s not implemented for %d\n",
-                            __FUNCTION__, f->type);
-            break;
-    }
-
-    f->ptr = NULL;
+    delete f->ptr;
     free(f);
 }
 
