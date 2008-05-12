@@ -42,22 +42,20 @@
 #include "tb.h"
 
 // YOU'LL PROBABLY WANT TO CHANGE THESE
-#ifdef __linux__
-    char const *defaultFonts[] = { "/usr/share/fonts/truetype/arial.ttf" };
+#if defined FONT_FILE
+    char const *defaultFonts[] = { FONT_FILE };
     const int NumDefaultFonts = 1;
-#endif
-#ifdef __APPLE_CC__
-    //#define FONT_FILE "/Users/henry/Development/PROJECTS/FTGL/ftglcvs/FTGL/test/arial.ttf"
+#elif defined __APPLE_CC__
     char const *defaultFonts[] = { "/System/Library/Fonts/Helvetica.dfont",
                                    "/System/Library/Fonts/Geneva.dfont" };
     const int NumDefaultFonts = 2;
-#endif
-#ifdef WIN32
+#elif defined WIN32
     char const *defaultFonts[] = { "C:\\WINNT\\Fonts\\arial.ttf" };
     const int NumDefaultFonts = 1;
-#endif
-#ifndef FONT_FILE
-#   define FONT_FILE 0
+#else
+    // Put your font files here if configure did not find any.
+    char const *defaultFonts[] = { };
+    const int NumDefaultFonts = 0;
 #endif
 
 /* Set this to 1 to build a Mac os app (ignore the command line args). */

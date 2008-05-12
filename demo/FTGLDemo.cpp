@@ -43,18 +43,13 @@
 
 #include "tb.h"
 
-// YOU'LL PROBABLY WANT TO CHANGE THESE
-#ifdef __linux__
-#   define FONT_FILE "/usr/share/fonts/truetype/arial.ttf"
-#endif
-#ifdef __APPLE_CC__
-#   define FONT_FILE "/usr/X11R6/lib/X11/fonts/TTF/Vera.ttf"
-#endif
-#ifdef WIN32
-#   define FONT_FILE "C:\\WINNT\\Fonts\\arial.ttf"
-#endif
-#ifndef FONT_FILE
-#   define FONT_FILE 0
+#if !defined FONT_FILE
+#   ifdef WIN32
+#       define FONT_FILE "C:\\WINNT\\Fonts\\arial.ttf"
+#   else
+        // Put your font file here if configure did not find it.
+#       define FONT_FILE 0
+#   endif
 #endif
 
 #define EDITING 1

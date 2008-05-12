@@ -169,10 +169,21 @@ static void ProcessKeys(unsigned char key, int x, int y)
  */
 int main(int argc, char **argv)
 {
+    char const *file = NULL;
+
+#ifdef FONT_FILE
+    file = FONT_FILE;
+#else
     if(argc < 2)
     {
         fprintf(stderr, "Usage: %s <font_name.ttf>\n", argv[0]);
         return EXIT_FAILURE;
+    }
+#endif
+
+    if(argc > 1)
+    {
+        file = argv[1];
     }
 
     /* Initialise GLUT stuff */
@@ -194,13 +205,12 @@ int main(int argc, char **argv)
     gluLookAt(0.0, 0.0, 640.0f / 2.0f, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 
     /* Initialise FTGL stuff */
-    //font = ftglCreateExtrudeFont(argv[1]);
-    font[0] = ftglCreateExtrudeFont(argv[1]);
-    font[1] = ftglCreatePolygonFont(argv[1]);
-    font[2] = ftglCreateCustomFont(argv[1], NULL, MakeHaloGlyph);
+    font[0] = ftglCreateExtrudeFont(file);
+    font[1] = ftglCreatePolygonFont(file);
+    font[2] = ftglCreateCustomFont(file, NULL, MakeHaloGlyph);
     if(!font[0] || !font[1] || !font[2])
     {
-        fprintf(stderr, "%s: could not load font `%s'\n", argv[0], argv[1]);
+        fprintf(stderr, "%s: could not load font `%s'\n", argv[0], file);
         return EXIT_FAILURE;
     }
 
