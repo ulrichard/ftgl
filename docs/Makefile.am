@@ -1,9 +1,12 @@
 
+documentationdir = $(datadir)/doc/ftgl
+documentation_DATA = projects_using_ftgl.txt
+
 if HAVE_DOXYGEN
-htmldocdir = $(datadir)/doc/ftgl/html
+htmldocdir = $(documentationdir)/html
 htmldoc_DATA = html/doxygen.css
 if HAVE_LATEX
-pdfdocdir = $(datadir)/doc/ftgl
+pdfdocdir = $(documentationdir)
 pdfdoc_DATA = latex/ftgl.pdf
 endif
 endif
@@ -51,11 +54,12 @@ install-data-local: html/doxygen.css
 endif
 
 EXTRA_DIST = \
-    doxygen.cfg.in \
-    ftgl.dox \
-    FTGL_1_3.gif \
-    $(PNGS) \
-    images/metrics.svg \
-    $(NULL)
+	$(PNGS) \
+	$(documentation_DATA) \
+	FTGL_1_3.gif \
+	doxygen.cfg.in \
+	ftgl.dox \
+	images/metrics.svg \
+	$(NULL)
 
 NULL =
