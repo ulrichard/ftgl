@@ -9,28 +9,35 @@ dnl
 AC_DEFUN([FTGL_CHECK_FONT],
 [dnl
 AC_MSG_CHECKING(for a TrueType font on the system)
-FONT_FILE=no
-for font in \
-  DejaVuSerif.ttf VeraSe.ttf DejaVuSans.ttf Vera.ttf \
-  times.ttf Times.ttf arial.ttf Arial.ttf; do
-    for dir in \
-      /usr/share/fonts \
-      /usr/share/fonts/truetype \
-      /usr/share/fonts/truetype/ttf-dejavu \
-      /usr/share/fonts/truetype/ttf-bitstream-vera \
-      /usr/share/fonts/TTF \
-      /usr/share/fonts/TTF/dejavu \
-      /usr/share/fonts/dejavu \
-      /usr/share/fonts/ttf-dejavu \
-      /usr/share/fonts/ttf-bitstream-vera \
-      /usr/X11R6/lib/X11/fonts \
-      /usr/X11R6/lib/X11/fonts/TTF; do
-        if test -f "$dir/$font"; then FONT_FILE="$dir/$font"; break; fi
+
+dnl  First try: fontconfig
+FONT_FILE="`fc-match -sv serif 2>/dev/null| sed -ne 's/.*\<file:@<:@^"@:>@*"\(@<:@^"@:>@*\)".*/\1/p;tx;d;:x q'`"
+
+dnl  Second try: look into known paths
+if test "$FONT_FILE" = ""; then
+    for font in \
+      DejaVuSerif.ttf VeraSe.ttf DejaVuSans.ttf Vera.ttf \
+      times.ttf Times.ttf arial.ttf Arial.ttf; do
+        for dir in \
+          /usr/share/fonts \
+          /usr/share/fonts/truetype \
+          /usr/share/fonts/truetype/ttf-dejavu \
+          /usr/share/fonts/truetype/ttf-bitstream-vera \
+          /usr/share/fonts/TTF \
+          /usr/share/fonts/TTF/dejavu \
+          /usr/share/fonts/dejavu \
+          /usr/share/fonts/ttf-dejavu \
+          /usr/share/fonts/ttf-bitstream-vera \
+          /usr/X11R6/lib/X11/fonts \
+          /usr/X11R6/lib/X11/fonts/TTF; do
+            if test -f "$dir/$font"; then FONT_FILE="$dir/$font"; break; fi
+        done
+        if test "$FONT_FILE" != no; then break; fi
     done
-    if test "$FONT_FILE" != no; then
-        AC_DEFINE_UNQUOTED(FONT_FILE, "$FONT_FILE", [Define to the path to a TrueType font])
-        break
-    fi
-done
+fi
+
+if test "$FONT_FILE" != ""; then
+    AC_DEFINE_UNQUOTED(FONT_FILE, "$FONT_FILE", [Define to the path to a TrueType font])
+fi
 AC_MSG_RESULT($FONT_FILE)
 ])
