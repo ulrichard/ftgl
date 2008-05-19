@@ -125,7 +125,7 @@ void FTContour::SetParity(int parity)
     size_t size = PointCount();
     FTPoint vOutset;
 
-    if(((parity & 1) && clockwise) || !(parity & 1) && !clockwise)
+    if(((parity & 1) && clockwise) || (!(parity & 1) && !clockwise))
     {
         // Contour orientation is wrong! We must reverse all points.
         // FIXME: could it be worth writing FTVector::reverse() for this?
