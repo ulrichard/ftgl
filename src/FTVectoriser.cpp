@@ -213,18 +213,25 @@ void FTVectoriser::ProcessContours()
                 FTPoint p1 = c2->Point(n);
                 FTPoint p2 = c2->Point((n + 1) % c2->PointCount());
 
+                /* FIXME: combinations of >= > <= and < do not seem stable */
                 if((p1.Y() < leftmost.Y() && p2.Y() < leftmost.Y())
-                    || (p1.Y() >= leftmost.Y() && p2.Y() >= leftmost.Y()))
+                    || (p1.Y() >= leftmost.Y() && p2.Y() >= leftmost.Y())
+                    || (p1.X() > leftmost.X() && p2.X() > leftmost.X()))
                 {
                     continue;
                 }
-
-                double K = (p2.Y() - leftmost.Y()) / (p1.Y() - leftmost.Y());
-                double K2 = (p2.X() - p1.X()) / (K - 1.);
-
-                if(leftmost.X() > p1.X() - K2)
+                else if(p1.X() < leftmost.X() && p2.X() < leftmost.X())
                 {
                     parity++;
+                }
+                else
+                {
+                    FTPoint a = p1 - leftmost;
+                    FTPoint b = p2 - leftmost;
+                    if(b.X() * a.Y() > b.Y() * a.X())
+                    {
+                        parity++;
+                    }
                 }
             }
         }
