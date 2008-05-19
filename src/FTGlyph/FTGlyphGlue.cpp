@@ -54,6 +54,10 @@ FTGL_BEGIN_C_DECLS
 C_TOR(ftglCreateBitmapGlyph, (FT_GlyphSlot glyph),
       FTBitmapGlyph, (glyph), GLYPH_BITMAP);
 
+// FTBufferGlyph::FTBufferGlyph();
+C_TOR(ftglCreateBufferGlyph, (FT_GlyphSlot glyph),
+      FTBufferGlyph, (glyph), GLYPH_BUFFER);
+
 // FTExtrudeGlyph::FTExtrudeGlyph();
 C_TOR(ftglCreateExtrudeGlyph, (FT_GlyphSlot glyph, float depth,
                    float frontOutset, float backOutset, int useDisplayList),

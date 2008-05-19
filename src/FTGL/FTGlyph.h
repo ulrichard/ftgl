@@ -68,6 +68,7 @@ class FTGL_EXPORT FTGlyph
 
         /* Allow our internal subclasses to access the private constructor */
         friend class FTBitmapGlyph;
+        friend class FTBufferGlyph;
         friend class FTExtrudeGlyph;
         friend class FTOutlineGlyph;
         friend class FTPixmapGlyph;

@@ -76,6 +76,7 @@ class FTGL_EXPORT FTFont
     private:
         /* Allow our internal subclasses to access the private constructor */
         friend class FTBitmapFont;
+        friend class FTBufferFont;
         friend class FTExtrudeFont;
         friend class FTOutlineFont;
         friend class FTPixmapFont;

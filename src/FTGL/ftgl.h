@@ -109,9 +109,11 @@ namespace FTGL
 
 #include <FTGL/FTPoint.h>
 #include <FTGL/FTBBox.h>
+#include <FTGL/FTBuffer.h>
 
 #include <FTGL/FTGlyph.h>
 #include <FTGL/FTBitmapGlyph.h>
+#include <FTGL/FTBufferGlyph.h>
 #include <FTGL/FTExtrdGlyph.h>
 #include <FTGL/FTOutlineGlyph.h>
 #include <FTGL/FTPixmapGlyph.h>
@@ -120,6 +122,7 @@ namespace FTGL
 
 #include <FTGL/FTFont.h>
 #include <FTGL/FTGLBitmapFont.h>
+#include <FTGL/FTBufferFont.h>
 #include <FTGL/FTGLExtrdFont.h>
 #include <FTGL/FTGLOutlineFont.h>
 #include <FTGL/FTGLPixmapFont.h>

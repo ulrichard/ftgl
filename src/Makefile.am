@@ -2,6 +2,7 @@
 lib_LTLIBRARIES = libftgl.la
 
 libftgl_la_SOURCES = \
+    FTBuffer.cpp \
     FTCharmap.cpp \
     FTCharmap.h \
     FTCharToGlyphIndexMap.h \
@@ -39,9 +40,11 @@ ftgl_HEADERS = $(ftgl_headers)
 ftgl_headers = \
     FTGL/ftgl.h \
     FTGL/FTBBox.h \
+    FTGL/FTBuffer.h \
     FTGL/FTPoint.h \
     FTGL/FTGlyph.h \
     FTGL/FTBitmapGlyph.h \
+    FTGL/FTBufferGlyph.h \
     FTGL/FTExtrdGlyph.h \
     FTGL/FTOutlineGlyph.h \
     FTGL/FTPixmapGlyph.h \
@@ -49,6 +52,7 @@ ftgl_headers = \
     FTGL/FTTextureGlyph.h \
     FTGL/FTFont.h \
     FTGL/FTGLBitmapFont.h \
+    FTGL/FTBufferFont.h \
     FTGL/FTGLExtrdFont.h \
     FTGL/FTGLOutlineFont.h \
     FTGL/FTGLPixmapFont.h \
@@ -64,6 +68,8 @@ ftglyph_sources = \
     FTGlyph/FTGlyphGlue.cpp \
     FTGlyph/FTBitmapGlyph.cpp \
     FTGlyph/FTBitmapGlyphImpl.h \
+    FTGlyph/FTBufferGlyph.cpp \
+    FTGlyph/FTBufferGlyphImpl.h \
     FTGlyph/FTExtrudeGlyph.cpp \
     FTGlyph/FTExtrudeGlyphImpl.h \
     FTGlyph/FTOutlineGlyph.cpp \
@@ -82,6 +88,8 @@ ftfont_sources = \
     FTFont/FTFontGlue.cpp \
     FTFont/FTBitmapFont.cpp \
     FTFont/FTBitmapFontImpl.h \
+    FTFont/FTBufferFont.cpp \
+    FTFont/FTBufferFontImpl.h \
     FTFont/FTExtrudeFont.cpp \
     FTFont/FTExtrudeFontImpl.h \
     FTFont/FTOutlineFont.cpp \
