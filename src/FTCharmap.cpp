@@ -35,6 +35,13 @@ FTCharmap::FTCharmap(FTFace* face)
 {
     if(!ftFace->charmap)
     {
+        if(!ftFace->num_charmaps)
+        {
+            // This face doesn't even have one charmap!
+            err = 0x96; // Invalid_CharMap_Format
+            return;
+        }
+
         err = FT_Set_Charmap(ftFace, ftFace->charmaps[0]);
     }
 
