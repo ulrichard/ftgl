@@ -62,7 +62,7 @@ class FTTextureGlyphImpl : public FTGlyphImpl
         /**
          * Vector from the pen position to the topleft corner of the pixmap
          */
-        FTPoint pos;
+        FTPoint corner;
 
         /**
          * The texture co-ords of this glyph within the texture.

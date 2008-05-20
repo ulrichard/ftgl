@@ -111,8 +111,7 @@ FTTextureGlyphImpl::FTTextureGlyphImpl(FT_GlyphSlot glyph, int id, int xOffset,
     uv[1].X(static_cast<float>(xOffset + destWidth) / static_cast<float>(width));
     uv[1].Y(static_cast<float>(yOffset + destHeight) / static_cast<float>(height));
 
-    pos.X(glyph->bitmap_left);
-    pos.Y(glyph->bitmap_top);
+    corner = FTPoint(glyph->bitmap_left, glyph->bitmap_top);
 }
 
 
@@ -131,8 +130,8 @@ const FTPoint& FTTextureGlyphImpl::RenderImpl(const FTPoint& pen,
         activeTextureID = glTextureID;
     }
 
-    dx = floor(pen.Xf() + pos.Xf());
-    dy = floor(pen.Yf() + pos.Yf());
+    dx = floor(pen.Xf() + corner.Xf());
+    dy = floor(pen.Yf() + corner.Yf());
 
     glBegin(GL_QUADS);
         glTexCoord2f(uv[0].Xf(), uv[0].Yf());
