@@ -33,11 +33,19 @@ class FTBufferGlyphImpl : public FTGlyphImpl
     friend class FTBufferGlyph;
 
     protected:
-        FTBufferGlyphImpl(FT_GlyphSlot glyph);
+        FTBufferGlyphImpl(FT_GlyphSlot glyph, FTBuffer *p);
 
         virtual ~FTBufferGlyphImpl();
 
         virtual const FTPoint& RenderImpl(const FTPoint& pen, int renderMode);
+
+    private:
+        bool has_bitmap;
+        FT_Bitmap bitmap;
+        unsigned char *pixels;
+        FTPoint corner;
+
+        FTBuffer *buffer;
 };
 
 #endif  //  __FTBufferGlyphImpl__

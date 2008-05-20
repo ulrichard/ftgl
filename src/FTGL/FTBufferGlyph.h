@@ -45,7 +45,7 @@ class FTGL_EXPORT FTBufferGlyph : public FTGlyph
          *
          * @param glyph The Freetype glyph to be processed
          */
-        FTBufferGlyph(FT_GlyphSlot glyph);
+        FTBufferGlyph(FT_GlyphSlot glyph, FTBuffer *buffer);
 
         /**
          * Destructor
@@ -68,6 +68,7 @@ FTGL_BEGIN_C_DECLS
 
 /**
  * Create a specialisation of FTGLglyph for memory buffer rendering.
+ * TODO: fix this prototype
  *
  * @param glyph The Freetype glyph to be processed
  * @return  An FTGLglyph* object.

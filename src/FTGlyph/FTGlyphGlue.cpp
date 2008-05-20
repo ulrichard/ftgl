@@ -56,7 +56,7 @@ C_TOR(ftglCreateBitmapGlyph, (FT_GlyphSlot glyph),
 
 // FTBufferGlyph::FTBufferGlyph();
 C_TOR(ftglCreateBufferGlyph, (FT_GlyphSlot glyph),
-      FTBufferGlyph, (glyph), GLYPH_BUFFER);
+      FTBufferGlyph, (glyph, NULL), GLYPH_BUFFER);
 
 // FTExtrudeGlyph::FTExtrudeGlyph();
 C_TOR(ftglCreateExtrudeGlyph, (FT_GlyphSlot glyph, float depth,

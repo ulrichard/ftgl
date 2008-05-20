@@ -47,8 +47,9 @@ class FTGL_EXPORT FTBuffer
     public:
         FTBuffer();
         ~FTBuffer();
-        int width, height, pitch, x, y;
-        void *pixels;
+        int width, height, pitch;
+        unsigned char *pixels;
+        FTPoint pos;
 };
 
 #endif //__cplusplus

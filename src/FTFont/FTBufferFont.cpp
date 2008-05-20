@@ -53,7 +53,13 @@ FTBufferFont::~FTBufferFont()
 
 FTGlyph* FTBufferFont::MakeGlyph(FT_GlyphSlot ftGlyph)
 {
-    return new FTBufferGlyph(ftGlyph);
+    FTBufferFontImpl *myimpl = dynamic_cast<FTBufferFontImpl *>(impl);
+    if(!myimpl)
+    {
+        return NULL;
+    }
+
+    return myimpl->MakeGlyphImpl(ftGlyph);
 }
 
 
@@ -62,12 +68,128 @@ FTGlyph* FTBufferFont::MakeGlyph(FT_GlyphSlot ftGlyph)
 //
 
 
+FTBufferFontImpl::FTBufferFontImpl(FTFont *ftFont, const char* fontFilePath) :
+    FTFontImpl(ftFont, fontFilePath),
+    buffer(new FTBuffer())
+{
+    glGenTextures(1, &id);
+
+    glBindTexture(GL_TEXTURE_2D, id);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+}
+
+
+FTBufferFontImpl::FTBufferFontImpl(FTFont *ftFont,
+                                   const unsigned char *pBufferBytes,
+                                   size_t bufferSizeInBytes) :
+    FTFontImpl(ftFont, pBufferBytes, bufferSizeInBytes),
+    buffer(new FTBuffer())
+{
+    glGenTextures(1, &id);
+
+    glBindTexture(GL_TEXTURE_2D, id);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+}
+
+
+FTBufferFontImpl::~FTBufferFontImpl()
+{
+    glDeleteTextures(1, &id);
+
+    if(buffer->pixels)
+        delete[] buffer->pixels;
+
+    delete buffer;
+}
+
+
+FTGlyph* FTBufferFontImpl::MakeGlyphImpl(FT_GlyphSlot ftGlyph)
+{
+    return new FTBufferGlyph(ftGlyph, buffer);
+}
+
+
+static inline GLuint NextPowerOf2(GLuint in)
+{
+     in -= 1;
+
+     in |= in >> 16;
+     in |= in >> 8;
+     in |= in >> 4;
+     in |= in >> 2;
+     in |= in >> 1;
+
+     return in + 1;
+}
+
+
 template <typename T>
 inline FTPoint FTBufferFontImpl::RenderI(const T* string, const int len,
                                          FTPoint position, FTPoint spacing,
                                          int renderMode)
 {
-    return position;
+    const float border = 1.0f;
+
+    FTBBox bbox = BBox(string, len, position, spacing);
+
+    int width = static_cast<int>(bbox.Upper().X() - bbox.Lower().X() + 2.5);
+    int height = static_cast<int>(bbox.Upper().Y() - bbox.Lower().Y() + 2.5);
+
+    int texWidth = NextPowerOf2(width);
+    int texHeight = NextPowerOf2(height);
+
+    if(buffer->pixels)
+    {
+        delete[] buffer->pixels;
+    }
+    buffer->pixels = new unsigned char[texWidth * texHeight];
+    memset(buffer->pixels, 0, texWidth * texHeight);
+    buffer->width = texWidth;
+    buffer->height = texHeight;
+    buffer->pitch = texWidth;
+    buffer->pos = FTPoint(1, 1) - bbox.Lower();
+
+    FTPoint tmp = FTFontImpl::Render(string, len, position,
+                                     spacing, renderMode);
+
+    glPushAttrib(GL_COLOR_BUFFER_BIT | GL_ENABLE_BIT);
+    glPushClientAttrib(GL_CLIENT_PIXEL_STORE_BIT);
+
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // GL_ONE
+
+    glBindTexture(GL_TEXTURE_2D, id);
+
+    glPixelStorei(GL_UNPACK_LSB_FIRST, GL_FALSE);
+    glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+    /* TODO: use glTexSubImage2D later? */
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_ALPHA, texWidth, texHeight, 0,
+                 GL_ALPHA, GL_UNSIGNED_BYTE, (GLvoid *)buffer->pixels);
+
+    glBegin(GL_QUADS);
+        glNormal3f(0.0f, 0.0f, 1.0f);
+        glTexCoord2f(border / texWidth, border / texHeight);
+        glVertex2f(bbox.Lower().Xf(), bbox.Upper().Yf());
+        glTexCoord2f((width - border) / texWidth, border / texHeight);
+        glVertex2f(bbox.Upper().Xf(), bbox.Upper().Yf());
+        glTexCoord2f((width - border) / texWidth, (height - border) / texHeight);
+        glVertex2f(bbox.Upper().Xf(), bbox.Lower().Yf());
+        glTexCoord2f(border / texWidth, (height - border) / texHeight);
+        glVertex2f(bbox.Lower().Xf(), bbox.Lower().Yf());
+    glEnd();
+
+    glPopClientAttrib();
+    glPopAttrib();
+
+    return tmp;
 }
 
 

@@ -28,6 +28,7 @@
 #include "FTGL/ftgl.h"
 
 FTBuffer::FTBuffer()
+ : pixels(0)
 {
 }
 

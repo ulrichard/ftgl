@@ -29,18 +29,19 @@
 #include "FTFontImpl.h"
 
 class FTGlyph;
+class FTBuffer;
 
 class FTBufferFontImpl : public FTFontImpl
 {
     friend class FTBufferFont;
 
     protected:
-        FTBufferFontImpl(FTFont *ftFont, const char* fontFilePath) :
-            FTFontImpl(ftFont, fontFilePath) {};
+        FTBufferFontImpl(FTFont *ftFont, const char* fontFilePath);
 
         FTBufferFontImpl(FTFont *ftFont, const unsigned char *pBufferBytes,
-                         size_t bufferSizeInBytes) :
-            FTFontImpl(ftFont, pBufferBytes, bufferSizeInBytes) {};
+                         size_t bufferSizeInBytes);
+
+        virtual ~FTBufferFontImpl();
 
         virtual FTPoint Render(const char *s, const int len,
                                FTPoint position, FTPoint spacing,
@@ -51,10 +52,21 @@ class FTBufferFontImpl : public FTFontImpl
                                int renderMode);
 
     private:
+        /**
+         * Create an FTBufferGlyph object for the base class.
+         */
+        FTGlyph* MakeGlyphImpl(FT_GlyphSlot ftGlyph);
+
         /* Internal generic Render() implementation */
         template <typename T>
         inline FTPoint RenderI(const T *s, const int len,
                                FTPoint position, FTPoint spacing, int mode);
+
+        /* Texture ID */
+        GLuint id;
+
+        /* Pixel buffer */
+        FTBuffer *buffer;
 };
 
 #endif  //  __FTBufferFontImpl__
