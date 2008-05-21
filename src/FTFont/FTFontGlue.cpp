@@ -207,7 +207,7 @@ C_FUN(static FTPoint, _ftglGetFontAdvance, (FTGLfont *f, char const *s),
 
 float ftglGetFontAdvance(FTGLfont *f, const char* s)
 {
-    return _ftglGetFontAdvance(f, s).X();
+    return _ftglGetFontAdvance(f, s).Xf();
 }
 
 // virtual void Render(const char* string, int renderMode);
