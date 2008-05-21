@@ -61,6 +61,7 @@
 #define FTGL_POLYGON 3
 #define FTGL_EXTRUDE 4
 #define FTGL_TEXTURE 5
+#define FTGL_BUFFER 6
 
 char const* fontfile = FONT_FILE;
 int current_font = FTGL_EXTRUDE;
@@ -82,7 +83,7 @@ const float OY = 170;
 //wchar_t myString[16] = { 0x6FB3, 0x9580};
 char myString[4096];
 
-static FTFont* fonts[6];
+static FTFont* fonts[7];
 static FTPixmapFont* infoFont;
 
 static float textures[][48] =
@@ -145,8 +146,9 @@ void setUpFonts(const char* file)
     fonts[FTGL_POLYGON] = new FTPolygonFont(file);
     fonts[FTGL_EXTRUDE] = new FTExtrudeFont(file);
     fonts[FTGL_TEXTURE] = new FTTextureFont(file);
+    fonts[FTGL_BUFFER] = new FTBufferFont(file);
 
-    for(int x = 0; x < 6; ++x)
+    for(int x = 0; x < 7; ++x)
     {
         if(fonts[x]->Error())
         {
@@ -334,6 +336,9 @@ void renderFontInfo()
         case FTGL_TEXTURE:
             infoFont->Render("Texture Font");
             break;
+        case FTGL_BUFFER:
+            infoFont->Render("Buffer Font");
+            break;
     }
 
     glRasterPos2f(20.0f , 20.0f + infoFont->LineHeight());
@@ -385,6 +390,7 @@ void do_display (void)
             glBindTexture(GL_TEXTURE_2D, textureID[0]);
             break;
         case FTGL_TEXTURE:
+        case FTGL_BUFFER:
             glEnable(GL_TEXTURE_2D);
             glDisable(GL_DEPTH_TEST);
             setUpLighting();
@@ -445,6 +451,7 @@ void display(void)
         case FTGL_POLYGON:
         case FTGL_EXTRUDE:
         case FTGL_TEXTURE:
+        case FTGL_BUFFER:
             tbMatrix();
             break;
     }
@@ -577,10 +584,10 @@ void parseSpecialKey(int key, int x, int y)
     switch (key)
     {
     case GLUT_KEY_UP:
-        current_font = (current_font + 1) % 6;
+        current_font = (current_font + 1) % 7;
         break;
     case GLUT_KEY_DOWN:
-        current_font = (current_font + 5) % 6;
+        current_font = (current_font + 6) % 7;
         break;
     case GLUT_KEY_PAGE_UP:
         currentLayout = (currentLayout + 1) % NumLayouts;
@@ -655,6 +662,7 @@ void SetCamera(void)
         case FTGL_POLYGON:
         case FTGL_EXTRUDE:
         case FTGL_TEXTURE:
+        case FTGL_BUFFER:
             glMatrixMode (GL_PROJECTION);
             glLoadIdentity ();
             gluPerspective(90, (float)w_win / (float)h_win, 1, 1000);
