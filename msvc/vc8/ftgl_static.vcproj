@@ -194,6 +194,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\src\FTFont\FTBufferFont.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\src\FTFont\FTExtrudeFont.cpp"
 					>
 				</File>
@@ -227,6 +231,10 @@
 				>
 				<File
 					RelativePath="..\..\src\FTGlyph\FTBitmapGlyph.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTGlyph\FTBufferGlyph.cpp"
 					>
 				</File>
 				<File
@@ -328,6 +336,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\src\FTFont\FTBufferFontImpl.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\src\FTFont\FTExtrudeFontImpl.h"
 					>
 				</File>
@@ -357,6 +369,10 @@
 				>
 				<File
 					RelativePath="..\..\src\FTGlyph\FTBitmapGlyphImpl.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTGlyph\FTBufferGlyphImpl.h"
 					>
 				</File>
 				<File
@@ -393,6 +409,18 @@
 				</File>
 				<File
 					RelativePath="..\..\src\FTGL\FTBitmapGlyph.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTGL\FTBuffer.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTGL\FTBufferFont.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTGL\FTBufferGlyph.h"
 					>
 				</File>
 				<File

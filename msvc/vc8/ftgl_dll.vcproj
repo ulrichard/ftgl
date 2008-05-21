@@ -4,6 +4,7 @@
 	Version="8.00"
 	Name="ftgl_dll"
 	ProjectGUID="{F7946C68-319D-441A-A732-BC2A200A9112}"
+	RootNamespace="ftgl_dll"
 	>
 	<Platforms>
 		<Platform
@@ -254,6 +255,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\src\FTGlyph\FTBufferGlyph.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\src\FTGlyph\FTExtrudeGlyph.cpp"
 					>
 				</File>
@@ -287,6 +292,10 @@
 				>
 				<File
 					RelativePath="..\..\src\FTFont\FTBitmapFont.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTFont\FTBufferFont.cpp"
 					>
 				</File>
 				<File
@@ -387,6 +396,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\src\FTGlyph\FTBufferGlyphImpl.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\src\FTGlyph\FTExtrudeGlyphImpl.h"
 					>
 				</File>
@@ -416,6 +429,10 @@
 				>
 				<File
 					RelativePath="..\..\src\FTFont\FTBitmapFontImpl.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTFont\FTBufferFontImpl.h"
 					>
 				</File>
 				<File
@@ -452,6 +469,18 @@
 				</File>
 				<File
 					RelativePath="..\..\src\FTGL\FTBitmapGlyph.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTGL\FTBuffer.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTGL\FTBufferFont.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\FTGL\FTBufferGlyph.h"
 					>
 				</File>
 				<File
