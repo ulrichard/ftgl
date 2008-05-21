@@ -185,15 +185,15 @@ inline FTPoint FTBufferFontImpl::RenderI(const T* string, const int len,
         glTexCoord2f(border / texWidth,
                      (texHeight - height + border) / texHeight);
         glVertex2f(bbox.Lower().Xf(), bbox.Upper().Yf());
-        glTexCoord2f((width - border) / texWidth,
-                     (texHeight - height + border) / texHeight);
-        glVertex2f(bbox.Upper().Xf(), bbox.Upper().Yf());
-        glTexCoord2f((width - border) / texWidth,
-                     (texHeight - border) / texHeight);
-        glVertex2f(bbox.Upper().Xf(), bbox.Lower().Yf());
         glTexCoord2f(border / texWidth,
                      (texHeight - border) / texHeight);
         glVertex2f(bbox.Lower().Xf(), bbox.Lower().Yf());
+        glTexCoord2f((width - border) / texWidth,
+                     (texHeight - border) / texHeight);
+        glVertex2f(bbox.Upper().Xf(), bbox.Lower().Yf());
+        glTexCoord2f((width - border) / texWidth,
+                     (texHeight - height + border) / texHeight);
+        glVertex2f(bbox.Upper().Xf(), bbox.Upper().Yf());
     glEnd();
 
     glPopClientAttrib();
