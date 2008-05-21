@@ -103,9 +103,12 @@ static void RenderScene(void)
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+#if 0
     glEnable(GL_LIGHTING);
+#endif
     glEnable(GL_DEPTH_TEST);
 
+#if 0
     glPushMatrix();
         glTranslatef(-0.9, -0.2, -10.0);
         float ambient[4]  = { (t1 + 2.0) / 3,
@@ -120,17 +123,20 @@ static void RenderScene(void)
         glLightfv(GL_LIGHT1, GL_POSITION, position);
         glEnable(GL_LIGHT1);
     glPopMatrix();
+#endif
 
     glPushMatrix();
+#if 0
         float front_ambient[4]  = { 0.7, 0.7, 0.7, 0.0 };
         glMaterialfv(GL_FRONT, GL_AMBIENT, front_ambient);
         glColorMaterial(GL_FRONT, GL_DIFFUSE);
+#endif
         glTranslatef(0.0, 0.0, 20.0);
         glRotatef(n / 1.11, 0.0, 1.0, 0.0);
         glRotatef(n / 2.23, 1.0, 0.0, 0.0);
         glRotatef(n / 3.17, 0.0, 0.0, 1.0);
         glTranslatef(-260.0, -0.2, 0.0);
-        glColor3f(0.0, 0.0, 0.0);
+        glColor3f(1.0, 1.0, 1.0);
         font[fontindex]->Render("Hello FTGL!");
     glPopMatrix();
 
@@ -197,9 +203,11 @@ int main(int argc, char **argv)
     gluLookAt(0.0, 0.0, 640.0f / 2.0f, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 
     // Initialise FTGL stuff
-    font[0] = new FTExtrudeFont(file);
-    font[1] = new FTPolygonFont(file);
-    font[2] = new FTHaloFont(file);
+    //font[0] = new FTExtrudeFont(file);
+    font[0] = new FTOutlineFont(file);
+    font[1] = new FTBufferFont(file);
+    font[2] = new FTTextureFont(file);
+    //font[2] = new FTHaloFont(file);
 
     if(font[0]->Error() || font[1]->Error() || font[2]->Error())
     {
