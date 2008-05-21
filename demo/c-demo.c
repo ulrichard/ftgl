@@ -61,7 +61,7 @@ static void RenderHalo(FTGLglyph * baseGlyph, void *data,
     glPushMatrix();
     for(i = 0; i < 5; i++)
     {
-        glTranslatef(0.0, 0.0, -2.0);
+        glTranslatef(0.0f, 0.0f, -2.0f);
         ftglRenderGlyph(p->subglyph[i], penx, peny, renderMode,
                         advancex, advancey);
     }
@@ -87,7 +87,7 @@ static void DestroyHalo(FTGLglyph * baseGlyph, void *data)
 static FTGLglyph *MakeHaloGlyph(FT_GlyphSlot slot, void *data)
 {
     struct HaloGlyph *p = malloc(sizeof(struct HaloGlyph));
-    FTGLglyph *baseGlyph = ftglCreatePolygonGlyph(slot, 0., 1);
+    FTGLglyph *baseGlyph = ftglCreatePolygonGlyph(slot, 0.0f, 1.0f);
     int i;
 
     for(i = 0; i < 5; i++)
@@ -104,10 +104,10 @@ static FTGLglyph *MakeHaloGlyph(FT_GlyphSlot slot, void *data)
  */
 static void RenderScene(void)
 {
-    float n = (float)glutGet(GLUT_ELAPSED_TIME) / 20.;
-    float t1 = sin(n / 80);
-    float t2 = sin(n / 50 + 1);
-    float t3 = sin(n / 30 + 2);
+    float n = (float)glutGet(GLUT_ELAPSED_TIME) / 20.0f;
+    float t1 = sin(n / 80.0f);
+    float t2 = sin(n / 50.0f + 1.0f);
+    float t3 = sin(n / 30.0f + 2.0f);
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -115,31 +115,35 @@ static void RenderScene(void)
     glEnable(GL_DEPTH_TEST);
 
     glPushMatrix();
-        glTranslatef(-0.9, -0.2, -10.0);
-        float ambient[4]  = { (t1 + 2.0) / 3,
-                              (t2 + 2.0) / 3,
-                              (t3 + 2.0) / 3, 0.3 };
-        float diffuse[4]  = { 1.0, 0.9, 0.9, 1.0 };
-        float specular[4] = { 1.0, 0.7, 0.7, 1.0 };
-        float position[4] = { 100.0, 100.0, 0.0, 1.0 };
+	{
+		float ambient[4]  = { (t1 + 2.0f) / 3.0f,
+							  (t2 + 2.0f) / 3.0f,
+							  (t3 + 2.0f) / 3.0f, 0.3f };
+		float diffuse[4]  = { 1.0f, 0.9f, 0.9f, 1.0f };
+		float specular[4] = { 1.0f, 0.7f, 0.7f, 1.0f };
+		float position[4] = { 100.0f, 100.0f, 0.0f, 1.0f };
+        glTranslatef(-0.9f, -0.2f, -10.0f);
         glLightfv(GL_LIGHT1, GL_AMBIENT,  ambient);
         glLightfv(GL_LIGHT1, GL_DIFFUSE,  diffuse);
         glLightfv(GL_LIGHT1, GL_SPECULAR, specular);
         glLightfv(GL_LIGHT1, GL_POSITION, position);
         glEnable(GL_LIGHT1);
+	}
     glPopMatrix();
 
     glPushMatrix();
-        float front_ambient[4]  = { 0.7, 0.7, 0.7, 0.0 };
+	{
+	    float front_ambient[4]  = { 0.7f, 0.7f, 0.7f, 0.0f };
         glMaterialfv(GL_FRONT, GL_AMBIENT, front_ambient);
         glColorMaterial(GL_FRONT, GL_DIFFUSE);
-        glTranslatef(0.0, 0.0, 20.0);
-        glRotatef(n / 1.11, 0.0, 1.0, 0.0);
-        glRotatef(n / 2.23, 1.0, 0.0, 0.0);
-        glRotatef(n / 3.17, 0.0, 0.0, 1.0);
-        glTranslatef(-260.0, -0.2, 0.0);
-        glColor3f(0.0, 0.0, 0.0);
+        glTranslatef(0.0f, 0.0f, 20.0f);
+        glRotatef(n / 1.11f, 0.0f, 1.0f, 0.0f);
+        glRotatef(n / 2.23f, 1.0f, 0.0f, 0.0f);
+        glRotatef(n / 3.17f, 0.0f, 0.0f, 1.0f);
+        glTranslatef(-260.0f, -0.2f, 0.0f);
+        glColor3f(0.0f, 0.0f, 0.0f);
         ftglRenderFont(font[fontindex], "Hello FTGL!", FTGL_RENDER_ALL);
+	}
     glPopMatrix();
 
     glutSwapBuffers();
