@@ -228,14 +228,22 @@ inline FTPoint FTTextureFontImpl::RenderI(const T* string, const int len,
                                           FTPoint position, FTPoint spacing,
                                           int renderMode)
 {
-    /* FIXME: can we push/pop these instead? */
+    // Protect GL_TEXTURE_2D, GL_BLEND and blending functions
+    glPushAttrib(GL_ENABLE_BIT | GL_COLOR_BUFFER_BIT);
+
     glEnable(GL_BLEND);
-    glEnable(GL_TEXTURE_2D);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // GL_ONE
+
+    glEnable(GL_TEXTURE_2D);
 
     FTTextureGlyphImpl::ResetActiveTexture();
 
-    return FTFontImpl::Render(string, len, position, spacing, renderMode);
+    FTPoint tmp = FTFontImpl::Render(string, len,
+                                     position, spacing, renderMode);
+
+    glPopAttrib();
+
+    return tmp;
 }
 
 

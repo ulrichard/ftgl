@@ -67,8 +67,11 @@ inline FTPoint FTBitmapFontImpl::RenderI(const T* string, const int len,
                                          FTPoint position, FTPoint spacing,
                                          int renderMode)
 {
+    // Protect GL_BLEND
+    glPushAttrib(GL_COLOR_BUFFER_BIT);
+
+    // Protect glPixelStorei() calls (also in FTBitmapGlyphImpl::RenderImpl)
     glPushClientAttrib(GL_CLIENT_PIXEL_STORE_BIT);
-    glPushAttrib(GL_ENABLE_BIT);
 
     glPixelStorei(GL_UNPACK_LSB_FIRST, GL_FALSE);
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
@@ -78,8 +81,8 @@ inline FTPoint FTBitmapFontImpl::RenderI(const T* string, const int len,
     FTPoint tmp = FTFontImpl::Render(string, len,
                                      position, spacing, renderMode);
 
-    glPopAttrib();
     glPopClientAttrib();
+    glPopAttrib();
 
     return tmp;
 }

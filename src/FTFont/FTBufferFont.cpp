@@ -160,10 +160,12 @@ inline FTPoint FTBufferFontImpl::RenderI(const T* string, const int len,
     FTPoint tmp = FTFontImpl::Render(string, len, position,
                                      spacing, renderMode);
 
+    // Protect blending functions, GL_BLEND and GL_TEXTURE_2D
     glPushAttrib(GL_COLOR_BUFFER_BIT | GL_ENABLE_BIT);
+
+    // Protect glPixelStorei() calls
     glPushClientAttrib(GL_CLIENT_PIXEL_STORE_BIT);
 
-    /* FIXME: can we push/pop these instead? */
     glEnable(GL_BLEND);
     glEnable(GL_TEXTURE_2D);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // GL_ONE
