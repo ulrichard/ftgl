@@ -372,6 +372,8 @@ inline FTBBox FTFontImpl::BBoxI(const T* string, const int len,
         if(CheckGlyph(string[0]))
         {
             totalBBox = glyphList->BBox(string[0]);
+            totalBBox += position;
+
             position += glyphList->Advance(string[0], string[1]);
         }
 
