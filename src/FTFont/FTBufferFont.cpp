@@ -182,13 +182,17 @@ inline FTPoint FTBufferFontImpl::RenderI(const T* string, const int len,
 
     glBegin(GL_QUADS);
         glNormal3f(0.0f, 0.0f, 1.0f);
-        glTexCoord2f(border / texWidth, border / texHeight);
+        glTexCoord2f(border / texWidth,
+                     (texHeight - height + border) / texHeight);
         glVertex2f(bbox.Lower().Xf(), bbox.Upper().Yf());
-        glTexCoord2f((width - border) / texWidth, border / texHeight);
+        glTexCoord2f((width - border) / texWidth,
+                     (texHeight - height + border) / texHeight);
         glVertex2f(bbox.Upper().Xf(), bbox.Upper().Yf());
-        glTexCoord2f((width - border) / texWidth, (height - border) / texHeight);
+        glTexCoord2f((width - border) / texWidth,
+                     (texHeight - border) / texHeight);
         glVertex2f(bbox.Upper().Xf(), bbox.Lower().Yf());
-        glTexCoord2f(border / texWidth, (height - border) / texHeight);
+        glTexCoord2f(border / texWidth,
+                     (texHeight - border) / texHeight);
         glVertex2f(bbox.Lower().Xf(), bbox.Lower().Yf());
     glEnd();
 
