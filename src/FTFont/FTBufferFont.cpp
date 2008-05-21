@@ -138,8 +138,10 @@ inline FTPoint FTBufferFontImpl::RenderI(const T* string, const int len,
 
     FTBBox bbox = BBox(string, len, position, spacing);
 
-    int width = static_cast<int>(bbox.Upper().X() - bbox.Lower().X() + 2.5);
-    int height = static_cast<int>(bbox.Upper().Y() - bbox.Lower().Y() + 2.5);
+    int width = static_cast<int>(bbox.Upper().X() - bbox.Lower().X()
+                                  + border + border + 0.5);
+    int height = static_cast<int>(bbox.Upper().Y() - bbox.Lower().Y()
+                                   + border + border + 0.5);
 
     int texWidth = NextPowerOf2(width);
     int texHeight = NextPowerOf2(height);
@@ -161,7 +163,9 @@ inline FTPoint FTBufferFontImpl::RenderI(const T* string, const int len,
     glPushAttrib(GL_COLOR_BUFFER_BIT | GL_ENABLE_BIT);
     glPushClientAttrib(GL_CLIENT_PIXEL_STORE_BIT);
 
+    /* FIXME: can we push/pop these instead? */
     glEnable(GL_BLEND);
+    glEnable(GL_TEXTURE_2D);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // GL_ONE
 
     glBindTexture(GL_TEXTURE_2D, id);

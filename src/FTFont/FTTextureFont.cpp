@@ -228,7 +228,9 @@ inline FTPoint FTTextureFontImpl::RenderI(const T* string, const int len,
                                           FTPoint position, FTPoint spacing,
                                           int renderMode)
 {
+    /* FIXME: can we push/pop these instead? */
     glEnable(GL_BLEND);
+    glEnable(GL_TEXTURE_2D);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // GL_ONE
 
     FTTextureGlyphImpl::ResetActiveTexture();
