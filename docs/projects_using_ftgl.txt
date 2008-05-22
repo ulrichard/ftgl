@@ -1,35 +1,27 @@
+/** \page ftgl-projects Projects using FTGL
 
-To add your name to this list, please contact one of the FTGL
+To add your project to this list, please contact one of the %FTGL
 developers at http://sf.net/projects/ftgl
 
 Projects are listed in alphabetical order.
 
-Projects currently using FTGL
------------------------------
+\section current Projects currently using FTGL
 
-Blender
-http://blender.org/
+ - Blender (http://blender.org/)
 
-BZFlag
-http://BZFlag.org/
-as of version 2.99
+ - BZFlag (http://BZFlag.org/), as of version 2.99
 
-Duel
-http://www.personal.rdg.ac.uk/~sir03me/play/code.html
+ - Duel (http://www.personal.rdg.ac.uk/~sir03me/play/code.html)
 
-FTGL#
-http://www.paskaluk.com/projects.php
+ - %FTGL# (http://www.paskaluk.com/projects.php)
 
-Ruby FTGL
-http://rubyforge.org/projects/ruby-ftgl/
+ - Ruby %FTGL (http://rubyforge.org/projects/ruby-ftgl/)
 
-VTK
-http://www.vtk.org/
+ - VTK (http://www.vtk.org/)
 
 
-Projects that used to use FTGL
-------------------------------
+\section old Projects that used to use FTGL
 
-GNU Backgammon 
-http://www.gnubg.org/
-until version 0.14.3+20060520-1
+ - GNU Backgammon (http://www.gnubg.org/), until version 0.14.3+20060520-1
+
+*/

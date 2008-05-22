@@ -59,6 +59,9 @@ EXTRA_DIST = \
 	FTGL_1_3.gif \
 	doxygen.cfg.in \
 	ftgl.dox \
+	tutorial.dox \
+	projects_using_ftgl.txt \
+	faq.dox \
 	images/metrics.svg \
 	$(NULL)
 
