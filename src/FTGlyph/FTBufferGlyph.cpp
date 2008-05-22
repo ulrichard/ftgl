@@ -99,11 +99,19 @@ const FTPoint& FTBufferGlyphImpl::RenderImpl(const FTPoint& pen, int renderMode)
 
         for(int y = 0; y < bitmap.rows; y++)
         {
-if(y + dy < 0 || y + dy >= buffer->height) continue;
+            // FIXME: change the loop bounds instead of doing this test
+            if(y + dy < 0 || y + dy >= buffer->height) continue;
+
             for(int x = 0; x < bitmap.width; x++)
             {
-if(x + dx < 0 || x + dx >= buffer->width) continue;
-                dest[y * buffer->pitch + x] = pixels[y * bitmap.pitch + x];
+                if(x + dx < 0 || x + dx >= buffer->width) continue;
+
+                unsigned char p = pixels[y * bitmap.pitch + x];
+
+                if(p)
+                {
+                    dest[y * buffer->pitch + x] = p;
+                }
             }
         }
     }
