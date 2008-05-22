@@ -94,7 +94,7 @@ const FTPoint& FTBufferGlyphImpl::RenderImpl(const FTPoint& pen, int renderMode)
     {
         FTPoint pos(buffer->pos + pen + corner);
         int dx = (int)(pos.Xf() + 0.5f);
-        int dy = buffer->height - 1 - (int)(pos.Yf() + 0.5f);
+        int dy = buffer->height - (int)(pos.Yf() + 0.5f);
         unsigned char * dest = buffer->pixels + dx + dy * buffer->pitch;
 
         for(int y = 0; y < bitmap.rows; y++)

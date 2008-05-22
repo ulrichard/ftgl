@@ -134,14 +134,14 @@ inline FTPoint FTBufferFontImpl::RenderI(const T* string, const int len,
                                          FTPoint position, FTPoint spacing,
                                          int renderMode)
 {
-    const float border = 1.0f;
+    const float padding = 3.0f;
 
     FTBBox bbox = BBox(string, len, position, spacing);
 
     int width = static_cast<int>(bbox.Upper().X() - bbox.Lower().X()
-                                  + border + border + 0.5);
+                                  + padding + padding + 0.5);
     int height = static_cast<int>(bbox.Upper().Y() - bbox.Lower().Y()
-                                   + border + border + 0.5);
+                                   + padding + padding + 0.5);
 
     int texWidth = NextPowerOf2(width);
     int texHeight = NextPowerOf2(height);
@@ -155,7 +155,7 @@ inline FTPoint FTBufferFontImpl::RenderI(const T* string, const int len,
     buffer->width = texWidth;
     buffer->height = texHeight;
     buffer->pitch = texWidth;
-    buffer->pos = FTPoint(1, 1) - bbox.Lower();
+    buffer->pos = FTPoint(padding, padding) - bbox.Lower();
 
     FTPoint tmp = FTFontImpl::Render(string, len, position,
                                      spacing, renderMode);
@@ -182,17 +182,17 @@ inline FTPoint FTBufferFontImpl::RenderI(const T* string, const int len,
 
     glBegin(GL_QUADS);
         glNormal3f(0.0f, 0.0f, 1.0f);
-        glTexCoord2f(border / texWidth,
-                     (texHeight - height + border) / texHeight);
+        glTexCoord2f(padding / texWidth,
+                     (texHeight - height + padding) / texHeight);
         glVertex2f(bbox.Lower().Xf(), bbox.Upper().Yf());
-        glTexCoord2f(border / texWidth,
-                     (texHeight - border) / texHeight);
+        glTexCoord2f(padding / texWidth,
+                     (texHeight - padding) / texHeight);
         glVertex2f(bbox.Lower().Xf(), bbox.Lower().Yf());
-        glTexCoord2f((width - border) / texWidth,
-                     (texHeight - border) / texHeight);
+        glTexCoord2f((width - padding) / texWidth,
+                     (texHeight - padding) / texHeight);
         glVertex2f(bbox.Upper().Xf(), bbox.Lower().Yf());
-        glTexCoord2f((width - border) / texWidth,
-                     (texHeight - height + border) / texHeight);
+        glTexCoord2f((width - padding) / texWidth,
+                     (texHeight - height + padding) / texHeight);
         glVertex2f(bbox.Upper().Xf(), bbox.Upper().Yf());
     glEnd();
 
