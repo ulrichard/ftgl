@@ -7,21 +7,84 @@ Projects are listed in alphabetical order.
 
 \section current Projects currently using FTGL
 
- - Blender (http://blender.org/)
+\subsection blender Blender
 
- - BZFlag (http://BZFlag.org/), as of version 2.99
+  Blender (http://blender.org/) is an integrated 3d suite for modelling,
+  animation, rendering, post-production, interactive creation and
+  playback (games).
 
- - Duel (http://www.personal.rdg.ac.uk/~sir03me/play/code.html)
+\subsection bzflag BZFlag
 
- - %FTGL# (http://www.paskaluk.com/projects.php)
+  BZFlag (http://BZFlag.org/) is a 3D multi-player multiplatform tank
+  battle game that allows users to play against each other in a network
+  environment.
 
- - Ruby %FTGL (http://rubyforge.org/projects/ruby-ftgl/)
+  BZFlag uses %FTGL as of version 2.99.
 
- - VTK (http://www.vtk.org/)
+\subsection duel Duel
+
+  Duel (http://www.personal.rdg.ac.uk/~sir03me/play/code.html) is a small
+  overhead perspective spaceship game.
+
+\subsection ftglsharp FTGL#
+
+  %FTGL# (http://www.paskaluk.com/projects.php) is a collection of .NET
+  bindings for %FTGL.
+
+\subsection gem Gem
+
+  Gem (http://gem.iem.at/) is a loadable library for puredata, which
+  adds OpenGL graphics rendering and animation to Pd. Pd is a graphical
+  programming language and computer music system.
+
+\subsection libinstrudeo Libinstrudeo
+
+  Libinstrudeo (http://sourceforge.net/projects/libinstrudeo), initially
+  written for the ScreenKast program, provides the necessary logic to
+  capture screen recordings and to process them. Includes a soap-client
+  for the webservice at captorials.com that enables you to share your
+  recordings.
+
+\subsection lightspeed Light Speed!
+
+  Light Speed! (http://lightspeed.sourceforge.net/) is an OpenGL-based
+  program which illustrates the effects of special relativity on the
+  appearance of moving objects. When an object accelerates past a few
+  million meters per second, these effects begin to grow noticeable,
+  becoming more and more pronounced as the speed of light is approached.
+  These relativistic effects are viewpoint-dependent, and include shifts
+  in length, object hue, brightness and shape.
+
+\subsection projectm projectM
+
+  projectM (http://projectm.sourceforge.net/) is a music visualizer
+  which uses OpenGL for hardware acceleration. It is compatible with
+  Milkdrop presets.
+
+\subsection ruby-ftgl Ruby FTGL
+
+  Ruby %FTGL# (http://rubyforge.org/projects/ruby-ftgl/) is a collection
+  of Ruby bindings for %FTGL.
+
+\subsection tulip Tulip
+
+  Tulip (http://tulip.labri.fr/) is a system dedicated to the
+  visualization of huge graphs. It is capable of managing graphs with up
+  to 500,000 nodes and edges on relatively modest hardware (eg. 600MHz
+  Pentium III, 256MB RAM).
+
+\subsection vtk VTK
+
+  VTK, the Visualization Toolkit (http://www.vtk.org/), is an object
+  oriented, high level library that allows one to easily write C++
+  programs, Tcl, Python and Java scripts that do 3D visualization.
 
 
 \section old Projects that used to use FTGL
 
- - GNU Backgammon (http://www.gnubg.org/), until version 0.14.3+20060520-1
+\subsection gnubg GNU Backgammon
+
+  GNU Backgammon (http://www.gnubg.org/) was using %FTGL until version
+  0.14.3+20060520-1.
 
 */
