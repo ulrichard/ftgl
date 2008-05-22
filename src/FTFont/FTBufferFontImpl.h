@@ -62,11 +62,16 @@ class FTBufferFontImpl : public FTFontImpl
         inline FTPoint RenderI(const T *s, const int len,
                                FTPoint position, FTPoint spacing, int mode);
 
-        /* Texture ID */
-        GLuint id;
-
         /* Pixel buffer */
         FTBuffer *buffer;
+
+        static const int BUFFER_CACHE_SIZE = 16;
+        /* Texture IDs */
+        GLuint idCache[BUFFER_CACHE_SIZE];
+        void *stringCache[BUFFER_CACHE_SIZE];
+        FTBBox bboxCache[BUFFER_CACHE_SIZE];
+        FTPoint advanceCache[BUFFER_CACHE_SIZE];
+        int lastString;
 };
 
 #endif  //  __FTBufferFontImpl__

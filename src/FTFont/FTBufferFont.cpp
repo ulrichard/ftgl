@@ -25,6 +25,8 @@
 
 #include "config.h"
 
+#include <wchar.h>
+
 #include "FTGL/ftgl.h"
 
 #include "FTInternals.h"
@@ -72,13 +74,19 @@ FTBufferFontImpl::FTBufferFontImpl(FTFont *ftFont, const char* fontFilePath) :
     FTFontImpl(ftFont, fontFilePath),
     buffer(new FTBuffer())
 {
-    glGenTextures(1, &id);
+    glGenTextures(BUFFER_CACHE_SIZE, idCache);
 
-    glBindTexture(GL_TEXTURE_2D, id);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    for(int i = 0; i < BUFFER_CACHE_SIZE; i++)
+    {
+        stringCache[i] = NULL;
+        glBindTexture(GL_TEXTURE_2D, idCache[i]);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    }
+
+    lastString = 0;
 }
 
 
@@ -88,22 +96,33 @@ FTBufferFontImpl::FTBufferFontImpl(FTFont *ftFont,
     FTFontImpl(ftFont, pBufferBytes, bufferSizeInBytes),
     buffer(new FTBuffer())
 {
-    glGenTextures(1, &id);
+    glGenTextures(BUFFER_CACHE_SIZE, idCache);
 
-    glBindTexture(GL_TEXTURE_2D, id);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    for(int i = 0; i < BUFFER_CACHE_SIZE; i++)
+    {
+        stringCache[i] = NULL;
+        glBindTexture(GL_TEXTURE_2D, idCache[i]);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    }
+
+    lastString = 0;
 }
 
 
 FTBufferFontImpl::~FTBufferFontImpl()
 {
-    glDeleteTextures(1, &id);
+    glDeleteTextures(BUFFER_CACHE_SIZE, idCache);
 
-    if(buffer->pixels)
-        delete[] buffer->pixels;
+    for(int i = 0; i < BUFFER_CACHE_SIZE; i++)
+    {
+        if(stringCache[i])
+        {
+            free(stringCache[i]);
+        }
+    }
 
     delete buffer;
 }
@@ -129,36 +148,57 @@ static inline GLuint NextPowerOf2(GLuint in)
 }
 
 
+inline int StringCompare(void const *a, char const *b, int len)
+{
+    return len < 0 ? strcmp((char const *)a, b)
+                   : strncmp((char const *)a, b, len);
+}
+
+
+inline int StringCompare(void const *a, wchar_t const *b, int len)
+{
+    return len < 0 ? wcscmp((wchar_t const *)a, b)
+                   : wcsncmp((wchar_t const *)a, b, len);
+}
+
+
+inline char *StringCopy(char const *s, int len)
+{
+    if(len >= 0)
+    {
+        char *s2 = (char *)malloc((len + 1) * sizeof(char));
+        memcpy(s2, s, len * sizeof(char));
+        s2[len] = 0;
+        return s2;
+    }
+
+    return strdup(s);
+}
+
+
+inline wchar_t *StringCopy(wchar_t const *s, int len)
+{
+    if(len >= 0)
+    {
+        wchar_t *s2 = (wchar_t *)malloc((len + 1) * sizeof(wchar_t));
+        memcpy(s2, s, len * sizeof(wchar_t));
+        s2[len] = 0;
+        return s2;
+    }
+
+    return wcsdup(s);
+}
+
+
 template <typename T>
 inline FTPoint FTBufferFontImpl::RenderI(const T* string, const int len,
                                          FTPoint position, FTPoint spacing,
                                          int renderMode)
 {
     const float padding = 3.0f;
-
-    FTBBox bbox = BBox(string, len, position, spacing);
-
-    int width = static_cast<int>(bbox.Upper().X() - bbox.Lower().X()
-                                  + padding + padding + 0.5);
-    int height = static_cast<int>(bbox.Upper().Y() - bbox.Lower().Y()
-                                   + padding + padding + 0.5);
-
-    int texWidth = NextPowerOf2(width);
-    int texHeight = NextPowerOf2(height);
-
-    if(buffer->pixels)
-    {
-        delete[] buffer->pixels;
-    }
-    buffer->pixels = new unsigned char[texWidth * texHeight];
-    memset(buffer->pixels, 0, texWidth * texHeight);
-    buffer->width = texWidth;
-    buffer->height = texHeight;
-    buffer->pitch = texWidth;
-    buffer->pos = FTPoint(padding, padding) - bbox.Lower();
-
-    FTPoint tmp = FTFontImpl::Render(string, len, position,
-                                     spacing, renderMode);
+    int width, height, texWidth, texHeight;
+    int cacheIndex = -1;
+    bool inCache = false;
 
     // Protect blending functions, GL_BLEND and GL_TEXTURE_2D
     glPushAttrib(GL_COLOR_BUFFER_BIT | GL_ENABLE_BIT);
@@ -170,36 +210,98 @@ inline FTPoint FTBufferFontImpl::RenderI(const T* string, const int len,
     glEnable(GL_TEXTURE_2D);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // GL_ONE
 
-    glBindTexture(GL_TEXTURE_2D, id);
+    // Search whether the string is already in a texture we uploaded
+    for(int n = 0; n < BUFFER_CACHE_SIZE; n++)
+    {
+        int i = (lastString + n + BUFFER_CACHE_SIZE) % BUFFER_CACHE_SIZE;
 
-    glPixelStorei(GL_UNPACK_LSB_FIRST, GL_FALSE);
-    glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
-    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+        if(stringCache[i] && !StringCompare(stringCache[i], string, len))
+        {
+            cacheIndex = i;
+            inCache = true;
+            break;
+        }
+    }
 
-    /* TODO: use glTexSubImage2D later? */
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_ALPHA, texWidth, texHeight, 0,
-                 GL_ALPHA, GL_UNSIGNED_BYTE, (GLvoid *)buffer->pixels);
+    // If the string was not found, we need to put it in the cache and compute
+    // its new bounding box.
+    if(!inCache)
+    {
+        // FIXME: this cache is not very efficient. We should first expire
+        // strings that are not used very often.
+        cacheIndex = lastString;
+        lastString = (lastString + 1) % BUFFER_CACHE_SIZE;
+
+        if(stringCache[cacheIndex])
+        {
+            free(stringCache[cacheIndex]);
+        }
+        stringCache[cacheIndex] = StringCopy(string, len);
+        bboxCache[cacheIndex] = BBox(string, len, FTPoint(), spacing);
+    }
+
+    FTBBox bbox = bboxCache[cacheIndex];
+
+    width = static_cast<int>(bbox.Upper().X() - bbox.Lower().X()
+                              + padding + padding + 0.5);
+    height = static_cast<int>(bbox.Upper().Y() - bbox.Lower().Y()
+                               + padding + padding + 0.5);
+
+    texWidth = NextPowerOf2(width);
+    texHeight = NextPowerOf2(height);
+
+    glBindTexture(GL_TEXTURE_2D, idCache[cacheIndex]);
+
+    // If the string was not found, we need to render the text in a new
+    // texture buffer, then upload it to the OpenGL layer.
+    if(!inCache)
+    {
+        buffer->pixels = new unsigned char[texWidth * texHeight];
+        memset(buffer->pixels, 0, texWidth * texHeight);
+        buffer->width = texWidth;
+        buffer->height = texHeight;
+        buffer->pitch = texWidth;
+        buffer->pos = FTPoint(padding, padding) - bbox.Lower();
+
+        advanceCache[cacheIndex] =
+              FTFontImpl::Render(string, len, FTPoint(), spacing, renderMode);
+
+        glBindTexture(GL_TEXTURE_2D, idCache[cacheIndex]);
+
+        glPixelStorei(GL_UNPACK_LSB_FIRST, GL_FALSE);
+        glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
+        glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+        /* TODO: use glTexSubImage2D later? */
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_ALPHA, texWidth, texHeight, 0,
+                     GL_ALPHA, GL_UNSIGNED_BYTE, (GLvoid *)buffer->pixels);
+
+        delete[] buffer->pixels;
+    }
+
+    FTPoint low = position + bbox.Lower();
+    FTPoint up = position + bbox.Upper();
 
     glBegin(GL_QUADS);
         glNormal3f(0.0f, 0.0f, 1.0f);
         glTexCoord2f(padding / texWidth,
                      (texHeight - height + padding) / texHeight);
-        glVertex2f(bbox.Lower().Xf(), bbox.Upper().Yf());
+        glVertex2f(low.Xf(), up.Yf());
         glTexCoord2f(padding / texWidth,
                      (texHeight - padding) / texHeight);
-        glVertex2f(bbox.Lower().Xf(), bbox.Lower().Yf());
+        glVertex2f(low.Xf(), low.Yf());
         glTexCoord2f((width - padding) / texWidth,
                      (texHeight - padding) / texHeight);
-        glVertex2f(bbox.Upper().Xf(), bbox.Lower().Yf());
+        glVertex2f(up.Xf(), low.Yf());
         glTexCoord2f((width - padding) / texWidth,
                      (texHeight - height + padding) / texHeight);
-        glVertex2f(bbox.Upper().Xf(), bbox.Upper().Yf());
+        glVertex2f(up.Xf(), up.Yf());
     glEnd();
 
     glPopClientAttrib();
     glPopAttrib();
 
-    return tmp;
+    return position + advanceCache[cacheIndex];
 }
 
 
