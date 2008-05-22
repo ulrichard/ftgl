@@ -40,6 +40,8 @@
 
 static FTFont *font[3];
 static int fontindex = 0;
+static int lastfps = 0;
+static int frames = 0;
 
 //
 //  FTHaloGlyph is a derivation of FTPolygonGlyph that also displays a
@@ -96,10 +98,21 @@ class FTHaloFont : public FTFont
 //
 static void RenderScene(void)
 {
-    float n = (float)glutGet(GLUT_ELAPSED_TIME) / 20.;
+    int now = glutGet(GLUT_ELAPSED_TIME);
+
+    float n = (float)now / 20.;
     float t1 = sin(n / 80);
     float t2 = sin(n / 50 + 1);
     float t3 = sin(n / 30 + 2);
+
+    float ambient[4]  = { (t1 + 2.0) / 3,
+                          (t2 + 2.0) / 3,
+                          (t3 + 2.0) / 3, 0.3 };
+    float diffuse[4]  = { 1.0, 0.9, 0.9, 1.0 };
+    float specular[4] = { 1.0, 0.7, 0.7, 1.0 };
+    float position[4] = { 100.0, 100.0, 0.0, 1.0 };
+
+    float front_ambient[4]  = { 0.7, 0.7, 0.7, 0.0 };
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -108,12 +121,6 @@ static void RenderScene(void)
 
     glPushMatrix();
         glTranslatef(-0.9, -0.2, -10.0);
-        float ambient[4]  = { (t1 + 2.0) / 3,
-                              (t2 + 2.0) / 3,
-                              (t3 + 2.0) / 3, 0.3 };
-        float diffuse[4]  = { 1.0, 0.9, 0.9, 1.0 };
-        float specular[4] = { 1.0, 0.7, 0.7, 1.0 };
-        float position[4] = { 100.0, 100.0, 0.0, 1.0 };
         glLightfv(GL_LIGHT1, GL_AMBIENT,  ambient);
         glLightfv(GL_LIGHT1, GL_DIFFUSE,  diffuse);
         glLightfv(GL_LIGHT1, GL_SPECULAR, specular);
@@ -122,7 +129,6 @@ static void RenderScene(void)
     glPopMatrix();
 
     glPushMatrix();
-        float front_ambient[4]  = { 0.7, 0.7, 0.7, 0.0 };
         glMaterialfv(GL_FRONT, GL_AMBIENT, front_ambient);
         glColorMaterial(GL_FRONT, GL_DIFFUSE);
         glTranslatef(0.0, 0.0, 20.0);
@@ -135,6 +141,16 @@ static void RenderScene(void)
     glPopMatrix();
 
     glutSwapBuffers();
+
+    frames++;
+
+    if(now - lastfps > 5000)
+    {
+        fprintf(stderr, "%i frames in 5.0 seconds = %g FPS\n",
+                frames, frames * 1000. / (now - lastfps));
+        lastfps += 5000;
+        frames = 0;
+    }
 }
 
 //
@@ -198,7 +214,7 @@ int main(int argc, char **argv)
 
     // Initialise FTGL stuff
     font[0] = new FTExtrudeFont(file);
-    font[1] = new FTPolygonFont(file);
+    font[1] = new FTBufferFont(file);
     font[2] = new FTHaloFont(file);
 
     if(font[0]->Error() || font[1]->Error() || font[2]->Error())

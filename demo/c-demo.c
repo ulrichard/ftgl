@@ -40,6 +40,8 @@
 
 static FTGLfont *font[3];
 static int fontindex = 0;
+static int lastfps = 0;
+static int frames = 0;
 
 /*
  * HaloGlyph is a derivation of FTGLglyph that displays a polygon glyph
@@ -104,10 +106,21 @@ static FTGLglyph *MakeHaloGlyph(FT_GlyphSlot slot, void *data)
  */
 static void RenderScene(void)
 {
-    float n = (float)glutGet(GLUT_ELAPSED_TIME) / 20.0f;
+    int now = glutGet(GLUT_ELAPSED_TIME);
+
+    float n = (float)now / 20.0f;
     float t1 = sin(n / 80.0f);
     float t2 = sin(n / 50.0f + 1.0f);
     float t3 = sin(n / 30.0f + 2.0f);
+
+    float ambient[4]  = { (t1 + 2.0f) / 3.0f,
+                          (t2 + 2.0f) / 3.0f,
+                          (t3 + 2.0f) / 3.0f, 0.3f };
+    float diffuse[4]  = { 1.0f, 0.9f, 0.9f, 1.0f };
+    float specular[4] = { 1.0f, 0.7f, 0.7f, 1.0f };
+    float position[4] = { 100.0f, 100.0f, 0.0f, 1.0f };
+
+    float front_ambient[4]  = { 0.7f, 0.7f, 0.7f, 0.0f };
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -115,25 +128,15 @@ static void RenderScene(void)
     glEnable(GL_DEPTH_TEST);
 
     glPushMatrix();
-	{
-		float ambient[4]  = { (t1 + 2.0f) / 3.0f,
-							  (t2 + 2.0f) / 3.0f,
-							  (t3 + 2.0f) / 3.0f, 0.3f };
-		float diffuse[4]  = { 1.0f, 0.9f, 0.9f, 1.0f };
-		float specular[4] = { 1.0f, 0.7f, 0.7f, 1.0f };
-		float position[4] = { 100.0f, 100.0f, 0.0f, 1.0f };
         glTranslatef(-0.9f, -0.2f, -10.0f);
         glLightfv(GL_LIGHT1, GL_AMBIENT,  ambient);
         glLightfv(GL_LIGHT1, GL_DIFFUSE,  diffuse);
         glLightfv(GL_LIGHT1, GL_SPECULAR, specular);
         glLightfv(GL_LIGHT1, GL_POSITION, position);
         glEnable(GL_LIGHT1);
-	}
     glPopMatrix();
 
     glPushMatrix();
-	{
-	    float front_ambient[4]  = { 0.7f, 0.7f, 0.7f, 0.0f };
         glMaterialfv(GL_FRONT, GL_AMBIENT, front_ambient);
         glColorMaterial(GL_FRONT, GL_DIFFUSE);
         glTranslatef(0.0f, 0.0f, 20.0f);
@@ -143,10 +146,19 @@ static void RenderScene(void)
         glTranslatef(-260.0f, -0.2f, 0.0f);
         glColor3f(0.0f, 0.0f, 0.0f);
         ftglRenderFont(font[fontindex], "Hello FTGL!", FTGL_RENDER_ALL);
-	}
     glPopMatrix();
 
     glutSwapBuffers();
+
+    frames++;
+
+    if(now - lastfps > 5000)
+    {
+        fprintf(stderr, "%i frames in 5.0 seconds = %g FPS\n",
+                frames, frames * 1000. / (now - lastfps));
+        lastfps += 5000;
+        frames = 0;
+    }
 }
 
 /*
@@ -210,7 +222,7 @@ int main(int argc, char **argv)
 
     /* Initialise FTGL stuff */
     font[0] = ftglCreateExtrudeFont(file);
-    font[1] = ftglCreatePolygonFont(file);
+    font[1] = ftglCreateBufferFont(file);
     font[2] = ftglCreateCustomFont(file, NULL, MakeHaloGlyph);
     if(!font[0] || !font[1] || !font[2])
     {
