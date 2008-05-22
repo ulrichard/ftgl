@@ -51,6 +51,9 @@ class FTBufferFontImpl : public FTFontImpl
                                FTPoint position, FTPoint spacing,
                                int renderMode);
 
+        virtual bool FaceSize(const unsigned int size,
+                              const unsigned int res);
+
     private:
         /**
          * Create an FTBufferGlyph object for the base class.

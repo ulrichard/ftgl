@@ -134,6 +134,22 @@ FTGlyph* FTBufferFontImpl::MakeGlyphImpl(FT_GlyphSlot ftGlyph)
 }
 
 
+bool FTBufferFontImpl::FaceSize(const unsigned int size,
+                                const unsigned int res)
+{
+    for(int i = 0; i < BUFFER_CACHE_SIZE; i++)
+    {
+        if(stringCache[i])
+        {
+            free(stringCache[i]);
+            stringCache[i] = NULL;
+        }
+    }
+
+    return FTFontImpl::FaceSize(size, res);
+}
+
+
 static inline GLuint NextPowerOf2(GLuint in)
 {
      in -= 1;
