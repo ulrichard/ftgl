@@ -38,10 +38,16 @@
  \image html vectorfont.png
  \image latex vectorfont.eps "" width=0.7\textwidth
 
- \subsection texture Texture fonts
+ \subsection texture Textured fonts
 
- Texture fonts are probably the most versatile type. They are fast,
+ Textured fonts are probably the most versatile types. They are fast,
  antialiased, and can be transformed just like any OpenGL primitive.
+
+ - Texture fonts use one texture per glyph. They are fast because glyphs are
+   stored permanently in the video card's memory.
+ - Buffer fonts use one texture per line of text. They tend to be faster
+   than texture fonts when the same line of text needs to be rendered for
+   more than one frame.
 
  \image html texturefont.png
  \image latex texturefont.eps "" width=0.7\textwidth
