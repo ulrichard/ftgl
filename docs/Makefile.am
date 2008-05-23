@@ -28,6 +28,7 @@ endif
 html/doxygen.css: stamp-doxygen
 stamp-doxygen: doxygen.cfg stamp-eps
 	$(DOXYGEN) $^
+	sed -i 's/%FTGL/FTGL/' html/*html
 	touch $@
 
 latex/ftgl.pdf: stamp-latex

@@ -2,7 +2,7 @@
 
  \section faq FAQ
 
- \subsection faq1 When I try to compile FTGL it complains about a missing file from the include: #include <ft2build.h>
+ \subsection faq1 When I try to compile %FTGL it complains about a missing file from the include: #include <ft2build.h>
 
  %FTGL relies on FreeType 2 for opening and decoding font files. This include
  is the main include for FreeType. You will need to download Freetype 2 and

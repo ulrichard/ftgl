@@ -1,11 +1,11 @@
-/** \page ftgl-projects Projects using FTGL
+/** \page ftgl-projects Projects using %FTGL
 
 To add your project to this list, please contact one of the %FTGL
 developers at http://sf.net/projects/ftgl
 
 Projects are listed in alphabetical order.
 
-\section current Projects currently using FTGL
+\section current Projects currently using %FTGL
 
 \subsection blender Blender
 
@@ -26,7 +26,7 @@ Projects are listed in alphabetical order.
   Duel (http://www.personal.rdg.ac.uk/~sir03me/play/code.html) is a small
   overhead perspective spaceship game.
 
-\subsection ftglsharp FTGL#
+\subsection ftglsharp %FTGL#
 
   %FTGL# (http://www.paskaluk.com/projects.php) is a collection of .NET
   bindings for %FTGL.
@@ -61,7 +61,7 @@ Projects are listed in alphabetical order.
   which uses OpenGL for hardware acceleration. It is compatible with
   Milkdrop presets.
 
-\subsection ruby-ftgl Ruby FTGL
+\subsection ruby-ftgl Ruby %FTGL
 
   Ruby %FTGL# (http://rubyforge.org/projects/ruby-ftgl/) is a collection
   of Ruby bindings for %FTGL.
@@ -80,7 +80,7 @@ Projects are listed in alphabetical order.
   programs, Tcl, Python and Java scripts that do 3D visualization.
 
 
-\section old Projects that used to use FTGL
+\section old Projects that used to use %FTGL
 
 \subsection gnubg GNU Backgammon
 
