@@ -26,6 +26,7 @@
 #include "config.h"
 
 #include <ctype.h>
+#include <wctype.h>
 
 #include "FTInternals.h"
 #include "FTUnicode.h"
