@@ -23,7 +23,7 @@
  - Pixmap fonts use 8-bit (256 levels) rasterised glyphs.
 
  \image html rasterfont.png
- \image latex rasterfont.eps "" width=0.7\textwidth
+ \image latex rasterfont.png "" width=0.7\textwidth
 
  \subsection vector Vector fonts
 
@@ -36,7 +36,7 @@
    meshes renderable separately to apply different effects and materials.
 
  \image html vectorfont.png
- \image latex vectorfont.eps "" width=0.7\textwidth
+ \image latex vectorfont.png "" width=0.7\textwidth
 
  \subsection texture Textured fonts
 
@@ -50,7 +50,7 @@
    more than one frame.
 
  \image html texturefont.png
- \image latex texturefont.eps "" width=0.7\textwidth
+ \image latex texturefont.png "" width=0.7\textwidth
 
  \section creating Create font objects
 
@@ -99,7 +99,7 @@ font.Render("Hello World!");
  \subsection metrics Font metrics
 
  \image html metrics.png
- \image latex metrics.eps "" width=0.5\textwidth
+ \image latex metrics.png "" width=0.5\textwidth
 
  If you ask a font to render at 0.0, 0.0 the bottom left most pixel or polygon
  may not be aligned to 0.0, 0.0. With FTFont::Ascender(), FTFont::Descender()

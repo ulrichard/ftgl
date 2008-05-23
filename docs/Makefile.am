@@ -21,7 +21,7 @@ PNGS = \
 
 stamp-eps: $(PNGS)
 if HAVE_LATEX
-	for i in $^; do convert $$i $$(echo $$i | sed 's/png$$/eps/'); done
+	for i in $^; do convert $$i $$i.eps; done
 endif
 	touch $@
 
@@ -35,7 +35,7 @@ stamp-latex: stamp-doxygen
 	rm -f latex/ftgl.tex latex/ftgl.pdf
 	mv latex/refman.tex latex/ftgl.tex
 	sed 's/setlength{/renewcommand{/' latex/ftgl.tex > latex/refman.tex
-	cd latex && $(MAKE) $(AM_CFLAGS) refman.pdf #|| (cat refman.log; exit 1)
+	cd latex && $(MAKE) $(AM_CFLAGS) refman.pdf || (cat refman.log; exit 1)
 	mv latex/refman.pdf latex/ftgl.pdf
 	touch stamp-latex
 
