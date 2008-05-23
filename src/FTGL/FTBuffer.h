@@ -45,10 +45,30 @@
 class FTGL_EXPORT FTBuffer
 {
     public:
+        /**
+         * Default constructor.
+         */
         FTBuffer();
+
+        /**
+         * Destructor
+         */
         ~FTBuffer();
+
+        inline FTPoint Pos() const
+        {
+            return pos;
+        }
+
+        inline void Pos(FTPoint arg)
+        {
+            pos = arg;
+        }
+
         int width, height, pitch;
         unsigned char *pixels;
+
+    private:
         FTPoint pos;
 };
 

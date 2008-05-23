@@ -92,7 +92,7 @@ const FTPoint& FTBufferGlyphImpl::RenderImpl(const FTPoint& pen, int renderMode)
 {
     if(has_bitmap)
     {
-        FTPoint pos(buffer->pos + pen + corner);
+        FTPoint pos(buffer->Pos() + pen + corner);
         int dx = (int)(pos.Xf() + 0.5f);
         int dy = buffer->height - (int)(pos.Yf() + 0.5f);
         unsigned char * dest = buffer->pixels + dx + dy * buffer->pitch;

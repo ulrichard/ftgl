@@ -277,7 +277,7 @@ inline FTPoint FTBufferFontImpl::RenderI(const T* string, const int len,
         buffer->width = texWidth;
         buffer->height = texHeight;
         buffer->pitch = texWidth;
-        buffer->pos = FTPoint(padding, padding) - bbox.Lower();
+        buffer->Pos(FTPoint(padding, padding) - bbox.Lower());
 
         advanceCache[cacheIndex] =
               FTFontImpl::Render(string, len, FTPoint(), spacing, renderMode);
