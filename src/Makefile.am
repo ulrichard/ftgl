@@ -22,6 +22,7 @@ libftgl_la_SOURCES = \
     FTVector.h \
     FTVectoriser.cpp \
     FTVectoriser.h \
+    FTUnicode.h \
     $(ftglyph_sources) \
     $(ftfont_sources) \
     $(ftlayout_sources) \

@@ -9,8 +9,6 @@ TODO
 
 * Use the Freetype Cache mechanism. FTC_xxx
 
-* Handle non western scripts.
-
 * Multiple Masters
 
 * String Cache or string chunks

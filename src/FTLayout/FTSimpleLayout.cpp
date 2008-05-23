@@ -28,6 +28,7 @@
 #include <ctype.h>
 
 #include "FTInternals.h"
+#include "FTUnicode.h"
 
 #include "FTGlyphContainer.h"
 #include "FTSimpleLayoutImpl.h"
@@ -191,13 +192,15 @@ inline void FTSimpleLayoutImpl::WrapTextI(const T *buf, const int len,
                                           FTPoint position, int renderMode,
                                           FTBBox *bounds)
 {
-    int breakIdx = 0;          // index of the last break character
-    int lineStart = 0;         // character index of the line start
+    FTUnicodeStringItr<T> breakItr(buf);          // points to the last break character
+    FTUnicodeStringItr<T> lineStart(buf);         // points to the line start
     float nextStart = 0.0;     // total width of the current line
     float breakWidth = 0.0;    // width of the line up to the last word break
     float currentWidth = 0.0;  // width of all characters on the current line
     float prevWidth;           // width of all characters but the current glyph
     float wordLength = 0.0;    // length of the block since the last break char
+    int charCount = 0;         // number of characters so far on the line
+    int breakCharCount = 0;    // number of characters before the breakItr
     float glyphWidth, advance;
     FTBBox glyphBounds;
 
@@ -211,55 +214,57 @@ inline void FTSimpleLayoutImpl::WrapTextI(const T *buf, const int len,
     }
 
     // Scan the input for all characters that need output
-    for(int i = 0; buf[i]; i++)
+    FTUnicodeStringItr<T> prevItr(buf);
+    for (FTUnicodeStringItr<T> itr(buf); *itr; prevItr = itr++, charCount++)
     {
         // Find the width of the current glyph
-        glyphBounds = currentFont->BBox(buf + i, 1);
+        glyphBounds = currentFont->BBox(itr.getBufferFromHere(), 1);
         glyphWidth = glyphBounds.Upper().Xf() - glyphBounds.Lower().Xf();
 
-        advance = currentFont->Advance(buf + i, 1).Xf();
+        advance = currentFont->Advance(itr.getBufferFromHere(), 1).Xf();
         prevWidth = currentWidth;
         // Compute the width of all glyphs up to the end of buf[i]
         currentWidth = nextStart + glyphWidth;
         // Compute the position of the next glyph
         nextStart += advance;
 
-        // See if buf[i] is a space, a break or a regular character
-        if((currentWidth > lineLength) || (buf[i] == '\n'))
+        // See if the current character is a space, a break or a regular character
+        if((currentWidth > lineLength) || (*itr == '\n'))
         {
             // A non whitespace character has exceeded the line length.  Or a
             // newline character has forced a line break.  Output the last
             // line and start a new line after the break character.
             // If we have not yet found a break, break on the last character
-            if(!breakIdx || (buf[i] == '\n'))
+            if(breakItr == lineStart || (*itr == '\n'))
             {
                 // Break on the previous character
-                breakIdx = i - 1;
+                breakItr = prevItr;
+                breakCharCount = charCount - 1;
                 breakWidth = prevWidth;
                 // None of the previous words will be carried to the next line
                 wordLength = 0;
                 // If the current character is a newline discard its advance
-                if(buf[i] == '\n') advance = 0;
+                if(*itr == '\n') advance = 0;
             }
 
             float remainingWidth = lineLength - breakWidth;
 
             // Render the current substring
+            FTUnicodeStringItr<T> breakChar = breakItr;
+            // move past the break character and don't count it on the next line either
+            ++breakChar; --charCount;
             // If the break character is a newline do not render it
-            if(buf[breakIdx + 1] == '\n')
+            if(*breakChar == '\n')
             {
-                breakIdx++;
-                OutputWrapped(buf + lineStart, breakIdx - lineStart - 1,
-                              position, renderMode, remainingWidth, bounds);
-            }
-            else
-            {
-                OutputWrapped(buf + lineStart, breakIdx - lineStart,
-                              position, renderMode, remainingWidth, bounds);
+                ++breakChar; --charCount;
             }
 
+            OutputWrapped(lineStart.getBufferFromHere(), breakCharCount,
+                          //breakItr.getBufferFromHere() - lineStart.getBufferFromHere(),
+                          position, renderMode, remainingWidth, bounds);
+
             // Store the start of the next line
-            lineStart = breakIdx + 1;
+            lineStart = breakChar;
             // TODO: Is Height() the right value here?
             pen -= FTPoint(0, currentFont->LineHeight() * lineSpacing);
             // The current width is the width since the last break
@@ -267,16 +272,18 @@ inline void FTSimpleLayoutImpl::WrapTextI(const T *buf, const int len,
             wordLength += advance;
             currentWidth = wordLength + advance;
             // Reset the safe break for the next line
-            breakIdx = 0;
+            breakItr = lineStart;
+            charCount -= breakCharCount;
         }
-        else if(isspace(buf[i]))
+        else if(iswspace(*itr))
         {
             // This is the last word break position
             wordLength = 0;
-            breakIdx = i;
+            breakItr = itr;
+            breakCharCount = charCount;
 
             // Check to see if this is the first whitespace character in a run
-            if(!i || !isspace(buf[i - 1]))
+            if(buf == itr.getBufferFromHere() || !iswspace(*prevItr))
             {
                 // Record the width of the start of the block
                 breakWidth = currentWidth;
@@ -294,13 +301,13 @@ inline void FTSimpleLayoutImpl::WrapTextI(const T *buf, const int len,
     if(alignment == FTGL::ALIGN_JUSTIFY)
     {
         alignment = FTGL::ALIGN_LEFT;
-        OutputWrapped(buf + lineStart, -1, position, renderMode,
+        OutputWrapped(lineStart.getBufferFromHere(), -1, position, renderMode,
                       remainingWidth, bounds);
         alignment = FTGL::ALIGN_JUSTIFY;
     }
     else
     {
-        OutputWrapped(buf + lineStart, -1, position, renderMode,
+        OutputWrapped(lineStart.getBufferFromHere(), -1, position, renderMode,
                       remainingWidth, bounds);
     }
 }
@@ -403,11 +410,12 @@ inline void FTSimpleLayoutImpl::RenderSpaceI(const T *string, const int len,
         int numSpaces = 0;
 
         // Count the number of space blocks in the input
-        for(int i = 0; ((len < 0) && string[i])
-                              || ((len >= 0) && (i <= len)); i++)
+        FTUnicodeStringItr<T> prevItr(string), itr(string);
+        for(int i = 0; ((len < 0) && *itr) || ((len >= 0) && (i <= len));
+            ++i, prevItr = itr++)
         {
             // If this is the end of a space block, increment the counter
-            if((i > 0) && !isspace(string[i]) && isspace(string[i - 1]))
+            if((i > 0) && !iswspace(*itr) && iswspace(*prevItr))
             {
                 numSpaces++;
             }
@@ -417,17 +425,18 @@ inline void FTSimpleLayoutImpl::RenderSpaceI(const T *string, const int len,
     }
 
     // Output all characters of the string
-    for(int i = 0; ((len < 0) && string[i])
-                          || ((len >= 0) && (i <= len)); i++)
+    FTUnicodeStringItr<T> prevItr(string), itr(string);
+    for(int i = 0; ((len < 0) && *itr) || ((len >= 0) && (i <= len));
+        ++i, prevItr = itr++)
     {
         // If this is the end of a space block, distribute the extra space
         // inside it
-        if((i > 0) && !isspace(string[i]) && isspace(string[i - 1]))
+        if((i > 0) && !iswspace(*itr) && iswspace(*prevItr))
         {
             pen += FTPoint(space, 0);
         }
 
-        pen = currentFont->Render(string + i, 1, pen, FTPoint(), renderMode);
+        pen = currentFont->Render(itr.getBufferFromHere(), 1, pen, FTPoint(), renderMode);
     }
 }
 

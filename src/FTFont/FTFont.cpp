@@ -26,6 +26,7 @@
 #include "config.h"
 
 #include "FTInternals.h"
+#include "FTUnicode.h"
 
 #include "FTFontImpl.h"
 
@@ -369,26 +370,34 @@ inline FTBBox FTFontImpl::BBoxI(const T* string, const int len,
     /* Only compute the bounds if string is non-empty. */
     if(string && ('\0' != string[0]))
     {
-        if(CheckGlyph(string[0]))
+        // for multibyte - we can't rely on sizeof(T) == character
+        FTUnicodeStringItr<T> ustr(string);
+        unsigned int thisChar = *ustr++;
+        unsigned int nextChar = *ustr;
+
+        if(CheckGlyph(thisChar))
         {
-            totalBBox = glyphList->BBox(string[0]);
+            totalBBox = glyphList->BBox(thisChar);
             totalBBox += position;
 
-            position += glyphList->Advance(string[0], string[1]);
+            position += glyphList->Advance(thisChar, nextChar);
         }
 
         /* Expand totalBox by each glyph in string */
-        for(int i = 1; (len < 0 && string[i]) || (len >= 0 && i < len); i++)
+        for(int i = 1; (len < 0 && *ustr) || (len >= 0 && i < len); i++)
         {
-            if(CheckGlyph(string[i]))
+            unsigned int thisChar = *ustr++;
+            unsigned int nextChar = *ustr;
+
+            if(CheckGlyph(thisChar))
             {
                 position += spacing;
 
-                FTBBox tempBBox = glyphList->BBox(string[i]);
+                FTBBox tempBBox = glyphList->BBox(thisChar);
                 tempBBox += position;
                 totalBBox |= tempBBox;
 
-                position += glyphList->Advance(string[i], string[i + 1]);
+                position += glyphList->Advance(thisChar, nextChar);
             }
         }
     }
@@ -416,15 +425,19 @@ template <typename T>
 inline FTPoint FTFontImpl::AdvanceI(const T* string, const int len,
                                     FTPoint position, FTPoint spacing)
 {
-    for(int i = 0; (len < 0 && string[i]) || (len >= 0 && i < len); i++)
+    FTUnicodeStringItr<T> ustr(string);
+
+    for(int i = 0; (len < 0 && *ustr) || (len >= 0 && i < len); i++)
     {
-        if(CheckGlyph(string[i]))
+        unsigned int thisChar = *ustr++;
+        unsigned int nextChar = *ustr;
+
+        if(CheckGlyph(thisChar))
         {
-            position += glyphList->Advance((unsigned int)string[i],
-                                           (unsigned int)string[i + 1]);
+            position += glyphList->Advance(thisChar, nextChar);
         }
 
-        if(string[i + 1])
+        if(nextChar)
         {
             position += spacing;
         }
@@ -455,21 +468,26 @@ inline FTPoint FTFontImpl::RenderI(const T* string, const int len,
                                    FTPoint position, FTPoint spacing,
                                    int renderMode)
 {
-    for(int i = 0; (len < 0 && string[i]) || (len >= 0 && i < len); i++)
+     // for multibyte - we can't rely on sizeof(T) == character
+    FTUnicodeStringItr<T> ustr(string);
+
+    for(int i = 0; (len < 0 && *ustr) || (len >= 0 && i < len); i++)
     {
-        if(CheckGlyph(string[i]))
+        unsigned int thisChar = *ustr++;
+        unsigned int nextChar = *ustr;
+
+        if(CheckGlyph(thisChar))
         {
-            position += glyphList->Render((unsigned int)string[i],
-                                          (unsigned int)string[i + 1],
+            position += glyphList->Render(thisChar, nextChar,
                                           position, renderMode);
         }
 
-        if(string[i + 1])
+        if(nextChar)
         {
             position += spacing;
         }
     }
-
+    
     return position;
 }
 

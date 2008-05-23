@@ -159,10 +159,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\FTCharToGlyphIndexMap.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\src\FTContour.cpp"
 				>
 			</File>
@@ -297,6 +293,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\FTCharToGlyphIndexMap.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\FTContour.h"
 				>
 			</File>
@@ -322,6 +322,10 @@
 			</File>
 			<File
 				RelativePath="..\..\src\FTSize.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\FTUnicode.h"
 				>
 			</File>
 			<File

@@ -177,11 +177,22 @@ void setUpFonts(const char* file)
     }
 
     infoFont->FaceSize(18);
-
-    strcpy(myString, "OpenGL is a powerful software interface for graphics "
+#if 1
+	strcpy(myString, "OpenGL is a powerful software interface for graphics "
            "hardware that allows graphics programmers to produce high-quality "
            "color images of 3D objects.\nabc def ghij klm nop qrs tuv wxyz "
            "ABC DEF GHIJ KLM NOP QRS TUV WXYZ 01 23 45 67 89");
+#elif 0
+	strcpy(myString, "OpenGL (Open Graphics Library — открытая графическая "
+		"библиотека) — спецификация, определяющая независимый от языка "
+		"программирования кросс-платформенный программный интерфейс для написания "
+		"приложений, использующих двумерную и трехмерную компьютерную графику.");
+#else
+	strcpy(myString, "OpenGL™ 是行业领域中最为广泛接纳的 2D/3D 图形 API, "
+		"其自诞生至今已催生了各种计算机平台及设备上的数千优秀应用程序。OpenGL™ 是独立于视窗操作系统或其它操作系统的"
+		"，亦是网络透明的。在包含CAD、内容创作、能源、娱乐、游戏开发、制造业、制药业及虚拟现实等行业领域中， OpenGL™ "
+		"帮助程序员实现在 PC、工作站、超级计算机等硬件设备上的高性能、极具冲击力的高视觉表现力图形处理软件的开发。");
+#endif
 }
 
 
