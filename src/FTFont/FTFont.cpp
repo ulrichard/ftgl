@@ -386,8 +386,8 @@ inline FTBBox FTFontImpl::BBoxI(const T* string, const int len,
         /* Expand totalBox by each glyph in string */
         for(int i = 1; (len < 0 && *ustr) || (len >= 0 && i < len); i++)
         {
-            unsigned int thisChar = *ustr++;
-            unsigned int nextChar = *ustr;
+            thisChar = *ustr++;
+            nextChar = *ustr;
 
             if(CheckGlyph(thisChar))
             {
