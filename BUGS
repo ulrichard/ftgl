@@ -1,6 +1,9 @@
 BUGS
 ====
 
+* running configure on Mac OS X results in bad sed.
+  checking for a TrueType font on the system... sed: 2: "s/.*\<file:[^"]*"\([^"] ...": undefined label 'x;d;:x q'
+
 * FTGLTextureFonts can't be used inside display lists. This because
   the glGet call to check the current texture id can't be used in a
   display list. It is only a valid call when the list is compiled and
