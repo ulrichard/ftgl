@@ -50,9 +50,6 @@ PKG_CHECK_MODULES(CPPUNIT, cppunit, [CPPUNIT="yes"], [CPPUNIT="no"])
 AC_MSG_RESULT($CPPUNIT)
 AM_CONDITIONAL(HAVE_CPPUNIT, test "x$CPPUNIT" != "xno")
 
-# Checks for library functions -- this isn't really used at the moment
-AC_CHECK_FUNCS([memset])
-
 dnl search the include directory (required for non-srcdir builds).
 dnl should come after the system services checks otherwise headers
 dnl may conflict.
