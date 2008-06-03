@@ -180,40 +180,22 @@ inline int StringCompare(void const *a, wchar_t const *b, int len)
 
 inline char *StringCopy(char const *s, int len)
 {
-    if(!s)
-    {
-        return NULL;
-    }
-
-    if (len < 0)
-    {
-        len = (int)strlen(s);
-    }
-
-    char *s2 = (char *)malloc((len + 1) * sizeof(char));
-    if (!s2) return NULL;
-
-    memcpy(s2, s, len * sizeof(char));
-    s2[len] = 0;
-    return s2;
+    return len < 0 ? strdup(s) : strndup(s, len);
 }
 
 
 inline wchar_t *StringCopy(wchar_t const *s, int len)
 {
-    if(!s)
+    if(len < 0)
     {
-        return NULL;
-    }
-
-    if (len < 0)
-    {
+#if defined HAVE_WCSDUP
+        return wcsdup(s);
+#else
         len = (int)wcslen(s);
+#endif
     }
 
     wchar_t *s2 = (wchar_t *)malloc((len + 1) * sizeof(wchar_t));
-    if (!s2) return NULL;
-
     memcpy(s2, s, len * sizeof(wchar_t));
     s2[len] = 0;
     return s2;

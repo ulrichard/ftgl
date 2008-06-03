@@ -33,6 +33,9 @@ AM_PROG_CC_C_O
 AC_HEADER_STDC
 AC_CHECK_HEADER([stdlib.h])
 
+# Check for system functions
+AC_CHECK_FUNCS(wcsdup)
+
 # Checks for libraries.
 
 AC_PATH_X
