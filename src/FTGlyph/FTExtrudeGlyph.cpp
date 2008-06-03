@@ -67,6 +67,7 @@ FTExtrudeGlyphImpl::FTExtrudeGlyphImpl(FT_GlyphSlot glyph, float _depth,
                                        float _frontOutset, float _backOutset,
                                        bool useDisplayList)
 :   FTGlyphImpl(glyph),
+    vectoriser(0),
     glList(0)
 {
     bBox.SetDepth(-_depth);
