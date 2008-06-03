@@ -487,7 +487,7 @@ inline FTPoint FTFontImpl::RenderI(const T* string, const int len,
             position += spacing;
         }
     }
-    
+
     return position;
 }
 
