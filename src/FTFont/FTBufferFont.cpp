@@ -248,6 +248,7 @@ inline FTPoint FTBufferFontImpl::RenderI(const T* string, const int len,
         {
             free(stringCache[cacheIndex]);
         }
+        // FIXME: only the first N bytes are copied; we want the first N chars.
         stringCache[cacheIndex] = StringCopy(string, len);
         bboxCache[cacheIndex] = BBox(string, len, FTPoint(), spacing);
     }
