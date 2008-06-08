@@ -222,7 +222,7 @@ inline void FTSimpleLayoutImpl::WrapTextI(const T *buf, const int len,
         glyphBounds = currentFont->BBox(itr.getBufferFromHere(), 1);
         glyphWidth = glyphBounds.Upper().Xf() - glyphBounds.Lower().Xf();
 
-        advance = currentFont->Advance(itr.getBufferFromHere(), 1).Xf();
+        advance = currentFont->Advance(itr.getBufferFromHere(), 1);
         prevWidth = currentWidth;
         // Compute the width of all glyphs up to the end of buf[i]
         currentWidth = nextStart + glyphWidth;

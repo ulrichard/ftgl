@@ -168,17 +168,15 @@ FTPoint FTFont::Render(const wchar_t * string, const int len,
 }
 
 
-FTPoint FTFont::Advance(const char * string, const int len,
-                        FTPoint position, FTPoint spacing)
+float FTFont::Advance(const char * string, const int len, FTPoint spacing)
 {
-    return impl->Advance(string, len, position, spacing);
+    return impl->Advance(string, len, spacing);
 }
 
 
-FTPoint FTFont::Advance(const wchar_t * string, const int len,
-                        FTPoint position, FTPoint spacing)
+float FTFont::Advance(const wchar_t * string, const int len, FTPoint spacing)
 {
-    return impl->Advance(string, len, position, spacing);
+    return impl->Advance(string, len, spacing);
 }
 
 
@@ -380,7 +378,7 @@ inline FTBBox FTFontImpl::BBoxI(const T* string, const int len,
             totalBBox = glyphList->BBox(thisChar);
             totalBBox += position;
 
-            position += glyphList->Advance(thisChar, nextChar);
+            position += FTPoint(glyphList->Advance(thisChar, nextChar), 0.0);
         }
 
         /* Expand totalBox by each glyph in string */
@@ -397,7 +395,8 @@ inline FTBBox FTFontImpl::BBoxI(const T* string, const int len,
                 tempBBox += position;
                 totalBBox |= tempBBox;
 
-                position += glyphList->Advance(thisChar, nextChar);
+                position += FTPoint(glyphList->Advance(thisChar, nextChar),
+                                    0.0);
             }
         }
     }
@@ -422,9 +421,10 @@ FTBBox FTFontImpl::BBox(const wchar_t *string, const int len,
 
 
 template <typename T>
-inline FTPoint FTFontImpl::AdvanceI(const T* string, const int len,
-                                    FTPoint position, FTPoint spacing)
+inline float FTFontImpl::AdvanceI(const T* string, const int len,
+                                  FTPoint spacing)
 {
+    float advance = 0.0f;
     FTUnicodeStringItr<T> ustr(string);
 
     for(int i = 0; (len < 0 && *ustr) || (len >= 0 && i < len); i++)
@@ -434,32 +434,29 @@ inline FTPoint FTFontImpl::AdvanceI(const T* string, const int len,
 
         if(CheckGlyph(thisChar))
         {
-            position += glyphList->Advance(thisChar, nextChar);
+            advance += glyphList->Advance(thisChar, nextChar);
         }
 
         if(nextChar)
         {
-            position += spacing;
+            advance += spacing.Xf();
         }
     }
 
-    return position;
+    return advance;
 }
 
 
-FTPoint FTFontImpl::Advance(const char* string, const int len,
-                            FTPoint position, FTPoint spacing)
+float FTFontImpl::Advance(const char* string, const int len, FTPoint spacing)
 {
     /* The chars need to be unsigned because they are cast to int later */
-    return AdvanceI((const unsigned char *)string,
-                    len, position, spacing);
+    return AdvanceI((const unsigned char *)string, len, spacing);
 }
 
 
-FTPoint FTFontImpl::Advance(const wchar_t* string, const int len,
-                            FTPoint position, FTPoint spacing)
+float FTFontImpl::Advance(const wchar_t* string, const int len, FTPoint spacing)
 {
-    return AdvanceI(string, len, position, spacing);
+    return AdvanceI(string, len, spacing);
 }
 
 
@@ -468,7 +465,7 @@ inline FTPoint FTFontImpl::RenderI(const T* string, const int len,
                                    FTPoint position, FTPoint spacing,
                                    int renderMode)
 {
-     // for multibyte - we can't rely on sizeof(T) == character
+    // for multibyte - we can't rely on sizeof(T) == character
     FTUnicodeStringItr<T> ustr(string);
 
     for(int i = 0; (len < 0 && *ustr) || (len >= 0 && i < len); i++)

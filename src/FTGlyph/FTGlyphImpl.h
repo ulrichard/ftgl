@@ -37,7 +37,7 @@ class FTGlyphImpl
 
         virtual ~FTGlyphImpl();
 
-        const FTPoint& Advance() const;
+        float Advance() const;
 
         const FTBBox& BBox() const;
 

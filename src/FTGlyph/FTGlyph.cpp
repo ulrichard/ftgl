@@ -54,7 +54,7 @@ FTGlyph::~FTGlyph()
 }
 
 
-const FTPoint& FTGlyph::Advance() const
+float FTGlyph::Advance() const
 {
     return impl->Advance();
 }
@@ -82,7 +82,8 @@ FTGlyphImpl::FTGlyphImpl(FT_GlyphSlot glyph, bool useList) : err(0)
     if(glyph)
     {
         bBox = FTBBox(glyph);
-        advance = FTPoint(glyph->advance.x / 64.0f, glyph->advance.y / 64.0f, 0.0f);
+        advance = FTPoint(glyph->advance.x / 64.0f,
+                          glyph->advance.y / 64.0f);
     }
 }
 
@@ -91,9 +92,9 @@ FTGlyphImpl::~FTGlyphImpl()
 {}
 
 
-const FTPoint& FTGlyphImpl::Advance() const
+float FTGlyphImpl::Advance() const
 {
-    return advance;
+    return advance.Xf();
 }
 
 

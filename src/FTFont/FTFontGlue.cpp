@@ -200,15 +200,8 @@ void ftglGetFontBBox(FTGLfont *f, const char* s, int len, float c[6])
 }
 
 // float FTFont::Advance(const char* string);
-extern "C++" {
-C_FUN(static FTPoint, _ftglGetFontAdvance, (FTGLfont *f, char const *s),
-      return static_ftpoint, Advance, (s));
-}
-
-float ftglGetFontAdvance(FTGLfont *f, const char* s)
-{
-    return _ftglGetFontAdvance(f, s).Xf();
-}
+C_FUN(float, ftglGetFontAdvance, (FTGLfont *f, char const *s),
+      return 0.0, Advance, (s));
 
 // virtual void Render(const char* string, int renderMode);
 extern "C++" {

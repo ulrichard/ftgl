@@ -104,7 +104,7 @@ public:
         destroyCallback(baseGlyph, data);
     }
 
-    const FTPoint& Advance() const { return baseGlyph->ptr->Advance(); }
+    float Advance() const { return baseGlyph->ptr->Advance(); }
 
     const FTPoint& Render(const FTPoint& pen, int renderMode)
     {
@@ -175,19 +175,8 @@ void ftglRenderGlyph(FTGLglyph *g, FTGL_DOUBLE penx, FTGL_DOUBLE peny,
     *advancey = ret.Y();
 }
 
-// const FTPoint& FTGlyph::Advance() const;
-extern "C++" {
-C_FUN(static const FTPoint&, _ftglGetGlyphAdvance, (FTGLglyph *g),
-      return static_ftpoint, Advance, ());
-}
-
-void ftglGetGlyphAdvance(FTGLglyph *g, FTGL_DOUBLE *advancex,
-                         FTGL_DOUBLE *advancey)
-{
-    FTPoint ret = _ftglGetGlyphAdvance(g);
-    *advancex = ret.X();
-    *advancey = ret.Y();
-}
+// float FTGlyph::Advance() const;
+C_FUN(float, ftglGetGlyphAdvance, (FTGLglyph *g), return 0.0, Advance, ());
 
 // const FTBBox& FTGlyph::BBox() const;
 extern "C++" {

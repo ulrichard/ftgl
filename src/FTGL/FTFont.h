@@ -289,14 +289,12 @@ class FTGL_EXPORT FTFont
          * @param len  The length of the string. If < 0 then all characters
          *             will be checked until a null character is encountered
          *             (optional).
-         * @param position  The pen position of the first character (optional).
          * @param spacing  A displacement vector to add after each character
          *                 has been checked (optional).
-         * @return  The new pen position after the last character.
+         * @return  The string's advance width.
          */
-        virtual FTPoint Advance(const char* string, const int len = -1,
-                                FTPoint position = FTPoint(),
-                                FTPoint spacing = FTPoint());
+        virtual float Advance(const char* string, const int len = -1,
+                              FTPoint spacing = FTPoint());
 
         /**
          * Get the advance for a string.
@@ -305,14 +303,12 @@ class FTGL_EXPORT FTFont
          * @param len  The length of the string. If < 0 then all characters
          *             will be checked until a null character is encountered
          *             (optional).
-         * @param position  The pen position of the first character (optional).
          * @param spacing  A displacement vector to add after each character
          *                 has been checked (optional).
-         * @return  The new pen position after the last character.
+         * @return  The string's advance width.
          */
-        virtual FTPoint Advance(const wchar_t* string, const int len = -1,
-                                FTPoint position = FTPoint(),
-                                FTPoint spacing = FTPoint());
+        virtual float Advance(const wchar_t* string, const int len = -1,
+                              FTPoint spacing = FTPoint());
 
         /**
          * Render a string of characters.

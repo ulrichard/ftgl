@@ -79,11 +79,9 @@ class FTFontImpl
 
         virtual FTBBox BBox(const wchar_t *s, const int len, FTPoint, FTPoint);
 
-        virtual FTPoint Advance(const char *s, const int len,
-                                FTPoint, FTPoint);
+        virtual float Advance(const char *s, const int len, FTPoint);
 
-        virtual FTPoint Advance(const wchar_t *s, const int len,
-                                FTPoint, FTPoint);
+        virtual float Advance(const wchar_t *s, const int len, FTPoint);
 
         virtual FTPoint Render(const char *s, const int len,
                                FTPoint, FTPoint, int);
@@ -144,8 +142,7 @@ class FTFontImpl
 
         /* Internal generic Advance() implementation */
         template <typename T>
-        inline FTPoint AdvanceI(const T *s, const int len,
-                                FTPoint position, FTPoint spacing);
+        inline float AdvanceI(const T *s, const int len, FTPoint spacing);
 
         /* Internal generic Render() implementation */
         template <typename T>
