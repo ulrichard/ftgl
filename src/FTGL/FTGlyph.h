@@ -174,7 +174,7 @@ FTGL_EXPORT void ftglRenderGlyph(FTGLglyph *glyph, FTGL_DOUBLE penx,
  * Return the advance for a glyph.
  *
  * @param glyph  An FTGLglyph* object.
- * @param return  The advance's X component.
+ * @return  The advance's X component.
  */
 FTGL_EXPORT float ftglGetGlyphAdvance(FTGLglyph *glyph);
 

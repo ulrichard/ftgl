@@ -44,6 +44,7 @@ class FTGL_EXPORT FTBufferGlyph : public FTGlyph
          * Constructor
          *
          * @param glyph The Freetype glyph to be processed
+         * @param buffer  An FTBuffer object in which to render the glyph.
          */
         FTBufferGlyph(FT_GlyphSlot glyph, FTBuffer *buffer);
 
