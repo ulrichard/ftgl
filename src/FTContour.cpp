@@ -104,8 +104,8 @@ void FTContour::evaluateCubicCurve(FTPoint A, FTPoint B, FTPoint C, FTPoint D)
 //  X---->-----X     ==>    X--v-------X     '
 // A          B \          A          B \   .>'
 //               \                       \<'  64.0
-//                \                       \
-//                 \                       \
+//                \                       \                  .
+//                 \                       \                 .
 //                C X                     C X
 //
 FTPoint FTContour::ComputeOutsetPoint(FTPoint A, FTPoint B, FTPoint C)
