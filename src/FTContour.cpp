@@ -96,8 +96,18 @@ void FTContour::evaluateCubicCurve(FTPoint A, FTPoint B, FTPoint C, FTPoint D)
 
 // This function is a bit tricky. Given a path ABC, it returns the
 // coordinates of the outset point facing B on the left at a distance
-// of 64.0. Ask Sam for details, even ASCII art cannot possibly explain
-// this properly.
+// of 64.0.
+//                                         M
+//                            - - - - - - X
+//                             ^         / '
+//                             | 64.0   /   '
+//  X---->-----X     ==>    X--v-------X     '
+// A          B \          A          B \   .>'
+//               \                       \<'  64.0
+//                \                       \
+//                 \                       \
+//                C X                     C X
+//
 FTPoint FTContour::ComputeOutsetPoint(FTPoint A, FTPoint B, FTPoint C)
 {
     /* Build the rotation matrix from 'ba' vector */
