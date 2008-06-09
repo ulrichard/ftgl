@@ -120,7 +120,7 @@ class FTGlyphContainer
          */
         FTPoint Render(const unsigned int characterCode,
                        const unsigned int nextCharacterCode,
-                        FTPoint penPosition, int renderMode);
+                       FTPoint penPosition, int renderMode);
 
         /**
          * Queries the Font for errors.
