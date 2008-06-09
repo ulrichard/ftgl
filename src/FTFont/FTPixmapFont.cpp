@@ -62,6 +62,22 @@ FTGlyph* FTPixmapFont::MakeGlyph(FT_GlyphSlot ftGlyph)
 //
 
 
+FTPixmapFontImpl::FTPixmapFontImpl(FTFont *ftFont, const char* fontFilePath)
+: FTFontImpl(ftFont, fontFilePath)
+{
+    load_flags = FT_LOAD_NO_HINTING | FT_LOAD_NO_BITMAP;
+}
+
+
+FTPixmapFontImpl::FTPixmapFontImpl(FTFont *ftFont,
+                                   const unsigned char *pBufferBytes,
+                                   size_t bufferSizeInBytes)
+: FTFontImpl(ftFont, pBufferBytes, bufferSizeInBytes)
+{
+    load_flags = FT_LOAD_NO_HINTING | FT_LOAD_NO_BITMAP;
+}
+
+
 template <typename T>
 inline FTPoint FTPixmapFontImpl::RenderI(const T* string, const int len,
                                          FTPoint position, FTPoint spacing,

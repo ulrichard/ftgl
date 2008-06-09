@@ -69,6 +69,24 @@ FTGlyph* FTOutlineFont::MakeGlyph(FT_GlyphSlot ftGlyph)
 //
 
 
+FTOutlineFontImpl::FTOutlineFontImpl(FTFont *ftFont, const char* fontFilePath)
+: FTFontImpl(ftFont, fontFilePath),
+  outset(0.0f)
+{
+    load_flags = FT_LOAD_NO_HINTING;
+}
+
+
+FTOutlineFontImpl::FTOutlineFontImpl(FTFont *ftFont,
+                                     const unsigned char *pBufferBytes,
+                                     size_t bufferSizeInBytes)
+: FTFontImpl(ftFont, pBufferBytes, bufferSizeInBytes),
+  outset(0.0f)
+{
+    load_flags = FT_LOAD_NO_HINTING;
+}
+
+
 template <typename T>
 inline FTPoint FTOutlineFontImpl::RenderI(const T* string, const int len,
                                           FTPoint position, FTPoint spacing,

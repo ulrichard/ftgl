@@ -35,12 +35,10 @@ class FTPixmapFontImpl : public FTFontImpl
     friend class FTPixmapFont;
 
     protected:
-        FTPixmapFontImpl(FTFont *ftFont, const char* fontFilePath) :
-            FTFontImpl(ftFont, fontFilePath) {};
+        FTPixmapFontImpl(FTFont *ftFont, const char* fontFilePath);
 
         FTPixmapFontImpl(FTFont *ftFont, const unsigned char *pBufferBytes,
-                         size_t bufferSizeInBytes) :
-            FTFontImpl(ftFont, pBufferBytes, bufferSizeInBytes) {};
+                         size_t bufferSizeInBytes);
 
         virtual FTPoint Render(const char *s, const int len,
                                FTPoint position, FTPoint spacing,

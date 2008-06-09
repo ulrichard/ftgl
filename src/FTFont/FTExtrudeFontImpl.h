@@ -35,14 +35,10 @@ class FTExtrudeFontImpl : public FTFontImpl
     friend class FTExtrudeFont;
 
     protected:
-        FTExtrudeFontImpl(FTFont *ftFont, const char* fontFilePath) :
-            FTFontImpl(ftFont, fontFilePath),
-            depth(0.0f), front(0.0f), back(0.0f) {};
+        FTExtrudeFontImpl(FTFont *ftFont, const char* fontFilePath);
 
         FTExtrudeFontImpl(FTFont *ftFont, const unsigned char *pBufferBytes,
-                          size_t bufferSizeInBytes) :
-            FTFontImpl(ftFont, pBufferBytes, bufferSizeInBytes),
-            depth(0.0f), front(0.0f), back(0.0f) {};
+                          size_t bufferSizeInBytes);
 
         /**
          * Set the extrusion distance for the font.

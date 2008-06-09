@@ -74,6 +74,8 @@ FTBufferFontImpl::FTBufferFontImpl(FTFont *ftFont, const char* fontFilePath) :
     FTFontImpl(ftFont, fontFilePath),
     buffer(new FTBuffer())
 {
+    load_flags = FT_LOAD_NO_HINTING | FT_LOAD_NO_BITMAP;
+
     glGenTextures(BUFFER_CACHE_SIZE, idCache);
 
     for(int i = 0; i < BUFFER_CACHE_SIZE; i++)
@@ -96,6 +98,8 @@ FTBufferFontImpl::FTBufferFontImpl(FTFont *ftFont,
     FTFontImpl(ftFont, pBufferBytes, bufferSizeInBytes),
     buffer(new FTBuffer())
 {
+    load_flags = FT_LOAD_NO_HINTING | FT_LOAD_NO_BITMAP;
+
     glGenTextures(BUFFER_CACHE_SIZE, idCache);
 
     for(int i = 0; i < BUFFER_CACHE_SIZE; i++)

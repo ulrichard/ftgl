@@ -35,13 +35,10 @@ class FTOutlineFontImpl : public FTFontImpl
     friend class FTOutlineFont;
 
     protected:
-        FTOutlineFontImpl(FTFont *ftFont, const char* fontFilePath) :
-            FTFontImpl(ftFont, fontFilePath), outset(0.0f) {};
+        FTOutlineFontImpl(FTFont *ftFont, const char* fontFilePath);
 
         FTOutlineFontImpl(FTFont *ftFont, const unsigned char *pBufferBytes,
-                          size_t bufferSizeInBytes) :
-            FTFontImpl(ftFont, pBufferBytes, bufferSizeInBytes),
-            outset(0.0f) {};
+                          size_t bufferSizeInBytes);
 
         /**
          * Set the outset distance for the font. Only implemented by

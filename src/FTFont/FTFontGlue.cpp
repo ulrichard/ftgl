@@ -142,6 +142,10 @@ C_FUN(int, ftglAttachFile, (FTGLfont *f, const char* path),
 C_FUN(int, ftglAttachData, (FTGLfont *f, const unsigned char *p, size_t s),
       return 0, Attach, (p, s));
 
+// void FTFont::GlyphLoadFlags(FT_Int flags);
+C_FUN(void, ftglSetFontGlyphLoadFlags, (FTGLfont *f, FT_Int flags),
+      return, GlyphLoadFlags, (flags));
+
 // bool FTFont::CharMap(FT_Encoding encoding);
 C_FUN(int, ftglSetFontCharMap, (FTGLfont *f, FT_Encoding enc),
       return 0, CharMap, (enc));

@@ -50,6 +50,8 @@ class FTFontImpl
         virtual bool Attach(const unsigned char *pBufferBytes,
                             size_t bufferSizeInBytes);
 
+        virtual void GlyphLoadFlags(FT_Int flags);
+
         virtual bool CharMap(FT_Encoding encoding);
 
         virtual unsigned int CharMapCount() const;
@@ -105,6 +107,11 @@ class FTFontImpl
          * <code>false</code> turns OFF display lists.
          */
         bool useDisplayLists;
+
+        /**
+         * The default glyph loading flags.
+         */
+        FT_Int load_flags;
 
         /**
          * Current error code. Zero means no error.

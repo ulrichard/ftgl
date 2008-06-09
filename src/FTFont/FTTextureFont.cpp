@@ -98,6 +98,7 @@ FTTextureFontImpl::FTTextureFontImpl(FTFont *ftFont, const char* fontFilePath)
     xOffset(0),
     yOffset(0)
 {
+    load_flags = FT_LOAD_NO_HINTING | FT_LOAD_NO_BITMAP;
     remGlyphs = numGlyphs = face.GlyphCount();
 }
 
@@ -115,6 +116,7 @@ FTTextureFontImpl::FTTextureFontImpl(FTFont *ftFont,
     xOffset(0),
     yOffset(0)
 {
+    load_flags = FT_LOAD_NO_HINTING | FT_LOAD_NO_BITMAP;
     remGlyphs = numGlyphs = face.GlyphCount();
 }
 

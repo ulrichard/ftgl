@@ -112,6 +112,12 @@ void FTFont::Outset(float front, float back)
 }
 
 
+void FTFont::GlyphLoadFlags(FT_Int flags)
+{
+    return impl->GlyphLoadFlags(flags);
+}
+
+
 bool FTFont::CharMap(FT_Encoding encoding)
 {
     return impl->CharMap(encoding);
@@ -208,6 +214,7 @@ FT_Error FTFont::Error() const
 FTFontImpl::FTFontImpl(FTFont *ftFont, char const *fontFilePath) :
     face(fontFilePath),
     useDisplayLists(true),
+    load_flags(FT_LOAD_DEFAULT),
     intf(ftFont),
     glyphList(0)
 {
@@ -223,6 +230,7 @@ FTFontImpl::FTFontImpl(FTFont *ftFont, const unsigned char *pBufferBytes,
                        size_t bufferSizeInBytes) :
     face(pBufferBytes, bufferSizeInBytes),
     useDisplayLists(true),
+    load_flags(FT_LOAD_DEFAULT),
     intf(ftFont),
     glyphList(0)
 {
@@ -312,6 +320,12 @@ void FTFontImpl::Outset(float outset)
 void FTFontImpl::Outset(float front, float back)
 {
     ;
+}
+
+
+void FTFontImpl::GlyphLoadFlags(FT_Int flags)
+{
+    load_flags = flags;
 }
 
 
@@ -511,17 +525,8 @@ bool FTFontImpl::CheckGlyph(const unsigned int characterCode)
         return true;
     }
 
-    /*
-     * FIXME: load options are not the same for all subclasses:
-     *  FTBitmapGlyph: FT_LOAD_DEFAULT
-     *  FTExtrudeGlyph: FT_LOAD_NO_HINTING
-     *  FTOutlineGlyph: FT_LOAD_NO_HINTING
-     *  FTPixmapGlyph: FT_LOAD_NO_HINTING | FT_LOAD_NO_BITMAP
-     *  FTPolygonGlyph: FT_LOAD_NO_HINTING
-     *  FTTextureGlyph: FT_LOAD_NO_HINTING | FT_LOAD_NO_BITMAP
-     */
     unsigned int glyphIndex = glyphList->FontIndex(characterCode);
-    FT_GlyphSlot ftSlot = face.Glyph(glyphIndex, FT_LOAD_NO_HINTING);
+    FT_GlyphSlot ftSlot = face.Glyph(glyphIndex, load_flags);
     if(!ftSlot)
     {
         err = face.Error();

@@ -35,13 +35,10 @@ class FTPolygonFontImpl : public FTFontImpl
     friend class FTPolygonFont;
 
     protected:
-        FTPolygonFontImpl(FTFont *ftFont, const char* fontFilePath) :
-            FTFontImpl(ftFont, fontFilePath), outset(0.0f) {};
+        FTPolygonFontImpl(FTFont *ftFont, const char* fontFilePath);
 
         FTPolygonFontImpl(FTFont *ftFont, const unsigned char *pBufferBytes,
-                          size_t bufferSizeInBytes) :
-            FTFontImpl(ftFont, pBufferBytes, bufferSizeInBytes),
-            outset(0.0f) {};
+                          size_t bufferSizeInBytes);
 
         /**
          * Set the outset distance for the font. Only implemented by

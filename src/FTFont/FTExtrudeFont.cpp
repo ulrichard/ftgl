@@ -69,3 +69,20 @@ FTGlyph* FTExtrudeFont::MakeGlyph(FT_GlyphSlot ftGlyph)
 //
 
 
+FTExtrudeFontImpl::FTExtrudeFontImpl(FTFont *ftFont, const char* fontFilePath)
+: FTFontImpl(ftFont, fontFilePath),
+  depth(0.0f), front(0.0f), back(0.0f)
+{
+    load_flags = FT_LOAD_NO_HINTING;
+}
+
+
+FTExtrudeFontImpl::FTExtrudeFontImpl(FTFont *ftFont,
+                                     const unsigned char *pBufferBytes,
+                                     size_t bufferSizeInBytes)
+: FTFontImpl(ftFont, pBufferBytes, bufferSizeInBytes),
+  depth(0.0f), front(0.0f), back(0.0f)
+{
+    load_flags = FT_LOAD_NO_HINTING;
+}
+

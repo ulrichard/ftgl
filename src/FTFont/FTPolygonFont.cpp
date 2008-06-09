@@ -69,3 +69,20 @@ FTGlyph* FTPolygonFont::MakeGlyph(FT_GlyphSlot ftGlyph)
 //
 
 
+FTPolygonFontImpl::FTPolygonFontImpl(FTFont *ftFont, const char* fontFilePath)
+: FTFontImpl(ftFont, fontFilePath),
+  outset(0.0f)
+{
+    load_flags = FT_LOAD_NO_HINTING;
+}
+
+
+FTPolygonFontImpl::FTPolygonFontImpl(FTFont *ftFont,
+                                     const unsigned char *pBufferBytes,
+                                     size_t bufferSizeInBytes)
+: FTFontImpl(ftFont, pBufferBytes, bufferSizeInBytes),
+  outset(0.0f)
+{
+    load_flags = FT_LOAD_NO_HINTING;
+}
+

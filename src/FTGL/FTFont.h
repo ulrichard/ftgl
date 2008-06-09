@@ -119,6 +119,15 @@ class FTGL_EXPORT FTFont
                             size_t bufferSizeInBytes);
 
         /**
+         * Set the glyph loading flags. By default, fonts use the most
+         * sensible flags when loading a font's glyph using FT_Load_Glyph().
+         * This function allows to override the default flags.
+         *
+         * @param flags  The glyph loading flags.
+         */
+        virtual void GlyphLoadFlags(FT_Int flags);
+
+        /**
          * Set the character map for the face.
          *
          * @param encoding      Freetype enumerate for char map code.
