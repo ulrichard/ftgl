@@ -230,10 +230,7 @@ void FTContour::buildFrontOutset(float outset)
 {
     for(size_t i = 0; i < PointCount(); ++i)
     {
-        FTPoint point = FTPoint(Point(i).X() + Outset(i).X() * outset,
-                                Point(i).Y() + Outset(i).Y() * outset,
-                                0);
-        AddFrontPoint(point);
+        AddFrontPoint(Point(i) + Outset(i) * outset);
     }
 }
 
@@ -242,10 +239,7 @@ void FTContour::buildBackOutset(float outset)
 {
     for(size_t i = 0; i < PointCount(); ++i)
     {
-        FTPoint point = FTPoint(Point(i).X() + Outset(i).X() * outset,
-                                Point(i).Y() + Outset(i).Y() * outset,
-                                0);
-        AddBackPoint(point);
+        AddBackPoint(Point(i) + Outset(i) * outset);
     }
 }
 
