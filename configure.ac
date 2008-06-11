@@ -35,6 +35,7 @@ AC_CHECK_HEADER([stdlib.h])
 
 # Check for system functions
 AC_CHECK_FUNCS(wcsdup)
+AC_CHECK_FUNCS(strndup)
 
 # Checks for libraries.
 
