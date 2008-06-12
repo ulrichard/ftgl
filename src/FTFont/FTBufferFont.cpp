@@ -181,19 +181,24 @@ inline int StringCompare(void const *a, wchar_t const *b, int len)
                    : wcsncmp((wchar_t const *)a, b, len);
 }
 
-#ifndef HAVE_STRNDUP
-static char* strndup(const char* s, int len)
-{
-	char *s2 = (char*)malloc(len + 1);
-    memcpy(s2, s, len);
-    s2[len] = 0;
-    return s2;
-}
-#endif
 
 inline char *StringCopy(char const *s, int len)
 {
-    return len < 0 ? strdup(s) : strndup(s, len);
+    if(len < 0)
+    {
+        return strdup(s);
+    }
+    else
+    {
+#ifdef HAVE_STRNDUP
+        return strndup(s, len);
+#else
+        char *s2 = (char*)malloc(len + 1);
+        memcpy(s2, s, len);
+        s2[len] = 0;
+        return s2;
+#endif
+    }
 }
 
 
