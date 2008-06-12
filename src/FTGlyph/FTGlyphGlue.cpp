@@ -55,8 +55,7 @@ C_TOR(ftglCreateBitmapGlyph, (FT_GlyphSlot glyph),
       FTBitmapGlyph, (glyph), GLYPH_BITMAP);
 
 // FTBufferGlyph::FTBufferGlyph();
-C_TOR(ftglCreateBufferGlyph, (FT_GlyphSlot glyph),
-      FTBufferGlyph, (glyph, NULL), GLYPH_BUFFER);
+// FIXME: not implemented
 
 // FTExtrudeGlyph::FTExtrudeGlyph();
 C_TOR(ftglCreateExtrudeGlyph, (FT_GlyphSlot glyph, float depth,
