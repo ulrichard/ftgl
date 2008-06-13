@@ -44,12 +44,8 @@
 #include "tb.h"
 
 #if !defined FONT_FILE
-#   ifdef WIN32
-#       define FONT_FILE "C:\\WINNT\\Fonts\\arial.ttf"
-#   else
-        // Put your font file here if configure did not find it.
-#       define FONT_FILE 0
-#   endif
+    // Put your font file here if configure did not find it.
+#   define FONT_FILE 0
 #endif
 
 #define EDITING 1
