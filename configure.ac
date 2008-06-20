@@ -73,8 +73,9 @@ AC_PATH_PROG(KPSEWHICH, kpsewhich, no)
 AC_PATH_PROG(DVIPS, dvips, no)
 AC_PATH_PROG(CONVERT, convert, no)
 AC_PATH_PROG(EPSTOPDF, epstopdf, no)
+AC_PATH_TOOL(SED, sed, no)
 if test "${DVIPS}" = "no" -o "${KPSEWHICH}" = "no" -o "${EPSTOPDF}" = "no" \
-     -o "${CONVERT}" = "no"; then
+     -o "${CONVERT}" = "no" -o "${SED}" = "no"; then
   LATEX="no"
 fi
 if test "x${LATEX}" != "xno"; then
