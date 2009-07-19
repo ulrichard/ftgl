@@ -26,7 +26,7 @@
 #include "config.h"
 
 #include "FTLibrary.h"
-
+#include "FTCleanup.h"
 
 const FTLibrary&  FTLibrary::Instance()
 {
@@ -37,6 +37,8 @@ const FTLibrary&  FTLibrary::Instance()
 
 FTLibrary::~FTLibrary()
 {
+    FTCleanup::Instance()->DestroyAll();
+
     if(library != 0)
     {
         FT_Done_FreeType(*library);
@@ -69,6 +71,8 @@ bool FTLibrary::Initialise()
         library = 0;
         return false;
     }
+
+    FTCleanup::Instance();
 
     return true;
 }
