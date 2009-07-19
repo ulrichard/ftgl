@@ -36,22 +36,22 @@
 #define FTGL_ASSERTS_SHOULD_SOFT_FAIL
 
 #ifdef FTGL_ASSERTS_SHOULD_SOFT_FAIL
-#   define FTASSERT(x) \
-        if (!(x)) \
-        { \
-            fprintf(stderr, "ASSERTION FAILED (%s:%d)(soft): %s\n", \
-                    __FILE__, __LINE__, #x); \
-        }
+#   define FTASSERT_FAIL do {} while(0)
 #else
-#   define FTASSERT(x) \
-        if (!(x)) \
-        { \
+#   define FTASSERT_FAIL do { int *a = (int*)0x0; *a = 0xD15EA5ED; } while(0)
+#endif
+
+#define FTASSERT(x) \
+    if (!(x)) \
+    { \
+        static int count = 0; \
+        if (count++ < 8) \
             fprintf(stderr, "ASSERTION FAILED (%s:%d): %s\n", \
                     __FILE__, __LINE__, #x); \
-            int *a = (int*)0x0; \
-            *a = 0xD15EA5ED; \
-        }
-#endif
+        FTASSERT_FAIL; \
+        if (count == 8) \
+            fprintf(stderr, "\\__ last warning for this assertion\n"); \
+    }
 
 
 //
