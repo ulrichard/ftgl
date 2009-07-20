@@ -50,7 +50,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="$(FREETYPE)/include,../../src,../"
+				AdditionalIncludeDirectories="$(FREETYPE)/include;../../src;../"
 				PreprocessorDefinitions="NDEBUG;WIN32;_WINDOWS;_USRDLL;FTGL_LIBRARY"
 				StringPooling="true"
 				RuntimeLibrary="2"
@@ -75,11 +75,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="odbc32.lib odbccp32.lib opengl32.lib glu32.lib freetype235.lib"
+				AdditionalDependencies="odbc32.lib odbccp32.lib opengl32.lib glu32.lib freetype239.lib"
 				OutputFile="../Build/ftgl.dll"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="$(FREETYPE)/objs"
+				AdditionalLibraryDirectories="$(FREETYPE)/objs/win32/vc2008"
 				ProgramDatabaseFile="../Build/ftgl.pdb"
 				ImportLibrary="../Build/ftgl.lib"
 				TargetMachine="1"
@@ -103,9 +103,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -145,7 +142,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(FREETYPE)/include&quot;;../../src;../"
+				AdditionalIncludeDirectories="$(FREETYPE)/include;../../src;../"
 				PreprocessorDefinitions="_DEBUG;WIN32;_WINDOWS;_USRDLL;FTGL_LIBRARY"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -171,11 +168,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="odbc32.lib odbccp32.lib opengl32.lib glu32.lib freetype234_D.lib"
+				AdditionalDependencies="odbc32.lib odbccp32.lib opengl32.lib glu32.lib freetype239_D.lib"
 				OutputFile="../Build/ftgl_D.dll"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="$(FREETYPE)/objs"
+				AdditionalLibraryDirectories="$(FREETYPE)/objs/win32/vc2008"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="../Build/ftgl_D.pdb"
 				ImportLibrary="../Build/ftgl_D.lib"
@@ -200,9 +197,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
