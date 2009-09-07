@@ -4,6 +4,7 @@ EXTRA_DIST = \
     config.h \
     $(vc71_files) \
     $(vc8_files) \
+    $(vc9_files) \
     $(NULL)
 
 vc71_files = \
@@ -28,6 +29,7 @@ vc9_files = \
     vc9/ftgl.sln \
     vc9/ftgl_demo.sln \
     vc9/ftgl_dll.vcproj \
+    vc9/CDemo.vcproj \
     vc9/FTGLDemo.vcproj \
     vc9/SimpleDemo.vcproj \
     vc9/trackball.vcproj \
