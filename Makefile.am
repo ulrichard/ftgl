@@ -21,7 +21,12 @@ EXTRA_DIST = \
 	autogen.sh \
 	configure.ac \
 	ftgl.pc.in \
-	m4 \
+	m4/cxx.m4 \
+	m4/font.m4 \
+	m4/freetype2.m4 \
+	m4/gl.m4 \
+	m4/glut.m4 \
+	m4/pkg.m4 \
 	$(NULL)
 
 # Print out an informative summary.
