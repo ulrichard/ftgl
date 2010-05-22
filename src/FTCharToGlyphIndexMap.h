@@ -106,7 +106,8 @@ class FTCharToGlyphIndexMap
             // Find position of char code in buckets
             div_t pos = div(c, FTCharToGlyphIndexMap::BucketSize);
 
-            if(!this->Indices[pos.quot])
+            if (pos.quot >= FTCharToGlyphIndexMap::NumberOfBuckets
+                 || !this->Indices[pos.quot])
             {
                 return 0;
             }
