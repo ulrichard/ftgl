@@ -1,9 +1,12 @@
 
 if HAVE_CPPUNIT
 if HAVE_GLUT
-noinst_PROGRAMS = CTest CXXTest
+cppunit_tests = CTest CXXTest
 endif
 endif
+
+noinst_PROGRAMS = $(cppunit_tests)
+TESTS = $(cppunit_tests)
 
 CXXTest_SOURCES = \
     $(DEACTIVATED) \
