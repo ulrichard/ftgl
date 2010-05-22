@@ -74,17 +74,19 @@ FTGlyph* FTTextureFont::MakeGlyph(FT_GlyphSlot ftGlyph)
 //
 
 
-static inline GLuint NextPowerOf2(GLuint in)
+static inline GLuint ClampSize(GLuint in, GLuint maxTextureSize)
 {
-     in -= 1;
+    // Find next power of two
+    --in;
+    in |= in >> 16;
+    in |= in >> 8;
+    in |= in >> 4;
+    in |= in >> 2;
+    in |= in >> 1;
+    ++in;
 
-     in |= in >> 16;
-     in |= in >> 8;
-     in |= in >> 4;
-     in |= in >> 2;
-     in |= in >> 1;
-
-     return in + 1;
+    // Clamp to max texture size
+    return in < maxTextureSize ? in : maxTextureSize;
 }
 
 
@@ -174,16 +176,19 @@ void FTTextureFontImpl::CalculateTextureSize()
     {
         maximumGLTextureSize = 1024;
         glGetIntegerv(GL_MAX_TEXTURE_SIZE, (GLint*)&maximumGLTextureSize);
-        assert(maximumGLTextureSize); // If you hit this then you have an invalid OpenGL context.
+        assert(maximumGLTextureSize); // Indicates an invalid OpenGL context
     }
 
-    textureWidth = NextPowerOf2((remGlyphs * glyphWidth) + (padding * 2));
-    textureWidth = textureWidth > maximumGLTextureSize ? maximumGLTextureSize : textureWidth;
+    // Texture width required for remGlyphs glyphs
+    textureWidth = ClampSize(remGlyphs * glyphWidth + padding * 2,
+                             maximumGLTextureSize);
 
-    int h = static_cast<int>((textureWidth - (padding * 2)) / glyphWidth + 0.5);
+    // Number of glyphs we can store in one line
+    int n = (textureWidth - (padding * 2)) / glyphWidth;
 
-    textureHeight = NextPowerOf2(((numGlyphs / h) + 1) * glyphHeight);
-    textureHeight = textureHeight > maximumGLTextureSize ? maximumGLTextureSize : textureHeight;
+    // Texture height required for numGlyphs glyphs
+    textureHeight = ClampSize(glyphHeight * (numGlyphs / (n ? n : 1) + 1),
+                              maximumGLTextureSize);
 }
 
 
