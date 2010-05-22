@@ -160,8 +160,10 @@ C_FUN(void, ftglSetLayoutAlignment, (FTGLlayout *l, const int a),
       return, SetAlignment, ((FTGL::TextAlignment)a));
 
 // TextAlignment FTSimpleLayout::GetAlignment() const
-C_FUN(int, ftglGetLayoutAlignement, (FTGLlayout *l),
+C_FUN(int, ftglGetLayoutAlignment, (FTGLlayout *l),
       return FTGL::ALIGN_LEFT, GetAlignment, ());
+C_FUN(int, ftglGetLayoutAlignement, (FTGLlayout *l),
+      return FTGL::ALIGN_LEFT, GetAlignment, ()); // old typo
 
 // void FTSimpleLayout::SetLineSpacing(const float LineSpacing)
 C_FUN(void, ftglSetLayoutLineSpacing, (FTGLlayout *l, const float f),
