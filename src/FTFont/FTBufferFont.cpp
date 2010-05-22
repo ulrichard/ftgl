@@ -304,22 +304,22 @@ inline FTPoint FTBufferFontImpl::RenderI(const T* string, const int len,
         buffer->Size(0, 0);
     }
 
-    FTPoint low = position + bbox.Lower();
-    FTPoint up = position + bbox.Upper();
+    FTPoint low = position + bbox.Lower() - FTPoint(padding, padding);
+    FTPoint up = position + bbox.Upper() + FTPoint(padding, padding);
 
     glBegin(GL_QUADS);
         glNormal3f(0.0f, 0.0f, 1.0f);
-        glTexCoord2f(padding / texWidth,
-                     (texHeight - height + padding) / texHeight);
+        glTexCoord2f(0.0f,
+                     1.0f / texHeight * (texHeight - height));
         glVertex2f(low.Xf(), up.Yf());
-        glTexCoord2f(padding / texWidth,
-                     (texHeight - padding) / texHeight);
+        glTexCoord2f(0.0f,
+                     1.0f);
         glVertex2f(low.Xf(), low.Yf());
-        glTexCoord2f((width - padding) / texWidth,
-                     (texHeight - padding) / texHeight);
+        glTexCoord2f(1.0f / texWidth * width,
+                     1.0f);
         glVertex2f(up.Xf(), low.Yf());
-        glTexCoord2f((width - padding) / texWidth,
-                     (texHeight - height + padding) / texHeight);
+        glTexCoord2f(1.0f / texWidth * width,
+                     1.0f / texHeight * (texHeight - height));
         glVertex2f(up.Xf(), up.Yf());
     glEnd();
 
