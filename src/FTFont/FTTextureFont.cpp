@@ -179,15 +179,18 @@ void FTTextureFontImpl::CalculateTextureSize()
         assert(maximumGLTextureSize); // Indicates an invalid OpenGL context
     }
 
-    // Texture width required for remGlyphs glyphs
-    textureWidth = ClampSize(remGlyphs * glyphWidth + padding * 2,
+    // Texture width required for numGlyphs glyphs. Will probably not be
+    // large enough, but we try to fit as many glyphs in one line as possible
+    textureWidth = ClampSize(glyphWidth * numGlyphs + padding * 2,
                              maximumGLTextureSize);
 
-    // Number of glyphs we can store in one line
-    int n = (textureWidth - (padding * 2)) / glyphWidth;
+    // Number of lines required for that many glyphs in a line
+    int tmp = (textureWidth - (padding * 2)) / glyphWidth;
+    tmp = tmp > 0 ? tmp : 1;
+    tmp = (numGlyphs + (tmp - 1)) / tmp; // round division up
 
-    // Texture height required for numGlyphs glyphs
-    textureHeight = ClampSize(glyphHeight * (numGlyphs / (n ? n : 1) + 1),
+    // Texture height required for tmp lines of glyphs
+    textureHeight = ClampSize(glyphHeight * tmp + padding * 2,
                               maximumGLTextureSize);
 }
 
