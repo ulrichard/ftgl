@@ -90,7 +90,7 @@ void ftglGetLayoutBBox(FTGLlayout *l, const char * s, float c[6])
 
 // virtual void FTLayout::Render(const char* string, int renderMode);
 C_FUN(void, ftglRenderLayout, (FTGLlayout *l, const char *s, int r),
-      return, Render, (s, r));
+      return, Render, (s, -1, FTPoint(), r));
 
 // FT_Error FTLayout::Error() const;
 C_FUN(FT_Error, ftglGetLayoutError, (FTGLlayout *l), return -1, Error, ());
