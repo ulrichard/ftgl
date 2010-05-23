@@ -311,16 +311,16 @@ inline FTPoint FTBufferFontImpl::RenderI(const T* string, const int len,
         glNormal3f(0.0f, 0.0f, 1.0f);
         glTexCoord2f(0.0f,
                      1.0f / texHeight * (texHeight - height));
-        glVertex2f(low.Xf(), up.Yf());
+        glVertex3f(low.Xf(), up.Yf(), position.Zf());
         glTexCoord2f(0.0f,
                      1.0f);
-        glVertex2f(low.Xf(), low.Yf());
+        glVertex3f(low.Xf(), low.Yf(), position.Zf());
         glTexCoord2f(1.0f / texWidth * width,
                      1.0f);
-        glVertex2f(up.Xf(), low.Yf());
+        glVertex3f(up.Xf(), low.Yf(), position.Zf());
         glTexCoord2f(1.0f / texWidth * width,
                      1.0f / texHeight * (texHeight - height));
-        glVertex2f(up.Xf(), up.Yf());
+        glVertex3f(up.Xf(), up.Yf(), position.Zf());
     glEnd();
 
     glPopClientAttrib();
