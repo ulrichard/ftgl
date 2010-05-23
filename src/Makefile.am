@@ -12,6 +12,7 @@ libftgl_la_SOURCES = \
     FTContour.h \
     FTFace.cpp \
     FTFace.h \
+    FTGL.cpp \
     FTGlyphContainer.cpp \
     FTGlyphContainer.h \
     FTInternals.h \

@@ -163,6 +163,9 @@
 				RelativePath="..\..\src\FTFont\FTFontGlue.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\FTGL.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\FTGlyph\FTGlyph.cpp">
 			</File>
 			<File

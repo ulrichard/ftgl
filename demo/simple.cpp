@@ -237,6 +237,9 @@ int main(int argc, char **argv)
     font[2]->FaceSize(80);
     font[2]->CharMap(ft_encoding_unicode);
 
+    fprintf(stderr, "Using FTGL version %s\n",
+            FTGL::GetString(FTGL::CONFIG_VERSION));
+
     // Run GLUT loop
     glutMainLoop();
 
