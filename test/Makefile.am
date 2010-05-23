@@ -70,5 +70,7 @@ CTest_CFLAGS = $(FT2_CFLAGS) $(GL_CFLAGS)
 CTest_LDFLAGS = $(FT2_LIBS) $(GLUT_LIBS)
 CTest_LDADD = ../src/libftgl.la
 
+MAINTAINERCLEANFILES = Makefile.in
+
 NULL =
 

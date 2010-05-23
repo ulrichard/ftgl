@@ -8,6 +8,7 @@ pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = ftgl.pc
 
 DISTCLEANFILES = ftgl.pc
+MAINTAINERCLEANFILES = Makefile.in aclocal.m4 configure config.h.in config.h.in~
 
 EXTRA_DIST = \
 	AUTHORS \
@@ -38,6 +39,9 @@ all-local:
 	  $(ECHO) "Run 'make install' to begin installation into $(prefix)" ;\
 	fi
 	@$(ECHO)
+
+maintainer-clean-local:
+	-rm -rf .auto
 
 # Upload documentation
 DOC = docs/html docs/latex/ftgl.pdf

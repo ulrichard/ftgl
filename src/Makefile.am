@@ -119,4 +119,6 @@ ftlayout_sources = \
     FTLayout/FTSimpleLayoutImpl.h \
     $(NULL)
 
+MAINTAINERCLEANFILES = Makefile.in
+
 NULL =
