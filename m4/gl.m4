@@ -61,14 +61,22 @@ AC_SUBST(FRAMEWORK_OPENGL)
 LIBS="$PRELIBS"
 
 AC_MSG_CHECKING([for GL library])
+echo host=$host
+AS_CASE([$host],
+  [*-mingw32], [GL_GL_LIBS="-lopengl32"
+                GL_GLU_LIBS="-lglu32"],
+  [GL_GL_LIBS="-lGL"
+   GL_GLU_LIBS="-lGLU"]
+)
+
 if test "x$with_gl_lib" != "x" ; then
     if test -d "$with_gl_lib" ; then
-        LIBS="-L$with_gl_lib -lGL"
+        LIBS="-L$with_gl_lib $GL_GL_LIBS"
     else
         LIBS="$with_gl_lib"
     fi
 else
-    LIBS="-lGL"
+    LIBS="$GL_GL_LIBS"
 fi
 AC_LINK_IFELSE([AC_LANG_CALL([],[glBegin])],[HAVE_GL=yes],[
 dnl This is done here so that we can check for the Win32 version of the
@@ -78,7 +86,7 @@ dnl GL library, which may not use cdecl calling convention.
 
 if test "x$HAVE_GL" = xno ; then
     if test "x$GL_X_LIBS" != x ; then
-        LIBS="-lGL $GL_X_LIBS"
+        LIBS="$GL_GL_LIBS $GL_X_LIBS"
         AC_LINK_IFELSE([AC_LANG_CALL([],[glBegin])],[HAVE_GL=yes], [HAVE_GL=no])
     fi
 fi
@@ -118,12 +126,12 @@ if test "x$FRAMEWORK_OPENGL" = "x" ; then
 AC_MSG_CHECKING([for GLU library])
 if test "x$with_glu_lib" != "x" ; then
     if test -d "$with_glu_lib" ; then
-        LIBS="$GL_LIBS -L$with_glu_lib -lGLU"
+        LIBS="$GL_LIBS -L$with_glu_lib $GL_GLU_LIBS"
     else
         LIBS="$GL_LIBS $with_glu_lib"
     fi
 else
-    LIBS="$GL_LIBS -lGLU"
+    LIBS="$GL_LIBS $GL_GLU_LIBS"
 fi
 AC_LINK_IFELSE([AC_LANG_CALL([],[gluNewTess])],[HAVE_GLU=yes], [
 dnl This is done here so that we can check for the Win32 version of the
@@ -132,7 +140,7 @@ dnl GL library, which may not use cdecl calling convention.
 )
 if test "x$HAVE_GLU" = xno ; then
     if test "x$GL_X_LIBS" != x ; then
-        LIBS="-lGLU $GL_LIBS $GL_X_LIBS"
+        LIBS="$GL_GLU_LIBS $GL_LIBS $GL_X_LIBS"
         AC_LINK_IFELSE([AC_LANG_CALL([],[gluNewTess])],[HAVE_GLU=yes], [HAVE_GLU=no])
     fi
 fi
