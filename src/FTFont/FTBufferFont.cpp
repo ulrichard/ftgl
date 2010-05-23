@@ -231,12 +231,13 @@ inline FTPoint FTBufferFontImpl::RenderI(const T* string, const int len,
     bool inCache = false;
 
     // Protect blending functions and GL_TEXTURE_2D
-    glPushAttrib(GL_COLOR_BUFFER_BIT | GL_ENABLE_BIT);
+    glPushAttrib(GL_COLOR_BUFFER_BIT | GL_ENABLE_BIT | GL_TEXTURE_ENV_MODE);
 
     // Protect glPixelStorei() calls
     glPushClientAttrib(GL_CLIENT_PIXEL_STORE_BIT);
 
     glEnable(GL_TEXTURE_2D);
+    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
     // Search whether the string is already in a texture we uploaded
     for(int n = 0; n < BUFFER_CACHE_SIZE; n++)
