@@ -80,6 +80,8 @@ FT_Error FTGlyph::Error() const
 
 FTGlyphImpl::FTGlyphImpl(FT_GlyphSlot glyph, bool useList) : err(0)
 {
+    (void)useList;
+
     if(glyph)
     {
         bBox = FTBBox(glyph);
