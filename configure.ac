@@ -2,9 +2,10 @@ dnl Minimum version of autoconf required.  Should coincide with the
 dnl setting in the autogen.sh script.
 AC_PREREQ(2.58)
 
-AC_INIT(FTGL, 2.2.0, [sam@hocevar.net], ftgl)
+AC_INIT(FTGL, 2.2.0, [https://sourceforge.net/projects/ftgl/], ftgl)
 AC_CONFIG_SRCDIR(src/FTPoint.cpp)
 AC_CONFIG_AUX_DIR(.auto)
+AC_CONFIG_MACRO_DIR([m4])
 AM_INIT_AUTOMAKE([1.6 no-define dist-zip dist-bzip2])
 AM_CONFIG_HEADER(config.h)
 
@@ -68,8 +69,11 @@ dnl may conflict.
 CPPFLAGS="$CPPFLAGS -I\${top_srcdir}/src"
 
 # Warning flags
-CPPFLAGS="${CPPFLAGS} -Wall -Wpointer-arith -Wcast-align -Wcast-qual -Wshadow -Wsign-compare"
-CFLAGS="${CFLAGS} -Waggregate-return -Wstrict-prototypes -Wmissing-prototypes -Wnested-externs"
+BC_COMPILER_AND_LINKER_RECOGNIZES([-W -Wall -Wundef -Wfloat-equal  -Wpointer-arith -Wcast-align -Wcast-qual -Wshadow -Wsign-compare -Winline -Waggregate-return], [warning])
+BC_COMPILER_AND_LINKER_RECOGNIZES([-Wstrict-prototypes -Wmissing-prototypes -Wnested-externs], [warncflags], [no])
+if test "x$bc_warncflags_works" = "xyes" ; then
+    CFLAGS="$CFLAGS -Wstrict-prototypes -Wmissing-prototypes -Wnested-externs"
+fi
 
 # Build HTML documentatin?
 AC_PATH_PROG(DOXYGEN, doxygen, no)
