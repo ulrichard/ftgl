@@ -38,6 +38,8 @@ dnl AC_C_CONST
 dnl AC_C_INLINE
 AM_PROG_CC_C_O
 
+FTGL_CPP_FUNC
+
 # Checks for header files.
 AC_HEADER_STDC
 AC_CHECK_HEADER([stdlib.h])
