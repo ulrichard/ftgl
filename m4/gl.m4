@@ -62,12 +62,14 @@ LIBS="$PRELIBS"
 
 AC_MSG_CHECKING([for GL library])
 echo host=$host
-AS_CASE([$host],
-  [*-mingw32], [GL_GL_LIBS="-lopengl32"
-                GL_GLU_LIBS="-lglu32"],
-  [GL_GL_LIBS="-lGL"
-   GL_GLU_LIBS="-lGLU"]
-)
+case "x${host}" in
+  x*-mingw32) GL_GL_LIBS="-lopengl32"
+              GL_GLU_LIBS="-lglu32"
+              ;;
+  x*) GL_GL_LIBS="-lGL"
+      GL_GLU_LIBS="-lGLU"
+      ;;
+esac
 
 if test "x$with_gl_lib" != "x" ; then
     if test -d "$with_gl_lib" ; then
