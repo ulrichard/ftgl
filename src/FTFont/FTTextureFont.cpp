@@ -243,7 +243,7 @@ inline FTPoint FTTextureFontImpl::RenderI(const T* string, const int len,
     glPushAttrib(GL_ENABLE_BIT | GL_COLOR_BUFFER_BIT | GL_TEXTURE_ENV_MODE);
 
     glEnable(GL_TEXTURE_2D);
-    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+    glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
     FTTextureGlyphImpl::ResetActiveTexture();
 
