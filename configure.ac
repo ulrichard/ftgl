@@ -77,20 +77,29 @@ if test "x$bc_warncflags_works" = "xyes" ; then
     CFLAGS="$CFLAGS -Wstrict-prototypes -Wmissing-prototypes -Wnested-externs"
 fi
 
+AC_ARG_ENABLE(doc,
+  [  --enable-doc            build documentation (needs doxygen and LaTeX)])
+
 # Build HTML documentatin?
-AC_PATH_PROG(DOXYGEN, doxygen, no)
+DOXYGEN=no
+if test "${enable_doc}" != "no"; then
+  AC_PATH_PROG(DOXYGEN, doxygen, no)
+fi
 AM_CONDITIONAL(HAVE_DOXYGEN, test "x$DOXYGEN" != "xno")
 
 # Build PDF documentation?
-AC_PATH_PROG(LATEX, pdflatex, no)
-AC_PATH_PROG(KPSEWHICH, kpsewhich, no)
-AC_PATH_PROG(DVIPS, dvips, no)
-AC_PATH_PROG(CONVERT, convert, no)
-AC_PATH_PROG(EPSTOPDF, epstopdf, no)
-AC_PATH_PROGS(SED, gsed sed, no)
-if test "${DVIPS}" = "no" -o "${KPSEWHICH}" = "no" -o "${EPSTOPDF}" = "no" \
-     -o "${CONVERT}" = "no" -o "${SED}" = "no"; then
-  LATEX="no"
+LATEX=no
+if test "${enable_doc}" != "no"; then
+  AC_PATH_PROG(LATEX, pdflatex, no)
+  AC_PATH_PROG(KPSEWHICH, kpsewhich, no)
+  AC_PATH_PROG(DVIPS, dvips, no)
+  AC_PATH_PROG(CONVERT, convert, no)
+  AC_PATH_PROG(EPSTOPDF, epstopdf, no)
+  AC_PATH_PROGS(SED, gsed sed, no)
+  if test "${DVIPS}" = "no" -o "${KPSEWHICH}" = "no" -o "${EPSTOPDF}" = "no" \
+       -o "${CONVERT}" = "no" -o "${SED}" = "no"; then
+    LATEX="no"
+  fi
 fi
 if test "x${LATEX}" != "xno"; then
   AC_MSG_CHECKING(for a4.sty and a4wide.sty)
