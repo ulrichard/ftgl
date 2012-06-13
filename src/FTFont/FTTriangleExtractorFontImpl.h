@@ -1,8 +1,7 @@
 /*
  * FTGL - OpenGL font library
  *
- * Copyright (c) 2001-2004 Henry Maddocks <ftgl@opengl.geek.nz>
- * Copyright (c) 2008-2010 Sam Hocevar <sam@hocevar.net>
+ * Copyright (c) 2011 Richard Ulrich <richi@paraeasy.ch>
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -24,8 +23,8 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef __FTPolygonFontImpl__
-#define __FTPolygonFontImpl__
+#ifndef __FTTriangleExtractorFontImpl__
+#define __FTTriangleExtractorFontImpl__
 
 #include "FTFontImpl.h"
 // std lib
@@ -33,15 +32,15 @@
 
 class FTGlyph;
 
-class FTPolygonFontImpl : public FTFontImpl
+class FTTriangleExtractorFontImpl : public FTFontImpl
 {
-    friend class FTPolygonFont;
+    friend class FTTriangleExtractorFont;
 
     protected:
-        FTPolygonFontImpl(FTFont *ftFont, const char* fontFilePath);
+        FTTriangleExtractorFontImpl(FTFont *ftFont, const char* fontFilePath, std::vector<float>& triangles);
 
-        FTPolygonFontImpl(FTFont *ftFont, const unsigned char *pBufferBytes,
-                          size_t bufferSizeInBytes);
+        FTTriangleExtractorFontImpl(FTFont *ftFont, const unsigned char *pBufferBytes,
+                          size_t bufferSizeInBytes, std::vector<float>& triangles);
 
         /**
          * Set the outset distance for the font. Only implemented by
@@ -65,6 +64,8 @@ class FTPolygonFontImpl : public FTFontImpl
          * The outset distance for the font.
          */
         float outset;
+
+        std::vector<float>& triangles_;
 
         /* Internal generic Render() implementation */
         template <typename T>

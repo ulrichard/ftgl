@@ -82,6 +82,7 @@ class FTGL_EXPORT FTFont
         friend class FTPixmapFont;
         friend class FTPolygonFont;
         friend class FTTextureFont;
+        friend class FTTriangleExtractorFont;
 
         /**
          * Internal FTGL FTFont constructor. For private use only.

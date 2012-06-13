@@ -146,6 +146,7 @@ namespace FTGL
 #include <FTGL/FTPixmapGlyph.h>
 #include <FTGL/FTPolyGlyph.h>
 #include <FTGL/FTTextureGlyph.h>
+#include <FTGL/FTTriangleExtractorGlyph.h>
 
 #include <FTGL/FTFont.h>
 #include <FTGL/FTGLBitmapFont.h>
@@ -155,6 +156,7 @@ namespace FTGL
 #include <FTGL/FTGLPixmapFont.h>
 #include <FTGL/FTGLPolygonFont.h>
 #include <FTGL/FTGLTextureFont.h>
+#include <FTGL/FTGLTriangleExtractorFont.h>
 
 #include <FTGL/FTLayout.h>
 #include <FTGL/FTSimpleLayout.h>

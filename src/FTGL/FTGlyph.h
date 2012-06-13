@@ -74,6 +74,7 @@ class FTGL_EXPORT FTGlyph
         friend class FTPixmapGlyph;
         friend class FTPolygonGlyph;
         friend class FTTextureGlyph;
+        friend class FTTriangleExtractorGlyph;
 
     public:
         /**
