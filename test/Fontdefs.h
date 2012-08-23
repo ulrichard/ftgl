@@ -28,11 +28,15 @@
 
 
 const char* const BAD_FONT_FILE   = "missing_font.ttf";
-const char* const GOOD_FONT_FILE  = "../../test/font_pack/MHei-Medium-Acro";
-const char* const ARIAL_FONT_FILE = "../../test/font_pack/arial.ttf";
-const char* const FONT_FILE       = "../../test/font_pack/times.ttf";
+//const char* const GOOD_FONT_FILE  = "../../test/font_pack/MHei-Medium-Acro";
+//const char* const ARIAL_FONT_FILE = "../../test/font_pack/arial.ttf";
+//const char* const FONT_FILE       = "../../test/font_pack/times.ttf";
 const char* const TYPE1_FONT_FILE = "../../test/font_pack/HPGCalc.pfb";
 const char* const TYPE1_AFM_FILE  = "../../test/font_pack/HPGCalc.afm";
+
+const char* const GOOD_FONT_FILE  = "/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-R.ttf";
+const char* const ARIAL_FONT_FILE = "/usr/share/fonts/truetype/msttcorefonts/arial.ttf";
+const char* const FONT_FILE       = "/usr/share/fonts/truetype/msttcorefonts/times.ttf";
 
 const char*    const GOOD_ASCII_TEST_STRING        = "test string";
 const char*    const BAD_ASCII_TEST_STRING         = "";

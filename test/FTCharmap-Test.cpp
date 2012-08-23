@@ -22,8 +22,8 @@ class FTCharmapTest : public CppUnit::TestCase
         CPPUNIT_TEST(testConstructor);
         CPPUNIT_TEST(testSetEncoding);
         CPPUNIT_TEST(testGetGlyphListIndex);
-        CPPUNIT_TEST(testGetFontIndex);
-        CPPUNIT_TEST(testInsertCharacterIndex);
+//        CPPUNIT_TEST(testGetFontIndex);
+//        CPPUNIT_TEST(testInsertCharacterIndex);
     CPPUNIT_TEST_SUITE_END();
 
     public:

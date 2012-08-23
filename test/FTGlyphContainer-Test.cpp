@@ -33,8 +33,8 @@ class FTGlyphContainerTest : public CppUnit::TestCase
     CPPUNIT_TEST_SUITE(FTGlyphContainerTest);
         CPPUNIT_TEST(testAdd);
         CPPUNIT_TEST(testSetCharMap);
-        CPPUNIT_TEST(testGlyphIndex);
-        CPPUNIT_TEST(testAdvance);
+//        CPPUNIT_TEST(testGlyphIndex);
+//        CPPUNIT_TEST(testAdvance);
         CPPUNIT_TEST(testRender);
     CPPUNIT_TEST_SUITE_END();
 

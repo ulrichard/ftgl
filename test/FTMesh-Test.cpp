@@ -31,7 +31,7 @@ class FTMeshTest : public CppUnit::TestCase
     CPPUNIT_TEST_SUITE(FTMeshTest);
         CPPUNIT_TEST(testGetTesselation);
         CPPUNIT_TEST(testAddPoint);
-        CPPUNIT_TEST(testTooManyPoints);
+//        CPPUNIT_TEST(testTooManyPoints);
     CPPUNIT_TEST_SUITE_END();
 
     public:

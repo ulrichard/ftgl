@@ -15,7 +15,7 @@ class FTPolygonFontTest : public CppUnit::TestCase
 {
     CPPUNIT_TEST_SUITE(FTPolygonFontTest);
         CPPUNIT_TEST(testConstructor);
-        CPPUNIT_TEST(testRender);
+//        CPPUNIT_TEST(testRender);
         CPPUNIT_TEST(testBadDisplayList);
         CPPUNIT_TEST(testGoodDisplayList);
     CPPUNIT_TEST_SUITE_END();

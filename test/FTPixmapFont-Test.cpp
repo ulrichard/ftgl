@@ -15,7 +15,7 @@ class FTPixmapFontTest : public CppUnit::TestCase
 {
     CPPUNIT_TEST_SUITE(FTPixmapFontTest);
         CPPUNIT_TEST(testConstructor);
-        CPPUNIT_TEST(testRender);
+//        CPPUNIT_TEST(testRender);
         CPPUNIT_TEST(testDisplayList);
     CPPUNIT_TEST_SUITE_END();
 
