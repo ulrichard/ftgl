@@ -1,11 +1,12 @@
 #!/bin/sh
 # build a debian sourcepackage and upload it to the launchpad ppa
-for DISTRIBUTION in precise quantal # oneiric natty maverick 
+
+:${VERSIONNBR:=$(parsechangelog | grep Version | sed -e "s/Version: //g" -e "s/\\~.*//g")}
+
+for DISTRIBUTION in precise quantal
 do
-	FTGLVERSIONSTR=2.1.3~rc5-9polyextr~${DISTRIBUTION}
-	sed -i  -e "s/maverick/${DISTRIBUTION}/g" -e "s/natty/${DISTRIBUTION}/g" -e "s/oneiric/${DISTRIBUTION}/g" -e "s/precise/${DISTRIBUTION}/g" debian/changelog
-#	rm -rf debian/source
+	sed -i -e "s/oneiric/${DISTRIBUTION}/g" -e "s/precise/${DISTRIBUTION}/g" -e "s/quantal/${DISTRIBUTION}/g" debian/changelog
 	dpkg-buildpackage -rfakeroot -k${GPGKEY} -S
-	dput ppa:richi-paraeasy/ppa ../ftgl_${FTGLVERSIONSTR}_source.changes
+	dput ppa:richi-paraeasy/ppa ../ftgl_${VERSIONNBR}~${DISTRIBUTION}_source.changes
 done
 

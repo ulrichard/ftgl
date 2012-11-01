@@ -1,3 +1,9 @@
+ftgl (2.1.3~rc5-10polyextr~quantal) quantal; urgency=low
+
+  * Added the cmake finder to the debian/install file
+
+ -- Richard Ulrich <richi@paraeasy.ch>  Thu, 01 Nov 2012 23:40:43 +0100
+
 ftgl (2.1.3~rc5-9polyextr~precise) precise; urgency=low
 
   * another try to get launchpad to build the package 
