@@ -52,6 +52,9 @@ AC_CHECK_FUNCS(strndup)
 
 AC_PATH_X
 
+AC_CHECK_LIBM
+AC_SUBST(LIBM)
+
 AC_CHECK_FT2([9.0.3],[],
              [AC_MSG_ERROR([FreeType2 is required to compile this library])])
 
