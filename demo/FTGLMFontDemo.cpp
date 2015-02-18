@@ -49,7 +49,7 @@
     char const *defaultFonts[] = { "/System/Library/Fonts/Helvetica.dfont",
                                    "/System/Library/Fonts/Geneva.dfont" };
     const int NumDefaultFonts = 2;
-#elif defined WIN32
+#elif defined _WIN32
     char const *defaultFonts[] = { "C:\\WINNT\\Fonts\\arial.ttf" };
     const int NumDefaultFonts = 1;
 #else

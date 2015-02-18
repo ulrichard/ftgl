@@ -48,7 +48,7 @@
 #endif
 
 
-#ifdef WIN32
+#ifdef _WIN32
 
     // Under windows avoid including <windows.h> is overrated.
     // Sure, it can be avoided and "name space pollution" can be
