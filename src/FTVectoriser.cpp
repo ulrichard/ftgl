@@ -36,7 +36,7 @@
 
 #if defined __APPLE_CC__ && __APPLE_CC__ < 5465
     typedef GLvoid (*GLUTesselatorFunction) (...);
-#elif defined WIN32 && !defined __CYGWIN__
+#elif defined _WIN32 && !defined __CYGWIN__
     typedef GLvoid (CALLBACK *GLUTesselatorFunction) ();
 #else
     typedef GLvoid (*GLUTesselatorFunction) ();

@@ -1,7 +1,7 @@
 #pragma once
 
 
-#if defined ( WIN32 )
+#if defined ( _WIN32 )
   #define __FUNC__ __FUNCTION__
 #else
   #define __FUNC__ __func__

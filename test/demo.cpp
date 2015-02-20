@@ -25,7 +25,7 @@ static int height;
 #ifdef __APPLE_CC__
 #   define DEFAULT_FONT "/usr/X11R6/lib/X11/fonts/TTF/Vera.ttf"
 #endif
-#ifdef WIN32
+#ifdef _WIN32
 #   define DEFAULT_FONT "C:\\WINNT\\Fonts\\arial.ttf"
 #endif
 
