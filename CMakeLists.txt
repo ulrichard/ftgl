@@ -66,10 +66,10 @@ configure_file(
 if (WIN32)
   set(cmakedir cmake)
 else ()
-  set(cmakedir lib/cmake)
+  set(cmakedir lib/cmake/FTGL)
 endif ()
 
-install(EXPORT FTGL-targets DESTINATION ${cmakedir}/FTGL)
+install(EXPORT FTGL-targets DESTINATION "${cmakedir}")
 install(
   FILES       "${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/FTGLConfig.cmake"
-  DESTINATION "${cmakedir}/FTGL")
+  DESTINATION "${cmakedir}")
