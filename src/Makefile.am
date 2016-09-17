@@ -69,6 +69,8 @@ ftgl_headers = \
     FTGL/FTGLTextureFont.h \
     FTGL/FTLayout.h \
     FTGL/FTSimpleLayout.h \
+    FTGL/FTTriangleExtractorGlyph.h \
+    FTGL/FTGLTriangleExtractorFont.h \
     ${NULL}
 
 ftglyph_sources = \
@@ -89,6 +91,8 @@ ftglyph_sources = \
     FTGlyph/FTPolygonGlyphImpl.h \
     FTGlyph/FTTextureGlyph.cpp \
     FTGlyph/FTTextureGlyphImpl.h \
+    FTGlyph/FTTriangleExtractorGlyph.cpp \
+    FTGlyph/FTTriangleExtractorGlyphImpl.h \
     $(NULL)
 
 ftfont_sources = \
@@ -109,6 +113,8 @@ ftfont_sources = \
     FTFont/FTPolygonFontImpl.h \
     FTFont/FTTextureFont.cpp \
     FTFont/FTTextureFontImpl.h \
+    FTFont/FTTriangleExtractorFont.cpp \
+    FTFont/FTTriangleExtractorFontImpl.h \
     $(NULL)
 
 ftlayout_sources = \
