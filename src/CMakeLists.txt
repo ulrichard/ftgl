@@ -135,6 +135,7 @@ SET_TARGET_PROPERTIES(
 )
 
 INSTALL(TARGETS   ftgl                         	  
+    EXPORT  FTGL-targets
 	RUNTIME DESTINATION bin
     LIBRARY DESTINATION lib
     ARCHIVE DESTINATION lib
