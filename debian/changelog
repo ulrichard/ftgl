@@ -1,4 +1,4 @@
-ftgl (2.1.3~rc5-1polyextr~xenial) xenial; urgency=medium
+ftgl (2.1.3~rc5-2polyextr~xenial) xenial; urgency=medium
 
   * Improved discovery for cmake
 
