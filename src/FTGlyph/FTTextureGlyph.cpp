@@ -133,9 +133,32 @@ FTTextureGlyphImpl::FTTextureGlyphImpl(FT_GlyphSlot glyph, int id, int xOffset,
         }
         if (destHeight >= 0)
         {
+            // convert bitmap fonts
+            std::vector <unsigned char> data_converted;
+            if(bitmap.num_grays == 1)
+            {
+                bBox = FTBBox(0, 0, 0, destWidth, destHeight, 0);
+                data_converted.resize(destWidth * destHeight, 0);
+                int n = 0;
+                for(int y = 0; y < destHeight; ++y)
+                {
+                    unsigned char* src = bitmap.pitch < 0
+                      ? bitmap.buffer + (y - destHeight + 1) * bitmap.pitch
+                      : bitmap.buffer + y * bitmap.pitch;
+                    unsigned char c;
+                    for(int x = 0; x < destWidth; ++x)
+                    {
+                        if (x % 8 == 0)
+                          c = *src++;
+                        data_converted[n++] = ((c >> (7 - (x % 8))) & 1) * 255;
+                    }
+                }
+            }
+
             glTexSubImage2D(GL_TEXTURE_2D, 0, xOffset, yOffset,
                             destWidth, destHeight, GL_ALPHA, GL_UNSIGNED_BYTE,
-                            bitmap.buffer);
+                            !data_converted.empty() ? data_converted.data()
+                                                    : bitmap.buffer);
         }
 
         glPopClientAttrib();
