@@ -41,6 +41,8 @@
  */
 class  FTGL_EXPORT FTPixmapGlyph : public FTGlyph
 {
+        static FTGlyphImpl *NewImpl(FT_GlyphSlot glyph);
+
     public:
         /**
          * Constructor

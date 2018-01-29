@@ -32,6 +32,7 @@
 
 #include "FTInternals.h"
 #include "FTPixmapGlyphImpl.h"
+#include "FTBitmapGlyphImpl.h"
 
 
 //
@@ -40,7 +41,7 @@
 
 
 FTPixmapGlyph::FTPixmapGlyph(FT_GlyphSlot glyph) :
-    FTGlyph(new FTPixmapGlyphImpl(glyph))
+    FTGlyph(NewImpl(glyph))
 {}
 
 
@@ -48,10 +49,22 @@ FTPixmapGlyph::~FTPixmapGlyph()
 {}
 
 
+FTGlyphImpl *FTPixmapGlyph::NewImpl(FT_GlyphSlot glyph)
+{
+  FTPixmapGlyphImpl *Impl = new FTPixmapGlyphImpl(glyph);
+  if (Impl->destWidth && Impl->destHeight)
+    return Impl;
+  return new FTBitmapGlyphImpl(glyph);
+}
+
+
 const FTPoint& FTPixmapGlyph::Render(const FTPoint& pen, int renderMode)
 {
     FTPixmapGlyphImpl *myimpl = dynamic_cast<FTPixmapGlyphImpl *>(impl);
-    return myimpl->RenderImpl(pen, renderMode);
+    if (myimpl)
+      return myimpl->RenderImpl(pen, renderMode);
+    FTBitmapGlyphImpl *myimpl_bitmap = dynamic_cast<FTBitmapGlyphImpl *>(impl);
+    return myimpl_bitmap->RenderImpl(pen, renderMode);
 }
 
 
@@ -67,7 +80,7 @@ FTPixmapGlyphImpl::FTPixmapGlyphImpl(FT_GlyphSlot glyph)
     data(0)
 {
     err = FT_Render_Glyph(glyph, FT_RENDER_MODE_NORMAL);
-    if(err || ft_glyph_format_bitmap != glyph->format)
+    if(err || ft_glyph_format_bitmap != glyph->format || glyph->bitmap.num_grays == 1)
     {
         return;
     }
