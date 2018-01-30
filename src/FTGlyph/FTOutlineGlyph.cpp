@@ -64,6 +64,7 @@ const FTPoint& FTOutlineGlyph::Render(const FTPoint& pen, int renderMode)
 FTOutlineGlyphImpl::FTOutlineGlyphImpl(FT_GlyphSlot glyph, float _outset,
                                        bool useDisplayList)
 :   FTGlyphImpl(glyph),
+    vectoriser(0),
     glList(0)
 {
     if(ft_glyph_format_outline != glyph->format)

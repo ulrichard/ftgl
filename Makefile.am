@@ -1,7 +1,7 @@
 
 ACLOCAL_AMFLAGS = -I m4
 
-SUBDIRS = src test demo docs
+SUBDIRS = src demo # test (does not build) # docs (overflows pdflatex)
 DIST_SUBDIRS = $(SUBDIRS) msvc
 
 pkgconfigdir = $(libdir)/pkgconfig

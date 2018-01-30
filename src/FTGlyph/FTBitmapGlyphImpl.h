@@ -32,6 +32,7 @@
 class FTBitmapGlyphImpl : public FTGlyphImpl
 {
     friend class FTBitmapGlyph;
+    friend class FTPixmapGlyph;
 
     protected:
         FTBitmapGlyphImpl(FT_GlyphSlot glyph);

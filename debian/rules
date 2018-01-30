@@ -5,6 +5,8 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
+DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
+
 CFLAGS = -Wall -g
 
 DTMPDIR = $(CURDIR)/debian/tmp
@@ -22,33 +24,34 @@ configure: configure-stamp
 configure-stamp:
 	dh_testdir
 	QUILT_PATCHES=debian/patches quilt push -a || test $$? = 2
-#	./configure --prefix=/usr --mandir=\$${prefix}/share/man --infodir=\$${prefix}/share/info
+	dh_autoreconf
+	./configure --prefix=/usr --mandir=\$${prefix}/share/man \
+		--infodir=\$${prefix}/share/info \
+		--libdir=\$${prefix}/lib/$(DEB_HOST_MULTIARCH)
 	touch $@
 
+build-arch: build
+build-indep: build
 build: build-stamp
 build-stamp: configure-stamp
 	dh_testdir
-#	$(MAKE) CFLAGS="$(CFLAGS)"
-	mkdir -p $(CURDIR)/build-debian
-	(cd $(CURDIR)/build-debian; cmake -DCMAKE_VERBOSE_MAKEFILE:BOOL=1 -DCMAKE_INSTALL_PREFIX:PATH=/usr -DCMAKE_BUILD_TYPE:STRING=Release ..)
-
-	(cd $(CURDIR)/build-debian; $(MAKE) )
+	$(MAKE) CFLAGS="$(CFLAGS)" GLUT_LIBS="$(GLUT_LIBS) -lglut -lGLU -lGL -lm"
 	touch $@
 
 clean:
 	dh_testdir
 	dh_testroot
 	rm -f build-stamp configure-stamp
-	rm -rf $(CURDIR)/build-debian
 	[ ! -f Makefile ] || $(MAKE) distclean
 	QUILT_PATCHES=debian/patches quilt pop -a -R || test $$? = 2
+	dh_autoreconf_clean
 	dh_clean
 
 install: build
 	dh_testdir
 	dh_testroot
 	dh_clean -k
-	(cd $(CURDIR)/build-debian; $(MAKE) install DESTDIR=$(DTMPDIR) )
+	$(MAKE) install DESTDIR=$(DTMPDIR)
 #	mv debian/tmp/usr/share/doc/ftgl debian/tmp/usr/share/doc/libftgl-dev
 	dh_install --list-missing --sourcedir=debian/tmp
 
@@ -88,4 +91,4 @@ binary-arch: build install
 	dh_builddeb -a
 
 binary: binary-indep binary-arch
-.PHONY: build clean binary-indep binary-arch binary install configure
+.PHONY: build build-arch build-indep clean binary-indep binary-arch binary install configure
