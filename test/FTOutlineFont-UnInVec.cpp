@@ -33,7 +33,7 @@ int main (int argc, char **argv)
   glutInitWindowSize (400, 400);
   glutCreateWindow ("FTGL Test");
   glutDisplayFunc (display);
-  const char *file = "/usr/share/fonts/X11/100dpi/timR12-ISO8859-1.pcf.gz";
+  const char *file = "font_pack/timR12-ISO8859-1.pcf.gz";
   font = new FTOutlineFont (file);
   if (font->Error () || !font->FaceSize (17))
     {
