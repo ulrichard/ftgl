@@ -34,7 +34,7 @@ int main (int argc, char **argv)
   glutInitWindowSize (400, 400);
   glutCreateWindow ("FTGL Test");
   glutDisplayFunc (display);
-  const char *file = "/usr/share/fonts/truetype/dustin/El_Abogado_Loco.ttf";
+  const char *file = "font_pack/El_Abogado_Loco.ttf";
   font = new FTExtrudeFont (file);
   if (font->Error () || !font->FaceSize (100))
     {
