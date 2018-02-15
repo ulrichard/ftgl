@@ -54,6 +54,7 @@ FTGlyphImpl *FTPixmapGlyph::NewImpl(FT_GlyphSlot glyph)
   FTPixmapGlyphImpl *Impl = new FTPixmapGlyphImpl(glyph);
   if (Impl->destWidth && Impl->destHeight)
     return Impl;
+  delete Impl;
   return new FTBitmapGlyphImpl(glyph);
 }
 
