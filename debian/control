@@ -9,8 +9,8 @@ Package: libftgl-dev
 Section: libdevel
 Architecture: any
 Depends: libftgl2 (= ${binary:Version}), libfreetype6-dev (>> 2.0.9), libgl1-mesa-dev | libgl-dev, libglu1-mesa-dev | libglu-dev, ${shlibs:Depends}, ${misc:Depends}
-Conflicts: ftgl-dev (<< 2.1.3~rc1)
-Replaces: ftgl-dev (<< 2.1.3~rc1)
+Conflicts: ftgl-dev (<< 2.3.0)
+Replaces: ftgl-dev (<< 2.3.0)
 Description: development files for libftgl
  FTGL binds OpenGL and FreeType together in order to offer and easy to use
  and flexible text rendering library.  It offers several rendering modes:
