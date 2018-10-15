@@ -83,7 +83,7 @@ binary-arch: build install
 	dh_strip -a
 	dh_compress -a
 	dh_fixperms -a
-	dh_makeshlibs -p libftgl2 -V 'libftgl2 (>= 2.1.3~rc5)'
+	dh_makeshlibs -p libftgl2 -V 'libftgl2 (>= 2.3.0)'
 	dh_installdeb -a
 	dh_shlibdeps -a
 	dh_gencontrol -a

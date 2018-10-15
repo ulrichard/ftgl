@@ -45,4 +45,4 @@
 // use __FUNCTION__
 #define __FUNC__ __FUNCTION__
 
-#define PACKAGE_VERSION "2.2.0"
+#define PACKAGE_VERSION "2.3.0"

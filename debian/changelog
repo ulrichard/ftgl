@@ -1,3 +1,10 @@
+ftgl (2.3.0) unstable; urgency=medium
+
+  * New Upstream Release.
+    (Closes: #531489, #589601, #742469, #760571).
+
+ -- Frank Heckenbach <f.heckenbach@fh-soft.de>  Sun, 14 Oct 2018 21:17:59 +0200
+
 ftgl (2.1.3~rc5-5polyextr~xenial) xenial; urgency=medium
 
   * Improved discovery for cmake

@@ -2,7 +2,7 @@ dnl Minimum version of autoconf required.  Should coincide with the
 dnl setting in the autogen.sh script.
 AC_PREREQ(2.58)
 
-AC_INIT(FTGL, 2.2.0, [https://sourceforge.net/projects/ftgl/], ftgl)
+AC_INIT(FTGL, 2.3.0, [https://sourceforge.net/projects/ftgl/], ftgl)
 AC_CONFIG_SRCDIR(src/FTPoint.cpp)
 AC_CONFIG_AUX_DIR(.auto)
 AC_CONFIG_MACRO_DIR([m4])
@@ -12,7 +12,7 @@ AM_CONFIG_HEADER(config.h)
 FTGL_PROG_CXX
 
 LT_MAJOR="2"
-LT_MINOR="2"
+LT_MINOR="3"
 LT_MICRO="0"
 AC_SUBST(LT_MAJOR)
 AC_SUBST(LT_MINOR)

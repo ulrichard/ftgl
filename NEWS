@@ -8,6 +8,23 @@ been released to date.  All versions prior to and including version
 versions have changes attributed per contributor.
 
 ----------------------------------------------------------------------
+--- 2018-10-14  Release 2.3.0                                      ---
+----------------------------------------------------------------------
+
+    * Fix a memory leak
+    * FTContour: avoid NaN for angles close to 180 degrees
+      (see Debian bug #589601, 5.)
+    * FTBufferGlyph: fix garbage with bitmap fonts
+      (text is still clipped, that seems to be another problem)
+    * FTTextureGlyphImpl: fix garbage with bitmap fonts
+      (see Debian bug #589601, 4.)
+    * FTPixmapGlyph: fix garbage with bitmap fonts
+      (see Debian bug #589601, 2.)
+    * FTOutlineGlyphImpl, FTPolygonGlyphImpl: avoid uninizitalized
+      vectoriser in case of error (see Debian bug #589601, 1.)
+    * Various other bugfixes collected through the years
+
+----------------------------------------------------------------------
 --- 2008-06-19  Release 2.2.0                                      ---
 ----------------------------------------------------------------------
 
