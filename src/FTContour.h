@@ -32,6 +32,14 @@
 
 #include "FTVector.h"
 
+#define FTGL_FREETYPE_VERSION(major, minor, patch) \
+    ((major) * 10000) + ((minor) * 100) + (patch)
+
+#if FTGL_FREETYPE_VERSION(FREETYPE_MAJOR, FREETYPE_MINOR, FREETYPE_PATCH) >= FTGL_FREETYPE_VERSION(2, 13, 3)
+using FTGL_Freetype_tags = unsigned char;
+#else
+using FTGL_Freetype_tags = char;
+#endif
 
 /**
  * FTContour class is a container of points that describe a vector font
@@ -52,7 +60,7 @@ class FTContour
          * @param pointTags
          * @param numberOfPoints
          */
-        FTContour(FT_Vector* contour, char* pointTags, unsigned int numberOfPoints);
+        FTContour(FT_Vector* contour, FTGL_Freetype_tags* pointTags, unsigned int numberOfPoints);
 
         /**
          * Destructor
